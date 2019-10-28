@@ -18,29 +18,29 @@ package config
 
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
-import play.api.Configuration
 import play.api.i18n.Lang
 import play.api.mvc.Call
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject() (configuration: Configuration) {
+class FrontendAppConfig @Inject()(servicesConfig: ServicesConfig) {
 
-  private val contactHost = configuration.get[String]("contact-frontend.host")
+  private val contactHost = servicesConfig.getString("contact-frontend.host")
   private val contactFormServiceIdentifier = "irr"
 
-  val analyticsToken: String = configuration.get[String](s"google-analytics.token")
-  val analyticsHost: String = configuration.get[String](s"google-analytics.host")
+  val analyticsToken: String = servicesConfig.getString(s"google-analytics.token")
+  val analyticsHost: String = servicesConfig.getString(s"google-analytics.host")
   val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
   val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
 
-  lazy val authUrl: String = configuration.get[Service]("auth").baseUrl
-  lazy val loginUrl: String = configuration.get[String]("urls.login")
-  lazy val loginContinueUrl: String = configuration.get[String]("urls.loginContinue")
+  lazy val authUrl: String = servicesConfig.baseUrl("auth")
+  lazy val loginUrl: String = servicesConfig.getString("urls.login")
+  lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
 
   lazy val languageTranslationEnabled: Boolean =
-    configuration.get[Boolean]("features.welsh-translation")
+    servicesConfig.getBoolean("features.welsh-translation")
 
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
