@@ -16,28 +16,40 @@
 
 package utils
 
+import base.SpecBase
 import controllers.routes
 import models.{CheckMode, UserAnswers}
-import pages._
-import play.api.i18n.Messages
-import play.twirl.api.{Html, HtmlFormat}
+import pages.HelloWorldYesNoPage
+import play.twirl.api.HtmlFormat
 import viewmodels.AnswerRow
 
-class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
+class CheckYourAnswersHelperSpec extends SpecBase {
 
-  def helloWorldYesNo: Option[AnswerRow] = userAnswers.get(HelloWorldYesNoPage) map {
-    x =>
-      AnswerRow(
+  "Check Your Answers Helper" must {
+
+    "get an answer from useranswers for true" in {
+
+      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage,true).get)
+
+      helper.helloWorldYesNo mustBe Some(AnswerRow(
         HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
-        yesOrNo(x),
+        HtmlFormat.escape(messages("site.yes")),
         routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
-      )
+      ))
+
+    }
+
+    "get an answer from useranswers for false" in {
+
+      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage,false).get)
+
+      helper.helloWorldYesNo mustBe Some(AnswerRow(
+        HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
+        HtmlFormat.escape(messages("site.no")),
+        routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+      ))
+
+    }
   }
 
-  private def yesOrNo(answer: Boolean)(implicit messages: Messages): Html =
-    if (answer) {
-      HtmlFormat.escape(messages("site.yes"))
-    } else {
-      HtmlFormat.escape(messages("site.no"))
-    }
 }

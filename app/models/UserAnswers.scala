@@ -41,10 +41,9 @@ final case class UserAnswers(
         Failure(JsResultException(errors))
     }
 
-    updatedData.flatMap {
+    updatedData.map {
       d =>
-        val updatedAnswers = copy (data = d)
-        page.cleanup(Some(value), updatedAnswers)
+        copy (data = d)
     }
   }
 
@@ -57,10 +56,9 @@ final case class UserAnswers(
         Success(data)
     }
 
-    updatedData.flatMap {
+    updatedData.map {
       d =>
-        val updatedAnswers = copy (data = d)
-        page.cleanup(None, updatedAnswers)
+        copy (data = d)
     }
   }
 }
