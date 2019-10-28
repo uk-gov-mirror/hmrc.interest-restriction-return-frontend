@@ -16,6 +16,7 @@ lazy val root = (project in file("."))
   .settings(
     name := appName,
     RoutesKeys.routesImport += "models._",
+    PlayKeys.playDefaultPort := 9260,
     TwirlKeys.templateImports ++= Seq(
       "play.twirl.api.HtmlFormat",
       "play.twirl.api.HtmlFormat._",
@@ -25,7 +26,6 @@ lazy val root = (project in file("."))
       "models.Mode",
       "controllers.routes._"
     ),
-    PlayKeys.playDefaultPort := 9000,
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;" +
       ".*BuildInfo.*;.*javascript.*;.*FrontendAuditConnector.*;.*Routes.*;.*GuiceInjector;" +
       ".*ControllerConfiguration;.*LanguageSwitchController",
