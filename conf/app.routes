@@ -11,3 +11,8 @@ GET        /this-service-has-been-reset                 controllers.SessionExpir
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 
 GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
+
+GET        /hello-world                                 controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = NormalMode)
+POST       /hello-world                                 controllers.HelloWorldYesNoController.onSubmit(mode: Mode = NormalMode)
+GET        /hello-world/change                          controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = CheckMode)
+POST       /hello-world/change                          controllers.HelloWorldYesNoController.onSubmit(mode: Mode = CheckMode)

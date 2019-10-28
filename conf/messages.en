@@ -21,10 +21,6 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-index.title = interest-restriction-return-frontend
-index.heading = interest-restriction-return-frontend
-index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
-
 session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
@@ -37,8 +33,13 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
-site.service_name = interest-restriction-return-frontend
+site.service_name = Interest Restriction Return
 site.textarea.char_limit = (Limit is {0} characters)
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
+
+helloWorldYesNo.title = Would you like to say Hello World?
+helloWorldYesNo.heading = Would you like to say Hello World?
+helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World?
+helloWorldYesNo.error.required = Select yes if you want to say Hello World
