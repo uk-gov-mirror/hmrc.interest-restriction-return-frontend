@@ -34,11 +34,9 @@ class LanguageSwitchController @Inject()(
 
   private def languageMap: Map[String, Lang] = appConfig.languageMap
 
-  def switchToLanguage(language: String): Action[AnyContent] = Action {
-    implicit request =>
+  def switchToLanguage(language: String): Action[AnyContent] = Action { implicit request =>
 
-      val enabled = isWelshEnabled
-      val lang = if (enabled) {
+      val lang = if (appConfig.languageTranslationEnabled) {
         languageMap.getOrElse(language, Lang.defaultLang)
       } else {
         Lang("en")
@@ -46,7 +44,4 @@ class LanguageSwitchController @Inject()(
       val redirectURL = request.headers.get(REFERER).getOrElse(fallbackURL)
       Redirect(redirectURL).withLang(Lang.apply(lang.code))
   }
-
-  private def isWelshEnabled: Boolean =
-    configuration.getOptional[Boolean]("microservice.services.features.welsh-translation").getOrElse(true)
 }
