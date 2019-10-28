@@ -1,5 +1,5 @@
 # Add all the application routes to the app.routes file
-->         /interest-restriction-return-frontend                    app.Routes
+->         /interest-restriction-return                    app.Routes
 ->         /                          health.Routes
 ->     	   /template                  template.Routes
 
