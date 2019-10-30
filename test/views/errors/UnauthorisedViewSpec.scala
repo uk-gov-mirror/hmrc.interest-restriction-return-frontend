@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package views
+package views.errors
 
 import views.behaviours.ViewBehaviours
-import views.html.UnauthorisedView
+import views.html.errors.UnauthorisedView
 
 class UnauthorisedViewSpec extends ViewBehaviours {
 

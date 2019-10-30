@@ -14,15 +14,21 @@
  * limitations under the License.
  *@
 
+@import config.FrontendAppConfig
+
 @this(
-    main_template: MainTemplate
+    govuk_wrapper: templates.GovukWrapper,
+    appConfig: FrontendAppConfig
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages("unauthorised.title")
-    ) {
-
-    @components.heading("unauthorised.heading")
+@contentHeader = {
+  @components.heading(heading)
 }
+
+@mainContent = {
+  <p>@message</p>
+}
+
+@govuk_wrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainContent = mainContent)
