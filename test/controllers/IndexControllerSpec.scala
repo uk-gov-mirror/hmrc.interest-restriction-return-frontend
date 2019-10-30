@@ -26,15 +26,11 @@ class IndexControllerSpec extends SpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(userAnswers = None).build()
-
       val request = FakeRequest(GET, routes.IndexController.onPageLoad().url)
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
       status(result) mustEqual SEE_OTHER
-
-      application.stop()
     }
   }
 }

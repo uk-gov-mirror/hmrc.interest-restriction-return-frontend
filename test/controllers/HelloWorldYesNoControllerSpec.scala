@@ -46,40 +46,32 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
-
       val request = FakeRequest(GET, helloWorldYesNoRoute)
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
-      val view = application.injector.instanceOf[HelloWorldYesNoView]
+      val view = app.injector.instanceOf[HelloWorldYesNoView]
 
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
         view(form, NormalMode)(request, messages, frontendAppConfig).toString
-
-      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPage, true).success.value
 
-      val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
-
       val request = FakeRequest(GET, helloWorldYesNoRoute)
 
-      val view = application.injector.instanceOf[HelloWorldYesNoView]
+      val view = app.injector.instanceOf[HelloWorldYesNoView]
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
         view(form.fill(true), NormalMode)(request, messages, frontendAppConfig).toString
-
-      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -88,30 +80,18 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
 
       when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
 
-      val application =
-        applicationBuilder(userAnswers = Some(emptyUserAnswers))
-          .overrides(
-            bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
-            bind[SessionRepository].toInstance(mockSessionRepository)
-          )
-          .build()
-
       val request =
         FakeRequest(POST, helloWorldYesNoRoute)
           .withFormUrlEncodedBody(("value", "true"))
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual onwardRoute.url
-
-      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
 
       val request =
         FakeRequest(POST, helloWorldYesNoRoute)
@@ -119,48 +99,38 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
 
       val boundForm = form.bind(Map("value" -> ""))
 
-      val view = application.injector.instanceOf[HelloWorldYesNoView]
+      val view = app.injector.instanceOf[HelloWorldYesNoView]
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
       status(result) mustEqual BAD_REQUEST
 
       contentAsString(result) mustEqual
         view(boundForm, NormalMode)(request, messages, frontendAppConfig).toString
-
-      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder(userAnswers = None).build()
-
       val request = FakeRequest(GET, helloWorldYesNoRoute)
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-
-      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-
-      val application = applicationBuilder(userAnswers = None).build()
 
       val request =
         FakeRequest(POST, helloWorldYesNoRoute)
           .withFormUrlEncodedBody(("value", "true"))
 
-      val result = route(application, request).value
+      val result = route(app, request).value
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-
-      application.stop()
     }
   }
 }
