@@ -16,6 +16,7 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
@@ -39,7 +40,7 @@ class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
                                           formProvider: HelloWorldYesNoFormProvider,
                                           val controllerComponents: MessagesControllerComponents,
                                           view: HelloWorldYesNoView
-                                         )(implicit ec: ExecutionContext) extends BaseController {
+                                         )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(HelloWorldYesNoPage, formProvider()), mode))

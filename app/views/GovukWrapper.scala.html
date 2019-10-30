@@ -46,14 +46,14 @@
       linkElem = None,
       headScripts = None)
     <meta name="format-detection" content="telephone=no" />
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/interestrestrictionreturnfrontend-app.css")' />
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/interestrestrictionreturn-app.css")' />
 }
 
 @headerNavLinks = {}
 
 @insideHeader = {
     @header_nav(
-      navTitle = Some(messages("site.service_name")),
+      navTitle = Some(messages("service.name")),
       navTitleLink = None,
       showBetaLink = false,
       navLinks = Some(headerNavLinks))
@@ -68,7 +68,7 @@
       ssoUrl = None,
       scriptElem = scriptElem,
       gaCalls = None)
-      <script src='@routes.Assets.versioned("javascripts/interestrestrictionreturnfrontend-app.min.js")'> </script>
+      <script src='@routes.Assets.versioned("javascripts/interestrestrictionreturn-app.min.js")'> </script>
 }
 
 @footerTop = {}

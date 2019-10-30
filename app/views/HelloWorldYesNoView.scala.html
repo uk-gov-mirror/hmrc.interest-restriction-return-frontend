@@ -17,29 +17,54 @@
 @import controllers.routes._
 @import models.Mode
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @this(
-    main_template: MainTemplate,
-    formHelper: FormWithCSRF
+    govukLayout: GovukLayoutWrapper,
+    govukBackLink: GovukBackLink,
+    govukButton: GovukButton,
+    govukRadios: GovukRadios,
+    error_summary: components.govuk_error_summary,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages("helloWorldYesNo.title")}"
+@govukLayout(
+    pageTitle = Some(s"${errorPrefix(form)} ${messages("helloWorldYesNo.title")}"),
+    Some(govukBackLink(BackLink(href = "#", content = Text("Back"), attributes = Map("id" -> "back-link"))))
     ) {
 
     @formHelper(action = HelloWorldYesNoController.onSubmit(mode), 'autoComplete -> "off") {
 
-        @components.back_link()
+        @error_summary(form.errors)
 
-        @components.error_summary(form.errors)
+        @govukRadios(Radios(
+            classes = "govuk-radios--inline",
+            idPrefix = None,
+            name = "value",
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages("helloWorldYesNo.heading")),
+                    isPageHeading = true,
+                    classes = "govuk-fieldset__legend--xl"
+                ))
+            )),
+            hint = None,
+            items = Seq(
+                RadioItem(id = Some("value-yes"),
+                          value = Some("true"),
+                          content = Text(messages("site.yes")),
+                          checked = form("value").value.contains("true")
+                ),
+                RadioItem(id = Some("value-no"),
+                          value = Some("false"),
+                          content = Text(messages("site.no")),
+                          checked = form("value").value.contains("false")
+                )
+            )
+        ))
 
-        @components.input_yes_no(
-            field = form("value"),
-            legend = messages("helloWorldYesNo.heading"),
-            headingIsLegend = true
-        )
-
-        @components.submit_button()
+        @govukButton(Button(content = Text(messages("site.continue"))))
     }
 }

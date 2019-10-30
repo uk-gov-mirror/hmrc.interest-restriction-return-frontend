@@ -1,3 +1,5 @@
+service.name = Interest Restriction Return
+
 checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
 checkYourAnswers.guidance = Guidance for check your answers
@@ -33,8 +35,8 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
-site.service_name = Interest Restriction Return
 site.textarea.char_limit = (Limit is {0} characters)
+site.phaseBanner.feedback = This is a new service - your feedback will help us to improve it.
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account

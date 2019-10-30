@@ -58,7 +58,7 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(form, NormalMode)(fakeRequest, messages).toString
+        view(form, NormalMode)(request, messages, frontendAppConfig).toString
 
       application.stop()
     }
@@ -78,7 +78,7 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(form.fill(true), NormalMode)(fakeRequest, messages).toString
+        view(form.fill(true), NormalMode)(request, messages, frontendAppConfig).toString
 
       application.stop()
     }
@@ -127,7 +127,7 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
       status(result) mustEqual BAD_REQUEST
 
       contentAsString(result) mustEqual
-        view(boundForm, NormalMode)(fakeRequest, messages).toString
+        view(boundForm, NormalMode)(request, messages, frontendAppConfig).toString
 
       application.stop()
     }
