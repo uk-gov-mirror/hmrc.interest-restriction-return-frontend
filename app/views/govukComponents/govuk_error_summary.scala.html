@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,23 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package views
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 
-import views.behaviours.ViewBehaviours
-import views.html.UnauthorisedView
+@this(govukErrorSummary: GovukErrorSummary)
 
-class UnauthorisedViewSpec extends ViewBehaviours {
+@(errors: Seq[FormError])(implicit messages: Messages)
 
-  "Unauthorised view" must {
-
-    val application = applicationBuilder().build()
-
-    val view = application.injector.instanceOf[UnauthorisedView]
-
-    val applyView = view.apply()(fakeRequest, messages)
-
-    behave like normalPage(applyView, "unauthorised")
-  }
+@if(errors.nonEmpty) {
+    @defining(errors.map { error =>
+        ErrorLink(
+            href = Some(s"#${error.key}"),
+            content = Text(messages(error.message, error.args:_*))
+        )
+    }) { errorLinks =>
+        @govukErrorSummary(ErrorSummary(
+            errorList = errorLinks,
+            title = Text(messages("error.summary.title"))
+        ))
+    }
 }

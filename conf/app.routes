@@ -1,18 +1,30 @@
 # microservice specific routes
 
-GET        /                                            controllers.IndexController.onPageLoad
-
 GET        /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)
-
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
-GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
 
-GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 
-GET        /unauthorised                                controllers.UnauthorisedController.onPageLoad
+### Error Pages
+### -----------
+GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
+GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
+
+
+
+### Main Journey Controllers
+### ------------------------
+GET        /                                            controllers.IndexController.onPageLoad
+
 
 GET        /hello-world                                 controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = NormalMode)
 POST       /hello-world                                 controllers.HelloWorldYesNoController.onSubmit(mode: Mode = NormalMode)
 GET        /hello-world/change                          controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = CheckMode)
 POST       /hello-world/change                          controllers.HelloWorldYesNoController.onSubmit(mode: Mode = CheckMode)
+
+
+
+### Check Your Answers Controller
+### -----------------------------
+GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+

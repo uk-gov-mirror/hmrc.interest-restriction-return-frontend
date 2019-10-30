@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,23 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
+package views.errors
 
-@this(
-    govuk_wrapper: GovukWrapper,
-    appConfig: FrontendAppConfig
-)
+import views.behaviours.ViewBehaviours
+import views.html.errors.UnauthorisedView
 
-@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages)
+class UnauthorisedViewSpec extends ViewBehaviours {
 
-@contentHeader = {
-  @components.heading(heading)
+  "Unauthorised view" must {
+
+    val application = applicationBuilder().build()
+
+    val view = application.injector.instanceOf[UnauthorisedView]
+
+    val applyView = view.apply()(fakeRequest, messages)
+
+    behave like normalPage(applyView, "unauthorised")
+  }
 }
-
-@mainContent = {
-  <p>@message</p>
-}
-
-@govuk_wrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainContent = mainContent)

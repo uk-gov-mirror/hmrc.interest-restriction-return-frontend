@@ -35,12 +35,16 @@ class HelloWorldYesNoViewSpec extends YesNoViewBehaviours {
     val view = viewFor[HelloWorldYesNoView](Some(emptyUserAnswers))
 
     def applyView(form: Form[_]): HtmlFormat.Appendable =
-      view.apply(form, NormalMode)(fakeRequest, messages)
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.HelloWorldYesNoController.onSubmit(NormalMode).url)
+    behave like yesNoPage(form = form,
+                          createView = applyView,
+                          messageKeyPrefix = messageKeyPrefix,
+                          expectedFormAction = routes.HelloWorldYesNoController.onSubmit(NormalMode).url,
+                          isNewPlayFrontendGovukView = true)
   }
 }

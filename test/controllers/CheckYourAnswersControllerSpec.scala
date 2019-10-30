@@ -39,7 +39,7 @@ class CheckYourAnswersControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(Seq(AnswerSection(None, Seq())))(fakeRequest, messages).toString
+        view(Seq(AnswerSection(None, Seq())))(request, messages).toString
 
       application.stop()
     }
@@ -54,7 +54,7 @@ class CheckYourAnswersControllerSpec extends SpecBase {
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
 
       application.stop()
     }

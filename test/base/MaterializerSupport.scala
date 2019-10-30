@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package views
+package base
 
-import views.behaviours.ViewBehaviours
-import views.html.IndexView
+import akka.actor.ActorSystem
+import akka.stream.ActorMaterializer
 
-class IndexViewSpec extends ViewBehaviours {
-
-  "Index view" must {
-
-    val application = applicationBuilder().build()
-
-    val view = application.injector.instanceOf[IndexView]
-
-    val applyView = view.apply()(fakeRequest, messages)
-
-    behave like normalPage(applyView, "index", "guidance")
-  }
+trait MaterializerSupport {
+  implicit val system = ActorSystem("Sys")
+  implicit val materializer = ActorMaterializer()
 }
