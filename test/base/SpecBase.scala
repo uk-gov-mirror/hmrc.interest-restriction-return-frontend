@@ -36,22 +36,22 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   val userAnswersId = "id"
 
-  def emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
+  val emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
 
-  def injector: Injector = app.injector
+  val injector: Injector = app.injector
 
-  def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
   implicit lazy val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
 
   lazy val sessionRepository = injector.instanceOf[DefaultSessionRepository]
 
-  def messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  lazy val messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+  lazy val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
   lazy val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo")
 
-  implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+  implicit val messages: Messages = messagesApi.preferred(fakeRequest)
 
 }

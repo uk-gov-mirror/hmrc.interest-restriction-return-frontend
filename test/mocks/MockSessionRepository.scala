@@ -26,10 +26,16 @@ trait MockSessionRepository extends MockFactory {
 
   val mockSessionRepository = mock[SessionRepository]
 
-  def mockSession(result: Future[Boolean]): Unit = {
+  def mockGet(result: Option[UserAnswers]): Unit = {
+    (mockSessionRepository.get(_: String))
+      .expects(*)
+      .returns(Future.successful(result))
+  }
+
+  def mockSet(result: Boolean): Unit = {
     (mockSessionRepository.set(_: UserAnswers))
       .expects(*)
-      .returns(result)
+      .returns(Future.successful(result))
   }
 
 }

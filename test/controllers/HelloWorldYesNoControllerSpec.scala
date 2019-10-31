@@ -21,13 +21,12 @@ import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import org.scalatestplus.mockito.MockitoSugar
 import pages.HelloWorldYesNoPage
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.HelloWorldYesNoView
 
-class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
+class HelloWorldYesNoControllerSpec extends SpecBase {
 
   val view = injector.instanceOf[HelloWorldYesNoView]
   val formProvider = new HelloWorldYesNoFormProvider
