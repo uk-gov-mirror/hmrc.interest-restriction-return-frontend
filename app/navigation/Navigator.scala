@@ -27,7 +27,7 @@ import models._
 class Navigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case IndexPage => _ => routes.HelloWorldYesNoController.onPageLoad(NormalMode)
+    case IndexPage => _ => routes.HelloWorldYesNoController.onPageLoadTwirl(NormalMode)
     case HelloWorldYesNoPage => _ => routes.CheckYourAnswersController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }

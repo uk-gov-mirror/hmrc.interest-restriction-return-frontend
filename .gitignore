@@ -25,6 +25,8 @@ server.pid
 /.settings
 target
 .target
+node_modules/
+package-lock.json
 test-result
 tmp
 .idea_modules

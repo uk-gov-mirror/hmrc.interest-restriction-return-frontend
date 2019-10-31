@@ -17,10 +17,13 @@ GET        /unauthorised                                controllers.errors.Unaut
 GET        /                                            controllers.IndexController.onPageLoad
 
 
-GET        /hello-world                                 controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = NormalMode)
-POST       /hello-world                                 controllers.HelloWorldYesNoController.onSubmit(mode: Mode = NormalMode)
-GET        /hello-world/change                          controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = CheckMode)
-POST       /hello-world/change                          controllers.HelloWorldYesNoController.onSubmit(mode: Mode = CheckMode)
+GET        /hello-world-twirl                           controllers.HelloWorldYesNoController.onPageLoadTwirl(mode: Mode = NormalMode)
+POST       /hello-world-twirl                           controllers.HelloWorldYesNoController.onSubmit(mode: Mode = NormalMode)
+GET        /hello-world-twirl/change                    controllers.HelloWorldYesNoController.onPageLoadTwirl(mode: Mode = CheckMode)
+POST       /hello-world-twirl/change                    controllers.HelloWorldYesNoController.onSubmit(mode: Mode = CheckMode)
+
+GET        /hello-world-nunjucks                        controllers.HelloWorldYesNoController.onPageLoadNunjucks(mode: Mode = NormalMode)
+POST       /hello-world-nunjucks                       controllers.HelloWorldYesNoController.onSubmit(mode: Mode = NormalMode)
 
 
 

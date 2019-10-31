@@ -30,7 +30,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
       AnswerRow(
         HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
         yesOrNo(x),
-        routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+        routes.HelloWorldYesNoController.onPageLoadTwirl(CheckMode).url
       )
   }
 
