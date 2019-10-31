@@ -18,22 +18,19 @@ package controllers
 
 import base.SpecBase
 import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import mocks.MockSessionRepository
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.IndexView
 
-class IndexControllerSpec extends SpecBase {
-
-  val view: IndexView = injector.instanceOf[IndexView]
+class IndexControllerSpec extends SpecBase with MockSessionRepository {
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new IndexController(
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = new FakeNavigator(Call("POST", "/foo")),
-    controllerComponents = messagesControllerComponents,
-    view = view
+    controllerComponents = messagesControllerComponents
   )
 
   "Index Controller" must {
@@ -42,7 +39,10 @@ class IndexControllerSpec extends SpecBase {
 
       val result = controller().onPageLoad()(fakeRequest)
 
+      mockSet(true)
+
       status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some("/foo")
     }
   }
 }

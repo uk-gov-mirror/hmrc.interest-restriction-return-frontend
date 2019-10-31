@@ -37,5 +37,4 @@ trait MockSessionRepository extends MockFactory {
       .expects(*)
       .returns(Future.successful(result))
   }
-
 }

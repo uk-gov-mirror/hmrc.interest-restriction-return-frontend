@@ -34,26 +34,20 @@ class CheckYourAnswersControllerSpec extends SpecBase {
     view = view
   )
 
-  "Check Your Answers Controller" when {
+  "Check Your Answers Controller" must {
 
-    "given empty answers" must {
+    "return a OK (200) when given empty answers" in {
 
-      "return a OK (200)" in {
+      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
-
-        status(result) mustEqual OK
-      }
+      status(result) mustEqual OK
     }
 
-    "given None" must {
-
-      "return a SEE_OTHER (303)" in {
+    "return a SEE_OTHER (303) when given None" in {
 
         val result = controller().onPageLoad()(fakeRequest)
 
         status(result) mustEqual SEE_OTHER
-      }
     }
   }
 }
