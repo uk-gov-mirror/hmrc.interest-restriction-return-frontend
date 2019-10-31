@@ -17,47 +17,43 @@
 package controllers
 
 import base.SpecBase
-import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmpty, FakeIdentifierAction}
+import controllers.actions._
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends SpecBase {
 
-  object TestCheckYourAnswersController extends CheckYourAnswersController(
+  val view = injector.instanceOf[CheckYourAnswersView]
+
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionNone) = new CheckYourAnswersController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = FakeDataRetrievalActionEmpty,
+    getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
-    view = injector.instanceOf[CheckYourAnswersView]
+    view = view
   )
 
-  "Check Your Answers Controller" must {
+  "Check Your Answers Controller" when {
 
-    "work" in {
+    "given empty answers" must {
 
-      val result = TestCheckYourAnswersController.onPageLoad()(fakeRequest)
-      status(result) mustEqual OK
+      "return a OK (200)" in {
 
-      contentAsString(result) mustEqual
-        view(Seq(AnswerSection(None, Seq())))(request, messages).toString
+        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
 
-      application.stop()
+        status(result) mustEqual OK
+      }
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "given None" must {
 
-      val application = applicationBuilder(userAnswers = None).build()
+      "return a SEE_OTHER (303)" in {
 
-      val request = FakeRequest(GET, routes.CheckYourAnswersController.onPageLoad().url)
+        val result = controller().onPageLoad()(fakeRequest)
 
-      val result = route(application, request).value
-
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-
-      application.stop()
+        status(result) mustEqual SEE_OTHER
+      }
     }
   }
 }

@@ -23,15 +23,18 @@ import views.html.errors.UnauthorisedView
 
 class UnauthorisedControllerSpec extends SpecBase {
 
+  val view = injector.instanceOf[UnauthorisedView]
+
+  object Controller extends UnauthorisedController(
+    controllerComponents = messagesControllerComponents,
+    view = view
+  )
+
   "Unauthorised Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val request = FakeRequest(GET, routes.UnauthorisedController.onPageLoad().url)
-
-      val result = route(app, request).value
-
-      val view = app.injector.instanceOf[UnauthorisedView]
+      val result = Controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
 

@@ -28,7 +28,7 @@ class IndexController @Inject()(identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 sessionRepository: SessionRepository,
                                 navigator: Navigator,
-                                 val controllerComponents: MessagesControllerComponents
+                                val controllerComponents: MessagesControllerComponents
                                ) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>

@@ -27,6 +27,8 @@ import play.api.inject.Injector
 import play.api.libs.json.Json
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
+import repositories.DefaultSessionRepository
+import uk.gov.hmrc.http.SessionKeys
 
 import scala.concurrent.ExecutionContext
 
@@ -42,11 +44,13 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   implicit lazy val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
 
+  lazy val sessionRepository = injector.instanceOf[DefaultSessionRepository]
+
   def messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
   def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
-  def fakeRequest = FakeRequest("", "")
+  lazy val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo")
 
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 

@@ -17,103 +17,73 @@
 package controllers
 
 import base.SpecBase
+import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.{FakeNavigator, Navigator}
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
+import navigation.FakeNavigator
 import org.scalatestplus.mockito.MockitoSugar
 import pages.HelloWorldYesNoPage
-import play.api.inject.bind
 import play.api.mvc.Call
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.SessionRepository
 import views.html.HelloWorldYesNoView
-
-import scala.concurrent.Future
 
 class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
 
-  def onwardRoute = Call("GET", "/foo")
+  val view = injector.instanceOf[HelloWorldYesNoView]
+  val formProvider = new HelloWorldYesNoFormProvider
 
-  val formProvider = new HelloWorldYesNoFormProvider()
-  val form = formProvider()
-
-  lazy val helloWorldYesNoRoute = routes.HelloWorldYesNoController.onPageLoad(NormalMode).url
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new HelloWorldYesNoController(
+    messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    navigator = new FakeNavigator(Call("POST", "/foo")),
+    identify = FakeIdentifierAction,
+    getData = dataRetrieval,
+    requireData = new DataRequiredActionImpl,
+    formProvider = new HelloWorldYesNoFormProvider,
+    controllerComponents = messagesControllerComponents,
+    view = view
+  )
 
   "HelloWorldYesNo Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val request = FakeRequest(GET, helloWorldYesNoRoute)
-
-      val result = route(app, request).value
-
-      val view = app.injector.instanceOf[HelloWorldYesNoView]
+      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(form, NormalMode)(request, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPage, true).success.value
 
-      val request = FakeRequest(GET, helloWorldYesNoRoute)
-
-      val view = app.injector.instanceOf[HelloWorldYesNoView]
-
-      val result = route(app, request).value
+      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(form.fill(true), NormalMode)(request, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val mockSessionRepository = mock[SessionRepository]
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
-
-      val request =
-        FakeRequest(POST, helloWorldYesNoRoute)
-          .withFormUrlEncodedBody(("value", "true"))
-
-      val result = route(app, request).value
+      val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual onwardRoute.url
+      redirectLocation(result) mustBe Some("/foo")
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request =
-        FakeRequest(POST, helloWorldYesNoRoute)
-          .withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val boundForm = form.bind(Map("value" -> ""))
-
-      val view = app.injector.instanceOf[HelloWorldYesNoView]
-
-      val result = route(app, request).value
+      val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
-
-      contentAsString(result) mustEqual
-        view(boundForm, NormalMode)(request, messages, frontendAppConfig).toString
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val request = FakeRequest(GET, helloWorldYesNoRoute)
-
-      val result = route(app, request).value
+      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -122,11 +92,9 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request =
-        FakeRequest(POST, helloWorldYesNoRoute)
-          .withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = route(app, request).value
+      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

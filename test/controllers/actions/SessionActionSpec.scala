@@ -18,8 +18,8 @@ package controllers.actions
 
 import base.SpecBase
 import play.api.mvc.{BodyParsers, Results}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.SessionKeys
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -41,7 +41,7 @@ class SessionActionSpec extends SpecBase {
 
         val controller = new Harness(sessionAction)
 
-        val result = controller.onPageLoad()(fakeRequest)
+        val result = controller.onPageLoad()(FakeRequest("", ""))
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result).get must startWith(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
@@ -58,9 +58,7 @@ class SessionActionSpec extends SpecBase {
 
         val controller = new Harness(sessionAction)
 
-        val request = fakeRequest.withSession(SessionKeys.sessionId -> "foo")
-
-        val result = controller.onPageLoad()(request)
+        val result = controller.onPageLoad()(fakeRequest)
 
         status(result) mustBe OK
       }
