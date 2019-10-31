@@ -20,24 +20,25 @@ import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages._
 import play.api.i18n.Messages
-import play.twirl.api.{Html, HtmlFormat}
+import play.api.mvc.Call
+import play.twirl.api.HtmlFormat
 import viewmodels.AnswerRow
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
-  def helloWorldYesNo: Option[AnswerRow] = userAnswers.get(HelloWorldYesNoPage) map {
-    x =>
-      AnswerRow(
-        HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
-        yesOrNo(x),
-        routes.HelloWorldYesNoController.onPageLoadTwirl(CheckMode).url
-      )
-  }
+  def helloWorldYesNo: Option[AnswerRow] = yesOrNo(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
+  def helloWorldYesNoNunjucks: Option[AnswerRow] = yesOrNo(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 
-  private def yesOrNo(answer: Boolean)(implicit messages: Messages): Html =
-    if (answer) {
-      HtmlFormat.escape(messages("site.yes"))
-    } else {
-      HtmlFormat.escape(messages("site.no"))
+  private def yesOrNo(page: QuestionPage[Boolean], changeLinkCall: Call)(implicit messages: Messages): Option[AnswerRow] =
+    userAnswers.get(page) map { bool =>
+      AnswerRow(
+        HtmlFormat.escape(messages(s"$page.checkYourAnswersLabel")),
+        if (bool) {
+          HtmlFormat.escape(messages("site.yes"))
+        } else {
+          HtmlFormat.escape(messages("site.no"))
+        },
+        changeLinkCall.url
+      )
     }
 }

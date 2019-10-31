@@ -16,16 +16,11 @@
 
 package pages
 
-import pages.behaviours.PageBehaviours
+import play.api.libs.json.JsPath
 
-class HelloWorldYesNoPageSpec extends PageBehaviours {
+case object HelloWorldYesNoPageNunjucks extends QuestionPage[Boolean] {
 
-  "HelloWorldYesNoPage" must {
+  override def path: JsPath = JsPath \ toString
 
-    beRetrievable[Boolean](HelloWorldYesNoPageNunjucks)
-
-    beSettable[Boolean](HelloWorldYesNoPageNunjucks)
-
-    beRemovable[Boolean](HelloWorldYesNoPageNunjucks)
-  }
+  override def toString: String = "helloWorldYesNoNunjucks"
 }

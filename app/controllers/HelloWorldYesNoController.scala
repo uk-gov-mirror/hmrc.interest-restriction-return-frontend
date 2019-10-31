@@ -22,13 +22,11 @@ import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.HelloWorldYesNoPage
+import pages.{HelloWorldYesNoPage, HelloWorldYesNoPageNunjucks}
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.{NunjucksRenderer, NunjucksSupport}
-import uk.gov.hmrc.viewmodels.Radios
 import views.html.HelloWorldYesNoView
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -45,20 +43,9 @@ class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
                                           view: HelloWorldYesNoView
                                          )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport {
 
-  def onPageLoadTwirl(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(HelloWorldYesNoPage, formProvider()), mode))
   }
-
-  def onPageLoadNunjucks(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    val form = fillForm(HelloWorldYesNoPage, formProvider())
-
-    renderer.render("helloWorldYesNo.njk", Json.obj(
-      "form"   -> fillForm(HelloWorldYesNoPage, formProvider()),
-      "radios" -> Radios.yesNo(form("value"))
-    )).map(Ok(_))
-  }
-
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(

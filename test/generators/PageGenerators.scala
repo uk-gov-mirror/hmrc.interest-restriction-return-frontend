@@ -21,6 +21,6 @@ import pages._
 
 trait PageGenerators {
 
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPage.type] =
-    Arbitrary(HelloWorldYesNoPage)
+  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
+    Arbitrary(HelloWorldYesNoPageNunjucks)
 }

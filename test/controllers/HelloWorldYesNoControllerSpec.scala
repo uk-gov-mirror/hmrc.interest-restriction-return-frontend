@@ -23,7 +23,7 @@ import navigation.{FakeNavigator, Navigator}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import pages.HelloWorldYesNoPage
+import pages.HelloWorldYesNoPageNunjucks
 import play.api.inject.bind
 import play.api.mvc.Call
 import play.api.test.FakeRequest
@@ -64,7 +64,7 @@ class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPage, true).success.value
+      val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPageNunjucks, true).success.value
 
       val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
 

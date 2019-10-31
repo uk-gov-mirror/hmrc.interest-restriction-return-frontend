@@ -19,7 +19,7 @@ package utils
 import base.SpecBase
 import controllers.routes
 import models.{CheckMode, UserAnswers}
-import pages.HelloWorldYesNoPage
+import pages.HelloWorldYesNoPageNunjucks
 import play.twirl.api.HtmlFormat
 import viewmodels.AnswerRow
 
@@ -29,7 +29,7 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
     "get an answer from useranswers for true" in {
 
-      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage,true).get)
+      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks,true).get)
 
       helper.helloWorldYesNo mustBe Some(AnswerRow(
         HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
@@ -41,7 +41,7 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
     "get an answer from useranswers for false" in {
 
-      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage,false).get)
+      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks,false).get)
 
       helper.helloWorldYesNo mustBe Some(AnswerRow(
         HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),

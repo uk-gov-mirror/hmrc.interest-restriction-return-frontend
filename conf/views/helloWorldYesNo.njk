@@ -7,7 +7,7 @@
 
 {% block pageTitle %}
   {% set titlePrefix = messages("error.title.prefix") if errorSummary else "" %}
-  {{ titlePrefix + ' ' + messages("helloWorldYesNo.title") }}
+  {{ titlePrefix + ' ' + messages("helloWorldYesNoNunjucks.title") }}
 {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
 
         {% if form.errors.length > 0 %}
           {{ govukErrorSummary({
-            "titleText": messages("site.error-summary"),
+            "titleText": messages("error.summary.title"),
             "errorList": form.errors
           }) }}
         {% endif %}
@@ -32,10 +32,11 @@
           {{ csrf() | safe }}
 
           {{ govukRadios({
+            classes: "govuk-radios--inline",
             name: 'value',
             fieldset: {
               legend: {
-                text: messages("helloWorldYesNo.title"),
+                text: messages("helloWorldYesNoNunjucks.title"),
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--xl"
               }
