@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import org.scalacheck.Arbitrary
-import pages._
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-trait PageGenerators {
+class testIntPageFormProvider @Inject() extends Mappings {
 
-  implicit lazy val arbitrarytestIntPagePage: Arbitrary[testIntPagePage.type] =
-    Arbitrary(testIntPagePage)
-
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPage.type] =
-    Arbitrary(HelloWorldYesNoPage)
+  def apply(): Form[Int] =
+    Form(
+      "value" -> int(
+        "testIntPage.error.required",
+        "testIntPage.error.wholeNumber",
+        "testIntPage.error.nonNumeric")
+          .verifying(inRange(0, Int.MaxValue, "testIntPage.error.outOfRange"))
+    )
 }
