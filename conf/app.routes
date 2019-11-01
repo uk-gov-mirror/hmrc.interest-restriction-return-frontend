@@ -27,8 +27,3 @@ POST       /hello-world/change                          controllers.HelloWorldYe
 ### Check Your Answers Controller
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
-
-GET        /testIntPage                  controllers.testIntPageController.onPageLoad(mode: Mode = NormalMode)
-POST       /testIntPage                  controllers.testIntPageController.onSubmit(mode: Mode = NormalMode)
-GET        /changetestIntPage                        controllers.testIntPageController.onPageLoad(mode: Mode = CheckMode)
-POST       /changetestIntPage                        controllers.testIntPageController.onSubmit(mode: Mode = CheckMode)
