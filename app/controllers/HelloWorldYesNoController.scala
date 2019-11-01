@@ -23,6 +23,7 @@ import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import pages.HelloWorldYesNoPage
+import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -48,7 +49,8 @@ class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode)))
+      ,
       value =>
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(HelloWorldYesNoPage, value))

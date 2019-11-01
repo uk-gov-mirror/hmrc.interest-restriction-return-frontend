@@ -42,15 +42,15 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         "contain an input for the value" in {
 
           val doc = asDocument(createView(form))
-          assertRenderedById(doc, "value-yes")
-          assertRenderedById(doc, "value-no")
+          assertRenderedByCssSelector(doc, "input[value='true']")
+          assertRenderedByCssSelector(doc, "input[value='false']")
         }
 
         "have no values checked when rendered with no form" in {
 
           val doc = asDocument(createView(form))
-          assert(!doc.getElementById("value-yes").hasAttr("checked"))
-          assert(!doc.getElementById("value-no").hasAttr("checked"))
+          assert(!doc.select("input[value='true']").hasAttr("checked"))
+          assert(!doc.select("input[value='false']").hasAttr("checked"))
         }
 
         "not render an error summary" in {
@@ -106,8 +106,8 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
     "have only the correct value checked" in {
 
       val doc = asDocument(createView(form.fill(answer)))
-      assert(doc.getElementById("value-yes").hasAttr("checked") == answer)
-      assert(doc.getElementById("value-no").hasAttr("checked") != answer)
+      assert(doc.select("input[value='true']").hasAttr("checked") == answer)
+      assert(doc.select("input[value='false']").hasAttr("checked") != answer)
     }
 
     "not render an error summary" in {

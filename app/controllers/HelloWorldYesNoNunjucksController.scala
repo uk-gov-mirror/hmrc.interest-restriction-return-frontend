@@ -23,6 +23,7 @@ import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import pages.HelloWorldYesNoPageNunjucks
+import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
@@ -57,8 +58,10 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        viewHtml(formWithErrors).map(BadRequest(_)),
+      formWithErrors => {
+        Logger.debug(s"[HelloWorldYesNoController][onSubmit] Form Errors: $formWithErrors")
+        viewHtml(formWithErrors).map(BadRequest(_))
+      },
       value =>
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(HelloWorldYesNoPageNunjucks, value))

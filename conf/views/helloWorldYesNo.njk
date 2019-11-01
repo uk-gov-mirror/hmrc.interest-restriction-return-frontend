@@ -7,7 +7,7 @@
 {% from "govuk/components/phase-banner/macro.njk"  import govukPhaseBanner %}
 
 {% block pageTitle %}
-  {% set titlePrefix = messages("error.title.prefix") if errorSummary else "" %}
+  {% set titlePrefix = messages("error.browser.title.prefix") if form.errors.length > 0 else "" %}
   {{ titlePrefix + ' ' + messages("helloWorldYesNoNunjucks.title") }}
 {% endblock %}
 

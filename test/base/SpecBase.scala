@@ -25,12 +25,14 @@ import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
 import play.api.libs.json.Json
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import repositories.DefaultSessionRepository
 import uk.gov.hmrc.http.SessionKeys
+import play.api.test.CSRFTokenHelper._
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.{Duration, FiniteDuration, _}
+import scala.concurrent.{Await, ExecutionContext, Future}
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport {
 
@@ -38,7 +40,10 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   val emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
 
-  val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo")
+  val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+
+  implicit val defaultTimeout: FiniteDuration = 5.seconds
+  def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
 
   val injector: Injector = app.injector
 

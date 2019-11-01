@@ -29,7 +29,7 @@ class CheckYourAnswersControllerSpec extends SpecBase {
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
+    requireData = injector.instanceOf[DataRequiredActionImpl],
     controllerComponents = messagesControllerComponents,
     view = view
   )
