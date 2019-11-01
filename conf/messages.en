@@ -36,7 +36,7 @@ site.no = No
 site.yes = Yes
 site.continue = Continue
 site.textarea.char_limit = (Limit is {0} characters)
-site.phaseBanner.feedback = This is a new service - your feedback will help us to improve it.
+site.govuk = GOV.UK
 
 feedback.before = This is a new service - your
 feedback.link = feedback

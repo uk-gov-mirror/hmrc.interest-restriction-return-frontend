@@ -1,14 +1,14 @@
 {% extends "includes/layout.njk" %}
 
 {% from "govuk/components/back-link/macro.njk"     import govukBackLink %}
-{% from "govuk/components/radios/macro.njk"        import govukRadios %}
 {% from "govuk/components/button/macro.njk"        import govukButton %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "govuk/components/phase-banner/macro.njk"  import govukPhaseBanner %}
+
+{% from "components/errorSummary.njk" import errorSummary %}
+{% from "components/yesNoRadio.njk" import yesNoRadio %}
+{% from "components/pageTitle.njk" import pageTitle %}
 
 {% block pageTitle %}
-  {% set titlePrefix = messages("error.browser.title.prefix") if form.errors.length > 0 else "" %}
-  {{ titlePrefix + ' ' + messages("helloWorldYesNoNunjucks.title") }}
+  {{ pageTitle(form, "helloWorldYesNoNunjucks.title") }}
 {% endblock %}
 
 {% block content %}
@@ -16,30 +16,13 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {% if form.errors.length > 0 %}
-          {{ govukErrorSummary({
-            "titleText": messages("error.summary.title"),
-            "errorList": form.errors
-          }) }}
-        {% endif %}
+        {{ errorSummary(form) }}
 
         <form action="" method="post">
 
           {{ csrf() | safe }}
 
-          {{ govukRadios({
-            classes: "govuk-radios--inline",
-            name: 'value',
-            fieldset: {
-              legend: {
-                text: messages("helloWorldYesNoNunjucks.title"),
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--xl"
-              }
-            },
-            items: radios,
-            errorMessage: form.value.error
-          }) }}
+          {{ yesNoRadio(form, "helloWorldYesNoNunjucks.title", radios) }}
 
           {{ govukButton({
             text: messages("site.continue")

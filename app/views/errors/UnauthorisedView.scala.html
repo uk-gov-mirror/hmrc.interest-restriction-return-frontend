@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import views.ViewUtils._
+
 @this(
     main_template: templates.MainTemplate
 )
@@ -21,7 +23,7 @@
 @()(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("unauthorised.title")
+    title = titleNoForm("unauthorised.title")
     ) {
 
     @components.heading("unauthorised.heading")

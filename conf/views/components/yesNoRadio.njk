@@ -1,0 +1,17 @@
+{% from "govuk/components/radios/macro.njk"        import govukRadios %}
+
+{% macro yesNoRadio(form, headingKey, radios) %}
+    {{ govukRadios({
+        classes: "govuk-radios--inline",
+        name: 'value',
+        fieldset: {
+            legend: {
+                text: messages(headingKey),
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--xl"
+            }
+        },
+        items: radios,
+        errorMessage: form.value.error
+    }) }}
+{% endmacro %}

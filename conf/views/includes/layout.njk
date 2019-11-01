@@ -1,6 +1,8 @@
 {% extends "govuk/template.njk" %}
 {%- set assetPath = "/assets/lib/govuk-frontend/govuk/assets" -%}
 
+{% from "govuk/components/phase-banner/macro.njk"  import govukPhaseBanner %}
+
 {% block head %}
   {% include "includes/head.njk" %}
 {% endblock %}
