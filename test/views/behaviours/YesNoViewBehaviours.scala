@@ -83,11 +83,11 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
           val doc = asDocument(createView(form.withError(error)))
           val errorSpan =
             if(isNewPlayFrontendGovukView) {
-              doc.select("ul.govuk-error-summary__list li").first
+              doc.getElementsByClass("govuk-error-message").first
             } else {
               doc.getElementsByClass("error-message").first
             }
-          errorSpan.text mustBe messages(errorMessage)
+          errorSpan.text mustBe messages("error.browser.title.prefix") + " " + messages(errorMessage)
           doc.getElementsByTag("fieldset").first.attr("aria-describedby") contains errorSpan.attr("id")
         }
 
