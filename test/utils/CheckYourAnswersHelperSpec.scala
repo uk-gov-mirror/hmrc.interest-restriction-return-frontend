@@ -19,7 +19,7 @@ package utils
 import base.SpecBase
 import controllers.routes
 import models.{CheckMode, UserAnswers}
-import pages.HelloWorldYesNoPageNunjucks
+import pages.{HelloWorldYesNoPage, HelloWorldYesNoPageNunjucks}
 import play.twirl.api.HtmlFormat
 import viewmodels.AnswerRow
 
@@ -27,28 +27,58 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
   "Check Your Answers Helper" must {
 
-    "get an answer from useranswers for true" in {
+    "For the HellowWorldYesNoPage" must {
 
-      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks,true).get)
+      "get an answer from useranswers for true" in {
 
-      helper.helloWorldYesNo mustBe Some(AnswerRow(
-        HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
-        HtmlFormat.escape(messages("site.yes")),
-        routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
-      ))
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage, true).get)
 
+        helper.helloWorldYesNo mustBe Some(AnswerRow(
+          HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
+          HtmlFormat.escape(messages("site.yes")),
+          routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+        ))
+
+      }
+
+      "get an answer from useranswers for false" in {
+
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage, false).get)
+
+        helper.helloWorldYesNo mustBe Some(AnswerRow(
+          HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
+          HtmlFormat.escape(messages("site.no")),
+          routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+        ))
+
+      }
     }
 
-    "get an answer from useranswers for false" in {
+    "For the HellowWorldYesNoPageNunjucks" must {
 
-      val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks,false).get)
+      "get an answer from useranswers for true" in {
 
-      helper.helloWorldYesNo mustBe Some(AnswerRow(
-        HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
-        HtmlFormat.escape(messages("site.no")),
-        routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
-      ))
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks, true).get)
 
+        helper.helloWorldYesNoNunjucks mustBe Some(AnswerRow(
+          HtmlFormat.escape(messages("helloWorldYesNoNunjucks.checkYourAnswersLabel")),
+          HtmlFormat.escape(messages("site.yes")),
+          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode).url
+        ))
+
+      }
+
+      "get an answer from useranswers for false" in {
+
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks, false).get)
+
+        helper.helloWorldYesNoNunjucks mustBe Some(AnswerRow(
+          HtmlFormat.escape(messages("helloWorldYesNoNunjucks.checkYourAnswersLabel")),
+          HtmlFormat.escape(messages("site.no")),
+          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode).url
+        ))
+
+      }
     }
   }
 

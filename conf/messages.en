@@ -38,6 +38,10 @@ site.continue = Continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.phaseBanner.feedback = This is a new service - your feedback will help us to improve it.
 
+feedback.before = This is a new service - your
+feedback.link = feedback
+feedback.after = will help us to improve it.
+
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
