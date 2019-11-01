@@ -15,25 +15,25 @@
  *@
 
 @import viewmodels.{AnswerSection, RepeaterAnswerSection, Section}
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(
-    main_template: templates.MainTemplate
+    govukLayout: templates.GovukLayoutWrapper,
+    govukSummaryList: govukComponents.summaryList
 )
 
-@(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
+@(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@main_template(
-    title = messages("checkYourAnswers.title")
-    ) {
+@govukLayout(pageTitle = Some(messages("checkYourAnswers.title"))) {
 
-    @components.heading("checkYourAnswers.heading")</h1>
+    <h1 class="govuk-heading-xl">@messages("checkYourAnswers.heading")</h1>
 
-    <p>@messages("checkYourAnswers.guidance")</p>
+    <p class="govuk-body">@messages("checkYourAnswers.guidance")</p>
 
     @for(section <- answerSections){
         @{
             section match {
-                case a: AnswerSection => components.answer_section(a)
+                case a: AnswerSection => govukSummaryList(a)
                 case r: RepeaterAnswerSection => components.repeater_answer_section(r)
             }
         }
