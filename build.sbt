@@ -18,7 +18,8 @@ lazy val root = (project in file("."))
   .settings(
     Keys.fork in IntegrationTest := false,
     unmanagedSourceDirectories in IntegrationTest := (baseDirectory in IntegrationTest)(base => Seq(base / "it")).value,
-    addTestReportOption(IntegrationTest, "int-test-reports"),
+    // TODO: Commented out as issues with Pegdown when using Play-Frontend-Govuk library
+    // addTestReportOption(IntegrationTest, "int-test-reports"),
     parallelExecution in IntegrationTest := false)
   .settings(majorVersion := 0)
   .settings(
