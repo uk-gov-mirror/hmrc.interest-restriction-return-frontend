@@ -24,8 +24,8 @@
     govukLayout: templates.GovukLayoutWrapper,
     govukBackLink: GovukBackLink,
     govukButton: GovukButton,
-    govukRadios: GovukRadios,
-    error_summary: govukComponents.govuk_error_summary,
+    errorSummary: govukComponents.govukErrorSummary,
+    yesNoRadio: govukComponents.govukYesNoRadio,
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
@@ -38,34 +38,9 @@
 
     @formHelper(action = HelloWorldYesNoController.onSubmit(mode), 'autoComplete -> "off") {
 
-        @error_summary(form.errors)
+        @errorSummary(form.errors)
 
-        @govukRadios(Radios(
-            classes = "govuk-radios--inline",
-            idPrefix = None,
-            name = "value",
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                    content = Text(messages("helloWorldYesNo.heading")),
-                    isPageHeading = true,
-                    classes = "govuk-fieldset__legend--xl"
-                ))
-            )),
-            hint = None,
-            items = Seq(
-                RadioItem(id = Some("value-yes"),
-                          value = Some("true"),
-                          content = Text(messages("site.yes")),
-                          checked = form("value").value.contains("true")
-                ),
-                RadioItem(id = Some("value-no"),
-                          value = Some("false"),
-                          content = Text(messages("site.no")),
-                          checked = form("value").value.contains("false")
-                )
-            ),
-            errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args))))
-        ))
+        @yesNoRadio(form, "helloWorldYesNo.heading")
 
         @govukButton(Button(content = Text(messages("site.continue"))))
     }
