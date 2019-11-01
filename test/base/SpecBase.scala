@@ -17,39 +17,41 @@
 package base
 
 import config.FrontendAppConfig
-import controllers.actions._
 import models.UserAnswers
 import org.scalatest.TryValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.inject.{Injector, bind}
+import play.api.inject.Injector
 import play.api.libs.json.Json
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
+import repositories.DefaultSessionRepository
+import uk.gov.hmrc.http.SessionKeys
+
+import scala.concurrent.ExecutionContext
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport {
 
   val userAnswersId = "id"
 
-  def emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
+  val emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
 
-  def injector: Injector = app.injector
+  val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo")
 
-  def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  val injector: Injector = app.injector
 
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+  implicit lazy val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
-  def fakeRequest = FakeRequest("", "")
+  implicit lazy val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
 
-  implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+  lazy val sessionRepository = injector.instanceOf[DefaultSessionRepository]
 
-  protected def applicationBuilder(userAnswers: Option[UserAnswers] = None): GuiceApplicationBuilder =
-    new GuiceApplicationBuilder()
-      .overrides(
-        bind[DataRequiredAction].to[DataRequiredActionImpl],
-        bind[IdentifierAction].to[FakeIdentifierAction],
-        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(userAnswers))
-      )
+  lazy val messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+
+  lazy val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+
+  implicit val messages: Messages = messagesApi.preferred(fakeRequest)
+
 }

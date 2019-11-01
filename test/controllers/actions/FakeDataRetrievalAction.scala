@@ -16,12 +16,16 @@
 
 package controllers.actions
 
+import base.SpecBase
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataRetrievalAction(dataToReturn: Option[UserAnswers]) extends DataRetrievalAction {
+
+trait FakeDataRetrievalAction extends SpecBase with DataRetrievalAction {
+
+  val dataToReturn: Option[UserAnswers]
 
   override protected def transform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] =
     dataToReturn match {
@@ -33,4 +37,16 @@ class FakeDataRetrievalAction(dataToReturn: Option[UserAnswers]) extends DataRet
 
   override protected implicit val executionContext: ExecutionContext =
     scala.concurrent.ExecutionContext.Implicits.global
+}
+
+object FakeDataRetrievalActionNone extends FakeDataRetrievalAction {
+  override val dataToReturn: Option[UserAnswers] = None
+}
+
+object FakeDataRetrievalActionEmptyAnswers extends FakeDataRetrievalAction {
+  override val dataToReturn: Option[UserAnswers] = Some(emptyUserAnswers)
+}
+
+case class FakeDataRetrievalActionGeneral(data: Option[UserAnswers]) extends FakeDataRetrievalAction {
+  override val dataToReturn: Option[UserAnswers] = data
 }

@@ -22,11 +22,10 @@ import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.{HelloWorldYesNoPage, HelloWorldYesNoPageNunjucks}
+import pages.HelloWorldYesNoPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.{NunjucksRenderer, NunjucksSupport}
 import views.html.HelloWorldYesNoView
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -38,10 +37,9 @@ class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: HelloWorldYesNoFormProvider,
-                                          renderer: NunjucksRenderer,
                                           val controllerComponents: MessagesControllerComponents,
                                           view: HelloWorldYesNoView
-                                         )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport {
+                                         )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(HelloWorldYesNoPage, formProvider()), mode))

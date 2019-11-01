@@ -17,46 +17,37 @@
 package controllers
 
 import base.SpecBase
-import play.api.test.FakeRequest
+import controllers.actions._
 import play.api.test.Helpers._
-import viewmodels.AnswerSection
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends SpecBase {
 
+  val view = injector.instanceOf[CheckYourAnswersView]
+
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionNone) = new CheckYourAnswersController(
+    messagesApi = messagesApi,
+    identify = FakeIdentifierAction,
+    getData = dataRetrieval,
+    requireData = new DataRequiredActionImpl,
+    controllerComponents = messagesControllerComponents,
+    view = view
+  )
+
   "Check Your Answers Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "return a OK (200) when given empty answers" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
-
-      val request = FakeRequest(GET, routes.CheckYourAnswersController.onPageLoad().url)
-
-      val result = route(application, request).value
-
-      val view = application.injector.instanceOf[CheckYourAnswersView]
+      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
 
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(Seq(AnswerSection(None, Seq())))(request, messages).toString
-
-      application.stop()
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "return a SEE_OTHER (303) when given None" in {
 
-      val application = applicationBuilder(userAnswers = None).build()
+        val result = controller().onPageLoad()(fakeRequest)
 
-      val request = FakeRequest(GET, routes.CheckYourAnswersController.onPageLoad().url)
-
-      val result = route(application, request).value
-
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-
-      application.stop()
+        status(result) mustEqual SEE_OTHER
     }
   }
 }
