@@ -23,7 +23,7 @@ import play.api.mvc.Call
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject()(servicesConfig: ServicesConfig) {
+class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   private val contactHost = servicesConfig.getString("contact-frontend.host")
   private val contactFormServiceIdentifier = "irr"

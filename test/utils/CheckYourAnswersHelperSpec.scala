@@ -20,10 +20,24 @@ import base.SpecBase
 import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages.{HelloWorldYesNoPage, HelloWorldYesNoPageNunjucks}
-import play.twirl.api.HtmlFormat
-import viewmodels.AnswerRow
+import play.api.mvc.Call
+import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelperSpec extends SpecBase {
+
+  private def summaryListRow(label: Html, answer: Html, changeLink: Call) =
+    SummaryListRow(
+      key = Key(HtmlContent(label)),
+      value = Value(HtmlContent(answer)),
+      actions = Some(Actions(
+        items = Seq(ActionItem(
+          href = changeLink.url,
+          content = Text(messages("site.edit"))
+        ))
+      ))
+    )
 
   "Check Your Answers Helper" must {
 
@@ -33,10 +47,10 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
         val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage, true).get)
 
-        helper.helloWorldYesNo mustBe Some(AnswerRow(
+        helper.helloWorldYesNo mustBe Some(summaryListRow(
           HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
           HtmlFormat.escape(messages("site.yes")),
-          routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+          routes.HelloWorldYesNoController.onPageLoad(CheckMode)
         ))
 
       }
@@ -45,10 +59,10 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
         val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage, false).get)
 
-        helper.helloWorldYesNo mustBe Some(AnswerRow(
+        helper.helloWorldYesNo mustBe Some(summaryListRow(
           HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
           HtmlFormat.escape(messages("site.no")),
-          routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+          routes.HelloWorldYesNoController.onPageLoad(CheckMode)
         ))
 
       }
@@ -60,10 +74,10 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
         val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks, true).get)
 
-        helper.helloWorldYesNoNunjucks mustBe Some(AnswerRow(
+        helper.helloWorldYesNoNunjucks mustBe Some(summaryListRow(
           HtmlFormat.escape(messages("helloWorldYesNoNunjucks.checkYourAnswersLabel")),
           HtmlFormat.escape(messages("site.yes")),
-          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode).url
+          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode)
         ))
 
       }
@@ -72,10 +86,10 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
         val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks, false).get)
 
-        helper.helloWorldYesNoNunjucks mustBe Some(AnswerRow(
+        helper.helloWorldYesNoNunjucks mustBe Some(summaryListRow(
           HtmlFormat.escape(messages("helloWorldYesNoNunjucks.checkYourAnswersLabel")),
           HtmlFormat.escape(messages("site.no")),
-          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode).url
+          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode)
         ))
 
       }

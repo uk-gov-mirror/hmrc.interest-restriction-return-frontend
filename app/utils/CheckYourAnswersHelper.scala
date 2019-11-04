@@ -21,24 +21,30 @@ import models.{CheckMode, UserAnswers}
 import pages._
 import play.api.i18n.Messages
 import play.api.mvc.Call
-import play.twirl.api.HtmlFormat
-import viewmodels.AnswerRow
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
-  def helloWorldYesNo: Option[AnswerRow] = yesOrNo(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
-  def helloWorldYesNoNunjucks: Option[AnswerRow] = yesOrNo(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
+  def helloWorldYesNo: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
+  def helloWorldYesNoNunjucks: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 
-  private def yesOrNo(page: QuestionPage[Boolean], changeLinkCall: Call)(implicit messages: Messages): Option[AnswerRow] =
+  private def yesOrNo(page: QuestionPage[Boolean], changeLinkCall: Call)(implicit messages: Messages): Option[SummaryListRow] =
     userAnswers.get(page) map { bool =>
-      AnswerRow(
-        HtmlFormat.escape(messages(s"$page.checkYourAnswersLabel")),
-        if (bool) {
-          HtmlFormat.escape(messages("site.yes"))
-        } else {
-          HtmlFormat.escape(messages("site.no"))
-        },
-        changeLinkCall.url
+      SummaryListRow(
+        key = Key(content = HtmlContent(messages(s"$page.checkYourAnswersLabel"))),
+        value = Value(content = HtmlContent(yesNoValue(bool))),
+        actions = Some(Actions(
+          items = Seq(ActionItem(
+            href = changeLinkCall.url,
+            content = Text(messages("site.edit"))
+          ))
+        ))
       )
     }
+
+  private val yesNoValue: Boolean => String = {
+    case true => messages("site.yes")
+    case _ => messages("site.no")
+  }
 }

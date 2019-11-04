@@ -16,12 +16,12 @@
 
 package controllers
 
-import base.SpecBase
+import base.{MockNunjucksRenderer, SpecBase}
 import controllers.actions._
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersControllerSpec extends SpecBase {
+class CheckYourAnswersControllerSpec extends SpecBase with MockNunjucksRenderer {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
@@ -31,7 +31,8 @@ class CheckYourAnswersControllerSpec extends SpecBase {
     getData = dataRetrieval,
     requireData = injector.instanceOf[DataRequiredActionImpl],
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    renderer = mockNunjucksRenderer
   )
 
   "Check Your Answers Controller" must {

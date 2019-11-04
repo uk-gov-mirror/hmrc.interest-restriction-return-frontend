@@ -19,10 +19,11 @@
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
-    govukSummaryList: govukComponents.summaryList
+    summaryList: govukComponents.summaryList,
+    govukSummaryList: GovukSummaryList
 )
 
-@(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(messages("checkYourAnswers.title"))) {
 
@@ -30,12 +31,5 @@
 
     <p class="govuk-body">@messages("checkYourAnswers.guidance")</p>
 
-    @for(section <- answerSections){
-        @{
-            section match {
-                case a: AnswerSection => govukSummaryList(a)
-                case r: RepeaterAnswerSection => components.repeater_answer_section(r)
-            }
-        }
-    }
+    @govukSummaryList(SummaryList(answers))
 }
