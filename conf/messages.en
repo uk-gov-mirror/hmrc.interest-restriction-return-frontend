@@ -36,23 +36,23 @@ site.no = No
 site.yes = Yes
 site.continue = Continue
 site.textarea.char_limit = (Limit is {0} characters)
-site.phaseBanner.feedback = This is a new service - your feedback will help us to improve it.
+site.govuk = GOV.UK
+
+feedback.before = This is a new service - your
+feedback.link = feedback
+feedback.after = will help us to improve it.
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
-helloWorldYesNo.title = Would you like to say Hello World?
-helloWorldYesNo.heading = Would you like to say Hello World?
-helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World?
+
 helloWorldYesNo.error.required = Select yes if you want to say Hello World
 
-testYesNo.title = testYesNo
-testYesNo.heading = testYesNo
-testYesNo.checkYourAnswersLabel = testYesNo
-testYesNo.error.required = Select yes if testYesNo
+helloWorldYesNo.title = Would you like to say Hello World? (Twirl Style)
+helloWorldYesNo.heading = Would you like to say Hello World? (Twirl Style)
+helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World? (Twirl Style)
 
-myNewPage.title = myNewPage
-myNewPage.heading = myNewPage
-myNewPage.checkYourAnswersLabel = myNewPage
-myNewPage.error.required = Enter myNewPage
-myNewPage.error.length = MyNewPage must be 100 characters or less
+helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Style)
+helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
+helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
+helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)

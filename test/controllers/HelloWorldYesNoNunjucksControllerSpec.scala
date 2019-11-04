@@ -16,23 +16,28 @@
 
 package controllers
 
-import base.SpecBase
+import base.{MockNunjucksRenderer, SpecBase}
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.HelloWorldYesNoPage
+import pages.HelloWorldYesNoPageNunjucks
+import play.api.data.{FieldMapping, Form, FormError}
+import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import play.twirl.api.Html
+import uk.gov.hmrc.nunjucks.NunjucksSupport
+import uk.gov.hmrc.viewmodels.Radios
 import views.html.HelloWorldYesNoView
 
-class HelloWorldYesNoControllerSpec extends SpecBase {
+class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport {
 
   val view = injector.instanceOf[HelloWorldYesNoView]
-
   val formProvider = injector.instanceOf[HelloWorldYesNoFormProvider]
+  val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new HelloWorldYesNoController(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new HelloWorldYesNoNunjucksController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
@@ -41,25 +46,36 @@ class HelloWorldYesNoControllerSpec extends SpecBase {
     requireData = injector.instanceOf[DataRequiredActionImpl],
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    renderer = mockNunjucksRenderer
   )
 
-  "HelloWorldYesNo Controller" must {
+  def viewContext(form: Form[Boolean]): JsObject = Json.obj(
+    "form" -> form,
+    "radios" -> Radios.yesNo(form("value"))
+  )
+
+  "HelloWorldYesNoNunjucks Controller" must {
 
     "return OK and the correct view for a GET" in {
+
+      mockRender("helloWorldYesNo.njk", viewContext(form))(Html("Success"))
 
       val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustBe "Success"
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPage, true).success.value
+      mockRender("helloWorldYesNo.njk", viewContext(form.fill(true)))(Html("Success"))
+
+      val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPageNunjucks, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustBe "Success"
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -73,6 +89,8 @@ class HelloWorldYesNoControllerSpec extends SpecBase {
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
+
+      mockRender("helloWorldYesNo.njk", viewContext(form.bind(Map("value" -> ""))))(Html("Success"))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 

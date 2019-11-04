@@ -29,7 +29,7 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository {
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     sessionRepository = mockSessionRepository,
-    navigator = new FakeNavigator(Call("POST", "/foo")),
+    navigator = FakeNavigator,
     controllerComponents = messagesControllerComponents
   )
 

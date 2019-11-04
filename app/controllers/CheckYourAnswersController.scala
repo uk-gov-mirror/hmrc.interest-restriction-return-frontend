@@ -17,13 +17,20 @@
 package controllers
 
 import com.google.inject.Inject
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.libs.json.Json
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
+import uk.gov.hmrc.nunjucks.{NunjucksRenderer, NunjucksSupport}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersHelper
-import viewmodels.AnswerSection
 import views.html.CheckYourAnswersView
+
+import scala.concurrent.{ExecutionContext, Future}
 
 class CheckYourAnswersController @Inject()(
                                             override val messagesApi: MessagesApi,
@@ -31,16 +38,31 @@ class CheckYourAnswersController @Inject()(
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
-                                            view: CheckYourAnswersView
-                                          ) extends FrontendBaseController with I18nSupport {
+                                            view: CheckYourAnswersView,
+                                            renderer: NunjucksRenderer
+                                          )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+  extends FrontendBaseController with I18nSupport with NunjucksSupport with FeatureSwitching {
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  private def renderView(answers: Seq[SummaryListRow])(implicit request: Request[_]): Future[Html] =
+
+    if(isEnabled(UseNunjucks)) {
+      renderer.render("checkYourAnswers.njk", Json.obj(
+        "rows" -> answers
+      ))
+    } else {
+      Future.successful(view(answers))
+    }
+
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
       val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
-      val sections = Seq(AnswerSection(None, Seq(checkYourAnswersHelper.helloWorldYesNo).flatten))
+      val sections = Seq(
+        checkYourAnswersHelper.helloWorldYesNo,
+        checkYourAnswersHelper.helloWorldYesNoNunjucks
+      ).flatten
 
-      Ok(view(sections))
+      renderView(sections).map(Ok(_))
   }
 }

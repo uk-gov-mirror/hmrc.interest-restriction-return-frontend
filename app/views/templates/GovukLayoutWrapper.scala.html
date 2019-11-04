@@ -20,17 +20,22 @@
 @this(
     govukLayout: GovukLayout,
     reportAProblemLink: ReportAProblemLink,
-    govukPhaseBanner: GovukPhaseBanner
+    govukPhaseBanner: GovukPhaseBanner,
+    govukBackLink: GovukBackLink
 )
 
-@(pageTitle: Option[String] = None,
-  backLinkContent: Option[Html] = None
-)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(pageTitle: Option[String] = None)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+
+@feedbackBanner = {
+    @messages("feedback.before")
+    <a class='govuk-link' href='#'>@messages("feedback.link")</a>
+    @messages("feedback.after")
+}
 
 @phaseBanner = {
     @govukPhaseBanner(PhaseBanner(
-        tag = Some(Tag(content = Text("ALPHA"))),
-        content = Text(messages("site.phaseBanner.feedback"))
+        tag = Some(Tag(content = Text("alpha"))),
+        content = HtmlContent(feedbackBanner)
     ))
 }
 
@@ -47,7 +52,7 @@
 @beforeContentBlock = {
     @phaseBanner
 
-    @backLinkContent
+    @govukBackLink(BackLink(href = "#", content = Text("Back"), attributes = Map("id" -> "back-link")))
 }
 
 @govukLayout(

@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,23 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import viewmodels.{AnswerSection, RepeaterAnswerSection, Section}
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+package testonly.models
 
-@this(
-    govukLayout: templates.GovukLayoutWrapper,
-    govukSummaryList: GovukSummaryList
-)
+import play.api.libs.json.{Json, OFormat}
 
-@(answers: Seq[SummaryListRow])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+case class FeatureSwitchSetting(feature: String, enable: Boolean)
 
-@govukLayout(pageTitle = Some(messages("checkYourAnswers.title"))) {
+object FeatureSwitchSetting {
 
-    <h1 class="govuk-heading-xl">@messages("checkYourAnswers.heading")</h1>
+  implicit val format: OFormat[FeatureSwitchSetting] = Json.format[FeatureSwitchSetting]
 
-    <p class="govuk-body">@messages("checkYourAnswers.guidance")</p>
-
-    @govukSummaryList(SummaryList(answers))
 }

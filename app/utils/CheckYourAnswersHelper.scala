@@ -22,26 +22,33 @@ import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages._
 import play.api.i18n.Messages
-import play.twirl.api.{Html, HtmlFormat}
-import viewmodels.AnswerRow
+import play.api.mvc.Call
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
+  def helloWorldYesNo: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
+  def helloWorldYesNoNunjucks: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
+
   private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
-  def helloWorldYesNo: Option[AnswerRow] = userAnswers.get(HelloWorldYesNoPage) map {
-    x =>
-      AnswerRow(
-        HtmlFormat.escape(messages("helloWorldYesNo.checkYourAnswersLabel")),
-        yesOrNo(x),
-        routes.HelloWorldYesNoController.onPageLoad(CheckMode).url
+  private def yesOrNo(page: QuestionPage[Boolean], changeLinkCall: Call)(implicit messages: Messages): Option[SummaryListRow] =
+    userAnswers.get(page) map { bool =>
+      SummaryListRow(
+        key = Key(content = HtmlContent(messages(s"$page.checkYourAnswersLabel"))),
+        value = Value(content = HtmlContent(yesNoValue(bool))),
+        actions = Some(Actions(
+          items = Seq(ActionItem(
+            href = changeLinkCall.url,
+            content = Text(messages("site.edit"))
+          ))
+        ))
       )
-  }
-
-  private def yesOrNo(answer: Boolean)(implicit messages: Messages): Html =
-    if (answer) {
-      HtmlFormat.escape(messages("site.yes"))
-    } else {
-      HtmlFormat.escape(messages("site.no"))
     }
+
+  private val yesNoValue: Boolean => String = {
+    case true => messages("site.yes")
+    case _ => messages("site.no")
+  }
 }

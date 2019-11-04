@@ -42,15 +42,15 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         "contain an input for the value" in {
 
           val doc = asDocument(createView(form))
-          assertRenderedById(doc, "value-yes")
-          assertRenderedById(doc, "value-no")
+          assertRenderedByCssSelector(doc, "input[value='true']")
+          assertRenderedByCssSelector(doc, "input[value='false']")
         }
 
         "have no values checked when rendered with no form" in {
 
           val doc = asDocument(createView(form))
-          assert(!doc.getElementById("value-yes").hasAttr("checked"))
-          assert(!doc.getElementById("value-no").hasAttr("checked"))
+          assert(!doc.select("input[value='true']").hasAttr("checked"))
+          assert(!doc.select("input[value='false']").hasAttr("checked"))
         }
 
         "not render an error summary" in {
@@ -83,18 +83,18 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
           val doc = asDocument(createView(form.withError(error)))
           val errorSpan =
             if(isNewPlayFrontendGovukView) {
-              doc.select("ul.govuk-error-summary__list li").first
+              doc.getElementsByClass("govuk-error-message").first
             } else {
               doc.getElementsByClass("error-message").first
             }
-          errorSpan.text mustBe messages(errorMessage)
+          errorSpan.text mustBe messages("error.browser.title.prefix") + " " + messages(errorMessage)
           doc.getElementsByTag("fieldset").first.attr("aria-describedby") contains errorSpan.attr("id")
         }
 
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${messages(s"$messageKeyPrefix.title")}""")
+          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title"))}""")
         }
       }
     }
@@ -106,8 +106,8 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
     "have only the correct value checked" in {
 
       val doc = asDocument(createView(form.fill(answer)))
-      assert(doc.getElementById("value-yes").hasAttr("checked") == answer)
-      assert(doc.getElementById("value-no").hasAttr("checked") != answer)
+      assert(doc.select("input[value='true']").hasAttr("checked") == answer)
+      assert(doc.select("input[value='false']").hasAttr("checked") != answer)
     }
 
     "not render an error summary" in {

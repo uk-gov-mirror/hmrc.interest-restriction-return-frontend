@@ -34,7 +34,7 @@ class NavigatorSpec extends SpecBase {
       }
 
       "go from the HelloWorldYesNoPage to the CheckYourAnswersPage" in {
-        navigator.nextPage(HelloWorldYesNoPage, NormalMode, UserAnswers("id")) mustBe routes.CheckYourAnswersController.onPageLoad()
+        navigator.nextPage(HelloWorldYesNoPageNunjucks, NormalMode, UserAnswers("id")) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 
       "go to the IndexPage from a page that doesn't exist in the route map" in {

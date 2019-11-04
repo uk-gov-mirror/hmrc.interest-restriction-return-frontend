@@ -1,0 +1,6 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% macro pageTitle(form, titleKey) %}
+  {% set titlePrefix = messages("error.browser.title.prefix") if form.errors.length > 0 else "" %}
+  {{ titlePrefix + ' ' + messages(titleKey) + ' - ' + messages("service.name") + ' - ' + messages("site.govuk") }}
+{% endmacro %}
