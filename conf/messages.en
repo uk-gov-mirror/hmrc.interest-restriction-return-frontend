@@ -45,3 +45,14 @@ helloWorldYesNo.title = Would you like to say Hello World?
 helloWorldYesNo.heading = Would you like to say Hello World?
 helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World?
 helloWorldYesNo.error.required = Select yes if you want to say Hello World
+
+testYesNo.title = testYesNo
+testYesNo.heading = testYesNo
+testYesNo.checkYourAnswersLabel = testYesNo
+testYesNo.error.required = Select yes if testYesNo
+
+myNewPage.title = myNewPage
+myNewPage.heading = myNewPage
+myNewPage.checkYourAnswersLabel = myNewPage
+myNewPage.error.required = Enter myNewPage
+myNewPage.error.length = MyNewPage must be 100 characters or less

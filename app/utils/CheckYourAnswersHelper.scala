@@ -16,6 +16,8 @@
 
 package utils
 
+import java.time.format.DateTimeFormatter
+
 import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages._
@@ -24,6 +26,8 @@ import play.twirl.api.{Html, HtmlFormat}
 import viewmodels.AnswerRow
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
+
+  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   def helloWorldYesNo: Option[AnswerRow] = userAnswers.get(HelloWorldYesNoPage) map {
     x =>

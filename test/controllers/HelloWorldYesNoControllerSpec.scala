@@ -17,150 +17,87 @@
 package controllers
 
 import base.SpecBase
+import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.{FakeNavigator, Navigator}
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import navigation.FakeNavigator
 import pages.HelloWorldYesNoPage
-import play.api.inject.bind
 import play.api.mvc.Call
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.SessionRepository
 import views.html.HelloWorldYesNoView
 
-import scala.concurrent.Future
+class HelloWorldYesNoControllerSpec extends SpecBase {
 
-class HelloWorldYesNoControllerSpec extends SpecBase with MockitoSugar {
+  val view = injector.instanceOf[HelloWorldYesNoView]
+  val formProvider = new HelloWorldYesNoFormProvider
 
-  def onwardRoute = Call("GET", "/foo")
-
-  val formProvider = new HelloWorldYesNoFormProvider()
-  val form = formProvider()
-
-  lazy val helloWorldYesNoRoute = routes.HelloWorldYesNoController.onPageLoad(NormalMode).url
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new HelloWorldYesNoController(
+    messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    navigator = new FakeNavigator(Call("POST", "/foo")),
+    identify = FakeIdentifierAction,
+    getData = dataRetrieval,
+    requireData = new DataRequiredActionImpl,
+    formProvider = new HelloWorldYesNoFormProvider,
+    controllerComponents = messagesControllerComponents,
+    view = view
+  )
 
   "HelloWorldYesNo Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
-
-      val request = FakeRequest(GET, helloWorldYesNoRoute)
-
-      val result = route(application, request).value
-
-      val view = application.injector.instanceOf[HelloWorldYesNoView]
+      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(form, NormalMode)(request, messages, frontendAppConfig).toString
-
-      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPage, true).success.value
 
-      val application = applicationBuilder(userAnswers = Some(userAnswers)).build()
-
-      val request = FakeRequest(GET, helloWorldYesNoRoute)
-
-      val view = application.injector.instanceOf[HelloWorldYesNoView]
-
-      val result = route(application, request).value
+      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(form.fill(true), NormalMode)(request, messages, frontendAppConfig).toString
-
-      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val mockSessionRepository = mock[SessionRepository]
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      when(mockSessionRepository.set(any())) thenReturn Future.successful(true)
-
-      val application =
-        applicationBuilder(userAnswers = Some(emptyUserAnswers))
-          .overrides(
-            bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
-            bind[SessionRepository].toInstance(mockSessionRepository)
-          )
-          .build()
-
-      val request =
-        FakeRequest(POST, helloWorldYesNoRoute)
-          .withFormUrlEncodedBody(("value", "true"))
-
-      val result = route(application, request).value
+      val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual onwardRoute.url
-
-      application.stop()
+      redirectLocation(result) mustBe Some("/foo")
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(userAnswers = Some(emptyUserAnswers)).build()
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val request =
-        FakeRequest(POST, helloWorldYesNoRoute)
-          .withFormUrlEncodedBody(("value", ""))
-
-      val boundForm = form.bind(Map("value" -> ""))
-
-      val view = application.injector.instanceOf[HelloWorldYesNoView]
-
-      val result = route(application, request).value
+      val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
-
-      contentAsString(result) mustEqual
-        view(boundForm, NormalMode)(request, messages, frontendAppConfig).toString
-
-      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder(userAnswers = None).build()
-
-      val request = FakeRequest(GET, helloWorldYesNoRoute)
-
-      val result = route(application, request).value
+      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-
-      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val application = applicationBuilder(userAnswers = None).build()
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val request =
-        FakeRequest(POST, helloWorldYesNoRoute)
-          .withFormUrlEncodedBody(("value", "true"))
-
-      val result = route(application, request).value
+      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-
-      application.stop()
     }
   }
 }

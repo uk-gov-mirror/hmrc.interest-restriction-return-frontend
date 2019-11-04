@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-package views.errors
+package mocks
 
-import views.behaviours.ViewBehaviours
-import views.html.errors.UnauthorisedView
+import models.UserAnswers
+import org.scalamock.scalatest.MockFactory
+import repositories.SessionRepository
 
-class UnauthorisedViewSpec extends ViewBehaviours {
+import scala.concurrent.Future
 
-  "Unauthorised view" must {
+trait MockSessionRepository extends MockFactory {
 
-    val view = app.injector.instanceOf[UnauthorisedView]
+  val mockSessionRepository = mock[SessionRepository]
 
-    val applyView = view.apply()(fakeRequest, messages)
+  def mockGet(result: Option[UserAnswers]): Unit = {
+    (mockSessionRepository.get(_: String))
+      .expects(*)
+      .returns(Future.successful(result))
+  }
 
-    behave like normalPage(applyView, "unauthorised")
+  def mockSet(result: Boolean): Unit = {
+    (mockSessionRepository.set(_: UserAnswers))
+      .expects(*)
+      .returns(Future.successful(result))
   }
 }

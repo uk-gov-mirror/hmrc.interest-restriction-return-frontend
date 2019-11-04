@@ -17,24 +17,31 @@
 package controllers
 
 import base.SpecBase
-import play.api.test.FakeRequest
+import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import mocks.MockSessionRepository
+import navigation.FakeNavigator
+import play.api.mvc.Call
 import play.api.test.Helpers._
 
-class IndexControllerSpec extends SpecBase {
+class IndexControllerSpec extends SpecBase with MockSessionRepository {
+
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new IndexController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    sessionRepository = mockSessionRepository,
+    navigator = new FakeNavigator(Call("POST", "/foo")),
+    controllerComponents = messagesControllerComponents
+  )
 
   "Index Controller" must {
 
     "return OK and the correct view for a GET" in {
+      mockSet(true)
 
-      val application = applicationBuilder(userAnswers = None).build()
-
-      val request = FakeRequest(GET, routes.IndexController.onPageLoad().url)
-
-      val result = route(application, request).value
+      val result = controller().onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-
-      application.stop()
+      redirectLocation(result) mustBe Some("/foo")
     }
   }
 }

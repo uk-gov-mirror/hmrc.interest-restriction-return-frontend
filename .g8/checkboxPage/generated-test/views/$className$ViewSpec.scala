@@ -19,7 +19,7 @@ class $className$ViewSpec extends CheckboxViewBehaviours[$className$] {
     val view = viewFor[$className$View](Some(emptyUserAnswers))
 
     def applyView(form: Form[Set[$className$]]): HtmlFormat.Appendable =
-      view.apply(form, NormalMode)(request, messages)
+      view.apply(form, NormalMode)(fakeRequest, messages)
 
     behave like normalPage(applyView(form), messageKeyPrefix)
 
