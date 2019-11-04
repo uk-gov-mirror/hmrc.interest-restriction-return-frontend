@@ -82,7 +82,7 @@ class $className$ControllerSpec extends SpecBase {
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(fakeRequest)
+      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 

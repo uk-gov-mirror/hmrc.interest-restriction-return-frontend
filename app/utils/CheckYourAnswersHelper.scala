@@ -16,6 +16,8 @@
 
 package utils
 
+import java.time.format.DateTimeFormatter
+
 import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages._
@@ -28,6 +30,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def helloWorldYesNo: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
   def helloWorldYesNoNunjucks: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
+
+  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   private def yesOrNo(page: QuestionPage[Boolean], changeLinkCall: Call)(implicit messages: Messages): Option[SummaryListRow] =
     userAnswers.get(page) map { bool =>
