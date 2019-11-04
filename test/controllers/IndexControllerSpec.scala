@@ -36,10 +36,9 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository {
   "Index Controller" must {
 
     "return OK and the correct view for a GET" in {
+      mockSet(true)
 
       val result = controller().onPageLoad()(fakeRequest)
-
-      mockSet(true)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some("/foo")
