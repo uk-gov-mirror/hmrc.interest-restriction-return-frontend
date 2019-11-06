@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package base
+package nunjucks
 
 import org.mockito.Matchers
-import org.mockito.Mockito._
+import org.mockito.Mockito.when
 import org.mockito.stubbing.OngoingStubbing
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.JsObject
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksRenderer
 
 import scala.concurrent.Future
 
 trait MockNunjucksRenderer extends MockitoSugar {
 
-  lazy val mockNunjucksRenderer: NunjucksRenderer = mock[NunjucksRenderer]
+  lazy val mockNunjucksRenderer: Renderer = mock[Renderer]
 
   def mockRender(template: String, context: JsObject)(htmlResponse: Html): OngoingStubbing[Future[Html]] =
     when(mockNunjucksRenderer.render(Matchers.eq(template), Matchers.eq(context))(Matchers.any()))

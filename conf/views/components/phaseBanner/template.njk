@@ -1,0 +1,14 @@
+{% from "govuk/components/phase-banner/macro.njk"  import govukPhaseBanner %}
+
+{% set content %}
+   {{ messages("feedback.before") }}
+   <a class='govuk-link' href='{{ config.feedbackUrl }}'>{{ messages("feedback.link") }}</a>
+   {{ messages("feedback.after") }}
+{% endset %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: phase
+  },
+  html: content
+}) }}

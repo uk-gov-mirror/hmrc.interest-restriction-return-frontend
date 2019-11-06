@@ -16,8 +16,9 @@
 
 package controllers
 
-import base.{MockNunjucksRenderer, SpecBase}
+import base.SpecBase
 import controllers.actions._
+import nunjucks.MockNunjucksRenderer
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 

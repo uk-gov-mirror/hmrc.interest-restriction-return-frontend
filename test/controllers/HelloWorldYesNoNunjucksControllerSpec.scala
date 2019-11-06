@@ -16,11 +16,12 @@
 
 package controllers
 
-import base.{MockNunjucksRenderer, SpecBase}
+import base.SpecBase
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import nunjucks.MockNunjucksRenderer
 import pages.HelloWorldYesNoPageNunjucks
 import play.api.data.{FieldMapping, Form, FormError}
 import play.api.libs.json.{JsObject, Json}

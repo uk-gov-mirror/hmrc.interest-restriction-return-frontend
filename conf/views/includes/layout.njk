@@ -1,7 +1,7 @@
 {% extends "govuk/template.njk" %}
 {%- set assetPath = "/assets/lib/govuk-frontend/govuk/assets" -%}
 
-{% from "govuk/components/phase-banner/macro.njk"  import govukPhaseBanner %}
+{% from "components/phaseBanner/macro.njk" import phaseBanner %}
 
 {% block head %}
   {% include "includes/head.njk" %}
@@ -19,14 +19,7 @@
 
 {% block beforeContent %}
 
-  {% set feedbackLink = messages("feedback.before") + " <a class='govuk-link' href='#'>" + messages("feedback.link") + "</a> " + messages("feedback.after") %}
-
-  {{ govukPhaseBanner({
-    tag: {
-      text: "alpha"
-    },
-    html: feedbackLink
-  }) }}
+  {{ phaseBanner("alpha") }}
 
   {{ govukBackLink({
     href: "#",

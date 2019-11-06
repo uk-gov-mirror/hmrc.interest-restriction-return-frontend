@@ -22,6 +22,7 @@ import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
+import nunjucks.Renderer
 import pages.HelloWorldYesNoPageNunjucks
 import play.api.Logger
 import play.api.data.Form
@@ -41,7 +42,7 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
                                                   formProvider: HelloWorldYesNoFormProvider,
-                                                  renderer: NunjucksRenderer,
+                                                  renderer: Renderer,
                                                   val controllerComponents: MessagesControllerComponents
                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport {
 

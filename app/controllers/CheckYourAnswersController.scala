@@ -20,6 +20,7 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import nunjucks.Renderer
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -39,7 +40,7 @@ class CheckYourAnswersController @Inject()(
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: CheckYourAnswersView,
-                                            renderer: NunjucksRenderer
+                                            renderer: Renderer
                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with NunjucksSupport with FeatureSwitching {
 
