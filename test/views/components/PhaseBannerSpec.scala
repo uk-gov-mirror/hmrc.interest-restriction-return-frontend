@@ -18,19 +18,15 @@ package views.components
 
 import assets.messages.PhaseBannerMessages
 import base.SpecBase
-import nunjucks.Renderer
 import org.jsoup.Jsoup
-import play.api.Logger
 import play.api.libs.json.Json
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import views.html.govukComponents.phaseBanner
 
 class PhaseBannerSpec extends SpecBase {
 
-  lazy val twirlTemplate = app.injector.instanceOf[phaseBanner]
-  lazy val nunjucksRenderer = app.injector.instanceOf[Renderer]
-
-  lazy val twirlPhaseBanner: Html = twirlTemplate("alpha")(fakeRequest, messages, frontendAppConfig)
+  lazy val phaseBanner: phaseBanner = app.injector.instanceOf[phaseBanner]
+  lazy val twirlPhaseBanner: Html = phaseBanner("alpha")(fakeRequest, messages, frontendAppConfig)
   lazy val nunjucksPhaseBanner: Html =
     await(nunjucksRenderer.render("components/phaseBanner/template.njk", Json.obj("phase" -> "alpha"))(fakeRequest))
 
@@ -40,21 +36,23 @@ class PhaseBannerSpec extends SpecBase {
     val phase = "strong.govuk-tag"
   }
 
-
   Seq(twirlPhaseBanner -> "twirl", nunjucksPhaseBanner -> "nunjucks").foreach {
-    case (phaseBanner, templatingSystem) =>
+    case (html, templatingSystem) =>
       s"phaseBanner ($templatingSystem) component" must {
 
-        "render correctly given the appropriate phase" in {
+        lazy val document = Jsoup.parse(html.toString)
 
-          Logger.debug(phaseBanner.toString)
+        "Have the correct phase tag" in {
+          document.select(Selectors.phase).text mustBe PhaseBannerMessages.tag
+        }
 
-          val document = Jsoup.parse(phaseBanner.toString)
-
+        "Have a link to the contact-frontend service" in {
           document.select(Selectors.link).attr("href") mustBe frontendAppConfig.feedbackUrl(fakeRequest)
           document.select(Selectors.link).text mustBe PhaseBannerMessages.link
+        }
+
+        "Have the correct message for the content of the banner" in {
           document.select(Selectors.content).text mustBe PhaseBannerMessages.content
-          document.select(Selectors.phase).text mustBe PhaseBannerMessages.tag
         }
       }
   }

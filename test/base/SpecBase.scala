@@ -18,6 +18,7 @@ package base
 
 import config.FrontendAppConfig
 import models.UserAnswers
+import nunjucks.Renderer
 import org.scalatest.TryValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.PlaySpec
@@ -61,5 +62,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   lazy val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
   implicit val messages: Messages = messagesApi.preferred(fakeRequest)
+
+  lazy val nunjucksRenderer: Renderer = app.injector.instanceOf[Renderer]
 
 }
