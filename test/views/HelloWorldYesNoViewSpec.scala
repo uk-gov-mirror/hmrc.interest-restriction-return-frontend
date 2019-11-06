@@ -46,5 +46,7 @@ class HelloWorldYesNoViewSpec extends YesNoViewBehaviours {
                           messageKeyPrefix = messageKeyPrefix,
                           expectedFormAction = routes.HelloWorldYesNoController.onSubmit(NormalMode).url,
                           isNewPlayFrontendGovukView = true)
+
+    behave like pageWithSignOutLink(applyView(form))
   }
 }

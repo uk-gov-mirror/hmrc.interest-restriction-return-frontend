@@ -22,6 +22,7 @@
     reportAProblemLink: ReportAProblemLink,
     govukPhaseBanner: GovukPhaseBanner,
     govukBackLink: GovukBackLink,
+    siteHeader: govukComponents.siteHeader,
     phaseBanner: govukComponents.phaseBanner
 )
 
@@ -47,5 +48,6 @@
   headBlock = Some(head),
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,
-  scriptsBlock = Some(scripts)
+  scriptsBlock = Some(scripts),
+  headerBlock = Some(siteHeader())
 )(contentBlock)

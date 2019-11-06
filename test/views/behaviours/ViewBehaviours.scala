@@ -68,4 +68,16 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithSignOutLink(view: HtmlFormat.Appendable): Unit = {
+
+    "behave like a page with a Sign Out link" must {
+
+      "have a Sign Out link" in {
+
+        val doc = asDocument(view)
+        assertRenderedByCssSelector(doc, "ul.govuk-header__navigation li:nth-of-type(1) a")
+      }
+    }
+  }
 }

@@ -8,13 +8,7 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeader({
-    homepageUrl: "/",
-    serviceName: messages('service.name'),
-    serviceUrl: "/",
-    containerClasses: "govuk-width-container",
-    assetsPath: "/assets"
-  }) }}
+  {% include "components/siteHeader.njk" %}
 {% endblock %}
 
 {% block beforeContent %}
