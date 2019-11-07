@@ -32,8 +32,6 @@ class HelloWorldYesNoNunjucksViewSpec extends YesNoViewBehaviours with NunjucksS
 
   val form = new HelloWorldYesNoFormProvider()()
 
-  val nunjucksRenderer = injector.instanceOf[NunjucksRenderer]
-
   "HelloWorldYesNoNunjucks view" must {
 
     def applyView(form: Form[Boolean]): Html =

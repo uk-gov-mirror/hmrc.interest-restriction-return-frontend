@@ -19,21 +19,27 @@ package config
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.mvc.Call
+import play.api.mvc.{Call, Request, RequestHeader}
+import uk.gov.hmrc.play.binders.ContinueUrl
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
 class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
+
+  lazy val host: String = servicesConfig.getString("host")
 
   private val contactHost = servicesConfig.getString("contact-frontend.host")
   private val contactFormServiceIdentifier = "irr"
 
   val analyticsToken: String = servicesConfig.getString(s"google-analytics.token")
   val analyticsHost: String = servicesConfig.getString(s"google-analytics.host")
+
   val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
-  val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
-  val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
+
+  private def requestUri(implicit request: RequestHeader) = ContinueUrl(host + request.uri).encodedUrl
+  def feedbackUrl(implicit request: RequestHeader): String =
+    s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier&backUrl=$requestUri"
 
   lazy val authUrl: String = servicesConfig.baseUrl("auth")
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
