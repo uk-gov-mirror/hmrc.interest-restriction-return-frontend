@@ -17,18 +17,17 @@
 @import config.FrontendAppConfig
 
 @this(
-    govuk_wrapper: templates.GovukWrapper,
-    appConfig: FrontendAppConfig
+    govuk_wrapper: templates.GovukLayoutWrapper,
+    h1: govukComponents.h1
 )
 
-@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages)
-
-@contentHeader = {
-  @components.heading(heading)
-}
+@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainContent = {
-  <p>@message</p>
+
+  @h1(messages(heading))
+
+  <p class="govuk-body">@messages(message)</p>
 }
 
-@govuk_wrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainContent = mainContent)
+@govuk_wrapper(Some(pageTitle))(mainContent)

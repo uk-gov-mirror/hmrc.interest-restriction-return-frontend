@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
-package viewmodels
+package nunjucks
 
-trait Section
+import models.WithName
+
+trait ViewTemplate
+object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
+object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate

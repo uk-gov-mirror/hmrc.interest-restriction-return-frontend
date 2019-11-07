@@ -59,7 +59,7 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
 
     "return OK and the correct view for a GET" in {
 
-      mockRender("helloWorldYesNo.njk", viewContext(form))(Html("Success"))
+      mockRender(nunjucks.HelloWorldYesNoTemplate, viewContext(form))(Html("Success"))
 
       val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -69,7 +69,7 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      mockRender("helloWorldYesNo.njk", viewContext(form.fill(true)))(Html("Success"))
+      mockRender(nunjucks.HelloWorldYesNoTemplate, viewContext(form.fill(true)))(Html("Success"))
 
       val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPageNunjucks, true).success.value
 
@@ -91,7 +91,7 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      mockRender("helloWorldYesNo.njk", viewContext(form.bind(Map("value" -> ""))))(Html("Success"))
+      mockRender(nunjucks.HelloWorldYesNoTemplate, viewContext(form.bind(Map("value" -> ""))))(Html("Success"))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 

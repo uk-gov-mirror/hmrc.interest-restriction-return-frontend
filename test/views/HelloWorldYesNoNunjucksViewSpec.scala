@@ -35,7 +35,7 @@ class HelloWorldYesNoNunjucksViewSpec extends YesNoViewBehaviours with NunjucksS
   "HelloWorldYesNoNunjucks view" must {
 
     def applyView(form: Form[Boolean]): Html =
-      await(nunjucksRenderer.render("helloWorldYesNo.njk", Json.obj(
+      await(nunjucksRenderer.render(nunjucks.HelloWorldYesNoTemplate, Json.obj(
         "form" -> form,
         "radios" -> Radios.yesNo(form("value"))
       ))(fakeRequest))

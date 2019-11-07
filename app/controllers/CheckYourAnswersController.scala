@@ -20,13 +20,13 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import nunjucks.Renderer
+import nunjucks.{CheckYourAnswersTemplate, Renderer}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import uk.gov.hmrc.nunjucks.{NunjucksRenderer, NunjucksSupport}
+import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersHelper
 import views.html.CheckYourAnswersView
@@ -44,16 +44,6 @@ class CheckYourAnswersController @Inject()(
                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with NunjucksSupport with FeatureSwitching {
 
-  private def renderView(answers: Seq[SummaryListRow])(implicit request: Request[_]): Future[Html] =
-
-    if(isEnabled(UseNunjucks)) {
-      renderer.render("checkYourAnswers.njk", Json.obj(
-        "rows" -> answers
-      ))
-    } else {
-      Future.successful(view(answers))
-    }
-
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
@@ -66,4 +56,13 @@ class CheckYourAnswersController @Inject()(
 
       renderView(sections).map(Ok(_))
   }
+
+  private def renderView(answers: Seq[SummaryListRow])(implicit request: Request[_]): Future[Html] =
+    if(isEnabled(UseNunjucks)) {
+      renderer.render(CheckYourAnswersTemplate, Json.obj(
+        "rows" -> answers
+      ))
+    } else {
+      Future.successful(view(answers))
+    }
 }
