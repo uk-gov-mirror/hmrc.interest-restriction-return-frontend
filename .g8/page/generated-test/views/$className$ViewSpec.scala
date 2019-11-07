@@ -9,7 +9,7 @@ class $className$ViewSpec extends ViewBehaviours {
 
     val view = viewFor[$className$View](Some(emptyUserAnswers))
 
-    val applyView = view.apply()(fakeRequest, messages)
+    val applyView = view.apply()(fakeRequest, frontendAppConfig, messages)
 
     behave like normalPage(applyView, "$className;format="decap"$")
 

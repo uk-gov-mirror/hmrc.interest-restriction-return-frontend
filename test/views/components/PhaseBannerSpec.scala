@@ -21,7 +21,7 @@ import base.SpecBase
 import org.jsoup.Jsoup
 import play.api.libs.json.Json
 import play.twirl.api.Html
-import views.html.govukComponents.phaseBanner
+import views.html.components.phaseBanner
 
 class PhaseBannerSpec extends SpecBase {
 
