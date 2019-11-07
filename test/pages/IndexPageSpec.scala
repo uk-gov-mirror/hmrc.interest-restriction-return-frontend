@@ -18,18 +18,12 @@ package pages
 
 import pages.behaviours.PageBehaviours
 
-class HelloWorldYesNoPageSpec extends PageBehaviours {
+class IndexPageSpec extends PageBehaviours {
 
-  "HelloWorldYesNoPage" must {
+  "IndexPage" must {
 
     "Have the correct name" in {
-      HelloWorldYesNoPage.toString mustBe "helloWorldYesNo"
+      IndexPage.toString mustBe "index"
     }
-
-    beRetrievable[Boolean](HelloWorldYesNoPage)
-
-    beSettable[Boolean](HelloWorldYesNoPage)
-
-    beRemovable[Boolean](HelloWorldYesNoPage)
   }
 }
