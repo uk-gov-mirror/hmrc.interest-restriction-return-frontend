@@ -22,7 +22,7 @@ import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import nunjucks.Renderer
+import nunjucks._
 import pages.HelloWorldYesNoPageNunjucks
 import play.api.Logger
 import play.api.data.Form
@@ -30,7 +30,7 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.{NunjucksRenderer, NunjucksSupport}
+import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -47,7 +47,7 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport {
 
   private def viewHtml(form: Form[Boolean])(implicit request: Request[_]) =
-    renderer.render("helloWorldYesNo.njk", Json.obj(
+    renderer.render(HelloWorldYesNoTemplate, Json.obj(
       "form"   -> form,
       "radios" -> Radios.yesNo(form("value"))
     ))

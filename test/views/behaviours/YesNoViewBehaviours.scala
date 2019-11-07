@@ -24,8 +24,7 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
   def yesNoPage(form: Form[Boolean],
                 createView: Form[Boolean] => HtmlFormat.Appendable,
                 messageKeyPrefix: String,
-                expectedFormAction: String,
-                isNewPlayFrontendGovukView: Boolean = false): Unit = {
+                expectedFormAction: String): Unit = {
 
     "behave like a page with a Yes/No question" when {
 
@@ -75,18 +74,14 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         "show an error summary" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertRenderedById(doc, if(isNewPlayFrontendGovukView) "error-summary-title" else "error-summary-heading")
+          assertRenderedById(doc, "error-summary-title")
         }
 
         "show an error associated with the value field" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          val errorSpan =
-            if(isNewPlayFrontendGovukView) {
-              doc.getElementsByClass("govuk-error-message").first
-            } else {
-              doc.getElementsByClass("error-message").first
-            }
+          val errorSpan = doc.getElementsByClass("govuk-error-message").first
+
           errorSpan.text mustBe messages("error.browser.title.prefix") + " " + messages(errorMessage)
           doc.getElementsByTag("fieldset").first.attr("aria-describedby") contains errorSpan.attr("id")
         }

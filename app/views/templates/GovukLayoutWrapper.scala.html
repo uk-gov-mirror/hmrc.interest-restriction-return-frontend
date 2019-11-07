@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import views.html.govukComponents.languageSelection
 
 @this(
     govukLayout: GovukLayout,
@@ -39,8 +40,18 @@
 }
 
 @beforeContentBlock = {
+
     @phaseBanner("alpha")
+
     @govukBackLink(BackLink(href = "#", content = Text("Back"), attributes = Map("id" -> "back-link")))
+
+    @if(appConfig.languageTranslationEnabled) {
+        @languageSelection(
+            appConfig.languageMap,
+            appConfig.routeToSwitchLanguage,
+            Some("translate u-align--right")
+        )
+    }
 }
 
 @govukLayout(

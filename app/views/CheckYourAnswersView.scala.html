@@ -14,19 +14,19 @@
  * limitations under the License.
  *@
 
-@import viewmodels.{AnswerSection, RepeaterAnswerSection, Section}
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
-    govukSummaryList: GovukSummaryList
+    govukSummaryList: GovukSummaryList,
+    h1: govukComponents.h1
 )
 
 @(answers: Seq[SummaryListRow])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(messages("checkYourAnswers.title"))) {
 
-    <h1 class="govuk-heading-xl">@messages("checkYourAnswers.heading")</h1>
+    @h1(messages("checkYourAnswers.heading"))
 
     <p class="govuk-body">@messages("checkYourAnswers.guidance")</p>
 

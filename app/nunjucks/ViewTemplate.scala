@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(headingKey: String, headingSize: String = "heading-xlarge")(implicit messages: Messages)
+package nunjucks
 
-<h1 class="@headingSize">@messages(headingKey)</h1>
+import models.WithName
+
+trait ViewTemplate
+object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
+object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
