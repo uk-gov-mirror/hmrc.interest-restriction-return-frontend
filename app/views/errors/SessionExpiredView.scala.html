@@ -22,9 +22,7 @@
 
 @()(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = titleNoForm("session_expired.title")
-    ) {
+@main_template(title = titleNoForm("session_expired.title")) {
 
     @components.heading("session_expired.heading")
 
