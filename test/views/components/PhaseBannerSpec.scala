@@ -25,8 +25,8 @@ import views.html.govukComponents.phaseBanner
 
 class PhaseBannerSpec extends SpecBase {
 
-  lazy val phaseBanner: phaseBanner = app.injector.instanceOf[phaseBanner]
-  lazy val twirlPhaseBanner: Html = phaseBanner("alpha")(fakeRequest, messages, frontendAppConfig)
+  lazy val phaseBannerView: phaseBanner = app.injector.instanceOf[phaseBanner]
+  lazy val twirlPhaseBanner: Html = phaseBannerView("alpha")(fakeRequest, messages, frontendAppConfig)
   lazy val nunjucksPhaseBanner: Html =
     await(nunjucksRenderer.render("components/phaseBanner/template.njk", Json.obj("phase" -> "alpha"))(fakeRequest))
 

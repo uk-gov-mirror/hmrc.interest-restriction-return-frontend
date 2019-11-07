@@ -15,16 +15,18 @@
  *@
 
 @import views.ViewUtils._
+@import config.FrontendAppConfig
 
 @this(
-    main_template: templates.MainTemplate
+    main_template: templates.GovukLayoutWrapper,
+    h1: govukComponents.h1
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@main_template(title = titleNoForm("session_expired.title")) {
+@main_template(Some(titleNoForm("session_expired.title"))) {
 
-    @components.heading("session_expired.heading")
+    @h1(messages("session_expired.heading"))
 
-    <p>@messages("session_expired.guidance")</p>
+    <p class="govuk-body">@messages("session_expired.guidance")</p>
 }
