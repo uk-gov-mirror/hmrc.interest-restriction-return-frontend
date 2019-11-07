@@ -37,6 +37,7 @@ site.yes = Yes
 site.continue = Continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
+site.signOut = Sign out
 
 feedback.before = This is a new service - your
 feedback.link = feedback

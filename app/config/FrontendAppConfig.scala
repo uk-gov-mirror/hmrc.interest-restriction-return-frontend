@@ -41,8 +41,12 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   def feedbackUrl(implicit request: RequestHeader): String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier&backUrl=$requestUri"
 
+  private lazy val exitSurveyBaseUrl = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
+  lazy val exitSurveyUrl = s"$exitSurveyBaseUrl/$contactFormServiceIdentifier"
+
   lazy val authUrl: String = servicesConfig.baseUrl("auth")
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
+  lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
   lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
 
   lazy val languageTranslationEnabled: Boolean =
