@@ -27,6 +27,12 @@ class FeatureSwitchSpec extends SpecBase {
       "Construct a feature switch from a supplied key" in {
         FeatureSwitch("features.welsh-translation") mustBe WelshLanguage
       }
+
+      "Throw Illegal Arg exception if feature switch does not exist" in {
+        assertThrows[IllegalArgumentException] {
+          FeatureSwitch("foo")
+        }
+      }
     }
 
     "for `.get(fsName: String): Option[FeatureSwitch]`" must {

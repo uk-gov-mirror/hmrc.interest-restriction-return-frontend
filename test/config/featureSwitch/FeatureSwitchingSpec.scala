@@ -22,6 +22,11 @@ class FeatureSwitchingSpec extends SpecBase with FeatureSwitching {
 
   "FeatureSwitching" must {
 
+    "Load config from appConfig if nothing set in sysProps" in {
+      sys.props -= WelshLanguage.name
+      isEnabled(WelshLanguage) mustBe false
+    }
+
     "Allow a feature switch to be enabled" in {
       enable(WelshLanguage)
       sys.props.get(WelshLanguage.name) mustBe Some(FEATURE_SWITCH_ON)
