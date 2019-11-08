@@ -1,5 +1,6 @@
 @import controllers.routes._
 @import models.Mode
+@import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -10,7 +11,7 @@
     h1: components.h1
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
     pageTitle = Some(title(form, "$className;format="decap"$.title"))
@@ -20,13 +21,14 @@
 
         @errorSummary(form.errors)
 
-        @h1("$className;format="decap"$.heading")
-
-        @inputText(
-          id = $className;format="decap"$
-          name = $className;format="decap"$
-          label = "$className;format="decap"$.label"
-        )
+        @fieldset("$className;format="decap"$.heading") {
+            @inputText(
+              form,
+              id = "value",
+              name = "value",
+              label = "$className;format="decap"$.label"
+            )
+        }
 
         @button("site.continue")
     }

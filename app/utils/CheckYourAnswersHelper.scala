@@ -51,4 +51,18 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
     case true => messages("site.yes")
     case _ => messages("site.no")
   }
+
+  private def inputText(page: QuestionPage[String], changeLinkCall: Call)(implicit messages: Messages): Option[SummaryListRow] =
+    userAnswers.get(page) map { text =>
+      SummaryListRow(
+        key = Key(content = HtmlContent(messages(s"$page.checkYourAnswersLabel"))),
+        value = Value(content = Text(text)),
+        actions = Some(Actions(
+          items = Seq(ActionItem(
+            href = changeLinkCall.url,
+            content = Text(messages("site.edit"))
+          ))
+        ))
+      )
+    }
 }

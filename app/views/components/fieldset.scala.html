@@ -16,17 +16,16 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(govukInput: GovukInput)
+@this(govukFieldset: GovukFieldset)
 
-@(form: Form[_], id: String, name: String, label: String)(implicit messages: Messages)
+@(legend: String, asHeading: Boolean = true)(content: Html)(implicit messages: Messages)
 
-@govukInput(Input(
-  id,
-  name,
-  label = Label(
-    content = Text(messages(label))
-  ),
-  value = form("value").value,
-  errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+@govukFieldset(Fieldset(
+    legend = Some(Legend(
+        content = Text(messages(legend)),
+        classes = "govuk-fieldset__legend--xl",
+        isPageHeading = asHeading
+    )),
+    html = content
 ))
 
