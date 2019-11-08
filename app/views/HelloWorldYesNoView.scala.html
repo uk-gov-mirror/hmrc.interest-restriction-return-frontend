@@ -22,7 +22,7 @@
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
-    govukButton: GovukButton,
+    button: components.button,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
@@ -38,6 +38,6 @@
 
         @yesNoRadio(form, "helloWorldYesNo.heading")
 
-        @govukButton(Button(content = Text(messages("site.continue"))))
+        @button("site.continue")
     }
 }
