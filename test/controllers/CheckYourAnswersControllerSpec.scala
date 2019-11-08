@@ -16,17 +16,21 @@
 
 package controllers
 
+import assets.messages.CheckYourAnswersMessages
 import base.SpecBase
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import nunjucks.MockNunjucksRenderer
+import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
+import play.api.libs.json.Json
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersControllerSpec extends SpecBase with MockNunjucksRenderer {
+class CheckYourAnswersControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionNone) = new CheckYourAnswersController(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new CheckYourAnswersController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
@@ -38,18 +42,32 @@ class CheckYourAnswersControllerSpec extends SpecBase with MockNunjucksRenderer 
 
   "Check Your Answers Controller" must {
 
-    "return a OK (200) when given empty answers" in {
+    "If Twirl library is being used" must {
 
-      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
+      "return a OK (200) when given empty answers" in {
 
-      status(result) mustEqual OK
-    }
-
-    "return a SEE_OTHER (303) when given None" in {
+        disable(UseNunjucks)
 
         val result = controller().onPageLoad()(fakeRequest)
 
-        status(result) mustEqual SEE_OTHER
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustEqual title(CheckYourAnswersMessages.title)
+      }
+    }
+
+    "If Nunjucks library is being used" must {
+
+      "return a OK (200) when given empty answers" in {
+
+        enable(UseNunjucks)
+
+        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr()))(Html("Success"))
+
+        val result = controller().onPageLoad()(fakeRequest)
+
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual "Success"
+      }
     }
   }
 }

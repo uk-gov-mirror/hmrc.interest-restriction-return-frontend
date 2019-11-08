@@ -37,6 +37,35 @@ class AuthActionSpec extends SpecBase {
 
   "Auth Action" when {
 
+    "the user is logged in with internalId returned" must {
+
+      "successful cary out request" in {
+
+        val bodyParsers = app.injector.instanceOf[BodyParsers.Default]
+
+        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector[Option[String]](Some("id")), frontendAppConfig, bodyParsers)
+        val controller = new Harness(authAction)
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustBe OK
+      }
+    }
+
+    "the user is logged in with NO internalId returned" must {
+
+      "redirect to unauthorised" in {
+
+        val bodyParsers = app.injector.instanceOf[BodyParsers.Default]
+
+        val authAction = new AuthenticatedIdentifierAction(new FakeSuccessAuthConnector[Option[String]](None), frontendAppConfig, bodyParsers)
+        val controller = new Harness(authAction)
+        val result = controller.onPageLoad()(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(routes.UnauthorisedController.onPageLoad().url)
+      }
+    }
+
     "the user hasn't logged in" must {
 
       "redirect the user to log in " in {
@@ -151,9 +180,12 @@ class AuthActionSpec extends SpecBase {
   }
 }
 
-class FakeFailingAuthConnector @Inject()(exceptionToReturn: Throwable) extends AuthConnector {
-  val serviceUrl: String = ""
+class FakeSuccessAuthConnector[B] @Inject()(response: B) extends AuthConnector {
+  override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[A] =
+    Future.successful(response.asInstanceOf[A])
+}
 
+class FakeFailingAuthConnector @Inject()(exceptionToReturn: Throwable) extends AuthConnector {
   override def authorise[A](predicate: Predicate, retrieval: Retrieval[A])(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[A] =
     Future.failed(exceptionToReturn)
 }

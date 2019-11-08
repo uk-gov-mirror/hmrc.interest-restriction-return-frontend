@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,23 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+package assets.messages
 
-@this(
-    govukLayout: templates.GovukLayoutWrapper,
-    govukSummaryList: GovukSummaryList,
-    h1: govukComponents.h1
-)
+object CheckYourAnswersMessages {
 
-@(answers: Seq[SummaryListRow])(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+  val title = "Check Your Answers"
 
-@govukLayout(pageTitle = Some(titleNoForm("checkYourAnswers.title"))) {
-
-    @h1("checkYourAnswers.heading")
-
-    <p class="govuk-body">@messages("checkYourAnswers.guidance")</p>
-
-    @govukSummaryList(SummaryList(answers))
 }
