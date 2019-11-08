@@ -12,7 +12,7 @@ class $className$Spec extends WordSpec with MustMatchers with ScalaCheckProperty
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf($className$.values.toSeq)
+      val gen = Gen.oneOf($className$.values)
 
       forAll(gen) {
         $className;format="decap"$ =>
@@ -34,7 +34,7 @@ class $className$Spec extends WordSpec with MustMatchers with ScalaCheckProperty
 
     "serialise" in {
 
-      val gen = Gen.oneOf($className$.values.toSeq)
+      val gen = Gen.oneOf($className$.values)
 
       forAll(gen) {
         $className;format="decap"$ =>

@@ -64,7 +64,7 @@ class $className$ControllerSpec extends SpecBase with MockitoSugar {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", $className$.options.head.value))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", $className$.values.head.toString))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -91,7 +91,7 @@ class $className$ControllerSpec extends SpecBase with MockitoSugar {
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", $className$.options.head.value))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", $className$.values.head.toString))
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
