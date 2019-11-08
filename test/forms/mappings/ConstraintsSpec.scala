@@ -29,60 +29,77 @@ class ConstraintsSpec extends WordSpec with MustMatchers with ScalaCheckProperty
 
   "firstError" must {
 
+    lazy val first = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))
+
     "return Valid when all constraints pass" in {
-      val result = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))("foo")
-      result mustEqual Valid
+      first("foo") mustEqual Valid
     }
 
     "return Invalid when the first constraint fails" in {
-      val result = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))("a" * 11)
-      result mustEqual Invalid("error.length", 10)
+      first("a" * 11) mustEqual Invalid("error.length", 10)
     }
 
     "return Invalid when the second constraint fails" in {
-      val result = firstError(maxLength(10, "error.length"), regexp("""^\w+$""", "error.regexp"))("")
-      result mustEqual Invalid("error.regexp", """^\w+$""")
-    }
-
-    "return Invalid for the first error when both constraints fail" in {
-      val result = firstError(maxLength(-1, "error.length"), regexp("""^\w+$""", "error.regexp"))("")
-      result mustEqual Invalid("error.length", -1)
+      first("") mustEqual Invalid("error.regexp", """^\w+$""")
     }
   }
 
   "minimumValue" must {
 
+    lazy val min = minimumValue(1, "error.min")
+
     "return Valid for a number greater than the threshold" in {
-      val result = minimumValue(1, "error.min").apply(2)
-      result mustEqual Valid
+      min(2) mustEqual Valid
     }
 
     "return Valid for a number equal to the threshold" in {
-      val result = minimumValue(1, "error.min").apply(1)
-      result mustEqual Valid
+      min(1) mustEqual Valid
     }
 
     "return Invalid for a number below the threshold" in {
-      val result = minimumValue(1, "error.min").apply(0)
-      result mustEqual Invalid("error.min", 1)
+      min(0) mustEqual Invalid("error.min", 1)
+    }
+  }
+
+  "inRange" must {
+
+    lazy val range = inRange(1, 3, "error")
+
+    "return Valid for a number in the range" in {
+      range(2) mustEqual Valid
+    }
+
+    "return Valid for a number equal to the minimum" in {
+      range(1) mustEqual Valid
+    }
+
+    "return Valid for a number equal to the maximum" in {
+      range(3) mustEqual Valid
+    }
+
+    "return Invalid for a number below the minimum" in {
+      range(0) mustEqual Invalid("error", 1, 3)
+    }
+
+    "return Invalid for a number below the maximum" in {
+      range(4) mustEqual Invalid("error", 1, 3)
     }
   }
 
   "maximumValue" must {
 
+    lazy val maxmimum = maximumValue(1, "error.max")
+
     "return Valid for a number less than the threshold" in {
-      val result = maximumValue(1, "error.max").apply(0)
-      result mustEqual Valid
+      maxmimum(0) mustEqual Valid
     }
 
     "return Valid for a number equal to the threshold" in {
-      val result = maximumValue(1, "error.max").apply(1)
-      result mustEqual Valid
+      maxmimum(1) mustEqual Valid
     }
 
     "return Invalid for a number above the threshold" in {
-      val result = maximumValue(1, "error.max").apply(2)
-      result mustEqual Invalid("error.max", 1)
+      maxmimum(2) mustEqual Invalid("error.max", 1)
     }
   }
 
@@ -101,24 +118,22 @@ class ConstraintsSpec extends WordSpec with MustMatchers with ScalaCheckProperty
 
   "maxLength" must {
 
+    lazy val max = maxLength(10, "error.length")
+
     "return Valid for a string shorter than the allowed length" in {
-      val result = maxLength(10, "error.length")("a" * 9)
-      result mustEqual Valid
+      max("a" * 9) mustEqual Valid
     }
 
     "return Valid for an empty string" in {
-      val result = maxLength(10, "error.length")("")
-      result mustEqual Valid
+      max("") mustEqual Valid
     }
 
     "return Valid for a string equal to the allowed length" in {
-      val result = maxLength(10, "error.length")("a" * 10)
-      result mustEqual Valid
+      max("a" * 10) mustEqual Valid
     }
 
     "return Invalid for a string longer than the allowed length" in {
-      val result = maxLength(10, "error.length")("a" * 11)
-      result mustEqual Invalid("error.length", 10)
+      max("a" * 11) mustEqual Invalid("error.length", 10)
     }
   }
 
@@ -185,6 +200,19 @@ class ConstraintsSpec extends WordSpec with MustMatchers with ScalaCheckProperty
           val result = minDate(min, "error.past", "foo")(date)
           result mustEqual Invalid("error.past", "foo")
       }
+    }
+  }
+
+  "nonEmptySet" must {
+
+    lazy val nonEmpty = nonEmptySet("error")
+
+    "return Valid when supplied with a Set of values" in {
+      nonEmpty(Set(1,2)) mustEqual Valid
+    }
+
+    "return Invalid when an empty set is supplied" in {
+      nonEmpty(Set()) mustEqual Invalid("error")
     }
   }
 }

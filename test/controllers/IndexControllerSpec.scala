@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeDataRetrievalActionNone, FakeIdentifierAction}
 import mocks.MockSessionRepository
 import navigation.FakeNavigator
 import play.api.mvc.Call
@@ -35,10 +35,19 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository {
 
   "Index Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET with UserAnswers already supplied" in {
       mockSet(true)
 
       val result = controller().onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some("/foo")
+    }
+
+    "return OK and the correct view for a GET with UserAnswers NOT already supplied" in {
+      mockSet(true)
+
+      val result = controller(FakeDataRetrievalActionNone).onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some("/foo")

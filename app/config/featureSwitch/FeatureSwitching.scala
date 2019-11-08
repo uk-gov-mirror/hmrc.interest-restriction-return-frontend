@@ -24,10 +24,10 @@ trait FeatureSwitching {
   val FEATURE_SWITCH_OFF = "false"
 
   def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean =
-    sys.props.get(featureSwitch.name).fold(config.servicesConfig.getBoolean(featureSwitch.name))(_.toBoolean)
+    getValue(featureSwitch).toBoolean
 
   def getValue(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): String =
-    sys.props.get(featureSwitch.name).fold(config.servicesConfig.getString(featureSwitch.name))(x => x)
+    sys.props.get(featureSwitch.name).getOrElse(config.servicesConfig.getString(featureSwitch.name))
 
   def setValue(featureSwitch: FeatureSwitch, value: String) = sys.props += featureSwitch.name -> value
 

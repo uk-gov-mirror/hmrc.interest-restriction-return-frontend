@@ -45,7 +45,7 @@ class AuthenticatedIdentifierAction @Inject()(
     authorised().retrieve(Retrievals.internalId) {
       _.map {
         internalId => block(IdentifierRequest(request, internalId))
-      }.getOrElse(throw new UnauthorizedException("Unable to retrieve internal Id"))
+      }.getOrElse(throw UnsupportedAuthProvider("Unable to retrieve internal Id"))
     } recover {
       case _: NoActiveSession =>
         Redirect(config.loginUrl, Map("continue" -> Seq(config.loginContinueUrl)))

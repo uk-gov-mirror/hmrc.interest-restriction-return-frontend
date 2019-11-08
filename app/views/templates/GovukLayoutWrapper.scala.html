@@ -24,7 +24,8 @@
     govukPhaseBanner: GovukPhaseBanner,
     govukBackLink: GovukBackLink,
     siteHeader: govukComponents.siteHeader,
-    phaseBanner: govukComponents.phaseBanner
+    phaseBanner: govukComponents.phaseBanner,
+    languageSelection: govukComponents.languageSelection
 )
 
 @(pageTitle: Option[String] = None)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
@@ -48,8 +49,7 @@
     @if(appConfig.languageTranslationEnabled) {
         @languageSelection(
             appConfig.languageMap,
-            appConfig.routeToSwitchLanguage,
-            Some("translate u-align--right")
+            appConfig.routeToSwitchLanguage
         )
     }
 }

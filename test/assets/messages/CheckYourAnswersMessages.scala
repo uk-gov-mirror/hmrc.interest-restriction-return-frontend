@@ -14,22 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package assets.messages
 
-import pages.behaviours.PageBehaviours
+object CheckYourAnswersMessages {
 
-class HelloWorldYesNoPageSpec extends PageBehaviours {
+  val title = "Check Your Answers"
 
-  "HelloWorldYesNoPage" must {
-
-    "Have the correct name" in {
-      HelloWorldYesNoPage.toString mustBe "helloWorldYesNo"
-    }
-
-    beRetrievable[Boolean](HelloWorldYesNoPage)
-
-    beSettable[Boolean](HelloWorldYesNoPage)
-
-    beRemovable[Boolean](HelloWorldYesNoPage)
-  }
 }
