@@ -23,7 +23,8 @@ class IndexPageSpec extends PageBehaviours {
   "IndexPage" must {
 
     "Have the correct name" in {
-      IndexPage.toString mustBe "index"
+      val name: String = IndexPage
+      name mustBe "index"
     }
   }
 }
