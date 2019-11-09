@@ -2,7 +2,7 @@ package models
 
 import play.api.data.Form
 import play.api.i18n.Messages
-import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait $className$
@@ -16,7 +16,7 @@ object $className$ extends Enumerable.Implicits {
     $option1key;format="Camel"$, $option2key;format="Camel"$
   )
 
-  def options(form: Form[_](implicit messages: Messages): Seq[RadioItem] = values.map {
+  def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
     value =>
       RadioItem(
         value = Some(value.toString),

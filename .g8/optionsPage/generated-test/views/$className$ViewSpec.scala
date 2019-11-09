@@ -33,23 +33,24 @@ class $className$ViewSpec extends ViewBehaviours {
 
         val doc = asDocument(applyView(form))
 
-        for (option <- $className$.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+        for (option <- $className$.options(form)) {
+          assertContainsRadioButton(doc, option.id.get, "value", option.value.get, false)
         }
       }
     }
 
-    for (option <- $className$.options) {
+    for (option <- $className$.options(form)) {
 
-      s"rendered with a value of '\${option.value}'" must {
+      s"rendered with a value of '\${option.value.get}'" must {
 
-        s"have the '\${option.value}' radio button selected" in {
+        s"have the '\${option.value.get}' radio button selected" in {
 
-          val doc = asDocument(applyView(form.bind(Map("value" -> s"\${option.value}"))))
+          val formWithData = form.bind(Map("value" -> s"\${option.value.get}"))
+          val doc = asDocument(applyView(formWithData))
 
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id.get, "value", option.value.get, true)
 
-          for (unselectedOption <- $className$.options.filterNot(o => o == option)) {
+          for (unselectedOption <- $className$.options(formWithData).filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

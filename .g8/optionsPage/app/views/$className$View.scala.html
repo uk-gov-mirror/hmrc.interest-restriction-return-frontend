@@ -7,7 +7,8 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    button: components.button
+    button: components.button,
+    inputRadio: components.inputRadio
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -18,7 +19,7 @@
 
         @errorSummary(form.errors)
 
-        @components.input_radio(
+        @inputRadio(
             form = form,
             legend = messages("$className;format="decap"$.heading"),
             items = $className$.options(form)
