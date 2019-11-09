@@ -12,14 +12,29 @@ echo "POST       /$className;format="decap"$                        controllers.
 echo "GET        /change$className$                  controllers.$className$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
 echo "POST       /change$className$                  controllers.$className$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
-echo "Adding messages to conf.messages"
+echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
+echo "" >> ../conf/messages.en
+echo "# $className$Page Messages" >> ../conf/messages.en
+echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $title$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $title$" >> ../conf/messages.en
 echo "$className;format="decap"$.$option1key;format="decap"$ = $option1msg$" >> ../conf/messages.en
 echo "$className;format="decap"$.$option2key;format="decap"$ = $option2msg$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $title$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Select $className;format="decap"$" >> ../conf/messages.en
+
+echo "Adding messages to Welsh conf.messages"
+echo "" >> ../conf/messages.cy
+echo "" >> ../conf/messages.cy
+echo "# $className$Page Messages" >> ../conf/messages.cy
+echo "# ----------------------------------------------------------" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $title$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $title$" >> ../conf/messages.cy
+echo "$className;format="decap"$.$option1key;format="decap"$ = $option1msg$" >> ../conf/messages.cy
+echo "$className;format="decap"$.$option2key;format="decap"$ = $option2msg$" >> ../conf/messages.cy
+echo "$className;format="decap"$.checkYourAnswersLabel = $title$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = Select $className;format="decap"$" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
