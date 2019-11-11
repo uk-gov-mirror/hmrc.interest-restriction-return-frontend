@@ -28,6 +28,8 @@ import views.html.$className$View
 
 class $className$ControllerSpec extends SpecBase {
 
+  def onwardRoute = Call("GET", "/foo")
+
   val view = injector.instanceOf[$className$View]
   val formProvider = new $className$FormProvider()
   val validAnswer = $minimum$
@@ -35,7 +37,7 @@ class $className$ControllerSpec extends SpecBase {
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = new FakeNavigator(Call("POST", "/foo")),
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
@@ -48,7 +50,7 @@ class $className$ControllerSpec extends SpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }

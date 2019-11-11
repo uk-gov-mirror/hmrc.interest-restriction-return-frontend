@@ -53,4 +53,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
     case true => messages("site.yes")
     case _ => messages("site.no")
   }
+
+  implicit private val intToString: Int => String = _.toString
 }

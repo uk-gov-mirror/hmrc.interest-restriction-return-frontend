@@ -69,7 +69,7 @@ class $className$ControllerSpec extends SpecBase {
 
       val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+      status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/foo")
     }
 
@@ -79,7 +79,7 @@ class $className$ControllerSpec extends SpecBase {
 
       val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {

@@ -57,3 +57,25 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+
+
+# INTPAGETESTPage Messages
+# ----------------------------------------------------------
+iNTPAGETEST.title = INTPAGETEST
+iNTPAGETEST.heading = INTPAGETEST
+iNTPAGETEST.checkYourAnswersLabel = INTPAGETEST
+iNTPAGETEST.error.nonNumeric = Enter your iNTPAGETEST using numbers
+iNTPAGETEST.error.required = Enter your iNTPAGETEST
+iNTPAGETEST.error.wholeNumber = Enter your iNTPAGETEST using whole numbers
+iNTPAGETEST.error.outOfRange = INTPAGETEST must be between {0} and {1}
+
+
+# INTTESTPAGETESTPage Messages
+# ----------------------------------------------------------
+iNTTESTPAGETEST.title = INTTESTPAGETEST
+iNTTESTPAGETEST.heading = INTTESTPAGETEST
+iNTTESTPAGETEST.checkYourAnswersLabel = INTTESTPAGETEST
+iNTTESTPAGETEST.error.nonNumeric = Enter your iNTTESTPAGETEST using numbers
+iNTTESTPAGETEST.error.required = Enter your iNTTESTPAGETEST
+iNTTESTPAGETEST.error.wholeNumber = Enter your iNTTESTPAGETEST using whole numbers
+iNTTESTPAGETEST.error.outOfRange = INTTESTPAGETEST must be between {0} and {1}
