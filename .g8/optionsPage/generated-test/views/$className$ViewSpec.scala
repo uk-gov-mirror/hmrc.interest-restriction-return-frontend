@@ -49,10 +49,6 @@ class $className$ViewSpec extends ViewBehaviours {
           val doc = asDocument(applyView(formWithData))
 
           assertContainsRadioButton(doc, option.id.get, "value", option.value.get, true)
-
-          for (unselectedOption <- $className$.options(formWithData).filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
-          }
         }
       }
     }
