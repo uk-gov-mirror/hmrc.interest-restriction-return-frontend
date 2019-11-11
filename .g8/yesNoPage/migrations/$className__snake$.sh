@@ -12,12 +12,25 @@ echo "POST       /$className;format="decap"$                        controllers.
 echo "GET        /change$className$                  controllers.$className$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
 echo "POST       /change$className$                  controllers.$className$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
-echo "Adding messages to conf.messages"
+echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
+echo "" >> ../conf/messages.en
+echo "# $className$Page Messages" >> ../conf/messages.en
+echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Select yes if $className;format="decap"$" >> ../conf/messages.en
+
+echo "Adding messages to Welsh conf.messages"
+echo "" >> ../conf/messages.cy
+echo "" >> ../conf/messages.cy
+echo "# $className$Page Messages" >> ../conf/messages.cy
+echo "# ----------------------------------------------------------" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = Select yes if $className;format="decap"$" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
@@ -50,7 +63,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def $className;format="decap"$: Option[SummaryListRow] = yesOrNo($className$Page, routes.$className$Controller.onPageLoad(CheckMode))";\
+     print "  def $className;format="decap"$: Option[SummaryListRow] = answer($className$Page, routes.$className$Controller.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Migration $className;format="snake"$ completed"
