@@ -76,15 +76,7 @@ awk '/val generators/ {\
 echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
-     print "";\
-     print "  def $className;format="decap"$: Option[AnswerRow] = userAnswers.get($className$Page) map {";\
-     print "    x =>";\
-     print "      AnswerRow(";\
-     print "        HtmlFormat.escape(messages(\"$className;format="decap"$.checkYourAnswersLabel\")),";\
-     print "        HtmlFormat.escape(messages(s\"$className;format="decap"$.\$x\")),";\
-     print "        routes.$className$Controller.onPageLoad(CheckMode).url";\
-     print "      )"
-     print "  }";\
+     print "  def $className;format="decap"$: Option[SummaryListRow] = answer($className$Page, routes.$className$Controller.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Migration $className;format="snake"$ completed"
