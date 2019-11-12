@@ -20,6 +20,7 @@ import assets.messages.SiteHeaderMessages
 import base.SpecBase
 import org.jsoup.Jsoup
 import play.twirl.api.Html
+import views.{Nunjucks, Twirl}
 import views.html.components.siteHeader
 
 class SiteHeaderSpec extends SpecBase {
@@ -35,7 +36,7 @@ class SiteHeaderSpec extends SpecBase {
     val signOutLink = "ul.govuk-header__navigation li:nth-of-type(1) a"
   }
 
-  Seq(twirlPhaseBanner -> "twirl", nunjucksPhaseBanner -> "nunjucks").foreach {
+  Seq(twirlPhaseBanner -> Twirl, nunjucksPhaseBanner -> Nunjucks).foreach {
     case (html, templatingSystem) =>
       s"siteHeader ($templatingSystem) component" must {
 

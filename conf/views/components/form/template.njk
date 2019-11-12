@@ -1,0 +1,11 @@
+{% from "components/errorSummary.njk" import errorSummary %}
+
+{{ errorSummary(form) }}
+
+<form action="{{ action }}" method="{{ method }}">
+
+    {{ csrf() | safe }}
+
+    {{ caller() }}
+
+</form>

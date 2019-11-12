@@ -1,9 +1,8 @@
 {% extends "includes/layout.njk" %}
 
-{% from "govuk/components/button/macro.njk"        import govukButton %}
-{% from "govuk/components/summary-list/macro.njk"  import govukSummaryList %}
-
 {% from "components/pageTitle.njk" import pageTitle %}
+{% from "components/h1/macro.njk" import h1 %}
+{% from "components/summaryList/macro.njk" import summaryList %}
 
 {% block pageTitle %}
   {{ pageTitle(form, "checkYourAnswers.title") }}
@@ -14,17 +13,13 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        <h1 class="govuk-heading-xl">
-          {{ messages("checkYourAnswers.heading") }}
-        </h1>
+        {{ h1("checkYourAnswers.heading") }}
 
         <p class="govuk-body">
           {{ messages("checkYourAnswers.guidance") }}
         </p>
 
-        {{ govukSummaryList({
-          rows: rows
-        }) }}
+        {{ summaryList(rows) }}
 
       </div>
     </div>

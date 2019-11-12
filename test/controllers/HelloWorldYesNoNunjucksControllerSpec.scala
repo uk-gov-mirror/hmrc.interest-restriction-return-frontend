@@ -52,7 +52,8 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
 
   def viewContext(form: Form[Boolean]): JsObject = Json.obj(
     "form" -> form,
-    "radios" -> Radios.yesNo(form("value"))
+    "radios" -> Radios.yesNo(form("value")),
+    "mode" -> NormalMode
   )
 
   "HelloWorldYesNoNunjucks Controller" must {

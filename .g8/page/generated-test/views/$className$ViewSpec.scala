@@ -3,6 +3,7 @@ package views
 import views.behaviours.ViewBehaviours
 import views.html.$className$View
 import nunjucks.$className$Template
+import views.{Twirl, Nunjucks}
 
 class $className$ViewSpec extends ViewBehaviours {
 
@@ -10,7 +11,7 @@ class $className$ViewSpec extends ViewBehaviours {
   lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
   lazy val nunjucksView = await(nunjucksRenderer.render($className$Template)(fakeRequest))
 
-  Seq(twirlView -> "twirl", nunjucksView -> "nunjucks").foreach {
+  Seq(twirlView -> Twirl, nunjucksView -> Nunjucks).foreach {
     case (html, templatingSystem) =>
       s"$className$View (\$templatingSystem)" must {
 
