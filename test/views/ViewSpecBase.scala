@@ -33,9 +33,10 @@ trait ViewSpecBase extends SpecBase {
   }
 
   implicit class ContentExtension(x: Content) {
-    def text = x match {
-      case Text(value) => value
-      case HtmlContent(value) => value.toString
+    def text: String = x match {
+      case Text(text) => text
+      case HtmlContent(html) => Jsoup.parse(html.toString).text
+      case _ => ""
     }
   }
 
