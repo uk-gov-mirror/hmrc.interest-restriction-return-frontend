@@ -21,6 +21,7 @@ import base.SpecBase
 import org.jsoup.Jsoup
 import play.api.libs.json.Json
 import play.twirl.api.Html
+import views.{Nunjucks, Twirl}
 import views.html.components.phaseBanner
 
 class PhaseBannerSpec extends SpecBase {
@@ -36,7 +37,7 @@ class PhaseBannerSpec extends SpecBase {
     val phase = "strong.govuk-tag"
   }
 
-  Seq(twirlPhaseBanner -> "twirl", nunjucksPhaseBanner -> "nunjucks").foreach {
+  Seq(twirlPhaseBanner -> Twirl, nunjucksPhaseBanner -> Nunjucks).foreach {
     case (html, templatingSystem) =>
       s"phaseBanner ($templatingSystem) component" must {
 
