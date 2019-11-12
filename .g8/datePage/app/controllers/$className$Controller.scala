@@ -10,7 +10,6 @@ import pages.$className$Page
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$className$View
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -31,10 +30,9 @@ class $className$Controller @Inject()(override val messagesApi: MessagesApi,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-      formProvider.bindFromRequest().fold(
+      formProvider().bindFromRequest().fold(
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors, mode))),
-
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set($className$Page, value))
