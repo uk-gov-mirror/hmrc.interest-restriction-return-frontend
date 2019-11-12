@@ -67,3 +67,9 @@ mikeyDate.error.required.all = Enter the mikeyDate
 mikeyDate.error.required.two = The mikeyDate must include {0} and {1}
 mikeyDate.error.required = The mikeyDate must include {0}
 mikeyDate.error.invalid = Enter a real mikeyDate
+
+mikeyDate.dateInput.id = yo
+mikeyDate.dateInput.name_prefix = bbb
+mikeyDate.dateInput.hint_text = fffff
+mikeyDate.dateInput.error_text = gggg
+mikeyDate.dateInput.legend_text = mikeyDate

@@ -29,10 +29,11 @@ echo ""
 echo "Adding messages to English conf.messages for DateInput View"
 echo "" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
+echo "$className;format="decap"$.dateInput.id = id for $className;format="decap"$ goes here"  >> ../conf/messages.en
 echo "$className;format="decap"$.dateInput.name_prefix = Name prefix for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.dateInput.hint_text = Hint text message for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.error_message = Error Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.legend_message = Legend Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.en
+echo "$className;format="decap"$.dateInput.hint_text = Hint text message for $className;format="decap"$ goes here"  >> ../conf/messages.en
+echo "$className;format="decap"$.dateInput.error_text = Error Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.en
+echo "$className;format="decap"$.dateInput.legend_text = Legend Message Heading displayed for $className;format="decap"$ goes here"  >> ../conf/messages.en
 
 echo ""
 echo "Adding messages to Welsh conf.messages"
@@ -52,11 +53,11 @@ echo ""
 echo "Adding messages to Welsh conf.messages for DateInput View"
 echo "" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
+echo "$className;format="decap"$.dateInput.id = id for $className;format="decap"$ goes here"  >> ../conf/messages.cy
 echo "$className;format="decap"$.dateInput.name_prefix = Name prefix for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.dateInput.hint_text = Hint text message for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.error_message = Error Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.legend_message = Legend Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-
+echo "$className;format="decap"$.dateInput.hint_text = Hint text message for $className;format="decap"$ goes here"  >> ../conf/messages.cy
+echo "$className;format="decap"$.dateInput.error_text = Error Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.cy
+echo "$className;format="decap"$.dateInput.legend_text = Legend Message Heading displayed for $className;format="decap"$ goes here"  >> ../conf/messages.cy
 
 echo ""
 echo "Adding to UserAnswersEntryGenerators"

@@ -24,7 +24,7 @@
     govukLayout: templates.GovukLayoutWrapper,
     button: components.button,
     errorSummary: components.errorSummary,
-    govukDateInput: GovukDateInput,
+    govukDateInput: components.dateInput,
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
@@ -36,38 +36,14 @@
 
         @errorSummary(form.errors)
 
-        @govukDateInput(DateInput(
-            id = Some("passport-issued"),
-            namePrefix = Some("passport-issued"),
-            items = Seq(
-                InputItem(
-                    classes = "govuk-input--width-2 govuk-input--error",
-                    name = "day",
-                    value = Some("6")
-                    ),
-                InputItem(
-                    classes = "govuk-input--width-2 govuk-input--error",
-                    name = "month",
-                    value = Some("3")
-                    ),
-                InputItem(
-                    classes = "govuk-input--width-4 govuk-input--error",
-                    name = "year",
-                    value = Some("2076")
-                    )
-                ),
-        hint = Some(Hint(content = Text("For example, 12 11 2007"))),
-        errorMessage = Some(ErrorMessage(content = Text("The date your passport was issued must be in the past"))),
-        fieldset = Some(Fieldset(
-            legend = Some(
-                Legend(
-                content = Text("mikeyDate"),
-                isPageHeading = true,
-                classes = "govuk-fieldset__legend--xl"
-                    )
-                )
-            ))
-        ))
+        @govukDateInput(
+            id =  "mikeyDate.dateInput.id",
+            namePrefix = "mikeyDate.dateInput.name_prefix",
+            hintText = "mikeyDate.dateInput.hint_text",
+            errorMsg = "mikeyDate.dateInput.error_text",
+            legendContent = "mikeyDate.dateInput.legend_text",
+            pageHeadingOn = true
+        )
 
         @button("site.continue")
     }

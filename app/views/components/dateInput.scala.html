@@ -18,38 +18,44 @@
 
 @this(govukDateInput: GovukDateInput)
 
-@(form: Form[_],
+@(
   id: String,
   namePrefix: String,
   hintText: String,
   errorMsg: String,
   legendContent: String,
-  pageHeadingOn: Boolean
- )
+  pageHeadingOn: Boolean)(implicit messages: Messages)
 
 @govukDateInput(DateInput(
-   id = Some(id),
-   namePrefix = Some(namePrefix),
-   items = Seq(
+   id = Some(messages(id)),
+   namePrefix = Some(messages(namePrefix)),
+
+    items = Seq(
       InputItem(
         classes = "govuk-input--width-2 govuk-input--error",
-        name =  "Day"
+        name =  "Day",
+        value = Some("")
       ),
       InputItem(
         classes = "govuk-input--width-2 govuk-input--error",
-        name = "Month"
-      ),
+        name = "Month",
+        value = Some("")
+        ),
       InputItem(
         classes = "govuk-input--width-4 govuk-input--error",
-        name = "Year"
-      )
+        name = "Year",
+        value = Some("")
+        )
      ),
-   hint = Some(Hint(content = Text(hintText))),
-   errorMessage = Some(ErrorMessage(content = Text(errorMsg))),
+
+   hint = Some(Hint(content = Text(messages(hintText)))
+            ),
+   errorMessage = Some(ErrorMessage(content = Text(messages(errorMsg)))
+            ),
    fieldset = Some(Fieldset(
       legend = Some(
          Legend(
-         content = Text(legendContent),
+         content = Text(messages(legendContent)),
          isPageHeading = pageHeadingOn,
          classes = "govuk-fieldset__legend--xl"
          )

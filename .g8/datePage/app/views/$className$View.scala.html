@@ -38,12 +38,12 @@
     @errorSummary(form.errors)
 
     @govukDateInput(
-                    id = "$className$.dateInput.id" ,
+                    id = "$className$.dateInput.id",
                     namePrefix = "$className$.dateInput.name_prefix",
                     hintText = "$className$.dateInput.hint_text",
-                    errorMsg = "$className$.dateInput.error_message"
-                    legendContent: $className$.dateInput.legend_message",
-                    pageHeadingOn: true
+                    errorMsg = "$className$.dateInput.error_text",
+                    legendContent = "$className$.dateInput.legend_text",
+                    pageHeadingOn = true
                     )
         @button("site.continue")
     }

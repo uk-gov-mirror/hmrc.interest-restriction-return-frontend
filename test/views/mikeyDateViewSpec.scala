@@ -19,7 +19,7 @@ package views
 import java.time.LocalDate
 
 import forms.mikeyDateFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
