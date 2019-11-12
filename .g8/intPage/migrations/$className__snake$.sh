@@ -19,6 +19,7 @@ echo "# $className$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $className$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $className$" >> ../conf/messages.en
+echo "$className;format="decap"$.label = $label$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $className$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.en
@@ -32,6 +33,7 @@ echo "# $className$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
 echo "$className;format="decap"$.title = $className$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $className$" >> ../conf/messages.cy
+echo "$className;format="decap"$.label =$label$" >> ../conf/messages.cy
 echo "$className;format="decap"$.checkYourAnswersLabel = $className$" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.cy
