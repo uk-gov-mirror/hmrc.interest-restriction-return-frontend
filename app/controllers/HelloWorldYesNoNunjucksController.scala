@@ -46,14 +46,15 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
                                                   val controllerComponents: MessagesControllerComponents
                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport {
 
-  private def viewHtml(form: Form[Boolean])(implicit request: Request[_]) =
+  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) =
     renderer.render(HelloWorldYesNoTemplate, Json.obj(
       "form"   -> form,
-      "radios" -> Radios.yesNo(form("value"))
+      "radios" -> Radios.yesNo(form("value")),
+      "mode" -> mode
     ))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    viewHtml(fillForm(HelloWorldYesNoPageNunjucks, formProvider())).map(Ok(_))
+    viewHtml(fillForm(HelloWorldYesNoPageNunjucks, formProvider()), mode).map(Ok(_))
   }
 
 
@@ -61,7 +62,7 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
     formProvider().bindFromRequest().fold(
       formWithErrors => {
         Logger.debug(s"[HelloWorldYesNoController][onSubmit] Form Errors: $formWithErrors")
-        viewHtml(formWithErrors).map(BadRequest(_))
+        viewHtml(formWithErrors, mode).map(BadRequest(_))
       },
       value =>
         for {
