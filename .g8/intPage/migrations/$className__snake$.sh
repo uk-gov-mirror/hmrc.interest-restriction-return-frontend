@@ -12,8 +12,11 @@ echo "POST       /$className;format="decap"$                  controllers.$class
 echo "GET        /change$className$                        controllers.$className$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
 echo "POST       /change$className$                        controllers.$className$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
-echo "Adding messages to conf.messages"
+echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
+echo "" >> ../conf/messages.en
+echo "# $className$Page Messages" >> ../conf/messages.en
+echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $className$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $className$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $className$" >> ../conf/messages.en
@@ -21,6 +24,19 @@ echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format
 echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.en
 echo "$className;format="decap"$.error.outOfRange = $className$ must be between {0} and {1}" >> ../conf/messages.en
+
+echo "Adding messages to Welsh conf.messages"
+echo "" >> ../conf/messages.cy
+echo "" >> ../conf/messages.cy
+echo "# $className$Page Messages" >> ../conf/messages.cy
+echo "# ----------------------------------------------------------" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $className$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $className$" >> ../conf/messages.cy
+echo "$className;format="decap"$.checkYourAnswersLabel = $className$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.outOfRange = $className$ must be between {0} and {1}" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
@@ -53,14 +69,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def $className;format="decap"$: Option[AnswerRow] = userAnswers.get($className$Page) map {";\
-     print "    x =>";\
-     print "      AnswerRow(";\
-     print "        HtmlFormat.escape(messages(\"$className;format="decap"$.checkYourAnswersLabel\")),";\
-     print "        HtmlFormat.escape(x.toString),";\
-     print "        routes.$className$Controller.onPageLoad(CheckMode).url";\
-     print "      )"
-     print "  }";\
+     print "  def $className;format="decap"$: Option[SummaryListRow] = answer($className$Page, routes.$className$Controller.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Migration $className;format="snake"$ completed"

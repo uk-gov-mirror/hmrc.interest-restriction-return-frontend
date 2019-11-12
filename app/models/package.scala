@@ -18,6 +18,8 @@ import play.api.libs.json._
 
 package object models {
 
+  implicit def withNameToString[A >: WithName](x: A) = x.toString
+
   implicit class RichJsObject(jsObject: JsObject) {
 
     def setObject(path: JsPath, value: JsValue): JsResult[JsObject] =

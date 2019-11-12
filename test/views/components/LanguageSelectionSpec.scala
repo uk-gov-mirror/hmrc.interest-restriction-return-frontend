@@ -19,7 +19,7 @@ package views.components
 import base.SpecBase
 import org.jsoup.Jsoup
 import play.api.i18n.Lang
-import views.html.govukComponents.languageSelection
+import views.html.components.languageSelection
 
 class LanguageSelectionSpec extends SpecBase {
 

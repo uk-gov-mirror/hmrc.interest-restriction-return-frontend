@@ -22,22 +22,24 @@ import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages._
 import play.api.i18n.Messages
+import play.api.libs.json.Reads
 import play.api.mvc.Call
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
-  def helloWorldYesNo: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
-  def helloWorldYesNoNunjucks: Option[SummaryListRow] = yesOrNo(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
+  def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
+  def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 
   private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
-  private def yesOrNo(page: QuestionPage[Boolean], changeLinkCall: Call)(implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page) map { bool =>
+  private def answer[A](page: QuestionPage[A], changeLinkCall: Call)
+                       (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+    userAnswers.get(page) map { ans =>
       SummaryListRow(
-        key = Key(content = HtmlContent(messages(s"$page.checkYourAnswersLabel"))),
-        value = Value(content = HtmlContent(yesNoValue(bool))),
+        key = Key(content = Text(messages(s"$page.checkYourAnswersLabel"))),
+        value = Value(content = Text(ans)),
         actions = Some(Actions(
           items = Seq(ActionItem(
             href = changeLinkCall.url,
@@ -47,7 +49,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
       )
     }
 
-  private val yesNoValue: Boolean => String = {
+  implicit private val yesNoValue: Boolean => String = {
     case true => messages("site.yes")
     case _ => messages("site.no")
   }

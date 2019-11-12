@@ -22,4 +22,6 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
+
+
 }

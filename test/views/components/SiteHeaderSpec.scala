@@ -20,7 +20,7 @@ import assets.messages.SiteHeaderMessages
 import base.SpecBase
 import org.jsoup.Jsoup
 import play.twirl.api.Html
-import views.html.govukComponents.siteHeader
+import views.html.components.siteHeader
 
 class SiteHeaderSpec extends SpecBase {
 
