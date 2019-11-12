@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import org.scalacheck.Arbitrary
-import pages._
+import java.time.LocalDate
 
-trait PageGenerators {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  implicit lazy val arbitrarymikeyDatePage: Arbitrary[mikeyDatePage.type] =
-    Arbitrary(mikeyDatePage)
+class mikeyDateFormProvider @Inject() extends Mappings {
 
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
-    Arbitrary(HelloWorldYesNoPageNunjucks)
+  def apply(): Form[LocalDate] =
+    Form(
+      "value" -> localDate(
+        invalidKey     = "mikeyDate.error.invalid",
+        allRequiredKey = "mikeyDate.error.required.all",
+        twoRequiredKey = "mikeyDate.error.required.two",
+        requiredKey    = "mikeyDate.error.required"
+      )
+    )
 }

@@ -14,16 +14,25 @@
  * limitations under the License.
  */
 
-package generators
+package pages
+
+import java.time.LocalDate
 
 import org.scalacheck.Arbitrary
-import pages._
+import pages.behaviours.PageBehaviours
 
-trait PageGenerators {
+class mikeyDatePageSpec extends PageBehaviours {
 
-  implicit lazy val arbitrarymikeyDatePage: Arbitrary[mikeyDatePage.type] =
-    Arbitrary(mikeyDatePage)
+  "mikeyDatePage" must {
 
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
-    Arbitrary(HelloWorldYesNoPageNunjucks)
+    implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
+      datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
+    }
+
+    beRetrievable[LocalDate](mikeyDatePage)
+
+    beSettable[LocalDate](mikeyDatePage)
+
+    beRemovable[LocalDate](mikeyDatePage)
+  }
 }

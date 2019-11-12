@@ -16,23 +16,28 @@
 
 package utils
 
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
 import controllers.routes
 import models.{CheckMode, UserAnswers}
 import pages._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
-import play.api.mvc.Call
+import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
+import scala.language.implicitConversions
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) {
 
+  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
+
+  implicit def dateToString(date:LocalDate) = dateFormatter.format(date)
+
+  def mikeyDate: Option[SummaryListRow] = answer(mikeyDatePage, routes.mikeyDateController.onPageLoad(CheckMode))
+
   def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
   def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
-
-  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
 
   private def answer[A](page: QuestionPage[A], changeLinkCall: Call)
                        (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =

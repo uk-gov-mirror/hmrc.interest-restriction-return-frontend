@@ -18,31 +18,31 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.HelloWorldYesNoFormProvider
+import forms.mikeyDateFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.HelloWorldYesNoPage
+import pages.mikeyDatePage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import views.html.HelloWorldYesNoView
+import views.html.mikeyDateView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
-                                          sessionRepository: SessionRepository,
-                                          navigator: Navigator,
-                                          identify: IdentifierAction,
-                                          getData: DataRetrievalAction,
-                                          requireData: DataRequiredAction,
-                                          formProvider: HelloWorldYesNoFormProvider,
-                                          val controllerComponents: MessagesControllerComponents,
-                                          view: HelloWorldYesNoView
-                                         )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+class mikeyDateController @Inject()(override val messagesApi: MessagesApi,
+                                    sessionRepository: SessionRepository,
+                                    navigator: Navigator,
+                                    identify: IdentifierAction,
+                                    getData: DataRetrievalAction,
+                                    requireData: DataRequiredAction,
+                                    formProvider: mikeyDateFormProvider,
+                                    val controllerComponents: MessagesControllerComponents,
+                                    view: mikeyDateView
+                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(HelloWorldYesNoPage, formProvider()), mode))
+    Ok(view(fillForm(mikeyDatePage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -52,9 +52,9 @@ class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
       ,
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(HelloWorldYesNoPage, value))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(mikeyDatePage, value))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(HelloWorldYesNoPage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(mikeyDatePage, mode, updatedAnswers))
     )
   }
 }

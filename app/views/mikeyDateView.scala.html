@@ -1,0 +1,74 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.routes._
+@import models.Mode
+@import views.ViewUtils._
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    button: components.button,
+    errorSummary: components.errorSummary,
+    govukDateInput: GovukDateInput,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "mikeyDate.title"))) {
+
+    @formHelper(action = mikeyDateController.onSubmit(mode), 'autoComplete -> "on") {
+
+        @errorSummary(form.errors)
+
+        @govukDateInput(DateInput(
+            id = Some("passport-issued"),
+            namePrefix = Some("passport-issued"),
+            items = Seq(
+                InputItem(
+                    classes = "govuk-input--width-2 govuk-input--error",
+                    name = "day",
+                    value = Some("6")
+                    ),
+                InputItem(
+                    classes = "govuk-input--width-2 govuk-input--error",
+                    name = "month",
+                    value = Some("3")
+                    ),
+                InputItem(
+                    classes = "govuk-input--width-4 govuk-input--error",
+                    name = "year",
+                    value = Some("2076")
+                    )
+                ),
+        hint = Some(Hint(content = Text("For example, 12 11 2007"))),
+        errorMessage = Some(ErrorMessage(content = Text("The date your passport was issued must be in the past"))),
+        fieldset = Some(Fieldset(
+            legend = Some(
+                Legend(
+                content = Text("mikeyDate"),
+                isPageHeading = true,
+                classes = "govuk-fieldset__legend--xl"
+                    )
+                )
+            ))
+        ))
+
+        @button("site.continue")
+    }
+}

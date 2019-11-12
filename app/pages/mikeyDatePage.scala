@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import org.scalacheck.Arbitrary
-import pages._
+import java.time.LocalDate
 
-trait PageGenerators {
+import play.api.libs.json.JsPath
 
-  implicit lazy val arbitrarymikeyDatePage: Arbitrary[mikeyDatePage.type] =
-    Arbitrary(mikeyDatePage)
+case object mikeyDatePage extends QuestionPage[LocalDate] {
 
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
-    Arbitrary(HelloWorldYesNoPageNunjucks)
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "mikeyDate"
 }

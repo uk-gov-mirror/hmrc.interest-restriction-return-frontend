@@ -20,34 +20,33 @@ import java.time.{LocalDate, ZoneOffset}
 
 import base.SpecBase
 import controllers.actions._
-import forms.$className$FormProvider
+import forms.mikeyDateFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.$className$Page
-import play.api.mvc.Call
+import pages.mikeyDatePage
 import play.api.test.Helpers._
-import views.html.$className$View
+import views.html.mikeyDateView
 
-class $className$ControllerSpec extends SpecBase {
+class mikeyDateControllerSpec extends SpecBase {
 
-  val formProvider = new $className$FormProvider()
+  val formProvider = new mikeyDateFormProvider()
   val validAnswer = LocalDate.now(ZoneOffset.UTC)
 
-  val view = injector.instanceOf[$className$View]
+  val view = injector.instanceOf[mikeyDateView]
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new mikeyDateController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new $className$FormProvider,
+    formProvider = new mikeyDateFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
-  "$className$ Controller" must {
+  "mikeyDate Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -58,7 +57,7 @@ class $className$ControllerSpec extends SpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set($className$Page, validAnswer).success.value
+      val userAnswers = UserAnswers(userAnswersId).set(mikeyDatePage, validAnswer).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
