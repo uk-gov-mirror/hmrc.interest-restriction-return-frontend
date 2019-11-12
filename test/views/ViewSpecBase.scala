@@ -16,11 +16,12 @@
 
 package views
 
+import base.SpecBase
 import models.UserAnswers
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
-import base.SpecBase
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 
 import scala.reflect.ClassTag
 
@@ -29,6 +30,13 @@ trait ViewSpecBase extends SpecBase {
   def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = {
     val view = app.injector.instanceOf[A]
     view
+  }
+
+  implicit class ContentExtension(x: Content) {
+    def text = x match {
+      case Text(value) => value
+      case HtmlContent(value) => value.toString
+    }
   }
 
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())

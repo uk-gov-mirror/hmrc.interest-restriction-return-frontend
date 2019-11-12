@@ -18,33 +18,33 @@ package controllers
 
 import base.SpecBase
 import controllers.actions._
-import forms.$className$FormProvider
-import models.{NormalMode, $className$, UserAnswers}
+import forms.MyNewPageFormProvider
+import models.{NormalMode, MyNewPage, UserAnswers}
 import navigation.FakeNavigator
 import org.scalatestplus.mockito.MockitoSugar
-import pages.$className$Page
+import pages.MyNewPagePage
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.$className$View
+import views.html.MyNewPageView
 
-class $className$ControllerSpec extends SpecBase with MockitoSugar {
+class MyNewPageControllerSpec extends SpecBase with MockitoSugar {
 
-  val formProvider = new $className$FormProvider()
-  val view = injector.instanceOf[$className$View]
+  val formProvider = new MyNewPageFormProvider()
+  val view = injector.instanceOf[MyNewPageView]
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new MyNewPageController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new $className$FormProvider,
+    formProvider = new MyNewPageFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
-  "$className$ Controller" must {
+  "MyNewPage Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -55,7 +55,7 @@ class $className$ControllerSpec extends SpecBase with MockitoSugar {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set($className$Page, $className$.values.toSet).success.value
+      val userAnswers = UserAnswers(userAnswersId).set(MyNewPagePage, MyNewPage.values.toSet).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
@@ -64,7 +64,7 @@ class $className$ControllerSpec extends SpecBase with MockitoSugar {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", $className$.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", MyNewPage.values.head.toString))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -91,7 +91,7 @@ class $className$ControllerSpec extends SpecBase with MockitoSugar {
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", $className$.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", MyNewPage.values.head.toString))
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(fakeRequest)
 

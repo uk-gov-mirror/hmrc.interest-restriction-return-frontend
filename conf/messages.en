@@ -57,3 +57,13 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+
+
+# MyNewPagePage Messages
+# ----------------------------------------------------------
+myNewPage.title = myNewPage
+myNewPage.heading = myNewPage
+myNewPage.option1 = Option 1
+myNewPage.option2 = Option 2
+myNewPage.checkYourAnswersLabel = myNewPage
+myNewPage.error.required = Select myNewPage
