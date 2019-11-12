@@ -11,9 +11,9 @@ import views.html.$className$View
 
 class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
-  val messageKeyPrefix = "Legend Message Heading displayed for $className;format="decap"$ goes here"
+  val messageKeyPrefix = "$className;format="decap"$"
 
-  val form = new $className$FormProvider()()
+  val form = new $className$FormProvider()()git sta
 
   "$className$View view" must {
 
