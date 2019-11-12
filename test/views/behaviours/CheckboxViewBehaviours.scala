@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 
 trait CheckboxViewBehaviours[A] extends ViewBehaviours {
 
+  //noinspection ScalaStyle
   def checkboxPage(form: Form[Set[A]],
                    createView: Form[Set[A]] => HtmlFormat.Appendable,
                    messageKeyPrefix: String,
@@ -39,16 +40,14 @@ trait CheckboxViewBehaviours[A] extends ViewBehaviours {
 
       "contain an input for the value" in {
         val doc = asDocument(createView(form))
-        for(option<- options) yield {
+        for (option <- options) {
           assertRenderedById(doc, option.value)
         }
       }
 
       "contain a label for each input" in {
         val doc = asDocument(createView(form))
-        for {
-          (option, i) <- options.zipWithIndex
-        } yield {
+        for (option <- options) {
           doc.select(s"label[for=${option.value}]").text mustEqual option.content.text
         }
       }
@@ -56,9 +55,7 @@ trait CheckboxViewBehaviours[A] extends ViewBehaviours {
       "rendered" must {
 
         "contain checkboxes for the values" in {
-
           val doc = asDocument(createView(form))
-
           for (option <- options) {
             assertContainsRadioButton(doc, option.id.get, "value[]", option.value, false)
           }
