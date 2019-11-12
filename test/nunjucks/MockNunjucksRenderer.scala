@@ -29,6 +29,10 @@ trait MockNunjucksRenderer extends MockitoSugar {
 
   lazy val mockNunjucksRenderer: Renderer = mock[Renderer]
 
+  def mockRender(template: String)(htmlResponse: Html): OngoingStubbing[Future[Html]] =
+    when(mockNunjucksRenderer.render(Matchers.eq(template))(Matchers.any()))
+      .thenReturn(Future.successful(htmlResponse))
+
   def mockRender(template: String, context: JsObject)(htmlResponse: Html): OngoingStubbing[Future[Html]] =
     when(mockNunjucksRenderer.render(Matchers.eq(template), Matchers.eq(context))(Matchers.any()))
     .thenReturn(Future.successful(htmlResponse))

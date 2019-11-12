@@ -17,11 +17,15 @@
 package controllers
 
 import base.SpecBase
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
 import play.api.test.Helpers._
+import nunjucks.MockNunjucksRenderer
+import nunjucks.$className$Template
+import play.twirl.api.Html
 import views.html.$className$View
 
-class $className$ControllerSpec extends SpecBase {
+class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
 
   val view = injector.instanceOf[$className$View]
 
@@ -31,16 +35,36 @@ class $className$ControllerSpec extends SpecBase {
     getData = FakeDataRetrievalActionEmptyAnswers,
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    mockNunjucksRenderer
   )
 
   "$className$ Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "When Nunjucks rendering is enabled" must {
 
-      val result = controller.onPageLoad(fakeRequest)
+      "return OK and the correct view for a GET" in {
 
-      status(result) mustBe OK
+        enable(UseNunjucks)
+
+        mockRender($className$Template)(Html("Success"))
+
+        val result = controller.onPageLoad(fakeRequest)
+
+        status(result) mustBe OK
+      }
+    }
+
+    "When Nunjucks rendering is disabled" must {
+
+      "return OK and the correct view for a GET" in {
+
+        disable(UseNunjucks)
+
+        val result = controller.onPageLoad(fakeRequest)
+
+        status(result) mustBe OK
+      }
     }
   }
 }

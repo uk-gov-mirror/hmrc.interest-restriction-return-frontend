@@ -23,4 +23,7 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
 
+echo "Adding template to Nunjucks templates"
+echo "object $className$Template extends WithName(\"$className;format="decap"$.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
+
 echo "Migration $className;format="snake"$ completed"

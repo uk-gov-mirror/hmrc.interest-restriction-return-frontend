@@ -2,17 +2,21 @@ package views
 
 import views.behaviours.ViewBehaviours
 import views.html.$className$View
+import nunjucks.$className$Template
 
 class $className$ViewSpec extends ViewBehaviours {
 
-  "$className$ view" must {
+  lazy val twirlViewTemplate = viewFor[$className$View](Some(emptyUserAnswers))
+  lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
+  lazy val nunjucksView = await(nunjucksRenderer.render($className$Template)(fakeRequest))
 
-    val view = viewFor[$className$View](Some(emptyUserAnswers))
+  Seq(twirlView -> "twirl", nunjucksView -> "nunjucks").foreach {
+    case (html, templatingSystem) =>
+      s"$className$View (\$templatingSystem)" must {
 
-    val applyView = view.apply()(fakeRequest, frontendAppConfig, messages)
+        behave like normalPage(html, "$className;format="decap"$")
 
-    behave like normalPage(applyView, "$className;format="decap"$")
-
-    behave like pageWithBackLink(applyView)
+        behave like pageWithBackLink(html)
+      }
   }
 }
