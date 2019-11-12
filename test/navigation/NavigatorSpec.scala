@@ -34,6 +34,10 @@ class NavigatorSpec extends SpecBase {
       }
 
       "go from the HelloWorldYesNoPage to the CheckYourAnswersPage" in {
+        navigator.nextPage(HelloWorldYesNoPage, NormalMode, UserAnswers("id")) mustBe routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
+      }
+
+      "go from the HelloWorldYesNoPageNunjucks to the CheckYourAnswersPage" in {
         navigator.nextPage(HelloWorldYesNoPageNunjucks, NormalMode, UserAnswers("id")) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 

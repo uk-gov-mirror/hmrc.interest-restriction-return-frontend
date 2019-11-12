@@ -30,9 +30,6 @@ class Renderer @Inject()(appConfig: FrontendAppConfig, renderer: NunjucksRendere
   def render(template: String)(implicit request: RequestHeader): Future[Html] =
     renderTemplate(template, Json.obj())
 
-  def render[A](template: String, ctx: A)(implicit request: RequestHeader, writes: OWrites[A]): Future[Html] =
-    renderTemplate(template, Json.toJsObject(ctx))
-
   def render(template: String, ctx: JsObject)(implicit request: RequestHeader): Future[Html] =
     renderTemplate(template, ctx)
 

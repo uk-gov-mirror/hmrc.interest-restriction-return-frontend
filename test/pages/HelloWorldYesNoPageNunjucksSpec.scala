@@ -18,18 +18,18 @@ package pages
 
 import pages.behaviours.PageBehaviours
 
-class HelloWorldYesNoPageSpec extends PageBehaviours {
+class HelloWorldYesNoPageNunjucksSpec extends PageBehaviours {
 
-  "HelloWorldYesNoPage" must {
+  "HelloWorldYesNoPageNunjucks" must {
 
     "Have the correct name" in {
-      HelloWorldYesNoPage.toString mustBe "helloWorldYesNo"
+      HelloWorldYesNoPageNunjucks.toString mustBe "helloWorldYesNoNunjucks"
     }
 
-    beRetrievable[Boolean](HelloWorldYesNoPage)
+    beRetrievable[Boolean](HelloWorldYesNoPageNunjucks)
 
-    beSettable[Boolean](HelloWorldYesNoPage)
+    beSettable[Boolean](HelloWorldYesNoPageNunjucks)
 
-    beRemovable[Boolean](HelloWorldYesNoPage)
+    beRemovable[Boolean](HelloWorldYesNoPageNunjucks)
   }
 }
