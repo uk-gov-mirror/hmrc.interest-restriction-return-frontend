@@ -40,8 +40,9 @@ site.govuk = GOV.UK
 site.signOut = Sign out
 
 feedback.before = This is a new service - your
-feedback.link = feedback
 feedback.after = will help us to improve it.
+feedback.link = feedback
+
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account

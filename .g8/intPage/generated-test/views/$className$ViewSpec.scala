@@ -19,7 +19,7 @@ class $className$ViewSpec extends IntViewBehaviours {
     val view = viewFor[$className$View](Some(emptyUserAnswers))
 
     def applyView(form: Form[_]): HtmlFormat.Appendable =
-      view.apply(form, NormalMode)(fakeRequest, messages)
+      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix)
 
