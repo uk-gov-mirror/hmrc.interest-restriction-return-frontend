@@ -11,6 +11,7 @@ import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.YesNoViewBehaviours
 import views.html.$className$View
 import nunjucks.$className$Template
+import nunjucks.$className$Template
 
 class $className$ViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
@@ -26,7 +27,6 @@ class $className$ViewSpec extends YesNoViewBehaviours with NunjucksSupport {
         if (templatingSystem == Nunjucks) {
           await(nunjucksRenderer.render($className$Template, Json.obj(
             "form" -> form,
-            "radios" -> Radios.yesNo(form("value")),
             "mode" -> NormalMode
           ))(fakeRequest))
         } else {

@@ -1,0 +1,13 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+
+{% call govukFieldset({
+  legend: {
+    text: messages(legend),
+    classes: "govuk-fieldset__legend--xl",
+    isPageHeading: asHeading
+  }
+}) %}
+
+    {{ caller() }}
+
+{% endcall %}
