@@ -59,12 +59,3 @@ helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello Worl
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
 
 
-# mikeyDatePage Messages
-# ----------------------------------------------------------
-mikeyDate.title = mikeyDate
-mikeyDate.heading = mikeyDate
-mikeyDate.checkYourAnswersLabel = mikeyDate
-mikeyDate.error.required.all = Enter the mikeyDate
-mikeyDate.error.required.two = The mikeyDate must include {0} and {1}
-mikeyDate.error.required = The mikeyDate must include {0}
-mikeyDate.error.invalid = Enter a real mikeyDate
