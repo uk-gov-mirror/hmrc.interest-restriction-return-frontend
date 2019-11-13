@@ -25,7 +25,7 @@
     govukLayout: templates.GovukLayoutWrapper,
     button: components.button,
     errorSummary: components.errorSummary,
-    govukDateInput: components.dateInput,
+    inputDate: components.inputDate,
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
@@ -35,16 +35,10 @@
 
     @formHelper(action = $className$Controller.onSubmit(mode), 'autoComplete -> "on") {
 
-    @errorSummary(form.errors)
+        @errorSummary(form.errors, Some("date-value.day"))
 
-    @govukDateInput(
-                    id = "$className$.dateInput.id",
-                    namePrefix = "$className$.dateInput.name_prefix",
-                    hintText = "$className$.dateInput.hint_text",
-                    errorMsg = "$className$.dateInput.error_text",
-                    legendContent = "$className$.dateInput.legend_text",
-                    pageHeadingOn = true
-                    )
+        @inputDate(form, "$className;format="decap"$.heading")
+
         @button("site.continue")
     }
 }

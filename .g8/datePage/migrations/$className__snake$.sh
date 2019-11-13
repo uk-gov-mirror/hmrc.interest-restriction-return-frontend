@@ -26,16 +26,6 @@ echo "$className;format="decap"$.error.required = The $className;format="decap"$
 echo "$className;format="decap"$.error.invalid = Enter a real date" >> ../conf/messages.en
 
 echo ""
-echo "Adding messages to English conf.messages for DateInput View"
-echo "" >> ../conf/messages.en
-echo "# ----------------------------------------------------------" >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.id = id for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.name_prefix = Name prefix for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.hint_text = Hint text message for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.error_text = Error Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.en
-echo "$className;format="decap"$.dateInput.legend_text = Legend Message Heading displayed for $className;format="decap"$ goes here"  >> ../conf/messages.en
-
-echo ""
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
@@ -48,16 +38,6 @@ echo "$className;format="decap"$.error.required.all = Enter the $className;forma
 echo "$className;format="decap"$.error.required.two = The $className;format="decap"$" must include {0} and {1} >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = The $className;format="decap"$ must include {0}" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.invalid = Enter a real $className$" >> ../conf/messages.cy
-
-echo ""
-echo "Adding messages to Welsh conf.messages for DateInput View"
-echo "" >> ../conf/messages.en
-echo "# ----------------------------------------------------------" >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.id = id for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.name_prefix = Name prefix for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.hint_text = Hint text message for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.error_text = Error Message displayed for $className;format="decap"$ goes here"  >> ../conf/messages.cy
-echo "$className;format="decap"$.dateInput.legend_text = Legend Message Heading displayed for $className;format="decap"$ goes here"  >> ../conf/messages.cy
 
 echo ""
 echo "Adding to UserAnswersEntryGenerators"
