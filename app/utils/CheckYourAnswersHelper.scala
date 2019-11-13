@@ -34,8 +34,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   implicit def dateToString(date:LocalDate) = dateFormatter.format(date)
 
-  def mikeyDate: Option[SummaryListRow] = answer(mikeyDatePage, routes.mikeyDateController.onPageLoad(CheckMode))
-
   def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
   def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 
