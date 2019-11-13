@@ -13,7 +13,7 @@ class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "$className;format="decap"$"
 
-  val form = new $className$FormProvider()()git sta
+  val form = new $className$FormProvider()()
 
   "$className$View view" must {
 
