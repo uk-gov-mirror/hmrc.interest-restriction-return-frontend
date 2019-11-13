@@ -21,9 +21,6 @@ import pages._
 
 trait PageGenerators {
 
-  implicit lazy val arbitrarymikeyDatePage: Arbitrary[mikeyDatePage.type] =
-    Arbitrary(mikeyDatePage)
-
   implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
     Arbitrary(HelloWorldYesNoPageNunjucks)
 }

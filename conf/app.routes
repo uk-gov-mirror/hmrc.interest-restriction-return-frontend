@@ -27,11 +27,6 @@ POST       /hello-world-nunjucks                        controllers.HelloWorldYe
 GET        /hello-world-nunjucks/change                 controllers.HelloWorldYesNoNunjucksController.onPageLoad(mode: Mode = CheckMode)
 POST       /hello-world-nunjucks/change                 controllers.HelloWorldYesNoNunjucksController.onSubmit(mode: Mode = CheckMode)
 
-GET        /mikeyDate                                   controllers.mikeyDateController.onPageLoad(mode: Mode = NormalMode)
-POST       /mikeyDate                                   controllers.mikeyDateController.onSubmit(mode: Mode = NormalMode)
-GET        /mikeyDate/change                            controllers.mikeyDateController.onPageLoad(mode: Mode = CheckMode)
-POST       /mikeyDate/change                            controllers.mikeyDateController.onSubmit(mode: Mode = CheckMode)
-
 ### Check Your Answers Controller
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
