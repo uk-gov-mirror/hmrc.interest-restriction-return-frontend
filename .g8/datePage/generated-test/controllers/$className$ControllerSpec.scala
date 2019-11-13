@@ -38,7 +38,7 @@ class $className$ControllerSpec extends SpecBase {
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = new FakeNavigator(Call("POST", "/foo")),
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

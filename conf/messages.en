@@ -40,9 +40,8 @@ site.govuk = GOV.UK
 site.signOut = Sign out
 
 feedback.before = This is a new service - your
-feedback.after = will help us to improve it.
 feedback.link = feedback
-
+feedback.after = will help us to improve it.
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
@@ -58,3 +57,4 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+

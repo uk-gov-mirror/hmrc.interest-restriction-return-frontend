@@ -23,7 +23,6 @@ import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import pages.HelloWorldYesNoPage
-import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
