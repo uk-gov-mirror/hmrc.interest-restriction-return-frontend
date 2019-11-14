@@ -61,7 +61,6 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors => {
-        Logger.debug(s"[HelloWorldYesNoController][onSubmit] Form Errors: $formWithErrors")
         viewHtml(formWithErrors, mode).map(BadRequest(_))
       },
       value =>
