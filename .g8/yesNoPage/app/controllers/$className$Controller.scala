@@ -12,7 +12,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$className$View
 import nunjucks.Renderer
 import nunjucks.$className$Template
