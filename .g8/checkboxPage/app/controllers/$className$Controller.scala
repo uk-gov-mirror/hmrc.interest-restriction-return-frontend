@@ -8,7 +8,7 @@ import models.{$className$, Mode}
 import navigation.Navigator
 import pages.$className$Page
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
-import nunjucks.viewmodels.CheckboxNunjucksModel
+import nunjucks.viewmodels.CheckboxViewModel
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -36,9 +36,9 @@ class $className$Controller @Inject()(
   private def viewHtml(form: Form[Set[$className$]], mode: Mode)(implicit request: Request[_]) = {
 
     if (isEnabled(UseNunjucks)) {
-      renderer.render($className$Template, Json.toJson(
-        CheckboxNunjucksModel($className$.options(form), form, mode)
-      ).as[JsObject])
+      renderer.render($className$Template, Json.toJsObject(
+        CheckboxViewModel($className$.options(form), form, mode)
+      ))
 
     } else {
       Future.successful(view(form, mode))

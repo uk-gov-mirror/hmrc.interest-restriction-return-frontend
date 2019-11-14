@@ -22,11 +22,4 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
-  implicit lazy val arbitraryMyNewPage: Arbitrary[MyNewPage] =
-    Arbitrary {
-      Gen.oneOf(MyNewPage.values.toSeq)
-    }
-
-
-
 }
