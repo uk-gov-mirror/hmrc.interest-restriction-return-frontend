@@ -1,0 +1,12 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{{ govukInput({
+  type: "number",
+  label: {
+    text: messages(label)
+  },
+  id: id,
+  name: name,
+  value: form.value.value,
+  errorMessage: form.value.error
+}) }}

@@ -17,21 +17,29 @@
 package controllers
 
 import base.SpecBase
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.$className$Page
+import play.api.data.Form
+import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import play.twirl.api.Html
+import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.$className$View
+import nunjucks.$className$Template
+import nunjucks.MockNunjucksRenderer
 
-class $className$ControllerSpec extends SpecBase {
+class $className$ControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
 
   def onwardRoute = Call("GET", "/foo")
 
   val view = injector.instanceOf[$className$View]
   val formProvider = new $className$FormProvider()
+  val form = formProvider()
   val validAnswer = $minimum$
 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
@@ -43,16 +51,43 @@ class $className$ControllerSpec extends SpecBase {
     requireData = new DataRequiredActionImpl,
     formProvider = new $className$FormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    mockNunjucksRenderer
+  )
+
+  def viewContext(form: Form[_]): JsObject = Json.obj(
+    "form" -> form,
+    "mode" -> NormalMode
   )
 
   "$className$ Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "If rendering using the Nunjucks templating engine" must {
 
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+      "return OK and the correct view for a GET" in {
 
-      status(result) mustBe OK
+        enable(UseNunjucks)
+
+        mockRender($className$Template, viewContext(form))(Html("Success"))
+
+        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual "Success"
+      }
+    }
+
+    "If rendering using the Twirl templating engine" must {
+
+      "return OK and the correct view for a GET" in {
+
+        disable(UseNunjucks)
+
+        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      }
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
