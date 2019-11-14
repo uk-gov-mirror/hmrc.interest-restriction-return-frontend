@@ -7,32 +7,52 @@ import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import pages.$className$Page
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import play.api.i18n.MessagesApi
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc._
 import repositories.SessionRepository
+import uk.gov.hmrc.nunjucks.NunjucksSupport
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$className$View
+import nunjucks.Renderer
+import nunjucks.$className$Template
+import play.api.data.Form
+import play.api.libs.json.Json
+import nunjucks.viewmodels.DateViewModel
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class $className$Controller @Inject()(override val messagesApi: MessagesApi,
-                                      sessionRepository: SessionRepository,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: $className$FormProvider,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: $className$View
-                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+class $className;format="cap"$Controller @Inject()(
+                                         override val messagesApi: MessagesApi,
+                                         sessionRepository: SessionRepository,
+                                         navigator: Navigator,
+                                         identify: IdentifierAction,
+                                         getData: DataRetrievalAction,
+                                         requireData: DataRequiredAction,
+                                         formProvider: $className$FormProvider,
+                                         val controllerComponents: MessagesControllerComponents,
+                                         view: $className$View,
+                                         renderer: Renderer
+                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm($className$Page, formProvider()), mode))
+  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
+      renderer.render($className$Template, Json.toJsObject(DateViewModel(form, mode)))
+    } else {
+      Future.successful(view(form, mode))
+    }
+
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+      viewHtml(fillForm($className$Page, formProvider()), mode).map(Ok(_))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request =>
+
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
+          viewHtml(formWithErrors, mode).map(BadRequest(_)),
+
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set($className$Page, value))
