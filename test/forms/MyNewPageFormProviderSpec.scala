@@ -14,19 +14,32 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import forms.behaviours.CheckboxFieldBehaviours
+import models.MyNewPage
+import play.api.data.FormError
 
-trait ModelGenerators {
+class MyNewPageFormProviderSpec extends CheckboxFieldBehaviours {
 
-  implicit lazy val arbitraryMyNewPage: Arbitrary[MyNewPage] =
-    Arbitrary {
-      Gen.oneOf(MyNewPage.values.toSeq)
-    }
+  val form = new MyNewPageFormProvider()()
 
+  ".value" must {
 
+    val fieldName = "value"
+    val requiredKey = "myNewPage.error.required"
 
+    behave like checkboxField[MyNewPage](
+      form,
+      fieldName,
+      validValues  = MyNewPage.values,
+      invalidError = FormError(s"$fieldName[0]", "error.invalid")
+    )
+
+    behave like mandatoryCheckboxField(
+      form,
+      fieldName,
+      requiredKey
+    )
+  }
 }

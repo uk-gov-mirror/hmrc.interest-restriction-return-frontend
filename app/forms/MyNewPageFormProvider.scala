@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import javax.inject.Inject
 
-trait ModelGenerators {
+import forms.mappings.Mappings
+import play.api.data.Form
+import play.api.data.Forms.set
+import models.MyNewPage
 
-  implicit lazy val arbitraryMyNewPage: Arbitrary[MyNewPage] =
-    Arbitrary {
-      Gen.oneOf(MyNewPage.values.toSeq)
-    }
+class MyNewPageFormProvider @Inject() extends Mappings {
 
-
-
+  def apply(): Form[Set[MyNewPage]] =
+    Form(
+      "value" -> set(enumerable[MyNewPage]("myNewPage.error.required")).verifying(nonEmptySet("myNewPage.error.required"))
+    )
 }

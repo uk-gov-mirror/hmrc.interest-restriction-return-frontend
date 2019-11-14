@@ -21,3 +21,4 @@ import models.WithName
 trait ViewTemplate
 object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
 object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
+object MyNewPageTemplate extends WithName("myNewPage.njk") with ViewTemplate

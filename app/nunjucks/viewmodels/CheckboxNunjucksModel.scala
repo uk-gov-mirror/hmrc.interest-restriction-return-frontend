@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package nunjucks.models
+package nunjucks.viewmodels
 
 import models.Mode
 import play.api.data.Form
@@ -24,14 +24,14 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 
 
-case class CheckboxNunjucksModel(options: Seq[CheckboxItem], form: Form[Set[_]], mode: Mode){
+case class CheckboxNunjucksModel[T](options: Seq[CheckboxItem], form: Form[Set[T]], mode: Mode)(implicit messages: Messages){
 
-  val error: Option[JsObject] = form.errors.headOption.map(x => Json.obj("errorMessage" -> Json.obj("text" -> x.message)))
+  val error: Option[JsObject] = form.errors.headOption.map(x => Json.obj("errorMessage" -> Json.obj("text" -> messages(x.message))))
 }
 
 object CheckboxNunjucksModel extends NunjucksSupport {
 
-  implicit def writes(implicit messages: Messages): Writes[CheckboxNunjucksModel] = Writes { model =>
+  implicit def writes[T](implicit messages: Messages): Writes[CheckboxNunjucksModel[T]] = Writes { model =>
 
     val json: JsObject = Json.obj(
       "form" -> model.form,

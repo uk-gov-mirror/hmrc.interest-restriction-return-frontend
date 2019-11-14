@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import models.MyNewPage
+import play.api.libs.json.JsPath
 
-trait ModelGenerators {
+case object MyNewPagePage extends QuestionPage[Set[MyNewPage]] {
 
-  implicit lazy val arbitraryMyNewPage: Arbitrary[MyNewPage] =
-    Arbitrary {
-      Gen.oneOf(MyNewPage.values.toSeq)
-    }
+  override def path: JsPath = JsPath \ toString
 
-
-
+  override def toString: String = "myNewPage"
 }

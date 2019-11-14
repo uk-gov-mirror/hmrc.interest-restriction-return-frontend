@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import models.MyNewPage
+import pages.behaviours.PageBehaviours
 
-trait ModelGenerators {
+class MyNewPagePageSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryMyNewPage: Arbitrary[MyNewPage] =
-    Arbitrary {
-      Gen.oneOf(MyNewPage.values.toSeq)
-    }
+  "MyNewPagePage" must {
 
+    beRetrievable[Set[MyNewPage]](MyNewPagePage)
 
+    beSettable[Set[MyNewPage]](MyNewPagePage)
 
+    beRemovable[Set[MyNewPage]](MyNewPagePage)
+  }
 }
