@@ -33,6 +33,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
 import views.html.$className$View
 import uk.gov.hmrc.nunjucks.NunjucksSupport
+import nunjucks.viewmodels.RadioOptionsViewModel
 
 class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
@@ -53,11 +54,11 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
     renderer = mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[$className$]): JsObject = Json.obj(
-    "form" -> form,
-    "radios" -> $className$.options(form),
-    "mode" -> NormalMode
-  )
+  def viewContext(form: Form[$className$]): JsObject = Json.toJsObject(RadioOptionsViewModel(
+    $className$.options(form),
+    form,
+    NormalMode
+  ))
 
   "$className$ Controller" must {
 

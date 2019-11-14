@@ -32,6 +32,7 @@ import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.$className$View
 import nunjucks.$className$Template
 import nunjucks.MockNunjucksRenderer
+import nunjucks.viewmodels.BasicFormViewModel
 
 class $className$ControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
 
@@ -55,10 +56,7 @@ class $className$ControllerSpec extends SpecBase with NunjucksSupport with Featu
     mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[_]): JsObject = Json.obj(
-    "form" -> form,
-    "mode" -> NormalMode
-  )
+  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
 
   "$className$ Controller" must {
 

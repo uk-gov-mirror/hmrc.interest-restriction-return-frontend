@@ -33,6 +33,7 @@ import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
+import nunjucks.viewmodels.BasicFormViewModel
 
 class $className$ControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching {
 
@@ -55,10 +56,7 @@ class $className$ControllerSpec extends SpecBase with NunjucksSupport with MockN
     mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[_]): JsObject = Json.obj(
-    "form" -> form,
-    "mode" -> NormalMode
-  )
+  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
 
   "$className$ Controller" must {
 

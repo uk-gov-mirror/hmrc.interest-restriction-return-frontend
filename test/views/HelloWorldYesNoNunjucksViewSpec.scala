@@ -19,11 +19,11 @@ package views
 import controllers.routes
 import forms.HelloWorldYesNoFormProvider
 import models.NormalMode
+import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.{NunjucksRenderer, NunjucksSupport}
-import uk.gov.hmrc.viewmodels.Radios
+import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.behaviours.YesNoViewBehaviours
 
 class HelloWorldYesNoNunjucksViewSpec extends YesNoViewBehaviours with NunjucksSupport {
@@ -35,10 +35,7 @@ class HelloWorldYesNoNunjucksViewSpec extends YesNoViewBehaviours with NunjucksS
   "HelloWorldYesNoNunjucks view" must {
 
     def applyView(form: Form[Boolean]): Html =
-      await(nunjucksRenderer.render(nunjucks.HelloWorldYesNoTemplate, Json.obj(
-        "form" -> form,
-        "radios" -> Radios.yesNo(form("value"))
-      ))(fakeRequest))
+      await(nunjucksRenderer.render(nunjucks.HelloWorldYesNoTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
 
     behave like normalPage(applyView(form), messageKeyPrefix)
 

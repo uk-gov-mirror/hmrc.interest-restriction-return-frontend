@@ -22,7 +22,7 @@ import play.api.i18n.Messages
 import play.api.libs.json.{JsObject, Json, OWrites}
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 
-case class DateViewModel(form: Form[_], mode: Mode)(implicit messages: Messages) {
+case class DateViewModel[T](form: Form[T], mode: Mode)(implicit messages: Messages) {
 
   val dateValue: Option[JsObject] =
     for {
@@ -44,7 +44,7 @@ object DateViewModel extends NunjucksSupport {
 
   private implicit val handleOption: Option[JsObject] => JsObject = _.getOrElse(Json.obj())
 
-  implicit def writes(implicit messages: Messages): OWrites[DateViewModel] = OWrites { model =>
+  implicit def writes[T](implicit messages: Messages): OWrites[DateViewModel[T]] = OWrites { model =>
     Json.obj(
       "form" -> model.form,
       "mode" -> model.mode
