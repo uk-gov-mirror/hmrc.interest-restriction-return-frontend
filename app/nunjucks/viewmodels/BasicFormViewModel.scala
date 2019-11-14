@@ -21,19 +21,19 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.libs.json.{Json, OWrites}
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
 
-case class YesNoRadioViewModel[T](form: Form[T], mode: Mode)(implicit messages: Messages)
+case class BasicFormViewModel[T](form: Form[T], mode: Mode)(implicit messages: Messages)
 
-object YesNoRadioViewModel extends NunjucksSupport {
+object BasicFormViewModel extends NunjucksSupport {
 
-  implicit def writes[T](implicit messages: Messages): OWrites[YesNoRadioViewModel[T]] = OWrites { model =>
+  implicit def writes[T](implicit messages: Messages): OWrites[BasicFormViewModel[T]] = OWrites { model =>
     Json.obj(
       "form"   -> model.form,
-      "radios" -> Radios.yesNo(model.form("value")),
       "mode" -> model.mode
     )
   }
 }
+
+
 
 

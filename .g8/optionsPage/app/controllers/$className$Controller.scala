@@ -10,6 +10,7 @@ import navigation.Navigator
 import pages.$className$Page
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import nunjucks.Renderer
+import nunjucks.viewmodels.RadioOptionsViewModel
 import nunjucks.$className$Template
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -34,11 +35,11 @@ class $className;format="cap"$Controller @Inject()(
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[$className$], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render($className$Template, Json.obj(
-      "form" -> form,
-      "radios" -> $className$.options(form),
-      "mode" -> mode
-    ))
+    renderer.render($className$Template, Json.toJsObject(RadioOptionsViewModel(
+      $className$.options(form),
+      form,
+      mode
+    )))
   } else {
     Future.successful(view(form, mode))
   }

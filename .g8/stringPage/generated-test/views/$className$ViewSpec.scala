@@ -11,6 +11,7 @@ import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.StringViewBehaviours
 import views.html.$className$View
 import nunjucks.$className$Template
+import nunjucks.viewmodels.BasicFormViewModel
 
 class $className$ViewSpec extends StringViewBehaviours with NunjucksSupport {
 
@@ -24,10 +25,7 @@ class $className$ViewSpec extends StringViewBehaviours with NunjucksSupport {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render($className$Template, Json.obj(
-            "form" -> form,
-            "mode" -> NormalMode
-          ))(fakeRequest))
+          await(nunjucksRenderer.render($className$Template, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
         } else {
           val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)

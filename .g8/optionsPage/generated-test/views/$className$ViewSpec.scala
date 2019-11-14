@@ -10,6 +10,7 @@ import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.ViewBehaviours
 import views.html.$className$View
 import nunjucks.$className$Template
+import nunjucks.viewmodels.RadioOptionsViewModel
 
 class $className$ViewSpec extends ViewBehaviours with NunjucksSupport {
 
@@ -23,11 +24,11 @@ class $className$ViewSpec extends ViewBehaviours with NunjucksSupport {
 
       def applyView(form: Form[$className$]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render($className$Template, Json.obj(
-            "form" -> form,
-            "radios" -> $className$.options(form),
-            "mode" -> NormalMode
-          ))(fakeRequest))
+          await(nunjucksRenderer.render($className$Template, Json.toJsObject(RadioOptionsViewModel(
+            $className$.options(form),
+            form,
+            NormalMode
+          )))(fakeRequest))
         } else {
           val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)

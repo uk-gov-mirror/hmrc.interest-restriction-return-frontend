@@ -18,6 +18,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import uk.gov.hmrc.nunjucks.NunjucksSupport
+import nunjucks.viewmodels.BasicFormViewModel
 
 import scala.concurrent.Future
 
@@ -35,10 +36,7 @@ class $className$Controller @Inject()(
                                     )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render($className$Template, Json.obj(
-      "form" -> form,
-      "mode" -> mode
-    ))
+    renderer.render($className$Template, Json.toJsObject(BasicFormViewModel(form, mode)))
   } else {
     Future.successful(view(form, mode))
   }
