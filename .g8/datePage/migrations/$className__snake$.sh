@@ -76,4 +76,7 @@ awk '/class CheckYourAnswersHelper/ {\
      print "  def $className;format="decap"$: Option[SummaryListRow] = answer($className$Page, routes.$className$Controller.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
+echo "Adding template to Nunjucks templates"
+echo "object $className$Template extends WithName(\"$className;format="decap"$.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
+
 echo "Migration $className;format="snake"$ completed"
