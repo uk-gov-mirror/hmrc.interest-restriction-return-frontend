@@ -12,6 +12,7 @@ import views.behaviours.YesNoViewBehaviours
 import views.html.$className$View
 import nunjucks.$className$Template
 import nunjucks.$className$Template
+import nunjucks.viewmodels.YesNoRadioViewModel
 
 class $className$ViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
@@ -25,10 +26,7 @@ class $className$ViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render($className$Template, Json.obj(
-            "form" -> form,
-            "mode" -> NormalMode
-          ))(fakeRequest))
+          await(nunjucksRenderer.render($className$Template, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
         } else {
           val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)

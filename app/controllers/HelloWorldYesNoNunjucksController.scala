@@ -23,12 +23,14 @@ import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import nunjucks._
+import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.HelloWorldYesNoPageNunjucks
 import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc._
+import play.twirl.api.Html
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
@@ -46,12 +48,8 @@ class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: Mess
                                                   val controllerComponents: MessagesControllerComponents
                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) =
-    renderer.render(HelloWorldYesNoTemplate, Json.obj(
-      "form"   -> form,
-      "radios" -> Radios.yesNo(form("value")),
-      "mode" -> mode
-    ))
+  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): Future[Html] =
+    renderer.render(HelloWorldYesNoTemplate, Json.toJsObject(YesNoRadioViewModel(form, mode)))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     viewHtml(fillForm(HelloWorldYesNoPageNunjucks, formProvider()), mode).map(Ok(_))

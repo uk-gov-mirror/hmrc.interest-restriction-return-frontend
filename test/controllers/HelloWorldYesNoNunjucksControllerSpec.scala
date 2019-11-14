@@ -22,6 +22,7 @@ import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import nunjucks.MockNunjucksRenderer
+import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.HelloWorldYesNoPageNunjucks
 import play.api.data.{FieldMapping, Form, FormError}
 import play.api.libs.json.{JsObject, Json}
@@ -50,11 +51,7 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
     renderer = mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[Boolean]): JsObject = Json.obj(
-    "form" -> form,
-    "radios" -> Radios.yesNo(form("value")),
-    "mode" -> NormalMode
-  )
+  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
 
   "HelloWorldYesNoNunjucks Controller" must {
 

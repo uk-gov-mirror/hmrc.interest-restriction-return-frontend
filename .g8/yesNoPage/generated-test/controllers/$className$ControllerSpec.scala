@@ -28,6 +28,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.$className$View
 import nunjucks.MockNunjucksRenderer
+import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.Html
@@ -53,11 +54,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
     renderer = mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[Boolean]): JsObject = Json.obj(
-    "form" -> form,
-    "radios" -> Radios.yesNo(form("value")),
-    "mode" -> NormalMode
-  )
+  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
 
   "$className$ Controller" must {
 

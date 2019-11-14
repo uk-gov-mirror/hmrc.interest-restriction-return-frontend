@@ -14,6 +14,7 @@ import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.$className$View
 import nunjucks.Renderer
+import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.$className$Template
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -35,11 +36,7 @@ class $className;format="cap"$Controller @Inject()(
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-      renderer.render($className$Template, Json.obj(
-        "form" -> form,
-        "radios" -> Radios.yesNo(form("value")),
-        "mode" -> mode
-      ))
+      renderer.render($className$Template, Json.toJsObject(YesNoRadioViewModel(form, mode)))
     } else {
       Future.successful(view(form, mode))
     }
