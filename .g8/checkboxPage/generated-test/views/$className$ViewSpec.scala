@@ -3,6 +3,7 @@ package views
 import forms.$className$FormProvider
 import models.{$className$, NormalMode}
 import nunjucks.$className$Template
+import nunjucks.viewmodels.CheckboxViewModel
 import play.api.Application
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -25,12 +26,7 @@ class $className$ViewSpec extends CheckboxViewBehaviours[$className$] with Nunju
 
       def applyView(form: Form[Set[$className$]]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render($className$Template, Json.obj(
-            "form" -> form,
-            "checkboxes" -> $className$.options(form),
-            "mode" -> NormalMode,
-            "errorMessage" -> Json.obj("text" -> messages("error.invalid"))
-          ))(fakeRequest))
+          await(nunjucksRenderer.render($className$Template, Json.toJsObject(CheckboxViewModel($className$.options(form), form, NormalMode)))(fakeRequest))
         } else {
           val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)

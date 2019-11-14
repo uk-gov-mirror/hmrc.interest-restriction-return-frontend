@@ -23,6 +23,7 @@ import forms.$className$FormProvider
 import models.{$className$, NormalMode, UserAnswers}
 import nunjucks.{$className$Template, MockNunjucksRenderer}
 import navigation.FakeNavigator
+import nunjucks.viewmodels.CheckboxViewModel
 import org.scalatestplus.mockito.MockitoSugar
 import pages.$className$Page
 import play.api.data.Form
@@ -52,11 +53,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
     renderer = mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[Set[$className$]]): JsObject = Json.obj(
-    "form" -> form,
-    "checkboxes" -> $className$.options(form),
-    "mode" -> NormalMode
-  )
+  def viewContext(form: Form[Set[$className$]]): JsObject = Json.toJsObject(CheckboxViewModel($className$.options(form), form, NormalMode))
 
   "$className$ Controller" must {
 
