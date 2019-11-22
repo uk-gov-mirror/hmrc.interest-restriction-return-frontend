@@ -13,7 +13,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.$className$View
+import views.html.$className;format="decap"$View
 import nunjucks.{$className$Template, Renderer}
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
@@ -29,7 +29,7 @@ class $className$Controller @Inject()(
                                      requireData: DataRequiredAction,
                                      formProvider: $className$FormProvider,
                                      val controllerComponents: MessagesControllerComponents,
-                                     view: $className$View,
+                                     view: $className;format="decap"$View,
                                      renderer: Renderer
                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 

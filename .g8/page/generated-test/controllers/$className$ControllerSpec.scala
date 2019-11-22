@@ -23,11 +23,11 @@ import play.api.test.Helpers._
 import nunjucks.MockNunjucksRenderer
 import nunjucks.$className$Template
 import play.twirl.api.Html
-import views.html.$className$View
+import views.html.$className;format="decap"$View
 
 class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
 
-  val view = injector.instanceOf[$className$View]
+  val view = injector.instanceOf[$className;format="decap"$View]
 
   def controller = new $className$Controller(
     messagesApi = messagesApi,
