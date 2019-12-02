@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.json.JsValue
+import testonly.connectors.httpParsers.DynamicStubHttpParser.DynamicStubReads
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
@@ -32,17 +33,17 @@ class DynamicStubConnector @Inject()(httpClient: HttpClient,
 
   def addSchema(json: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] = {
     Logger.debug(s"[DynamicStubConnector][addSchema] Json: $json")
-    httpClient.POST(s"$dynamicStub/schema", json)
+    httpClient.POST(s"$dynamicStub/schema", json)(implicitly, DynamicStubReads, hc, ec)
   }
 
   def clearSchemas(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
-    httpClient.DELETE(s"$dynamicStub/all-schemas")
+    httpClient.DELETE(s"$dynamicStub/all-schemas")(DynamicStubReads, hc, ec)
 
 
   def addData(json: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
-    httpClient.POST(s"$dynamicStub/data", json)
+    httpClient.POST(s"$dynamicStub/data", json)(implicitly, DynamicStubReads, hc, ec)
 
   def clearData(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] =
-    httpClient.DELETE(s"$dynamicStub/all-data")
+    httpClient.DELETE(s"$dynamicStub/all-data")(DynamicStubReads, hc, ec)
 
 }
