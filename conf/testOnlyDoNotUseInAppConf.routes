@@ -14,4 +14,17 @@
 GET         /interest-restriction-return/test-only/feature-switch        testonly.controllers.FeatureSwitchController.show
 POST        /interest-restriction-return/test-only/feature-switch        testonly.controllers.FeatureSwitchController.submit
 
+
+# Dynamic Stub Proxy Endpoints
+
++ nocsrf
+POST        /interest-restriction-return/test-only/stub/schema           testonly.controllers.DynamicStubController.addSchema
++ nocsrf
+DELETE      /interest-restriction-return/test-only/stub/schema           testonly.controllers.DynamicStubController.clearSchemas
+
++ nocsrf
+POST        /interest-restriction-return/test-only/stub/data             testonly.controllers.DynamicStubController.addData
++ nocsrf
+DELETE      /interest-restriction-return/test-only/stub/data             testonly.controllers.DynamicStubController.clearData
+
 ->         /                          prod.Routes
