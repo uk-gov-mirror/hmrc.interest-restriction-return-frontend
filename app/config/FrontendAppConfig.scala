@@ -58,4 +58,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   def routeToSwitchLanguage: String => Call =
     (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+
+  lazy val dynamicStub = servicesConfig.baseUrl("interest-restriction-return-dynamic-stub")
 }
