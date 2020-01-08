@@ -1,5 +1,5 @@
 @*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@
         )
     )),
     id = Some(id),
-    items = Seq(
+    items = Option(Seq(
         InputItem(
             classes = "govuk-input--width-2",
             name =  "value.day",
@@ -55,7 +55,7 @@
             label = Some(messages("date.year")),
             value = form("value.year").value
         )
-    ),
+    )),
     hint = hintText.map(hint => Hint(content = Text(messages(hint)))),
     errorMessage = form.errors.headOption.map(err =>
         ErrorMessage(
