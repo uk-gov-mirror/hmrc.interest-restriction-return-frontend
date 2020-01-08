@@ -57,3 +57,11 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+
+
+# AgentActingOnBehalfOfCompanyPage Messages
+# ----------------------------------------------------------
+agentActingOnBehalfOfCompany.title = agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.heading = agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.error.required = Select yes if agentActingOnBehalfOfCompany
