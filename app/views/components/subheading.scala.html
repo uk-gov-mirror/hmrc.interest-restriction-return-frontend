@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package pages
+@this()
 
-import pages.behaviours.PageBehaviours
+@(msg: String)(implicit messages: Messages)
 
-class AgentActingOnBehalfOfCompanyPageSpec extends PageBehaviours {
-
-  "AgentActingOnBehalfOfCompanyPage" must {
-
-    beRetrievable[Boolean](AgentActingOnBehalfOfCompanyPage)
-
-    beSettable[Boolean](AgentActingOnBehalfOfCompanyPage)
-
-    beRemovable[Boolean](AgentActingOnBehalfOfCompanyPage)
-  }
-}
+<span class="govuk-caption-xl">@messages(msg)</span>

@@ -4,6 +4,8 @@
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/form/macro.njk" import formHelper %}
 {% from "components/button/macro.njk" import button %}
+{% from "components/subheading/macro.njk" import subheading %}
+{% from "components/link/macro.njk" import link %}
 
 {% block pageTitle %}
   {{ pageTitle(form, "agentActingOnBehalfOfCompany.title") }}
@@ -14,13 +16,17 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
+      {{ subheading(subheading = "section.agents") }}
+
         {% call formHelper(form, routes.controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode).url) %}
 
           {{ yesNoRadio(form, "agentActingOnBehalfOfCompany.heading", radios) }}
 
-          {{ button() }}
+          {{ button(msgKey = "site.saveAndContinue") }}
 
         {% endcall %}
+
+        {{ link(link = "#", messageKey = "site.saveAndComeBackLater") }}
 
       </div>
     </div>

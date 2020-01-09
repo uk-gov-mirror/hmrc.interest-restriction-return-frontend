@@ -39,6 +39,10 @@ site.saveAndContinue = Save and Continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
+site.getHelpWithThisPage = Get help with this page
+site.saveAndComeBackLater = Save and come back later
+
+section.agents = Agents
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -63,6 +67,5 @@ helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello Wor
 # ----------------------------------------------------------
 agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
 agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
-agentActingOnBehalfOfCompany.subheading = Agents
 agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
 agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
