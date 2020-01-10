@@ -35,9 +35,13 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
+site.saveAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
+
+sections.aboutReturn = About the return
+
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -57,6 +61,14 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+
+
+# InfrastructureCompanyElectionPage Messages
+# ----------------------------------------------------------
+infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.error.required = Select yes if Has the group made the Infrastructure company election?
 
 
 # AgentActingOnBehalfOfCompanyPage Messages

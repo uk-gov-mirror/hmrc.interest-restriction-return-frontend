@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package nunjucks
+package pages
 
-import models.WithName
+import play.api.libs.json.JsPath
 
-trait ViewTemplate
-object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
-object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
-object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate
-object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
-object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
+case object InfrastructureCompanyElectionPage extends QuestionPage[Boolean] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "infrastructureCompanyElection"
+}

@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package nunjucks
+@this()
 
-import models.WithName
+@(msg: String)(implicit messages: Messages)
 
-trait ViewTemplate
-object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
-object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
-object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate
-object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
-object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
+<span class="govuk-caption-xl">@messages(msg)</span>

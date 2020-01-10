@@ -17,20 +17,20 @@ echo "" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
 echo "# $className$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
-echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.error.required = Select yes if $className;format="decap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.title = $title$" >> ../conf/messages.en
+echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.en
+echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.en
+echo "$className;format="decap"$.error.required = Select yes if $heading$" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
 echo "# $className$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
-echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
-echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
-echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.cy
-echo "$className;format="decap"$.error.required = Select yes if $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $title$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.cy
+echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = Select yes if $heading$" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
