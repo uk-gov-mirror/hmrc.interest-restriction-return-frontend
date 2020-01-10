@@ -35,7 +35,7 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
-site.saveAndContinue = Save and Continue
+site.saveAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
@@ -44,6 +44,8 @@ site.saveAndComeBackLater = Save and come back later
 
 section.agents = Agents
 section.reportingCompany = About the reporting company
+
+sections.aboutReturn = About the return
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -129,3 +131,11 @@ agentName.checkYourAnswersLabel = Agent name
 agentName.label = Agent name
 agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
+
+
+# InfrastructureCompanyElectionPage Messages
+# ----------------------------------------------------------
+infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election

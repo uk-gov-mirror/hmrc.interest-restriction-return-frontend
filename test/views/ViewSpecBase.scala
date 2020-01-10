@@ -27,10 +27,7 @@ import scala.reflect.ClassTag
 
 trait ViewSpecBase extends SpecBase {
 
-  def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = {
-    val view = app.injector.instanceOf[A]
-    view
-  }
+  def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = app.injector.instanceOf[A]
 
   implicit class ContentExtension(x: Content) {
     def text: String = x match {

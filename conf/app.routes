@@ -31,6 +31,9 @@ POST       /hello-world-nunjucks/change                 controllers.HelloWorldYe
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
 
+### ReportingCompany Controller
+### ----------------------------------------
+
 GET        /reporting-company-crn                       controllers.ReportingCompanyCRNController.onPageLoad(mode: Mode = NormalMode)
 POST       /reporting-company-crn                       controllers.ReportingCompanyCRNController.onSubmit(mode: Mode = NormalMode)
 GET        /reporting-company-crn/change                controllers.ReportingCompanyCRNController.onPageLoad(mode: Mode = CheckMode)
@@ -56,12 +59,26 @@ POST       /reporting-company-appointed                 controllers.ReportingCom
 GET        /reporting-company-appointed/change          controllers.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)
 POST       /reporting-company-appointed/change          controllers.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)
 
-GET        /agent-acting-on-behalf-of-company                        controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)
-POST       /agent-acting-on-behalf-of-company                        controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)
-GET        /agent-acting-on-behalf-of-company/change                  controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)
-POST       /agent-acting-on-behalf-of-company/change                  controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)
 
-GET        /agent-name                        controllers.AgentNameController.onPageLoad(mode: Mode = NormalMode)
-POST       /agent-name                        controllers.AgentNameController.onSubmit(mode: Mode = NormalMode)
-GET        /agent-name/change                  controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
-POST       /agent-name/change                  controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)
+### AgentActingOnBehalfOfCompany Controller
+### ----------------------------------------
+GET        /agent-acting-on-behalf-of-company           controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-acting-on-behalf-of-company           controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-acting-on-behalf-of-company/change    controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-acting-on-behalf-of-company/change    controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)
+
+
+### AgentName Controller
+### ----------------------------------------
+GET        /agent-name                                  controllers.AgentNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-name                                  controllers.AgentNameController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-name/change                           controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-name/change                           controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)
+
+
+### InfrastructureCompanyElection Controller
+### ----------------------------------------
+GET        /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)

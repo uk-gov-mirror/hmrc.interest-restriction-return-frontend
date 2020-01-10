@@ -28,3 +28,4 @@ object ReportingCompanyNameTemplate extends WithName("reportingCompanyName.njk")
 object ReportingCompanyAppointedTemplate extends WithName("reportingCompanyAppointed.njk") with ViewTemplate
 object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
 object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
+object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate

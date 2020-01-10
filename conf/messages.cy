@@ -121,3 +121,11 @@ agentName.checkYourAnswersLabel = agentName
 agentName.label = Agent name
 agentName.error.required = Enter agentName
 agentName.error.length = AgentName must be 160 characters or less
+
+
+# InfrastructureCompanyElectionPage Messages
+# ----------------------------------------------------------
+infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.error.required = Select yes if Has the group made the Infrastructure company election?

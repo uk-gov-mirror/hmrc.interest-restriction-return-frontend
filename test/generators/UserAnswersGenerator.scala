@@ -35,6 +35,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(AgentNamePage.type, JsValue)] ::
     arbitrary[(AgentActingOnBehalfOfCompanyPage.type, JsValue)] ::
     arbitrary[(HelloWorldYesNoPageNunjucks.type, JsValue)] ::
+    arbitrary[(InfrastructureCompanyElectionPage.type, JsValue)] ::
     Nil
 
   implicit lazy val arbitraryUserData: Arbitrary[UserAnswers] = {
