@@ -17,11 +17,11 @@
 
         {% call formHelper(form, routes.controllers.GroupSubjectToReactivationsController.onSubmit(mode).url) %}
 
-        {{ subheading(subheading = "section.agents") }}
+          {{ subheading(subheading = "section.agents") }}
 
           {{ yesNoRadio(form, "groupSubjectToReactivations.heading", radios) }}
 
-          {{ button() }}
+          {{ button(msgKey = "site.saveAndContinue") }}
 
         {% endcall %}
 
