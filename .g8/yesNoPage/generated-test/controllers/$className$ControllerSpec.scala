@@ -26,7 +26,7 @@ import pages.$className$Page
 import nunjucks.$className$Template
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import nunjucks.MockNunjucksRenderer
 import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
@@ -37,7 +37,7 @@ import uk.gov.hmrc.viewmodels.Radios
 
 class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
-  val view = injector.instanceOf[$className;format="decap"$View]
+  val view = injector.instanceOf[$className$View]
   val formProvider = new $className$FormProvider
   val form = formProvider()
 

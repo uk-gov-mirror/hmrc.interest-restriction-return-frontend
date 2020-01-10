@@ -25,6 +25,7 @@
     button: components.button,
     inputText: components.inputText,
     h1: components.h1,
+    subheading: components.subheading,
     fieldset: components.fieldset
 )
 
@@ -38,14 +39,15 @@
 
         @errorSummary(form.errors)
 
-        @fieldset("reportingCompanyCRN.heading") {
-            @inputText(
+        @subheading("section.reportingCompany")
+
+        @inputText(
               form,
               id = "value",
               name = "value",
-              label = "reportingCompanyCRN.label"
+              label = "reportingCompanyCRN.label",
+              isPageHeading = true
             )
-        }
 
         @button("site.continue")
     }

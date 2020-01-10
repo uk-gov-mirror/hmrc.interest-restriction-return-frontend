@@ -10,9 +10,9 @@ import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.behaviours.CheckboxViewBehaviours
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 
-class $className;format="decap"$ViewSpec extends CheckboxViewBehaviours[$className$] with NunjucksSupport {
+class $className$ViewSpec extends CheckboxViewBehaviours[$className$] with NunjucksSupport {
 
   val messageKeyPrefix = "$className;format="decap"$"
 
@@ -22,13 +22,13 @@ class $className;format="decap"$ViewSpec extends CheckboxViewBehaviours[$classNa
 
     s"$className$ (\$templatingSystem) view" must {
 
-      val view = viewFor[$className;format="decap"$View](Some(emptyUserAnswers))
+      val view = viewFor[$className$View](Some(emptyUserAnswers))
 
       def applyView(form: Form[Set[$className$]]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
           await(nunjucksRenderer.render($className$Template, Json.toJsObject(CheckboxViewModel($className$.options(form), form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[$className;format="decap"$View](Some(emptyUserAnswers))
+          val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 

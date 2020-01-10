@@ -26,3 +26,5 @@ object ReportingCompanyCTUTRTemplate extends WithName("reportingCompanyCTUTR.njk
 object ReportingCompanyResultTemplate extends WithName("reportingCompanyResult.njk") with ViewTemplate
 object ReportingCompanyNameTemplate extends WithName("reportingCompanyName.njk") with ViewTemplate
 object ReportingCompanyAppointedTemplate extends WithName("reportingCompanyAppointed.njk") with ViewTemplate
+object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
+object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate

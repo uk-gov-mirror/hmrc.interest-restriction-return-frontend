@@ -24,7 +24,9 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
-    button: components.button
+    button: components.button,
+    subheading: components.subheading
+
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -36,6 +38,8 @@
     @formHelper(action = ReportingCompanyAppointedController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
+
+        @subheading("section.reportingCompany")
 
         @yesNoRadio(form, "reportingCompanyAppointed.heading")
 

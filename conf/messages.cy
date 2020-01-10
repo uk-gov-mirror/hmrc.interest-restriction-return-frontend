@@ -103,3 +103,21 @@ reportingCompanyAppointed.title = Has the reporting company been appointed
 reportingCompanyAppointed.heading = Has the reporting company been appointed
 reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
+
+
+# AgentActingOnBehalfOfCompanyPage Messages
+# ----------------------------------------------------------
+agentActingOnBehalfOfCompany.title = agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.heading = agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.error.required = Select yes if agentActingOnBehalfOfCompany
+
+
+# AgentNamePage Messages
+# ----------------------------------------------------------
+agentName.title = agentName
+agentName.heading = agentName
+agentName.checkYourAnswersLabel = agentName
+agentName.label = Agent name
+agentName.error.required = Enter agentName
+agentName.error.length = AgentName must be 160 characters or less

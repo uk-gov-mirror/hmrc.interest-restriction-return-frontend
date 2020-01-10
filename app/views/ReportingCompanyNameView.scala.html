@@ -19,13 +19,14 @@
 @import config.FrontendAppConfig
 
 @this(
-    govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    button: components.button,
-    inputText: components.inputText,
-    h1: components.h1,
-    fieldset: components.fieldset
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        button: components.button,
+        inputText: components.inputText,
+        h1: components.h1,
+        subheading: components.subheading,
+        fieldset: components.fieldset
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -38,14 +39,15 @@
 
         @errorSummary(form.errors)
 
-        @fieldset("reportingCompanyName.heading") {
-            @inputText(
+        @subheading("section.reportingCompany")
+
+        @inputText(
               form,
               id = "value",
               name = "value",
-              label = "reportingCompanyName.label"
+              label = "reportingCompanyName.label",
+              isPageHeading = true
             )
-        }
 
         @button("site.continue")
     }
