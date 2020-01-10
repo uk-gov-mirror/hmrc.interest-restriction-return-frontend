@@ -43,7 +43,7 @@ site.getHelpWithThisPage = Get help with this page
 site.saveAndComeBackLater = Save and come back later
 
 section.agents = Agents
-section.reportingCompany = Reporting Company
+section.reportingCompany = About the reporting company
 
 feedback.before = This is a new service - your
 feedback.link = feedback
