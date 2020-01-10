@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package nunjucks
+package forms
 
-import models.WithName
+import javax.inject.Inject
 
-trait ViewTemplate
-object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
-object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
-object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
-object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
-object GroupSubjectToReactivationsTemplate extends WithName("groupSubjectToReactivations.njk") with ViewTemplate
+import forms.mappings.Mappings
+import play.api.data.Form
+
+class GroupSubjectToReactivationsFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("groupSubjectToReactivations.error.required")
+    )
+}

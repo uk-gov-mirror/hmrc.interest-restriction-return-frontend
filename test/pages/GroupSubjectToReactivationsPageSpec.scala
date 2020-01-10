@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package nunjucks
+package pages
 
-import models.WithName
+import pages.behaviours.PageBehaviours
 
-trait ViewTemplate
-object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
-object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
-object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
-object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
-object GroupSubjectToReactivationsTemplate extends WithName("groupSubjectToReactivations.njk") with ViewTemplate
+class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
+
+  "GroupSubjectToReactivationsPage" must {
+
+    beRetrievable[Boolean](GroupSubjectToReactivationsPage)
+
+    beSettable[Boolean](GroupSubjectToReactivationsPage)
+
+    beRemovable[Boolean](GroupSubjectToReactivationsPage)
+  }
+}
