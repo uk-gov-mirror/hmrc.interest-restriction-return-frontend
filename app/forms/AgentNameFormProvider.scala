@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+package forms
 
-@this(govukInput: GovukInput)
+import javax.inject.Inject
 
-@(form: Form[_], id: String, name: String, label: String, isPageHeading: Boolean)(implicit messages: Messages)
+import forms.mappings.Mappings
+import play.api.data.Form
 
-@govukInput(Input(
-  id,
-  name,
-  label = Label(
-    content = Text(messages(label)),
-    isPageHeading = isPageHeading,
-    classes =
-        if(isPageHeading) "govuk-label--xl" else ""
-  ),
-  value = form("value").value,
-  errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
-))
+class AgentNameFormProvider @Inject() extends Mappings {
 
+  def apply(): Form[String] =
+    Form(
+      "value" -> text("agentName.error.required")
+        .verifying(maxLength(160, "agentName.error.length"))
+    )
+}

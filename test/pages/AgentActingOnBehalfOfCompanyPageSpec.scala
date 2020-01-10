@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+package pages
 
-@this(govukInput: GovukInput)
+import pages.behaviours.PageBehaviours
 
-@(form: Form[_], id: String, name: String, label: String, isPageHeading: Boolean)(implicit messages: Messages)
+class AgentActingOnBehalfOfCompanyPageSpec extends PageBehaviours {
 
-@govukInput(Input(
-  id,
-  name,
-  label = Label(
-    content = Text(messages(label)),
-    isPageHeading = isPageHeading,
-    classes =
-        if(isPageHeading) "govuk-label--xl" else ""
-  ),
-  value = form("value").value,
-  errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
-))
+  "AgentActingOnBehalfOfCompanyPage" must {
 
+    beRetrievable[Boolean](AgentActingOnBehalfOfCompanyPage)
+
+    beSettable[Boolean](AgentActingOnBehalfOfCompanyPage)
+
+    beRemovable[Boolean](AgentActingOnBehalfOfCompanyPage)
+  }
+}

@@ -30,3 +30,13 @@ POST       /hello-world-nunjucks/change                 controllers.HelloWorldYe
 ### Check Your Answers Controller
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+
+GET        /agent-acting-on-behalf-of-company                        controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-acting-on-behalf-of-company                        controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-acting-on-behalf-of-company/change                  controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-acting-on-behalf-of-company/change                  controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)
+
+GET        /agent-name                        controllers.AgentNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-name                        controllers.AgentNameController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-name/change                  controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-name/change                  controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)

@@ -29,7 +29,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import nunjucks.$className$Template
 import nunjucks.MockNunjucksRenderer
 import nunjucks.viewmodels.BasicFormViewModel
@@ -38,7 +38,7 @@ class $className$ControllerSpec extends SpecBase with NunjucksSupport with Featu
 
   def onwardRoute = Call("GET", "/foo")
 
-  val view = injector.instanceOf[$className;format="decap"$View]
+  val view = injector.instanceOf[$className$View]
   val formProvider = new $className$FormProvider()
   val form = formProvider()
   val validAnswer = $minimum$

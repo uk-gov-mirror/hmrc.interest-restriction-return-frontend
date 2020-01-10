@@ -35,9 +35,14 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
+site.saveAndContinue = Save and Continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
+site.getHelpWithThisPage = Get help with this page
+site.saveAndComeBackLater = Save and come back later
+
+section.agents = Agents
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -57,3 +62,20 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+
+# AgentActingOnBehalfOfCompanyPage Messages
+# ----------------------------------------------------------
+agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
+
+
+# AgentNamePage Messages
+# ----------------------------------------------------------
+agentName.title = Agent name
+agentName.heading = Agent name
+agentName.checkYourAnswersLabel = Agent name
+agentName.label = Agent name
+agentName.error.required = Enter the agent’s name
+agentName.error.length = The agent’s name must be 160 characters or less
