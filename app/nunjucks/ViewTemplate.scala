@@ -21,3 +21,9 @@ import models.WithName
 trait ViewTemplate
 object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
 object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
+object AgentDetailsTemplate extends WithName("agentDetails.njk") with ViewTemplate
+object ReportingCompanyCRNTemplate extends WithName("reportingCompanyCRN.njk") with ViewTemplate
+object ReportingCompanyCTUTRTemplate extends WithName("reportingCompanyCTUTR.njk") with ViewTemplate
+object ReportingCompanyResultTemplate extends WithName("reportingCompanyResult.njk") with ViewTemplate
+object ReportingCompanyNameTemplate extends WithName("reportingCompanyName.njk") with ViewTemplate
+object ReportingCompanyAppointedTemplate extends WithName("reportingCompanyAppointed.njk") with ViewTemplate

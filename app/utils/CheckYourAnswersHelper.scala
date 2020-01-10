@@ -27,6 +27,18 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def reportingCompanyAppointed: Option[SummaryListRow] = answer(ReportingCompanyAppointedPage, routes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
+
+  def reportingCompanyName: Option[SummaryListRow] = answer(ReportingCompanyNamePage, routes.ReportingCompanyNameController.onPageLoad(CheckMode))
+
+  def reportingCompanyResult: Option[SummaryListRow] = answer(ReportingCompanyResultPage, routes.ReportingCompanyResultController.onPageLoad(CheckMode))
+
+  def reportingCompanyCTUTR: Option[SummaryListRow] = answer(ReportingCompanyCTUTRPage, routes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
+
+  def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, routes.ReportingCompanyCRNController.onPageLoad(CheckMode))
+
+  def agentDetails: Option[SummaryListRow] = answer(AgentDetailsPage, routes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
+
   def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
   def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 

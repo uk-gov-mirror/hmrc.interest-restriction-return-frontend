@@ -30,3 +30,28 @@ POST       /hello-world-nunjucks/change                 controllers.HelloWorldYe
 ### Check Your Answers Controller
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+
+GET        /reporting-company-crn                       controllers.ReportingCompanyCRNController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-crn                       controllers.ReportingCompanyCRNController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-crn/change                controllers.ReportingCompanyCRNController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-crn/change                controllers.ReportingCompanyCRNController.onSubmit(mode: Mode = CheckMode)
+
+GET        /reporting-company-ctutr                     controllers.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-ctutr                     controllers.ReportingCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-ctutr/change              controllers.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-ctutr/change              controllers.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
+
+GET        /reporting-company-result                    controllers.ReportingCompanyResultController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-result                    controllers.ReportingCompanyResultController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-result/change             controllers.ReportingCompanyResultController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-Result/change             controllers.ReportingCompanyResultController.onSubmit(mode: Mode = CheckMode)
+
+GET        /reporting-company-name                      controllers.ReportingCompanyNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-name                      controllers.ReportingCompanyNameController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-name/change               controllers.ReportingCompanyNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-name/change               controllers.ReportingCompanyNameController.onSubmit(mode: Mode = CheckMode)
+
+GET        /reporting-company-appointed                 controllers.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-appointed                 controllers.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-appointed/change          controllers.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-appointed/change          controllers.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)

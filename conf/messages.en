@@ -57,3 +57,49 @@ helloWorldYesNoNunjucks.title = Would you like to say Hello World? (Nunjucks Sty
 helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
+
+
+# ReportingCompanyCRNPage Messages
+# ----------------------------------------------------------
+reportingCompanyCRN.title = Company Registration Number (CRN)
+reportingCompanyCRN.heading = Company Registration Number (CRN)
+reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
+reportingCompanyCRN.label = Company Registration Number (CRN)
+reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
+reportingCompanyCRN.error.length = Company Registration Number (CRN) must be 8 characters or less
+
+
+# ReportingCompanyCTUTRPage Messages
+# ----------------------------------------------------------
+reportingCompanyCTUTR.title = UK Tax reference - CT UTR
+reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
+reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
+reportingCompanyCTUTR.label = UK Tax reference - CT UTR
+reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
+reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 characters or less
+
+
+# ReportingCompanyResultPage Messages
+# ----------------------------------------------------------
+reportingCompanyResult.title = Is the reporting Company the same as the ultimate parent?
+reportingCompanyResult.heading = Is the reporting Company the same as the ultimate parent?
+reportingCompanyResult.checkYourAnswersLabel = Is the reporting Company the same as the ultimate parent?
+reportingCompanyResult.error.required = Select yes if the reporting Company the same as the ultimate parent
+
+
+# ReportingCompanyNamePage Messages
+# ----------------------------------------------------------
+reportingCompanyName.title = Reporting company name
+reportingCompanyName.heading = Reporting company name
+reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.label = Reporting company name
+reportingCompanyName.error.required = Enter Reporting company name
+reportingCompanyName.error.length = Reporting company name must be 160 characters or less
+
+
+# ReportingCompanyAppointedPage Messages
+# ----------------------------------------------------------
+reportingCompanyAppointed.title = Has the reporting company been appointed
+reportingCompanyAppointed.heading = Has the reporting company been appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
+reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
