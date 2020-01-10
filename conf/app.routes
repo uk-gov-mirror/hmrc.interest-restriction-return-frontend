@@ -47,6 +47,11 @@ POST       /agent-name                                  controllers.AgentNameCon
 GET        /agent-name/change                           controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /agent-name/change                           controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)
 
+GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
+GET        /change-group-subject-to-reactivations                  controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-group-subject-to-reactivations                  controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
+
 
 ### InfrastructureCompanyElection Controller
 ### ----------------------------------------
