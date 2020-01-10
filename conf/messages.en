@@ -87,11 +87,13 @@ reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 charac
 
 # ReportingCompanyResultPage Messages
 # ----------------------------------------------------------
-reportingCompanyResult.title = Is the reporting Company the same as the ultimate parent?
+reportingCompanyResult.title = A reporting company is required
 reportingCompanyResult.heading = Is the reporting Company the same as the ultimate parent?
 reportingCompanyResult.checkYourAnswersLabel = Is the reporting Company the same as the ultimate parent?
 reportingCompanyResult.error.required = Select yes if the reporting Company the same as the ultimate parent
-
+reportingCompanyResult.p1 = You need to
+reportingCompanyResult.a1 = appoint a reporting company
+reportingCompanyResult.p2 = before submitting a return
 
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------

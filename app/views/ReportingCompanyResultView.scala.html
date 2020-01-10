@@ -25,7 +25,9 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     button: components.button,
-    subheading: components.subheading
+    subheading: components.subheading,
+    link: components.link,
+    h1: components.h1
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -40,8 +42,9 @@
 
         @subheading("section.reportingCompany")
 
-        @yesNoRadio(form, "reportingCompanyResult.heading")
+        @h1("reportingCompanyResult.title")
 
-        @button("site.saveAndContinue")
+        <p class="govuk-caption-m">@messages("reportingCompanyResult.p1") <a href=link class="govuk-link">@messages("reportingCompanyResult.a1")</a> @messages("reportingCompanyResult.p2")</p>
+
     }
 }

@@ -4,6 +4,8 @@
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/form/macro.njk" import formHelper %}
 {% from "components/button/macro.njk" import button %}
+{% from "components/subheading/macro.njk" import subheading %}
+{% from "components/h1/macro.njk" import h1 %}
 
 {% block pageTitle %}
   {{ pageTitle(form, "reportingCompanyResult.title") }}
@@ -14,11 +16,17 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
+            {{ subheading(subheading = "section.reportingCompany") }}
+
+            {{ h1("reportingCompanyResult.title") }}
+
         {% call formHelper(form, routes.controllers.ReportingCompanyResultController.onSubmit(mode).url) %}
 
-          {{ yesNoRadio(form, "reportingCompanyResult.heading", radios) }}
-
-          {{ button() }}
+<p class="govuk-caption-m">
+        {{ messages("reportingCompanyResult.p1") }}
+                 <a href=link class="govuk-link">{{ messages("reportingCompanyResult.a1") }}</a>
+        {{ messages("reportingCompanyResult.p2") }}
+</p>
 
         {% endcall %}
 
