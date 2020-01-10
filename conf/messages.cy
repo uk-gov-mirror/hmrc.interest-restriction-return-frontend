@@ -105,3 +105,11 @@ revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+
+
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = groupSubjectToReactivations
+groupSubjectToReactivations.heading = groupSubjectToReactivations
+groupSubjectToReactivations.checkYourAnswersLabel = groupSubjectToReactivations
+groupSubjectToReactivations.error.required = Select yes if groupSubjectToReactivations
