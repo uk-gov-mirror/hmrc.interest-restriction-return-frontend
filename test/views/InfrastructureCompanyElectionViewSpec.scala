@@ -16,6 +16,7 @@
 
 package views
 
+import assets.messages.SectionHeaderMessages
 import controllers.routes
 import forms.InfrastructureCompanyElectionFormProvider
 import models.NormalMode
@@ -30,7 +31,7 @@ import nunjucks.InfrastructureCompanyElectionTemplate
 import nunjucks.InfrastructureCompanyElectionTemplate
 import nunjucks.viewmodels.YesNoRadioViewModel
 
-class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with NunjucksSupport with ViewSpecBase {
 
   val messageKeyPrefix = "infrastructureCompanyElection"
 
@@ -52,13 +53,9 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Nun
 
       behave like pageWithBackLink(applyView(form))
 
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InfrastructureCompanyElectionController.onSubmit(NormalMode).url)
-
-      "include a subheading for the section" in {
-
-
-
-      }
     }
   }
 }
