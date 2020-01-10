@@ -36,9 +36,6 @@ trait PageGenerators {
   implicit lazy val arbitraryReportingCompanyCRNPage: Arbitrary[ReportingCompanyCRNPage.type] =
     Arbitrary(ReportingCompanyCRNPage)
 
-  implicit lazy val arbitraryAgentDetailsPage: Arbitrary[AgentDetailsPage.type] =
-    Arbitrary(AgentDetailsPage)
-
   implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
     Arbitrary(HelloWorldYesNoPageNunjucks)
 }

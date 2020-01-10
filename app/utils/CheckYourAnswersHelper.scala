@@ -37,8 +37,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, routes.ReportingCompanyCRNController.onPageLoad(CheckMode))
 
-  def agentDetails: Option[SummaryListRow] = answer(AgentDetailsPage, routes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
-
   def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
   def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 

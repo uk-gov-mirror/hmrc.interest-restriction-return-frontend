@@ -32,7 +32,6 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(ReportingCompanyResultPage.type, JsValue)] ::
     arbitrary[(ReportingCompanyCTUTRPage.type, JsValue)] ::
     arbitrary[(ReportingCompanyCRNPage.type, JsValue)] ::
-    arbitrary[(AgentDetailsPage.type, JsValue)] ::
     arbitrary[(HelloWorldYesNoPageNunjucks.type, JsValue)] ::
     Nil
 
