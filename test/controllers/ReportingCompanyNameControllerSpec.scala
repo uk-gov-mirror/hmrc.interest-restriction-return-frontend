@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import pages.ReportingCompanyNamePage
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.reportingCompanyNameView
+import views.html.ReportingCompanyNameView
 import nunjucks.MockNunjucksRenderer
 import nunjucks.ReportingCompanyNameTemplate
 import play.api.data.Form
@@ -39,7 +39,7 @@ class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport w
 
   def onwardRoute = Call("GET", "/foo")
 
-  val view = injector.instanceOf[reportingCompanyNameView]
+  val view = injector.instanceOf[ReportingCompanyNameView]
   val formProvider = new ReportingCompanyNameFormProvider()
   val form = formProvider()
 

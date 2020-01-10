@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import pages.ReportingCompanyAppointedPage
 import nunjucks.ReportingCompanyAppointedTemplate
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.reportingCompanyAppointedView
+import views.html.ReportingCompanyAppointedView
 import nunjucks.MockNunjucksRenderer
 import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
@@ -37,7 +37,7 @@ import uk.gov.hmrc.viewmodels.Radios
 
 class ReportingCompanyAppointedControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
-  val view = injector.instanceOf[reportingCompanyAppointedView]
+  val view = injector.instanceOf[ReportingCompanyAppointedView]
   val formProvider = new ReportingCompanyAppointedFormProvider
   val form = formProvider()
 
