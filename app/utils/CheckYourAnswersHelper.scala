@@ -27,6 +27,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def groupSubjectToReactivations: Option[SummaryListRow] = answer(GroupSubjectToReactivationsPage, routes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))
+
   def agentName: Option[SummaryListRow] = answer(AgentNamePage, routes.AgentNameController.onPageLoad(CheckMode))
 
   def agentActingOnBehalfOfCompany: Option[SummaryListRow] = answer(AgentActingOnBehalfOfCompanyPage, routes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))

@@ -87,3 +87,11 @@ agentName.checkYourAnswersLabel = agentName
 agentName.label = Agent name
 agentName.error.required = Enter agentName
 agentName.error.length = AgentName must be 160 characters or less
+
+
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = groupSubjectToReactivations
+groupSubjectToReactivations.heading = groupSubjectToReactivations
+groupSubjectToReactivations.checkYourAnswersLabel = groupSubjectToReactivations
+groupSubjectToReactivations.error.required = Select yes if groupSubjectToReactivations

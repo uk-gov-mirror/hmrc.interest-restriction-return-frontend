@@ -42,7 +42,12 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.saveAndComeBackLater = Save and come back later
 
+
+# AgentActingOnBehalfOfCompanyPage Messages
+# ----------------------------------------------------------
 section.agents = Agents
+section.aboutTheReturn = About the return
+
 
 sections.aboutReturn = About the return
 
@@ -89,3 +94,11 @@ agentName.checkYourAnswersLabel = Agent name
 agentName.label = Agent name
 agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
+
+
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = Is the group subject to reactivations?
+groupSubjectToReactivations.heading = Is the group subject to reactivations?
+groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reactivations?
+groupSubjectToReactivations.error.required = Select yes if you are a group subject to reactivations
