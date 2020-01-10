@@ -30,3 +30,11 @@ POST       /hello-world-nunjucks/change                 controllers.HelloWorldYe
 ### Check Your Answers Controller
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+
+
+### InfrastructureCompanyElection Controller
+### ----------------------------------------
+GET        /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)

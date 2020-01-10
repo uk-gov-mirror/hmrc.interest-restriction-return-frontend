@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import org.scalacheck.Arbitrary
-import pages._
+import pages.behaviours.PageBehaviours
 
-trait PageGenerators {
+class InfrastructureCompanyElectionPageSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryInfrastructureCompanyElectionPage: Arbitrary[InfrastructureCompanyElectionPage.type] =
-    Arbitrary(InfrastructureCompanyElectionPage)
+  "InfrastructureCompanyElectionPage" must {
 
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
-    Arbitrary(HelloWorldYesNoPageNunjucks)
+    beRetrievable[Boolean](InfrastructureCompanyElectionPage)
+
+    beSettable[Boolean](InfrastructureCompanyElectionPage)
+
+    beRemovable[Boolean](InfrastructureCompanyElectionPage)
+  }
 }
