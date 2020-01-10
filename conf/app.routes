@@ -59,3 +59,8 @@ GET        /infrastructure-company-election             controllers.Infrastructu
 POST       /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
+
+GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-reactivations/change                 controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-subject-to-reactivations/change                  controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
