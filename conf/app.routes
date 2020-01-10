@@ -35,3 +35,8 @@ GET        /agentActingOnBehalfOfCompany                        controllers.Agen
 POST       /agentActingOnBehalfOfCompany                        controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)
 GET        /changeAgentActingOnBehalfOfCompany                  controllers.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)
 POST       /changeAgentActingOnBehalfOfCompany                  controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)
+
+GET        /agentName                        controllers.AgentNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /agentName                        controllers.AgentNameController.onSubmit(mode: Mode = NormalMode)
+GET        /changeAgentName                  controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeAgentName                  controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)

@@ -10,10 +10,10 @@ import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.QuestionViewBehaviours
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import nunjucks.$className$Template
 
-class $className;format="decap"$ViewSpec extends QuestionViewBehaviours[LocalDate] {
+class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "$className;format="decap"$"
 
@@ -27,7 +27,7 @@ class $className;format="decap"$ViewSpec extends QuestionViewBehaviours[LocalDat
         if (templatingSystem == Nunjucks) {
           await(nunjucksRenderer.render($className$Template, Json.toJsObject(DateViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[$className;format="decap"$View](Some(emptyUserAnswers))
+          val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 

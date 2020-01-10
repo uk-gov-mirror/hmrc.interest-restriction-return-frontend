@@ -65,3 +65,13 @@ agentActingOnBehalfOfCompany.title = agentActingOnBehalfOfCompany
 agentActingOnBehalfOfCompany.heading = agentActingOnBehalfOfCompany
 agentActingOnBehalfOfCompany.checkYourAnswersLabel = agentActingOnBehalfOfCompany
 agentActingOnBehalfOfCompany.error.required = Select yes if agentActingOnBehalfOfCompany
+
+
+# AgentNamePage Messages
+# ----------------------------------------------------------
+agentName.title = agentName
+agentName.heading = agentName
+agentName.checkYourAnswersLabel = agentName
+agentName.label = Agent name
+agentName.error.required = Enter agentName
+agentName.error.length = AgentName must be 160 characters or less

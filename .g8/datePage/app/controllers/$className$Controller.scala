@@ -13,7 +13,7 @@ import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import nunjucks.Renderer
 import nunjucks.$className$Template
 import play.api.data.Form
@@ -31,7 +31,7 @@ class $className;format="cap"$Controller @Inject()(
                                          requireData: DataRequiredAction,
                                          formProvider: $className$FormProvider,
                                          val controllerComponents: MessagesControllerComponents,
-                                         view: $className;format="decap"$View,
+                                         view: $className$View,
                                          renderer: Renderer
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 

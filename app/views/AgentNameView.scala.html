@@ -16,15 +16,16 @@
 
 @import controllers.routes._
 @import models.Mode
-@import views.ViewUtils._
 @import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
     button: components.button,
+    inputText: components.inputText,
+    fieldset: components.fieldset,
+    h1: components.h1,
     subheading: components.subheading,
     link: components.link
 )
@@ -32,18 +33,23 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "agentActingOnBehalfOfCompany.title"))
+    pageTitle = Some(title(form, "agentName.title"))
     ) {
 
-    @subheading("section.agents")
-
-    @formHelper(action = AgentActingOnBehalfOfCompanyController.onSubmit(mode)) {
+    @formHelper(action = AgentNameController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "agentActingOnBehalfOfCompany.heading")
+        @subheading("section.agents")
+
+        @inputText(
+            form,
+            id = "value",
+            name = "value",
+            label = "agentName.label",
+            isPageHeading = true
+        )
 
         @button("site.saveAndContinue")
-
     }
 }

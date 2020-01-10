@@ -31,14 +31,14 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import nunjucks.viewmodels.RadioOptionsViewModel
 
 class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
   val formProvider = new $className$FormProvider()
-  val view = injector.instanceOf[$className;format="decap"$View]
+  val view = injector.instanceOf[$className$View]
   val form = formProvider()
 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(

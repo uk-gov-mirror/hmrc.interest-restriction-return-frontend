@@ -1,14 +1,15 @@
 {% extends "includes/layout.njk" %}
 
-{% from "components/yesNoRadio.njk" import yesNoRadio %}
+{% from "components/inputText/macro.njk" import inputText %}
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/form/macro.njk" import formHelper %}
 {% from "components/button/macro.njk" import button %}
+{% from "components/fieldset/macro.njk" import fieldset %}
 {% from "components/subheading/macro.njk" import subheading %}
 {% from "components/link/macro.njk" import link %}
 
 {% block pageTitle %}
-  {{ pageTitle(form, "agentActingOnBehalfOfCompany.title") }}
+  {{ pageTitle(form, "agentName.title") }}
 {% endblock %}
 
 {% block content %}
@@ -16,13 +17,13 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-      {{ subheading(subheading = "section.agents") }}
+        {% call formHelper(form, routes.controllers.AgentNameController.onSubmit(mode).url) %}
 
-        {% call formHelper(form, routes.controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode).url) %}
+            {{ subheading(subheading = "section.agents") }}
 
-          {{ yesNoRadio(form, "agentActingOnBehalfOfCompany.heading", radios) }}
+            {{ inputText(form, "value", "value", "agentName.label", true, "govuk-label--xl") }}
 
-          {{ button(msgKey = "site.saveAndContinue") }}
+            {{ button(msgKey = "site.saveAndContinue") }}
 
         {% endcall %}
 

@@ -36,7 +36,7 @@ import play.twirl.api.Html
 import nunjucks.$className$Template
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 
 class $className$ControllerSpec extends SpecBase with FeatureSwitching with MockNunjucksRenderer {
 
@@ -44,7 +44,7 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching with Mock
   val form = formProvider()
   val validAnswer = LocalDate.now(ZoneOffset.UTC)
 
-  val view = injector.instanceOf[$className;format="decap"$View]
+  val view = injector.instanceOf[$className$View]
 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
     messagesApi = messagesApi,
