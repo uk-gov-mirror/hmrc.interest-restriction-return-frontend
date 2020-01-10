@@ -43,7 +43,7 @@ site.getHelpWithThisPage = Get help with this page
 site.saveAndComeBackLater = Save and come back later
 
 
-# AgentActingOnBehalfOfCompanyPage Messages
+# Sections
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutTheReturn = About the return

@@ -20,4 +20,7 @@ object SectionHeaderMessages {
 
   val aboutReturn = "About the return"
 
+  val agents = "Agents"
+
+
 }

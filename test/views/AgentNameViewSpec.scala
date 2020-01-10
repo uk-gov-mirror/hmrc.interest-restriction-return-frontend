@@ -16,6 +16,7 @@
 
 package views
 
+import assets.messages.SectionHeaderMessages
 import controllers.routes
 import forms.AgentNameFormProvider
 import models.NormalMode
@@ -50,6 +51,8 @@ class AgentNameViewSpec extends StringViewBehaviours with NunjucksSupport {
       behave like normalPage(applyView(form), messageKeyPrefix)
 
       behave like pageWithBackLink(applyView(form))
+
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.agents)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.AgentNameController.onSubmit(NormalMode).url)
     }
