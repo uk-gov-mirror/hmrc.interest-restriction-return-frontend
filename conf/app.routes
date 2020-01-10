@@ -67,5 +67,5 @@ POST       /revising-return/change                      controllers.RevisingRetu
 
 GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
 POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
-GET        /group-subject-to-reactivations/change                  controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
+GET        /group-subject-to-reactivations/change                 controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-subject-to-reactivations/change                  controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
