@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ package controllers
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import forms.$className$FormProvider
+import forms.AgentActingOnBehalfOfCompanyFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.$className$Page
-import nunjucks.$className$Template
+import pages.AgentActingOnBehalfOfCompanyPage
+import nunjucks.AgentActingOnBehalfOfCompanyTemplate
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.$className$View
+import views.html.AgentActingOnBehalfOfCompanyView
 import nunjucks.MockNunjucksRenderer
 import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
@@ -35,20 +35,20 @@ import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
 
-class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class AgentActingOnBehalfOfCompanyControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
-  val view = injector.instanceOf[$className$View]
-  val formProvider = new $className$FormProvider
+  val view = injector.instanceOf[AgentActingOnBehalfOfCompanyView]
+  val formProvider = new AgentActingOnBehalfOfCompanyFormProvider
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new AgentActingOnBehalfOfCompanyController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new $className$FormProvider,
+    formProvider = new AgentActingOnBehalfOfCompanyFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     renderer = mockNunjucksRenderer
@@ -56,7 +56,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
   def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
 
-  "$className$ Controller" must {
+  "AgentActingOnBehalfOfCompany Controller" must {
 
     "If rendering using the Nunjucks templating engine" must {
 
@@ -64,7 +64,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
         enable(UseNunjucks)
 
-        mockRender($className$Template, viewContext(form))(Html("Success"))
+        mockRender(AgentActingOnBehalfOfCompanyTemplate, viewContext(form))(Html("Success"))
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -88,7 +88,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set($className$Page, true).success.value
+      val userAnswers = UserAnswers(userAnswersId).set(AgentActingOnBehalfOfCompanyPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

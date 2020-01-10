@@ -39,6 +39,10 @@ site.saveAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
+site.getHelpWithThisPage = Get help with this page
+site.saveAndComeBackLater = Save and come back later
+
+section.agents = Agents
 
 sections.aboutReturn = About the return
 
@@ -67,3 +71,21 @@ infrastructureCompanyElection.title = Has the group made the Infrastructure comp
 infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
+
+
+# AgentActingOnBehalfOfCompanyPage Messages
+# ----------------------------------------------------------
+agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
+
+
+# AgentNamePage Messages
+# ----------------------------------------------------------
+agentName.title = Agent name
+agentName.heading = Agent name
+agentName.checkYourAnswersLabel = Agent name
+agentName.label = Agent name
+agentName.error.required = Enter the agent’s name
+agentName.error.length = The agent’s name must be 160 characters or less

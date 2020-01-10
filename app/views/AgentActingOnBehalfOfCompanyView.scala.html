@@ -25,23 +25,25 @@
     errorSummary: components.errorSummary,
     yesNoRadio: components.yesNoRadio,
     button: components.button,
-    subHeading: components.subheading
+    subheading: components.subheading,
+    link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "infrastructureCompanyElection.title"))
+    pageTitle = Some(title(form, "agentActingOnBehalfOfCompany.title"))
     ) {
 
-    @formHelper(action = InfrastructureCompanyElectionController.onSubmit(mode)) {
+    @subheading("section.agents")
+
+    @formHelper(action = AgentActingOnBehalfOfCompanyController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @subHeading("sections.aboutReturn")
-
-        @yesNoRadio(form, "infrastructureCompanyElection.heading")
+        @yesNoRadio(form, "agentActingOnBehalfOfCompany.heading")
 
         @button("site.saveAndContinue")
+
     }
 }

@@ -9,10 +9,10 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import nunjucks.$className$Template
 import views.behaviours.IntViewBehaviours
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import nunjucks.viewmodels.BasicFormViewModel
 
-class $className;format="decap"$ViewSpec extends IntViewBehaviours with NunjucksSupport {
+class $className$ViewSpec extends IntViewBehaviours with NunjucksSupport {
 
   val messageKeyPrefix = "$className;format="decap"$"
 
@@ -26,7 +26,7 @@ class $className;format="decap"$ViewSpec extends IntViewBehaviours with Nunjucks
         if (templatingSystem == Nunjucks) {
           await(nunjucksRenderer.render($className$Template, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[$className;format="decap"$View](Some(emptyUserAnswers))
+          val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 

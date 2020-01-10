@@ -9,7 +9,7 @@ import nunjucks.$className$Template
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -18,7 +18,7 @@ class $className$Controller @Inject()(override val messagesApi: MessagesApi,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
                                       val controllerComponents: MessagesControllerComponents,
-                                      view: $className;format="decap"$View,
+                                      view: $className$View,
                                       renderer: Renderer
                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {

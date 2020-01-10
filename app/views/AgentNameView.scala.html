@@ -16,31 +16,39 @@
 
 @import controllers.routes._
 @import models.Mode
-@import views.ViewUtils._
 @import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
     button: components.button,
-    subHeading: components.subheading
+    inputText: components.inputText,
+    fieldset: components.fieldset,
+    h1: components.h1,
+    subheading: components.subheading,
+    link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "infrastructureCompanyElection.title"))
+    pageTitle = Some(title(form, "agentName.title"))
     ) {
 
-    @formHelper(action = InfrastructureCompanyElectionController.onSubmit(mode)) {
+    @formHelper(action = AgentNameController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @subHeading("sections.aboutReturn")
+        @subheading("section.agents")
 
-        @yesNoRadio(form, "infrastructureCompanyElection.heading")
+        @inputText(
+            form,
+            id = "value",
+            name = "value",
+            label = "agentName.label",
+            isPageHeading = true
+        )
 
         @button("site.saveAndContinue")
     }

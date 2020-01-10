@@ -24,6 +24,12 @@ trait PageGenerators {
   implicit lazy val arbitraryInfrastructureCompanyElectionPage: Arbitrary[InfrastructureCompanyElectionPage.type] =
     Arbitrary(InfrastructureCompanyElectionPage)
 
+  implicit lazy val arbitraryAgentNamePage: Arbitrary[AgentNamePage.type] =
+    Arbitrary(AgentNamePage)
+
+  implicit lazy val arbitraryAgentActingOnBehalfOfCompanyPage: Arbitrary[AgentActingOnBehalfOfCompanyPage.type] =
+    Arbitrary(AgentActingOnBehalfOfCompanyPage)
+
   implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
     Arbitrary(HelloWorldYesNoPageNunjucks)
 }

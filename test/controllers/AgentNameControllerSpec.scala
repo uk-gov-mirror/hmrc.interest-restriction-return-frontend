@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,44 +19,46 @@ package controllers
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import forms.$className$FormProvider
+import forms.AgentNameFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.$className$Page
-import nunjucks.$className$Template
+import pages.AgentNamePage
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.$className$View
+import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.html.AgentNameView
 import nunjucks.MockNunjucksRenderer
-import nunjucks.viewmodels.YesNoRadioViewModel
+import nunjucks.AgentNameTemplate
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
+import nunjucks.viewmodels.BasicFormViewModel
 
-class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class AgentNameControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching {
 
-  val view = injector.instanceOf[$className$View]
-  val formProvider = new $className$FormProvider
+  def onwardRoute = Call("GET", "/foo")
+
+  val view = injector.instanceOf[AgentNameView]
+  val formProvider = new AgentNameFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className$Controller(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new AgentNameController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new $className$FormProvider,
+    formProvider = new AgentNameFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer
+    mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
+  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
 
-  "$className$ Controller" must {
+  "AgentName Controller" must {
 
     "If rendering using the Nunjucks templating engine" must {
 
@@ -64,7 +66,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
         enable(UseNunjucks)
 
-        mockRender($className$Template, viewContext(form))(Html("Success"))
+        mockRender(AgentNameTemplate, viewContext(form))(Html("Success"))
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,9 +88,10 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
       }
     }
 
+
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set($className$Page, true).success.value
+      val userAnswers = UserAnswers(userAnswersId).set(AgentNamePage, "answer").success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
@@ -97,11 +100,11 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+      status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/foo")
     }
 
@@ -111,27 +114,26 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
       val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
   }
 }

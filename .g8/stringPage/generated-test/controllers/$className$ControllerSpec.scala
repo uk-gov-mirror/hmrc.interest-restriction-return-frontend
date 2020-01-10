@@ -26,7 +26,7 @@ import pages.$className$Page
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.$className;format="decap"$View
+import views.html.$className$View
 import nunjucks.MockNunjucksRenderer
 import nunjucks.$className$Template
 import play.api.data.Form
@@ -39,7 +39,7 @@ class $className$ControllerSpec extends SpecBase with NunjucksSupport with MockN
 
   def onwardRoute = Call("GET", "/foo")
 
-  val view = injector.instanceOf[$className;format="decap"$View]
+  val view = injector.instanceOf[$className$View]
   val formProvider = new $className$FormProvider()
   val form = formProvider()
 

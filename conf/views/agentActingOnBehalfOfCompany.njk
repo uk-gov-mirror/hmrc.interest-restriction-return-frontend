@@ -5,9 +5,10 @@
 {% from "components/form/macro.njk" import formHelper %}
 {% from "components/button/macro.njk" import button %}
 {% from "components/subheading/macro.njk" import subheading %}
+{% from "components/link/macro.njk" import link %}
 
 {% block pageTitle %}
-  {{ pageTitle(form, "infrastructureCompanyElection.title") }}
+  {{ pageTitle(form, "agentActingOnBehalfOfCompany.title") }}
 {% endblock %}
 
 {% block content %}
@@ -15,13 +16,13 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {% call formHelper(form, routes.controllers.InfrastructureCompanyElectionController.onSubmit(mode).url) %}
+      {{ subheading(subheading = "section.agents") }}
 
-          {{ subheading("sections.aboutReturn") }}
+        {% call formHelper(form, routes.controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode).url) %}
 
-          {{ yesNoRadio(form, "infrastructureCompanyElection.heading", radios) }}
+          {{ yesNoRadio(form, "agentActingOnBehalfOfCompany.heading", radios) }}
 
-          {{ button("site.saveAndContinue") }}
+          {{ button(msgKey = "site.saveAndContinue") }}
 
         {% endcall %}
 
