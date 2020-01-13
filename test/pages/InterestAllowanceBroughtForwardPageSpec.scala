@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package pages
 
-@(msg: String)(implicit messages: Messages)
+import pages.behaviours.PageBehaviours
 
-<span class="govuk-caption-xl">@messages(msg)</span>
+class InterestAllowanceBroughtForwardPageSpec extends PageBehaviours {
+
+  "InterestAllowanceBroughtForwardPage" must {
+
+    beRetrievable[BigDecimal](InterestAllowanceBroughtForwardPage)
+
+    beSettable[BigDecimal](InterestAllowanceBroughtForwardPage)
+
+    beRemovable[BigDecimal](InterestAllowanceBroughtForwardPage)
+  }
+}

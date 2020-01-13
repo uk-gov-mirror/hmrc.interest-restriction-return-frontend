@@ -18,16 +18,25 @@
 
 @this(govukInput: GovukInput)
 
-@(form: Form[_], id: String, name: String, label: String)(implicit messages: Messages, appConfig: config.FrontendAppConfig)
+@(form: Form[_],
+  id: String,
+  name: String,
+  label: String,
+  isPageHeading: Boolean = false,
+  isDecimal: Boolean = true
+)(implicit messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukInput(Input(
     id,
     name,
     inputType = "number",
     label = Label(
-        content = Text(messages(label))
+        content = Text(messages(label)),
+        isPageHeading = isPageHeading,
+        classes = if(isPageHeading) "govuk-label--xl" else ""
     ),
     value = form("value").value,
-    errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+    errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
+    attributes = if(isDecimal) Map("step" -> "0.01") else Map("step" -> "1")
 ))
 

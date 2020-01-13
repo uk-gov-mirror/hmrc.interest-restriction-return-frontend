@@ -3,7 +3,9 @@
 {{ govukInput({
   type: "number",
   label: {
-    text: messages(label)
+    text: messages(label),
+    classes: classes,
+    isPageHeading: asHeading
   },
   id: id,
   name: name,

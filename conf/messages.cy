@@ -141,6 +141,18 @@ infrastructureCompanyElection.heading = Has the group made the Infrastructure co
 infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
 
+# InterestAllowanceBroughtForwardPage Messages
+# ----------------------------------------------------------
+interestAllowanceBroughtForward.title = InterestAllowanceBroughtForward
+interestAllowanceBroughtForward.heading = InterestAllowanceBroughtForward
+interestAllowanceBroughtForward.label =What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.checkYourAnswersLabel = InterestAllowanceBroughtForward
+interestAllowanceBroughtForward.error.nonNumeric = Enter your interestAllowanceBroughtForward using numbers
+interestAllowanceBroughtForward.error.required = Enter your interestAllowanceBroughtForward
+interestAllowanceBroughtForward.error.invalidNumeric = Enter your interestAllowanceBroughtForward using whole numbers
+interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForward must be between {0} and {1}
+
+
 # GroupSubjectToReactivationsPage Messages
 # ----------------------------------------------------------
 groupSubjectToReactivations.title = groupSubjectToReactivations

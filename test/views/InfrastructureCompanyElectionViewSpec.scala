@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.InfrastructureCompanyElectionFormProvider
 import models.NormalMode
@@ -53,7 +53,7 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Nun
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSaveAndContinue(applyView(form))
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
