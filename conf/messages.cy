@@ -97,3 +97,11 @@ fullOrAbbreviatedReturn.full = Submit a full return
 fullOrAbbreviatedReturn.abbreviated = Submit an abbreviated return
 fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
 fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn
+
+
+# RevisingReturnPage Messages
+# ----------------------------------------------------------
+revisingReturn.title = Are you revising a return you have already submitted?
+revisingReturn.heading = Are you revising a return you have already submitted?
+revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
+revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?

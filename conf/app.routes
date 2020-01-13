@@ -59,3 +59,8 @@ GET        /full-or-abbreviated-return                        controllers.FullOr
 POST       /full-or-abbreviated-return                        controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
 GET        /full-or-abbreviated-return/change                  controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /full-or-abbreviated-return/change                  controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)
+
+GET        /revisingReturn                        controllers.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /revisingReturn                        controllers.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /changeRevisingReturn                  controllers.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeRevisingReturn                  controllers.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
