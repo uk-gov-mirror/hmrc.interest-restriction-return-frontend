@@ -2,7 +2,7 @@
 
 {{ errorSummary(form) }}
 
-<form action="{{ action }}" method="{{ method }}">
+<form action="{{ action }}" method="{{ method }}" novalidate>
 
     {{ csrf() | safe }}
 

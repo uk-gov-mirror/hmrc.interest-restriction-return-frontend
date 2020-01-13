@@ -47,6 +47,8 @@ POST       /agent-name                                  controllers.AgentNameCon
 GET        /agent-name/change                           controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /agent-name/change                           controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)
 
+### GroupSubjectToReactivations Controller
+### ----------------------------------------
 GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
 POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
 GET        /group-subject-to-reactivations/change                 controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
@@ -60,17 +62,26 @@ POST       /infrastructure-company-election             controllers.Infrastructu
 GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
 
+
+### InterestAllowanceBroughtForward Controller
+### ----------------------------------------
+GET        /interest-allowance-brought-forward          controllers.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-allowance-brought-forward          controllers.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-allowance-brought-forward/change   controllers.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-allowance-brought-forward/change   controllers.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)
+
+
+### FullOrAbbreviatedReturn Controller
+### ----------------------------------------
 GET        /full-or-abbreviated-return                  controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)
 POST       /full-or-abbreviated-return                  controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
 GET        /full-or-abbreviated-return/change           controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /full-or-abbreviated-return/change           controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)
 
+
+### RevisingReturn Controller
+### ----------------------------------------
 GET        /revising-return                             controllers.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
 POST       /revising-return                             controllers.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
 GET        /revising-return/change                      controllers.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /revising-return/change                      controllers.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
-
-GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
-GET        /group-subject-to-reactivations/change                 controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-subject-to-reactivations/change                  controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)

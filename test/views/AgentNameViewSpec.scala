@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.AgentNameFormProvider
 import models.NormalMode
@@ -54,7 +54,7 @@ class AgentNameViewSpec extends StringViewBehaviours with NunjucksSupport {
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.agents)
 
-      behave like pageWithSaveAndContinue(applyView(form))
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.AgentNameController.onSubmit(NormalMode).url)
     }

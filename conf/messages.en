@@ -97,6 +97,18 @@ agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
 
 
+# InterestAllowanceBroughtForwardPage Messages
+# ----------------------------------------------------------
+interestAllowanceBroughtForward.title = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.heading = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.label = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.checkYourAnswersLabel = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.error.nonNumeric = Enter the group interest allowance brought forward using numbers
+interestAllowanceBroughtForward.error.required = Enter the group interest allowance brought forward
+interestAllowanceBroughtForward.error.invalidNumeric = The group interest allowance brought forward must be valid decimal or whole number
+interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForward must be between {0} and {1}
+
+
 # GroupSubjectToReactivationsPage Messages
 # ----------------------------------------------------------
 groupSubjectToReactivations.title = Is the group subject to reactivations?

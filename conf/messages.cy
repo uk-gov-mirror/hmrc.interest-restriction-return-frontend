@@ -89,6 +89,18 @@ agentName.error.required = Enter agentName
 agentName.error.length = AgentName must be 160 characters or less
 
 
+# InterestAllowanceBroughtForwardPage Messages
+# ----------------------------------------------------------
+interestAllowanceBroughtForward.title = InterestAllowanceBroughtForward
+interestAllowanceBroughtForward.heading = InterestAllowanceBroughtForward
+interestAllowanceBroughtForward.label =What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.checkYourAnswersLabel = InterestAllowanceBroughtForward
+interestAllowanceBroughtForward.error.nonNumeric = Enter your interestAllowanceBroughtForward using numbers
+interestAllowanceBroughtForward.error.required = Enter your interestAllowanceBroughtForward
+interestAllowanceBroughtForward.error.invalidNumeric = Enter your interestAllowanceBroughtForward using whole numbers
+interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForward must be between {0} and {1}
+
+
 # GroupSubjectToReactivationsPage Messages
 # ----------------------------------------------------------
 groupSubjectToReactivations.title = groupSubjectToReactivations
@@ -113,11 +125,3 @@ revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
-
-
-# GroupSubjectToReactivationsPage Messages
-# ----------------------------------------------------------
-groupSubjectToReactivations.title = groupSubjectToReactivations
-groupSubjectToReactivations.heading = groupSubjectToReactivations
-groupSubjectToReactivations.checkYourAnswersLabel = groupSubjectToReactivations
-groupSubjectToReactivations.error.required = Select yes if groupSubjectToReactivations

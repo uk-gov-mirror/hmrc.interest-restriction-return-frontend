@@ -18,32 +18,32 @@ package views
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
-import forms.RevisingReturnFormProvider
+import forms.InterestAllowanceBroughtForwardFormProvider
 import models.NormalMode
-import nunjucks.RevisingReturnTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.behaviours.YesNoViewBehaviours
-import views.html.RevisingReturnView
+import nunjucks.InterestAllowanceBroughtForwardTemplate
+import views.behaviours.{DecimalViewBehaviours, IntViewBehaviours}
+import views.html.InterestAllowanceBroughtForwardView
+import nunjucks.viewmodels.BasicFormViewModel
 
-class RevisingReturnViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours with NunjucksSupport {
 
-  val messageKeyPrefix = "revisingReturn"
+  val messageKeyPrefix = "interestAllowanceBroughtForward"
 
-  val form = new RevisingReturnFormProvider()()
+  val form = new InterestAllowanceBroughtForwardFormProvider()()
 
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
-    s"RevisingReturn ($templatingSystem) view" must {
+    s"InterestAllowanceBroughtForward ($templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(RevisingReturnTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
+          await(nunjucksRenderer.render(InterestAllowanceBroughtForwardTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[RevisingReturnView](Some(emptyUserAnswers))
+          val view = viewFor[InterestAllowanceBroughtForwardView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
@@ -51,11 +51,11 @@ class RevisingReturnViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url)
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+      behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestAllowanceBroughtForwardController.onSubmit(NormalMode).url)
     }
   }
 }
