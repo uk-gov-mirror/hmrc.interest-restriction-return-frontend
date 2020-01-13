@@ -16,6 +16,7 @@
 
 package views
 
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.GroupSubjectToRestrictionsFormProvider
 import models.NormalMode
@@ -51,6 +52,10 @@ class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours with Nunjuc
       behave like normalPage(applyView(form), messageKeyPrefix)
 
       behave like pageWithBackLink(applyView(form))
+
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToRestrictionsController.onSubmit(NormalMode).url)
     }

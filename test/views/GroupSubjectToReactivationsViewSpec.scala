@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.GroupSubjectToReactivationsFormProvider
 import models.NormalMode
@@ -54,6 +54,8 @@ class GroupSubjectToReactivationsViewSpec extends YesNoViewBehaviours with Nunju
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToReactivationsController.onSubmit(NormalMode).url)
     }

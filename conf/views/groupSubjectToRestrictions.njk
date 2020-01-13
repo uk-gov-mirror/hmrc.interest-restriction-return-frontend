@@ -16,6 +16,8 @@
 
         {% call formHelper(form, routes.controllers.GroupSubjectToRestrictionsController.onSubmit(mode).url) %}
 
+          {{ subheading(subheading = "section.aboutReturn") }}
+
           {{ yesNoRadio(form, "groupSubjectToRestrictions.heading", radios) }}
 
           {{ button() }}
