@@ -183,4 +183,4 @@ revisingReturn.error.required = Select yes if Are you revising a return you have
 groupSubjectToRestrictions.title = Is the group subject to restrictions?
 groupSubjectToRestrictions.heading = Is the group subject to restrictions?
 groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
-groupSubjectToRestrictions.error.required = Select yes if Is the group subject to restrictions?
+groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions?
