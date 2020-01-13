@@ -140,3 +140,12 @@ infrastructureCompanyElection.title = Has the group made the Infrastructure comp
 infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
+
+# FullOrAbbreviatedReturnPage Messages
+# ----------------------------------------------------------
+fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.full = Submit a full return
+fullOrAbbreviatedReturn.abbreviated = Submit an abbreviated return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn

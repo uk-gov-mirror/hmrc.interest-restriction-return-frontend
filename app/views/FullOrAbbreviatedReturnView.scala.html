@@ -15,7 +15,7 @@
  *@
 
 @import controllers.routes._
-@import models.Mode
+@import models.{Mode, FullOrAbbreviatedReturn}
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 
@@ -23,24 +23,27 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
     button: components.button,
+    inputRadio: components.inputRadio,
     subHeading: components.subheading
+
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(
-    pageTitle = Some(title(form, "infrastructureCompanyElection.title"))
-    ) {
+@govukLayout(pageTitle = Some(title(form, "fullOrAbbreviatedReturn.title"))) {
 
-    @formHelper(action = InfrastructureCompanyElectionController.onSubmit(mode)) {
+    @formHelper(action = FullOrAbbreviatedReturnController.onSubmit(mode), 'autoComplete -> "off") {
 
         @errorSummary(form.errors)
 
         @subHeading("sections.aboutReturn")
 
-        @yesNoRadio(form, "infrastructureCompanyElection.heading")
+        @inputRadio(
+            form = form,
+            legend = messages("fullOrAbbreviatedReturn.heading"),
+            items = FullOrAbbreviatedReturn.options(form)
+        )
 
         @button("site.saveAndContinue")
     }

@@ -95,4 +95,12 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }
+
+  implicit lazy val arbitraryFullOrAbbreviatedReturnUserAnswersEntry: Arbitrary[(FullOrAbbreviatedReturnPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[FullOrAbbreviatedReturnPage.type]
+        value <- arbitrary[FullOrAbbreviatedReturn].map(Json.toJson(_))
+      } yield (page, value)
+    }
 }

@@ -79,3 +79,8 @@ GET        /infrastructure-company-election             controllers.Infrastructu
 POST       /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
+
+GET        /full-or-abbreviated-return                        controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /full-or-abbreviated-return                        controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /full-or-abbreviated-return/change                  controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /full-or-abbreviated-return/change                  controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)
