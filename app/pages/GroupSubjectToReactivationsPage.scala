@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object SectionHeaderMessages {
+import play.api.libs.json.JsPath
 
-  val aboutReturn = "About the return"
+case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
 
-  val agents = "Agents"
+  override def path: JsPath = JsPath \ toString
 
-
+  override def toString: String = "groupSubjectToReactivations"
 }

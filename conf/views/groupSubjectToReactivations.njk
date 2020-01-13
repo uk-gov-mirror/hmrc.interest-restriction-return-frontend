@@ -3,11 +3,11 @@
 {% from "components/yesNoRadio.njk" import yesNoRadio %}
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/form/macro.njk" import formHelper %}
-{% from "components/button/macro.njk" import button %}
+{% from "components/button/macro.njk" import button %}#
 {% from "components/subheading/macro.njk" import subheading %}
 
 {% block pageTitle %}
-  {{ pageTitle(form, "agentActingOnBehalfOfCompany.title") }}
+  {{ pageTitle(form, "groupSubjectToReactivations.title") }}
 {% endblock %}
 
 {% block content %}
@@ -15,11 +15,11 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {% call formHelper(form, routes.controllers.AgentActingOnBehalfOfCompanyController.onSubmit(mode).url) %}
+        {% call formHelper(form, routes.controllers.GroupSubjectToReactivationsController.onSubmit(mode).url) %}
 
-        {{ subheading(subheading = "section.agents") }}
+          {{ subheading(subheading = "section.aboutTheReturn") }}
 
-          {{ yesNoRadio(form, "agentActingOnBehalfOfCompany.heading", radios) }}
+          {{ yesNoRadio(form, "groupSubjectToReactivations.heading", radios) }}
 
           {{ button(msgKey = "site.saveAndContinue") }}
 

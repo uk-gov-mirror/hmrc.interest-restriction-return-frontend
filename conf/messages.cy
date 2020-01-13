@@ -89,6 +89,14 @@ agentName.error.required = Enter agentName
 agentName.error.length = AgentName must be 160 characters or less
 
 
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = groupSubjectToReactivations
+groupSubjectToReactivations.heading = groupSubjectToReactivations
+groupSubjectToReactivations.checkYourAnswersLabel = groupSubjectToReactivations
+groupSubjectToReactivations.error.required = Select yes if groupSubjectToReactivations
+
+
 # FullOrAbbreviatedReturnPage Messages
 # ----------------------------------------------------------
 fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
@@ -105,3 +113,11 @@ revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+
+
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = groupSubjectToReactivations
+groupSubjectToReactivations.heading = groupSubjectToReactivations
+groupSubjectToReactivations.checkYourAnswersLabel = groupSubjectToReactivations
+groupSubjectToReactivations.error.required = Select yes if groupSubjectToReactivations

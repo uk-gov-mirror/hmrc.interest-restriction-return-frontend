@@ -47,6 +47,11 @@ POST       /agent-name                                  controllers.AgentNameCon
 GET        /agent-name/change                           controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /agent-name/change                           controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)
 
+GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-reactivations/change                 controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-subject-to-reactivations/change                  controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
+
 
 ### InfrastructureCompanyElection Controller
 ### ----------------------------------------
@@ -64,3 +69,8 @@ GET        /revising-return                             controllers.RevisingRetu
 POST       /revising-return                             controllers.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
 GET        /revising-return/change                      controllers.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /revising-return/change                      controllers.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
+
+GET        /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-reactivations                        controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-reactivations/change                 controllers.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-subject-to-reactivations/change                  controllers.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
