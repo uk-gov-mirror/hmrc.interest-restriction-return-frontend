@@ -51,6 +51,8 @@ class RevisingReturnViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
       behave like pageWithBackLink(applyView(form))
 
+      behave like pageWithSaveAndContinue(applyView(form))
+
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url)

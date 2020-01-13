@@ -90,4 +90,16 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithSaveAndContinue(view: HtmlFormat.Appendable): Unit = {
+
+    "behave like a page with a Save and continue button" must {
+
+      "have a Sign Out link" in {
+
+        val doc = asDocument(view)
+        assertRenderedByCssSelector(doc, "#main-content > div > div > form > button")
+      }
+    }
+  }
 }
