@@ -20,13 +20,9 @@
 
             {{ subheading(subheading = "section.reportingCompany") }}
 
-          {% call fieldset("reportingCompanyName.heading") %}
-
-            {{ inputText(form, "value", "value", "reportingCompanyName.label") }}
+            {{ inputText(form, "value", "value", "reportingCompanyName.label", isPageHeading = true, classes = "govuk-label--xl") }}
 
             {{ button(msgKey = "site.saveAndContinue") }}
-
-          {% endcall %}
 
         {% endcall %}
 
