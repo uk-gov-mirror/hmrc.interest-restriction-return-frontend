@@ -40,7 +40,7 @@ site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
 
-sections.aboutReturn = About the return
+section.aboutReturn = About the return
 
 
 feedback.before = This is a new service - your
@@ -125,3 +125,11 @@ revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+
+
+# GroupSubjectToRestrictionsPage Messages
+# ----------------------------------------------------------
+groupSubjectToRestrictions.title = Is the group subject to restrictions?
+groupSubjectToRestrictions.heading = Is the group subject to restrictions?
+groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
+groupSubjectToRestrictions.error.required = Select yes if Is the group subject to restrictions?

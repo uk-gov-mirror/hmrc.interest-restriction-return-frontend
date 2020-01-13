@@ -85,3 +85,7 @@ GET        /revising-return                             controllers.RevisingRetu
 POST       /revising-return                             controllers.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
 GET        /revising-return/change                      controllers.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /revising-return/change                      controllers.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
+GET        /groupSubjectToRestrictions                        controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
+POST       /groupSubjectToRestrictions                        controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
+GET        /changeGroupSubjectToRestrictions                  controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeGroupSubjectToRestrictions                  controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
