@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.InterestAllowanceBroughtForwardFormProvider
 import models.NormalMode
@@ -52,6 +52,8 @@ class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours with
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestAllowanceBroughtForwardController.onSubmit(NormalMode).url)
     }

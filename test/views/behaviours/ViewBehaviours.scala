@@ -16,6 +16,7 @@
 
 package views.behaviours
 
+import assets.messages.BaseMessages
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 
@@ -91,14 +92,14 @@ trait ViewBehaviours extends ViewSpecBase {
     }
   }
 
-  def pageWithSaveAndContinue(view: HtmlFormat.Appendable): Unit = {
+  def pageWithSubmitButton(view: HtmlFormat.Appendable, msg: String): Unit = {
 
-    "behave like a page with a Save and continue button" must {
+    "behave like a page with a submit button" must {
 
-      "have a Sign Out link" in {
+      s"have a button with message '$msg'" in {
 
         val doc = asDocument(view)
-        assertRenderedByCssSelector(doc, "#main-content > div > div > form > button")
+        assertEqualsMessage(doc, "#main-content > div > div > form > button", msg)
       }
     }
   }

@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.FullOrAbbreviatedReturnFormProvider
 import models.{FullOrAbbreviatedReturn, NormalMode}
 import play.api.data.Form
@@ -55,7 +55,7 @@ class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours with NunjucksSuppor
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSaveAndContinue(applyView(form))
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
