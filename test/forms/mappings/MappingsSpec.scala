@@ -56,6 +56,11 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
       result.errors must contain(FormError("value", "error.required"))
     }
 
+    "not bind a string with spaces only" in {
+      val result = testForm.bind(Map("value" -> "        "))
+      result.errors must contain(FormError("value", "error.required"))
+    }
+
     "not bind an empty map" in {
       val result = testForm.bind(Map.empty[String, String])
       result.errors must contain(FormError("value", "error.required"))
