@@ -69,12 +69,12 @@ trait ViewBehaviours extends ViewSpecBase {
     }
   }
 
-  def pageWithSubHeading(view: HtmlFormat.Appendable, subHeading: String) = {
+  def pageWithSubHeading(view: HtmlFormat.Appendable, subheading: String) = {
 
     "behave like a page with a Subheading" must {
 
-      "display the correct subHeading" in {
-        assertEqualsMessage(asDocument(view), "span.govuk-caption-xl", subHeading)
+      "display the correct subheading" in {
+        assertEqualsMessage(asDocument(view), "span.govuk-caption-xl", subheading)
       }
     }
   }
