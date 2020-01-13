@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.ReportingCompanyAppointedFormProvider
 import models.NormalMode
@@ -54,6 +54,8 @@ class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours with Nunjuck
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
+
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyAppointedController.onSubmit(NormalMode).url)
     }

@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.ReportingCompanyCRNFormProvider
 import models.NormalMode
@@ -53,6 +53,8 @@ class ReportingCompanyCRNViewSpec extends StringViewBehaviours with NunjucksSupp
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
+
+      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCRNController.onSubmit(NormalMode).url)
     }

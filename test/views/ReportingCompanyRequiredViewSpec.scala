@@ -16,10 +16,11 @@
 
 package views
 
+import assets.messages.SectionHeaderMessages
 import views.behaviours.ViewBehaviours
 import views.html.ReportingCompanyRequiredView
 import nunjucks.ReportingCompanyRequiredTemplate
-import views.{Twirl, Nunjucks}
+import views.{Nunjucks, Twirl}
 
 class ReportingCompanyRequiredViewSpec extends ViewBehaviours {
 
@@ -32,6 +33,8 @@ class ReportingCompanyRequiredViewSpec extends ViewBehaviours {
       s"ReportingCompanyRequiredView ($templatingSystem)" must {
 
         behave like normalPage(html, "reportingCompanyRequired")
+
+        behave like pageWithSubHeading(html, SectionHeaderMessages.reportingCompany)
 
         behave like pageWithBackLink(html)
       }
