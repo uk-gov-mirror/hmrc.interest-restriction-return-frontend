@@ -137,3 +137,10 @@ GET        /group-subject-to-restrictions                        controllers.Gro
 POST       /group-subject-to-restrictions                       controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
 GET        /group-subject-to-restrictions/change                  controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-subject-to-restrictions/change                  controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
+
+### InterestReactivationsCap Controller
+### ----------------------------------------
+GET        /interest-reactivations-cap                  controllers.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-reactivations-cap                  controllers.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-reactivations-cap/change           controllers.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-reactivations-cap/change           controllers.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)

@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms
 
-object SectionHeaderMessages {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val interestReactivationsCap = "InterestReactivationsCap Subheading"
-  val agents = "Agents"
+class InterestReactivationsCapFormProvider @Inject() extends Mappings {
 
-
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "interestReactivationsCap.error.required",
+        "interestReactivationsCap.error.invalidNumeric",
+        "interestReactivationsCap.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "interestReactivationsCap.error.outOfRange"))
+    )
 }

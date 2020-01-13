@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object SectionHeaderMessages {
+import play.api.libs.json.JsPath
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val interestReactivationsCap = "InterestReactivationsCap Subheading"
-  val agents = "Agents"
+case object InterestReactivationsCapPage extends QuestionPage[BigDecimal] {
 
+  override def path: JsPath = JsPath \ toString
 
+  override def toString: String = "interestReactivationsCap"
 }
