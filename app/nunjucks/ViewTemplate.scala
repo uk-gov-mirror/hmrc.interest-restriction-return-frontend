@@ -23,7 +23,7 @@ object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with View
 object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
 object ReportingCompanyCRNTemplate extends WithName("reportingCompanyCRN.njk") with ViewTemplate
 object ReportingCompanyCTUTRTemplate extends WithName("reportingCompanyCTUTR.njk") with ViewTemplate
-object ReportingCompanyResultTemplate extends WithName("reportingCompanyResult.njk") with ViewTemplate
+object ReportingCompanyRequiredTemplate extends WithName("reportingCompanyRequired.njk") with ViewTemplate
 object ReportingCompanyNameTemplate extends WithName("reportingCompanyName.njk") with ViewTemplate
 object ReportingCompanyAppointedTemplate extends WithName("reportingCompanyAppointed.njk") with ViewTemplate
 object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate

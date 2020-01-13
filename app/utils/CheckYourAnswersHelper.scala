@@ -31,7 +31,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def reportingCompanyName: Option[SummaryListRow] = answer(ReportingCompanyNamePage, routes.ReportingCompanyNameController.onPageLoad(CheckMode))
 
-  def reportingCompanyResult: Option[SummaryListRow] = answer(ReportingCompanyResultPage, routes.ReportingCompanyResultController.onPageLoad(CheckMode))
+  def reportingCompanyRequired: Option[SummaryListRow] = answer(ReportingCompanyRequiredPage, routes.ReportingCompanyRequiredController.onPageLoad())
 
   def reportingCompanyCTUTR: Option[SummaryListRow] = answer(ReportingCompanyCTUTRPage, routes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
 

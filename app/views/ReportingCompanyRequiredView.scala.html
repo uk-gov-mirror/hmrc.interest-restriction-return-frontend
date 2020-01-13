@@ -14,34 +14,23 @@
  * limitations under the License.
  *@
 
-@import controllers.routes._
-@import models.Mode
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
-    button: components.button,
-    subHeading: components.subHeading
+    h1: components.h1,
+    subheading: components.subHeading
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(
-    pageTitle = Some(title(form, "infrastructureCompanyElection.title"))
-    ) {
+@govukLayout(pageTitle = Some(titleNoForm("reportingCompanyRequired.title"))) {
 
-    @formHelper(action = InfrastructureCompanyElectionController.onSubmit(mode)) {
+    @subheading("section.reportingCompany")
 
-        @errorSummary(form.errors)
+    @h1("reportingCompanyRequired.heading")
 
-        @subHeading("sections.aboutReturn")
+    <p class="govuk-caption-m">@messages("reportingCompanyRequired.p1") <a href=link class="govuk-link">@messages("reportingCompanyRequired.a1")</a> @messages("reportingCompanyRequired.p2")</p>
 
-        @yesNoRadio(form, "infrastructureCompanyElection.heading")
-
-        @button("site.saveAndContinue")
-    }
 }

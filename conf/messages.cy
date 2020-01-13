@@ -35,9 +35,17 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
+site.saveAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
+site.getHelpWithThisPage = Get help with this page
+site.saveAndComeBackLater = Save and come back later
+
+section.agents = Agents
+section.reportingCompany = About the reporting company
+
+sections.aboutReturn = About the return
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -79,14 +87,6 @@ reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 characters or less
 
 
-# ReportingCompanyResultPage Messages
-# ----------------------------------------------------------
-reportingCompanyResult.title = Is the reporting Company the same as the ultimate parent?
-reportingCompanyResult.heading = Is the reporting Company the same as the ultimate parent?
-reportingCompanyResult.checkYourAnswersLabel = Is the reporting Company the same as the ultimate parent?
-reportingCompanyResult.error.required = Select yes if the reporting Company the same as the ultimate parent
-
-
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------
 reportingCompanyName.title = Reporting company name
@@ -105,22 +105,33 @@ reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
+# ReportingCompanyRequiredPage Messages
+# ----------------------------------------------------------
+reportingCompanyRequired.title = A reporting company is required
+reportingCompanyRequired.heading = Is the reporting Company the same as the ultimate parent?
+reportingCompanyRequired.checkYourAnswersLabel = Is the reporting Company the same as the ultimate parent?
+reportingCompanyRequired.error.required = Select yes if the reporting Company the same as the ultimate parent
+reportingCompanyRequired.p1 = You need to
+reportingCompanyRequired.a1 = appoint a reporting company
+reportingCompanyRequired.p2 = before submitting a return
+
+
 # AgentActingOnBehalfOfCompanyPage Messages
 # ----------------------------------------------------------
-agentActingOnBehalfOfCompany.title = agentActingOnBehalfOfCompany
-agentActingOnBehalfOfCompany.heading = agentActingOnBehalfOfCompany
-agentActingOnBehalfOfCompany.checkYourAnswersLabel = agentActingOnBehalfOfCompany
-agentActingOnBehalfOfCompany.error.required = Select yes if agentActingOnBehalfOfCompany
+agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
 
 
 # AgentNamePage Messages
 # ----------------------------------------------------------
-agentName.title = agentName
-agentName.heading = agentName
-agentName.checkYourAnswersLabel = agentName
+agentName.title = Agent name
+agentName.heading = Agent name
+agentName.checkYourAnswersLabel = Agent name
 agentName.label = Agent name
-agentName.error.required = Enter agentName
-agentName.error.length = AgentName must be 160 characters or less
+agentName.error.required = Enter the agent’s name
+agentName.error.length = The agent’s name must be 160 characters or less
 
 
 # InfrastructureCompanyElectionPage Messages
@@ -128,4 +139,4 @@ agentName.error.length = AgentName must be 160 characters or less
 infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.error.required = Select yes if Has the group made the Infrastructure company election?
+infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election

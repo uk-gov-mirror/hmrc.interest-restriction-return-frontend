@@ -30,8 +30,8 @@ trait PageGenerators {
   implicit lazy val arbitraryReportingCompanyNamePage: Arbitrary[ReportingCompanyNamePage.type] =
     Arbitrary(ReportingCompanyNamePage)
 
-  implicit lazy val arbitraryReportingCompanyResultPage: Arbitrary[ReportingCompanyResultPage.type] =
-    Arbitrary(ReportingCompanyResultPage)
+  implicit lazy val arbitraryReportingCompanyResultPage: Arbitrary[ReportingCompanyRequiredPage.type] =
+    Arbitrary(ReportingCompanyRequiredPage)
 
   implicit lazy val arbitraryReportingCompanyCTUTRPage: Arbitrary[ReportingCompanyCTUTRPage.type] =
     Arbitrary(ReportingCompanyCTUTRPage)
@@ -47,7 +47,4 @@ trait PageGenerators {
 
   implicit lazy val arbitraryInfrastructureCompanyElectionPage: Arbitrary[InfrastructureCompanyElectionPage.type] =
     Arbitrary(InfrastructureCompanyElectionPage)
-
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
-    Arbitrary(HelloWorldYesNoPageNunjucks)
 }

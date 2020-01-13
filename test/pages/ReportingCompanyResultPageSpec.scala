@@ -22,10 +22,10 @@ class ReportingCompanyResultPageSpec extends PageBehaviours {
 
   "ReportingCompanyResultPage" must {
 
-    beRetrievable[Boolean](ReportingCompanyResultPage)
+    beRetrievable[Boolean](ReportingCompanyRequiredPage)
 
-    beSettable[Boolean](ReportingCompanyResultPage)
+    beSettable[Boolean](ReportingCompanyRequiredPage)
 
-    beRemovable[Boolean](ReportingCompanyResultPage)
+    beRemovable[Boolean](ReportingCompanyRequiredPage)
   }
 }

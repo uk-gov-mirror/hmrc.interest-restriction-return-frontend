@@ -16,6 +16,7 @@
 
 package views
 
+import assets.messages.SectionHeaderMessages
 import controllers.routes
 import forms.ReportingCompanyNameFormProvider
 import models.NormalMode
@@ -50,6 +51,8 @@ class ReportingCompanyNameViewSpec extends StringViewBehaviours with NunjucksSup
       behave like normalPage(applyView(form), messageKeyPrefix)
 
       behave like pageWithBackLink(applyView(form))
+
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyNameController.onSubmit(NormalMode).url)
     }

@@ -15,9 +15,9 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-            {{ subheading(subheading = "section.reportingCompany") }}
-
         {% call formHelper(form, routes.controllers.ReportingCompanyAppointedController.onSubmit(mode).url) %}
+
+            {{ subheading(subheading = "section.reportingCompany") }}
 
           {{ yesNoRadio(form, "reportingCompanyAppointed.heading", radios) }}
 

@@ -44,10 +44,7 @@ POST       /reporting-company-ctutr                     controllers.ReportingCom
 GET        /reporting-company-ctutr/change              controllers.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
 POST       /reporting-company-ctutr/change              controllers.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
 
-GET        /reporting-company-result                    controllers.ReportingCompanyResultController.onPageLoad(mode: Mode = NormalMode)
-POST       /reporting-company-result                    controllers.ReportingCompanyResultController.onSubmit(mode: Mode = NormalMode)
-GET        /reporting-company-result/change             controllers.ReportingCompanyResultController.onPageLoad(mode: Mode = CheckMode)
-POST       /reporting-company-Result/change             controllers.ReportingCompanyResultController.onSubmit(mode: Mode = CheckMode)
+GET        /reporting-company-required                  controllers.ReportingCompanyRequiredController.onPageLoad()
 
 GET        /reporting-company-name                      controllers.ReportingCompanyNameController.onPageLoad(mode: Mode = NormalMode)
 POST       /reporting-company-name                      controllers.ReportingCompanyNameController.onSubmit(mode: Mode = NormalMode)
