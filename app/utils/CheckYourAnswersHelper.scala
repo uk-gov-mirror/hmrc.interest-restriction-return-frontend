@@ -26,6 +26,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+  def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, routes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
 
   def agentName: Option[SummaryListRow] = answer(AgentNamePage, routes.AgentNameController.onPageLoad(CheckMode))
 
