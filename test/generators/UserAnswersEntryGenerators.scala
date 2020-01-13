@@ -40,11 +40,27 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryFullOrAbbreviatedReturnUserAnswersEntry: Arbitrary[(FullOrAbbreviatedReturnPage.type, JsValue)] =
+  implicit lazy val arbitraryHelloWorldYesNoUserAnswersEntry: Arbitrary[(HelloWorldYesNoPageNunjucks.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[FullOrAbbreviatedReturnPage.type]
-        value <- arbitrary[FullOrAbbreviatedReturn].map(Json.toJson(_))
+        page  <- arbitrary[HelloWorldYesNoPageNunjucks.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryReportingCompanyAppointedUserAnswersEntry: Arbitrary[(ReportingCompanyAppointedPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ReportingCompanyAppointedPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryReportingCompanyNameUserAnswersEntry: Arbitrary[(ReportingCompanyNamePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ReportingCompanyNamePage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
       } yield (page, value)
     }
 
@@ -56,10 +72,10 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryInfrastructureCompanyElectionUserAnswersEntry: Arbitrary[(InfrastructureCompanyElectionPage.type, JsValue)] =
+  implicit lazy val arbitraryReportingCompanyResultUserAnswersEntry: Arbitrary[(ReportingCompanyRequiredPage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[InfrastructureCompanyElectionPage.type]
+        page  <- arbitrary[ReportingCompanyRequiredPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }
@@ -69,6 +85,22 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       for {
         page  <- arbitrary[GroupSubjectToReactivationsPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryReportingCompanyCTUTRUserAnswersEntry: Arbitrary[(ReportingCompanyCTUTRPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ReportingCompanyCTUTRPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryReportingCompanyCRNUserAnswersEntry: Arbitrary[(ReportingCompanyCRNPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ReportingCompanyCRNPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
       } yield (page, value)
     }
 
@@ -88,11 +120,19 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryHelloWorldYesNoUserAnswersEntry: Arbitrary[(HelloWorldYesNoPageNunjucks.type, JsValue)] =
+  implicit lazy val arbitraryInfrastructureCompanyElectionUserAnswersEntry: Arbitrary[(InfrastructureCompanyElectionPage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[HelloWorldYesNoPageNunjucks.type]
+        page  <- arbitrary[InfrastructureCompanyElectionPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryFullOrAbbreviatedReturnUserAnswersEntry: Arbitrary[(FullOrAbbreviatedReturnPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[FullOrAbbreviatedReturnPage.type]
+        value <- arbitrary[FullOrAbbreviatedReturn].map(Json.toJson(_))
       } yield (page, value)
     }
 }

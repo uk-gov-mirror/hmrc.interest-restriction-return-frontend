@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object SectionHeaderMessages {
-
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-
-  val agents = "Agents"
+import pages.behaviours.PageBehaviours
 
 
+class ReportingCompanyNamePageSpec extends PageBehaviours {
+
+  "ReportingCompanyNamePage" must {
+
+    beRetrievable[String](ReportingCompanyNamePage)
+
+    beSettable[String](ReportingCompanyNamePage)
+
+    beRemovable[String](ReportingCompanyNamePage)
+  }
 }

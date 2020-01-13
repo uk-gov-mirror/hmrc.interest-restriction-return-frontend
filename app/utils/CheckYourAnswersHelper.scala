@@ -30,6 +30,16 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def groupInterestCapacity: Option[SummaryListRow] = answer(GroupInterestCapacityPage, routes.GroupInterestCapacityController.onPageLoad(CheckMode))
   def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, routes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
 
+  def reportingCompanyAppointed: Option[SummaryListRow] = answer(ReportingCompanyAppointedPage, routes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
+
+  def reportingCompanyName: Option[SummaryListRow] = answer(ReportingCompanyNamePage, routes.ReportingCompanyNameController.onPageLoad(CheckMode))
+
+  def reportingCompanyRequired: Option[SummaryListRow] = answer(ReportingCompanyRequiredPage, routes.ReportingCompanyRequiredController.onPageLoad())
+
+  def reportingCompanyCTUTR: Option[SummaryListRow] = answer(ReportingCompanyCTUTRPage, routes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
+
+  def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, routes.ReportingCompanyCRNController.onPageLoad(CheckMode))
+
   def revisingReturn: Option[SummaryListRow] = answer(RevisingReturnPage, routes.RevisingReturnController.onPageLoad(CheckMode))
 
   def groupSubjectToReactivations: Option[SummaryListRow] = answer(GroupSubjectToReactivationsPage, routes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))

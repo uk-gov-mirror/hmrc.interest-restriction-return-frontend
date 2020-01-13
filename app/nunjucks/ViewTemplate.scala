@@ -21,11 +21,16 @@ import models.WithName
 trait ViewTemplate
 object HelloWorldYesNoTemplate extends WithName("helloWorldYesNo.njk") with ViewTemplate
 object CheckYourAnswersTemplate extends WithName("checkYourAnswers.njk") with ViewTemplate
-object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate
+object ReportingCompanyCRNTemplate extends WithName("reportingCompanyCRN.njk") with ViewTemplate
+object ReportingCompanyCTUTRTemplate extends WithName("reportingCompanyCTUTR.njk") with ViewTemplate
+object ReportingCompanyRequiredTemplate extends WithName("reportingCompanyRequired.njk") with ViewTemplate
+object ReportingCompanyNameTemplate extends WithName("reportingCompanyName.njk") with ViewTemplate
+object ReportingCompanyAppointedTemplate extends WithName("reportingCompanyAppointed.njk") with ViewTemplate
 object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
 object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
 object InterestAllowanceBroughtForwardTemplate extends WithName("interestAllowanceBroughtForward.njk") with ViewTemplate
 object GroupSubjectToReactivationsTemplate extends WithName("groupSubjectToReactivations.njk") with ViewTemplate
+object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate
 object FullOrAbbreviatedReturnTemplate extends WithName("fullOrAbbreviatedReturn.njk") with ViewTemplate
 object RevisingReturnTemplate extends WithName("revisingReturn.njk") with ViewTemplate
 object GroupInterestCapacityTemplate extends WithName("groupInterestCapacity.njk") with ViewTemplate
