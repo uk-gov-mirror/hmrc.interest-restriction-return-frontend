@@ -55,6 +55,8 @@ class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours with NunjucksSuppor
 
       behave like pageWithBackLink(applyView(form))
 
+      behave like pageWithSaveAndContinue(applyView(form))
+
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
 
