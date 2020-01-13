@@ -125,3 +125,15 @@ revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+
+
+# GroupInterestCapacityPage Messages
+# ----------------------------------------------------------
+groupInterestCapacity.title = GroupInterestCapacity
+groupInterestCapacity.heading = GroupInterestCapacity
+groupInterestCapacity.label =What is the group interest capacity for the period?
+groupInterestCapacity.checkYourAnswersLabel = GroupInterestCapacity
+groupInterestCapacity.error.nonNumeric = Enter your groupInterestCapacity using numbers
+groupInterestCapacity.error.required = Enter your groupInterestCapacity
+groupInterestCapacity.error.invalidNumeric = The groupInterestCapacity must be valid decimal or whole number
+groupInterestCapacity.error.outOfRange = GroupInterestCapacity must be between {0} and {1}
