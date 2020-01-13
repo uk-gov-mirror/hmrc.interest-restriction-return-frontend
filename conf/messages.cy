@@ -175,7 +175,6 @@ fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn
 revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
-<<<<<<< HEAD
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
 
 
@@ -185,6 +184,3 @@ groupSubjectToRestrictions.title = Is the group subject to restrictions?
 groupSubjectToRestrictions.heading = Is the group subject to restrictions?
 groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
 groupSubjectToRestrictions.error.required = Select yes if Is the group subject to restrictions?
-=======
-revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
->>>>>>> 0af8097c48f0c1dccf80ca6dfb7172d1d3730c57
