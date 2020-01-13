@@ -52,6 +52,8 @@ class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours with Nunj
 
       behave like pageWithBackLink(applyView(form))
 
+      behave like pageWithSaveAndContinue(applyView(form))
+
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AgentActingOnBehalfOfCompanyController.onSubmit(NormalMode).url)
     }
   }

@@ -16,34 +16,34 @@
 
 package views
 
+import assets.messages.SectionHeaderMessages
 import controllers.routes
-import forms.AgentNameFormProvider
+import forms.RevisingReturnFormProvider
 import models.NormalMode
+import nunjucks.RevisingReturnTemplate
+import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
-import views.behaviours.StringViewBehaviours
-import views.html.AgentNameView
-import nunjucks.AgentNameTemplate
-import nunjucks.viewmodels.BasicFormViewModel
+import views.behaviours.YesNoViewBehaviours
+import views.html.RevisingReturnView
 
-class AgentNameViewSpec extends StringViewBehaviours with NunjucksSupport {
+class RevisingReturnViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
-  val messageKeyPrefix = "agentName"
+  val messageKeyPrefix = "revisingReturn"
 
-  val form = new AgentNameFormProvider()()
+  val form = new RevisingReturnFormProvider()()
 
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
-    s"AgentName ($templatingSystem) view" must {
+    s"RevisingReturn ($templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(AgentNameTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
+          await(nunjucksRenderer.render(RevisingReturnTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[AgentNameView](Some(emptyUserAnswers))
+          val view = viewFor[RevisingReturnView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
@@ -53,7 +53,9 @@ class AgentNameViewSpec extends StringViewBehaviours with NunjucksSupport {
 
       behave like pageWithSaveAndContinue(applyView(form))
 
-      behave like stringPage(form, applyView, messageKeyPrefix, routes.AgentNameController.onSubmit(NormalMode).url)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url)
     }
   }
 }

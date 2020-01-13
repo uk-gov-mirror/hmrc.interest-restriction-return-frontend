@@ -53,6 +53,8 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Nun
 
       behave like pageWithBackLink(applyView(form))
 
+      behave like pageWithSaveAndContinue(applyView(form))
+
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InfrastructureCompanyElectionController.onSubmit(NormalMode).url)

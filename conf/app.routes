@@ -55,7 +55,12 @@ POST       /infrastructure-company-election             controllers.Infrastructu
 GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
 
-GET        /full-or-abbreviated-return                        controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)
-POST       /full-or-abbreviated-return                        controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
-GET        /full-or-abbreviated-return/change                  controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
-POST       /full-or-abbreviated-return/change                  controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)
+GET        /full-or-abbreviated-return                  controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /full-or-abbreviated-return                  controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /full-or-abbreviated-return/change           controllers.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /full-or-abbreviated-return/change           controllers.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)
+
+GET        /revising-return                             controllers.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /revising-return                             controllers.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /revising-return/change                      controllers.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /revising-return/change                      controllers.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
