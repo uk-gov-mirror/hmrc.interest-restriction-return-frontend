@@ -28,12 +28,13 @@ trait Formatters {
 
     override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] =
       data.get(key) match {
-        case None | Some("") => Left(Seq(FormError(key, errorKey)))
+        case None => Left(Seq(FormError(key, errorKey)))
+        case Some(x) if x.trim.length == 0 => Left(Seq(FormError(key, errorKey)))
         case Some(s) => Right(s)
       }
 
     override def unbind(key: String, value: String): Map[String, String] =
-      Map(key -> value)
+      Map(key -> value.trim)
   }
 
   private[mappings] def booleanFormatter(requiredKey: String, invalidKey: String): Formatter[Boolean] =
