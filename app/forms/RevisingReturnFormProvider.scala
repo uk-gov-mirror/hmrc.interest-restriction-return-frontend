@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms
 
-object SectionHeaderMessages {
+import javax.inject.Inject
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  val agents = "Agents"
+class RevisingReturnFormProvider @Inject() extends Mappings {
 
-
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("revisingReturn.error.required")
+    )
 }

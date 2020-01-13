@@ -16,6 +16,7 @@
 
 package views
 
+import assets.messages.SectionHeaderMessages
 import controllers.routes
 import forms.AgentActingOnBehalfOfCompanyFormProvider
 import models.NormalMode
@@ -51,6 +52,10 @@ class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours with Nunj
       behave like normalPage(applyView(form), messageKeyPrefix)
 
       behave like pageWithBackLink(applyView(form))
+
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.agents)
+
+      behave like pageWithSaveAndContinue(applyView(form))
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AgentActingOnBehalfOfCompanyController.onSubmit(NormalMode).url)
     }

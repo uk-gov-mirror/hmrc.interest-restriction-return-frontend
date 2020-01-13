@@ -18,34 +18,32 @@ package views
 
 import assets.messages.SectionHeaderMessages
 import controllers.routes
-import forms.InfrastructureCompanyElectionFormProvider
+import forms.RevisingReturnFormProvider
 import models.NormalMode
+import nunjucks.RevisingReturnTemplate
+import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.YesNoViewBehaviours
-import views.html.InfrastructureCompanyElectionView
-import nunjucks.InfrastructureCompanyElectionTemplate
-import nunjucks.InfrastructureCompanyElectionTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
+import views.html.RevisingReturnView
 
-class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with NunjucksSupport with ViewSpecBase {
+class RevisingReturnViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
-  val messageKeyPrefix = "infrastructureCompanyElection"
+  val messageKeyPrefix = "revisingReturn"
 
-  val form = new InfrastructureCompanyElectionFormProvider()()
+  val form = new RevisingReturnFormProvider()()
 
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
-    s"InfrastructureCompanyElection ($templatingSystem) view" must {
+    s"RevisingReturn ($templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(InfrastructureCompanyElectionTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
+          await(nunjucksRenderer.render(RevisingReturnTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[InfrastructureCompanyElectionView](Some(emptyUserAnswers))
+          val view = viewFor[RevisingReturnView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
@@ -57,7 +55,7 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Nun
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InfrastructureCompanyElectionController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url)
     }
   }
 }

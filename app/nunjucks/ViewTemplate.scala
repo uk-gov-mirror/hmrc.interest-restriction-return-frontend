@@ -28,5 +28,7 @@ object ReportingCompanyNameTemplate extends WithName("reportingCompanyName.njk")
 object ReportingCompanyAppointedTemplate extends WithName("reportingCompanyAppointed.njk") with ViewTemplate
 object AgentActingOnBehalfOfCompanyTemplate extends WithName("agentActingOnBehalfOfCompany.njk") with ViewTemplate
 object AgentNameTemplate extends WithName("agentName.njk") with ViewTemplate
+object GroupSubjectToReactivationsTemplate extends WithName("groupSubjectToReactivations.njk") with ViewTemplate
 object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate
 object FullOrAbbreviatedReturnTemplate extends WithName("fullOrAbbreviatedReturn.njk") with ViewTemplate
+object RevisingReturnTemplate extends WithName("revisingReturn.njk") with ViewTemplate

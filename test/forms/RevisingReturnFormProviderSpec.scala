@@ -14,14 +14,32 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms
 
-object SectionHeaderMessages {
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
+class RevisingReturnFormProviderSpec extends BooleanFieldBehaviours {
 
-  val agents = "Agents"
+  val requiredKey = "revisingReturn.error.required"
+  val invalidKey = "error.boolean"
 
+  val form = new RevisingReturnFormProvider()()
 
+  ".value" must {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }

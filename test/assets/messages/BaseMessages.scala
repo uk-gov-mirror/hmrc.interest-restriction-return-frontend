@@ -16,12 +16,7 @@
 
 package assets.messages
 
-object SectionHeaderMessages {
+object BaseMessages {
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-
-  val agents = "Agents"
-
-
+  val saveAndContinue = "Save and continue"
 }

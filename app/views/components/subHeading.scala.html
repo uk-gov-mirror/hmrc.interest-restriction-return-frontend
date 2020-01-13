@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package assets.messages
+@this()
 
-object SectionHeaderMessages {
+@(msg: String)(implicit messages: Messages)
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-
-  val agents = "Agents"
-
-
-}
+<span class="govuk-caption-xl">@messages(msg)</span>

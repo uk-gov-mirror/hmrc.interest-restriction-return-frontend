@@ -39,8 +39,14 @@ trait PageGenerators {
   implicit lazy val arbitraryReportingCompanyCRNPage: Arbitrary[ReportingCompanyCRNPage.type] =
     Arbitrary(ReportingCompanyCRNPage)
 
+  implicit lazy val arbitraryGroupSubjectToReactivationsPage: Arbitrary[GroupSubjectToReactivationsPage.type] =
+    Arbitrary(GroupSubjectToReactivationsPage)
+
   implicit lazy val arbitraryFullOrAbbreviatedReturnPage: Arbitrary[FullOrAbbreviatedReturnPage.type] =
     Arbitrary(FullOrAbbreviatedReturnPage)
+
+  implicit lazy val arbitraryRevisingReturnPage: Arbitrary[RevisingReturnPage.type] =
+    Arbitrary(RevisingReturnPage)
 
   implicit lazy val arbitraryAgentNamePage: Arbitrary[AgentNamePage.type] =
     Arbitrary(AgentNamePage)
