@@ -21,6 +21,24 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
+    Arbitrary(HelloWorldYesNoPageNunjucks)
+
+  implicit lazy val arbitraryReportingCompanyAppointedPage: Arbitrary[ReportingCompanyAppointedPage.type] =
+    Arbitrary(ReportingCompanyAppointedPage)
+
+  implicit lazy val arbitraryReportingCompanyNamePage: Arbitrary[ReportingCompanyNamePage.type] =
+    Arbitrary(ReportingCompanyNamePage)
+
+  implicit lazy val arbitraryReportingCompanyResultPage: Arbitrary[ReportingCompanyRequiredPage.type] =
+    Arbitrary(ReportingCompanyRequiredPage)
+
+  implicit lazy val arbitraryReportingCompanyCTUTRPage: Arbitrary[ReportingCompanyCTUTRPage.type] =
+    Arbitrary(ReportingCompanyCTUTRPage)
+
+  implicit lazy val arbitraryReportingCompanyCRNPage: Arbitrary[ReportingCompanyCRNPage.type] =
+    Arbitrary(ReportingCompanyCRNPage)
+
   implicit lazy val arbitraryInterestAllowanceBroughtForwardPage: Arbitrary[InterestAllowanceBroughtForwardPage.type] =
     Arbitrary(InterestAllowanceBroughtForwardPage)
 
@@ -33,15 +51,12 @@ trait PageGenerators {
   implicit lazy val arbitraryRevisingReturnPage: Arbitrary[RevisingReturnPage.type] =
     Arbitrary(RevisingReturnPage)
 
-  implicit lazy val arbitraryInfrastructureCompanyElectionPage: Arbitrary[InfrastructureCompanyElectionPage.type] =
-    Arbitrary(InfrastructureCompanyElectionPage)
-
   implicit lazy val arbitraryAgentNamePage: Arbitrary[AgentNamePage.type] =
     Arbitrary(AgentNamePage)
 
   implicit lazy val arbitraryAgentActingOnBehalfOfCompanyPage: Arbitrary[AgentActingOnBehalfOfCompanyPage.type] =
     Arbitrary(AgentActingOnBehalfOfCompanyPage)
 
-  implicit lazy val arbitraryHelloWorldYesNoPage: Arbitrary[HelloWorldYesNoPageNunjucks.type] =
-    Arbitrary(HelloWorldYesNoPageNunjucks)
+  implicit lazy val arbitraryInfrastructureCompanyElectionPage: Arbitrary[InfrastructureCompanyElectionPage.type] =
+    Arbitrary(InfrastructureCompanyElectionPage)
 }

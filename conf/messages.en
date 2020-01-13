@@ -46,8 +46,8 @@ site.saveAndComeBackLater = Save and come back later
 # Sections
 # ----------------------------------------------------------
 section.agents = Agents
+section.reportingCompany = About the reporting company
 section.aboutTheReturn = About the return
-
 sections.aboutReturn = About the return
 
 
@@ -71,12 +71,53 @@ helloWorldYesNoNunjucks.heading = Would you like to say Hello World? (Nunjucks S
 helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello World? (Nunjucks Style)
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
 
-# InfrastructureCompanyElectionPage Messages
+
+# ReportingCompanyCRNPage Messages
 # ----------------------------------------------------------
-infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
+reportingCompanyCRN.title = Company Registration Number (CRN)
+reportingCompanyCRN.heading = Company Registration Number (CRN)
+reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
+reportingCompanyCRN.label = Company Registration Number (CRN)
+reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
+reportingCompanyCRN.error.length = Company Registration Number (CRN) must be 8 characters or less
+
+
+# ReportingCompanyCTUTRPage Messages
+# ----------------------------------------------------------
+reportingCompanyCTUTR.title = UK Tax reference - CT UTR
+reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
+reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
+reportingCompanyCTUTR.label = UK Tax reference - CT UTR
+reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
+reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 characters or less
+
+
+# ReportingCompanyNamePage Messages
+# ----------------------------------------------------------
+reportingCompanyName.title = Reporting company name
+reportingCompanyName.heading = Reporting company name
+reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.label = Reporting company name
+reportingCompanyName.error.required = Enter Reporting company name
+reportingCompanyName.error.length = Reporting company name must be 160 characters or less
+
+
+# ReportingCompanyAppointedPage Messages
+# ----------------------------------------------------------
+reportingCompanyAppointed.title = Has the reporting company been appointed
+reportingCompanyAppointed.heading = Has the reporting company been appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
+reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
+
+
+# ReportingCompanyRequiredPage Messages
+# ----------------------------------------------------------
+reportingCompanyRequired.title = A reporting company is required
+reportingCompanyRequired.heading = A reporting company is required
+reportingCompanyRequired.checkYourAnswersLabel = A reporting company is required
+reportingCompanyRequired.p1 = You need to
+reportingCompanyRequired.a1 = appoint a reporting company
+reportingCompanyRequired.p2 = before submitting a return
 
 
 # AgentActingOnBehalfOfCompanyPage Messages
@@ -115,6 +156,14 @@ groupSubjectToReactivations.title = Is the group subject to reactivations?
 groupSubjectToReactivations.heading = Is the group subject to reactivations?
 groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reactivations?
 groupSubjectToReactivations.error.required = Select yes if you are a group subject to reactivations
+
+
+# InfrastructureCompanyElectionPage Messages
+# ----------------------------------------------------------
+infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
+infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
 
 
 # FullOrAbbreviatedReturnPage Messages
