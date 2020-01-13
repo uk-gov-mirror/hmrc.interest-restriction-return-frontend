@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import models.FullOrAbbreviatedReturn
+import play.api.libs.json.JsPath
 
-trait ModelGenerators {
+case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedReturn] {
 
-  implicit lazy val arbitraryFullOrAbbreviatedReturn: Arbitrary[FullOrAbbreviatedReturn] =
-    Arbitrary {
-      Gen.oneOf(FullOrAbbreviatedReturn.values.toSeq)
-    }
+  override def path: JsPath = JsPath \ toString
 
+  override def toString: String = "fullOrAbbreviatedReturn"
 }

@@ -87,3 +87,13 @@ agentName.checkYourAnswersLabel = agentName
 agentName.label = Agent name
 agentName.error.required = Enter agentName
 agentName.error.length = AgentName must be 160 characters or less
+
+
+# FullOrAbbreviatedReturnPage Messages
+# ----------------------------------------------------------
+fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.full = Submit a full return
+fullOrAbbreviatedReturn.abbreviated = Submit an abbreviated return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn
