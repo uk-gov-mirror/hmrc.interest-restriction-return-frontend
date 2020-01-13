@@ -17,7 +17,7 @@
 
         {% call formHelper(form, routes.controllers.$className$Controller.onSubmit(mode).url) %}
 
-            {{ inputNumber(form, "value", "value", "$className;format="decap"$.label"), asHeading = true, classes = "govuk-label--xl" }}
+            {{ inputNumber(form, "value", "value", "$className;format="decap"$.label", asHeading = true, classes = "govuk-label--xl") }}
 
             {{ button() }}
 

@@ -14,7 +14,7 @@ class $className$FormProviderSpec extends DecimalFieldBehaviours {
     val minimum = $minimum$
     val maximum = $maximum$
 
-    val validDataGenerator = decimalsInRangeWithCommas(minimum, maximum)
+    val validDataGenerator = decimalInRangeWithCommas(minimum, maximum)
 
     behave like fieldThatBindsValidData(
       form,
@@ -26,7 +26,7 @@ class $className$FormProviderSpec extends DecimalFieldBehaviours {
       form,
       fieldName,
       nonNumericError  = FormError(fieldName, "$className;format="decap"$.error.nonNumeric"),
-      invalidNumeric = FormError(fieldName, "$className;format="decap"$.error.invalidNumeric")
+      invalidNumericError = FormError(fieldName, "$className;format="decap"$.error.invalidNumeric")
     )
 
     behave like decimalFieldWithRange(
