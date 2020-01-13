@@ -33,3 +33,4 @@ object GroupSubjectToReactivationsTemplate extends WithName("groupSubjectToReact
 object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCompanyElection.njk") with ViewTemplate
 object FullOrAbbreviatedReturnTemplate extends WithName("fullOrAbbreviatedReturn.njk") with ViewTemplate
 object RevisingReturnTemplate extends WithName("revisingReturn.njk") with ViewTemplate
+object GroupSubjectToRestrictionsTemplate extends WithName("groupSubjectToRestrictions.njk") with ViewTemplate

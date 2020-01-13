@@ -42,10 +42,9 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.saveAndComeBackLater = Save and come back later
 
+section.aboutReturn = About the return
 section.agents = Agents
 section.reportingCompany = About the reporting company
-
-sections.aboutReturn = About the return
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -177,3 +176,11 @@ revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+
+
+# GroupSubjectToRestrictionsPage Messages
+# ----------------------------------------------------------
+groupSubjectToRestrictions.title = Is the group subject to restrictions?
+groupSubjectToRestrictions.heading = Is the group subject to restrictions?
+groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
+groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions?
