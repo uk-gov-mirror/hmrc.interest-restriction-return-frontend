@@ -54,3 +54,11 @@ GET        /infrastructure-company-election             controllers.Infrastructu
 POST       /infrastructure-company-election             controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /infrastructure-company-election/change      controllers.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
+
+
+### InterestAllowanceBroughtForward Controller
+### ----------------------------------------
+GET        /interest-allowance-brought-forward          controllers.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-allowance-brought-forward          controllers.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-allowance-brought-forward/change   controllers.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-allowance-brought-forward/change   controllers.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)
