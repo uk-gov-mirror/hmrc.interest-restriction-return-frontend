@@ -39,9 +39,12 @@ site.saveAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
+site.getHelpWithThisPage = Get help with this page
+site.saveAndComeBackLater = Save and come back later
 
 section.aboutReturn = About the return
-
+section.agents = Agents
+section.reportingCompany = About the reporting company
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -63,31 +66,79 @@ helloWorldYesNoNunjucks.checkYourAnswersLabel = Would you like to say Hello Worl
 helloWorldYesNoNunjucks.error.required = Select yes if you want to say Hello World (Nunjucks Style)
 
 
+# ReportingCompanyCRNPage Messages
+# ----------------------------------------------------------
+reportingCompanyCRN.title = Company Registration Number (CRN)
+reportingCompanyCRN.heading = Company Registration Number (CRN)
+reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
+reportingCompanyCRN.label = Company Registration Number (CRN)
+reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
+reportingCompanyCRN.error.length = Company Registration Number (CRN) must be 8 characters or less
+
+
+# ReportingCompanyCTUTRPage Messages
+# ----------------------------------------------------------
+reportingCompanyCTUTR.title = UK Tax reference - CT UTR
+reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
+reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
+reportingCompanyCTUTR.label = UK Tax reference - CT UTR
+reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
+reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 characters or less
+
+
+# ReportingCompanyNamePage Messages
+# ----------------------------------------------------------
+reportingCompanyName.title = Reporting company name
+reportingCompanyName.heading = Reporting company name
+reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.label = Reporting company name
+reportingCompanyName.error.required = Enter Reporting company name
+reportingCompanyName.error.length = Reporting company name must be 160 characters or less
+
+
+# ReportingCompanyAppointedPage Messages
+# ----------------------------------------------------------
+reportingCompanyAppointed.title = Has the reporting company been appointed
+reportingCompanyAppointed.heading = Has the reporting company been appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
+reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
+
+
+# ReportingCompanyRequiredPage Messages
+# ----------------------------------------------------------
+reportingCompanyRequired.title = A reporting company is required
+reportingCompanyRequired.heading = Is the reporting Company the same as the ultimate parent?
+reportingCompanyRequired.checkYourAnswersLabel = Is the reporting Company the same as the ultimate parent?
+reportingCompanyRequired.error.required = Select yes if the reporting Company the same as the ultimate parent
+reportingCompanyRequired.p1 = You need to
+reportingCompanyRequired.a1 = appoint a reporting company
+reportingCompanyRequired.p2 = before submitting a return
+
+
+# AgentActingOnBehalfOfCompanyPage Messages
+# ----------------------------------------------------------
+agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
+
+
+# AgentNamePage Messages
+# ----------------------------------------------------------
+agentName.title = Agent name
+agentName.heading = Agent name
+agentName.checkYourAnswersLabel = Agent name
+agentName.label = Agent name
+agentName.error.required = Enter the agent’s name
+agentName.error.length = The agent’s name must be 160 characters or less
+
+
 # InfrastructureCompanyElectionPage Messages
 # ----------------------------------------------------------
 infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.error.required = Select yes if Has the group made the Infrastructure company election?
-
-
-# AgentActingOnBehalfOfCompanyPage Messages
-# ----------------------------------------------------------
-agentActingOnBehalfOfCompany.title = agentActingOnBehalfOfCompany
-agentActingOnBehalfOfCompany.heading = agentActingOnBehalfOfCompany
-agentActingOnBehalfOfCompany.checkYourAnswersLabel = agentActingOnBehalfOfCompany
-agentActingOnBehalfOfCompany.error.required = Select yes if agentActingOnBehalfOfCompany
-
-
-# AgentNamePage Messages
-# ----------------------------------------------------------
-agentName.title = agentName
-agentName.heading = agentName
-agentName.checkYourAnswersLabel = agentName
-agentName.label = Agent name
-agentName.error.required = Enter agentName
-agentName.error.length = AgentName must be 160 characters or less
-
+infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
 
 # InterestAllowanceBroughtForwardPage Messages
 # ----------------------------------------------------------
@@ -124,6 +175,7 @@ fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn
 revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
+<<<<<<< HEAD
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
 
 
@@ -133,3 +185,6 @@ groupSubjectToRestrictions.title = Is the group subject to restrictions?
 groupSubjectToRestrictions.heading = Is the group subject to restrictions?
 groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
 groupSubjectToRestrictions.error.required = Select yes if Is the group subject to restrictions?
+=======
+revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+>>>>>>> 0af8097c48f0c1dccf80ca6dfb7172d1d3730c57
