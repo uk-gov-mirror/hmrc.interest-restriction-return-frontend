@@ -42,9 +42,15 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.saveAndComeBackLater = Save and come back later
 
+
+# Sections
+# ----------------------------------------------------------
 section.agents = Agents
+section.aboutTheReturn = About the return
 
 sections.aboutReturn = About the return
+
+
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -101,3 +107,29 @@ interestAllowanceBroughtForward.error.nonNumeric = Enter the group interest allo
 interestAllowanceBroughtForward.error.required = Enter the group interest allowance brought forward
 interestAllowanceBroughtForward.error.invalidNumeric = The group interest allowance brought forward must be valid decimal or whole number
 interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForward must be between {0} and {1}
+
+
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = Is the group subject to reactivations?
+groupSubjectToReactivations.heading = Is the group subject to reactivations?
+groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reactivations?
+groupSubjectToReactivations.error.required = Select yes if you are a group subject to reactivations
+
+
+# FullOrAbbreviatedReturnPage Messages
+# ----------------------------------------------------------
+fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.full = Full
+fullOrAbbreviatedReturn.abbreviated = Abbreviated
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
+
+
+# RevisingReturnPage Messages
+# ----------------------------------------------------------
+revisingReturn.title = Are you revising a return you have already submitted?
+revisingReturn.heading = Are you revising a return you have already submitted?
+revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
+revisingReturn.error.required = Select yes if you revising a return you have already submitted

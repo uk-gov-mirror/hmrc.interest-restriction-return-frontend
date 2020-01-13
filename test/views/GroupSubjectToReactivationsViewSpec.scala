@@ -18,7 +18,7 @@ package views
 
 import assets.messages.SectionHeaderMessages
 import controllers.routes
-import forms.InfrastructureCompanyElectionFormProvider
+import forms.GroupSubjectToReactivationsFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -26,26 +26,26 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.YesNoViewBehaviours
-import views.html.InfrastructureCompanyElectionView
-import nunjucks.InfrastructureCompanyElectionTemplate
-import nunjucks.InfrastructureCompanyElectionTemplate
+import views.html.GroupSubjectToReactivationsView
+import nunjucks.GroupSubjectToReactivationsTemplate
+import nunjucks.GroupSubjectToReactivationsTemplate
 import nunjucks.viewmodels.YesNoRadioViewModel
 
-class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with NunjucksSupport with ViewSpecBase {
+class GroupSubjectToReactivationsViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
-  val messageKeyPrefix = "infrastructureCompanyElection"
+  val messageKeyPrefix = "groupSubjectToReactivations"
 
-  val form = new InfrastructureCompanyElectionFormProvider()()
+  val form = new GroupSubjectToReactivationsFormProvider()()
 
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
-    s"InfrastructureCompanyElection ($templatingSystem) view" must {
+    s"GroupSubjectToReactivations ($templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(InfrastructureCompanyElectionTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
+          await(nunjucksRenderer.render(GroupSubjectToReactivationsTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[InfrastructureCompanyElectionView](Some(emptyUserAnswers))
+          val view = viewFor[GroupSubjectToReactivationsView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
@@ -53,11 +53,9 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Nun
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSaveAndContinue(applyView(form))
-
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InfrastructureCompanyElectionController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToReactivationsController.onSubmit(NormalMode).url)
     }
   }
 }

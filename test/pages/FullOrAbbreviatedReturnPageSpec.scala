@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import models.FullOrAbbreviatedReturn
+import pages.behaviours.PageBehaviours
 
-trait ModelGenerators {
+class FullOrAbbreviatedReturnSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryFullOrAbbreviatedReturn: Arbitrary[FullOrAbbreviatedReturn] =
-    Arbitrary {
-      Gen.oneOf(FullOrAbbreviatedReturn.values.toSeq)
-    }
+  "FullOrAbbreviatedReturnPage" must {
 
+    beRetrievable[FullOrAbbreviatedReturn](FullOrAbbreviatedReturnPage)
+
+    beSettable[FullOrAbbreviatedReturn](FullOrAbbreviatedReturnPage)
+
+    beRemovable[FullOrAbbreviatedReturn](FullOrAbbreviatedReturnPage)
+  }
 }

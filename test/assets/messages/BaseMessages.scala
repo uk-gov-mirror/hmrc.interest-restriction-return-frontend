@@ -14,17 +14,9 @@
  * limitations under the License.
  */
 
-package generators
+package assets.messages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+object BaseMessages {
 
-trait ModelGenerators {
-
-  implicit lazy val arbitraryFullOrAbbreviatedReturn: Arbitrary[FullOrAbbreviatedReturn] =
-    Arbitrary {
-      Gen.oneOf(FullOrAbbreviatedReturn.values.toSeq)
-    }
-
+  val saveAndContinue = "Save and continue"
 }

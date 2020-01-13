@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package forms
 
-@(msg: String)(implicit messages: Messages)
+import javax.inject.Inject
 
-<span class="govuk-caption-xl">@messages(msg)</span>
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.FullOrAbbreviatedReturn
+
+class FullOrAbbreviatedReturnFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[FullOrAbbreviatedReturn] =
+    Form(
+      "value" -> enumerable[FullOrAbbreviatedReturn]("fullOrAbbreviatedReturn.error.required")
+    )
+}
