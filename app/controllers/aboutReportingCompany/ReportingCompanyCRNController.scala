@@ -20,34 +20,34 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.BaseController
 import controllers.actions._
-import forms.ReportingCompanyCRNFormProvider
+import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
-import nunjucks.{Renderer, ReportingCompanyCRNTemplate}
+import navigation.HelloWorldNavigator
 import nunjucks.viewmodels.BasicFormViewModel
-import pages.ReportingCompanyCRNPage
+import nunjucks.{Renderer, ReportingCompanyCRNTemplate}
+import pages.aboutReportingCompany.ReportingCompanyCRNPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.ReportingCompanyCRNView
+import views.html.aboutReportingCompany.ReportingCompanyCRNView
 
 import scala.concurrent.Future
 
 class ReportingCompanyCRNController @Inject()(
-                                        override val messagesApi: MessagesApi,
-                                        sessionRepository: SessionRepository,
-                                        navigator: Navigator,
-                                        identify: IdentifierAction,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        formProvider: ReportingCompanyCRNFormProvider,
-                                        val controllerComponents: MessagesControllerComponents,
-                                        view: ReportingCompanyCRNView,
-                                        renderer: Renderer
+                                               override val messagesApi: MessagesApi,
+                                               sessionRepository: SessionRepository,
+                                               navigator: HelloWorldNavigator,
+                                               identify: IdentifierAction,
+                                               getData: DataRetrievalAction,
+                                               requireData: DataRequiredAction,
+                                               formProvider: ReportingCompanyCRNFormProvider,
+                                               val controllerComponents: MessagesControllerComponents,
+                                               view: ReportingCompanyCRNView,
+                                               renderer: Renderer
                                     )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {

@@ -20,34 +20,34 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.BaseController
 import controllers.actions._
-import forms.ReportingCompanyAppointedFormProvider
+import forms.startReturn.ReportingCompanyAppointedFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
-import nunjucks.{Renderer, ReportingCompanyAppointedTemplate}
+import navigation.HelloWorldNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
-import pages.ReportingCompanyAppointedPage
+import nunjucks.{Renderer, ReportingCompanyAppointedTemplate}
+import pages.startReturn.ReportingCompanyAppointedPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.ReportingCompanyAppointedView
+import views.html.startReturn.ReportingCompanyAppointedView
 
 import scala.concurrent.Future
 
 class ReportingCompanyAppointedController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         sessionRepository: SessionRepository,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: ReportingCompanyAppointedFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: ReportingCompanyAppointedView,
-                                         renderer: Renderer
+                                                     override val messagesApi: MessagesApi,
+                                                     sessionRepository: SessionRepository,
+                                                     navigator: HelloWorldNavigator,
+                                                     identify: IdentifierAction,
+                                                     getData: DataRetrievalAction,
+                                                     requireData: DataRequiredAction,
+                                                     formProvider: ReportingCompanyAppointedFormProvider,
+                                                     val controllerComponents: MessagesControllerComponents,
+                                                     view: ReportingCompanyAppointedView,
+                                                     renderer: Renderer
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {

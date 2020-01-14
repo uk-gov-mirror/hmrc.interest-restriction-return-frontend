@@ -16,28 +16,31 @@
 
 package navigation.startReturn
 
+import controllers.startReturn.{routes => startReturnRoutes}
+import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
+import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 import play.api.mvc.Call
 
 @Singleton
 class StartReturnNavigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case IndexPage => _ => routes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
+    case IndexPage => _ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
     case ReportingCompanyAppointedPage => _.get(ReportingCompanyAppointedPage) match {
-      case Some(true) => routes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
-      case Some(false) => routes.ReportingCompanyRequiredController.onPageLoad
-      case _ => routes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
+      case Some(true) => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+      case Some(false) => startReturnRoutes.ReportingCompanyRequiredController.onPageLoad
+      case _ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
     }
     case AgentActingOnBehalfOfCompanyPage => _.get(AgentActingOnBehalfOfCompanyPage) match {
-      case Some(true) => routes.AgentNameController.onPageLoad(NormalMode)
-      case Some(false) => routes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
-      case _ => routes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+      case Some(true) => startReturnRoutes.AgentNameController.onPageLoad(NormalMode)
+      case Some(false) => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
+      case _ => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
     }
-    case AgentNamePage => _ => routes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
+    case AgentNamePage => _ => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
     case FullOrAbbreviatedReturnPage => _ => nextSection(NormalMode)
     case _ => _ => routes.IndexController.onPageLoad()
   }
@@ -46,7 +49,7 @@ class StartReturnNavigator @Inject()() {
     _ => _ => routes.CheckYourAnswersController.onPageLoad()
   }
 
-  private def nextSection(mode: Mode): Call = routes.ReportingCompanyNameController.onPageLoad(mode)
+  private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

@@ -20,7 +20,7 @@ import models.{Mode, UserAnswers}
 import pages._
 import play.api.mvc.Call
 
-object FakeNavigator extends Navigator {
+object FakeNavigator extends HelloWorldNavigator {
 
   override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = Call("POST", "/foo")
 }

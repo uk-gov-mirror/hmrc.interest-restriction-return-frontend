@@ -16,18 +16,20 @@
 
 package navigation.aboutReportingCompany
 
+import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
+import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import play.api.mvc.Call
 
 @Singleton
 class AboutReportingCompanyNavigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case ReportingCompanyNamePage => _ => routes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)
-    case ReportingCompanyCTUTRPage => _ => routes.ReportingCompanyCRNController.onPageLoad(NormalMode)
+    case ReportingCompanyNamePage => _ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)
+    case ReportingCompanyCTUTRPage => _ => aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)
     case ReportingCompanyCRNPage => _ => nextSection(NormalMode)
     case _ => _ => routes.IndexController.onPageLoad()
   }

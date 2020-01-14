@@ -4,7 +4,7 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.HelloWorldNavigator
 import pages.$className$Page
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -25,7 +25,7 @@ import scala.concurrent.Future
 class $className$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        sessionRepository: SessionRepository,
-                                       navigator: Navigator,
+                                       navigator: HelloWorldNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,

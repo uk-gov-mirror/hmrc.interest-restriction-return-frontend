@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.GroupSubjectToRestrictionsFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.HelloWorldNavigator
 import pages.GroupSubjectToRestrictionsPage
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import play.api.i18n.MessagesApi
@@ -39,16 +39,16 @@ import uk.gov.hmrc.viewmodels.Radios
 import scala.concurrent.Future
 
 class GroupSubjectToRestrictionsController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         sessionRepository: SessionRepository,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: GroupSubjectToRestrictionsFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: GroupSubjectToRestrictionsView,
-                                         renderer: Renderer
+                                                      override val messagesApi: MessagesApi,
+                                                      sessionRepository: SessionRepository,
+                                                      navigator: HelloWorldNavigator,
+                                                      identify: IdentifierAction,
+                                                      getData: DataRetrievalAction,
+                                                      requireData: DataRequiredAction,
+                                                      formProvider: GroupSubjectToRestrictionsFormProvider,
+                                                      val controllerComponents: MessagesControllerComponents,
+                                                      view: GroupSubjectToRestrictionsView,
+                                                      renderer: Renderer
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {

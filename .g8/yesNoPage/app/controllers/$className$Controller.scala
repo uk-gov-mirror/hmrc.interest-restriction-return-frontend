@@ -5,7 +5,7 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.HelloWorldNavigator
 import pages.$className$Page
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import play.api.i18n.MessagesApi
