@@ -18,7 +18,7 @@
 
         {% call formHelper(form, routes.controllers.InterestReactivationsCapController.onSubmit(mode).url) %}
 
-            {{ subheading("section.aboutTheReturn") }}
+            {{ subheading("section.aboutReturn") }}
 
             {{ inputNumber(form, "value", "value", "interestReactivationsCap.label", asHeading = true, classes = "govuk-label--xl") }}
 
