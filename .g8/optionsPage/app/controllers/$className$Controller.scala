@@ -6,7 +6,7 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.{$className$, Mode}
-import navigation.HelloWorldNavigator
+import navigation.Navigator
 import pages.$className$Page
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import nunjucks.Renderer

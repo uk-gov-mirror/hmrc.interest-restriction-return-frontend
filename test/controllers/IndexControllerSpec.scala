@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeDataRetrievalActionNone, FakeIdentifierAction}
 import mocks.MockSessionRepository
-import navigation.FakeNavigators.{FakeHelloWorldNavigator, FakeStartReturnNavigator}
+import navigation.FakeNavigators.{FakeNavigator, FakeStartReturnNavigator}
 import play.api.test.Helpers._
 
 class IndexControllerSpec extends SpecBase with MockSessionRepository {

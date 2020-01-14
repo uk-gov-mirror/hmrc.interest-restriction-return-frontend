@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import pages.HelloWorldYesNoPage
 import play.api.test.Helpers._
 import views.html.HelloWorldYesNoView
@@ -34,7 +34,7 @@ class HelloWorldYesNoControllerSpec extends SpecBase {
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new HelloWorldYesNoController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = injector.instanceOf[DataRequiredActionImpl],

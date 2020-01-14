@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.RevisingReturnFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.{MockNunjucksRenderer, RevisingReturnTemplate}
 import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.RevisingReturnPage
@@ -41,7 +41,7 @@ class RevisingReturnControllerSpec extends SpecBase with MockNunjucksRenderer wi
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new RevisingReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

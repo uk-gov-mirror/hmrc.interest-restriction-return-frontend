@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.Navigator
 import pages.HelloWorldYesNoPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -32,7 +32,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class HelloWorldYesNoController @Inject()(override val messagesApi: MessagesApi,
                                           sessionRepository: SessionRepository,
-                                          navigator: HelloWorldNavigator,
+                                          navigator: Navigator,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,

@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.GroupSubjectToRestrictionsFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.Navigator
 import pages.GroupSubjectToRestrictionsPage
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import play.api.i18n.MessagesApi
@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class GroupSubjectToRestrictionsController @Inject()(
                                                       override val messagesApi: MessagesApi,
                                                       sessionRepository: SessionRepository,
-                                                      navigator: HelloWorldNavigator,
+                                                      navigator: Navigator,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,

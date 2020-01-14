@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.InfrastructureCompanyElectionFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.{InfrastructureCompanyElectionTemplate, MockNunjucksRenderer}
 import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.InfrastructureCompanyElectionPage
@@ -41,7 +41,7 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with MockNunj
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InfrastructureCompanyElectionController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

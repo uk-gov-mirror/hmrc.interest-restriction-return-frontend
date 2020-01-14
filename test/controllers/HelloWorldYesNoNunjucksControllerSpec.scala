@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.MockNunjucksRenderer
 import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.HelloWorldYesNoPageNunjucks
@@ -40,7 +40,7 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new HelloWorldYesNoNunjucksController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = injector.instanceOf[DataRequiredActionImpl],

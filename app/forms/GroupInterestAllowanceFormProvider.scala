@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package navigation
+package forms
 
-import base.SpecBase
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-object FakeNavigators extends SpecBase {
+class GroupInterestAllowanceFormProvider @Inject() extends Mappings {
 
-  trait FakeNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = Call("POST", "/foo")
-  }
-
-  object FakeStartReturnNavigator extends StartReturnNavigator() with FakeNavigator
-  object FakeAboutReportingCompanyNavigator extends AboutReportingCompanyNavigator() with FakeNavigator
-  object FakeNavigator extends Navigator() with FakeNavigator
-
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "groupInterestAllowance.error.required",
+        "groupInterestAllowance.error.invalidNumeric",
+        "groupInterestAllowance.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "groupInterestAllowance.error.outOfRange"))
+    )
 }

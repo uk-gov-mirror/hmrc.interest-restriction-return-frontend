@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.GroupInterestCapacityFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.{GroupInterestCapacityTemplate, MockNunjucksRenderer}
 import nunjucks.viewmodels.BasicFormViewModel
 import pages.GroupInterestCapacityPage
@@ -45,7 +45,7 @@ class GroupInterestCapacityControllerSpec extends SpecBase with NunjucksSupport 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupInterestCapacityController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

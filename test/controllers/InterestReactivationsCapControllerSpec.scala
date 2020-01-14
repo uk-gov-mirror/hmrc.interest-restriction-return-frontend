@@ -19,41 +19,45 @@ package controllers
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import forms.GroupSubjectToReactivationsFormProvider
+import forms.InterestReactivationsCapFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNavigator
-import nunjucks.{GroupSubjectToReactivationsTemplate, MockNunjucksRenderer}
-import nunjucks.viewmodels.YesNoRadioViewModel
-import pages.GroupSubjectToReactivationsPage
+import nunjucks.{InterestReactivationsCapTemplate, MockNunjucksRenderer}
+import nunjucks.viewmodels.BasicFormViewModel
+import pages.InterestReactivationsCapPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.GroupSubjectToReactivationsView
+import views.html.InterestReactivationsCapView
 
-class GroupSubjectToReactivationsControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class InterestReactivationsCapControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
 
-  val view = injector.instanceOf[GroupSubjectToReactivationsView]
-  val formProvider = new GroupSubjectToReactivationsFormProvider
+  def onwardRoute = Call("GET", "/foo")
+
+  val view = injector.instanceOf[InterestReactivationsCapView]
+  val formProvider = new InterestReactivationsCapFormProvider()
   val form = formProvider()
+  val validAnswer = 0
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupSubjectToReactivationsController(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InterestReactivationsCapController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new GroupSubjectToReactivationsFormProvider,
+    formProvider = new InterestReactivationsCapFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer
+    mockNunjucksRenderer
   )
 
-  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
+  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
 
-  "GroupSubjectToReactivations Controller" must {
+  "InterestReactivationsCap Controller" must {
 
     "If rendering using the Nunjucks templating engine" must {
 
@@ -61,7 +65,7 @@ class GroupSubjectToReactivationsControllerSpec extends SpecBase with MockNunjuc
 
         enable(UseNunjucks)
 
-        mockRender(GroupSubjectToReactivationsTemplate, viewContext(form))(Html("Success"))
+        mockRender(InterestReactivationsCapTemplate, viewContext(form))(Html("Success"))
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -85,50 +89,50 @@ class GroupSubjectToReactivationsControllerSpec extends SpecBase with MockNunjuc
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(GroupSubjectToReactivationsPage, true).success.value
+      val userAnswers = UserAnswers(userAnswersId).set[BigDecimal](InterestReactivationsCapPage, validAnswer).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual OK
+      status(result) mustBe OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+      status(result) mustBe SEE_OTHER
+
       redirectLocation(result) mustBe Some("/foo")
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }

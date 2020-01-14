@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.Navigator
 import nunjucks._
 import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.HelloWorldYesNoPageNunjucks
@@ -39,7 +39,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class HelloWorldYesNoNunjucksController @Inject()(override val messagesApi: MessagesApi,
                                                   sessionRepository: SessionRepository,
-                                                  navigator: HelloWorldNavigator,
+                                                  navigator: Navigator,
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,

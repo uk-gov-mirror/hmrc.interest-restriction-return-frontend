@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.GroupSubjectToRestrictionsFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.{GroupSubjectToRestrictionsTemplate, MockNunjucksRenderer}
 import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.GroupSubjectToRestrictionsPage
@@ -41,7 +41,7 @@ class GroupSubjectToRestrictionsControllerSpec extends SpecBase with MockNunjuck
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupSubjectToRestrictionsController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

@@ -20,7 +20,7 @@ import controllers.actions._
 import forms.InterestAllowanceBroughtForwardFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.Navigator
 import pages.InterestAllowanceBroughtForwardPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -41,7 +41,7 @@ import scala.concurrent.Future
 class InterestAllowanceBroughtForwardController @Inject()(
                                                            override val messagesApi: MessagesApi,
                                                            sessionRepository: SessionRepository,
-                                                           navigator: HelloWorldNavigator,
+                                                           navigator: Navigator,
                                                            identify: IdentifierAction,
                                                            getData: DataRetrievalAction,
                                                            requireData: DataRequiredAction,

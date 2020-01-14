@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package navigation
+package pages
 
-import base.SpecBase
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import play.api.libs.json.JsPath
 
-object FakeNavigators extends SpecBase {
+case object InterestReactivationsCapPage extends QuestionPage[BigDecimal] {
 
-  trait FakeNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = Call("POST", "/foo")
-  }
+  override def path: JsPath = JsPath \ toString
 
-  object FakeStartReturnNavigator extends StartReturnNavigator() with FakeNavigator
-  object FakeAboutReportingCompanyNavigator extends AboutReportingCompanyNavigator() with FakeNavigator
-  object FakeNavigator extends Navigator() with FakeNavigator
-
+  override def toString: String = "interestReactivationsCap"
 }

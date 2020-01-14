@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.InterestAllowanceBroughtForwardFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.{InterestAllowanceBroughtForwardTemplate, MockNunjucksRenderer}
 import nunjucks.viewmodels.BasicFormViewModel
 import pages.InterestAllowanceBroughtForwardPage
@@ -45,7 +45,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Nunjuc
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InterestAllowanceBroughtForwardController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

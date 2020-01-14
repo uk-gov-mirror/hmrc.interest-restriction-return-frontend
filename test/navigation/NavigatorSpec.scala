@@ -21,9 +21,9 @@ import controllers.routes
 import pages._
 import models._
 
-class HelloWorldNavigatorSpec extends SpecBase {
+class NavigatorSpec extends SpecBase {
 
-  val navigator = new HelloWorldNavigator
+  val navigator = new Navigator
 
   "Navigator" when {
 

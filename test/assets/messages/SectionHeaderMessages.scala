@@ -20,7 +20,6 @@ object SectionHeaderMessages {
 
   val aboutReturn = "About the return"
   val reportingCompany = "About the reporting company"
-
   val agents = "Agents"
 
 
