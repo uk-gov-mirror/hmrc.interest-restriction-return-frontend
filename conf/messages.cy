@@ -228,5 +228,5 @@ interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be bet
 # ----------------------------------------------------------
 returnContainEstimates.title = Does the return contain estimates?
 returnContainEstimates.heading = Does the return contain estimates?
-returnContainEstimates.checkYourAnswersLabel = Does the return contain estimates?
-returnContainEstimates.error.required = Select yes if the return contain estimates?
+returnContainEstimates.checkYourAnswersLabel = Does the return contains estimates?
+returnContainEstimates.error.required = Select yes if the return contains estimates?

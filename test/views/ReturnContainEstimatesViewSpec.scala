@@ -20,6 +20,7 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
 import forms.ReturnContainEstimatesFormProvider
 import models.NormalMode
+import play.api.data.Form
 import nunjucks.ReturnContainEstimatesTemplate
 import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.libs.json.Json
@@ -50,7 +51,7 @@ class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours with NunjucksSu
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
