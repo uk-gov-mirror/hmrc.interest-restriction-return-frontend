@@ -203,10 +203,10 @@ groupSubjectToRestrictions.error.required = Select yes if the group subject to r
 
 # InterestReactivationsCapPage Messages
 # ----------------------------------------------------------
-interestReactivationsCap.title = InterestReactivationsCap
-interestReactivationsCap.heading = InterestReactivationsCap
-interestReactivationsCap.label = InterestReactivationsCap
-interestReactivationsCap.checkYourAnswersLabel = InterestReactivationsCap
+interestReactivationsCap.title = What is the group reactivation cap?
+interestReactivationsCap.heading = What is the group reactivation cap?
+interestReactivationsCap.label = What is the group reactivation cap?
+interestReactivationsCap.checkYourAnswersLabel = Interest Reactivations Cap
 interestReactivationsCap.error.nonNumeric = Enter your interestReactivationsCap using numbers
 interestReactivationsCap.error.required = Enter your interestReactivationsCap
 interestReactivationsCap.error.invalidNumeric = The interestReactivationsCap must be valid decimal or whole number
