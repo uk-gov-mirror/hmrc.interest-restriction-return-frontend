@@ -36,3 +36,4 @@ object RevisingReturnTemplate extends WithName("revisingReturn.njk") with ViewTe
 object GroupInterestCapacityTemplate extends WithName("groupInterestCapacity.njk") with ViewTemplate
 object GroupSubjectToRestrictionsTemplate extends WithName("groupSubjectToRestrictions.njk") with ViewTemplate
 object GroupInterestAllowanceTemplate extends WithName("groupInterestAllowance.njk") with ViewTemplate
+object InterestReactivationsCapTemplate extends WithName("interestReactivationsCap.njk") with ViewTemplate

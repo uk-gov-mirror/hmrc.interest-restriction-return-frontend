@@ -32,6 +32,9 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def groupInterestCapacity: Option[SummaryListRow] = answer(GroupInterestCapacityPage, routes.GroupInterestCapacityController.onPageLoad(CheckMode))
 
   def groupSubjectToRestrictions: Option[SummaryListRow] = answer(GroupSubjectToRestrictionsPage, routes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode))
+
+  def interestReactivationsCap: Option[SummaryListRow] = answer(InterestReactivationsCapPage, routes.InterestReactivationsCapController.onPageLoad(CheckMode))
+
   def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, routes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
 
   def reportingCompanyAppointed: Option[SummaryListRow] = answer(ReportingCompanyAppointedPage, routes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
@@ -47,8 +50,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def revisingReturn: Option[SummaryListRow] = answer(RevisingReturnPage, routes.RevisingReturnController.onPageLoad(CheckMode))
 
   def groupSubjectToReactivations: Option[SummaryListRow] = answer(GroupSubjectToReactivationsPage, routes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))
-
-  implicit val bigDecimalConversion: BigDecimal => String = _.toString
 
   def interestAllowanceBroughtForward: Option[SummaryListRow] = answer(InterestAllowanceBroughtForwardPage, routes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
 
@@ -82,4 +83,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   }
 
   implicit private val intToString: Int => String = _.toString
+
+  implicit val bigDecimalConversion: BigDecimal => String = _.toString
 }

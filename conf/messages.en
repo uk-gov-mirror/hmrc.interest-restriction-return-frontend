@@ -211,3 +211,15 @@ groupInterestAllowance.error.nonNumeric = Enter your group interest allowance us
 groupInterestAllowance.error.required = Enter your group interest allowance
 groupInterestAllowance.error.invalidNumeric = The group interest allowance must be valid decimal or whole number
 groupInterestAllowance.error.outOfRange = Group interest allowance must be between {0} and {1}
+
+
+# InterestReactivationsCapPage Messages
+# ----------------------------------------------------------
+interestReactivationsCap.title = What is the group reactivation cap?
+interestReactivationsCap.heading = What is the group reactivation cap?
+interestReactivationsCap.label = What is the group reactivation cap?
+interestReactivationsCap.checkYourAnswersLabel = Interest Reactivations Cap
+interestReactivationsCap.error.nonNumeric = Enter your interestReactivationsCap using numbers
+interestReactivationsCap.error.required = Enter your interestReactivationsCap
+interestReactivationsCap.error.invalidNumeric = The interestReactivationsCap must be valid decimal or whole number
+interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be between {0} and {1}

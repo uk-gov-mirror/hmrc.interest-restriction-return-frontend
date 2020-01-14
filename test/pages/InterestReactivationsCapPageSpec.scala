@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object SectionHeaderMessages {
+import pages.behaviours.PageBehaviours
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
+class InterestReactivationsCapPageSpec extends PageBehaviours {
 
+  "InterestReactivationsCapPage" must {
 
+    beRetrievable[BigDecimal](InterestReactivationsCapPage)
+
+    beSettable[BigDecimal](InterestReactivationsCapPage)
+
+    beRemovable[BigDecimal](InterestReactivationsCapPage)
+  }
 }

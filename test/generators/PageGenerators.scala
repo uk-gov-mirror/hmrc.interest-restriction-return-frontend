@@ -48,6 +48,9 @@ trait PageGenerators {
   implicit lazy val arbitraryReportingCompanyCRNPage: Arbitrary[ReportingCompanyCRNPage.type] =
     Arbitrary(ReportingCompanyCRNPage)
 
+  implicit lazy val arbitraryInterestReactivationsCapPage: Arbitrary[InterestReactivationsCapPage.type] =
+    Arbitrary(InterestReactivationsCapPage)
+
   implicit lazy val arbitraryInterestAllowanceBroughtForwardPage: Arbitrary[InterestAllowanceBroughtForwardPage.type] =
     Arbitrary(InterestAllowanceBroughtForwardPage)
 
