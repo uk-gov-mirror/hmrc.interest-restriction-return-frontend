@@ -14,52 +14,51 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.aboutReportingCompany
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import controllers.BaseController
 import controllers.actions._
-import forms.AgentNameFormProvider
+import forms.ReportingCompanyCTUTRFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.AgentNamePage
+import nunjucks.{Renderer, ReportingCompanyCTUTRTemplate}
+import nunjucks.viewmodels.BasicFormViewModel
+import pages.ReportingCompanyCTUTRPage
+import play.api.data.Form
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.AgentNameView
-import config.FrontendAppConfig
-import nunjucks.Renderer
-import nunjucks.AgentNameTemplate
-import play.api.data.Form
-import play.api.libs.json.Json
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import nunjucks.viewmodels.BasicFormViewModel
+import views.html.ReportingCompanyCTUTRView
 
 import scala.concurrent.Future
 
-class AgentNameController @Inject()(
+class ReportingCompanyCTUTRController @Inject()(
                                         override val messagesApi: MessagesApi,
                                         sessionRepository: SessionRepository,
                                         navigator: Navigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
-                                        formProvider: AgentNameFormProvider,
+                                        formProvider: ReportingCompanyCTUTRFormProvider,
                                         val controllerComponents: MessagesControllerComponents,
-                                        view: AgentNameView,
+                                        view: ReportingCompanyCTUTRView,
                                         renderer: Renderer
                                     )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render(AgentNameTemplate, Json.toJsObject(BasicFormViewModel(form, mode)))
+    renderer.render(ReportingCompanyCTUTRTemplate, Json.toJsObject(BasicFormViewModel(form, mode)))
   } else {
     Future.successful(view(form, mode))
   }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      viewHtml(fillForm(AgentNamePage, formProvider()), mode).map(Ok(_))
+      viewHtml(fillForm(ReportingCompanyCTUTRPage, formProvider()), mode).map(Ok(_))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -71,9 +70,9 @@ class AgentNameController @Inject()(
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(AgentNamePage, value))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCTUTRPage, value))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AgentNamePage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ReportingCompanyCTUTRPage, mode, updatedAnswers))
       )
   }
 }

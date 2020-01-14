@@ -19,6 +19,7 @@ package controllers
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
+import controllers.startReturn.ReportingCompanyAppointedController
 import forms.ReportingCompanyAppointedFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator

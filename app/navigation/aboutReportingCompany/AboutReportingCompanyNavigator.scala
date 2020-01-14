@@ -14,33 +14,32 @@
  * limitations under the License.
  */
 
-package navigation
+package navigation.aboutReportingCompany
 
-import javax.inject.{Inject, Singleton}
-
-import play.api.mvc.Call
 import controllers.routes
-import pages._
+import javax.inject.{Inject, Singleton}
 import models._
+import pages._
+import play.api.mvc.Call
 
 @Singleton
-class Navigator @Inject()() {
+class AboutReportingCompanyNavigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case IndexPage => _ => routes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
-    case HelloWorldYesNoPage => _ => routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
-    case HelloWorldYesNoPageNunjucks => _ => routes.CheckYourAnswersController.onPageLoad()
+    case ReportingCompanyNamePage => _ => routes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)
+    case ReportingCompanyCTUTRPage => _ => routes.ReportingCompanyCRNController.onPageLoad(NormalMode)
+    case ReportingCompanyCRNPage => _ => nextSection(NormalMode)
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.CheckYourAnswersController.onPageLoad()
+    _ => _ => routes.CheckYourAnswersController.onPageLoad()
   }
 
+  private def nextSection(mode: Mode): Call = ??? //TODO: Link to About the Group Structure Section when implemented
+
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
-      normalRoutes(page)(userAnswers)
-    case CheckMode =>
-      checkRouteMap(page)(userAnswers)
+    case NormalMode => normalRoutes(page)(userAnswers)
+    case CheckMode => checkRouteMap(page)(userAnswers)
   }
 }

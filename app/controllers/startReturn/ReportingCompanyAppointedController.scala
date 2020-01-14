@@ -14,52 +14,51 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.startReturn
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import controllers.BaseController
 import controllers.actions._
-import forms.AgentActingOnBehalfOfCompanyFormProvider
+import forms.ReportingCompanyAppointedFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.AgentActingOnBehalfOfCompanyPage
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import nunjucks.{Renderer, ReportingCompanyAppointedTemplate}
+import nunjucks.viewmodels.YesNoRadioViewModel
+import pages.ReportingCompanyAppointedPage
+import play.api.data.Form
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.AgentActingOnBehalfOfCompanyView
-import nunjucks.Renderer
-import nunjucks.viewmodels.YesNoRadioViewModel
-import nunjucks.AgentActingOnBehalfOfCompanyTemplate
-import play.api.data.Form
-import play.api.libs.json.Json
-import uk.gov.hmrc.viewmodels.Radios
+import views.html.ReportingCompanyAppointedView
 
 import scala.concurrent.Future
 
-class AgentActingOnBehalfOfCompanyController @Inject()(
+class ReportingCompanyAppointedController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
                                          navigator: Navigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
-                                         formProvider: AgentActingOnBehalfOfCompanyFormProvider,
+                                         formProvider: ReportingCompanyAppointedFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
-                                         view: AgentActingOnBehalfOfCompanyView,
+                                         view: ReportingCompanyAppointedView,
                                          renderer: Renderer
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-      renderer.render(AgentActingOnBehalfOfCompanyTemplate, Json.toJsObject(YesNoRadioViewModel(form, mode)))
+      renderer.render(ReportingCompanyAppointedTemplate, Json.toJsObject(YesNoRadioViewModel(form, mode)))
     } else {
       Future.successful(view(form, mode))
     }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      viewHtml(fillForm(AgentActingOnBehalfOfCompanyPage, formProvider()), mode).map(Ok(_))
+      viewHtml(fillForm(ReportingCompanyAppointedPage, formProvider()), mode).map(Ok(_))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -71,9 +70,9 @@ class AgentActingOnBehalfOfCompanyController @Inject()(
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(AgentActingOnBehalfOfCompanyPage, value))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyAppointedPage, value))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AgentActingOnBehalfOfCompanyPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ReportingCompanyAppointedPage, mode, updatedAnswers))
       )
   }
 }

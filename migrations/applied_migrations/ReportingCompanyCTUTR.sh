@@ -6,11 +6,11 @@ echo "Applying migration ReportingCompanyCTUTR"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /reportingCompanyCTUTR                        controllers.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /reportingCompanyCTUTR                        controllers.ReportingCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /reportingCompanyCTUTR                        controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /reportingCompanyCTUTR                        controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeReportingCompanyCTUTR                  controllers.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeReportingCompanyCTUTR                  controllers.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeReportingCompanyCTUTR                  controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeReportingCompanyCTUTR                  controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

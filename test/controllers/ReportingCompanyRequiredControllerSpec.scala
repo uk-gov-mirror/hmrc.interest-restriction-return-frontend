@@ -19,6 +19,7 @@ package controllers
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import controllers.startReturn.ReportingCompanyRequiredController
 import play.api.test.Helpers._
 import nunjucks.MockNunjucksRenderer
 import nunjucks.ReportingCompanyRequiredTemplate

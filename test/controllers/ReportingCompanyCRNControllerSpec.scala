@@ -18,6 +18,7 @@ package controllers
 
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import controllers.aboutReportingCompany.ReportingCompanyCRNController
 import controllers.actions._
 import forms.ReportingCompanyCRNFormProvider
 import models.{NormalMode, UserAnswers}

@@ -6,11 +6,11 @@ echo "Applying migration AgentName"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /agentName                        controllers.AgentNameController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /agentName                        controllers.AgentNameController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /agentName                        controllers.startReturn.AgentNameController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /agentName                        controllers.startReturn.AgentNameController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeAgentName                  controllers.AgentNameController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeAgentName                  controllers.AgentNameController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeAgentName                  controllers.startReturn.AgentNameController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeAgentName                  controllers.startReturn.AgentNameController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

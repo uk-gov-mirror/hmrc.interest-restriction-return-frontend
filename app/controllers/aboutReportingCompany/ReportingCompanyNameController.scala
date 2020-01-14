@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.aboutReportingCompany
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import controllers.BaseController
 import controllers.actions._
 import forms.ReportingCompanyNameFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
+import nunjucks.{Renderer, ReportingCompanyNameTemplate}
+import nunjucks.viewmodels.BasicFormViewModel
 import pages.ReportingCompanyNamePage
+import play.api.data.Form
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.ReportingCompanyNameView
-import config.FrontendAppConfig
-import nunjucks.Renderer
-import nunjucks.ReportingCompanyNameTemplate
-import play.api.data.Form
-import play.api.libs.json.Json
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import nunjucks.viewmodels.BasicFormViewModel
+import views.html.ReportingCompanyNameView
 
 import scala.concurrent.Future
 
