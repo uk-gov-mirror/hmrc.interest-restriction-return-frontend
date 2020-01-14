@@ -16,6 +16,8 @@
 
 package config
 
+import java.util.Base64
+
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.i18n.Lang
@@ -43,6 +45,15 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   private lazy val exitSurveyBaseUrl = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
   lazy val exitSurveyUrl = s"$exitSurveyBaseUrl/$contactFormServiceIdentifier"
+
+  private def whitelistConfig(key: String): Seq[String] =
+    Some(new String(Base64.getDecoder.decode(servicesConfig.getString(key)), "UTF-8"))
+      .map(_.split(",")).getOrElse(Array.empty).toSeq
+
+  lazy val whitelistEnabled: Boolean = servicesConfig.getBoolean("whitelist.enabled")
+  lazy val whitelistedIps: Seq[String] = whitelistConfig("whitelist.allowedIps")
+  lazy val whitelistExcludedPaths: Seq[Call] = whitelistConfig("whitelist.excludedPaths").map(path => Call("GET", path))
+  lazy val shutterPage: String = servicesConfig.getString("whitelist.shutter-page-url")
 
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
