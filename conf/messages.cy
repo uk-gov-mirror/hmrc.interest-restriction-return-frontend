@@ -199,6 +199,18 @@ groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restr
 groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions?
 
 
+# GroupInterestAllowancePage Messages
+# ----------------------------------------------------------
+groupInterestAllowance.title = Group interest allowance
+groupInterestAllowance.heading = Group interest allowance
+groupInterestAllowance.label = What is the group interest allowance for the period?
+groupInterestAllowance.checkYourAnswersLabel = Group interest allowance
+groupInterestAllowance.error.nonNumeric = Enter your group interest allowance using numbers
+groupInterestAllowance.error.required = Enter your group interest allowance
+groupInterestAllowance.error.invalidNumeric = The group interest allowance must be valid decimal or whole number
+groupInterestAllowance.error.outOfRange = Group interest allowance must be between {0} and {1}
+
+
 
 # InterestReactivationsCapPage Messages
 # ----------------------------------------------------------

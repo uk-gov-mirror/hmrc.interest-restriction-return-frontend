@@ -133,10 +133,15 @@ POST       /group-interest-capacity/change                 controllers.GroupInte
 
 ### GroupSubjectToRestrictions Controller
 ### ----------------------------------------
-GET        /group-subject-to-restrictions                        controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-subject-to-restrictions                       controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-restrictions                         controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-restrictions                         controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
 GET        /group-subject-to-restrictions/change                  controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-subject-to-restrictions/change                  controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /group-interest-allowance                              controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-interest-allowance                              controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)
+GET        /group-interest-allowance/change                       controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-interest-allowance/change                       controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)
 
 ### InterestReactivationsCap Controller
 ### ----------------------------------------
