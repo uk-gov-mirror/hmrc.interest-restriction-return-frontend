@@ -7,7 +7,7 @@
 {% from "components/subheading/macro.njk" import subheading %}
 
 {% block pageTitle %}
-  {{ pageTitle(form, "groupSubjectToReactivations.title") }}
+  {{ pageTitle(form, "groupSubjectToRestrictions.title") }}
 {% endblock %}
 
 {% block content %}
@@ -15,11 +15,11 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {% call formHelper(form, routes.controllers.GroupSubjectToReactivationsController.onSubmit(mode).url) %}
+        {% call formHelper(form, routes.controllers.GroupSubjectToRestrictionsController.onSubmit(mode).url) %}
 
           {{ subheading(subheading = "section.aboutReturn") }}
 
-          {{ yesNoRadio(form, "groupSubjectToReactivations.heading", radios) }}
+          {{ yesNoRadio(form, "groupSubjectToRestrictions.heading", radios) }}
 
           {{ button(msgKey = "site.saveAndContinue") }}
 

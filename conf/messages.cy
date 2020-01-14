@@ -42,10 +42,9 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.saveAndComeBackLater = Save and come back later
 
+section.aboutReturn = About the return
 section.agents = Agents
 section.reportingCompany = About the reporting company
-
-sections.aboutReturn = About the return
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -189,3 +188,12 @@ groupInterestCapacity.error.nonNumeric = Enter your group interest capacity usin
 groupInterestCapacity.error.required = Enter your group interest capacity
 groupInterestCapacity.error.invalidNumeric = The group interest capacity must be valid decimal or whole number
 groupInterestCapacity.error.outOfRange = Group interest capacity must be between {0} and {1}
+
+
+
+# GroupSubjectToRestrictionsPage Messages
+# ----------------------------------------------------------
+groupSubjectToRestrictions.title = Is the group subject to restrictions?
+groupSubjectToRestrictions.heading = Is the group subject to restrictions?
+groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
+groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions?

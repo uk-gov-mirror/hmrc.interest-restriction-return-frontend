@@ -18,7 +18,7 @@ package views
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.routes
-import forms.GroupSubjectToReactivationsFormProvider
+import forms.GroupSubjectToRestrictionsFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -26,26 +26,26 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.YesNoViewBehaviours
-import views.html.GroupSubjectToReactivationsView
-import nunjucks.GroupSubjectToReactivationsTemplate
-import nunjucks.GroupSubjectToReactivationsTemplate
+import views.html.GroupSubjectToRestrictionsView
+import nunjucks.GroupSubjectToRestrictionsTemplate
+import nunjucks.GroupSubjectToRestrictionsTemplate
 import nunjucks.viewmodels.YesNoRadioViewModel
 
-class GroupSubjectToReactivationsViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours with NunjucksSupport {
 
-  val messageKeyPrefix = "groupSubjectToReactivations"
+  val messageKeyPrefix = "groupSubjectToRestrictions"
 
-  val form = new GroupSubjectToReactivationsFormProvider()()
+  val form = new GroupSubjectToRestrictionsFormProvider()()
 
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
-    s"GroupSubjectToReactivations ($templatingSystem) view" must {
+    s"GroupSubjectToRestrictions ($templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
         if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(GroupSubjectToReactivationsTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
+          await(nunjucksRenderer.render(GroupSubjectToRestrictionsTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
         } else {
-          val view = viewFor[GroupSubjectToReactivationsView](Some(emptyUserAnswers))
+          val view = viewFor[GroupSubjectToRestrictionsView](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
@@ -57,7 +57,7 @@ class GroupSubjectToReactivationsViewSpec extends YesNoViewBehaviours with Nunju
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToReactivationsController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToRestrictionsController.onSubmit(NormalMode).url)
     }
   }
 }

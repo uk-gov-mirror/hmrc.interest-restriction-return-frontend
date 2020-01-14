@@ -34,3 +34,4 @@ object InfrastructureCompanyElectionTemplate extends WithName("infrastructureCom
 object FullOrAbbreviatedReturnTemplate extends WithName("fullOrAbbreviatedReturn.njk") with ViewTemplate
 object RevisingReturnTemplate extends WithName("revisingReturn.njk") with ViewTemplate
 object GroupInterestCapacityTemplate extends WithName("groupInterestCapacity.njk") with ViewTemplate
+object GroupSubjectToRestrictionsTemplate extends WithName("groupSubjectToRestrictions.njk") with ViewTemplate
