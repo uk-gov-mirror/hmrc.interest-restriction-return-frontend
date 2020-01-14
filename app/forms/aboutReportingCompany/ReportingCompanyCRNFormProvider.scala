@@ -25,6 +25,6 @@ class ReportingCompanyCRNFormProvider @Inject() extends Mappings {
   def apply(): Form[String] =
     Form(
       "value" -> text("reportingCompanyCRN.error.required")
-        .verifying(maxLength(8, "reportingCompanyCRN.error.length"))
+        .verifying(regexp("^([0-9]{8})|([A-Za-z]{2}[0-9]{6})$", "reportingCompanyCRN.error.length"))
     )
 }
