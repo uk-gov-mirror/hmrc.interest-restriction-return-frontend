@@ -35,3 +35,4 @@ object FullOrAbbreviatedReturnTemplate extends WithName("fullOrAbbreviatedReturn
 object RevisingReturnTemplate extends WithName("revisingReturn.njk") with ViewTemplate
 object GroupInterestCapacityTemplate extends WithName("groupInterestCapacity.njk") with ViewTemplate
 object GroupSubjectToRestrictionsTemplate extends WithName("groupSubjectToRestrictions.njk") with ViewTemplate
+object InterestReactivationsCapTemplate extends WithName("interestReactivationsCap.njk") with ViewTemplate
