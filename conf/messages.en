@@ -223,3 +223,11 @@ interestReactivationsCap.error.nonNumeric = Enter your interestReactivationsCap 
 interestReactivationsCap.error.required = Enter your interestReactivationsCap
 interestReactivationsCap.error.invalidNumeric = The interestReactivationsCap must be valid decimal or whole number
 interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be between {0} and {1}
+
+
+# ReturnContainEstimatesPage Messages
+# ----------------------------------------------------------
+returnContainEstimates.title = Does the return contain estimates?
+returnContainEstimates.heading = Does the return contain estimates?
+returnContainEstimates.checkYourAnswersLabel = Does the return contain estimates?
+returnContainEstimates.error.required = Select yes if the return contain estimates?
