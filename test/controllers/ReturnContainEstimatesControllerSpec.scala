@@ -21,19 +21,16 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.ReturnContainEstimatesFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
-import pages.ReturnContainEstimatesPage
-import nunjucks.ReturnContainEstimatesTemplate
-import play.api.mvc.Call
-import play.api.test.Helpers._
-import views.html.ReturnContainEstimatesView
-import nunjucks.MockNunjucksRenderer
+import navigation.FakeNavigators.FakeNavigator
+import nunjucks.{MockNunjucksRenderer, ReturnContainEstimatesTemplate}
 import nunjucks.viewmodels.YesNoRadioViewModel
+import pages.ReturnContainEstimatesPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
+import views.html.ReturnContainEstimatesView
 
 class ReturnContainEstimatesControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
