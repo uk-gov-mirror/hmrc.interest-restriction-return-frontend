@@ -17,7 +17,7 @@
 package views.aboutReportingCompany
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.routes
+import controllers.aboutReportingCompany.routes
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import models.NormalMode
 import nunjucks.ReportingCompanyCRNTemplate
