@@ -38,3 +38,4 @@ object GroupSubjectToRestrictionsTemplate extends WithName("groupSubjectToRestri
 object GroupInterestAllowanceTemplate extends WithName("groupInterestAllowance.njk") with ViewTemplate
 object InterestReactivationsCapTemplate extends WithName("interestReactivationsCap.njk") with ViewTemplate
 object ReturnContainEstimatesTemplate extends WithName("returnContainEstimates.njk") with ViewTemplate
+object SavedReturnTemplate extends WithName("savedReturn.njk") with ViewTemplate
