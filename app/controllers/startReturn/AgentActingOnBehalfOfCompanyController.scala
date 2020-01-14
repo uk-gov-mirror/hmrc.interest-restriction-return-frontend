@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.startReturn.AgentActingOnBehalfOfCompanyFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.StartReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{AgentActingOnBehalfOfCompanyTemplate, Renderer}
 import pages.startReturn.AgentActingOnBehalfOfCompanyPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class AgentActingOnBehalfOfCompanyController @Inject()(
                                                         override val messagesApi: MessagesApi,
                                                         sessionRepository: SessionRepository,
-                                                        navigator: HelloWorldNavigator,
+                                                        navigator: StartReturnNavigator,
                                                         identify: IdentifierAction,
                                                         getData: DataRetrievalAction,
                                                         requireData: DataRequiredAction,

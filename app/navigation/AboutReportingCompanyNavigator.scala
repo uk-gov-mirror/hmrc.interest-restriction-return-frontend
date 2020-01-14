@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package navigation.aboutReportingCompany
+package navigation
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.routes
@@ -25,7 +25,7 @@ import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTU
 import play.api.mvc.Call
 
 @Singleton
-class AboutReportingCompanyNavigator @Inject()() {
+class AboutReportingCompanyNavigator @Inject()() extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case ReportingCompanyNamePage => _ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)

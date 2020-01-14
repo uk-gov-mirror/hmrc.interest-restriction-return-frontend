@@ -24,7 +24,7 @@ import pages._
 import models._
 
 @Singleton
-class HelloWorldNavigator @Inject()() {
+class HelloWorldNavigator @Inject()() extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case HelloWorldYesNoPage => _ => routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)

@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.AboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{Renderer, ReportingCompanyCRNTemplate}
 import pages.aboutReportingCompany.ReportingCompanyCRNPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class ReportingCompanyCRNController @Inject()(
                                                override val messagesApi: MessagesApi,
                                                sessionRepository: SessionRepository,
-                                               navigator: HelloWorldNavigator,
+                                               navigator: AboutReportingCompanyNavigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,

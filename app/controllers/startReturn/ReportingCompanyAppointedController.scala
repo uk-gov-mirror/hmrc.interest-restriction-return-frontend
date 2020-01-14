@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.startReturn.ReportingCompanyAppointedFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.StartReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{Renderer, ReportingCompanyAppointedTemplate}
 import pages.startReturn.ReportingCompanyAppointedPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class ReportingCompanyAppointedController @Inject()(
                                                      override val messagesApi: MessagesApi,
                                                      sessionRepository: SessionRepository,
-                                                     navigator: HelloWorldNavigator,
+                                                     navigator: StartReturnNavigator,
                                                      identify: IdentifierAction,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,

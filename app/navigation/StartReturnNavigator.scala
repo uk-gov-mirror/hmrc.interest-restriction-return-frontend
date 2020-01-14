@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package navigation.startReturn
+package navigation
 
-import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.routes
+import controllers.startReturn.{routes => startReturnRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
@@ -26,7 +26,7 @@ import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullO
 import play.api.mvc.Call
 
 @Singleton
-class StartReturnNavigator @Inject()() {
+class StartReturnNavigator @Inject()() extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case IndexPage => _ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)

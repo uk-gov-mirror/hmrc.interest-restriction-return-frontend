@@ -21,19 +21,16 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.RevisingReturnFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
-import pages.RevisingReturnPage
-import nunjucks.RevisingReturnTemplate
-import play.api.mvc.Call
-import play.api.test.Helpers._
-import views.html.RevisingReturnView
-import nunjucks.MockNunjucksRenderer
+import navigation.FakeNavigators.FakeHelloWorldNavigator
+import nunjucks.{MockNunjucksRenderer, RevisingReturnTemplate}
 import nunjucks.viewmodels.YesNoRadioViewModel
+import pages.RevisingReturnPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
+import views.html.RevisingReturnView
 
 class RevisingReturnControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
@@ -44,7 +41,7 @@ class RevisingReturnControllerSpec extends SpecBase with MockNunjucksRenderer wi
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new RevisingReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeHelloWorldNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{MockNunjucksRenderer, ReportingCompanyCRNTemplate}
 import pages.aboutReportingCompany.ReportingCompanyCRNPage
@@ -45,7 +45,7 @@ class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport wi
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReportingCompanyCRNController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReportingCompanyNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

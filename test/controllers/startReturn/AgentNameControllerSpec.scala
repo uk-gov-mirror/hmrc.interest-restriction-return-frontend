@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.startReturn.AgentNameFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeStartReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{AgentNameTemplate, MockNunjucksRenderer}
 import pages.startReturn.AgentNamePage
@@ -45,7 +45,7 @@ class AgentNameControllerSpec extends SpecBase with NunjucksSupport with MockNun
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new AgentNameController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeStartReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

@@ -21,19 +21,16 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.GroupSubjectToReactivationsFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
-import pages.GroupSubjectToReactivationsPage
-import nunjucks.GroupSubjectToReactivationsTemplate
-import play.api.mvc.Call
-import play.api.test.Helpers._
-import views.html.GroupSubjectToReactivationsView
-import nunjucks.MockNunjucksRenderer
+import navigation.FakeNavigators.FakeHelloWorldNavigator
+import nunjucks.{GroupSubjectToReactivationsTemplate, MockNunjucksRenderer}
 import nunjucks.viewmodels.YesNoRadioViewModel
+import pages.GroupSubjectToReactivationsPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
+import views.html.GroupSubjectToReactivationsView
 
 class GroupSubjectToReactivationsControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 
@@ -44,7 +41,7 @@ class GroupSubjectToReactivationsControllerSpec extends SpecBase with MockNunjuc
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupSubjectToReactivationsController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeHelloWorldNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

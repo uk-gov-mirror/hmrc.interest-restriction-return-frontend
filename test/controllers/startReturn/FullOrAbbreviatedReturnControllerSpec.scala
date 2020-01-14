@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.startReturn.FullOrAbbreviatedReturnFormProvider
 import models.{FullOrAbbreviatedReturn, NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeStartReturnNavigator
 import nunjucks.viewmodels.RadioOptionsViewModel
 import nunjucks.{FullOrAbbreviatedReturnTemplate, MockNunjucksRenderer}
 import pages.startReturn.FullOrAbbreviatedReturnPage
@@ -42,7 +42,7 @@ class FullOrAbbreviatedReturnControllerSpec extends SpecBase with MockNunjucksRe
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new FullOrAbbreviatedReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeStartReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

@@ -17,10 +17,11 @@
 package navigation
 
 import models.{Mode, UserAnswers}
-import pages._
+import pages.Page
 import play.api.mvc.Call
 
-object FakeNavigator extends HelloWorldNavigator {
+abstract class BaseNavigator {
 
-  override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = Call("POST", "/foo")
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+
 }

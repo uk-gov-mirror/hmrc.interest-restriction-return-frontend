@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.startReturn.FullOrAbbreviatedReturnFormProvider
 import javax.inject.Inject
 import models.{FullOrAbbreviatedReturn, Mode}
-import navigation.HelloWorldNavigator
+import navigation.StartReturnNavigator
 import nunjucks.viewmodels.RadioOptionsViewModel
 import nunjucks.{FullOrAbbreviatedReturnTemplate, Renderer}
 import pages.startReturn.FullOrAbbreviatedReturnPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class FullOrAbbreviatedReturnController @Inject()(
                                                    override val messagesApi: MessagesApi,
                                                    sessionRepository: SessionRepository,
-                                                   navigator: HelloWorldNavigator,
+                                                   navigator: StartReturnNavigator,
                                                    identify: IdentifierAction,
                                                    getData: DataRetrievalAction,
                                                    requireData: DataRequiredAction,

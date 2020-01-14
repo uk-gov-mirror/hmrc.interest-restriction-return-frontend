@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.startReturn.AgentNameFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.HelloWorldNavigator
+import navigation.StartReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{AgentNameTemplate, Renderer}
 import pages.startReturn.AgentNamePage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class AgentNameController @Inject()(
                                      override val messagesApi: MessagesApi,
                                      sessionRepository: SessionRepository,
-                                     navigator: HelloWorldNavigator,
+                                     navigator: StartReturnNavigator,
                                      identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,

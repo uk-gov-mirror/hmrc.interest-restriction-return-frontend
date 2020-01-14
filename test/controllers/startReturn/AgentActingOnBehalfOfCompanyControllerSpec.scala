@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.startReturn.AgentActingOnBehalfOfCompanyFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeStartReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{AgentActingOnBehalfOfCompanyTemplate, MockNunjucksRenderer}
 import pages.startReturn.AgentActingOnBehalfOfCompanyPage
@@ -42,7 +42,7 @@ class AgentActingOnBehalfOfCompanyControllerSpec extends SpecBase with MockNunju
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new AgentActingOnBehalfOfCompanyController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeStartReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

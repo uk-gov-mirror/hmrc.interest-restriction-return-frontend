@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyCTUTRFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{MockNunjucksRenderer, ReportingCompanyCTUTRTemplate}
 import pages.aboutReportingCompany.ReportingCompanyCTUTRPage
@@ -45,7 +45,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReportingCompanyCTUTRController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReportingCompanyNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
