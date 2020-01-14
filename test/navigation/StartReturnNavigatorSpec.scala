@@ -32,6 +32,14 @@ class StartReturnNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
+      "from the IndexPage" should {
+
+        "go to the ReportingCompanyAppointedPage" in {
+          navigator.nextPage(ReportingCompanyAppointedPage, NormalMode, emptyUserAnswers) mustBe
+            startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
+        }
+      }
+
       "from the HasReportingBeenAppointedPage" should {
 
         "go to the AgentActingOnBehalfOfCompanyPage when answer is true" in {

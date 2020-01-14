@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeDataRetrievalActionNone, FakeIdentifierAction}
 import mocks.MockSessionRepository
-import navigation.FakeNavigators.FakeHelloWorldNavigator
+import navigation.FakeNavigators.{FakeHelloWorldNavigator, FakeStartReturnNavigator}
 import play.api.test.Helpers._
 
 class IndexControllerSpec extends SpecBase with MockSessionRepository {
@@ -28,7 +28,7 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository {
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     sessionRepository = mockSessionRepository,
-    navigator = FakeHelloWorldNavigator,
+    navigator = FakeStartReturnNavigator,
     controllerComponents = messagesControllerComponents
   )
 
