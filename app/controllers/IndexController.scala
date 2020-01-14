@@ -19,7 +19,7 @@ package controllers
 import controllers.actions.{DataRetrievalAction, IdentifierAction}
 import javax.inject.Inject
 import models.{NormalMode, UserAnswers}
-import navigation.Navigator
+import navigation.StartReturnNavigator
 import pages.IndexPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -27,7 +27,7 @@ import repositories.SessionRepository
 class IndexController @Inject()(identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 sessionRepository: SessionRepository,
-                                navigator: Navigator,
+                                navigator: StartReturnNavigator,
                                 val controllerComponents: MessagesControllerComponents
                                ) extends BaseController {
 

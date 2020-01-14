@@ -17,8 +17,12 @@
 package utils
 
 import controllers.routes
+import controllers.startReturn.{routes => startReturnRoutes}
+import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
+import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
@@ -37,17 +41,17 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def interestReactivationsCap: Option[SummaryListRow] = answer(InterestReactivationsCapPage, routes.InterestReactivationsCapController.onPageLoad(CheckMode))
 
-  def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, routes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
+  def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
 
-  def reportingCompanyAppointed: Option[SummaryListRow] = answer(ReportingCompanyAppointedPage, routes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
+  def reportingCompanyAppointed: Option[SummaryListRow] = answer(ReportingCompanyAppointedPage, startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
 
-  def reportingCompanyName: Option[SummaryListRow] = answer(ReportingCompanyNamePage, routes.ReportingCompanyNameController.onPageLoad(CheckMode))
+  def reportingCompanyName: Option[SummaryListRow] = answer(ReportingCompanyNamePage, aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(CheckMode))
 
-  def reportingCompanyRequired: Option[SummaryListRow] = answer(ReportingCompanyRequiredPage, routes.ReportingCompanyRequiredController.onPageLoad())
+  def reportingCompanyRequired: Option[SummaryListRow] = answer(ReportingCompanyRequiredPage, startReturnRoutes.ReportingCompanyRequiredController.onPageLoad())
 
-  def reportingCompanyCTUTR: Option[SummaryListRow] = answer(ReportingCompanyCTUTRPage, routes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
+  def reportingCompanyCTUTR: Option[SummaryListRow] = answer(ReportingCompanyCTUTRPage, aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
 
-  def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, routes.ReportingCompanyCRNController.onPageLoad(CheckMode))
+  def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode))
 
   def revisingReturn: Option[SummaryListRow] = answer(RevisingReturnPage, routes.RevisingReturnController.onPageLoad(CheckMode))
 
@@ -55,9 +59,9 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def interestAllowanceBroughtForward: Option[SummaryListRow] = answer(InterestAllowanceBroughtForwardPage, routes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
 
-  def agentName: Option[SummaryListRow] = answer(AgentNamePage, routes.AgentNameController.onPageLoad(CheckMode))
+  def agentName: Option[SummaryListRow] = answer(AgentNamePage, startReturnRoutes.AgentNameController.onPageLoad(CheckMode))
 
-  def agentActingOnBehalfOfCompany: Option[SummaryListRow] = answer(AgentActingOnBehalfOfCompanyPage, routes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))
+  def agentActingOnBehalfOfCompany: Option[SummaryListRow] = answer(AgentActingOnBehalfOfCompanyPage, startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))
 
   def infrastructureCompanyElection: Option[SummaryListRow] = answer(InfrastructureCompanyElectionPage, routes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))
 

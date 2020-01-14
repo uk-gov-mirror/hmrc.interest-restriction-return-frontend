@@ -21,19 +21,16 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.InfrastructureCompanyElectionFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
-import pages.InfrastructureCompanyElectionPage
-import nunjucks.InfrastructureCompanyElectionTemplate
-import play.api.mvc.Call
-import play.api.test.Helpers._
-import views.html.InfrastructureCompanyElectionView
-import nunjucks.MockNunjucksRenderer
+import navigation.FakeNavigators.FakeNavigator
+import nunjucks.{InfrastructureCompanyElectionTemplate, MockNunjucksRenderer}
 import nunjucks.viewmodels.YesNoRadioViewModel
+import pages.InfrastructureCompanyElectionPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
+import views.html.InfrastructureCompanyElectionView
 
 class InfrastructureCompanyElectionControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
 

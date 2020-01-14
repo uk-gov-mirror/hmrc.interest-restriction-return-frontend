@@ -20,17 +20,15 @@ import base.SpecBase
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.MockNunjucksRenderer
 import nunjucks.viewmodels.YesNoRadioViewModel
 import pages.HelloWorldYesNoPageNunjucks
-import play.api.data.{FieldMapping, Form, FormError}
+import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
 import views.html.HelloWorldYesNoView
 
 class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport {

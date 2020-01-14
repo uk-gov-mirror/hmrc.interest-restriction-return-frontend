@@ -29,10 +29,6 @@ class NavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "go from the IndexPage to the HelloWorldYesNoPage" in {
-        navigator.nextPage(IndexPage, NormalMode, UserAnswers("id")) mustBe routes.HelloWorldYesNoController.onPageLoad(NormalMode)
-      }
-
       "go from the HelloWorldYesNoPage to the CheckYourAnswersPage" in {
         navigator.nextPage(HelloWorldYesNoPage, NormalMode, UserAnswers("id")) mustBe routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
       }

@@ -24,23 +24,20 @@ import pages._
 import models._
 
 @Singleton
-class Navigator @Inject()() {
+class Navigator @Inject()() extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case IndexPage => _ => routes.HelloWorldYesNoController.onPageLoad(NormalMode)
     case HelloWorldYesNoPage => _ => routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
     case HelloWorldYesNoPageNunjucks => _ => routes.CheckYourAnswersController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.CheckYourAnswersController.onPageLoad()
+    _ => _ => routes.CheckYourAnswersController.onPageLoad()
   }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode =>
-      normalRoutes(page)(userAnswers)
-    case CheckMode =>
-      checkRouteMap(page)(userAnswers)
+    case NormalMode => normalRoutes(page)(userAnswers)
+    case CheckMode => checkRouteMap(page)(userAnswers)
   }
 }

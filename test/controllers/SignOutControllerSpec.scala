@@ -17,9 +17,7 @@
 package controllers
 
 import base.SpecBase
-import controllers.actions.{DataRetrievalAction, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
 import mocks.MockSessionRepository
-import navigation.FakeNavigator
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.binders.ContinueUrl
 

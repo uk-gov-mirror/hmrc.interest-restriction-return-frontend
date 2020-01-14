@@ -20,9 +20,8 @@ import base.SpecBase
 import controllers.actions._
 import forms.HelloWorldYesNoFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
 import pages.HelloWorldYesNoPage
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.HelloWorldYesNoView
 

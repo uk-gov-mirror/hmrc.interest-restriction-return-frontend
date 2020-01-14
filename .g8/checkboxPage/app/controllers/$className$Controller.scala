@@ -21,16 +21,16 @@ import play.api.libs.json.{JsObject, Json}
 import scala.concurrent.Future
 
 class $className$Controller @Inject()(
-                                     override val messagesApi: MessagesApi,
-                                     sessionRepository: SessionRepository,
-                                     navigator: Navigator,
-                                     identify: IdentifierAction,
-                                     getData: DataRetrievalAction,
-                                     requireData: DataRequiredAction,
-                                     formProvider: $className$FormProvider,
-                                     val controllerComponents: MessagesControllerComponents,
-                                     view: $className$View,
-                                     renderer: Renderer
+                                       override val messagesApi: MessagesApi,
+                                       sessionRepository: SessionRepository,
+                                       navigator: Navigator,
+                                       identify: IdentifierAction,
+                                       getData: DataRetrievalAction,
+                                       requireData: DataRequiredAction,
+                                       formProvider: $className$FormProvider,
+                                       val controllerComponents: MessagesControllerComponents,
+                                       view: $className$View,
+                                       renderer: Renderer
                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[Set[$className$]], mode: Mode)(implicit request: Request[_]) = {

@@ -21,7 +21,9 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.InterestReactivationsCapFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
+import nunjucks.{InterestReactivationsCapTemplate, MockNunjucksRenderer}
+import nunjucks.viewmodels.BasicFormViewModel
 import pages.InterestReactivationsCapPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
@@ -30,9 +32,6 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.InterestReactivationsCapView
-import nunjucks.InterestReactivationsCapTemplate
-import nunjucks.MockNunjucksRenderer
-import nunjucks.viewmodels.BasicFormViewModel
 
 class InterestReactivationsCapControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
 

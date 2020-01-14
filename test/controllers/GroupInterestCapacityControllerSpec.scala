@@ -21,7 +21,9 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.GroupInterestCapacityFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
+import nunjucks.{GroupInterestCapacityTemplate, MockNunjucksRenderer}
+import nunjucks.viewmodels.BasicFormViewModel
 import pages.GroupInterestCapacityPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
@@ -30,9 +32,6 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.GroupInterestCapacityView
-import nunjucks.GroupInterestCapacityTemplate
-import nunjucks.MockNunjucksRenderer
-import nunjucks.viewmodels.BasicFormViewModel
 
 class GroupInterestCapacityControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
 
