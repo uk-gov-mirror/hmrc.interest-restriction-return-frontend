@@ -21,6 +21,9 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryGroupInterestCapacityPage: Arbitrary[GroupInterestCapacityPage.type] =
+    Arbitrary(GroupInterestCapacityPage)
+
   implicit lazy val arbitraryGroupSubjectToRestrictionsPage: Arbitrary[GroupSubjectToRestrictionsPage.type] =
     Arbitrary(GroupSubjectToRestrictionsPage)
 

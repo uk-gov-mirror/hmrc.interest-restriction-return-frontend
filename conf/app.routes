@@ -123,6 +123,14 @@ POST       /revising-return                             controllers.RevisingRetu
 GET        /revising-return/change                      controllers.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /revising-return/change                      controllers.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
 
+### RevisingReturn Controller
+### ----------------------------------------
+GET        /group-interest-capacity                        controllers.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-interest-capacity                        controllers.GroupInterestCapacityController.onSubmit(mode: Mode = NormalMode)
+GET        /group-interest-capacity/change                 controllers.GroupInterestCapacityController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-interest-capacity/change                 controllers.GroupInterestCapacityController.onSubmit(mode: Mode = CheckMode)
+
+
 ### GroupSubjectToRestrictions Controller
 ### ----------------------------------------
 GET        /group-subject-to-restrictions                        controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)

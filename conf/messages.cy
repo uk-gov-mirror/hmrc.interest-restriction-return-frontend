@@ -178,6 +178,19 @@ revisingReturn.checkYourAnswersLabel = Are you revising a return you have alread
 revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
 
 
+# GroupInterestCapacityPage Messages
+# ----------------------------------------------------------
+groupInterestCapacity.title = Group interest capacity
+groupInterestCapacity.heading = Group interest capacity
+groupInterestCapacity.label = What is the group interest capacity for the period?
+groupInterestCapacity.checkYourAnswersLabel = Group interest capacity
+groupInterestCapacity.error.nonNumeric = Enter your group interest capacity using numbers
+groupInterestCapacity.error.required = Enter your group interest capacity
+groupInterestCapacity.error.invalidNumeric = The group interest capacity must be valid decimal or whole number
+groupInterestCapacity.error.outOfRange = Group interest capacity must be between {0} and {1}
+
+
+
 # GroupSubjectToRestrictionsPage Messages
 # ----------------------------------------------------------
 groupSubjectToRestrictions.title = Is the group subject to restrictions?
