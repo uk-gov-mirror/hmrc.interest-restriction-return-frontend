@@ -51,7 +51,7 @@ class InterestReactivationsCapViewSpec extends DecimalViewBehaviours with Nunjuc
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.interestReactivationsCap)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

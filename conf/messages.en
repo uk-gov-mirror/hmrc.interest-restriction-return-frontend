@@ -205,7 +205,6 @@ groupSubjectToRestrictions.error.required = Select yes if the group subject to r
 # ----------------------------------------------------------
 interestReactivationsCap.title = InterestReactivationsCap
 interestReactivationsCap.heading = InterestReactivationsCap
-interestReactivationsCap.subheading = InterestReactivationsCap Subheading
 interestReactivationsCap.label = InterestReactivationsCap
 interestReactivationsCap.checkYourAnswersLabel = InterestReactivationsCap
 interestReactivationsCap.error.nonNumeric = Enter your interestReactivationsCap using numbers
