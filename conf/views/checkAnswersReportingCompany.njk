@@ -1,0 +1,27 @@
+{% extends "includes/layout.njk" %}
+
+{% from "components/pageTitle.njk" import pageTitle %}
+{% from "components/h1/macro.njk" import h1 %}
+{% from "components/summaryList/macro.njk" import summaryList %}
+
+{% block pageTitle %}
+  {{ pageTitle(form, "checkAnswersReportingCompany.title") }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {{ h1("checkAnswersReportingCompany.heading") }}
+
+        <p class="govuk-body">
+          {{ messages("checkAnswersReportingCompany.guidance") }}
+        </p>
+
+        {{ summaryList(rows) }}
+
+      </div>
+    </div>
+
+{% endblock %}

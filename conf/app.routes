@@ -30,6 +30,7 @@ POST       /hello-world-nunjucks/change                 controllers.HelloWorldYe
 ### Check Your Answers Controller
 ### -----------------------------
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+GET        /check-answers-reporting-company             controllers.CheckAnswersReportingCompanyController.onPageLoad
 
 
 ### ReportingCompanyCRN Controller
@@ -167,3 +168,4 @@ POST       /return-contain-estimates/change                controllers.aboutRetu
 GET        /saved-return                                   controllers.SavedReturnController.onPageLoad()
 GET        /continue-from-save                             controllers.SavedReturnController.nextUnansweredPage()
 GET        /delete-answers                                 controllers.SavedReturnController.deleteAndStartAgain()
+

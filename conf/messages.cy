@@ -242,3 +242,13 @@ savedReturn.indent = For us to consider your return, you will need to submit it
 savedReturn.p2 = You can:
 savedReturn.bullet1 = Continue this return
 savedReturn.bullet2 = Delete this form and start again
+
+
+# CheckAnswersReportingCompanyPage Messages
+# ----------------------------------------------------------
+checkAnswersReportingCompany.title = checkAnswersReportingCompany
+checkAnswersReportingCompany.heading = checkAnswersReportingCompany
+checkAnswersReportingCompany.checkYourAnswersLabel = checkAnswersReportingCompany
+checkAnswersReportingCompany.label = CheckAnswersReportingCompany
+checkAnswersReportingCompany.error.required = Enter checkAnswersReportingCompany
+checkAnswersReportingCompany.error.length = CheckAnswersReportingCompany must be Check your answers for reporting company section characters or less
