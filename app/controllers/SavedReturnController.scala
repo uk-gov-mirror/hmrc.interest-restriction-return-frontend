@@ -16,13 +16,17 @@
 
 package controllers
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import javax.inject.Inject
-import nunjucks.Renderer
-import nunjucks.SavedReturnTemplate
+import nunjucks.{Renderer, SavedReturnTemplate}
+import nunjucks.viewmodels.SavedReturnViewModel
 import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.libs.json.Json
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.SavedReturnView
@@ -39,14 +43,15 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render(SavedReturnTemplate)
+  private def renderView(savedTil: String)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
+    renderer.render(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTil)))
   } else {
-    Future.successful(view())
+    Future.successful(view(savedTil))
   }
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      renderView.map(Ok(_))
+      val savedTilDate = LocalDate.now().plusDays(appConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
+      renderView(savedTilDate).map(Ok(_))
   }
 }

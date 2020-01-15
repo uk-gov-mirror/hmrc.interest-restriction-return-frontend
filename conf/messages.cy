@@ -234,5 +234,11 @@ returnContainEstimates.error.required = Select yes if the return contains estima
 
 # SavedReturnPage Messages
 # ----------------------------------------------------------
-savedReturn.title = savedReturn
-savedReturn.heading = savedReturn
+savedReturn.title = Your return has been saved
+savedReturn.heading = Your return has been saved
+savedReturn.savedFor = Your information is held until {0}
+savedReturn.p1 = You will need to log in to the sign-in page to retrieve your return
+savedReturn.indent = For us to consider your return, you will need to submit it
+savedReturn.p2 = You can:
+savedReturn.bullet1 = Continue this return
+savedReturn.bullet2 = Delete this form and start again

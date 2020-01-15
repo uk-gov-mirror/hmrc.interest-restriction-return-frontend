@@ -23,7 +23,7 @@
     link: components.link
 )
 
-@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+@(savedTilDate: String)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
 @govukLayout(pageTitle = Some(titleNoForm("savedReturn.title"))) {
 
@@ -32,7 +32,7 @@
             @messages("savedReturn.heading")
         </h1>
         <div class="govuk-panel__body">
-            Your reference number<br><strong>HDJ2123F</strong>
+            @messages("savedReturn.savedFor", savedTilDate)
         </div>
     </div>
 
@@ -49,10 +49,10 @@
     </p>
     <ul class="govuk-list govuk-list--bullet">
         <li>
-            @link("link", "saveReturn.bullet1")
+            @link("link", "savedReturn.bullet1")
         </li>
         <li>
-            @link("link", "saveReturn.bullet2")
+            @link("link", "savedReturn.bullet2")
         </li>
     </ul>
 }

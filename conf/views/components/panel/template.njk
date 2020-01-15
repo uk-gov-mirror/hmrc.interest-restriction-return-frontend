@@ -1,0 +1,6 @@
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{{ govukPanel({
+  titleText: messages(h1),
+  html: additionalContent
+}) }}

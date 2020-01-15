@@ -133,26 +133,26 @@ POST       /group-interest-capacity/change                 controllers.GroupInte
 
 ### GroupSubjectToRestrictions Controller
 ### ----------------------------------------
-GET        /group-subject-to-restrictions               controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-subject-to-restrictions               controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
-GET        /group-subject-to-restrictions/change        controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-subject-to-restrictions/change        controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
+GET        /group-subject-to-restrictions                  controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-restrictions                  controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-restrictions/change           controllers.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-subject-to-restrictions/change           controllers.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
 
-GET        /group-interest-allowance                              controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-interest-allowance                              controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)
-GET        /group-interest-allowance/change                       controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-interest-allowance/change                       controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)
+GET        /group-interest-allowance                       controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-interest-allowance                       controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)
+GET        /group-interest-allowance/change                controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-interest-allowance/change                controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)
 
 ### InterestReactivationsCap Controller
 ### ----------------------------------------
-GET        /interest-reactivations-cap                  controllers.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)
-POST       /interest-reactivations-cap                  controllers.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)
-GET        /interest-reactivations-cap/change           controllers.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)
-POST       /interest-reactivations-cap/change           controllers.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)
+GET        /interest-reactivations-cap                     controllers.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-reactivations-cap                     controllers.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-reactivations-cap/change              controllers.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-reactivations-cap/change              controllers.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)
 
-GET        /return-contain-estimates                         controllers.ReturnContainEstimatesController.onPageLoad(mode: Mode = NormalMode)
-POST       /return-contain-estimates                         controllers.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)
-GET        /return-contain-estimates/change                  controllers.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)
-POST       /return-contain-estimates/change                  controllers.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)
+GET        /return-contain-estimates                       controllers.ReturnContainEstimatesController.onPageLoad(mode: Mode = NormalMode)
+POST       /return-contain-estimates                       controllers.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)
+GET        /return-contain-estimates/change                controllers.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)
+POST       /return-contain-estimates/change                controllers.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)
 
-GET        /savedReturn                       controllers.SavedReturnController.onPageLoad()
+GET        /saved-return                                   controllers.SavedReturnController.onPageLoad()

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmpty
 import play.api.test.Helpers._
 import nunjucks.MockNunjucksRenderer
 import nunjucks.SavedReturnTemplate
+import nunjucks.viewmodels.SavedReturnViewModel
+import play.api.libs.json.Json
 import play.twirl.api.Html
 import views.html.SavedReturnView
 
@@ -47,7 +49,7 @@ class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
         enable(UseNunjucks)
 
-        mockRender(SavedReturnTemplate)(Html("Success"))
+        mockRender(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTilDate)))(Html("Success"))
 
         val result = controller.onPageLoad(fakeRequest)
 

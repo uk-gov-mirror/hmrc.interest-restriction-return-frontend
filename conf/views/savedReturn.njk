@@ -3,6 +3,7 @@
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/h1/macro.njk" import h1 %}
 {% from "components/link/macro.njk" import link %}
+{% from "components/panel/macro.njk" import panel %}
 
 {% block pageTitle %}
   {{ pageTitle(form, "savedReturn.title") }}
@@ -13,10 +14,10 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {{ h1("savedReturn.heading") }}
+        {{ panel("savedReturn.heading", messages("savedReturn.savedFor", savedTilDate)) }}
 
         <p class="govuk-body">
-          {{ messages("savedReturn.p1") }}
+            {{ messages("savedReturn.p1") }}
         </p>
 
         <div class="govuk-inset-text">
@@ -28,10 +29,10 @@
         </p>
         <ul class="govuk-list govuk-list--bullet">
           <li>
-            {{ link("link", "saveReturn.bullet1") }}
+            {{ link("link", "savedReturn.bullet1") }}
           </li>
           <li>
-            {{ link("link", "saveReturn.bullet2") }}
+            {{ link("link", "savedReturn.bullet2") }}
           </li>
         </ul>
 

@@ -16,6 +16,9 @@
 
 package base
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 import config.FrontendAppConfig
 import models.UserAnswers
 import nunjucks.Renderer
@@ -67,5 +70,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   implicit val messages: Messages = messagesApi.preferred(fakeRequest)
 
   lazy val nunjucksRenderer: Renderer = app.injector.instanceOf[Renderer]
+
+  val savedTilDate = LocalDate.now().plusDays(frontendAppConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
 
 }
