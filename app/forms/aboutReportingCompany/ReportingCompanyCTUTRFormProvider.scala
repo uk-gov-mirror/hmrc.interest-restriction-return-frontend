@@ -26,9 +26,9 @@ class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings {
 
   def apply(): Form[String] =
     Form(
-      "value" -> int("reportingCompanyCTUTR.error.required")
-        .verifying(inRange(10, 10, "reportingCompanyCTUTR.error.length"))
-        .verifying(Constraint { if(true) Valid else Invalid})
+      "value" -> text("reportingCompanyCTUTR.error.required")
+//        .verifying(inRange(10, 10, "reportingCompanyCTUTR.error.length"))
+//        .verifying(Constraint { if(true) Valid else Invalid})
     )
 
   def validateCheckSum(utr: String) = {
@@ -37,5 +37,5 @@ class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings {
     val checkSum = if (utrCalc > 9) utrCalc - 9 else utrCalc
     checkSum == utr.head
   }
-
+  
 }
