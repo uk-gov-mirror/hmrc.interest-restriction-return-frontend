@@ -73,7 +73,7 @@ class SavedReturnViewSpec extends ViewBehaviours {
           }
 
           "has the correct link" in {
-            bullet1.select("a").attr("href") mustBe "link"
+            bullet1.select("a").attr("href") mustBe controllers.routes.SavedReturnController.nextUnansweredPage().url
           }
         }
 
@@ -86,7 +86,7 @@ class SavedReturnViewSpec extends ViewBehaviours {
           }
 
           "has the correct link" in {
-            bullet1.select("a").attr("href") mustBe "link"
+            bullet1.select("a").attr("href") mustBe controllers.routes.SavedReturnController.deleteAndStartAgain().url
           }
         }
       }

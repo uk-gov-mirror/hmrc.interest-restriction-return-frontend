@@ -90,7 +90,7 @@ class AgentNameControllerSpec extends SpecBase with NunjucksSupport with MockNun
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(AgentNamePage, "answer").success.value
+      val userAnswers = emptyUserAnswers.set(AgentNamePage, "answer").success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

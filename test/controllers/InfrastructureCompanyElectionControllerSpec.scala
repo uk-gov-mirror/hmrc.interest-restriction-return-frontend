@@ -85,7 +85,7 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with MockNunj
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(InfrastructureCompanyElectionPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(InfrastructureCompanyElectionPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

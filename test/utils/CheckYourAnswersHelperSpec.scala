@@ -44,7 +44,7 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage, true).get)
+        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPage, true).get)
 
         helper.helloWorldYesNo mustBe Some(summaryListRow(
           messages("helloWorldYesNo.checkYourAnswersLabel"),
@@ -56,7 +56,7 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
       "get an answer from useranswers for false" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPage, false).get)
+        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPage, false).get)
 
         helper.helloWorldYesNo mustBe Some(summaryListRow(
           messages("helloWorldYesNo.checkYourAnswersLabel"),
@@ -71,7 +71,7 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks, true).get)
+        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPageNunjucks, true).get)
 
         helper.helloWorldYesNoNunjucks mustBe Some(summaryListRow(
           messages("helloWorldYesNoNunjucks.checkYourAnswersLabel"),
@@ -83,7 +83,7 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
       "get an answer from useranswers for false" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(HelloWorldYesNoPageNunjucks, false).get)
+        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPageNunjucks, false).get)
 
         helper.helloWorldYesNoNunjucks mustBe Some(summaryListRow(
           messages("helloWorldYesNoNunjucks.checkYourAnswersLabel"),

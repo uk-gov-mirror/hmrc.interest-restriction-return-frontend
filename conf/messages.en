@@ -40,7 +40,7 @@ site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
-site.saveAndComeBackLater = Save and come back later
+site.saveForLater = Save for later
 
 
 # Sections

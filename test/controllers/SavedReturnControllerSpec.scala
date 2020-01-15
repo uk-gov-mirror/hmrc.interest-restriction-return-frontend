@@ -19,15 +19,17 @@ package controllers
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
-import play.api.test.Helpers._
-import nunjucks.MockNunjucksRenderer
-import nunjucks.SavedReturnTemplate
+import mocks.MockSessionRepository
+import models.NormalMode
+import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeStartReturnNavigator}
+import nunjucks.{MockNunjucksRenderer, SavedReturnTemplate}
 import nunjucks.viewmodels.SavedReturnViewModel
 import play.api.libs.json.Json
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import views.html.SavedReturnView
 
-class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
+class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching with MockSessionRepository {
 
   val view = injector.instanceOf[SavedReturnView]
 
@@ -38,35 +40,65 @@ class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with 
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockNunjucksRenderer
+    sessionRepository = mockSessionRepository,
+    renderer = mockNunjucksRenderer,
+    startReturnNavigator = FakeStartReturnNavigator,
+    aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator
   )
 
   "SavedReturn Controller" must {
 
-    "When Nunjucks rendering is enabled" must {
+    "for the onPageLoad() method" must {
 
-      "return OK and the correct view for a GET" in {
+      "When Nunjucks rendering is enabled" must {
 
-        enable(UseNunjucks)
+        "return OK and the correct view for a GET" in {
 
-        mockRender(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTilDate)))(Html("Success"))
+          enable(UseNunjucks)
 
-        val result = controller.onPageLoad(fakeRequest)
+          mockRender(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTilDate)))(Html("Success"))
 
-        status(result) mustBe OK
+          val result = controller.onPageLoad(fakeRequest)
+
+          status(result) mustBe OK
+        }
+      }
+
+      "When Nunjucks rendering is disabled" must {
+
+        "return OK and the correct view for a GET" in {
+
+          disable(UseNunjucks)
+
+          val result = controller.onPageLoad(fakeRequest)
+
+          status(result) mustBe OK
+        }
       }
     }
+  }
 
-    "When Nunjucks rendering is disabled" must {
+  "for the nextUnansweredQuestion() method" must {
 
-      "return OK and the correct view for a GET" in {
+    "redirect to the next page" in {
 
-        disable(UseNunjucks)
+      val result = controller.nextUnansweredPage(fakeRequest)
 
-        val result = controller.onPageLoad(fakeRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
+    }
+  }
 
-        status(result) mustBe OK
-      }
+  "for the deleteAndStartAgain() method" must {
+
+    "redirect to the IndexRoute and clear the user answers held" in {
+
+      mockClear(result = true)
+
+      val result = controller.deleteAndStartAgain(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
 }

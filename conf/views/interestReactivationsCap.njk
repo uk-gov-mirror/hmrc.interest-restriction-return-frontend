@@ -6,6 +6,7 @@
 {% from "components/button/macro.njk" import button %}
 {% from "components/fieldset/macro.njk" import fieldset %}
 {% from "components/subheading/macro.njk" import subheading %}
+{% from "components/saveForLater/macro.njk" import saveForLater %}
 
 {% block pageTitle %}
   {{ pageTitle(form, "interestReactivationsCap.title") }}
@@ -23,6 +24,8 @@
             {{ inputNumber(form, "value", "value", "interestReactivationsCap.label", asHeading = true, classes = "govuk-label--xl") }}
 
             {{ button("site.saveAndContinue") }}
+
+            {{ saveForLater() }}
 
         {% endcall %}
 

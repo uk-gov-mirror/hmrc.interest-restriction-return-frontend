@@ -85,7 +85,7 @@ class GroupSubjectToRestrictionsControllerSpec extends SpecBase with MockNunjuck
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(GroupSubjectToRestrictionsPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

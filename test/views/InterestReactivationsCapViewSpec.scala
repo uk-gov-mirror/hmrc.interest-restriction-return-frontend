@@ -56,6 +56,8 @@ class InterestReactivationsCapViewSpec extends DecimalViewBehaviours with Nunjuc
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestReactivationsCapController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

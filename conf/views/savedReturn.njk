@@ -29,10 +29,10 @@
         </p>
         <ul class="govuk-list govuk-list--bullet">
           <li>
-            {{ link("link", "savedReturn.bullet1") }}
+            {{ link(routes.controllers.SavedReturnController.nextUnansweredPage().url, "savedReturn.bullet1") }}
           </li>
           <li>
-            {{ link("link", "savedReturn.bullet2") }}
+            {{ link(routes.controllers.SavedReturnController.deleteAndStartAgain().url, "savedReturn.bullet2") }}
           </li>
         </ul>
 

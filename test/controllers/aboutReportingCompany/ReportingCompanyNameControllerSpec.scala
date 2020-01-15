@@ -90,7 +90,7 @@ class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport w
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(ReportingCompanyNamePage, "answer").success.value
+      val userAnswers = emptyUserAnswers.set(ReportingCompanyNamePage, "answer").success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

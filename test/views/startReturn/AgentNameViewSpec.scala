@@ -57,6 +57,8 @@ class AgentNameViewSpec extends StringViewBehaviours with NunjucksSupport {
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.AgentNameController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

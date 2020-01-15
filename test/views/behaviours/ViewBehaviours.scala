@@ -103,4 +103,17 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithSaveForLater(view: HtmlFormat.Appendable): Unit = {
+
+    "behave like a page with a save for later link" must {
+
+      s"have a link with message ${BaseMessages.saveForLater}" in {
+
+        val element = asDocument(view).select("p#saveForLater a")
+        element.text mustBe BaseMessages.saveForLater
+        element.attr("href") mustBe controllers.routes.SavedReturnController.onPageLoad().url
+      }
+    }
+  }
 }

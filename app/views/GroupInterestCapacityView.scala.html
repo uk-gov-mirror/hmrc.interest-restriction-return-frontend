@@ -24,7 +24,8 @@
     errorSummary: components.errorSummary,
     button: components.button,
     inputNumber: components.inputNumber,
-    subheading: components.subheading
+    subheading: components.subheading,
+    saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -47,5 +48,7 @@
         )
 
         @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }

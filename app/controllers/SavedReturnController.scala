@@ -23,11 +23,14 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import javax.inject.Inject
+import navigation.{AboutReportingCompanyNavigator, StartReturnNavigator}
 import nunjucks.{Renderer, SavedReturnTemplate}
 import nunjucks.viewmodels.SavedReturnViewModel
+import pages.{IndexPage, Page}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc._
+import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.SavedReturnView
 
@@ -38,8 +41,11 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
                                       val controllerComponents: MessagesControllerComponents,
+                                      val sessionRepository: SessionRepository,
                                       view: SavedReturnView,
-                                      renderer: Renderer
+                                      renderer: Renderer,
+                                      startReturnNavigator: StartReturnNavigator,
+                                      aboutReportingCompanyNavigator: AboutReportingCompanyNavigator
                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
@@ -53,5 +59,19 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
     implicit request =>
       val savedTilDate = LocalDate.now().plusDays(appConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
       renderView(savedTilDate).map(Ok(_))
+  }
+
+  def nextUnansweredPage: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+
+    val lastSavedPage = request.userAnswers.lastPageSaved.fold[Page](IndexPage)(page => page)
+    val allRoutesMap = startReturnNavigator.normalRoutes ++ aboutReportingCompanyNavigator.normalRoutes
+
+    Redirect(allRoutesMap(lastSavedPage)(request.userAnswers))
+  }
+
+  def deleteAndStartAgain: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    sessionRepository.clear(request.userAnswers).map( _ =>
+      Redirect(controllers.routes.IndexController.onPageLoad())
+    )
   }
 }

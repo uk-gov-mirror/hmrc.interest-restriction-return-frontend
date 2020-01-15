@@ -57,6 +57,8 @@ class ReportingCompanyNameViewSpec extends StringViewBehaviours with NunjucksSup
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyNameController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

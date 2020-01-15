@@ -37,4 +37,10 @@ trait MockSessionRepository extends MockFactory {
       .expects(*)
       .returns(Future.successful(result))
   }
+
+  def mockClear(result: Boolean): Unit = {
+    (mockSessionRepository.clear(_: UserAnswers))
+      .expects(*)
+      .returns(Future.successful(result))
+  }
 }

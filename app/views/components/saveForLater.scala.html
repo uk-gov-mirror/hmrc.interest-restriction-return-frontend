@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package assets.messages
+@this(link: components.link)
 
-object BaseMessages {
+@()(implicit messages: Messages)
 
-  val saveAndContinue = "Save and continue"
-  val saveForLater = "Save for later"
-}
+<p class="govuk-body" id="saveForLater">
+ @link(controllers.routes.SavedReturnController.onPageLoad().url, messages("site.saveForLater"))
+</p>

@@ -85,7 +85,7 @@ class ReturnContainEstimatesControllerSpec extends SpecBase with MockNunjucksRen
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(ReturnContainEstimatesPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(ReturnContainEstimatesPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

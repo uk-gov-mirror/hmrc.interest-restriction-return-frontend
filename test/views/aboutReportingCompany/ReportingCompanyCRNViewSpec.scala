@@ -57,6 +57,8 @@ class ReportingCompanyCRNViewSpec extends StringViewBehaviours with NunjucksSupp
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCRNController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

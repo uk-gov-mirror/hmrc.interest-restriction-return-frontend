@@ -56,6 +56,8 @@ class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours with
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestAllowanceBroughtForwardController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }
