@@ -18,8 +18,10 @@ package utils
 
 import base.SpecBase
 import controllers.routes
+import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
+import pages.aboutReportingCompany._
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
@@ -51,7 +53,6 @@ class CheckYourAnswersHelperSpec extends SpecBase {
           messages("site.yes"),
           routes.HelloWorldYesNoController.onPageLoad(CheckMode)
         ))
-
       }
 
       "get an answer from useranswers for false" in {
@@ -63,7 +64,6 @@ class CheckYourAnswersHelperSpec extends SpecBase {
           messages("site.no"),
           routes.HelloWorldYesNoController.onPageLoad(CheckMode)
         ))
-
       }
     }
 
@@ -78,7 +78,6 @@ class CheckYourAnswersHelperSpec extends SpecBase {
           messages("site.yes"),
           routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode)
         ))
-
       }
 
       "get an answer from useranswers for false" in {
@@ -90,9 +89,49 @@ class CheckYourAnswersHelperSpec extends SpecBase {
           messages("site.no"),
           routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode)
         ))
+      }
+    }
 
+    "For the ReportingCompanyName" must {
+
+      "get an answer from useranswers for true" in {
+
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyNamePage, "A Company Name").get)
+
+        helper.reportingCompanyName mustBe Some(summaryListRow(
+          messages("reportingCompanyName.checkYourAnswersLabel"),
+          "A Company Name",
+          aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(CheckMode)
+        ))
+      }
+    }
+
+    "For the ReportingCompanyCTUTR" must {
+
+      "get an answer from useranswers for true" in {
+
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, "1111111111").get)
+
+        helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
+          messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
+          "1111111111",
+          aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode)
+        ))
+      }
+    }
+
+    "For the ReportingCompanyCRN" must {
+
+      "get an answer from useranswers for true" in {
+
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCRNPage, "12345678").get)
+
+        helper.reportingCompanyCRN mustBe Some(summaryListRow(
+          messages("reportingCompanyCRN.checkYourAnswersLabel"),
+          "12345678",
+          aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode)
+        ))
       }
     }
   }
-
 }
