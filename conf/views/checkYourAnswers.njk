@@ -3,6 +3,9 @@
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/h1/macro.njk" import h1 %}
 {% from "components/summaryList/macro.njk" import summaryList %}
+{% from "components/button/macro.njk" import button %}
+{% from "components/subheading/macro.njk" import subheading %}
+
 
 {% block pageTitle %}
   {{ pageTitle(form, section + ".checkYourAnswers.title") }}
@@ -13,6 +16,8 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
+        {{ subheading(subheading = section + ".checkYourAnswers.subheading") }}
+
         {{ h1(section + ".checkYourAnswers.heading") }}
 
         <p class="govuk-body">
@@ -20,6 +25,8 @@
         </p>
 
         {{ summaryList(rows) }}
+
+        {{ button(msgKey = "site.submitAndContinue") }}
 
       </div>
     </div>

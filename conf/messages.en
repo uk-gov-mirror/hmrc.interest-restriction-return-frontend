@@ -2,6 +2,7 @@ service.name = Interest Restriction Return
 
 helloWorld.checkYourAnswers.title = Check Your Answers
 helloWorld.checkYourAnswers.heading = Check Your Answers
+helloWorld.checkYourAnswers.subheading = HelloWorld Subheading
 helloWorld.checkYourAnswers.guidance = Guidance for check your answers
 
 date.day = Day
@@ -50,8 +51,6 @@ site.saveForLater = Save for later
 section.agents = Agents
 section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
-section.reportingCompanyDetails = Reporting company details
-
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -253,5 +252,6 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check Your Answers for Reporting Company
 reportingCompany.checkYourAnswers.heading = Check Your Answers for Reporting Company
+reportingCompany.checkYourAnswers.subheading = Reporting company details
 reportingCompany.checkYourAnswers.checkYourAnswersLabel = Check Your Answers for Reporting CompanyLabel
 reportingCompany.checkYourAnswers.guidance = Guidance for check your answers for reporting company
