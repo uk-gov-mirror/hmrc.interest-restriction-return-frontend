@@ -20,7 +20,6 @@ import assets.messages.CheckYourAnswersMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import models.HelloWorldSection
 import models.Section.HelloWorld
 import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
 import play.api.libs.json.Json

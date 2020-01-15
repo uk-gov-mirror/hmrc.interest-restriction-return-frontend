@@ -20,7 +20,6 @@ import assets.messages.CheckAnswersReportingCompanyMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import models.ReportingCompanySection
 import models.Section.ReportingCompany
 import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
 import play.api.libs.json.Json
