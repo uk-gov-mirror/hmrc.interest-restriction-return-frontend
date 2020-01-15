@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.GroupSubjectToRestrictionsFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{GroupSubjectToRestrictionsTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.GroupSubjectToRestrictionsPage
@@ -42,7 +42,7 @@ class GroupSubjectToRestrictionsControllerSpec extends SpecBase with MockNunjuck
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupSubjectToRestrictionsController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

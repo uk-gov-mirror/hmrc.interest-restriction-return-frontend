@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.ReturnContainEstimatesFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{MockNunjucksRenderer, ReturnContainEstimatesTemplate}
 import pages.aboutReturn.ReturnContainEstimatesPage
@@ -42,7 +42,7 @@ class ReturnContainEstimatesControllerSpec extends SpecBase with MockNunjucksRen
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReturnContainEstimatesController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

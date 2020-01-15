@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.RevisingReturnFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{MockNunjucksRenderer, RevisingReturnTemplate}
 import pages.aboutReturn.RevisingReturnPage
@@ -42,7 +42,7 @@ class RevisingReturnControllerSpec extends SpecBase with MockNunjucksRenderer wi
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new RevisingReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

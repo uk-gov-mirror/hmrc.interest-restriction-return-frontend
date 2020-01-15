@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.InterestReactivationsCapFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{InterestReactivationsCapTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.InterestReactivationsCapPage
@@ -46,7 +46,7 @@ class InterestReactivationsCapControllerSpec extends SpecBase with NunjucksSuppo
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InterestReactivationsCapController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

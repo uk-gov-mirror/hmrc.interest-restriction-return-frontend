@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.GroupInterestAllowanceFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{GroupInterestAllowanceTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.GroupInterestAllowancePage
@@ -46,7 +46,7 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with NunjucksSupport
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupInterestAllowanceController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

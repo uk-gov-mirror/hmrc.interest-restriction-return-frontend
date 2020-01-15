@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.InterestAllowanceBroughtForwardFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{InterestAllowanceBroughtForwardTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.InterestAllowanceBroughtForwardPage
@@ -46,7 +46,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Nunjuc
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InterestAllowanceBroughtForwardController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

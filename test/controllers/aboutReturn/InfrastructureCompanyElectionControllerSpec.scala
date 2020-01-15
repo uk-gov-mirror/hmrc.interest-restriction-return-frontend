@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.InfrastructureCompanyElectionFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{InfrastructureCompanyElectionTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.InfrastructureCompanyElectionPage
@@ -42,7 +42,7 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with MockNunj
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InfrastructureCompanyElectionController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,

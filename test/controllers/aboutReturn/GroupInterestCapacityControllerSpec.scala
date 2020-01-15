@@ -22,7 +22,7 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.GroupInterestCapacityFormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{GroupInterestCapacityTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.GroupInterestCapacityPage
@@ -46,7 +46,7 @@ class GroupInterestCapacityControllerSpec extends SpecBase with NunjucksSupport 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupInterestCapacityController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
