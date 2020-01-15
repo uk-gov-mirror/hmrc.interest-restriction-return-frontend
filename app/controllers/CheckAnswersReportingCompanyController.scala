@@ -20,7 +20,7 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import nunjucks.{CheckAnswersReportingCompanyTemplate, Renderer}
+import nunjucks.{CheckYourAnswersTemplate, Renderer}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -28,8 +28,8 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import utils.CheckAnswersReportingCompanyHelper
-import views.html.CheckAnswersReportingCompanyView
+import views.html.CheckYourAnswersView
+import utils.CheckYourAnswersHelper
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -39,32 +39,32 @@ class CheckAnswersReportingCompanyController @Inject()(
                                                         getData: DataRetrievalAction,
                                                         requireData: DataRequiredAction,
                                                         val controllerComponents: MessagesControllerComponents,
-                                                        view: CheckAnswersReportingCompanyView,
+                                                        view: CheckYourAnswersView,
                                                         renderer: Renderer
-                                          )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+                                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with NunjucksSupport with FeatureSwitching {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      val checkAnswersReporting = new CheckAnswersReportingCompanyHelper(request.userAnswers)
+      val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
       val sections = Seq(
-        checkAnswersReporting.reportingCompanyCRN,
-        checkAnswersReporting.reportingCompanyCTUTR,
-        checkAnswersReporting.reportingCompanyAppointed,
-        checkAnswersReporting.reportingCompanyName
+        checkYourAnswersHelper.reportingCompanyName,
+        checkYourAnswersHelper.reportingCompanyCTUTR,
+        checkYourAnswersHelper.reportingCompanyCRN
       ).flatten
 
       renderView(sections).map(Ok(_))
   }
 
   private def renderView(answers: Seq[SummaryListRow])(implicit request: Request[_]): Future[Html] =
-    if(isEnabled(UseNunjucks)) {
-      renderer.render(CheckAnswersReportingCompanyTemplate, Json.obj(
-        "rows" -> answers
+    if (isEnabled(UseNunjucks)) {
+      renderer.render(CheckYourAnswersTemplate, Json.obj(
+        "rows" -> answers,
+        "section" -> "reportingCompany"
       ))
     } else {
-      Future.successful(view(answers))
+      Future.successful(view(answers, "reportingCompany"))
     }
 }

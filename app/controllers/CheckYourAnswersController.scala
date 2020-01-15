@@ -60,9 +60,10 @@ class CheckYourAnswersController @Inject()(
   private def renderView(answers: Seq[SummaryListRow])(implicit request: Request[_]): Future[Html] =
     if(isEnabled(UseNunjucks)) {
       renderer.render(CheckYourAnswersTemplate, Json.obj(
-        "rows" -> answers
+        "rows" -> answers,
+        "section" -> "helloWorld"
       ))
     } else {
-      Future.successful(view(answers))
+      Future.successful(view(answers, "helloWorld"))
     }
 }

@@ -1,8 +1,8 @@
 service.name = Interest Restriction Return
 
-checkYourAnswers.title = Check Your Answers
-checkYourAnswers.heading = Check Your Answers
-checkYourAnswers.guidance = Guidance for check your answers
+helloWorld.checkYourAnswers.title = Check Your Answers
+helloWorld.checkYourAnswers.heading = Check Your Answers
+helloWorld.checkYourAnswers.guidance = Guidance for check your answers
 
 date.day = Day
 date.month = Month
@@ -247,7 +247,7 @@ savedReturn.bullet2 = Delete this form and start again
 
 # CheckAnswersReportingCompanyPage Messages
 # ----------------------------------------------------------
-checkAnswersReportingCompany.title = Check Your Answers for Reporting Company
-checkAnswersReportingCompany.heading = Check Your Answers for Reporting Company
-checkAnswersReportingCompany.checkYourAnswersLabel = Check Your Answers for Reporting CompanyLabel
-checkAnswersReportingCompany.guidance = Guidance for check your answers for reporting company
+reportingCompany.checkYourAnswers.title = Check Your Answers for Reporting Company
+reportingCompany.checkYourAnswers.heading = Check Your Answers for Reporting Company
+reportingCompany.checkYourAnswers.checkYourAnswersLabel = Check Your Answers for Reporting CompanyLabel
+reportingCompany.checkYourAnswers.guidance = Guidance for check your answers for reporting company

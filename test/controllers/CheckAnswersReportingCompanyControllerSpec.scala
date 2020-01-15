@@ -20,15 +20,15 @@ import assets.messages.CheckAnswersReportingCompanyMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
-import nunjucks.{CheckAnswersReportingCompanyTemplate, MockNunjucksRenderer}
+import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import views.html.CheckAnswersReportingCompanyView
+import views.html.CheckYourAnswersView
 
-class CheckAnswersReportingCompanyHelperControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
+class CheckAnswersReportingCompanyControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
 
-  val view = injector.instanceOf[CheckAnswersReportingCompanyView]
+  val view = injector.instanceOf[CheckYourAnswersView]
 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new CheckAnswersReportingCompanyController(
     messagesApi = messagesApi,
@@ -61,7 +61,7 @@ class CheckAnswersReportingCompanyHelperControllerSpec extends SpecBase with Moc
 
         enable(UseNunjucks)
 
-        mockRender(CheckAnswersReportingCompanyTemplate, Json.obj("rows" -> Json.arr()))(Html("Success"))
+        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> "reportingCompany"))(Html("Success"))
 
         val result = controller().onPageLoad()(fakeRequest)
 

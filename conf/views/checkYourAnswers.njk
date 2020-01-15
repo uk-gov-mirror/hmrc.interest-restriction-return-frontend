@@ -5,7 +5,7 @@
 {% from "components/summaryList/macro.njk" import summaryList %}
 
 {% block pageTitle %}
-  {{ pageTitle(form, "checkYourAnswers.title") }}
+  {{ pageTitle(form, section + ".checkYourAnswers.title") }}
 {% endblock %}
 
 {% block content %}
@@ -13,10 +13,10 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {{ h1("checkYourAnswers.heading") }}
+        {{ h1(section + ".checkYourAnswers.heading") }}
 
         <p class="govuk-body">
-          {{ messages("checkYourAnswers.guidance") }}
+          {{ messages(section + ".checkYourAnswers.guidance") }}
         </p>
 
         {{ summaryList(rows) }}

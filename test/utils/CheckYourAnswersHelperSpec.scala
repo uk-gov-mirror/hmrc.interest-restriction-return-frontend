@@ -19,7 +19,7 @@ package utils
 import base.SpecBase
 import controllers.routes
 import models.{CheckMode, UserAnswers}
-import pages.{HelloWorldYesNoPage, HelloWorldYesNoPageNunjucks}
+import pages._
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._

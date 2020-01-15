@@ -61,7 +61,7 @@ class CheckYourAnswersControllerSpec extends SpecBase with MockNunjucksRenderer 
 
         enable(UseNunjucks)
 
-        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr()))(Html("Success"))
+        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> "helloWorld"))(Html("Success"))
 
         val result = controller().onPageLoad()(fakeRequest)
 
