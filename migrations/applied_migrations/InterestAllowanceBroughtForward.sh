@@ -6,11 +6,11 @@ echo "Applying migration InterestAllowanceBroughtForward"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /interestAllowanceBroughtForward                  controllers.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /interestAllowanceBroughtForward                  controllers.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /interestAllowanceBroughtForward                  controllers.aboutReturn.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /interestAllowanceBroughtForward                  controllers.aboutReturn.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeInterestAllowanceBroughtForward                        controllers.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeInterestAllowanceBroughtForward                        controllers.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeInterestAllowanceBroughtForward                        controllers.aboutReturn.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeInterestAllowanceBroughtForward                        controllers.aboutReturn.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
