@@ -17,8 +17,9 @@
 package pages
 
 import base.SpecBase
-import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany._
 import pages.startReturn._
+import pages.aboutReturn._
 import play.api.libs.json.{JsString, Json}
 
 class PageSpec extends SpecBase {

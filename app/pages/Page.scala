@@ -17,8 +17,8 @@
 package pages
 
 import pages.aboutReportingCompany._
+import pages.aboutReturn._
 import pages.startReturn._
-import pages._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
 import scala.language.implicitConversions

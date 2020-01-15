@@ -49,7 +49,7 @@ class StartReturnNavigatorSpec extends SpecBase {
             startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
         }
 
-        "go to the ReportingCompanyRequiredPage when answer is true" in {
+        "go to the ReportingCompanyRequiredPage when answer is false" in {
 
           val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, false).get
           navigator.nextPage(ReportingCompanyAppointedPage, NormalMode, userAnswers) mustBe
@@ -71,7 +71,7 @@ class StartReturnNavigatorSpec extends SpecBase {
             startReturnRoutes.AgentNameController.onPageLoad(NormalMode)
         }
 
-        "go to the FullOrAbbreviatedReturnPage when answer is true" in {
+        "go to the FullOrAbbreviatedReturnPage when answer is false" in {
 
           val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, false).get
           navigator.nextPage(AgentActingOnBehalfOfCompanyPage, NormalMode, userAnswers) mustBe

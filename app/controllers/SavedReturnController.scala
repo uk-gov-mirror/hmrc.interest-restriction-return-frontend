@@ -23,7 +23,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import javax.inject.Inject
-import navigation.{AboutReportingCompanyNavigator, StartReturnNavigator}
+import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, StartReturnNavigator}
 import nunjucks.{Renderer, SavedReturnTemplate}
 import nunjucks.viewmodels.SavedReturnViewModel
 import pages.{IndexPage, Page}
@@ -45,7 +45,8 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       view: SavedReturnView,
                                       renderer: Renderer,
                                       startReturnNavigator: StartReturnNavigator,
-                                      aboutReportingCompanyNavigator: AboutReportingCompanyNavigator
+                                      aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
+                                      aboutReturnNavigator: AboutReturnNavigator
                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
@@ -64,7 +65,9 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
   def nextUnansweredPage: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val lastSavedPage = request.userAnswers.lastPageSaved.fold[Page](IndexPage)(page => page)
-    val allRoutesMap = startReturnNavigator.normalRoutes ++ aboutReportingCompanyNavigator.normalRoutes
+    val allRoutesMap = startReturnNavigator.normalRoutes ++
+      aboutReportingCompanyNavigator.normalRoutes ++
+      aboutReturnNavigator.normalRoutes
 
     Redirect(allRoutesMap(lastSavedPage)(request.userAnswers))
   }

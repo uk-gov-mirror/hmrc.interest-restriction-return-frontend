@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
 import mocks.MockSessionRepository
 import models.NormalMode
-import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeStartReturnNavigator}
+import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeAboutReturnNavigator, FakeStartReturnNavigator}
 import nunjucks.{MockNunjucksRenderer, SavedReturnTemplate}
 import nunjucks.viewmodels.SavedReturnViewModel
 import play.api.libs.json.Json
@@ -43,7 +43,8 @@ class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with 
     sessionRepository = mockSessionRepository,
     renderer = mockNunjucksRenderer,
     startReturnNavigator = FakeStartReturnNavigator,
-    aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator
+    aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator,
+    aboutReturnNavigator = FakeAboutReturnNavigator
   )
 
   "SavedReturn Controller" must {

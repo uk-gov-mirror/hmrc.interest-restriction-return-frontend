@@ -19,9 +19,11 @@ package utils
 import controllers.routes
 import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReturn.{GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -31,15 +33,15 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
-  def returnContainEstimates: Option[SummaryListRow] = answer(ReturnContainEstimatesPage, routes.ReturnContainEstimatesController.onPageLoad(CheckMode))
+  def returnContainEstimates: Option[SummaryListRow] = answer(ReturnContainEstimatesPage, aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode))
 
-  def groupInterestAllowance: Option[SummaryListRow] = answer(GroupInterestAllowancePage, routes.GroupInterestAllowanceController.onPageLoad(CheckMode))
+  def groupInterestAllowance: Option[SummaryListRow] = answer(GroupInterestAllowancePage, aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(CheckMode))
 
-  def groupInterestCapacity: Option[SummaryListRow] = answer(GroupInterestCapacityPage, routes.GroupInterestCapacityController.onPageLoad(CheckMode))
+  def groupInterestCapacity: Option[SummaryListRow] = answer(GroupInterestCapacityPage, aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(CheckMode))
 
-  def groupSubjectToRestrictions: Option[SummaryListRow] = answer(GroupSubjectToRestrictionsPage, routes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode))
+  def groupSubjectToRestrictions: Option[SummaryListRow] = answer(GroupSubjectToRestrictionsPage, aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode))
 
-  def interestReactivationsCap: Option[SummaryListRow] = answer(InterestReactivationsCapPage, routes.InterestReactivationsCapController.onPageLoad(CheckMode))
+  def interestReactivationsCap: Option[SummaryListRow] = answer(InterestReactivationsCapPage, aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(CheckMode))
 
   def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
 
@@ -53,17 +55,17 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode))
 
-  def revisingReturn: Option[SummaryListRow] = answer(RevisingReturnPage, routes.RevisingReturnController.onPageLoad(CheckMode))
+  def revisingReturn: Option[SummaryListRow] = answer(RevisingReturnPage, aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode))
 
-  def groupSubjectToReactivations: Option[SummaryListRow] = answer(GroupSubjectToReactivationsPage, routes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))
+  def groupSubjectToReactivations: Option[SummaryListRow] = answer(GroupSubjectToReactivationsPage, aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))
 
-  def interestAllowanceBroughtForward: Option[SummaryListRow] = answer(InterestAllowanceBroughtForwardPage, routes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
+  def interestAllowanceBroughtForward: Option[SummaryListRow] = answer(InterestAllowanceBroughtForwardPage, aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
 
   def agentName: Option[SummaryListRow] = answer(AgentNamePage, startReturnRoutes.AgentNameController.onPageLoad(CheckMode))
 
   def agentActingOnBehalfOfCompany: Option[SummaryListRow] = answer(AgentActingOnBehalfOfCompanyPage, startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))
 
-  def infrastructureCompanyElection: Option[SummaryListRow] = answer(InfrastructureCompanyElectionPage, routes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))
+  def infrastructureCompanyElection: Option[SummaryListRow] = answer(InfrastructureCompanyElectionPage, aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))
 
   def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
   def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))

@@ -6,11 +6,11 @@ echo "Applying migration GroupInterestAllowance"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /groupInterestAllowance                  controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /groupInterestAllowance                  controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /groupInterestAllowance                  controllers.aboutReturn.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /groupInterestAllowance                  controllers.aboutReturn.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeGroupInterestAllowance                        controllers.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeGroupInterestAllowance                        controllers.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeGroupInterestAllowance                        controllers.aboutReturn.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeGroupInterestAllowance                        controllers.aboutReturn.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
