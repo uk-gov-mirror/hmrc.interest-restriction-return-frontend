@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.aboutReturn.InfrastructureCompanyElectionFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.AboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{InfrastructureCompanyElectionTemplate, Renderer}
 import pages.aboutReturn.InfrastructureCompanyElectionPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class InfrastructureCompanyElectionController @Inject()(
                                                          override val messagesApi: MessagesApi,
                                                          sessionRepository: SessionRepository,
-                                                         navigator: Navigator,
+                                                         navigator: AboutReturnNavigator,
                                                          identify: IdentifierAction,
                                                          getData: DataRetrievalAction,
                                                          requireData: DataRequiredAction,

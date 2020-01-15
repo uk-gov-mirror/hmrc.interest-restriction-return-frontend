@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.aboutReturn.ReturnContainEstimatesFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.AboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{Renderer, ReturnContainEstimatesTemplate}
 import pages.aboutReturn.ReturnContainEstimatesPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class ReturnContainEstimatesController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
-                                         navigator: Navigator,
+                                         navigator: AboutReturnNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,

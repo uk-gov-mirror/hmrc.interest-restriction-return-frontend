@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.aboutReturn.GroupInterestCapacityFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.AboutReturnNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{GroupInterestCapacityTemplate, Renderer}
 import pages.aboutReturn.GroupInterestCapacityPage
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class GroupInterestCapacityController @Inject()(
                                                  override val messagesApi: MessagesApi,
                                                  sessionRepository: SessionRepository,
-                                                 navigator: Navigator,
+                                                 navigator: AboutReturnNavigator,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
