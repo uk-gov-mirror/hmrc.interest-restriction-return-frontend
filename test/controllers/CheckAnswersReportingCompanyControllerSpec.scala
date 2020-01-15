@@ -20,6 +20,8 @@ import assets.messages.CheckAnswersReportingCompanyMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
+import models.ReportingCompanySection
+import models.Section.ReportingCompany
 import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
 import play.api.libs.json.Json
 import play.api.test.Helpers._
@@ -61,7 +63,7 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with MockNunju
 
         enable(UseNunjucks)
 
-        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> "reportingCompany"))(Html("Success"))
+        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> ReportingCompany))(Html("Success"))
 
         val result = controller().onPageLoad()(fakeRequest)
 

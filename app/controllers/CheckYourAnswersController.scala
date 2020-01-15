@@ -20,6 +20,7 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import models.Section.HelloWorld
 import nunjucks.{CheckYourAnswersTemplate, Renderer}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
@@ -61,9 +62,9 @@ class CheckYourAnswersController @Inject()(
     if(isEnabled(UseNunjucks)) {
       renderer.render(CheckYourAnswersTemplate, Json.obj(
         "rows" -> answers,
-        "section" -> "helloWorld"
+        "section" -> HelloWorld
       ))
     } else {
-      Future.successful(view(answers, "helloWorld"))
+      Future.successful(view(answers, HelloWorld))
     }
 }

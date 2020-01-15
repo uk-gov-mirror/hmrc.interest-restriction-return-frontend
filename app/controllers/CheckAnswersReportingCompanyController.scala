@@ -30,6 +30,7 @@ import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.CheckYourAnswersView
 import utils.CheckYourAnswersHelper
+import models.Section.ReportingCompany
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -62,9 +63,9 @@ class CheckAnswersReportingCompanyController @Inject()(
     if (isEnabled(UseNunjucks)) {
       renderer.render(CheckYourAnswersTemplate, Json.obj(
         "rows" -> answers,
-        "section" -> "reportingCompany"
+        "section" -> ReportingCompany
       ))
     } else {
-      Future.successful(view(answers, "reportingCompany"))
+      Future.successful(view(answers, ReportingCompany))
     }
 }

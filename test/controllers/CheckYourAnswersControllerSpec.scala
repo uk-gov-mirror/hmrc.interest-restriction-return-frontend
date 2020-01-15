@@ -20,6 +20,8 @@ import assets.messages.CheckYourAnswersMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
+import models.HelloWorldSection
+import models.Section.HelloWorld
 import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
 import play.api.libs.json.Json
 import play.api.test.Helpers._
@@ -61,7 +63,7 @@ class CheckYourAnswersControllerSpec extends SpecBase with MockNunjucksRenderer 
 
         enable(UseNunjucks)
 
-        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> "helloWorld"))(Html("Success"))
+        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> HelloWorld))(Html("Success"))
 
         val result = controller().onPageLoad()(fakeRequest)
 
