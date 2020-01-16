@@ -16,6 +16,8 @@
 
 package views
 
+import assets.messages.BaseMessages._
+import models.Section._
 import models.UserAnswers
 import nunjucks.CheckYourAnswersTemplate
 import play.api.libs.json.Json
@@ -28,13 +30,40 @@ import views.html.CheckYourAnswersView
 class CheckYourAnswersViewSpec extends ViewBehaviours with NunjucksSupport {
 
   val messageKeyPrefix = "reportingCompany.checkYourAnswers"
+  val reportingCompanySubheading = s"$ReportingCompany.checkYourAnswers.subheading"
+  val reportingCompanyHeading = s"$ReportingCompany.checkYourAnswers.heading"
   val checkYourAnswersHelper = new CheckYourAnswersHelper(UserAnswers("id"))
 
-  val answers = Seq(
+  val reportingCompanyAnswers = Seq(
     checkYourAnswersHelper.reportingCompanyName,
     checkYourAnswersHelper.reportingCompanyCTUTR,
     checkYourAnswersHelper.reportingCompanyCRN
   ).flatten
+
+  def pageWithSaveButton(view: HtmlFormat.Appendable, msg: String): Unit = {
+
+    "behave like a page with a submit button" must {
+
+      s"have a button with message '$msg'" in {
+
+        val doc = asDocument(view)
+        assertEqualsMessage(doc, "#main-content > div > div > button", msg)
+      }
+    }
+  }
+
+  def pageSaveForLater(view: HtmlFormat.Appendable): Unit = {
+
+    "behave like a page with a save for later link" must {
+
+      s"have a link with message ${saveForLater}" in {
+
+        val element = asDocument(view).select("#saveForLater > a")
+        element.text mustBe saveForLater
+        element.attr("href") mustBe controllers.routes.SavedReturnController.onPageLoad().url
+      }
+    }
+  }
 
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
@@ -45,23 +74,25 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with NunjucksSupport {
           await(nunjucksRenderer.render(
             CheckYourAnswersTemplate,
             Json.obj(
-              "rows" -> answers,
-              "section" -> "reportingCompany"
+              "rows" -> reportingCompanyAnswers,
+              "section" -> ReportingCompany
             ))(fakeRequest))
         } else {
           val view = viewFor[CheckYourAnswersView](Some(emptyUserAnswers))
-          view.apply(answers, "reportingCompany")(fakeRequest, messages, frontendAppConfig)
+          view.apply(reportingCompanyAnswers, "reportingCompany")(fakeRequest, messages, frontendAppConfig)
         }
 
       behave like normalPage(applyView(), messageKeyPrefix)
-      //
-      //      behave like pageWithBackLink(applyView())
-      //
-      //      behave like pageWithSubHeading(applyView(), SectionHeaderMessages.reportingCompany)
-      //
-      //      behave like pageWithSubmitButton(applyView(), BaseMessages.saveAndContinue)
-      //
-      //      behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCRNController.onSubmit(NormalMode).url)
+
+      behave like pageWithBackLink(applyView())
+
+      behave like pageWithSubHeading(applyView(), reportingCompanySubheading)
+
+      behave like pageWithHeading(applyView(), reportingCompanyHeading)
+
+      behave like pageWithSaveButton(applyView(), saveAndContinue)
+
+      behave like pageSaveForLater(applyView())
     }
   }
 }

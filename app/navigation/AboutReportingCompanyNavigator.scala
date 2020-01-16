@@ -23,6 +23,7 @@ import models._
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import play.api.mvc.Call
+import controllers.CheckAnswersReportingCompanyController
 
 @Singleton
 class AboutReportingCompanyNavigator @Inject()() extends BaseNavigator {
@@ -30,10 +31,11 @@ class AboutReportingCompanyNavigator @Inject()() extends BaseNavigator {
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     ReportingCompanyNamePage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
     ReportingCompanyCTUTRPage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)),
-    ReportingCompanyCRNPage -> (_ => nextSection(NormalMode))
+    ReportingCompanyCRNPage -> (_ => routes.CheckAnswersReportingCompanyController.onPageLoad()),
+    CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => routes.CheckAnswersReportingCompanyController.onPageLoad())
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => routes.CheckYourAnswersController.onPageLoad())
 
   private def nextSection(mode: Mode): Call = ??? //TODO: Link to About the Group Structure Section when implemented
 
