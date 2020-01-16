@@ -80,6 +80,16 @@ trait ViewBehaviours extends ViewSpecBase {
     }
   }
 
+  def pageWithHeading(view: HtmlFormat.Appendable, heading: String) = {
+
+    "behave like a page with a Heading" must {
+
+      "display the correct Heading" in {
+        assertEqualsMessage(asDocument(view), "#main-content > div > div > h1", heading)
+      }
+    }
+  }
+
   def pageWithSignOutLink(view: HtmlFormat.Appendable): Unit = {
 
     "behave like a page with a Sign Out link" must {
