@@ -20,9 +20,11 @@ import assets.messages.CheckAnswersReportingCompanyMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
+import models.NormalMode
 import models.Section.ReportingCompany
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
+import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -43,37 +45,50 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with MockNunju
     navigator = FakeAboutReportingCompanyNavigator
   )
 
-  "Check Your Answers Controller" must {
+  "Check Your Answers Controller" when {
 
-    "If Twirl library is being used" must {
+    "calling the onPageLoad() method" must {
 
-      "return a OK (200) when given empty answers" in {
+      "If Twirl library is being used" must {
 
-        disable(UseNunjucks)
+        "return a OK (200) when given empty answers" in {
 
-        val result = controller().onPageLoad()(fakeRequest)
+          disable(UseNunjucks)
 
-        status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title)
+          val result = controller().onPageLoad()(fakeRequest)
+
+          status(result) mustEqual OK
+          titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title)
+        }
+      }
+
+      "If Nunjucks library is being used" must {
+
+        "return a OK (200) when given empty answers" in {
+
+          enable(UseNunjucks)
+
+          mockRender(CheckYourAnswersTemplate, Json.obj(
+            "rows" -> Json.arr(),
+            "section" -> ReportingCompany,
+            "postAction" -> controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit().url
+          ))(Html("Success"))
+
+          val result = controller().onPageLoad()(fakeRequest)
+
+          status(result) mustEqual OK
+          contentAsString(result) mustEqual "Success"
+        }
       }
     }
 
-    "If Nunjucks library is being used" must {
+    "calling the onSubmit() method" must {
 
-      "return a OK (200) when given empty answers" in {
+      "redirect to the next page in the navigator" in {
+        val result = controller().onSubmit()(fakeRequest)
 
-        enable(UseNunjucks)
-
-        mockRender(CheckYourAnswersTemplate, Json.obj(
-          "rows" -> Json.arr(),
-          "section" -> ReportingCompany,
-          "postAction" -> controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit().url
-        ))(Html("Success"))
-
-        val result = controller().onPageLoad()(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(FakeAboutReportingCompanyNavigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, emptyUserAnswers).url)
       }
     }
   }
