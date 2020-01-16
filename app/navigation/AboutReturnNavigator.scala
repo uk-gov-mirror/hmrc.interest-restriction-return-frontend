@@ -28,34 +28,31 @@ import play.api.mvc.Call
 @Singleton
 class AboutReturnNavigator @Inject()() extends BaseNavigator {
 
-  private val normalRoutes: Page => UserAnswers => Call = {
-    case RevisingReturnPage => _.get(RevisingReturnPage) match {
+  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
       case Some(true) => ??? //TODO: Link to Revision Information Page when implemented
       case Some(false) => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
-    }
-    case InfrastructureCompanyElectionPage => _.get(startReturn.FullOrAbbreviatedReturnPage) match {
+    }),
+    InfrastructureCompanyElectionPage -> (_.get(startReturn.FullOrAbbreviatedReturnPage) match {
       case Some(Full) => aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
       case Some(Abbreviated) => ??? //TODO Link to abbreviated return section when implemented
       case _ => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
-    }
-    case ReturnContainEstimatesPage => _ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
-    case GroupSubjectToRestrictionsPage => _ => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
-    case GroupSubjectToReactivationsPage => _.get(GroupSubjectToReactivationsPage) match {
+    }),
+    ReturnContainEstimatesPage -> (_ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
+    GroupSubjectToRestrictionsPage -> (_ => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)),
+    GroupSubjectToReactivationsPage -> (_.get(GroupSubjectToReactivationsPage) match {
       case Some(true) => aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(NormalMode)
       case Some(false) => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
       case _ => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
-    }
-    case InterestReactivationsCapPage => _ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
-    case InterestAllowanceBroughtForwardPage => _ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)
-    case GroupInterestAllowancePage => _ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)
-    case GroupInterestCapacityPage => _ => nextSection(NormalMode)
-    case _ => _ => routes.IndexController.onPageLoad()
-  }
+    }),
+    InterestReactivationsCapPage -> (_ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
+    InterestAllowanceBroughtForwardPage -> (_ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
+    GroupInterestAllowancePage -> (_ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
+    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
+  )
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
-    _ => _ => routes.CheckYourAnswersController.onPageLoad()
-  }
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => routes.CheckYourAnswersController.onPageLoad())
 
   private def nextSection(mode: Mode): Call = ??? //TODO: Link to About the Elections Section when implemented
 

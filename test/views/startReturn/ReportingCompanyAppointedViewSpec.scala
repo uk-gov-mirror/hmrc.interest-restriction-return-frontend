@@ -57,6 +57,8 @@ class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours with Nunjuck
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyAppointedController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

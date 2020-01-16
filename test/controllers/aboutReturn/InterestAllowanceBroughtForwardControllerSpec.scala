@@ -90,7 +90,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Nunjuc
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set[BigDecimal](InterestAllowanceBroughtForwardPage, validAnswer).success.value
+      val userAnswers = emptyUserAnswers.set[BigDecimal](InterestAllowanceBroughtForwardPage, validAnswer).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

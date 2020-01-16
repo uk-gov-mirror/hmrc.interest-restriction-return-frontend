@@ -90,7 +90,7 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with NunjucksSupport
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set[BigDecimal](GroupInterestAllowancePage, validAnswer).success.value
+      val userAnswers = emptyUserAnswers.set[BigDecimal](GroupInterestAllowancePage, validAnswer).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

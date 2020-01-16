@@ -26,7 +26,8 @@ import scala.util.{Failure, Success, Try}
 final case class UserAnswers(
                               id: String,
                               data: JsObject = Json.obj(),
-                              lastUpdated: LocalDateTime = LocalDateTime.now
+                              lastUpdated: LocalDateTime = LocalDateTime.now,
+                              lastPageSaved: Option[Page] = None
                             ) {
 
   def get[A](page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] =
@@ -43,7 +44,7 @@ final case class UserAnswers(
 
     updatedData.map {
       d =>
-        copy (data = d)
+        copy (data = d, lastPageSaved = Some(page))
     }
   }
 
@@ -58,7 +59,7 @@ final case class UserAnswers(
 
     updatedData.map {
       d =>
-        copy (data = d)
+        copy (data = d, lastPageSaved = Some(page))
     }
   }
 }
@@ -72,7 +73,8 @@ object UserAnswers {
     (
       (__ \ "_id").read[String] and
       (__ \ "data").read[JsObject] and
-      (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead)
+      (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
+      (__ \ "lastPageSaved").readNullable[Page]
     ) (UserAnswers.apply _)
   }
 
@@ -83,7 +85,8 @@ object UserAnswers {
     (
       (__ \ "_id").write[String] and
       (__ \ "data").write[JsObject] and
-      (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite)
+      (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
+      (__ \ "lastPageSaved").writeNullable[Page]
     ) (unlift(UserAnswers.unapply))
   }
 }

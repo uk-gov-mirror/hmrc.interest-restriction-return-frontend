@@ -90,7 +90,7 @@ class FullOrAbbreviatedReturnControllerSpec extends SpecBase with MockNunjucksRe
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.values.head).success.value
+      val userAnswers = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.values.head).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

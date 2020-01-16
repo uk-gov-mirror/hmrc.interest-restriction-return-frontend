@@ -86,7 +86,7 @@ class AgentActingOnBehalfOfCompanyControllerSpec extends SpecBase with MockNunju
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(AgentActingOnBehalfOfCompanyPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

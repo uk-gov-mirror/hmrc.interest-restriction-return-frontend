@@ -57,6 +57,8 @@ class GroupInterestAllowanceViewSpec extends DecimalViewBehaviours with Nunjucks
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.GroupInterestAllowanceController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

@@ -36,7 +36,7 @@ trait ViewBehaviours extends ViewSpecBase {
           assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title")))
         }
 
-        "display the correct page title" in {
+        "display the correct page heading" in {
 
           val doc = asDocument(view)
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
@@ -100,6 +100,19 @@ trait ViewBehaviours extends ViewSpecBase {
 
         val doc = asDocument(view)
         assertEqualsMessage(doc, "#main-content > div > div > form > button", msg)
+      }
+    }
+  }
+
+  def pageWithSaveForLater(view: HtmlFormat.Appendable): Unit = {
+
+    "behave like a page with a save for later link" must {
+
+      s"have a link with message ${BaseMessages.saveForLater}" in {
+
+        val element = asDocument(view).select("p#saveForLater a")
+        element.text mustBe BaseMessages.saveForLater
+        element.attr("href") mustBe controllers.routes.SavedReturnController.onPageLoad().url
       }
     }
   }

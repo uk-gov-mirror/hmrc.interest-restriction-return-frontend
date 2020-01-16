@@ -1,0 +1,42 @@
+{% extends "includes/layout.njk" %}
+
+{% from "components/pageTitle.njk" import pageTitle %}
+{% from "components/h1/macro.njk" import h1 %}
+{% from "components/link/macro.njk" import link %}
+{% from "components/panel/macro.njk" import panel %}
+
+{% block pageTitle %}
+  {{ pageTitle(form, "savedReturn.title") }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {{ panel("savedReturn.heading", messages("savedReturn.savedFor", savedTilDate)) }}
+
+        <p class="govuk-body">
+            {{ messages("savedReturn.p1") }}
+        </p>
+
+        <div class="govuk-inset-text">
+          {{ messages("savedReturn.indent") }}
+        </div>
+
+        <p class="govuk-body">
+          {{ messages("savedReturn.p2") }}
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>
+            {{ link(routes.controllers.SavedReturnController.nextUnansweredPage().url, "savedReturn.bullet1") }}
+          </li>
+          <li>
+            {{ link(routes.controllers.SavedReturnController.deleteAndStartAgain().url, "savedReturn.bullet2") }}
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+{% endblock %}

@@ -19,4 +19,5 @@ package assets.messages
 object BaseMessages {
 
   val saveAndContinue = "Save and continue"
+  val saveForLater = "Save for later"
 }

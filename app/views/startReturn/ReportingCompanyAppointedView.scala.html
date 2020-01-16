@@ -20,20 +20,21 @@
 @import config.FrontendAppConfig
 
 @this(
-    govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
-    button: components.button,
-    subheading: components.subheading,
-    h1: components.h1
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        yesNoRadio: components.yesNoRadio,
+        button: components.button,
+        subheading: components.subheading,
+        h1: components.h1,
+        saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
     pageTitle = Some(title(form, "reportingCompanyAppointed.title"))
-    ) {
+) {
 
     @formHelper(action = ReportingCompanyAppointedController.onSubmit(mode)) {
 
@@ -44,5 +45,7 @@
         @yesNoRadio(form, "reportingCompanyAppointed.heading")
 
         @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }

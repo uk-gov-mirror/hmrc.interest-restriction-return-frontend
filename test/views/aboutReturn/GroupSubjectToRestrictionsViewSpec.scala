@@ -57,6 +57,8 @@ class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours with Nunjuc
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToRestrictionsController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

@@ -86,7 +86,7 @@ class GroupSubjectToReactivationsControllerSpec extends SpecBase with MockNunjuc
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(GroupSubjectToReactivationsPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

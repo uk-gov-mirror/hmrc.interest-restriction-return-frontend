@@ -59,6 +59,7 @@ class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours with NunjucksSuppor
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
+      behave like pageWithSaveForLater(applyView(form))
 
       "rendered" must {
 

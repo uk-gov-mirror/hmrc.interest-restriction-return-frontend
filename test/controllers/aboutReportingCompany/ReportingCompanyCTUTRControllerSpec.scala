@@ -90,7 +90,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set(ReportingCompanyCTUTRPage, "answer").success.value
+      val userAnswers = emptyUserAnswers.set(ReportingCompanyCTUTRPage, "answer").success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

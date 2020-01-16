@@ -57,6 +57,8 @@ class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours with NunjucksSu
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ReturnContainEstimatesController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

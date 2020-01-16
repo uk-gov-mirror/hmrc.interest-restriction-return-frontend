@@ -88,7 +88,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set($className$Page, true).success.value
+      val userAnswers = emptyUserAnswers.set($className$Page, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

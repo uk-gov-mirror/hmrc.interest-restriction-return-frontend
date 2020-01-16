@@ -16,12 +16,46 @@
 
 package pages
 
+import pages.aboutReportingCompany._
+import pages.aboutReturn._
+import pages.startReturn._
+import play.api.libs.json.{JsPath, JsString, Reads, Writes}
+
 import scala.language.implicitConversions
 
 trait Page
 
 object Page {
 
-  implicit def toString(page: Page): String =
-    page.toString
+  implicit def toString(page: Page): String = page.toString
+
+  val pages: Map[String, Page] = Map(
+    ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
+    ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
+    ReportingCompanyCRNPage.toString -> ReportingCompanyCRNPage,
+    AgentActingOnBehalfOfCompanyPage.toString -> AgentActingOnBehalfOfCompanyPage,
+    AgentNamePage.toString -> AgentNamePage,
+    FullOrAbbreviatedReturnPage.toString -> FullOrAbbreviatedReturnPage,
+    ReportingCompanyAppointedPage.toString -> ReportingCompanyAppointedPage,
+    ReportingCompanyRequiredPage.toString -> ReportingCompanyRequiredPage,
+    GroupInterestAllowancePage.toString -> GroupInterestAllowancePage,
+    GroupInterestCapacityPage.toString -> GroupInterestCapacityPage,
+    GroupSubjectToReactivationsPage.toString -> GroupSubjectToReactivationsPage,
+    GroupSubjectToRestrictionsPage.toString -> GroupSubjectToRestrictionsPage,
+    InfrastructureCompanyElectionPage.toString -> InfrastructureCompanyElectionPage,
+    InterestAllowanceBroughtForwardPage.toString -> InterestAllowanceBroughtForwardPage,
+    InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
+    RevisingReturnPage.toString -> RevisingReturnPage,
+    ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
+    IndexPage.toString -> IndexPage,
+    HelloWorldYesNoPage.toString -> HelloWorldYesNoPage,
+    HelloWorldYesNoPageNunjucks.toString -> HelloWorldYesNoPageNunjucks
+  )
+
+  def apply(page: String): Page = pages(page)
+
+  def unapply(arg: Page): String = pages.map(_.swap).apply(arg)
+
+  implicit val reads: Reads[Page] = JsPath.read[String].map(apply)
+  implicit val writes: Writes[Page] = Writes { page => JsString(unapply(page)) }
 }

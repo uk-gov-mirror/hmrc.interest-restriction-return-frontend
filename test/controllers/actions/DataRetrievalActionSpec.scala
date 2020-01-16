@@ -39,7 +39,7 @@ class DataRetrievalActionSpec extends SpecBase with MockSessionRepository with S
 
         mockGet(None)
 
-        val futureResult = Action.callTransform(new IdentifierRequest(fakeRequest, "id"))
+        val futureResult = Action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
         whenReady(futureResult) { result =>
           result.userAnswers.isEmpty mustBe true
@@ -51,9 +51,9 @@ class DataRetrievalActionSpec extends SpecBase with MockSessionRepository with S
 
       "build a userAnswers object and add it to the request" in {
 
-        mockGet(Some(new UserAnswers("id")))
+        mockGet(Some(emptyUserAnswers))
 
-        val futureResult = Action.callTransform(new IdentifierRequest(fakeRequest, "id"))
+        val futureResult = Action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
         whenReady(futureResult) { result =>
           result.userAnswers.isDefined mustBe true

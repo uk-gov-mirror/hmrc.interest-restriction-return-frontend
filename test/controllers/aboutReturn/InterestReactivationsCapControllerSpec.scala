@@ -90,7 +90,7 @@ class InterestReactivationsCapControllerSpec extends SpecBase with NunjucksSuppo
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = UserAnswers(userAnswersId).set[BigDecimal](InterestReactivationsCapPage, validAnswer).success.value
+      val userAnswers = emptyUserAnswers.set[BigDecimal](InterestReactivationsCapPage, validAnswer).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 

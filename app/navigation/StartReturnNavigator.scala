@@ -28,26 +28,23 @@ import play.api.mvc.Call
 @Singleton
 class StartReturnNavigator @Inject()() extends BaseNavigator {
 
-  private val normalRoutes: Page => UserAnswers => Call = {
-    case IndexPage => _ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
-    case ReportingCompanyAppointedPage => _.get(ReportingCompanyAppointedPage) match {
+  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+    IndexPage -> (_ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)),
+    ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
       case Some(true) => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
       case Some(false) => startReturnRoutes.ReportingCompanyRequiredController.onPageLoad
       case _ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
-    }
-    case AgentActingOnBehalfOfCompanyPage => _.get(AgentActingOnBehalfOfCompanyPage) match {
+    }),
+    AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
       case Some(true) => startReturnRoutes.AgentNameController.onPageLoad(NormalMode)
       case Some(false) => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
       case _ => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
-    }
-    case AgentNamePage => _ => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
-    case FullOrAbbreviatedReturnPage => _ => nextSection(NormalMode)
-    case _ => _ => routes.IndexController.onPageLoad()
-  }
+    }),
+    AgentNamePage -> (_ => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)),
+    FullOrAbbreviatedReturnPage -> (_ => nextSection(NormalMode))
+  )
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
-    _ => _ => routes.CheckYourAnswersController.onPageLoad()
-  }
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => routes.CheckYourAnswersController.onPageLoad())
 
   private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(mode)
 

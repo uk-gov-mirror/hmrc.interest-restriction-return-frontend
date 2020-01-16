@@ -27,7 +27,8 @@
     fieldset: components.fieldset,
     h1: components.h1,
     subheading: components.subheading,
-    link: components.link
+    link: components.link,
+    saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -51,5 +52,7 @@
         )
 
         @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }

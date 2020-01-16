@@ -57,6 +57,8 @@ class ReportingCompanyCTUTRViewSpec extends StringViewBehaviours with NunjucksSu
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCTUTRController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

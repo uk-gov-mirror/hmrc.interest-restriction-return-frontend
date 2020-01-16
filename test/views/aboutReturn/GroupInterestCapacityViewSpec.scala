@@ -57,6 +57,8 @@ class GroupInterestCapacityViewSpec extends DecimalViewBehaviours with NunjucksS
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.GroupInterestCapacityController.onSubmit(NormalMode).url)
+
+      behave like pageWithSaveForLater(applyView(form))
     }
   }
 }

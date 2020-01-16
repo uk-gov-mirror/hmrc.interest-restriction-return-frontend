@@ -6,6 +6,7 @@
 {% from "components/button/macro.njk" import button %}
 {% from "components/fieldset/macro.njk" import fieldset %}
 {% from "components/subheading/macro.njk" import subheading %}
+{% from "components/saveForLater/macro.njk" import saveForLater %}
 
 {% block pageTitle %}
   {{ pageTitle(form, "reportingCompanyCRN.title") }}
@@ -23,6 +24,8 @@
             {{ inputText(form, "value", "value", "reportingCompanyCRN.label", isPageHeading = true, classes = "govuk-label--xl") }}
 
             {{ button(msgKey = "site.saveAndContinue") }}
+
+            {{ saveForLater() }}
 
         {% endcall %}
 

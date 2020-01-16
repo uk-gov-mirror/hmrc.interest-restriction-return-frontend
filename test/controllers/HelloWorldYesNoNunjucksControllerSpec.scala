@@ -67,7 +67,7 @@ class HelloWorldYesNoNunjucksControllerSpec extends SpecBase with MockNunjucksRe
 
       mockRender(nunjucks.HelloWorldYesNoTemplate, viewContext(form.fill(true)))(Html("Success"))
 
-      val userAnswers = UserAnswers(userAnswersId).set(HelloWorldYesNoPageNunjucks, true).success.value
+      val userAnswers = emptyUserAnswers.set(HelloWorldYesNoPageNunjucks, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
