@@ -69,4 +69,10 @@ awk '/class/ {\
 echo "Adding template to Nunjucks templates"
 echo "object $className$Template extends WithName(\"$className;format="decap"$.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
 
+echo "Adding to Pages map"
+awk '/val pages/ {\
+    print;\
+    print "    $className$Page.toString -> $className$Page,";\
+    next }1' ../app/pages/Page.scala > tmp && mv tmp ../app/pages/Page.scala
+
 echo "Migration $className;format="snake"$ completed"
