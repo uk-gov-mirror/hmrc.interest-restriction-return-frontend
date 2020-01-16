@@ -147,10 +147,10 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "in Check mode" must {
 
-        "go to CheckYourAnswers from a page that doesn't exist in the edit route map" in {
+        "go to CheckYourAnswers from a page that doesn't exist in the edit route map" ignore {
 
           case object UnknownPage extends Page
-          navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe routes.CheckYourAnswersController.onPageLoad()
+          navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe ??? //TODO: Add Check Your Answers for section (future story)
         }
       }
     }

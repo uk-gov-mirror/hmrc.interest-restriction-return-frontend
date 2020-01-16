@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.aboutReportingCompany
 
 import assets.messages.CheckAnswersReportingCompanyMessages
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import models.Section.ReportingCompany
+import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.{CheckYourAnswersTemplate, MockNunjucksRenderer}
 import play.api.libs.json.Json
 import play.api.test.Helpers._
@@ -38,7 +39,8 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with MockNunju
     requireData = injector.instanceOf[DataRequiredActionImpl],
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer
+    renderer = mockNunjucksRenderer,
+    navigator = FakeAboutReportingCompanyNavigator
   )
 
   "Check Your Answers Controller" must {
@@ -62,7 +64,11 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with MockNunju
 
         enable(UseNunjucks)
 
-        mockRender(CheckYourAnswersTemplate, Json.obj("rows" -> Json.arr(), "section" -> ReportingCompany))(Html("Success"))
+        mockRender(CheckYourAnswersTemplate, Json.obj(
+          "rows" -> Json.arr(),
+          "section" -> ReportingCompany,
+          "postAction" -> controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit().url
+        ))(Html("Success"))
 
         val result = controller().onPageLoad()(fakeRequest)
 

@@ -14,13 +14,19 @@
  * limitations under the License.
  */
 
-package pages
+package pages.aboutReportingCompany
 
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-case object CheckAnswersReportingCompanyPage extends QuestionPage[String] {
 
-  override def path: JsPath = JsPath \ toString
+class CheckAnswersReportingCompanyHelperPageSpec extends PageBehaviours {
 
-  override def toString: String = "checkAnswersReportingCompany"
+  "CheckAnswersReportingCompanyPage" must {
+
+    beRetrievable[String](CheckAnswersReportingCompanyPage)
+
+    beSettable[String](CheckAnswersReportingCompanyPage)
+
+    beRemovable[String](CheckAnswersReportingCompanyPage)
+  }
 }

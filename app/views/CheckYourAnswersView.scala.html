@@ -22,10 +22,11 @@
     h1: components.h1,
     subheading: components.subheading,
     button: components.button,
-    saveForLater: components.saveForLater
+    saveForLater: components.saveForLater,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@(answers: Seq[SummaryListRow], section: String)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow], section: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title"))) {
 
@@ -37,7 +38,11 @@
 
     @govukSummaryList(SummaryList(answers))
 
-    @button("site.submitAndContinue")
+    @formHelper(action = postAction, 'autoComplete -> "off") {
+
+        @button("site.submitAndContinue")
+
+    }
 
     @saveForLater()
 }

@@ -29,8 +29,8 @@ POST       /hello-world-nunjucks/change                 controllers.HelloWorldYe
 
 ### Check Your Answers Controller
 ### -----------------------------
-GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
-GET        /check-answers-reporting-company             controllers.CheckAnswersReportingCompanyController.onPageLoad
+GET        /check-answers-reporting-company             controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad
+POST       /check-answers-reporting-company             controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onSubmit
 
 
 ### ReportingCompanyCRN Controller

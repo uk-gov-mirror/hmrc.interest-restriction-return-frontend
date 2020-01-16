@@ -21,6 +21,7 @@ import models.Section._
 import models.UserAnswers
 import nunjucks.CheckYourAnswersTemplate
 import play.api.libs.json.Json
+import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import utils.CheckYourAnswersHelper
@@ -40,31 +41,6 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with NunjucksSupport {
     checkYourAnswersHelper.reportingCompanyCRN
   ).flatten
 
-  def pageWithSaveButton(view: HtmlFormat.Appendable, msg: String): Unit = {
-
-    "behave like a page with a submit button" must {
-
-      s"have a button with message '$msg'" in {
-
-        val doc = asDocument(view)
-        assertEqualsMessage(doc, "#main-content > div > div > button", msg)
-      }
-    }
-  }
-
-  def pageSaveForLater(view: HtmlFormat.Appendable): Unit = {
-
-    "behave like a page with a save for later link" must {
-
-      s"have a link with message ${saveForLater}" in {
-
-        val element = asDocument(view).select("#saveForLater > a")
-        element.text mustBe saveForLater
-        element.attr("href") mustBe controllers.routes.SavedReturnController.onPageLoad().url
-      }
-    }
-  }
-
   Seq(Nunjucks, Twirl).foreach { templatingSystem =>
 
     s"CheckYourAnswer ($templatingSystem) view" must {
@@ -79,7 +55,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with NunjucksSupport {
             ))(fakeRequest))
         } else {
           val view = viewFor[CheckYourAnswersView](Some(emptyUserAnswers))
-          view.apply(reportingCompanyAnswers, "reportingCompany")(fakeRequest, messages, frontendAppConfig)
+          view.apply(reportingCompanyAnswers, "reportingCompany", Call("POST", "/foo"))(fakeRequest, messages, frontendAppConfig)
         }
 
       behave like normalPage(applyView(), messageKeyPrefix)
@@ -90,9 +66,9 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with NunjucksSupport {
 
       behave like pageWithHeading(applyView(), reportingCompanyHeading)
 
-      behave like pageWithSaveButton(applyView(), saveAndContinue)
+      behave like pageWithSubmitButton(applyView(), saveAndContinue)
 
-      behave like pageSaveForLater(applyView())
+      behave like pageWithSaveForLater(applyView())
     }
   }
 }

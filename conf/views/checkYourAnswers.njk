@@ -6,6 +6,7 @@
 {% from "components/button/macro.njk" import button %}
 {% from "components/subheading/macro.njk" import subheading %}
 {% from "components/saveForLater/macro.njk" import saveForLater %}
+{% from "components/form/macro.njk" import formHelper %}
 
 {% block pageTitle %}
   {{ pageTitle(form, section + ".checkYourAnswers.title") }}
@@ -26,7 +27,11 @@
 
         {{ summaryList(rows) }}
 
-        {{ button(msgKey = "site.submitAndContinue") }}
+        {% call formHelper(form, postAction) %}
+
+            {{ button(msgKey = "site.submitAndContinue") }}
+
+        {% endcall %}
 
         {{ saveForLater() }}
 

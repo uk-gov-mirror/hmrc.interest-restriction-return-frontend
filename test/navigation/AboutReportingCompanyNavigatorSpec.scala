@@ -58,10 +58,9 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to CheckYourAnswers from a page that doesn't exist in the edit route map" in {
-
-        case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      "go to Reporting Company CheckYourAnswers" in {
+        navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
       }
     }
   }
