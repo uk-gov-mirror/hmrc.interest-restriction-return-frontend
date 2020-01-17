@@ -38,7 +38,6 @@ class RadioOptionsViewModelSpec extends SpecBase with Mappings with NunjucksSupp
     def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
       value =>
         RadioItem(
-          id = Some(value.toString),
           value = Some(value.toString),
           content = Text(messages(s"${value.toString}")),
           checked = form("value").value.contains(value.toString)

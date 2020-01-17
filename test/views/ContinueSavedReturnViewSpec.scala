@@ -57,19 +57,16 @@ class ContinueSavedReturnViewSpec extends ViewBehaviours with NunjucksSupport {
 
       behave like pageWithBackLink(applyView(form))
 
-      "rendered" must {
 
-        "contain radio buttons for the value" in {
+      ContinueSavedReturn.options(form).zipWithIndex.foreach { case (option, i) =>
+
+        val id = if(i == 0) "value" else s"value-${i + 1}"
+
+        s"contain radio buttons for the value '${option.value.get}'" in {
 
           val doc = asDocument(applyView(form))
-
-          for (option <- ContinueSavedReturn.options(form)) {
-            assertContainsRadioButton(doc, option.id.get, "value", option.value.get, false)
-          }
+          assertContainsRadioButton(doc, id, "value", option.value.get, false)
         }
-      }
-
-      for (option <- ContinueSavedReturn.options(form)) {
 
         s"rendered with a value of '${option.value.get}'" must {
 
@@ -78,7 +75,8 @@ class ContinueSavedReturnViewSpec extends ViewBehaviours with NunjucksSupport {
             val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
             val doc = asDocument(applyView(formWithData))
 
-            assertContainsRadioButton(doc, option.id.get, "value", option.value.get, true)
+            val id = if(i == 0) "value" else s"value-${i + 1}"
+            assertContainsRadioButton(doc, id, "value", option.value.get, true)
           }
         }
       }

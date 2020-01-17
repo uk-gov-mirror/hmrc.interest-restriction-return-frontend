@@ -36,11 +36,11 @@
     pageTitle = Some(title(form, "agentActingOnBehalfOfCompany.title"))
     ) {
 
-    @subheading("section.agents")
-
     @formHelper(action = AgentActingOnBehalfOfCompanyController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
+
+        @subheading("section.agents")
 
         @yesNoRadio(form, "agentActingOnBehalfOfCompany.heading")
 
