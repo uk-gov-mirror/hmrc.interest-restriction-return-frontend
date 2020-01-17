@@ -22,7 +22,7 @@ import controllers.actions.{FakeDataRetrievalActionEmptyAnswers, _}
 import forms.$className$FormProvider
 import models.{$className$, NormalMode, UserAnswers}
 import nunjucks.{$className$Template, MockNunjucksRenderer}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.viewmodels.CheckboxViewModel
 import org.scalatestplus.mockito.MockitoSugar
 import pages.$className$Page

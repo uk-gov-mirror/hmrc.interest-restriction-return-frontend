@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{$className$, NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
 import org.scalatestplus.mockito.MockitoSugar
 import pages.$className$Page
 import nunjucks.{MockNunjucksRenderer, $className$Template}
