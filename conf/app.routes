@@ -9,7 +9,7 @@ GET        /sign-out                                    controllers.SignOutContr
 ### -----------
 GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
-
+GET        /under-construction                       controllers.UnderConstructionController.onPageLoad()
 
 
 ### Main Journey Controllers

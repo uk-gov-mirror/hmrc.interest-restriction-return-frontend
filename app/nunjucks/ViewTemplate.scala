@@ -40,4 +40,5 @@ object InterestReactivationsCapTemplate extends WithName("interestReactivationsC
 object ReturnContainEstimatesTemplate extends WithName("returnContainEstimates.njk") with ViewTemplate
 object CheckAnswersReportingCompanyTemplate extends WithName("checkAnswersReportingCompany.njk") with ViewTemplate
 object SavedReturnTemplate extends WithName("savedReturn.njk") with ViewTemplate
+object UnderConstructionTemplate extends WithName("underConstruction.njk") with ViewTemplate
 object ContinueSavedReturnTemplate extends WithName("continueSavedReturn.njk") with ViewTemplate
