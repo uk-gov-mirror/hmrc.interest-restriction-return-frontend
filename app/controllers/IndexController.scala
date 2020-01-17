@@ -39,6 +39,6 @@ class IndexController @Inject()(identify: IdentifierAction,
       sessionRepository.set(userAnswers).map{ _ =>
         Redirect(navigator.nextPage(IndexPage, NormalMode, userAnswers))
       }}{ _ =>
-          Future.successful(Redirect(controllers.routes.ContinueSavedReturnController.onPageLoad(NormalMode)))
+          Future.successful(Redirect(controllers.routes.ContinueSavedReturnController.onPageLoad()))
     }}
 }

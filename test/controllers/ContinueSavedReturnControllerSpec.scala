@@ -71,7 +71,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
         mockRender(ContinueSavedReturnTemplate, viewContext(form))(Html("Success"))
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual "Success"
@@ -84,7 +84,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
         disable(UseNunjucks)
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -95,7 +95,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
       val userAnswers = emptyUserAnswers.set(ContinueSavedReturnPage, ContinueSavedReturn.values.head).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -108,7 +108,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", ContinueReturn.toString))
 
-          val result = controller().onSubmit(NormalMode)(request)
+          val result = controller().onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.SavedReturnController.nextUnansweredPage().url)
@@ -121,7 +121,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", NewReturn.toString))
 
-          val result = controller().onSubmit(NormalMode)(request)
+          val result = controller().onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.SavedReturnController.deleteAndStartAgain().url)
@@ -133,14 +133,14 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      val result = controller().onSubmit()(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDataRetrievalActionNone).onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
@@ -150,7 +150,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ContinueSavedReturn.values.head.toString))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      val result = controller(FakeDataRetrievalActionNone).onSubmit()(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url

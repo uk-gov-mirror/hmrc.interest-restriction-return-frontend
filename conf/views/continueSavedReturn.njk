@@ -14,7 +14,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {% call formHelper(form, routes.controllers.ContinueSavedReturnController.onSubmit(mode).url) %}
+        {% call formHelper(form, routes.controllers.ContinueSavedReturnController.onSubmit().url) %}
 
           {{ radio(form, "continueSavedReturn.heading", radios) }}
 

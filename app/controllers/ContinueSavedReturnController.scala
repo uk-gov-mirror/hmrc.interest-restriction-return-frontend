@@ -22,7 +22,7 @@ import controllers.actions._
 import forms.ContinueSavedReturnFormProvider
 import javax.inject.Inject
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
-import models.{ContinueSavedReturn, Mode}
+import models.{ContinueSavedReturn, Mode, NormalMode}
 import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, Navigator, StartReturnNavigator}
 import nunjucks.{ContinueSavedReturnTemplate, Renderer}
 import nunjucks.viewmodels.RadioOptionsViewModel
@@ -53,34 +53,31 @@ class ContinueSavedReturnController @Inject()(
                                                aboutReturnNavigator: AboutReturnNavigator
                                              )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
-  private def viewHtml(form: Form[ContinueSavedReturn], mode: Mode)(implicit request: Request[_]) = if (isEnabled(UseNunjucks)) {
+  private def viewHtml(form: Form[ContinueSavedReturn])(implicit request: Request[_]) = if (isEnabled(UseNunjucks)) {
     renderer.render(ContinueSavedReturnTemplate, Json.toJsObject(RadioOptionsViewModel(
       ContinueSavedReturn.options(form),
       form,
-      mode
+      NormalMode
     )))
   } else {
-    Future.successful(view(form, mode))
+    Future.successful(view(form, NormalMode))
   }
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      viewHtml(fillForm(ContinueSavedReturnPage, formProvider()), mode).map(Ok(_))
+      viewHtml(fillForm(ContinueSavedReturnPage, formProvider())).map(Ok(_))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-            Future.fromTry(request.userAnswers.set(ContinueSavedReturnPage, value)).map{_ =>
-              value match {
-                case NewReturn => Redirect(controllers.routes.SavedReturnController.deleteAndStartAgain())
-                case ContinueReturn => Redirect((controllers.routes.SavedReturnController.nextUnansweredPage()))
-            }}
+          viewHtml(formWithErrors).map(BadRequest(_)),
+        {
+          case NewReturn => Future.successful(Redirect(controllers.routes.SavedReturnController.deleteAndStartAgain()))
+          case ContinueReturn => Future.successful(Redirect(controllers.routes.SavedReturnController.nextUnansweredPage()))
+        }
       )
   }
 }

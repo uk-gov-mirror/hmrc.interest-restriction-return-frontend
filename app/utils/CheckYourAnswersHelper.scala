@@ -32,7 +32,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
-  def continueSavedReturn: Option[SummaryListRow] = answer(ContinueSavedReturnPage, routes.ContinueSavedReturnController.onPageLoad(CheckMode))
 
   def returnContainEstimates: Option[SummaryListRow] = answer(ReturnContainEstimatesPage, aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode))
 
