@@ -169,3 +169,6 @@ GET        /saved-return                                   controllers.SavedRetu
 GET        /continue-from-save                             controllers.SavedReturnController.nextUnansweredPage()
 GET        /delete-answers                                 controllers.SavedReturnController.deleteAndStartAgain()
 
+GET        /continue-saved-return                        controllers.ContinueSavedReturnController.onPageLoad()
+POST       /continue-saved-return                        controllers.ContinueSavedReturnController.onSubmit()
+

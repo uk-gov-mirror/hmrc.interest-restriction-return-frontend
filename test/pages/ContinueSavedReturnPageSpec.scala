@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-package generators
+package pages
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import models.ContinueSavedReturn
+import pages.behaviours.PageBehaviours
 
-trait ModelGenerators {
+class ContinueSavedReturnSpec extends PageBehaviours {
 
-  implicit lazy val arbitraryContinueSavedReturn: Arbitrary[ContinueSavedReturn] =
-    Arbitrary {
-      Gen.oneOf(ContinueSavedReturn.values.toSeq)
-    }
+  "ContinueSavedReturnPage" must {
 
-  implicit lazy val arbitraryFullOrAbbreviatedReturn: Arbitrary[FullOrAbbreviatedReturn] =
-    Arbitrary {
-      Gen.oneOf(FullOrAbbreviatedReturn.values.toSeq)
-    }
+    beRetrievable[ContinueSavedReturn](ContinueSavedReturnPage)
 
+    beSettable[ContinueSavedReturn](ContinueSavedReturnPage)
+
+    beRemovable[ContinueSavedReturn](ContinueSavedReturnPage)
+  }
 }

@@ -19,5 +19,8 @@ package assets.messages
 object BaseMessages {
 
   val saveAndContinue = "Save and continue"
+  val continue = "Continue"
   val saveForLater = "Save for later"
+  val submitReturn = "Submit a Corporate Interest Restriction return"
+
 }

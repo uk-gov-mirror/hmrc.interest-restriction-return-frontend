@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package generators
+package forms
 
-import models._
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
+import javax.inject.Inject
 
-trait ModelGenerators {
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.ContinueSavedReturn
 
-  implicit lazy val arbitraryContinueSavedReturn: Arbitrary[ContinueSavedReturn] =
-    Arbitrary {
-      Gen.oneOf(ContinueSavedReturn.values.toSeq)
-    }
+class ContinueSavedReturnFormProvider @Inject() extends Mappings {
 
-  implicit lazy val arbitraryFullOrAbbreviatedReturn: Arbitrary[FullOrAbbreviatedReturn] =
-    Arbitrary {
-      Gen.oneOf(FullOrAbbreviatedReturn.values.toSeq)
-    }
-
+  def apply(): Form[ContinueSavedReturn] =
+    Form(
+      "value" -> enumerable[ContinueSavedReturn]("continueSavedReturn.error.required")
+    )
 }
