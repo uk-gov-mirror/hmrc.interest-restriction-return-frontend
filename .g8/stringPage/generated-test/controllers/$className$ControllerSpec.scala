@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
 import pages.$className$Page
 import play.api.mvc.Call
 import play.api.test.Helpers._

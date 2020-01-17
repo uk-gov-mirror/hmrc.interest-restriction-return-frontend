@@ -40,7 +40,7 @@ class $className$ViewSpec extends ViewBehaviours with NunjucksSupport {
 
       $className$.options(form).zipWithIndex.foreach { case (option, i) =>
 
-        val id = if(i == 0) "value" else s"value-${i + 1}"
+        val id = if(i == 0) "value" else s"value-\${i + 1}"
 
         s"contain radio buttons for the value '\${option.value.get}'" in {
 

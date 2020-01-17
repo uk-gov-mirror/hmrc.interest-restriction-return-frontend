@@ -23,7 +23,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
-import navigation.FakeNavigator
+import navigation.FakeNavigators.FakeNavigator
 import nunjucks.viewmodels.DateViewModel
 import nunjucks.MockNunjucksRenderer
 import pages.$className$Page
