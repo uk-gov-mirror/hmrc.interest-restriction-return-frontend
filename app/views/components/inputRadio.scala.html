@@ -18,7 +18,7 @@
 
 @this(govukRadios: GovukRadios)
 
-@(form: Form[_], legend: String, items: Seq[RadioItem], legendAsHeading: Boolean = true)(implicit messages: Messages)
+@(form: Form[_], legend: String, items: Seq[RadioItem], legendAsHeading: Boolean = true, classes: String = "govuk-fieldset__legend--xl")(implicit messages: Messages)
 
 @govukRadios(Radios(
     name = "value",
@@ -26,7 +26,7 @@
         legend = Some(Legend(
             content = Text(messages(legend)),
             isPageHeading = legendAsHeading,
-            classes = "govuk-fieldset__legend--xl"
+            classes = classes
         ))
     )),
     hint = None,

@@ -70,7 +70,7 @@ trait ViewBehaviours extends ViewSpecBase {
     }
   }
 
-  def pageWithSubHeading(view: HtmlFormat.Appendable, subheading: String) = {
+  def pageWithSubHeading(view: HtmlFormat.Appendable, subheading: String): Unit = {
 
     "behave like a page with a Subheading" must {
 

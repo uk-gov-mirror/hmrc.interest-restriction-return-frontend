@@ -38,8 +38,8 @@ trait MockSessionRepository extends MockFactory {
       .returns(Future.successful(result))
   }
 
-  def mockClear(result: Boolean): Unit = {
-    (mockSessionRepository.clear(_: UserAnswers))
+  def mockDelete(result: Boolean): Unit = {
+    (mockSessionRepository.delete(_: UserAnswers))
       .expects(*)
       .returns(Future.successful(result))
   }

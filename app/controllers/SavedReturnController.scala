@@ -73,7 +73,7 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
   }
 
   def deleteAndStartAgain: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    sessionRepository.clear(request.userAnswers).map( _ =>
+    sessionRepository.delete(request.userAnswers).map( _ =>
       Redirect(controllers.routes.IndexController.onPageLoad())
     )
   }

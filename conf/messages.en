@@ -41,6 +41,7 @@ site.govuk = GOV.UK
 site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.saveForLater = Save for later
+site.submitReturn = Submit a Corporate Interest Restriction return
 
 
 # Sections
@@ -243,3 +244,14 @@ savedReturn.indent = For us to consider your return, you will need to submit it
 savedReturn.p2 = You can:
 savedReturn.bullet1 = Continue this return
 savedReturn.bullet2 = Delete this form and start again
+
+
+# ContinueSavedReturnPage Messages
+# ----------------------------------------------------------
+continueSavedReturn.title = Do you want to start a new return or continue working on a saved return?
+continueSavedReturn.heading = Do you want to start a new return or continue working on a saved return?
+continueSavedReturn.newReturn = Start a new return
+continueSavedReturn.continueSavedReturn = Continue working on a saved return
+continueSavedReturn.checkYourAnswersLabel = Do you want to start a new return or continue working on a saved return (if you have one)?
+continueSavedReturn.error.required = Select continue working on a saved return if you have a previously saved return you would like to continue.
+continueSavedReturn.p1 = You can start and save one or more returns and come back to work on them later.

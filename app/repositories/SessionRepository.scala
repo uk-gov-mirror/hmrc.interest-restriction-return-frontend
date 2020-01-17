@@ -71,7 +71,18 @@ class DefaultSessionRepository @Inject()(
     }
   }
 
-  override def clear(userAnswers: UserAnswers): Future[Boolean] = set(UserAnswers(userAnswers.id))
+  override def delete(userAnswers: UserAnswers): Future[Boolean] = {
+
+    val selector = Json.obj("_id" -> userAnswers.id)
+
+    collection.flatMap {
+      _.delete(ordered = false)
+        .one(selector).map {
+        lastError =>
+          lastError.ok
+      }
+    }
+  }
 }
 
 trait SessionRepository {
@@ -80,5 +91,5 @@ trait SessionRepository {
 
   def set(userAnswers: UserAnswers): Future[Boolean]
 
-  def clear(userAnswers: UserAnswers): Future[Boolean]
+  def delete(userAnswers: UserAnswers): Future[Boolean]
 }

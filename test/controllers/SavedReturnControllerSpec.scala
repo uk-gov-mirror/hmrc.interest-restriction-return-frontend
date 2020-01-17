@@ -94,7 +94,7 @@ class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
     "redirect to the IndexRoute and clear the user answers held" in {
 
-      mockClear(result = true)
+      mockDelete(result = true)
 
       val result = controller.deleteAndStartAgain(fakeRequest)
 

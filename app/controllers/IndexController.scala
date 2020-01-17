@@ -24,6 +24,8 @@ import pages.IndexPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 
+import scala.concurrent.Future
+
 class IndexController @Inject()(identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 sessionRepository: SessionRepository,
@@ -32,9 +34,11 @@ class IndexController @Inject()(identify: IdentifierAction,
                                ) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
-    val userAnswers = request.userAnswers.fold(UserAnswers(request.internalId))(x => x)
-    sessionRepository.set(userAnswers).map(
-      _ => Redirect(navigator.nextPage(IndexPage, NormalMode, userAnswers))
-    )
-  }
+    request.userAnswers.fold{
+      val userAnswers = UserAnswers(request.internalId)
+      sessionRepository.set(userAnswers).map{ _ =>
+        Redirect(navigator.nextPage(IndexPage, NormalMode, userAnswers))
+      }}{ _ =>
+          Future.successful(Redirect(controllers.routes.ContinueSavedReturnController.onPageLoad(NormalMode)))
+    }}
 }

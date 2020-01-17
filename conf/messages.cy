@@ -242,3 +242,13 @@ savedReturn.indent = For us to consider your return, you will need to submit it
 savedReturn.p2 = You can:
 savedReturn.bullet1 = Continue this return
 savedReturn.bullet2 = Delete this form and start again
+
+
+# ContinueSavedReturnPage Messages
+# ----------------------------------------------------------
+continueSavedReturn.title = Do you want to start a new return or continue working on a saved return (if you have one)?
+continueSavedReturn.heading = Do you want to start a new return or continue working on a saved return (if you have one)?
+continueSavedReturn.newReturn = Start a new return
+continueSavedReturn.continueSavedReturn = Continue working on a saved return
+continueSavedReturn.checkYourAnswersLabel = Do you want to start a new return or continue working on a saved return (if you have one)?
+continueSavedReturn.error.required = Select continue working on a saved return if you have a previously saved return you would like to continue.

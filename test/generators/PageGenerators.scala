@@ -24,6 +24,9 @@ import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullO
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryContinueSavedReturnPage: Arbitrary[ContinueSavedReturnPage.type] =
+    Arbitrary(ContinueSavedReturnPage)
+
   implicit lazy val arbitraryReturnContainEstimatesPage: Arbitrary[ReturnContainEstimatesPage.type] =
     Arbitrary(ReturnContainEstimatesPage)
 

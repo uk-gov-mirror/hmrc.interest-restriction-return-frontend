@@ -167,3 +167,8 @@ POST       /return-contain-estimates/change                controllers.aboutRetu
 GET        /saved-return                                   controllers.SavedReturnController.onPageLoad()
 GET        /continue-from-save                             controllers.SavedReturnController.nextUnansweredPage()
 GET        /delete-answers                                 controllers.SavedReturnController.deleteAndStartAgain()
+
+GET        /continue-saved-return                        controllers.ContinueSavedReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /continue-saved-return                        controllers.ContinueSavedReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /continue-saved-return/change                  controllers.ContinueSavedReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /continue-saved-return/change                  controllers.ContinueSavedReturnController.onSubmit(mode: Mode = CheckMode)
