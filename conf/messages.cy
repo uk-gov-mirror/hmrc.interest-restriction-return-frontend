@@ -252,3 +252,13 @@ continueSavedReturn.newReturn = Start a new return
 continueSavedReturn.continueSavedReturn = Continue working on a saved return
 continueSavedReturn.checkYourAnswersLabel = Do you want to start a new return or continue working on a saved return (if you have one)?
 continueSavedReturn.error.required = Select continue working on a saved return if you have a previously saved return you would like to continue.
+
+
+# CheckAnswersReportingCompanyPage Messages
+# ----------------------------------------------------------
+checkAnswersReportingCompany.title = checkAnswersReportingCompany
+checkAnswersReportingCompany.heading = checkAnswersReportingCompany
+checkAnswersReportingCompany.checkYourAnswersLabel = checkAnswersReportingCompany
+checkAnswersReportingCompany.label = CheckAnswersReportingCompany
+checkAnswersReportingCompany.error.required = Enter checkAnswersReportingCompany
+checkAnswersReportingCompany.error.length = CheckAnswersReportingCompany must be Check your answers for reporting company section characters or less

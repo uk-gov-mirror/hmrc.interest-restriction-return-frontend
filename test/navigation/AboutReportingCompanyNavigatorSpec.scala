@@ -19,11 +19,9 @@ package navigation
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.routes
-import controllers.startReturn.{routes => startReturnRoutes}
 import models._
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -60,10 +58,9 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to CheckYourAnswers from a page that doesn't exist in the edit route map" in {
-
-        case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      "go to Reporting Company CheckYourAnswers" in {
+        navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
       }
     }
   }

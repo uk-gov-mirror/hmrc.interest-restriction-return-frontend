@@ -3,9 +3,13 @@
 {% from "components/pageTitle.njk" import pageTitle %}
 {% from "components/h1/macro.njk" import h1 %}
 {% from "components/summaryList/macro.njk" import summaryList %}
+{% from "components/button/macro.njk" import button %}
+{% from "components/subheading/macro.njk" import subheading %}
+{% from "components/saveForLater/macro.njk" import saveForLater %}
+{% from "components/form/macro.njk" import formHelper %}
 
 {% block pageTitle %}
-  {{ pageTitle(form, "checkYourAnswers.title") }}
+  {{ pageTitle(form, section + ".checkYourAnswers.title") }}
 {% endblock %}
 
 {% block content %}
@@ -13,13 +17,24 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
 
-        {{ h1("checkYourAnswers.heading") }}
+        {{ subheading(subheading = section + ".checkYourAnswers.subheading") }}
+
+        {{ h1(section + ".checkYourAnswers.heading") }}
 
         <p class="govuk-body">
-          {{ messages("checkYourAnswers.guidance") }}
+          {{ messages(section + ".checkYourAnswers.guidance") }}
         </p>
 
         {{ summaryList(rows) }}
+
+        {% call formHelper(form, postAction) %}
+
+            {{ button(msgKey = "site.submitAndContinue") }}
+
+        {% endcall %}
+
+        {{ saveForLater() }}
+
 
       </div>
     </div>

@@ -28,12 +28,12 @@ class Navigator @Inject()() extends BaseNavigator {
 
   private val normalRoutes: Page => UserAnswers => Call = {
     case HelloWorldYesNoPage => _ => routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
-    case HelloWorldYesNoPageNunjucks => _ => routes.CheckYourAnswersController.onPageLoad()
+    case HelloWorldYesNoPageNunjucks => ???
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    _ => _ => routes.CheckYourAnswersController.onPageLoad()
+    _ => _ => ???
   }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {

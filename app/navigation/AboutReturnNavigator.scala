@@ -52,7 +52,7 @@ class AboutReturnNavigator @Inject()() extends BaseNavigator {
     GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => routes.CheckYourAnswersController.onPageLoad())
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)
 
   private def nextSection(mode: Mode): Call = ??? //TODO: Link to About the Elections Section when implemented
 

@@ -44,7 +44,7 @@ class StartReturnNavigator @Inject()() extends BaseNavigator {
     FullOrAbbreviatedReturnPage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => routes.CheckYourAnswersController.onPageLoad())
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Handle change routing (future story)
 
   private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(mode)
 
