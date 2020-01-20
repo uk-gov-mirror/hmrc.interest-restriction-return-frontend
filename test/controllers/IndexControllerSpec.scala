@@ -53,5 +53,15 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository {
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some("/foo")
     }
+
+    "return OK and get the correct view for a GET with empty userAnswers supplied due to 'start a new return' being selected" in {
+      mockSet(true)
+
+      val result = controller(FakeDataRetrievalActionGeneral(Some(emptyUserAnswers))).onPageLoad()(fakeRequest)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some("/foo")
+
+    }
   }
 }
