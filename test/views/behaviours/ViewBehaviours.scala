@@ -120,7 +120,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
       s"have a link with message ${BaseMessages.saveForLater}" in {
 
-        val element = asDocument(view).select("p#saveForLater a")
+        val element = asDocument(view).getElementById("saveForLater")
         element.text mustBe BaseMessages.saveForLater
         element.attr("href") mustBe controllers.routes.SavedReturnController.onPageLoad().url
       }
