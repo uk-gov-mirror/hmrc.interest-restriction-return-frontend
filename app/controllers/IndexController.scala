@@ -34,11 +34,13 @@ class IndexController @Inject()(identify: IdentifierAction,
                                ) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
-    request.userAnswers.fold{
-      val userAnswers = UserAnswers(request.internalId)
-      sessionRepository.set(userAnswers).map{ _ =>
+    val userAnswers = request.userAnswers.fold(UserAnswers(request.internalId))(x => x)
+    if(userAnswers.data.fields.isEmpty) {
+      sessionRepository.set(userAnswers).map { _ =>
         Redirect(navigator.nextPage(IndexPage, NormalMode, userAnswers))
-      }}{ _ =>
-          Future.successful(Redirect(controllers.routes.ContinueSavedReturnController.onPageLoad()))
-    }}
+      }
+    } else {
+      Future.successful(Redirect(controllers.routes.ContinueSavedReturnController.onPageLoad()))
+    }
+  }
 }
