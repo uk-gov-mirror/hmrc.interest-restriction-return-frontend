@@ -18,10 +18,9 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.routes
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import models._
-import pages._
-import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -49,9 +48,17 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyCRNPage" should {
 
-        //TODO: Add reverse route once next page and section have been implemented
-        "go to the ???" ignore {
-          navigator.nextPage(ReportingCompanyCRNPage, NormalMode, emptyUserAnswers) mustBe ???
+        "go to the Check Your Answers for the Reporting Company page" in {
+          navigator.nextPage(ReportingCompanyCRNPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+        }
+      }
+
+      "from the CheckAnswersReportingCompanyPage" should {
+
+        "go to the next section" in {
+          navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
         }
       }
     }

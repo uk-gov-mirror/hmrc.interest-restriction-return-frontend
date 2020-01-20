@@ -28,6 +28,13 @@ session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
+# UnderConstructionPage Messages
+# ----------------------------------------------------------
+underConstruction.title = This page is under construction
+underConstruction.heading = This page is under construction
+underConstruction.link =
+
+
 site.back = Back
 site.saveLink = Save and come back later
 site.delete = Remove

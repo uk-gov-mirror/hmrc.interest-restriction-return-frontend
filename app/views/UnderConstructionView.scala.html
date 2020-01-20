@@ -19,18 +19,12 @@
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
-    h1: components.h1,
-    subheading: components.subheading
+    h1: components.h1
 )
 
 @()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(pageTitle = Some(titleNoForm("reportingCompanyRequired.title"))) {
+@govukLayout(pageTitle = Some(titleNoForm("underConstruction.title"))) {
 
-    @subheading("section.reportingCompany")
-
-    @h1("reportingCompanyRequired.heading")
-
-    <p class="govuk-caption-m">@messages("reportingCompanyRequired.p1") <a href='@controllers.routes.UnderConstructionController.onPageLoad().url' class="govuk-link">@messages("reportingCompanyRequired.a1")</a> @messages("reportingCompanyRequired.p2")</p>
-
+    @h1("underConstruction.heading")
 }

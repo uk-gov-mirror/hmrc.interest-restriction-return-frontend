@@ -30,13 +30,13 @@ class AboutReturnNavigator @Inject()() extends BaseNavigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => ??? //TODO: Link to Revision Information Page when implemented
+      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
       case Some(false) => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     }),
     InfrastructureCompanyElectionPage -> (_.get(startReturn.FullOrAbbreviatedReturnPage) match {
       case Some(Full) => aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
-      case Some(Abbreviated) => ??? //TODO Link to abbreviated return section when implemented
+      case Some(Abbreviated) => routes.UnderConstructionController.onPageLoad() //TODO Link to abbreviated return section when implemented
       case _ => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
     }),
     ReturnContainEstimatesPage -> (_ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
@@ -54,7 +54,7 @@ class AboutReturnNavigator @Inject()() extends BaseNavigator {
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)
 
-  private def nextSection(mode: Mode): Call = ??? //TODO: Link to About the Elections Section when implemented
+  private def nextSection(mode: Mode): Call = routes.UnderConstructionController.onPageLoad() //TODO: Link to About the Elections Section when implemented
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

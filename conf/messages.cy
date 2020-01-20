@@ -262,3 +262,9 @@ checkAnswersReportingCompany.checkYourAnswersLabel = checkAnswersReportingCompan
 checkAnswersReportingCompany.label = CheckAnswersReportingCompany
 checkAnswersReportingCompany.error.required = Enter checkAnswersReportingCompany
 checkAnswersReportingCompany.error.length = CheckAnswersReportingCompany must be Check your answers for reporting company section characters or less
+
+
+# UnderConstructionPage Messages
+# ----------------------------------------------------------
+underConstruction.title = underConstruction
+underConstruction.heading = underConstruction

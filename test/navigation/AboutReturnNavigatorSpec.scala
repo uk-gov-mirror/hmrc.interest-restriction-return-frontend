@@ -18,12 +18,10 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.routes
-import controllers.startReturn.{routes => startReturnRoutes}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.{CheckMode, NormalMode, UserAnswers}
 import pages.Page
-import pages.aboutReturn.{GroupInterestAllowancePage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
+import pages.aboutReturn._
 import pages.startReturn.FullOrAbbreviatedReturnPage
 
 class AboutReturnNavigatorSpec extends SpecBase {
@@ -38,10 +36,10 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the Revision Information page when yes selected to revising a return" ignore {
 
-          //          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
+          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
 
-          //          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-          //            ??? //TODO Link to Revision Information Page when implemented
+          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
+            ??? //TODO Link to Revision Information Page when implemented
         }
 
         "go to the Infrastructure Company Election page when no selected to revising a return" in {
@@ -65,10 +63,10 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the abbreviated return section when Abbreviated Return is being submitted" ignore {
 
-//          val fullOrAbbreviatedAnswer = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).get
+          val fullOrAbbreviatedAnswer = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).get
 
-          //          navigator.nextPage(InfrastructureCompanyElectionPage, NormalMode, fullOrAbbreviatedAnswer) mustBe
-          //            ??? //TODO Link to abbreviated return section when implemented
+          navigator.nextPage(InfrastructureCompanyElectionPage, NormalMode, fullOrAbbreviatedAnswer) mustBe
+            ??? //TODO Link to abbreviated return section when implemented
         }
       }
 
@@ -140,8 +138,8 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the next section page" ignore {
 
-          //TODO add route to next section once implemented
-
+          navigator.nextPage(GroupInterestCapacityPage, NormalMode, emptyUserAnswers) mustBe
+            ??? //TODO add route to next section once implemented
         }
       }
 
@@ -150,7 +148,8 @@ class AboutReturnNavigatorSpec extends SpecBase {
         "go to CheckYourAnswers from a page that doesn't exist in the edit route map" ignore {
 
           case object UnknownPage extends Page
-          navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe ??? //TODO: Add Check Your Answers for section (future story)
+          navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe
+            ??? //TODO: Add Check Your Answers for section (future story)
         }
       }
     }

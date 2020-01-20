@@ -32,7 +32,7 @@ class StartReturnNavigator @Inject()() extends BaseNavigator {
     IndexPage -> (_ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)),
     ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
       case Some(true) => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
-      case Some(false) => startReturnRoutes.ReportingCompanyRequiredController.onPageLoad
+      case Some(false) => startReturnRoutes.ReportingCompanyRequiredController.onPageLoad()
       case _ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
     }),
     AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
