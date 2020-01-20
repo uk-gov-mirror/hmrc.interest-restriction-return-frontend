@@ -73,7 +73,7 @@ reportingCompanyCRN.heading = Company Registration Number (CRN)
 reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
 reportingCompanyCRN.label = Company Registration Number (CRN)
 reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
-reportingCompanyCRN.error.length = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
+reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
 
 
 # ReportingCompanyCTUTRPage Messages

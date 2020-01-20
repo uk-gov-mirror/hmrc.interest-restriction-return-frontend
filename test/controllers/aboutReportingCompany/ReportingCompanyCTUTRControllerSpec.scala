@@ -155,7 +155,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
 
     "return a Bad Request given an invalid UTR (10 numbers bad checksum)" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "9999999999"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1212121212"))
 
       val result = controller().onSubmit(NormalMode)(request)
 

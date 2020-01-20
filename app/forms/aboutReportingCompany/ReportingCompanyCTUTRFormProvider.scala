@@ -42,10 +42,11 @@ class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings {
   }
 
   private def validateCheckSum(utr: String) = Try {
-    val utrSum = (utr(1) * 6) + (utr(2) * 7) + (utr(3) * 8) + (utr(4) * 9) + (utr(5) * 10) + (utr(6) * 5) + (utr(7) * 4) + (utr(8) * 3) + (utr(9) * 2)
+    val utrInts = utr.map(_.asDigit)
+    val utrSum = (utrInts(1) * 6) + (utrInts(2) * 7) + (utrInts(3) * 8) + (utrInts(4) * 9) + (utrInts(5) * 10) + (utrInts(6) * 5) + (utrInts(7) * 4) + (utrInts(8) * 3) + (utrInts(9) * 2)
     val utrCalc = 11 - (utrSum % 11)
     val checkSum = if (utrCalc > 9) utrCalc - 9 else utrCalc
-    checkSum == utr.head
+    checkSum == utrInts.head
   } match {
     case Success(s) => s
     case Failure(_) => false

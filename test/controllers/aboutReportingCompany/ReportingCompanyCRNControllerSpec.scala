@@ -99,7 +99,7 @@ class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport wi
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
