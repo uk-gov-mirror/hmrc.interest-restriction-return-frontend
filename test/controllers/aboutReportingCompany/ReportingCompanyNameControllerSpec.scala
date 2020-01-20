@@ -134,5 +134,23 @@ class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport w
 
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
+
+    "return a bad request given an invalid name length (161)" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"*1611))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "return a bad request given an invalid name length (0)" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustEqual BAD_REQUEST
+    }
   }
 }
