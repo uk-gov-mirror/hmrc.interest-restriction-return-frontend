@@ -16,6 +16,64 @@
 
 package connectors
 
-class InterestRestrictionReturnConnectorSpec {
+import akka.http.scaladsl.model.HttpResponse
+import base.SpecBase
+import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
+import connectors.mocks.MockHttp
+import play.api.http.Status
 
+import scala.concurrent.Future
+
+
+class InterestRestrictionReturnConnectorSpec extends SpecBase with MockHttp {
+
+  object TestInterestRestrictionReturnConnector extends InterestRestrictionReturnConnector(mockHttp, frontendAppConfig)
+
+  "InterestRestrictionReturnConnector" when {
+
+    "given a valid CRN" should {
+
+      "return a Right(ValidCrn)" in {
+
+        setupMockHttpGet(TestInterestRestrictionReturnConnector.validateCrnUrl("AA111111"))(
+          Future.successful(Right(ValidCRN))
+        )
+
+        val expectedResult = Right(ValidCRN)
+        val actualResult = TestInterestRestrictionReturnConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+
+        await(actualResult) mustBe expectedResult
+      }
+    }
+
+    "given a invalid CRN" should {
+
+      "return a Left(InvalidCrn)" in {
+
+        setupMockHttpGet(TestInterestRestrictionReturnConnector.validateCrnUrl("AA111111"))(
+          Future.successful(Left(InvalidCRN))
+        )
+
+        val expectedResult = Left(InvalidCRN)
+        val actualResult = TestInterestRestrictionReturnConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+
+        await(actualResult) mustBe expectedResult
+      }
+    }
+
+    "an error is returned" should {
+
+      "return a Left(UnexpectedFailure)" in {
+
+        setupMockHttpGet(TestInterestRestrictionReturnConnector.validateCrnUrl("AA111111"))(
+          Future.successful(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
+        )
+
+        val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
+        val actualResult = TestInterestRestrictionReturnConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+
+        await(actualResult) mustBe expectedResult
+      }
+    }
+  }
 }
