@@ -34,7 +34,7 @@ class CRNValidationConnector @Inject()(httpClient: HttpClient,
 
   def validateCRN(crn: String)
                  (implicit hc: HeaderCarrier, ec: ExecutionContext, request: DataRequest[_]): Future[CRNValidationResponse] = {
-    Logger.debug(s"[InterestRestrictionReturnConnector][validateCRN] URL: ${validateCrnUrl(crn)}")
+    Logger.debug(s"[CRNValidationConnector][validateCRN] URL: ${validateCrnUrl(crn)}")
     httpClient.GET(validateCrnUrl(crn))(CRNValidationReads, hc, ec)
   }
 }

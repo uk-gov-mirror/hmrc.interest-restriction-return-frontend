@@ -30,15 +30,15 @@ object CRNValidationHttpParser {
     def read(method: String, url: String, response: HttpResponse): CRNValidationResponse = {
       response.status match {
         case NO_CONTENT =>
-          Logger.debug("[CRNValidationReturnReads][read]: Status OK")
-          Logger.debug(s"[CRNValidationReturnReads][read]: Json Response: ${response.body}")
+          Logger.debug("[CRNValidationReads][read]: Status OK")
+          Logger.debug(s"[CRNValidationReads][read]: Json Response: ${response.body}")
           Right(ValidCRN)
         case BAD_REQUEST =>
-          Logger.debug("[CRNValidationReturnReads][read]: Status BAD_REQUEST")
-          Logger.debug(s"[CRNValidationReturnReads][read]: Json Response: ${response.body}")
+          Logger.debug("[CRNValidationReads][read]: Status BAD_REQUEST")
+          Logger.debug(s"[CRNValidationReads][read]: Json Response: ${response.body}")
           Left(InvalidCRN)
         case status =>
-          Logger.warn(s"[CRNValidationReturnReads][read]: Unexpected response, status $status returned")
+          Logger.warn(s"[CRNValidationReads][read]: Unexpected response, status $status returned")
           Left(UnexpectedFailure(status, s"Unexpected response, status $status returned"))
       }
     }
