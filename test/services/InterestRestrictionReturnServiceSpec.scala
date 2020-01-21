@@ -16,6 +16,37 @@
 
 package services
 
-class InterestRestrictionReturnServiceSpec {
+import base.SpecBase
+import connectors.httpParsers.ValidCRN
+import connectors.mocks.MockInterestRestrictionReturnConnector
 
+class InterestRestrictionReturnServiceSpec extends SpecBase with MockInterestRestrictionReturnConnector {
+
+  object TestInterestRestrictionReturnService extends InterestRestrictionReturnService(mockInterestRestrictionReturnConnector)
+
+  "InterestRestrictionReturnService" when {
+
+    "given a valid crn" should {
+
+      "return a Right(ValidCRN)" in {
+
+        val expectedResult = Right(ValidCRN)
+        val actualResult = TestInterestRestrictionReturnService.validateCRN("AA111111")
+      }
+    }
+
+    "an InvalidCrn is returned from the connector" should {
+
+      "return a Left(InvalidCRN)" in {
+
+      }
+    }
+
+    "an UnexpectedFailure is returned from the connector" should {
+
+      "return a Left(UnexpectedFailure)" in {
+
+      }
+    }
+  }
 }
