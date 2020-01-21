@@ -78,7 +78,10 @@ class ReportingCompanyCRNController @Inject()(override val messagesApi: Messages
                 updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCRNPage, value))
                 _              <- sessionRepository.set(updatedAnswers)
               } yield Redirect(navigator.nextPage(ReportingCompanyCRNPage, mode, updatedAnswers))
-            case Left(InvalidCRN) => viewHtml(formProvider().withError("value", InvalidCRN.body).bind(Map("value" -> value)), mode).map(BadRequest(_))
+            case Left(InvalidCRN) => {
+              val formWithError = formProvider().withError("value", "reportingCompanyCRN.error.invalid").bind(Map("value" -> value))
+              viewHtml(formWithError, mode).map(BadRequest(_))
+            }
             case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
           }
       )
