@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 import config.FrontendAppConfig
+import handlers.ErrorHandler
 import models.UserAnswers
 import nunjucks.Renderer
 import org.jsoup.Jsoup
@@ -72,5 +73,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   lazy val nunjucksRenderer: Renderer = app.injector.instanceOf[Renderer]
 
   val savedTilDate = LocalDate.now().plusDays(frontendAppConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
+
+  val errorHandler = injector.instanceOf[ErrorHandler]
 
 }

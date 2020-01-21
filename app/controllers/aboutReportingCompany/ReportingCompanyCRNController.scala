@@ -22,9 +22,9 @@ import connectors.httpParsers.{InvalidCRN, ValidCRN}
 import controllers.BaseController
 import controllers.actions._
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
-import models.requests.DataRequest
 import navigation.AboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{Renderer, ReportingCompanyCRNTemplate}
@@ -37,7 +37,6 @@ import repositories.SessionRepository
 import services.InterestRestrictionReturnService
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
-import handlers.ErrorHandler
 
 import scala.concurrent.Future
 
@@ -72,7 +71,6 @@ class ReportingCompanyCRNController @Inject()(override val messagesApi: Messages
       formProvider().bindFromRequest().fold(
         formWithErrors =>
           viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
         value =>
           interestRestrictionReturnService.validateCRN(value).flatMap{
             case Right(ValidCRN) =>
@@ -80,7 +78,7 @@ class ReportingCompanyCRNController @Inject()(override val messagesApi: Messages
                 updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCRNPage, value))
                 _              <- sessionRepository.set(updatedAnswers)
               } yield Redirect(navigator.nextPage(ReportingCompanyCRNPage, mode, updatedAnswers))
-            case Left(InvalidCRN) => viewHtml(formProvider(), mode).map(BadRequest(_))
+            case Left(InvalidCRN) => viewHtml(formProvider().withError("value", InvalidCRN.body).bind(Map("value" -> value)), mode).map(BadRequest(_))
             case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
           }
       )

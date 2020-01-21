@@ -18,10 +18,11 @@ package controllers.aboutReportingCompany
 
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{MockNunjucksRenderer, ReportingCompanyCRNTemplate}
@@ -31,10 +32,13 @@ import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
+import services.mocks.MockInterestRestrictionReturnService
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
 
-class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching {
+
+class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer
+  with FeatureSwitching with MockInterestRestrictionReturnService {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -52,7 +56,9 @@ class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport wi
     formProvider = new ReportingCompanyCRNFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockNunjucksRenderer
+    renderer = mockNunjucksRenderer,
+    interestRestrictionReturnService = mockInterestRestrictionReturnService,
+    errorHandler = errorHandler
   )
 
   def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
@@ -99,6 +105,8 @@ class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport wi
 
     "redirect to the next page when valid data is submitted" in {
 
+      mockInterestRestrictionReturn("AA111111")(Right(ValidCRN))
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
 
       val result = controller().onSubmit(NormalMode)(request)
@@ -114,6 +122,28 @@ class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport wi
       val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
+    }
+
+    "return a Bad Request and errors when invalid crn is submitted" in {
+
+      mockInterestRestrictionReturn("AA111111")(Left(InvalidCRN))
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustBe BAD_REQUEST
+    }
+
+    "return a Internal Server Error when Unexpected Failure is returned" in {
+
+      mockInterestRestrictionReturn("AA111111")(Left(UnexpectedFailure(500, "Error")))
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustBe INTERNAL_SERVER_ERROR
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {

@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyCTUTRFormProvider
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{MockNunjucksRenderer, ReportingCompanyCTUTRTemplate}
@@ -52,7 +52,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
     formProvider = new ReportingCompanyCTUTRFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockNunjucksRenderer
+    renderer = mockNunjucksRenderer
   )
 
   def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))

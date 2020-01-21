@@ -33,8 +33,8 @@ object InterestRestrictionReturnHttpParser {
           Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status OK")
           Logger.debug(s"[InterestRestrictionReturnHttpParser][read]: Json Response: ${response.body}")
           Right(ValidCRN)
-        case NOT_FOUND =>
-          Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status NOT FOUND")
+        case BAD_REQUEST =>
+          Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status BAD_REQUEST")
           Logger.debug(s"[InterestRestrictionReturnHttpParser][read]: Json Response: ${response.body}")
           Left(InvalidCRN)
         case status =>
@@ -55,7 +55,7 @@ trait ErrorResponse {
 }
 
 case object InvalidCRN extends ErrorResponse {
-  override val status: Int = NOT_FOUND
+  override val status: Int = BAD_REQUEST
   override val body: String = "CRN Not Found on Companies House"
 }
 

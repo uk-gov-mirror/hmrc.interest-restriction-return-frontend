@@ -52,7 +52,7 @@ class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport w
     formProvider = new ReportingCompanyNameFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockNunjucksRenderer
+    renderer = mockNunjucksRenderer
   )
 
   def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
