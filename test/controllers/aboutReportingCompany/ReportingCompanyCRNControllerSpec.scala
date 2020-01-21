@@ -35,6 +35,8 @@ import play.twirl.api.Html
 import services.mocks.MockInterestRestrictionReturnService
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
+import play.api.http.Status
+
 
 
 class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer
@@ -137,7 +139,7 @@ class ReportingCompanyCRNControllerSpec extends SpecBase with NunjucksSupport wi
 
     "return a Internal Server Error when Unexpected Failure is returned" in {
 
-      mockInterestRestrictionReturn("AA111111")(Left(UnexpectedFailure(500, "Error")))
+      mockInterestRestrictionReturn("AA111111")(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
 

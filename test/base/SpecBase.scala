@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter
 import config.FrontendAppConfig
 import handlers.ErrorHandler
 import models.UserAnswers
+import models.requests.DataRequest
 import nunjucks.Renderer
 import org.jsoup.Jsoup
 import org.scalatest.TryValues
@@ -47,6 +48,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   val emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
 
   val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+
+  lazy val fakeDataRequest = DataRequest(fakeRequest,"id", emptyUserAnswers)
 
   implicit val defaultTimeout: FiniteDuration = 5.seconds
   def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)

@@ -17,8 +17,10 @@
 package services
 
 import base.SpecBase
-import connectors.httpParsers.ValidCRN
+import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import connectors.mocks.MockInterestRestrictionReturnConnector
+import play.api.http.Status
+
 
 class InterestRestrictionReturnServiceSpec extends SpecBase with MockInterestRestrictionReturnConnector {
 
@@ -30,8 +32,12 @@ class InterestRestrictionReturnServiceSpec extends SpecBase with MockInterestRes
 
       "return a Right(ValidCRN)" in {
 
+        mockInterestRestrictionReturn("AA111111")(Right(ValidCRN))
+
         val expectedResult = Right(ValidCRN)
-        val actualResult = TestInterestRestrictionReturnService.validateCRN("AA111111")
+        val actualResult = TestInterestRestrictionReturnService.validateCRN("AA111111")(hc, ec, fakeDataRequest)
+
+        await(actualResult) mustBe expectedResult
       }
     }
 
@@ -39,6 +45,12 @@ class InterestRestrictionReturnServiceSpec extends SpecBase with MockInterestRes
 
       "return a Left(InvalidCRN)" in {
 
+        mockInterestRestrictionReturn("AA111111")(Left(InvalidCRN))
+
+        val expectedResult = Left(InvalidCRN)
+        val actualResult = TestInterestRestrictionReturnService.validateCRN("AA111111")(hc, ec, fakeDataRequest)
+
+        await(actualResult) mustBe expectedResult
       }
     }
 
@@ -46,6 +58,12 @@ class InterestRestrictionReturnServiceSpec extends SpecBase with MockInterestRes
 
       "return a Left(UnexpectedFailure)" in {
 
+        mockInterestRestrictionReturn("AA111111")(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
+
+        val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
+        val actualResult = TestInterestRestrictionReturnService.validateCRN("AA111111")(hc, ec, fakeDataRequest)
+
+        await(actualResult) mustBe expectedResult
       }
     }
   }
