@@ -18,9 +18,11 @@ package controllers.aboutReportingCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import connectors.httpParsers.{InvalidCRN, ValidCRN}
 import controllers.BaseController
 import controllers.actions._
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReportingCompanyNavigator
@@ -32,23 +34,25 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
+import services.CRNValidationService
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
 
 import scala.concurrent.Future
 
-class ReportingCompanyCRNController @Inject()(
-                                               override val messagesApi: MessagesApi,
-                                               sessionRepository: SessionRepository,
-                                               navigator: AboutReportingCompanyNavigator,
-                                               identify: IdentifierAction,
-                                               getData: DataRetrievalAction,
-                                               requireData: DataRequiredAction,
-                                               formProvider: ReportingCompanyCRNFormProvider,
-                                               val controllerComponents: MessagesControllerComponents,
-                                               view: ReportingCompanyCRNView,
-                                               renderer: Renderer
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+class ReportingCompanyCRNController @Inject()(override val messagesApi: MessagesApi,
+                                              sessionRepository: SessionRepository,
+                                              navigator: AboutReportingCompanyNavigator,
+                                              identify: IdentifierAction,
+                                              getData: DataRetrievalAction,
+                                              requireData: DataRequiredAction,
+                                              formProvider: ReportingCompanyCRNFormProvider,
+                                              val controllerComponents: MessagesControllerComponents,
+                                              view: ReportingCompanyCRNView,
+                                              renderer: Renderer,
+                                              crnValidationService: CRNValidationService,
+                                              errorHandler: ErrorHandler
+                                             )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
   private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
     renderer.render(ReportingCompanyCRNTemplate, Json.toJsObject(BasicFormViewModel(form, mode)))
@@ -67,12 +71,19 @@ class ReportingCompanyCRNController @Inject()(
       formProvider().bindFromRequest().fold(
         formWithErrors =>
           viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
         value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCRNPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ReportingCompanyCRNPage, mode, updatedAnswers))
+          crnValidationService.validateCRN(value).flatMap{
+            case Right(ValidCRN) =>
+              for {
+                updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCRNPage, value))
+                _              <- sessionRepository.set(updatedAnswers)
+              } yield Redirect(navigator.nextPage(ReportingCompanyCRNPage, mode, updatedAnswers))
+            case Left(InvalidCRN) => {
+              val formWithError = formProvider().withError("value", "reportingCompanyCRN.error.invalid").bind(Map("value" -> value))
+              viewHtml(formWithError, mode).map(BadRequest(_))
+            }
+            case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+          }
       )
   }
 }

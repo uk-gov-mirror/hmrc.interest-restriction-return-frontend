@@ -71,6 +71,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
     (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
   lazy val dynamicStub = servicesConfig.baseUrl("interest-restriction-return-dynamic-stub")
+  lazy val interestRestrictionReturn = servicesConfig.baseUrl("interest-restriction-return")
 
   lazy val cacheTtl = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
   lazy val cacheTtlDays = cacheTtl / 24 / 3600

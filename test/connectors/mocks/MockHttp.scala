@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package connectors.mocks
 
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+import org.scalamock.scalatest.MockFactory
+import uk.gov.hmrc.http.{HeaderCarrier, HttpReads}
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
-class ReportingCompanyCRNFormProvider @Inject() extends Mappings {
+import scala.concurrent.{ExecutionContext, Future}
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("reportingCompanyCRN.error.required")
-        .verifying(regexp("^([0-9]{8})|([A-Za-z]{2}[0-9]{6})$", "reportingCompanyCRN.error.invalidFormat"))
-    )
+trait MockHttp extends MockFactory {
+
+  val mockHttp: HttpClient = mock[HttpClient]
+
+  def setupMockHttpGet[O](url: String)(response: Future[O]): Unit = {
+    (mockHttp.GET(_: String)(_: HttpReads[O], _: HeaderCarrier, _: ExecutionContext))
+      .expects(url, *, *, *)
+      .returns(response)
+  }
 }

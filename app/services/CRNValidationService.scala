@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package services
 
-import forms.mappings.Mappings
+import connectors.CRNValidationConnector
+import connectors.httpParsers.CRNValidationHttpParser.CRNValidationResponse
 import javax.inject.Inject
-import play.api.data.Form
+import models.requests.DataRequest
+import uk.gov.hmrc.http.HeaderCarrier
 
-class ReportingCompanyCRNFormProvider @Inject() extends Mappings {
+import scala.concurrent.{ExecutionContext, Future}
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("reportingCompanyCRN.error.required")
-        .verifying(regexp("^([0-9]{8})|([A-Za-z]{2}[0-9]{6})$", "reportingCompanyCRN.error.invalidFormat"))
-    )
+class CRNValidationService @Inject()(crnValidationConnector: CRNValidationConnector) {
+
+  def validateCRN(crn: String)
+                 (implicit hc: HeaderCarrier, ec: ExecutionContext, request: DataRequest[_]): Future[CRNValidationResponse] = {
+    crnValidationConnector.validateCRN(crn)
+  }
 }

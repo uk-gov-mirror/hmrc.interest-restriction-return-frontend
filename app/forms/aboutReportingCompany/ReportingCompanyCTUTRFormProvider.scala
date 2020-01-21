@@ -18,13 +18,38 @@ package forms.aboutReportingCompany
 
 import forms.mappings.Mappings
 import javax.inject.Inject
+
 import play.api.data.Form
+import play.api.data.validation.{Constraint, Invalid, Valid}
+
+
+import scala.util.{Failure, Success, Try}
 
 class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings {
 
   def apply(): Form[String] =
     Form(
       "value" -> text("reportingCompanyCTUTR.error.required")
-        .verifying(maxLength(10, "reportingCompanyCTUTR.error.length"))
+        .verifying(regexp("^[0-9]{10}$", "reportingCompanyCTUTR.error.length"))
+        .verifying(checksum("reportingCompanyCTUTR.error.checksum"))
     )
+
+  private def checksum(errorKey: String): Constraint[String] = {
+    Constraint {
+      case str if validateCheckSum(str) => Valid
+      case _ => Invalid(errorKey)
+    }
+  }
+
+  private def validateCheckSum(utr: String) = Try {
+    val utrInts = utr.map(_.asDigit)
+    val utrSum = (utrInts(1) * 6) + (utrInts(2) * 7) + (utrInts(3) * 8) + (utrInts(4) * 9) + (utrInts(5) * 10) + (utrInts(6) * 5) + (utrInts(7) * 4) + (utrInts(8) * 3) + (utrInts(9) * 2)
+    val utrCalc = 11 - (utrSum % 11)
+    val checkSum = if (utrCalc > 9) utrCalc - 9 else utrCalc
+    checkSum == utrInts.head
+  } match {
+    case Success(s) => s
+    case Failure(_) => false
+  }
+
 }

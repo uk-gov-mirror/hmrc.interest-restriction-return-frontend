@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyCTUTRFormProvider
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import nunjucks.viewmodels.BasicFormViewModel
 import nunjucks.{MockNunjucksRenderer, ReportingCompanyCTUTRTemplate}
@@ -52,7 +52,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
     formProvider = new ReportingCompanyCTUTRFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockNunjucksRenderer
+    renderer = mockNunjucksRenderer
   )
 
   def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
@@ -99,21 +99,12 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1123456789"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/foo")
-    }
-
-    "return a Bad Request and errors when invalid data is submitted" in {
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
-
-      val result = controller().onSubmit(NormalMode)(request)
-
-      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -133,6 +124,42 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+    }
+
+    "return a bad request given an invalid UTR (big)" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"*1611))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustEqual BAD_REQUEST
+    }
+
+    "return a Bad Request given an invalid UTR (0)" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustBe BAD_REQUEST
+    }
+
+    "return a Bad Request given an invalid UTR (10 letters)" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "aaaaaaaaaa"))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustBe BAD_REQUEST
+    }
+
+    "return a Bad Request given an invalid UTR (10 numbers bad checksum)" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1212121212"))
+
+      val result = controller().onSubmit(NormalMode)(request)
+
+      status(result) mustBe BAD_REQUEST
     }
   }
 }

@@ -87,7 +87,8 @@ reportingCompanyCRN.heading = Company Registration Number (CRN)
 reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
 reportingCompanyCRN.label = Company Registration Number (CRN)
 reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
-reportingCompanyCRN.error.length = Company Registration Number (CRN) must be 8 characters or less
+reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
+reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not found on Companies House
 
 
 # ReportingCompanyCTUTRPage Messages
@@ -97,7 +98,8 @@ reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
 reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
 reportingCompanyCTUTR.label = UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
-reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 characters or less
+reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 numbers
+reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid check sum
 
 
 # ReportingCompanyNamePage Messages

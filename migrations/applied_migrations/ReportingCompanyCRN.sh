@@ -22,7 +22,7 @@ echo "reportingCompanyCRN.heading = reportingCompanyCRN" >> ../conf/messages.en
 echo "reportingCompanyCRN.checkYourAnswersLabel = reportingCompanyCRN" >> ../conf/messages.en
 echo "reportingCompanyCRN.label = ReportingCompanyCRN" >> ../conf/messages.en
 echo "reportingCompanyCRN.error.required = Enter reportingCompanyCRN" >> ../conf/messages.en
-echo "reportingCompanyCRN.error.length = ReportingCompanyCRN must be 8 characters or less" >> ../conf/messages.en
+echo "reportingCompanyCRN.error.invalidFormat = ReportingCompanyCRN must be 8 characters or less" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
@@ -34,7 +34,7 @@ echo "reportingCompanyCRN.heading = reportingCompanyCRN" >> ../conf/messages.cy
 echo "reportingCompanyCRN.checkYourAnswersLabel = reportingCompanyCRN" >> ../conf/messages.cy
 echo "reportingCompanyCRN.label = ReportingCompanyCRN" >> ../conf/messages.cy
 echo "reportingCompanyCRN.error.required = Enter reportingCompanyCRN" >> ../conf/messages.cy
-echo "reportingCompanyCRN.error.length = ReportingCompanyCRN must be 8 characters or less" >> ../conf/messages.cy
+echo "reportingCompanyCRN.error.invalidFormat = ReportingCompanyCRN must be 8 characters or less" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
