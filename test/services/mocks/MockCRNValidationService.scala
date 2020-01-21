@@ -16,20 +16,20 @@
 
 package services.mocks
 
-import connectors.httpParsers.InterestRestrictionReturnHttpParser.InterestRestrictionReturnResponse
+import connectors.httpParsers.CRNValidationHttpParser.CRNValidationResponse
 import models.requests.DataRequest
 import org.scalamock.scalatest.MockFactory
-import services.InterestRestrictionReturnService
+import services.CRNValidationService
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockInterestRestrictionReturnService extends MockFactory {
+trait MockCRNValidationService extends MockFactory {
 
-  lazy val mockInterestRestrictionReturnService: InterestRestrictionReturnService = mock[InterestRestrictionReturnService]
+  lazy val mockCRNValidationService: CRNValidationService = mock[CRNValidationService]
 
-  def mockInterestRestrictionReturn(crn: String)(response: InterestRestrictionReturnResponse): Unit = {
-    (mockInterestRestrictionReturnService.validateCRN(_: String)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
+  def mockValidateCRN(crn: String)(response: CRNValidationResponse): Unit = {
+    (mockCRNValidationService.validateCRN(_: String)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
       .expects(crn, *, *, *)
       .returns(Future.successful(response))
   }

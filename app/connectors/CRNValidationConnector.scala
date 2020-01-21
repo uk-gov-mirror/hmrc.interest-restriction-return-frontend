@@ -17,7 +17,7 @@
 package connectors
 
 import config.FrontendAppConfig
-import connectors.httpParsers.InterestRestrictionReturnHttpParser.{InterestRestrictionReturnReads, InterestRestrictionReturnResponse}
+import connectors.httpParsers.CRNValidationHttpParser.{CRNValidationReads, CRNValidationResponse}
 import javax.inject.Inject
 import models.requests.DataRequest
 import play.api.Logger
@@ -26,15 +26,15 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class InterestRestrictionReturnConnector @Inject()(httpClient: HttpClient,
-                                                   implicit val appConfig: FrontendAppConfig) {
+class CRNValidationConnector @Inject()(httpClient: HttpClient,
+                                       implicit val appConfig: FrontendAppConfig) {
 
   private[connectors] lazy val validateCrnUrl: String => String = crn =>
     s"${appConfig.interestRestrictionReturn}/interest-restriction-return/validate-crn/$crn"
 
   def validateCRN(crn: String)
-                 (implicit hc: HeaderCarrier, ec: ExecutionContext, request: DataRequest[_]): Future[InterestRestrictionReturnResponse] = {
+                 (implicit hc: HeaderCarrier, ec: ExecutionContext, request: DataRequest[_]): Future[CRNValidationResponse] = {
     Logger.debug(s"[InterestRestrictionReturnConnector][validateCRN] URL: ${validateCrnUrl(crn)}")
-    httpClient.GET(validateCrnUrl(crn))(InterestRestrictionReturnReads, hc, ec)
+    httpClient.GET(validateCrnUrl(crn))(CRNValidationReads, hc, ec)
   }
 }

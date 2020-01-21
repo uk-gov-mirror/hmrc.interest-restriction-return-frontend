@@ -16,7 +16,6 @@
 
 package connectors
 
-import akka.http.scaladsl.model.HttpResponse
 import base.SpecBase
 import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import connectors.mocks.MockHttp
@@ -25,22 +24,22 @@ import play.api.http.Status
 import scala.concurrent.Future
 
 
-class InterestRestrictionReturnConnectorSpec extends SpecBase with MockHttp {
+class CRNValidationConnectorSpec extends SpecBase with MockHttp {
 
-  object TestInterestRestrictionReturnConnector extends InterestRestrictionReturnConnector(mockHttp, frontendAppConfig)
+  object TestCRNValidationConnector extends CRNValidationConnector(mockHttp, frontendAppConfig)
 
-  "InterestRestrictionReturnConnector" when {
+  "ValidateCRNConnector" when {
 
     "given a valid CRN" should {
 
       "return a Right(ValidCrn)" in {
 
-        setupMockHttpGet(TestInterestRestrictionReturnConnector.validateCrnUrl("AA111111"))(
+        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl("AA111111"))(
           Future.successful(Right(ValidCRN))
         )
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = TestInterestRestrictionReturnConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -50,12 +49,12 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase with MockHttp {
 
       "return a Left(InvalidCrn)" in {
 
-        setupMockHttpGet(TestInterestRestrictionReturnConnector.validateCrnUrl("AA111111"))(
+        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl("AA111111"))(
           Future.successful(Left(InvalidCRN))
         )
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = TestInterestRestrictionReturnConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -65,12 +64,12 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase with MockHttp {
 
       "return a Left(UnexpectedFailure)" in {
 
-        setupMockHttpGet(TestInterestRestrictionReturnConnector.validateCrnUrl("AA111111"))(
+        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl("AA111111"))(
           Future.successful(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
         )
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
-        val actualResult = TestInterestRestrictionReturnConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }

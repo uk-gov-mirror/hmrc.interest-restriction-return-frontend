@@ -34,7 +34,7 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import services.InterestRestrictionReturnService
+import services.CRNValidationService
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
 
@@ -50,7 +50,7 @@ class ReportingCompanyCRNController @Inject()(override val messagesApi: Messages
                                               val controllerComponents: MessagesControllerComponents,
                                               view: ReportingCompanyCRNView,
                                               renderer: Renderer,
-                                              interestRestrictionReturnService: InterestRestrictionReturnService,
+                                              crnValidationService: CRNValidationService,
                                               errorHandler: ErrorHandler
                                              )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
 
@@ -72,7 +72,7 @@ class ReportingCompanyCRNController @Inject()(override val messagesApi: Messages
         formWithErrors =>
           viewHtml(formWithErrors, mode).map(BadRequest(_)),
         value =>
-          interestRestrictionReturnService.validateCRN(value).flatMap{
+          crnValidationService.validateCRN(value).flatMap{
             case Right(ValidCRN) =>
               for {
                 updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCRNPage, value))

@@ -17,20 +17,20 @@
 package connectors.httpParsers
 
 import base.SpecBase
-import connectors.httpParsers.InterestRestrictionReturnHttpParser.InterestRestrictionReturnReads
+import connectors.httpParsers.CRNValidationHttpParser.CRNValidationReads
 import uk.gov.hmrc.http.HttpResponse
 import play.api.http.Status
 
-class InterestRestrictionReturnHttpParserSpec extends SpecBase {
+class CRNValidationHttpParserSpec extends SpecBase {
 
-  "CompaniesHouseHttpParser.CompaniesHouseReads" when {
+  "CRNValidationHttpParser.CRNValidationReturnReads" when {
 
     "given an (200)" should {
 
       "return a Right(ValidCRN)" in {
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = InterestRestrictionReturnReads.read("", "", HttpResponse(Status.NO_CONTENT))
+        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.NO_CONTENT))
 
         actualResult mustBe expectedResult
       }
@@ -41,7 +41,7 @@ class InterestRestrictionReturnHttpParserSpec extends SpecBase {
       "return a Left(InvalidCRN)" in {
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = InterestRestrictionReturnReads.read("", "", HttpResponse(Status.BAD_REQUEST))
+        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.BAD_REQUEST))
 
         actualResult mustBe expectedResult
       }
@@ -53,7 +53,7 @@ class InterestRestrictionReturnHttpParserSpec extends SpecBase {
       "return a Left(UnexpectedFailure)" in {
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, s"Unexpected response, status ${Status.INTERNAL_SERVER_ERROR} returned"))
-        val actualResult = InterestRestrictionReturnReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR))
+        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR))
 
         actualResult mustBe expectedResult
       }

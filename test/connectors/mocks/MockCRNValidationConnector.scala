@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package services
+package connectors.mocks
 
-import connectors.InterestRestrictionReturnConnector
-import connectors.httpParsers.InterestRestrictionReturnHttpParser.InterestRestrictionReturnResponse
-import javax.inject.Inject
+import connectors.httpParsers.CRNValidationHttpParser.CRNValidationResponse
 import models.requests.DataRequest
+import org.scalamock.scalatest.MockFactory
+import connectors.CRNValidationConnector
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
-class InterestRestrictionReturnService @Inject()(interestRestrictionReturnConnector: InterestRestrictionReturnConnector) {
 
-  def validateCRN(crn: String)
-                 (implicit hc: HeaderCarrier, ec: ExecutionContext, request: DataRequest[_]): Future[InterestRestrictionReturnResponse] = {
-    interestRestrictionReturnConnector.validateCRN(crn)
+trait MockCRNValidationConnector extends MockFactory {
+
+  lazy val mockCRNValidationConnector: CRNValidationConnector = mock[CRNValidationConnector]
+
+  def mockValidateCRN(crn: String)(response: CRNValidationResponse): Unit = {
+    (mockCRNValidationConnector.validateCRN(_: String)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
+      .expects(crn, *, *, *)
+      .returns(Future.successful(response))
   }
 }

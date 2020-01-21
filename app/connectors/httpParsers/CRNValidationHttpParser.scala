@@ -20,25 +20,25 @@ import play.api.Logger
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
-object InterestRestrictionReturnHttpParser {
+object CRNValidationHttpParser {
 
 
-  type InterestRestrictionReturnResponse = Either[ErrorResponse, SuccessResponse]
+  type CRNValidationResponse = Either[ErrorResponse, SuccessResponse]
 
-  implicit object InterestRestrictionReturnReads extends HttpReads[InterestRestrictionReturnResponse]{
+  implicit object CRNValidationReads extends HttpReads[CRNValidationResponse]{
 
-    def read(method: String, url: String, response: HttpResponse): InterestRestrictionReturnResponse = {
+    def read(method: String, url: String, response: HttpResponse): CRNValidationResponse = {
       response.status match {
         case NO_CONTENT =>
-          Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status OK")
-          Logger.debug(s"[InterestRestrictionReturnHttpParser][read]: Json Response: ${response.body}")
+          Logger.debug("[CRNValidationReturnReads][read]: Status OK")
+          Logger.debug(s"[CRNValidationReturnReads][read]: Json Response: ${response.body}")
           Right(ValidCRN)
         case BAD_REQUEST =>
-          Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status BAD_REQUEST")
-          Logger.debug(s"[InterestRestrictionReturnHttpParser][read]: Json Response: ${response.body}")
+          Logger.debug("[CRNValidationReturnReads][read]: Status BAD_REQUEST")
+          Logger.debug(s"[CRNValidationReturnReads][read]: Json Response: ${response.body}")
           Left(InvalidCRN)
         case status =>
-          Logger.warn(s"[InterestRestrictionReturnHttpParser][read]: Unexpected response, status $status returned")
+          Logger.warn(s"[CRNValidationReturnReads][read]: Unexpected response, status $status returned")
           Left(UnexpectedFailure(status, s"Unexpected response, status $status returned"))
       }
     }
