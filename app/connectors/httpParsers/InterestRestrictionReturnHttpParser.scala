@@ -22,22 +22,41 @@ import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
 object InterestRestrictionReturnHttpParser {
 
-  implicit object CompaniesHouseReads {
 
-    def read(method: String, url: String, response: HttpResponse) = {
+  type InterestRestrictionReturnResponse = Either[ErrorResponse, SuccessResponse]
+
+  implicit object InterestRestrictionReturnReads extends HttpReads[InterestRestrictionReturnResponse]{
+
+    def read(method: String, url: String, response: HttpResponse): InterestRestrictionReturnResponse = {
       response.status match {
         case NO_CONTENT =>
-          Logger.debug("[CompaniesHouseHttpParser][read]: Status OK")
-          Logger.debug(s"[CompaniesHouseHttpParser][read]: Json Response: ${response.body}")
-          None
+          Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status OK")
+          Logger.debug(s"[InterestRestrictionReturnHttpParser][read]: Json Response: ${response.body}")
+          Right(ValidCRN)
         case NOT_FOUND =>
-          Logger.debug("[CompaniesHouseHttpParser][read]: Status NOT FOUND")
-          Logger.debug(s"[CompaniesHouseHttpParser][read]: Json Response: ${response.body}")
-          Some(NOT_FOUND)
+          Logger.debug("[InterestRestrictionReturnHttpParser][read]: Status NOT FOUND")
+          Logger.debug(s"[InterestRestrictionReturnHttpParser][read]: Json Response: ${response.body}")
+          Left(InvalidCRN)
         case status =>
-          Logger.warn(s"[CompaniesHouseReads][read]: Unexpected response, status $status returned")
-          Some(INTERNAL_SERVER_ERROR)
+          Logger.warn(s"[InterestRestrictionReturnHttpParser][read]: Unexpected response, status $status returned")
+          Left(UnexpectedFailure(status, s"Unexpected response, status $status returned"))
       }
     }
   }
 }
+
+trait SuccessResponse
+
+case object ValidCRN extends SuccessResponse
+
+trait ErrorResponse {
+  val status: Int
+  val body: String
+}
+
+case object InvalidCRN extends ErrorResponse {
+  override val status: Int = NOT_FOUND
+  override val body: String = "CRN Not Found on Companies House"
+}
+
+case class UnexpectedFailure(override val status: Int,override val body: String) extends ErrorResponse
