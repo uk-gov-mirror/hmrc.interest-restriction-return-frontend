@@ -16,13 +16,14 @@
 
 package services
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import connectors.mocks.MockCRNValidationConnector
 import play.api.http.Status
 
 
-class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector {
+class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector with BaseConstants {
 
   object TestCRNValidationService extends CRNValidationService(mockCRNValidationConnector)
 
@@ -32,10 +33,10 @@ class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector 
 
       "return a Right(ValidCRN)" in {
 
-        mockValidateCRN("AA111111")(Right(ValidCRN))
+        mockValidateCRN(crn)(Right(ValidCRN))
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = TestCRNValidationService.validateCRN("AA111111")(hc, ec, fakeDataRequest)
+        val actualResult = TestCRNValidationService.validateCRN(crn)(hc, ec, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -45,10 +46,10 @@ class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector 
 
       "return a Left(InvalidCRN)" in {
 
-        mockValidateCRN("AA111111")(Left(InvalidCRN))
+        mockValidateCRN(crn)(Left(InvalidCRN))
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = TestCRNValidationService.validateCRN("AA111111")(hc, ec, fakeDataRequest)
+        val actualResult = TestCRNValidationService.validateCRN(crn)(hc, ec, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -58,10 +59,10 @@ class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector 
 
       "return a Left(UnexpectedFailure)" in {
 
-        mockValidateCRN("AA111111")(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
+        mockValidateCRN(crn)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
-        val actualResult = TestCRNValidationService.validateCRN("AA111111")(hc, ec, fakeDataRequest)
+        val actualResult = TestCRNValidationService.validateCRN(crn)(hc, ec, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }

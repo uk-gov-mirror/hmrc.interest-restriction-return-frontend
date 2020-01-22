@@ -16,6 +16,7 @@
 
 package connectors
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import connectors.mocks.MockHttp
@@ -24,7 +25,7 @@ import play.api.http.Status
 import scala.concurrent.Future
 
 
-class CRNValidationConnectorSpec extends SpecBase with MockHttp {
+class CRNValidationConnectorSpec extends SpecBase with MockHttp with BaseConstants {
 
   object TestCRNValidationConnector extends CRNValidationConnector(mockHttp, frontendAppConfig)
 
@@ -34,12 +35,12 @@ class CRNValidationConnectorSpec extends SpecBase with MockHttp {
 
       "return a Right(ValidCrn)" in {
 
-        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl("AA111111"))(
+        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl(crn))(
           Future.successful(Right(ValidCRN))
         )
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = TestCRNValidationConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN(crn)(implicitly, implicitly, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -49,12 +50,12 @@ class CRNValidationConnectorSpec extends SpecBase with MockHttp {
 
       "return a Left(InvalidCrn)" in {
 
-        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl("AA111111"))(
+        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl(crn))(
           Future.successful(Left(InvalidCRN))
         )
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = TestCRNValidationConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN(crn)(implicitly, implicitly, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -64,12 +65,12 @@ class CRNValidationConnectorSpec extends SpecBase with MockHttp {
 
       "return a Left(UnexpectedFailure)" in {
 
-        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl("AA111111"))(
+        setupMockHttpGet(TestCRNValidationConnector.validateCrnUrl(crn))(
           Future.successful(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
         )
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
-        val actualResult = TestCRNValidationConnector.validateCRN("AA111111")(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN(crn)(implicitly, implicitly, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }

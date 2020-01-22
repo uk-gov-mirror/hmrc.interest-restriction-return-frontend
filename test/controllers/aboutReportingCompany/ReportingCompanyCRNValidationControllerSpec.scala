@@ -16,6 +16,7 @@
 
 package controllers.aboutReportingCompany
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
@@ -40,7 +41,7 @@ import play.api.http.Status
 
 
 class ReportingCompanyCRNValidationControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer
-  with FeatureSwitching with MockCRNValidationService {
+  with FeatureSwitching with MockCRNValidationService with BaseConstants {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -107,9 +108,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
 
     "redirect to the next page when valid data is submitted" in {
 
-      mockValidateCRN("AA111111")(Right(ValidCRN))
+      mockValidateCRN(crn)(Right(ValidCRN))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", crn))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -128,9 +129,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
 
     "return a Bad Request and errors when invalid crn is submitted" in {
 
-      mockValidateCRN("AA111111")(Left(InvalidCRN))
+      mockValidateCRN(crn)(Left(InvalidCRN))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", crn))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -139,9 +140,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
 
     "return a Internal Server Error when Unexpected Failure is returned" in {
 
-      mockValidateCRN("AA111111")(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
+      mockValidateCRN(crn)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "AA111111"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", crn))
 
       val result = controller().onSubmit(NormalMode)(request)
 

@@ -16,6 +16,7 @@
 
 package utils
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import controllers.routes
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
@@ -26,7 +27,7 @@ import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class CheckYourAnswersHelperSpec extends SpecBase {
+class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
   private def summaryListRow(label: String, answer: String, changeLink: Call) =
     SummaryListRow(
@@ -110,11 +111,11 @@ class CheckYourAnswersHelperSpec extends SpecBase {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, "1111111111").get)
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, ctutr).get)
 
         helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
-          "1111111111",
+          ctutr,
           aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode)
         ))
       }
