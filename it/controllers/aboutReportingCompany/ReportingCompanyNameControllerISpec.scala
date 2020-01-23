@@ -29,7 +29,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
     "GET /reporting-company-name" when {
 
-      "user has a session" should {
+      "us is authorised" should {
 
         "return OK (200)" in {
 
@@ -109,7 +109,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
     "GET /reporting-company-name" when {
 
-      "user has a session" should {
+      "us is authorised" should {
 
         "return OK (200)" in {
 

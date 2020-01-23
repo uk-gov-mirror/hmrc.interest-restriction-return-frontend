@@ -29,7 +29,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
     "GET /reporting-company-ctutr" when {
 
-      "user has a session" should {
+      "us is authorised" should {
 
         "return OK (200)" in {
 
@@ -109,7 +109,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
     "GET /reporting-company-ctutr" when {
 
-      "user has a session" should {
+      "us is authorised" should {
 
         "return OK (200)" in {
 

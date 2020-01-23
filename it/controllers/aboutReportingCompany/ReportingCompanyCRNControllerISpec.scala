@@ -28,7 +28,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
     "GET /reporting-company-crn" when {
 
-      "user has a session" should {
+      "us is authorised" should {
 
         "return OK (200)" in {
 
@@ -146,7 +146,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
     "GET /reporting-company-crn" when {
 
-      "user has a session" should {
+      "us is authorised" should {
 
         "return OK (200)" in {
 
