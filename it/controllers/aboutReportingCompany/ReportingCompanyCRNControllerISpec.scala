@@ -24,114 +24,235 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
-  "GET /reporting-company-crn" when {
+  "in normal mode" when {
 
-    "user has a session" should {
+    "GET /reporting-company-crn" when {
 
-      "return OK (200)" in {
+      "user has a session" should {
 
-        AuthStub.authorised()
+        "return OK (200)" in {
 
-        val res = getRequest("/reporting-company-crn")
+          AuthStub.authorised()
 
-        whenReady(res) { result =>
-          result should have(
-            httpStatus(OK),
-            titleOf("Company Registration Number (CRN)")
-          )
+          val res = getRequest("/reporting-company-crn")
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf("Company Registration Number (CRN)")
+            )
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = getRequest("/reporting-company-crn")
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
         }
       }
     }
 
-    "user not authorised" should {
+    "POST /reporting-company-crn" when {
 
-      "return SEE_OTHER (303)" in {
+      "user has a session" when {
 
-        AuthStub.unauthorised()
+        "enters a valid answer" when {
 
-        val res = getRequest("/reporting-company-crn")
+          "NO_CONTENT (204) is returned from CRN validation" should {
 
-        whenReady(res) { result =>
-          result should have(
-            httpStatus(SEE_OTHER),
-            redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-          )
+            "redirect to CheckYourAnswers page" in {
+
+              AuthStub.authorised()
+              CRNValidationStub.validateCrn(NO_CONTENT)
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
+                )
+              }
+            }
+          }
+
+          "BAD_REQUEST is returned from CRN validation" should {
+
+            "reload page with crn validation error" in {
+
+              AuthStub.authorised()
+              CRNValidationStub.validateCrn(BAD_REQUEST)
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(BAD_REQUEST),
+                  titleOf("Error: Company Registration Number (CRN)")
+                )
+              }
+            }
+          }
+
+          "another error is returned from CRN validation" should {
+
+            "reload page with crn validation error" in {
+
+              AuthStub.authorised()
+              CRNValidationStub.validateCrn(INTERNAL_SERVER_ERROR)
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(INTERNAL_SERVER_ERROR))
+              }
+            }
+          }
+
+          "user not authorised" should {
+
+            "return SEE_OTHER (303)" in {
+
+              AuthStub.unauthorised()
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+                )
+              }
+            }
+          }
         }
       }
     }
   }
 
-  "POST /reporting-company-crn" when {
+  "in change mode" when {
 
-    "user has a session" when {
+    "GET /reporting-company-crn" when {
 
-      "enters a valid answer" when {
+      "user has a session" should {
 
-        "NO_CONTENT (204) is returned from CRN validation" should {
+        "return OK (200)" in {
 
-          "redirect to CheckYourAnswers page" in {
+          AuthStub.authorised()
 
-            AuthStub.authorised()
-            CRNValidationStub.validateCrn(NO_CONTENT)
+          val res = getRequest("/reporting-company-crn")
 
-            val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
-              )
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf("Company Registration Number (CRN)")
+            )
           }
         }
+      }
 
-        "BAD_REQUEST is returned from CRN validation" should {
+      "user not authorised" should {
 
-          "reload page with crn validation error" in {
+        "return SEE_OTHER (303)" in {
 
-            AuthStub.authorised()
-            CRNValidationStub.validateCrn(BAD_REQUEST)
+          AuthStub.unauthorised()
 
-            val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+          val res = getRequest("/reporting-company-crn")
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(BAD_REQUEST),
-                titleOf("Error: Company Registration Number (CRN)")
-              )
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
+      }
+    }
 
-        "another error is returned from CRN validation" should {
+    "POST /reporting-company-crn" when {
 
-          "reload page with crn validation error" in {
+      "user has a session" when {
 
-            AuthStub.authorised()
-            CRNValidationStub.validateCrn(INTERNAL_SERVER_ERROR)
+        "enters a valid answer" when {
 
-            val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+          "NO_CONTENT (204) is returned from CRN validation" should {
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(INTERNAL_SERVER_ERROR))
+            "redirect to CheckYourAnswers page" in {
+
+              AuthStub.authorised()
+              CRNValidationStub.validateCrn(NO_CONTENT)
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
+                )
+              }
             }
           }
-        }
 
-        "user not authorised" should {
+          "BAD_REQUEST is returned from CRN validation" should {
 
-          "return SEE_OTHER (303)" in {
+            "reload page with crn validation error" in {
 
-            AuthStub.unauthorised()
+              AuthStub.authorised()
+              CRNValidationStub.validateCrn(BAD_REQUEST)
 
-            val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-              )
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(BAD_REQUEST),
+                  titleOf("Error: Company Registration Number (CRN)")
+                )
+              }
+            }
+          }
+
+          "another error is returned from CRN validation" should {
+
+            "reload page with crn validation error" in {
+
+              AuthStub.authorised()
+              CRNValidationStub.validateCrn(INTERNAL_SERVER_ERROR)
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(INTERNAL_SERVER_ERROR))
+              }
+            }
+          }
+
+          "user not authorised" should {
+
+            "return SEE_OTHER (303)" in {
+
+              AuthStub.unauthorised()
+
+              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+                )
+              }
             }
           }
         }
