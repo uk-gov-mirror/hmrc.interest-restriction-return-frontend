@@ -16,6 +16,7 @@
 
 package controllers.aboutReportingCompany
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
@@ -34,7 +35,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReportingCompany.ReportingCompanyCTUTRView
 
-class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching {
+class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching with BaseConstants {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -99,7 +100,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "1123456789"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ctutr))
 
       val result = controller().onSubmit(NormalMode)(request)
 
