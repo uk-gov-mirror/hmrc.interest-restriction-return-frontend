@@ -28,7 +28,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
     "GET /group-interest-capacity" when {
 
-      "us is authorised" should {
+      "user is authorised" should {
 
         "return OK (200)" in {
 
@@ -65,7 +65,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
     "POST /group-interest-capacity" when {
 
-      "user has a session" when {
+      "user is authorised" when {
 
         "enters a valid answer" when {
 
@@ -108,7 +108,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
     "GET /group-interest-capacity" when {
 
-      "us is authorised" should {
+      "user is authorised" should {
 
         "return OK (200)" in {
 

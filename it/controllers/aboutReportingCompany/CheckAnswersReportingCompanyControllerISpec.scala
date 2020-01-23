@@ -66,7 +66,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
     "POST /check-answers-reporting-company" when {
 
-      "user has a session" when {
+      "user is authorised" when {
 
         "enters a valid answer" when {
 

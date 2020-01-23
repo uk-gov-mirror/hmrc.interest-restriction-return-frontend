@@ -29,7 +29,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
     "GET /group-interest-allowance" when {
 
-      "us is authorised" should {
+      "user is authorised" should {
 
         "return OK (200)" in {
 
@@ -66,7 +66,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
     "POST /group-interest-allowance" when {
 
-      "user has a session" when {
+      "user is authorised" when {
 
         "enters a valid answer" when {
 
@@ -109,7 +109,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
     "GET /group-interest-allowance" when {
 
-      "us is authorised" should {
+      "user is authorised" should {
 
         "return OK (200)" in {
 

@@ -28,7 +28,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
     "GET /reporting-company-crn" when {
 
-      "us is authorised" should {
+      "user is authorised" should {
 
         "return OK (200)" in {
 
@@ -65,7 +65,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
     "POST /reporting-company-crn" when {
 
-      "user has a session" when {
+      "user is authorised" when {
 
         "enters a valid answer" when {
 
@@ -146,7 +146,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
     "GET /reporting-company-crn" when {
 
-      "us is authorised" should {
+      "user is authorised" should {
 
         "return OK (200)" in {
 
@@ -183,7 +183,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
     "POST /reporting-company-crn" when {
 
-      "user has a session" when {
+      "user is authorised" when {
 
         "enters a valid answer" when {
 
