@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import assets.BaseITConstants
 import models.NormalMode
@@ -23,11 +23,11 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-subject-to-reactivations" when {
+    "GET /interest-allowance-brought-forward" when {
 
       "user is authorised" should {
 
@@ -35,12 +35,12 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-reactivations")
+          val res = getRequest("/interest-allowance-brought-forward")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf("What is the group interest allowance brought forward?")
             )
           }
         }
@@ -52,7 +52,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-reactivations")
+          val res = getRequest("/interest-allowance-brought-forward")
 
           whenReady(res) { result =>
             result should have(
@@ -64,36 +64,22 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    "POST /group-subject-to-reactivations" when {
+    "POST /interest-allowance-brought-forward" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to InterestReactivationsCap page when answered true" in {
+          "redirect to GroupInterestCapacity page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+            val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.InterestReactivationsCapController.onPageLoad(NormalMode).url)
-              )
-            }
-          }
-
-          "redirect to InterestReactivationsCap page when answered false" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "false"))
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.GroupInterestAllowanceController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -104,7 +90,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
               AuthStub.unauthorised()
 
-              val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+              val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))
 
               whenReady(res) { result =>
                 result should have(
@@ -121,7 +107,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
   "in Change mode" when {
 
-    "GET /group-subject-to-reactivations" when {
+    "GET /interest-allowance-brought-forward" when {
 
       "user is authorised" should {
 
@@ -129,12 +115,12 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-reactivations/change")
+          val res = getRequest("/interest-allowance-brought-forward/change")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf("What is the group interest allowance brought forward?")
             )
           }
         }
@@ -146,7 +132,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-reactivations/change")
+          val res = getRequest("/interest-allowance-brought-forward/change")
 
           whenReady(res) { result =>
             result should have(
