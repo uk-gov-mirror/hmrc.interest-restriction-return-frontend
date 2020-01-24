@@ -76,8 +76,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
           "on a Full journey redirect to ReturnContainEstimates page" in {
 
             AuthStub.authorised()
-
-            await(mongo.set(emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Full).success.value))
+            setAnswers(FullOrAbbreviatedReturnPage, Full)
 
             val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
 
@@ -92,8 +91,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
           "on a Abbreviated journey redirect to UnderConstruction page" in {
 
             AuthStub.authorised()
-
-            await(mongo.set(emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).success.value))
+            setAnswers(FullOrAbbreviatedReturnPage, Abbreviated)
 
             val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
 

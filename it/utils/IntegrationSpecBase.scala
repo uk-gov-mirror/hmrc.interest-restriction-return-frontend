@@ -1,19 +1,19 @@
 package utils
 
 import models.UserAnswers
-import org.scalatest._
+import org.scalatest.{TryValues, _}
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
+import pages.QuestionPage
 import play.api.http.Status.OK
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Writes}
 import play.api.{Application, Environment, Mode}
 import repositories.SessionRepository
 import stubs.AuthStub
-import org.scalatest.TryValues
 
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 trait IntegrationSpecBase extends WordSpec
   with GivenWhenThen with TestSuite with ScalaFutures with IntegrationPatience with Matchers
@@ -38,14 +38,13 @@ trait IntegrationSpecBase extends WordSpec
     "microservice.services.interest-restriction-return.port" -> mockPort
   )
 
-  val userAnswersId = "id"
-
-  def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
-
-  val emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
-
   lazy val mongo = app.injector.instanceOf[SessionRepository]
 
+  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit = {
+    Await.result(mongo.set(
+      UserAnswers("id", Json.obj()).set(page, value).success.value
+    ),timeout)
+  }
 
   override def beforeEach(): Unit = {
     resetWiremock()
