@@ -70,7 +70,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to GroupInterestCapacity page" in {
 
             AuthStub.authorised()
 

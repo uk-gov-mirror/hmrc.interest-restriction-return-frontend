@@ -70,7 +70,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to GroupSubjectToReactivations page" in {
 
             AuthStub.authorised()
 

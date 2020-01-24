@@ -69,7 +69,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to UnderConstruction page" in {
 
             AuthStub.authorised()
 

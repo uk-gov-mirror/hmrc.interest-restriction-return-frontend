@@ -17,17 +17,20 @@
 package controllers.aboutReturn
 
 import assets.BaseITConstants
+import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.NormalMode
-import play.api.http.Status._
+import pages.startReturn.FullOrAbbreviatedReturnPage
 import play.api.libs.json.Json
+import play.api.test.Helpers._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+
+class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-subject-to-reactivations" when {
+    "GET /infrastructure-company-election" when {
 
       "user is authorised" should {
 
@@ -35,12 +38,12 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-reactivations")
+          val res = getRequest("/infrastructure-company-election")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf("Has the group made the Infrastructure company election?")
             )
           }
         }
@@ -52,7 +55,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-reactivations")
+          val res = getRequest("/infrastructure-company-election")
 
           whenReady(res) { result =>
             result should have(
@@ -64,22 +67,40 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    "POST /group-subject-to-reactivations" when {
+    "POST /infrastructure-company-election" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to InterestReactivationsCap page" in {
+          "on a Full journey redirect to ReturnContainEstimates page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+            await(mongo.set(emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Full).success.value))
+
+            val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.InterestReactivationsCapController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.ReturnContainEstimatesController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+
+          "on a Abbreviated journey redirect to UnderConstruction page" in {
+
+            AuthStub.authorised()
+
+            await(mongo.set(emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).success.value))
+
+            val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
@@ -90,7 +111,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
               AuthStub.unauthorised()
 
-              val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+              val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
 
               whenReady(res) { result =>
                 result should have(
@@ -107,7 +128,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
   "in Change mode" when {
 
-    "GET /group-subject-to-reactivations" when {
+    "GET /infrastructure-company-election" when {
 
       "user is authorised" should {
 
@@ -115,12 +136,12 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-reactivations/change")
+          val res = getRequest("/infrastructure-company-election/change")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf("Has the group made the Infrastructure company election?")
             )
           }
         }
@@ -132,7 +153,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-reactivations/change")
+          val res = getRequest("/infrastructure-company-election/change")
 
           whenReady(res) { result =>
             result should have(
