@@ -40,7 +40,11 @@ class AboutReturnNavigator @Inject()() extends BaseNavigator {
       case _ => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
     }),
     ReturnContainEstimatesPage -> (_ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
-    GroupSubjectToRestrictionsPage -> (_ => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)),
+    GroupSubjectToRestrictionsPage -> (_.get(GroupSubjectToRestrictionsPage) match {
+      case Some(true) => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
+      case Some(false) => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
+      case _ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+    }),
     GroupSubjectToReactivationsPage -> (_.get(GroupSubjectToReactivationsPage) match {
       case Some(true) => aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(NormalMode)
       case Some(false) => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
