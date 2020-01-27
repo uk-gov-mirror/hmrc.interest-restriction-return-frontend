@@ -79,7 +79,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.GroupSubjectToReactivationsController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
               )
             }
           }

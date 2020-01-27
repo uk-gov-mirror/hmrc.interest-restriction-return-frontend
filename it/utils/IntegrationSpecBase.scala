@@ -24,7 +24,7 @@ trait IntegrationSpecBase extends WordSpec
 
   def config: Map[String, String] = Map(
     "play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck",
-    "application.router" -> "testOnlyDoNotUseInAppConf.Routes",
+    "play.http.router" -> "testOnlyDoNotUseInAppConf.Routes",
     "microservice.services.auth.host" -> mockHost,
     "microservice.services.auth.port" -> mockPort,
     "microservice.services.interest-restriction-return.host" -> mockHost,
