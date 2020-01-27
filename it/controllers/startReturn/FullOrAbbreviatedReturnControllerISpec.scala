@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package controllers.aboutReportingCompany
+package controllers.startReturn
 
 import assets.BaseITConstants
+import models.FullOrAbbreviatedReturn.Full
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /reporting-company-ctutr" when {
+    "GET /full-or-abbreviated-return" when {
 
       "user is authorised" should {
 
@@ -35,12 +36,12 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-ctutr")
+          val res = getRequest("/full-or-abbreviated-return")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("UK Tax reference")
+              titleOf("Do you want to submit a full or abbreviated return?")
             )
           }
         }
@@ -52,7 +53,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-ctutr")
+          val res = getRequest("/full-or-abbreviated-return")
 
           whenReady(res) { result =>
             result should have(
@@ -64,22 +65,22 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
       }
     }
 
-    "POST /reporting-company-ctutr" when {
+    "POST /full-or-abbreviated-return" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to ReportingCompanyCRN page" in {
+          "redirect to FullOrAbbreviatedReturn page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-ctutr", Json.obj("value" -> ctutr))
+            val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.ReportingCompanyCRNController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReportingCompany.routes.ReportingCompanyNameController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -92,7 +93,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-ctutr", Json.obj("value" -> ctutr))
+          val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> true))
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +108,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
   "in Change mode" when {
 
-    "GET /reporting-company-ctutr" when {
+    "GET /full-or-abbreviated-return" when {
 
       "user is authorised" should {
 
@@ -115,12 +116,12 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-ctutr/change")
+          val res = getRequest("/full-or-abbreviated-return/change")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("UK Tax reference")
+              titleOf("Do you want to submit a full or abbreviated return?")
             )
           }
         }
@@ -132,7 +133,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-ctutr/change")
+          val res = getRequest("/full-or-abbreviated-return/change")
 
           whenReady(res) { result =>
             result should have(
@@ -144,44 +145,6 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
       }
     }
 
-    "POST /reporting-company-ctutr" when {
-
-      "user is authorised" when {
-
-        "enters a valid answer" when {
-
-          "redirect to CheckYourAnswers page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/reporting-company-ctutr/change", Json.obj("value" -> ctutr))
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
-              )
-            }
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = postRequest("/reporting-company-ctutr/change", Json.obj("value" -> ctutr))
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
+    //TODO: Add Check Your Answers tests
   }
 }
