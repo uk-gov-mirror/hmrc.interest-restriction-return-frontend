@@ -24,11 +24,11 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /full-or-abbreviated-return" when {
+    "GET /reporting-company-appointed" when {
 
       "user is authorised" should {
 
@@ -36,12 +36,12 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.authorised()
 
-          val res = getRequest("/full-or-abbreviated-return")
+          val res = getRequest("/reporting-company-appointed")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Do you want to submit a full or abbreviated return?")
+              titleOf("Has the reporting company been appointed")
             )
           }
         }
@@ -53,7 +53,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/full-or-abbreviated-return")
+          val res = getRequest("/reporting-company-appointed")
 
           whenReady(res) { result =>
             result should have(
@@ -65,22 +65,39 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
       }
     }
 
-    "POST /full-or-abbreviated-return" when {
+    "POST /reporting-company-appointed" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters true" when {
 
-          "redirect to ReportingCompanyName page" in {
+          "redirect to AgentActingOnBehalfOfCompany page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))
+            val res = postRequest("/reporting-company-appointed", Json.obj("value" -> true))
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.ReportingCompanyNameController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.startReturn.routes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters false" when {
+
+          "redirect to ReportingCompanyRequired page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/reporting-company-appointed", Json.obj("value" -> false))
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.startReturn.routes.ReportingCompanyRequiredController.onPageLoad().url)
               )
             }
           }
@@ -93,7 +110,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))
+          val res = postRequest("/reporting-company-appointed", Json.obj("value" -> true))
 
           whenReady(res) { result =>
             result should have(
@@ -108,7 +125,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
   "in Change mode" when {
 
-    "GET /full-or-abbreviated-return" when {
+    "GET /reporting-company-appointed" when {
 
       "user is authorised" should {
 
@@ -116,12 +133,12 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.authorised()
 
-          val res = getRequest("/full-or-abbreviated-return/change")
+          val res = getRequest("/reporting-company-appointed/change")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Do you want to submit a full or abbreviated return?")
+              titleOf("Has the reporting company been appointed")
             )
           }
         }
@@ -133,7 +150,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/full-or-abbreviated-return/change")
+          val res = getRequest("/reporting-company-appointed/change")
 
           whenReady(res) { result =>
             result should have(
