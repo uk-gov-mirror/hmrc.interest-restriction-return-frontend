@@ -70,7 +70,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
         "enters a valid answer" when {
 
-          "redirect to GroupInterestCapacity page" in {
+          "redirect to InterestAllowanceBroughtForward page" in {
 
             AuthStub.authorised()
 

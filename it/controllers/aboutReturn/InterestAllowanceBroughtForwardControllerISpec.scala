@@ -70,7 +70,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
         "enters a valid answer" when {
 
-          "redirect to GroupInterestCapacity page" in {
+          "redirect to GroupInterestAllowance page" in {
 
             AuthStub.authorised()
 

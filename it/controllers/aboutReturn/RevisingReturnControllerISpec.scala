@@ -70,7 +70,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
         "enters true" when {
 
-          "redirect to GroupInterestCapacity page" in {
+          "redirect to UnderConstruction page" in {
 
             AuthStub.authorised()
 
@@ -87,7 +87,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
         "enters false" when {
 
-          "redirect to GroupInterestCapacity page" in {
+          "redirect to InfrastructureCompanyElection page" in {
 
             AuthStub.authorised()
 

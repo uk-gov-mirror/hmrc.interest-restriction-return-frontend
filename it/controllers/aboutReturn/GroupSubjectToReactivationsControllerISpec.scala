@@ -84,7 +84,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
             }
           }
 
-          "redirect to InterestReactivationsCap page when answered false" in {
+          "redirect to InterestAllowanceBroughtForward page when answered false" in {
 
             AuthStub.authorised()
 
