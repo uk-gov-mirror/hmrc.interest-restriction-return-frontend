@@ -23,11 +23,11 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /interest-reactivations-cap" when {
+    "GET /revising-return" when {
 
       "user is authorised" should {
 
@@ -35,12 +35,12 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-reactivations-cap")
+          val res = getRequest("/revising-return")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group reactivation cap?")
+              titleOf("Are you revising a return you have already submitted?")
             )
           }
         }
@@ -52,7 +52,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-reactivations-cap")
+          val res = getRequest("/revising-return")
 
           whenReady(res) { result =>
             result should have(
@@ -64,22 +64,39 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "POST /interest-reactivations-cap" when {
+    "POST /revising-return" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters true" when {
 
           "redirect to GroupInterestCapacity page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))
+            val res = postRequest("/revising-return", Json.obj("value" -> true))
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
+          }
+        }
+
+        "enters false" when {
+
+          "redirect to GroupInterestCapacity page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/revising-return", Json.obj("value" -> false))
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -92,7 +109,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))
+          val res = postRequest("/revising-return", Json.obj("value" -> true))
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +124,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
   "in Change mode" when {
 
-    "GET /interest-reactivations-cap" when {
+    "GET /revising-return" when {
 
       "user is authorised" should {
 
@@ -115,12 +132,12 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-reactivations-cap/change")
+          val res = getRequest("/revising-return/change")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group reactivation cap?")
+              titleOf("Are you revising a return you have already submitted?")
             )
           }
         }
@@ -132,7 +149,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-reactivations-cap/change")
+          val res = getRequest("/revising-return/change")
 
           whenReady(res) { result =>
             result should have(

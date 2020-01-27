@@ -124,7 +124,7 @@ POST       /revising-return                             controllers.aboutReturn.
 GET        /revising-return/change                      controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /revising-return/change                      controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
 
-### RevisingReturn Controller
+### GroupInterestCapacity Controller
 ### ----------------------------------------
 GET        /group-interest-capacity                        controllers.aboutReturn.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)
 POST       /group-interest-capacity                        controllers.aboutReturn.GroupInterestCapacityController.onSubmit(mode: Mode = NormalMode)
