@@ -81,9 +81,19 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "from the Group Subject to Restrictions page" should {
 
-        "go to the Group Subject to Reactivations page" in {
+        "if user answer is Yes/True go to the Interest Allowance Brought Forwards page" in {
 
-          navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, emptyUserAnswers) mustBe
+          val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, value = true).get
+
+          navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, userAnswers) mustBe
+            aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
+        }
+
+        "if user answer is No/False go to the Group Subject to Reactivations page" in {
+
+          val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, value = false).get
+
+          navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, userAnswers) mustBe
             aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
         }
       }
