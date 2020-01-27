@@ -16,10 +16,8 @@
 
 package controllers.startReturn
 
-import assets.BaseITConstants
-import models.NormalMode
+import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
-import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -40,7 +38,7 @@ class ReportingCompanyRequiredControllerISpec extends IntegrationSpecBase with C
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("A reporting company is required")
+              titleOf(PageTitles.reportingCompanyRequired)
             )
           }
         }

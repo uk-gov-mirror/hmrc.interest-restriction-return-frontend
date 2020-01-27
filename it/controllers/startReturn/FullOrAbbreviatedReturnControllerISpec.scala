@@ -16,7 +16,7 @@
 
 package controllers.startReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.FullOrAbbreviatedReturn.Full
 import models.NormalMode
 import play.api.http.Status._
@@ -41,7 +41,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Do you want to submit a full or abbreviated return?")
+              titleOf(PageTitles.fullOrAbbreviatedReturn)
             )
           }
         }
@@ -121,7 +121,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Do you want to submit a full or abbreviated return?")
+              titleOf(PageTitles.fullOrAbbreviatedReturn)
             )
           }
         }

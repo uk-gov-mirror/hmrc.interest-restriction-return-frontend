@@ -16,7 +16,7 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.{AuthStub, CRNValidationStub}
@@ -39,7 +39,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Company Registration Number (CRN)")
+              titleOf(PageTitles.reportingCompanyCRN)
             )
           }
         }
@@ -157,7 +157,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Company Registration Number (CRN)")
+              titleOf(PageTitles.reportingCompanyCRN)
             )
           }
         }

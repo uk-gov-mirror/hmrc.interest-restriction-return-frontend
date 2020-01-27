@@ -16,7 +16,7 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Reporting company name")
+              titleOf(PageTitles.reportingCompanyName)
             )
           }
         }
@@ -120,7 +120,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Reporting company name")
+              titleOf(PageTitles.reportingCompanyName)
             )
           }
         }

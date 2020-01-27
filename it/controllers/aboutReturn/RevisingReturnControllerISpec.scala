@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Are you revising a return you have already submitted?")
+              titleOf(PageTitles.revisingReturn)
             )
           }
         }
@@ -137,7 +137,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Are you revising a return you have already submitted?")
+              titleOf(PageTitles.revisingReturn)
             )
           }
         }

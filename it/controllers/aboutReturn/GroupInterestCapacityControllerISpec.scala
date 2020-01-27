@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -39,7 +39,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest capacity for the period?")
+              titleOf(PageTitles.groupInterestCapacity)
             )
           }
         }
@@ -119,7 +119,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest capacity for the period?")
+              titleOf(PageTitles.groupInterestCapacity)
             )
           }
         }

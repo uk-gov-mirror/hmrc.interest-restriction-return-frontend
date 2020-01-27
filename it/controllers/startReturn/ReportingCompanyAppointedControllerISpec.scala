@@ -16,7 +16,7 @@
 
 package controllers.startReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.FullOrAbbreviatedReturn.Full
 import models.NormalMode
 import play.api.http.Status._
@@ -41,7 +41,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Has the reporting company been appointed")
+              titleOf(PageTitles.reportingCompanyAppointed)
             )
           }
         }
@@ -138,7 +138,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Has the reporting company been appointed")
+              titleOf(PageTitles.reportingCompanyAppointed)
             )
           }
         }

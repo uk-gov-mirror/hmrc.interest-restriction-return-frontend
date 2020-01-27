@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf(PageTitles.groupSubjectToReactivations)
             )
           }
         }
@@ -134,7 +134,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf(PageTitles.groupSubjectToReactivations)
             )
           }
         }

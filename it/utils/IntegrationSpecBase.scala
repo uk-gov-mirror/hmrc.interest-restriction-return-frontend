@@ -1,8 +1,8 @@
 package utils
 
 import models.UserAnswers
-import org.scalatest.{TryValues, _}
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
+import org.scalatest.{TryValues, _}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import pages.QuestionPage
 import play.api.http.Status.OK

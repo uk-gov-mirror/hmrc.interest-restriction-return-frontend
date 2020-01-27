@@ -16,7 +16,7 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest allowance brought forward?")
+              titleOf(PageTitles.interestAllowanceBroughtForward)
             )
           }
         }
@@ -120,7 +120,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest allowance brought forward?")
+              titleOf(PageTitles.interestAllowanceBroughtForward)
             )
           }
         }

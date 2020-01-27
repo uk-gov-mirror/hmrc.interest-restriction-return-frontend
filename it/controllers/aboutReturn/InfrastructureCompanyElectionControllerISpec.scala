@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.NormalMode
 import pages.startReturn.FullOrAbbreviatedReturnPage
@@ -43,7 +43,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Has the group made the Infrastructure company election?")
+              titleOf(PageTitles.infrastructureCompanyElection)
             )
           }
         }
@@ -139,7 +139,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Has the group made the Infrastructure company election?")
+              titleOf(PageTitles.infrastructureCompanyElection)
             )
           }
         }

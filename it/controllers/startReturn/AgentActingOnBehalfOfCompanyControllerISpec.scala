@@ -16,7 +16,7 @@
 
 package controllers.startReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Are you an agent acting on behalf of a company?")
+              titleOf(PageTitles.agentActingOnBehalfOfCompany)
             )
           }
         }
@@ -137,7 +137,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Are you an agent acting on behalf of a company?")
+              titleOf(PageTitles.agentActingOnBehalfOfCompany)
             )
           }
         }
