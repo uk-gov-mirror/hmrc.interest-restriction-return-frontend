@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReportingCompany
+package controllers.aboutReturn
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
@@ -23,11 +23,11 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /reporting-company-name" when {
+    "GET /interest-reactivations-cap" when {
 
       "user is authorised" should {
 
@@ -35,12 +35,12 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-name")
+          val res = getRequest("/interest-reactivations-cap")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.reportingCompanyName)
+              titleOf(PageTitles.interestReactivationsCap)
             )
           }
         }
@@ -52,7 +52,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-name")
+          val res = getRequest("/interest-reactivations-cap")
 
           whenReady(res) { result =>
             result should have(
@@ -64,22 +64,22 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /reporting-company-name" when {
+    "POST /interest-reactivations-cap" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to ReportingCompanyCTUTR page" in {
+          "redirect to InterestAllowanceBroughtForward page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-name", Json.obj("value" -> companyName))
+            val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.ReportingCompanyCTUTRController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -92,7 +92,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-name", Json.obj("value" -> companyName))
+          val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
   "in Change mode" when {
 
-    "GET /reporting-company-name" when {
+    "GET /interest-reactivations-cap" when {
 
       "user is authorised" should {
 
@@ -115,12 +115,12 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-name/change")
+          val res = getRequest("/interest-reactivations-cap/change")
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.reportingCompanyName)
+              titleOf(PageTitles.interestReactivationsCap)
             )
           }
         }
@@ -132,7 +132,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-name/change")
+          val res = getRequest("/interest-reactivations-cap/change")
 
           whenReady(res) { result =>
             result should have(
@@ -144,44 +144,6 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /reporting-company-name" when {
-
-      "user is authorised" when {
-
-        "enters a valid answer" when {
-
-          "redirect to CheckYourAnswers page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/reporting-company-name/change", Json.obj("value" -> companyName))
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
-              )
-            }
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = postRequest("/reporting-company-name/change", Json.obj("value" -> companyName))
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
+    //TODO: Add Check Your Answers tests
   }
 }

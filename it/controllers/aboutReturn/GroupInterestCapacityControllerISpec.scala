@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -39,7 +39,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest capacity for the period?")
+              titleOf(PageTitles.groupInterestCapacity)
             )
           }
         }
@@ -69,7 +69,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to UnderConstruction page" in {
 
             AuthStub.authorised()
 
@@ -82,22 +82,22 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
               )
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/group-interest-capacity", Json.obj("value" -> 1))
+          val res = postRequest("/group-interest-capacity", Json.obj("value" -> 1))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
@@ -119,7 +119,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest capacity for the period?")
+              titleOf(PageTitles.groupInterestCapacity)
             )
           }
         }

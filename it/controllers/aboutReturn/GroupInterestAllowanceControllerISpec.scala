@@ -16,7 +16,7 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest allowance for the period?")
+              titleOf(PageTitles.grouptInterestAllowance)
             )
           }
         }
@@ -70,7 +70,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to GroupInterestCapacity page" in {
 
             AuthStub.authorised()
 
@@ -83,22 +83,22 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
               )
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))
+          val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
@@ -120,7 +120,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("What is the group interest allowance for the period?")
+              titleOf(PageTitles.grouptInterestAllowance)
             )
           }
         }

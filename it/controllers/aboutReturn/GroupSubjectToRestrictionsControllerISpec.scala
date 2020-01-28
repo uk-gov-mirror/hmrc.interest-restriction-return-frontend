@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to restrictions?")
+              titleOf(PageTitles.groupSubjectToRestrictions)
             )
           }
         }
@@ -70,7 +70,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to GroupSubjectToReactivations page" in {
 
             AuthStub.authorised()
 
@@ -83,22 +83,22 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
               )
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))
+          val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
@@ -120,7 +120,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to restrictions?")
+              titleOf(PageTitles.groupSubjectToRestrictions)
             )
           }
         }

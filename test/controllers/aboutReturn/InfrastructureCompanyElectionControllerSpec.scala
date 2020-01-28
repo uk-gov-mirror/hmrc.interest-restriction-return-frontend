@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.InfrastructureCompanyElectionFormProvider
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
 import nunjucks.viewmodels.YesNoRadioViewModel
 import nunjucks.{InfrastructureCompanyElectionTemplate, MockNunjucksRenderer}

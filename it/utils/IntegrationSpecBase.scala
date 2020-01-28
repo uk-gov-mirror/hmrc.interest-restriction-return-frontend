@@ -1,17 +1,24 @@
 package utils
 
-import org.scalatest._
+import models.UserAnswers
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
+import org.scalatest.{TryValues, _}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
+import pages.QuestionPage
 import play.api.http.Status.OK
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.{Json, Writes}
 import play.api.{Application, Environment, Mode}
+import repositories.SessionRepository
 import stubs.AuthStub
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 trait IntegrationSpecBase extends WordSpec
   with GivenWhenThen with TestSuite with ScalaFutures with IntegrationPatience with Matchers
   with WiremockHelper
-  with GuiceOneServerPerSuite
+  with GuiceOneServerPerSuite with TryValues
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with CustomMatchers {
 
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
@@ -30,6 +37,14 @@ trait IntegrationSpecBase extends WordSpec
     "microservice.services.interest-restriction-return.host" -> mockHost,
     "microservice.services.interest-restriction-return.port" -> mockPort
   )
+
+  lazy val mongo = app.injector.instanceOf[SessionRepository]
+
+  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit = {
+    Await.result(mongo.set(
+      UserAnswers("id", Json.obj()).set(page, value).success.value
+    ),timeout)
+  }
 
   override def beforeEach(): Unit = {
     resetWiremock()

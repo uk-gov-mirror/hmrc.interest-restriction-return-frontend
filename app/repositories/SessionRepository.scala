@@ -22,7 +22,6 @@ import akka.stream.Materializer
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.UserAnswers
-import play.api.Configuration
 import play.api.libs.json._
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.indexes.{Index, IndexType}
@@ -32,9 +31,8 @@ import reactivemongo.play.json.collection.JSONCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DefaultSessionRepository @Inject()(
-                                          mongo: ReactiveMongoApi,
-                                          appConfig: FrontendAppConfig
+class DefaultSessionRepository @Inject()(override val mongo: ReactiveMongoApi,
+                                         appConfig: FrontendAppConfig
                                         )(implicit ec: ExecutionContext, m: Materializer) extends SessionRepository {
 
 
@@ -86,6 +84,8 @@ class DefaultSessionRepository @Inject()(
 }
 
 trait SessionRepository {
+
+  val mongo: ReactiveMongoApi
 
   def get(id: String): Future[Option[UserAnswers]]
 

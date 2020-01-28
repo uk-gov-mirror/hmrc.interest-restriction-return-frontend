@@ -16,7 +16,7 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.{JsString, Json}
@@ -40,7 +40,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Check Your Answers for Reporting Company")
+              titleOf(PageTitles.checkAnswersReportingCompany)
             )
           }
         }
@@ -83,22 +83,22 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
               )
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/check-answers-reporting-company", Json.obj("value" -> ctutr))
+          val res = postRequest("/check-answers-reporting-company", Json.obj("value" -> ctutr))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }

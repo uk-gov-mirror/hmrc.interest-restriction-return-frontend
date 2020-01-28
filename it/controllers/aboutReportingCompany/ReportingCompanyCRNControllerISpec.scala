@@ -16,7 +16,7 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.{AuthStub, CRNValidationStub}
@@ -39,7 +39,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Company Registration Number (CRN)")
+              titleOf(PageTitles.reportingCompanyCRN)
             )
           }
         }
@@ -120,22 +120,22 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               }
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
+          val res = postRequest("/reporting-company-crn", Json.obj("value" -> crn))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
@@ -157,7 +157,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Company Registration Number (CRN)")
+              titleOf(PageTitles.reportingCompanyCRN)
             )
           }
         }
@@ -238,22 +238,22 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               }
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/reporting-company-crn/change", Json.obj("value" -> crn))
+          val res = postRequest("/reporting-company-crn/change", Json.obj("value" -> crn))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }

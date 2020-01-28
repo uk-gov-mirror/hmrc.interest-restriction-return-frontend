@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf(PageTitles.groupSubjectToReactivations)
             )
           }
         }
@@ -70,7 +70,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to InterestReactivationsCap page when answered true" in {
 
             AuthStub.authorised()
 
@@ -84,21 +84,35 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
             }
           }
 
-          "user not authorised" should {
+          "redirect to InterestAllowanceBroughtForward page when answered false" in {
 
-            "return SEE_OTHER (303)" in {
+            AuthStub.authorised()
 
-              AuthStub.unauthorised()
+            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "false"))
 
-              val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
-
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.aboutReturn.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
+              )
             }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
@@ -120,7 +134,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("Is the group subject to reactivations?")
+              titleOf(PageTitles.groupSubjectToReactivations)
             )
           }
         }

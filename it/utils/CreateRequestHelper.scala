@@ -3,7 +3,7 @@ package utils
 import org.scalatestplus.play.ServerProvider
 import play.api.Application
 import play.api.libs.json.JsValue
-import play.api.libs.ws.{DefaultWSCookie, WSClient, WSCookie, WSResponse}
+import play.api.libs.ws.{DefaultWSCookie, WSClient, WSResponse}
 
 import scala.concurrent.Future
 import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
@@ -12,7 +12,7 @@ import scala.concurrent.duration.{Duration, FiniteDuration, SECONDS}
 trait CreateRequestHelper extends ServerProvider {
 
   val defaultSeconds = 5
-  val defaultDuration: FiniteDuration = Duration.apply(defaultSeconds, SECONDS)
+  implicit val defaultDuration: FiniteDuration = Duration.apply(defaultSeconds, SECONDS)
 
   val app: Application
 

@@ -16,11 +16,11 @@
 
 package controllers.aboutReportingCompany
 
-import assets.BaseITConstants
+import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
-import stubs.{AuthStub, CRNValidationStub}
+import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
@@ -40,7 +40,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("UK Tax reference")
+              titleOf(PageTitles.reportingCompanyCTUTR)
             )
           }
         }
@@ -70,7 +70,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to ReportingCompanyCRN page" in {
 
             AuthStub.authorised()
 
@@ -83,22 +83,22 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
               )
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/reporting-company-ctutr", Json.obj("value" -> ctutr))
+          val res = postRequest("/reporting-company-ctutr", Json.obj("value" -> ctutr))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
@@ -163,22 +163,22 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
               )
             }
           }
+        }
+      }
 
-          "user not authorised" should {
+      "user not authorised" should {
 
-            "return SEE_OTHER (303)" in {
+        "return SEE_OTHER (303)" in {
 
-              AuthStub.unauthorised()
+          AuthStub.unauthorised()
 
-              val res = postRequest("/reporting-company-ctutr/change", Json.obj("value" -> ctutr))
+          val res = postRequest("/reporting-company-ctutr/change", Json.obj("value" -> ctutr))
 
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-                )
-              }
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
           }
         }
       }
