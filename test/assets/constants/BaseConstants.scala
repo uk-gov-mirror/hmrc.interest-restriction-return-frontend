@@ -16,8 +16,22 @@
 
 package assets.constants
 
+import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRModel}
+
 trait BaseConstants {
 
-  val ctutr = "1123456789"
-  val crn = "AA111111"
+  val ctutr = UTRModel("1123456789")
+  val sautr = UTRModel("1234567890")
+  val invalidUtr = UTRModel("1999999999")
+  val crn = CRNModel("12345678")
+  val crnLetters = CRNModel("AB123456")
+  val companyName = CompanyNameModel("Company Name ltd")
+  val knownAs = "something"
+  val companyNameMaxLength = 160
+  val companyNameTooLong = CompanyNameModel("a" * (companyNameMaxLength + 1))
+  val knownAsTooLong = "a" * (companyNameMaxLength + 1)
+  val invalidCrn = CRNModel("AAAA1234")
+  val nonUkCrn = "1234567890"
+  val nonUkCountryCode = CountryCodeModel("US")
+  val invalidCountryCode = CountryCodeModel("AA")
 }
