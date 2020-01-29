@@ -18,6 +18,8 @@ package assets.constants
 
 import models.returnModels.ParentCompanyModel
 import play.api.libs.json.Json
+import assets.constants.UltimateParentConstants._
+import assets.constants.DeemedParentConstants._
 
 object ParentCompanyConstants {
 

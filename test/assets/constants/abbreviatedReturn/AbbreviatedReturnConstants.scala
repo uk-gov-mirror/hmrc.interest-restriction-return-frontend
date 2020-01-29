@@ -16,12 +16,12 @@
 
 package assets.constants.abbreviatedReturn
 
-import assets.AgentDetailsConstants._
-import assets.GroupCompanyDetailsConstants._
-import assets.GroupLevelElectionsConstants._
-import assets.ParentCompanyConstants._
-import assets.ReportingCompanyConstants._
-import assets.abbreviatedReturn.UkCompanyConstants._
+import assets.constants.AgentDetailsConstants._
+import assets.constants.GroupCompanyDetailsConstants._
+import assets.constants.GroupLevelElectionsConstants._
+import assets.constants.ParentCompanyConstants._
+import assets.constants.ReportingCompanyConstants._
+import assets.constants.abbreviatedReturn.UkCompanyConstants._
 import models.returnModels.Revised
 import models.returnModels.abbreviatedReturnModel.AbbreviatedReturnModel
 import play.api.libs.json.Json

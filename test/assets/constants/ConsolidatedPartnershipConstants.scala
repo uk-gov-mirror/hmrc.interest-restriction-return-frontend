@@ -18,6 +18,7 @@ package assets.constants
 
 import models.returnModels.ConsolidatedPartnershipModel
 import play.api.libs.json.Json
+import assets.constants.PartnershipsConstants._
 
 object ConsolidatedPartnershipConstants extends BaseConstants {
 

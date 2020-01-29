@@ -18,6 +18,7 @@ package assets.constants
 
 import models.returnModels.GroupLevelElectionsModel
 import play.api.libs.json.Json
+import assets.constants.NonConsolidatedInvestmentConstants._
 
 object GroupLevelElectionsConstants {
 

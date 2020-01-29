@@ -18,6 +18,7 @@ package assets.constants
 
 import models.returnModels.NonConsolidatedInvestmentElectionModel
 import play.api.libs.json.Json
+import assets.constants.NonConsolidatedInvestmentConstants._
 
 object NonConsolidatedInvestmentElectionConstants {
 
