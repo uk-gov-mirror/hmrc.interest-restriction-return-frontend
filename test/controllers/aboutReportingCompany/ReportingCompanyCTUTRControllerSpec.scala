@@ -100,7 +100,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with NunjucksSupport 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ctutrModel.utr))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ctutrModel.ctutr))
 
       val result = controller().onSubmit(NormalMode)(request)
 

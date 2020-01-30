@@ -111,11 +111,11 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, ctutrModel.utr).get)
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get)
 
         helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
-          ctutrModel.utr,
+          ctutrModel.ctutr,
           aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode)
         ))
       }

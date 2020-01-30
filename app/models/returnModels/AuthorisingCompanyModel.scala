@@ -19,7 +19,7 @@ package models.returnModels
 import play.api.libs.json.Json
 
 case class AuthorisingCompanyModel(companyName: CompanyNameModel,
-                                   utr: UTRModel,
+                                   ctutr: UTRModel,
                                    consenting: Option[Boolean])
 
 object AuthorisingCompanyModel {

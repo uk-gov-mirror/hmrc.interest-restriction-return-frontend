@@ -20,7 +20,7 @@ import models.returnModels._
 import play.api.libs.json.Json
 
 case class UkCompanyModel(companyName: CompanyNameModel,
-                          utr: UTRModel,
+                          ctutr: UTRModel,
                           consenting: Boolean,
                           netTaxInterestExpense: BigDecimal,
                           netTaxInterestIncome: BigDecimal,

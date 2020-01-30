@@ -18,7 +18,7 @@ package models.returnModels
 
 import play.api.libs.json.Json
 
-case class UTRModel(utr: String)
+case class UTRModel(ctutr: String)
 
 object UTRModel {
 
