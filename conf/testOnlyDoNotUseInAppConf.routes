@@ -15,8 +15,11 @@ GET         /interest-restriction-return/test-only/feature-switch        testonl
 POST        /interest-restriction-return/test-only/feature-switch        testonly.controllers.FeatureSwitchController.submit
 
 
-# Dynamic Stub Proxy Endpoints
+# Session Data
+GET         /interest-restriction-return/test-only/set-session           testonly.controllers.SessionController.set
+GET         /interest-restriction-return/test-only/show-session          testonly.controllers.SessionController.show
 
+# Dynamic Stub Proxy Endpoints
 + nocsrf
 POST        /interest-restriction-return/test-only/stub/schema           testonly.controllers.DynamicStubController.addSchema
 + nocsrf

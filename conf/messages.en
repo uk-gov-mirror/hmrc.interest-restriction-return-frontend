@@ -276,3 +276,13 @@ continueSavedReturn.continueSavedReturn = Continue working on a saved return
 continueSavedReturn.checkYourAnswersLabel = Do you want to start a new return or continue working on a saved return (if you have one)?
 continueSavedReturn.error.required = Select continue working on a saved return if you have a previously saved return you would like to continue.
 continueSavedReturn.p1 = You can start and save one or more returns and come back to work on them later.
+
+
+# ConfirmationPage Messages
+# ----------------------------------------------------------
+confirmation.title = Return submitted
+confirmation.heading = Return submitted
+confirmation.refNumber = Your reference number
+confirmation.p1 = HMRC has successfully received your return
+confirmation.whatDoYouThink.link = What did you think of this service?
+confirmation.whatDoYouThink.time = (takes 30 seconds)

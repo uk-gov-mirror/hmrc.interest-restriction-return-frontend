@@ -269,3 +269,13 @@ checkAnswersReportingCompany.error.length = CheckAnswersReportingCompany must be
 # ----------------------------------------------------------
 underConstruction.title = underConstruction
 underConstruction.heading = underConstruction
+
+
+# ConfirmationPage Messages
+# ----------------------------------------------------------
+confirmation.title = Return submitted
+confirmation.heading = Return submitted
+confirmation.refNumber = Your reference number
+confirmation.p1 = HMRC has successfully received your return
+confirmation.whatDoYouThink.link = What did you think of this service?
+confirmation.whatDoYouThink.time = (takes 30 seconds)
