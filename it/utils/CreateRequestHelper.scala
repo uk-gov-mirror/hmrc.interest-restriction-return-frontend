@@ -1,8 +1,10 @@
 package utils
 
+import config.SessionKeys
 import org.scalatestplus.play.ServerProvider
 import play.api.Application
-import play.api.libs.json.JsValue
+import play.api.http.HeaderNames
+import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.{DefaultWSCookie, WSClient, WSResponse}
 
 import scala.concurrent.Future
@@ -20,16 +22,16 @@ trait CreateRequestHelper extends ServerProvider {
 
   val defaultCookie = DefaultWSCookie("CSRF-Token","nocheck")
 
-  def getRequest(path: String, follow: Boolean = false): Future[WSResponse] = {
+  def getRequest(path: String, follow: Boolean = false)(sessionKvs: (String, String)*): Future[WSResponse] = {
     ws.url(s"http://localhost:$port/interest-restriction-return$path")
+      .withHttpHeaders(HeaderNames.COOKIE -> SessionCookieBaker.bakeSessionCookie(sessionKvs.toMap))
       .withFollowRedirects(follow)
       .get()
   }
 
-  def postRequest(path: String, formJson: JsValue, follow: Boolean = false): Future[WSResponse] = {
+  def postRequest(path: String, formJson: JsValue, follow: Boolean = false)(sessionKvs: (String, String)*)(): Future[WSResponse] = {
     ws.url(s"http://localhost:$port/interest-restriction-return$path")
-      .withHttpHeaders("Csrf-Token" -> "nocheck")
-      .withCookies(defaultCookie)
+      .withHttpHeaders("Csrf-Token" -> "nocheck", HeaderNames.COOKIE -> SessionCookieBaker.bakeSessionCookie(sessionKvs.toMap))
       .withFollowRedirects(follow)
       .post(formJson)
   }

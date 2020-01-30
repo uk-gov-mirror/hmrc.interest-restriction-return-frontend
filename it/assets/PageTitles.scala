@@ -20,6 +20,7 @@ object PageTitles {
   val fullOrAbbreviatedReturn = "Do you want to submit a full or abbreviated return?"
   val reportingCompanyAppointed = "Has the reporting company been appointed"
   val reportingCompanyRequired = "A reporting company is required"
+  val confirmation = "Return submitted"
 
 
 

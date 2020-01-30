@@ -35,7 +35,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/revising-return")
+          val res = getRequest("/revising-return")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/revising-return")
+          val res = getRequest("/revising-return")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/revising-return", Json.obj("value" -> true))
+            val res = postRequest("/revising-return", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/revising-return", Json.obj("value" -> false))
+            val res = postRequest("/revising-return", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +109,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/revising-return", Json.obj("value" -> true))
+          val res = postRequest("/revising-return", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/revising-return/change")
+          val res = getRequest("/revising-return/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -149,7 +149,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/revising-return/change")
+          val res = getRequest("/revising-return/change")()
 
           whenReady(res) { result =>
             result should have(

@@ -35,7 +35,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-interest-allowance")
+          val res = getRequest("/group-interest-allowance")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-interest-allowance")
+          val res = getRequest("/group-interest-allowance")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))
+            val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))
+          val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -115,7 +115,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-interest-allowance/change")
+          val res = getRequest("/group-interest-allowance/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-interest-allowance/change")
+          val res = getRequest("/group-interest-allowance/change")()
 
           whenReady(res) { result =>
             result should have(

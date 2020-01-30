@@ -51,7 +51,7 @@ trait IntegrationSpecBase extends WordSpec
 
     AuthStub.authorised()
 
-    whenReady(getRequest("/", follow = true)) { result =>
+    whenReady(getRequest("/", follow = true)()) { result =>
       result should have(
         httpStatus(OK)
       )

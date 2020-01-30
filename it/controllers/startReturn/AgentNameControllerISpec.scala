@@ -35,7 +35,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/agent-name")
+          val res = getRequest("/agent-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/agent-name")
+          val res = getRequest("/agent-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
             AuthStub.authorised()
 
-            val res = postRequest("/agent-name", Json.obj("value" -> "a name"))
+            val res = postRequest("/agent-name", Json.obj("value" -> "a name"))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/agent-name", Json.obj("value" -> true))
+          val res = postRequest("/agent-name", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -115,7 +115,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/agent-name/change")
+          val res = getRequest("/agent-name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/agent-name/change")
+          val res = getRequest("/agent-name/change")()
 
           whenReady(res) { result =>
             result should have(

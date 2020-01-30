@@ -42,3 +42,4 @@ object CheckAnswersReportingCompanyTemplate extends WithName("checkAnswersReport
 object SavedReturnTemplate extends WithName("savedReturn.njk") with ViewTemplate
 object UnderConstructionTemplate extends WithName("underConstruction.njk") with ViewTemplate
 object ContinueSavedReturnTemplate extends WithName("continueSavedReturn.njk") with ViewTemplate
+object ConfirmationTemplate extends WithName("confirmation.njk") with ViewTemplate

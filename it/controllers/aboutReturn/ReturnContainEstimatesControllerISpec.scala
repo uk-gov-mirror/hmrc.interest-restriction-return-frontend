@@ -35,7 +35,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          val res = getRequest("/return-contain-estimates")
+          val res = getRequest("/return-contain-estimates")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/return-contain-estimates")
+          val res = getRequest("/return-contain-estimates")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
             AuthStub.authorised()
 
-            val res = postRequest("/return-contain-estimates", Json.obj("value" -> true))
+            val res = postRequest("/return-contain-estimates", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/return-contain-estimates", Json.obj("value" -> true))
+          val res = postRequest("/return-contain-estimates", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -115,7 +115,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          val res = getRequest("/return-contain-estimates/change")
+          val res = getRequest("/return-contain-estimates/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/return-contain-estimates/change")
+          val res = getRequest("/return-contain-estimates/change")()
 
           whenReady(res) { result =>
             result should have(

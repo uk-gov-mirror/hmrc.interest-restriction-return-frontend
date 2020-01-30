@@ -38,7 +38,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.authorised()
 
-          val res = getRequest("/infrastructure-company-election")
+          val res = getRequest("/infrastructure-company-election")()
 
           whenReady(res) { result =>
             result should have(
@@ -55,7 +55,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/infrastructure-company-election")
+          val res = getRequest("/infrastructure-company-election")()
 
           whenReady(res) { result =>
             result should have(
@@ -78,7 +78,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
             AuthStub.authorised()
             setAnswers(FullOrAbbreviatedReturnPage, Full)
 
-            val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
+            val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -93,7 +93,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
             AuthStub.authorised()
             setAnswers(FullOrAbbreviatedReturnPage, Abbreviated)
 
-            val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
+            val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -111,7 +111,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))
+          val res = postRequest("/infrastructure-company-election", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -134,7 +134,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.authorised()
 
-          val res = getRequest("/infrastructure-company-election/change")
+          val res = getRequest("/infrastructure-company-election/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -151,7 +151,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/infrastructure-company-election/change")
+          val res = getRequest("/infrastructure-company-election/change")()
 
           whenReady(res) { result =>
             result should have(

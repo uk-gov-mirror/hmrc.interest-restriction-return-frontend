@@ -35,7 +35,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-restrictions")
+          val res = getRequest("/group-subject-to-restrictions")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-restrictions")
+          val res = getRequest("/group-subject-to-restrictions")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))
+            val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))
+          val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -115,7 +115,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-restrictions/change")
+          val res = getRequest("/group-subject-to-restrictions/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-restrictions/change")
+          val res = getRequest("/group-subject-to-restrictions/change")()
 
           whenReady(res) { result =>
             result should have(

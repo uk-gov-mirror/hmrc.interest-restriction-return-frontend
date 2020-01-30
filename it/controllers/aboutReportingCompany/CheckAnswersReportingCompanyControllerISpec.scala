@@ -35,7 +35,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.authorised()
 
-          val res = getRequest("/check-answers-reporting-company")
+          val res = getRequest("/check-answers-reporting-company")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/check-answers-reporting-company")
+          val res = getRequest("/check-answers-reporting-company")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/check-answers-reporting-company", JsString(""))
+            val res = postRequest("/check-answers-reporting-company", JsString(""))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/check-answers-reporting-company", Json.obj("value" -> ctutr))
+          val res = postRequest("/check-answers-reporting-company", Json.obj("value" -> ctutr))()
 
           whenReady(res) { result =>
             result should have(
