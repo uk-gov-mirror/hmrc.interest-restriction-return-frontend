@@ -24,7 +24,7 @@
 
 @()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@main_template(Some(titleNoForm("unauthorised.title"))) {
+@main_template(Some(titleNoForm("unauthorised.title")), timeout = false) {
 
     @h1("unauthorised.heading")
 }

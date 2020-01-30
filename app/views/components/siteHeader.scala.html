@@ -18,17 +18,19 @@
 
 @this(govukHeader: GovukHeader)
 
-@()(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(showSignOut: Boolean = true)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukHeader(Header(
     homepageUrl = Some(controllers.routes.IndexController.onPageLoad().url),
     serviceName = Some(messages("service.name")),
     serviceUrl = Some(controllers.routes.IndexController.onPageLoad().url),
     containerClasses = Some("govuk-width-container"),
-    navigation = Some(Seq(
-        HeaderNavigation(
-            href = Some(controllers.routes.SignOutController.signOut().url),
-            text = Some(messages("site.signOut"))
-        )
-    ))
+    navigation = if (showSignOut) {
+        Some(Seq(
+            HeaderNavigation(
+                href = Some(controllers.routes.SignOutController.signOut().url),
+                text = Some(messages("site.signOut"))
+            )
+        ))
+    } else None
 ))

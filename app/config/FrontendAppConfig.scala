@@ -59,6 +59,9 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
   lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
 
+  lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")
+  lazy val countdown: Int = servicesConfig.getInt("timeout.countdown")
+
   lazy val languageTranslationEnabled: Boolean =
     servicesConfig.getBoolean("features.welsh-translation")
 

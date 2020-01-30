@@ -28,14 +28,29 @@ class SignOutControllerSpec extends SpecBase with MockSessionRepository {
     appConfig = frontendAppConfig
   )
 
-  "SignOut Controller" must {
+  "SignOut Controller" when {
 
-    "redirect to /gg/sign-out with continue to the feedback survey" in {
+    "calling the .signOut() method" must {
 
-      val result = TestSignOutController.signOut(fakeRequest)
+      "redirect to /gg/sign-out with continue to the feedback survey" in {
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl + s"?continue=${ContinueUrl(frontendAppConfig.exitSurveyUrl).encodedUrl}")
+        val result = TestSignOutController.signOut(fakeRequest)
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl + s"?continue=${ContinueUrl(frontendAppConfig.exitSurveyUrl).encodedUrl}")
+      }
+    }
+
+    "calling the .signOutNoSurvey() method" must {
+
+      "redirect to /gg/sign-out with continue to the session timeout page" in {
+
+        val result = TestSignOutController.signOutNoSurvey(fakeRequest)
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl +
+          s"?continue=${ContinueUrl(frontendAppConfig.host + controllers.errors.routes.SessionExpiredController.onPageLoad().url).encodedUrl}")
+      }
     }
   }
 }
