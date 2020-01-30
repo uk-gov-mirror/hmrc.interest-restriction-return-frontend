@@ -14,23 +14,34 @@
  * limitations under the License.
  */
 
-package assets.constants.abbreviatedReturn
+package models.returnModels.fullReturn
 
 import assets.constants.BaseConstants
-import models.returnModels.abbreviatedReturnModel.UkCompanyModel
+import assets.constants.fullReturn.FullReturnConstants._
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
 
-object UkCompanyConstants extends BaseConstants {
+class FullReturnModelSpec extends WordSpec with Matchers with BaseConstants {
 
-  val ukCompanyModel = UkCompanyModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel,
-    consenting = true
-  )
+  "FullReturnModel" must {
 
-  val ukCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "ctutr" -> ctutrModel,
-    "consenting" -> true
-  )
+    "correctly write to json" when {
+
+      "max values given" in {
+
+        val expectedValue = fullReturnJsonMax
+        val actualValue = Json.toJson(fullReturnModelMax)
+
+        actualValue shouldBe expectedValue
+      }
+
+      "min values given" in {
+
+        val expectedValue = fullReturnJsonMin
+        val actualValue = Json.toJson(fullReturnModelMin)
+        actualValue shouldBe expectedValue
+      }
+    }
+  }
 }
+

@@ -14,22 +14,34 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels
 
-import models.returnModels.PartnershipModel
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
+import assets.constants.DeemedParentConstants._
 
-object PartnershipsConstants extends  BaseConstants {
+class DeemedParentModelSpec extends WordSpec with Matchers {
 
-  val partnerName = "some partner"
+  "DeemedParentModel" must {
 
-  val partnershipModel = PartnershipModel(
-    partnershipName = partnerName,
-    sautr = Some(sautrModel)
-  )
+    "correctly write to json" when {
 
-  val partnershipJson = Json.obj(
-    "partnershipName" -> partnerName,
-    "sautr" -> sautrModel
-  )
+      "max values given" in {
+
+        val expectedValue = deemedParentJsonMax
+        val actualValue = Json.toJson(deemedParentModelMax)
+
+        actualValue shouldBe expectedValue
+      }
+
+      "min values given" in {
+
+        val expectedValue = deemedParentJsonMin
+        val actualValue = Json.toJson(deemedParentModelMin)
+
+        actualValue shouldBe expectedValue
+      }
+    }
+  }
 }
+

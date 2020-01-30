@@ -23,18 +23,18 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentModelMax = DeemedParentModel(
     isUk = true,
-    companyName = companyName,
+    companyName = companyNameModel,
     knownAs = Some(knownAs),
-    ctutr = Some(ctutr),
-    sautr = Some(sautr),
-    crn = Some(crn),
+    ctutr = Some(ctutrModel),
+    sautr = Some(sautrModel),
+    crn = Some(crnModel),
     nonUkCrn = Some(nonUkCrn),
     countryOfIncorporation = Some(nonUkCountryCode)
   )
 
   val deemedParentModelMin = DeemedParentModel(
     isUk = true,
-    companyName = companyName,
+    companyName = companyNameModel,
     knownAs = None,
     ctutr = None,
     crn = None,
@@ -45,18 +45,18 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentModelUkCompany = DeemedParentModel(
     isUk = true,
-    companyName = companyName,
+    companyName = companyNameModel,
     knownAs = Some(knownAs),
-    ctutr = Some(ctutr),
+    ctutr = Some(ctutrModel),
     sautr = None,
-    crn = Some(crn),
+    crn = Some(crnModel),
     nonUkCrn = None,
     countryOfIncorporation = None
   )
 
   val deemedParentModelNonUkCompany = DeemedParentModel(
     isUk = false,
-    companyName = companyName,
+    companyName = companyNameModel,
     knownAs = Some(knownAs),
     ctutr = None,
     sautr = None,
@@ -67,52 +67,52 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentModelUkPartnership = DeemedParentModel(
     isUk = true,
-    companyName = companyName,
+    companyName = companyNameModel,
     knownAs = Some(knownAs),
     ctutr = None,
-    sautr = Some(sautr),
-    crn = Some(crn),
+    sautr = Some(sautrModel),
+    crn = Some(crnModel),
     nonUkCrn = None,
     countryOfIncorporation = None
   )
 
   val deemedParentJsonMax = Json.obj(
     "isUk" -> true,
-    "companyName" -> companyName,
+    "companyName" -> companyNameModel,
     "knownAs" -> knownAs,
-    "ctutr" -> ctutr,
-    "sautr" -> sautr,
-    "crn" -> crn,
+    "ctutr" -> ctutrModel,
+    "sautr" -> sautrModel,
+    "crn" -> crnModel,
     "nonUkCrn" -> nonUkCrn,
     "countryOfIncorporation" -> Some(nonUkCountryCode)
   )
 
   val deemedParentJsonMin = Json.obj(
     "isUk" -> true,
-    "companyName" -> companyName
+    "companyName" -> companyNameModel
   )
 
   val deemedParentJsonUkCompany = Json.obj(
     "isUk" -> true,
-    "companyName" -> companyName,
+    "companyName" -> companyNameModel,
     "knownAs" -> knownAs,
-    "ctutr" -> ctutr,
-    "crn" -> crn
+    "ctutr" -> ctutrModel,
+    "crn" -> crnModel
   )
 
   val deemedParentJsonNonUkCompany= Json.obj(
     "isUk" -> false,
-    "companyName" -> companyName,
+    "companyName" -> companyNameModel,
     "knownAs" -> knownAs,
-    "nonUkCrn" -> crn,
+    "nonUkCrn" -> crnModel,
     "countryOfIncorporation" -> nonUkCountryCode
   )
 
   val deemedParentJsonUkPartnership = Json.obj(
     "isUk" -> false,
-    "companyName" -> companyName,
+    "companyName" -> companyNameModel,
     "knownAs" -> knownAs,
-    "sautr" -> sautr,
-    "crn" -> crn
+    "sautr" -> sautrModel,
+    "crn" -> crnModel
   )
 }

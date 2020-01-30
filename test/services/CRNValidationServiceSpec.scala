@@ -33,10 +33,10 @@ class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector 
 
       "return a Right(ValidCRN)" in {
 
-        mockValidateCRN(crn)(Right(ValidCRN))
+        mockValidateCRN(crnModel)(Right(ValidCRN))
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = TestCRNValidationService.validateCRN(crn)(hc, ec, fakeDataRequest)
+        val actualResult = TestCRNValidationService.validateCRN(crnModel)(hc, ec, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -46,10 +46,10 @@ class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector 
 
       "return a Left(InvalidCRN)" in {
 
-        mockValidateCRN(crn)(Left(InvalidCRN))
+        mockValidateCRN(crnModel)(Left(InvalidCRN))
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = TestCRNValidationService.validateCRN(crn)(hc, ec, fakeDataRequest)
+        val actualResult = TestCRNValidationService.validateCRN(crnModel)(hc, ec, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }
@@ -59,10 +59,10 @@ class CRNValidationServiceSpec extends SpecBase with MockCRNValidationConnector 
 
       "return a Left(UnexpectedFailure)" in {
 
-        mockValidateCRN(crn)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
+        mockValidateCRN(crnModel)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
-        val actualResult = TestCRNValidationService.validateCRN(crn)(hc, ec, fakeDataRequest)
+        val actualResult = TestCRNValidationService.validateCRN(crnModel)(hc, ec, fakeDataRequest)
 
         await(actualResult) mustBe expectedResult
       }

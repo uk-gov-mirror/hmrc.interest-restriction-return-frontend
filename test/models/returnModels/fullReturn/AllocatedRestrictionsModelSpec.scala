@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels.fullReturn
 
-import models.returnModels.AuthorisingCompanyModel
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
+import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 
-object AuthorisingCompanyConstants extends BaseConstants {
+class AllocatedRestrictionsModelSpec extends WordSpec with Matchers {
 
-  val authorisingCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "utr" -> ctutrModel,
-    "consenting" -> true
-  )
+  "AllocatedRestrictionsModel" must {
 
-  val authorisingCompanyModel = AuthorisingCompanyModel(
-    companyName = companyNameModel,
-    utr = ctutrModel,
-    consenting = Some(true)
-  )
+    "correctly write to json" in {
+
+      val expectedValue = allocatedRestrictionsJson
+      val actualValue = Json.toJson(allocatedRestrictionsModel)
+
+      actualValue shouldBe expectedValue
+    }
+  }
 }

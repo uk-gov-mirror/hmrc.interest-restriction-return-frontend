@@ -108,9 +108,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
 
     "redirect to the next page when valid data is submitted" in {
 
-      mockValidateCRN(crn)(Right(ValidCRN))
+      mockValidateCRN(crnModel.crn)(Right(ValidCRN))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", crn))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -129,9 +129,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
 
     "return a Bad Request and errors when invalid crn is submitted" in {
 
-      mockValidateCRN(crn)(Left(InvalidCRN))
+      mockValidateCRN(crnModel.crn)(Left(InvalidCRN))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", crn))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -140,9 +140,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
 
     "return a Internal Server Error when Unexpected Failure is returned" in {
 
-      mockValidateCRN(crn)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
+      mockValidateCRN(crnModel.crn)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", crn))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
       val result = controller().onSubmit(NormalMode)(request)
 

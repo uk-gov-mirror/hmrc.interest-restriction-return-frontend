@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels.fullReturn
 
-import models.returnModels.AuthorisingCompanyModel
+import org.scalatest.{Matchers, WordSpec}
+import assets.constants.fullReturn.GroupLevelAmountConstants._
 import play.api.libs.json.Json
 
-object AuthorisingCompanyConstants extends BaseConstants {
+class GroupLevelAmountModelSpec extends WordSpec with Matchers {
 
-  val authorisingCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "utr" -> ctutrModel,
-    "consenting" -> true
-  )
+  "GroupLevelAmountModel" must {
 
-  val authorisingCompanyModel = AuthorisingCompanyModel(
-    companyName = companyNameModel,
-    utr = ctutrModel,
-    consenting = Some(true)
-  )
+    "correctly write to json" in {
+
+      val expectedValue = groupLevelAmountJson
+      val actualValue = Json.toJson(groupLevelAmountModel)
+
+      actualValue shouldBe expectedValue
+    }
+  }
 }

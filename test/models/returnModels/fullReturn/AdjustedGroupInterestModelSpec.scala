@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels.fullReturn
 
-import models.returnModels.AuthorisingCompanyModel
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
+import assets.constants.fullReturn.AdjustedGroupInterestConstants._
 
-object AuthorisingCompanyConstants extends BaseConstants {
+class AdjustedGroupInterestModelSpec extends WordSpec with Matchers {
 
-  val authorisingCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "utr" -> ctutrModel,
-    "consenting" -> true
-  )
+  "AdjustedGroupInterestModel" must {
 
-  val authorisingCompanyModel = AuthorisingCompanyModel(
-    companyName = companyNameModel,
-    utr = ctutrModel,
-    consenting = Some(true)
-  )
+    "correctly write to json" in {
+
+      val expectedValue = adjustedGroupInterestJson
+      val actualValue = Json.toJson(adjustedGroupInterestModel)
+
+      actualValue shouldBe expectedValue
+    }
+  }
 }

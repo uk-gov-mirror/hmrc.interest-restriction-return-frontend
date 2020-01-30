@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels
 
-import models.returnModels.AuthorisingCompanyModel
+import assets.constants.AccountingPeriodConstants._
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
 
-object AuthorisingCompanyConstants extends BaseConstants {
+class AccountingPeriodModelSpec extends WordSpec with Matchers {
 
-  val authorisingCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "utr" -> ctutrModel,
-    "consenting" -> true
-  )
+  "AccountingPeriodModel" must {
 
-  val authorisingCompanyModel = AuthorisingCompanyModel(
-    companyName = companyNameModel,
-    utr = ctutrModel,
-    consenting = Some(true)
-  )
+    "correctly write to json" in {
+
+      val expectedValue = accountingPeriodJson
+      val actualValue = Json.toJson(accountingPeriodModel)
+
+      actualValue shouldBe expectedValue
+    }
+  }
 }
+

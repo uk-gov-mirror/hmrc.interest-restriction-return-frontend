@@ -22,7 +22,7 @@ import assets.constants.GroupLevelElectionsConstants._
 import assets.constants.ParentCompanyConstants._
 import assets.constants.ReportingCompanyConstants._
 import assets.constants.abbreviatedReturn.UkCompanyConstants._
-import models.returnModels.Revised
+import models.returnModels._
 import models.returnModels.abbreviatedReturnModel.AbbreviatedReturnModel
 import play.api.libs.json.Json
 

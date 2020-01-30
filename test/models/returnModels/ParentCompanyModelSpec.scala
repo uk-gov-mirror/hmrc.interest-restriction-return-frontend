@@ -14,22 +14,33 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels
 
-import models.returnModels.AuthorisingCompanyModel
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
+import assets.constants.ParentCompanyConstants._
 
-object AuthorisingCompanyConstants extends BaseConstants {
+class ParentCompanyModelSpec extends WordSpec with Matchers {
 
-  val authorisingCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "utr" -> ctutrModel,
-    "consenting" -> true
-  )
+  "ParentCompanyModel" must {
 
-  val authorisingCompanyModel = AuthorisingCompanyModel(
-    companyName = companyNameModel,
-    utr = ctutrModel,
-    consenting = Some(true)
-  )
+    "correctly write to json" when {
+
+      "max values given" in {
+
+        val expectedValue = parentCompanyJsonMax
+        val actualValue = Json.toJson(parentCompanyModelMax)
+
+        actualValue shouldBe expectedValue
+      }
+
+      "min values given" in {
+
+        val expectedValue = Json.obj()
+        val actualValue = Json.toJson(parentCompanyModelMin)
+
+        actualValue shouldBe expectedValue
+      }
+    }
+  }
 }

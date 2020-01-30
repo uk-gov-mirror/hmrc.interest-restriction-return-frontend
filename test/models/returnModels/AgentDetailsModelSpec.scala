@@ -14,22 +14,33 @@
  * limitations under the License.
  */
 
-package assets.constants
+package models.returnModels
 
-import models.returnModels.PartnershipModel
+import assets.constants.AgentDetailsConstants._
+import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json.Json
 
-object PartnershipsConstants extends  BaseConstants {
+class AgentDetailsModelSpec extends WordSpec with Matchers {
 
-  val partnerName = "some partner"
+  "AgentDetailsModel" must {
 
-  val partnershipModel = PartnershipModel(
-    partnershipName = partnerName,
-    sautr = Some(sautrModel)
-  )
+    "correctly write to json" when {
 
-  val partnershipJson = Json.obj(
-    "partnershipName" -> partnerName,
-    "sautr" -> sautrModel
-  )
+      "max values given" in {
+
+        val expectedValue = agentDetailsJsonMax
+        val actualValue = Json.toJson(agentDetailsModelMax)
+
+        actualValue shouldBe expectedValue
+      }
+
+      "min values given" in {
+
+        val expectedValue = agentDetailsJsonMin
+        val actualValue = Json.toJson(agentDetailsModelMin)
+
+        actualValue shouldBe expectedValue
+      }
+    }
+  }
 }

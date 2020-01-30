@@ -20,12 +20,12 @@ import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRMod
 
 trait BaseConstants {
 
-  val ctutr = UTRModel("1123456789")
-  val sautr = UTRModel("1234567890")
+  val ctutrModel = UTRModel("1123456789")
+  val sautrModel = UTRModel("1234567890")
   val invalidUtr = UTRModel("1999999999")
-  val crn = CRNModel("12345678")
+  val crnModel = CRNModel("12345678")
   val crnLetters = CRNModel("AB123456")
-  val companyName = CompanyNameModel("Company Name ltd")
+  val companyNameModel = CompanyNameModel("Company Name ltd")
   val knownAs = "something"
   val companyNameMaxLength = 160
   val companyNameTooLong = CompanyNameModel("a" * (companyNameMaxLength + 1))
