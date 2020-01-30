@@ -36,7 +36,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-appointed")
+          val res = getRequest("/reporting-company-appointed")()
 
           whenReady(res) { result =>
             result should have(
@@ -53,7 +53,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-appointed")
+          val res = getRequest("/reporting-company-appointed")()
 
           whenReady(res) { result =>
             result should have(
@@ -75,7 +75,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-appointed", Json.obj("value" -> true))
+            val res = postRequest("/reporting-company-appointed", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-appointed", Json.obj("value" -> false))
+            val res = postRequest("/reporting-company-appointed", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -110,7 +110,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-appointed", Json.obj("value" -> true))
+          val res = postRequest("/reporting-company-appointed", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -133,7 +133,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-appointed/change")
+          val res = getRequest("/reporting-company-appointed/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -150,7 +150,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-appointed/change")
+          val res = getRequest("/reporting-company-appointed/change")()
 
           whenReady(res) { result =>
             result should have(

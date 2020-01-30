@@ -35,7 +35,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-reactivations-cap")
+          val res = getRequest("/interest-reactivations-cap")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-reactivations-cap")
+          val res = getRequest("/interest-reactivations-cap")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
             AuthStub.authorised()
 
-            val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))
+            val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))
+          val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -115,7 +115,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-reactivations-cap/change")
+          val res = getRequest("/interest-reactivations-cap/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-reactivations-cap/change")
+          val res = getRequest("/interest-reactivations-cap/change")()
 
           whenReady(res) { result =>
             result should have(

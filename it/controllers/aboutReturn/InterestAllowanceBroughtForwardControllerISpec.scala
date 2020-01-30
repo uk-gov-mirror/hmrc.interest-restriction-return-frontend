@@ -35,7 +35,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-allowance-brought-forward")
+          val res = getRequest("/interest-allowance-brought-forward")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-allowance-brought-forward")
+          val res = getRequest("/interest-allowance-brought-forward")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
             AuthStub.authorised()
 
-            val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))
+            val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))
+          val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -115,7 +115,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-allowance-brought-forward/change")
+          val res = getRequest("/interest-allowance-brought-forward/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-allowance-brought-forward/change")
+          val res = getRequest("/interest-allowance-brought-forward/change")()
 
           whenReady(res) { result =>
             result should have(

@@ -35,7 +35,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-reactivations")
+          val res = getRequest("/group-subject-to-reactivations")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-reactivations")
+          val res = getRequest("/group-subject-to-reactivations")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -88,7 +88,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "false"))
+            val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "false"))()
 
             whenReady(res) { result =>
               result should have(
@@ -106,7 +106,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))
+          val res = postRequest("/group-subject-to-reactivations", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -129,7 +129,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-reactivations/change")
+          val res = getRequest("/group-subject-to-reactivations/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -146,7 +146,7 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-reactivations/change")
+          val res = getRequest("/group-subject-to-reactivations/change")()
 
           whenReady(res) { result =>
             result should have(

@@ -36,7 +36,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.authorised()
 
-          val res = getRequest("/full-or-abbreviated-return")
+          val res = getRequest("/full-or-abbreviated-return")()
 
           whenReady(res) { result =>
             result should have(
@@ -53,7 +53,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/full-or-abbreviated-return")
+          val res = getRequest("/full-or-abbreviated-return")()
 
           whenReady(res) { result =>
             result should have(
@@ -75,7 +75,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
             AuthStub.authorised()
 
-            val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))
+            val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))()
 
             whenReady(res) { result =>
               result should have(
@@ -93,7 +93,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))
+          val res = postRequest("/full-or-abbreviated-return", Json.obj("value" -> Full.toString))()
 
           whenReady(res) { result =>
             result should have(
@@ -116,7 +116,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.authorised()
 
-          val res = getRequest("/full-or-abbreviated-return/change")
+          val res = getRequest("/full-or-abbreviated-return/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -133,7 +133,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/full-or-abbreviated-return/change")
+          val res = getRequest("/full-or-abbreviated-return/change")()
 
           whenReady(res) { result =>
             result should have(
