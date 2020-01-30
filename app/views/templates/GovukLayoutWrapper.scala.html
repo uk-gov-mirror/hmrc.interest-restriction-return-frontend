@@ -28,7 +28,7 @@
     link: components.link
 )
 
-@(pageTitle: Option[String] = None)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(pageTitle: Option[String] = None, timeout: Boolean = true)(contentBlock: Html)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @head = {
     <!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
@@ -39,6 +39,20 @@
     <script src='@controllers.routes.Assets.versioned("lib/govuk-frontend/govuk/all.js")'></script>
     <script src='@controllers.routes.Assets.versioned("javascripts/interestrestrictionreturn-app.min.js")'></script>
     <script>window.GOVUKFrontend.initAll();</script>
+    <script>
+        if (@timeout) {
+            timeoutDialog({
+                title: '@messages("timeout.title")',
+                message: '@messages("timeout.message")',
+                keepAliveButtonText: '@messages("timeout.keepAlive")',
+                signOutButtonText: '@messages("timeout.signOut")',
+                timeout: @{appConfig.timeout},
+                countdown: @{appConfig.countdown},
+                keepAliveUrl: '@{request.uri}',
+                signOutUrl: '@{controllers.routes.SignOutController.signOutNoSurvey().url}'
+            });
+        };
+    </script>
 }
 
 @beforeContentBlock = {
@@ -61,5 +75,5 @@
   beforeContentBlock = Some(beforeContentBlock),
   bodyEndBlock = None,
   scriptsBlock = Some(scripts),
-  headerBlock = Some(siteHeader())
+  headerBlock = Some(siteHeader(timeout))
 )(contentBlock)

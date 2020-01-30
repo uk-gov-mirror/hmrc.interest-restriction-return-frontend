@@ -59,7 +59,8 @@ lazy val root = (project in file("."))
         group(Seq(
           "lib/govuk-frontend/govuk/all.js",
           "javascripts/jquery.min.js",
-          "javascripts/interestrestrictionreturn.js"
+          "javascripts/interestrestrictionreturn.js",
+          "javascripts/timeout/timeoutDialog.js"
         ))
     ),
     // prevent removal of unused code which generates warning errors due to use of third-party libs
