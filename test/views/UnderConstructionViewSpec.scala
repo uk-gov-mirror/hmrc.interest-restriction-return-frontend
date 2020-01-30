@@ -16,10 +16,9 @@
 
 package views
 
+import nunjucks.UnderConstructionTemplate
 import views.behaviours.ViewBehaviours
 import views.html.UnderConstructionView
-import nunjucks.UnderConstructionTemplate
-import views.{Twirl, Nunjucks}
 
 class UnderConstructionViewSpec extends ViewBehaviours {
 

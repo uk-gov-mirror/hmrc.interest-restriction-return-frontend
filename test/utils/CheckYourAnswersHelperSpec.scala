@@ -97,11 +97,11 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyNamePage, "A Company Name").get)
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyNamePage, companyNameModel.name).get)
 
         helper.reportingCompanyName mustBe Some(summaryListRow(
           messages("reportingCompanyName.checkYourAnswersLabel"),
-          "A Company Name",
+          companyNameModel.name,
           aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(CheckMode)
         ))
       }
@@ -111,11 +111,11 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, ctutr).get)
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get)
 
         helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
-          ctutr,
+          ctutrModel.ctutr,
           aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode)
         ))
       }
@@ -125,11 +125,11 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCRNPage, "12345678").get)
+        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCRNPage, crnModel.crn).get)
 
         helper.reportingCompanyCRN mustBe Some(summaryListRow(
           messages("reportingCompanyCRN.checkYourAnswersLabel"),
-          "12345678",
+          crnModel.crn,
           aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode)
         ))
       }
