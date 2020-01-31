@@ -45,8 +45,7 @@ case class FullReturnModel(agentDetails: AgentDetailsModel,
   }
 
   val numberOfUkCompanies: Int = ukCompanies.length
-  val aggregateNetTaxInterestIncome: BigDecimal = totalTaxInterestIncome - totalTaxInterestExpense
-  val aggregateNetTaxInterestExpense: BigDecimal = totalTaxInterestExpense - totalTaxInterestIncome
+  val aggregateNetTaxInterest: BigDecimal = totalTaxInterestIncome - totalTaxInterestExpense
   val aggregateTaxEBITDA: BigDecimal = ukCompanies.map(_.taxEBITDA).sum
   val aggregateAllocatedRestrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
   val aggregateAllocatedReactivations: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.currentPeriodReactivation)))
