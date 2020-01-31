@@ -66,7 +66,4 @@ awk '/class/ {\
      print "  def returnContainEstimates: Option[SummaryListRow] = answer(ReturnContainEstimatesPage, routes.ReturnContainEstimatesController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object ReturnContainEstimatesTemplate extends WithName(\"returnContainEstimates.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration ReturnContainEstimates completed"

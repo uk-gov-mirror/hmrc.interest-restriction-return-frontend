@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.InterestReactivationsCapFormProvider
 import models.NormalMode
-import nunjucks.InterestReactivationsCapTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.DecimalViewBehaviours
 import views.html.aboutReturn.InterestReactivationsCapView
-import views.{Nunjucks, Twirl}
 
-class InterestReactivationsCapViewSpec extends DecimalViewBehaviours with NunjucksSupport {
+class InterestReactivationsCapViewSpec extends DecimalViewBehaviours {
 
   val messageKeyPrefix = "interestReactivationsCap"
 
   val form = new InterestReactivationsCapFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"InterestReactivationsCap ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(InterestReactivationsCapTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[InterestReactivationsCapView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[InterestReactivationsCapView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

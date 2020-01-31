@@ -16,15 +16,14 @@
 
 package utils
 
-import controllers.routes
-import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.startReturn.{routes => startReturnRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.aboutReturn.{GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
+import pages.aboutReturn._
+import pages.startReturn._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
@@ -66,10 +65,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def agentActingOnBehalfOfCompany: Option[SummaryListRow] = answer(AgentActingOnBehalfOfCompanyPage, startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))
 
   def infrastructureCompanyElection: Option[SummaryListRow] = answer(InfrastructureCompanyElectionPage, aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))
-
-  def helloWorldYesNo: Option[SummaryListRow] = answer(HelloWorldYesNoPage, routes.HelloWorldYesNoController.onPageLoad(CheckMode))
-
-  def helloWorldYesNoNunjucks: Option[SummaryListRow] = answer(HelloWorldYesNoPageNunjucks, routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode))
 
   private def answer[A](page: QuestionPage[A], changeLinkCall: Call)
                        (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =

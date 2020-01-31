@@ -17,22 +17,18 @@
 package controllers.startReturn
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.startReturn.AgentNameFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.StartReturnNavigator
-import nunjucks.viewmodels.BasicFormViewModel
-import nunjucks.{AgentNameTemplate, Renderer}
 import pages.startReturn.AgentNamePage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.startReturn.AgentNameView
 
 import scala.concurrent.Future
@@ -46,15 +42,10 @@ class AgentNameController @Inject()(
                                      requireData: DataRequiredAction,
                                      formProvider: AgentNameFormProvider,
                                      val controllerComponents: MessagesControllerComponents,
-                                     view: AgentNameView,
-                                     renderer: Renderer
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                     view: AgentNameView
+                                   )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render(AgentNameTemplate, Json.toJsObject(BasicFormViewModel(form, mode)))
-  } else {
-    Future.successful(view(form, mode))
-  }
+  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

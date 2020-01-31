@@ -18,19 +18,16 @@ package controllers.aboutReportingCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.ReportingCompany
 import navigation.AboutReportingCompanyNavigator
-import nunjucks.{CheckYourAnswersTemplate, Renderer}
 import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.Json
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Request}
+import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersHelper
 import views.html.CheckYourAnswersView
@@ -44,21 +41,11 @@ class CheckAnswersReportingCompanyController @Inject()(
                                                         requireData: DataRequiredAction,
                                                         val controllerComponents: MessagesControllerComponents,
                                                         navigator: AboutReportingCompanyNavigator,
-                                                        view: CheckYourAnswersView,
-                                                        renderer: Renderer
+                                                        view: CheckYourAnswersView
                                                       )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with NunjucksSupport with FeatureSwitching {
+  extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] =
-    if (isEnabled(UseNunjucks)) {
-      renderer.render(CheckYourAnswersTemplate, Json.obj(
-        "rows" -> answers,
-        "section" -> ReportingCompany,
-        "postAction" -> postAction.url
-      ))
-    } else {
-      Future.successful(view(answers, ReportingCompany, postAction))
-    }
+  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, ReportingCompany, postAction))
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

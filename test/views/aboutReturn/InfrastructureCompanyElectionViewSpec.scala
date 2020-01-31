@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.InfrastructureCompanyElectionFormProvider
 import models.NormalMode
-import nunjucks.InfrastructureCompanyElectionTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.behaviours.YesNoViewBehaviours
 import views.html.aboutReturn.InfrastructureCompanyElectionView
-import views.{Nunjucks, Twirl, ViewSpecBase}
+import views.{Twirl, ViewSpecBase}
 
-class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with NunjucksSupport with ViewSpecBase {
+class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with ViewSpecBase {
 
   val messageKeyPrefix = "infrastructureCompanyElection"
 
   val form = new InfrastructureCompanyElectionFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"InfrastructureCompanyElection ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(InfrastructureCompanyElectionTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[InfrastructureCompanyElectionView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[InfrastructureCompanyElectionView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

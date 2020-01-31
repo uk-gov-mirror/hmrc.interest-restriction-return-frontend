@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReportingCompany.routes
 import forms.aboutReportingCompany.ReportingCompanyNameFormProvider
 import models.NormalMode
-import nunjucks.ReportingCompanyNameTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.{Nunjucks, Twirl}
+import views.Twirl
 import views.behaviours.StringViewBehaviours
 import views.html.aboutReportingCompany.ReportingCompanyNameView
 
-class ReportingCompanyNameViewSpec extends StringViewBehaviours with NunjucksSupport {
+class ReportingCompanyNameViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyName"
 
   val form = new ReportingCompanyNameFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"ReportingCompanyName ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(ReportingCompanyNameTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[ReportingCompanyNameView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[ReportingCompanyNameView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

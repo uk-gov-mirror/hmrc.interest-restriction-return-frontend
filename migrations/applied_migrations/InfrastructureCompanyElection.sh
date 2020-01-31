@@ -66,7 +66,4 @@ awk '/class/ {\
      print "  def infrastructureCompanyElection: Option[SummaryListRow] = answer(InfrastructureCompanyElectionPage, routes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object InfrastructureCompanyElectionTemplate extends WithName(\"infrastructureCompanyElection.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration InfrastructureCompanyElection completed"

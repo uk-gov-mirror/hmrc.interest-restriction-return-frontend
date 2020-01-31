@@ -22,7 +22,7 @@ object FeatureSwitch {
 
   val prefix = "features"
 
-  val switches: Seq[FeatureSwitch] = Seq(UseNunjucks, WelshLanguage)
+  val switches: Seq[FeatureSwitch] = Seq(WelshLanguage)
   val booleanFeatureSwitches: Seq[BooleanFeatureSwitch] = switches.collect{case a: BooleanFeatureSwitch => a}
   val customValueFeatureSwitch: Seq[CustomValueFeatureSwitch] = switches.collect{case a: CustomValueFeatureSwitch => a}
 
@@ -45,12 +45,6 @@ sealed trait FeatureSwitch {
 sealed trait BooleanFeatureSwitch extends FeatureSwitch
 sealed trait CustomValueFeatureSwitch extends FeatureSwitch {
   val values: Set[String]
-}
-
-case object UseNunjucks extends BooleanFeatureSwitch {
-  override val name: String = s"$prefix.useNunjucksTemplating"
-  override val displayText: String = "Enable the use of Nunjucks Templating instead of Twirl"
-  override val hint: Option[String] = Some("Feature Switch Page is always in Twirl")
 }
 
 case object WelshLanguage extends BooleanFeatureSwitch {

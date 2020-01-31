@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.GroupSubjectToRestrictionsFormProvider
 import models.NormalMode
-import nunjucks.GroupSubjectToRestrictionsTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.YesNoViewBehaviours
 import views.html.aboutReturn.GroupSubjectToRestrictionsView
-import views.{Nunjucks, Twirl}
 
-class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "groupSubjectToRestrictions"
 
   val form = new GroupSubjectToRestrictionsFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"GroupSubjectToRestrictions ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(GroupSubjectToRestrictionsTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[GroupSubjectToRestrictionsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[GroupSubjectToRestrictionsView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

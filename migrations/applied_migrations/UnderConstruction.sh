@@ -23,9 +23,6 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "underConstruction.title = underConstruction" >> ../conf/messages.cy
 echo "underConstruction.heading = underConstruction" >> ../conf/messages.cy
 
-echo "Adding template to Nunjucks templates"
-echo "object UnderConstructionTemplate extends WithName(\"underConstruction.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Adding to Pages map"
 awk '/val pages/ {\
     print;\

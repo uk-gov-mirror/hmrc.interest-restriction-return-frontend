@@ -66,7 +66,4 @@ awk '/class/ {\
      print "  def groupSubjectToReactivations: Option[SummaryListRow] = answer(GroupSubjectToReactivationsPage, routes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object GroupSubjectToReactivationsTemplate extends WithName(\"groupSubjectToReactivations.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration GroupSubjectToReactivations completed"

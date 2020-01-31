@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.startReturn.routes
 import forms.startReturn.AgentNameFormProvider
 import models.NormalMode
-import nunjucks.AgentNameTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.StringViewBehaviours
 import views.html.startReturn.AgentNameView
-import views.{Nunjucks, Twirl}
 
-class AgentNameViewSpec extends StringViewBehaviours with NunjucksSupport {
+class AgentNameViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "agentName"
 
   val form = new AgentNameFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"AgentName ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(AgentNameTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[AgentNameView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[AgentNameView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

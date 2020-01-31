@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.ReturnContainEstimatesFormProvider
 import models.NormalMode
-import nunjucks.ReturnContainEstimatesTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.viewmodels.NunjucksSupport
+import views.Twirl
 import views.behaviours.YesNoViewBehaviours
 import views.html.aboutReturn.ReturnContainEstimatesView
-import views.{Nunjucks, Twirl}
 
-class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "returnContainEstimates"
 
   val form = new ReturnContainEstimatesFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"ReturnContainEstimates ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(ReturnContainEstimatesTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[ReturnContainEstimatesView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[ReturnContainEstimatesView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

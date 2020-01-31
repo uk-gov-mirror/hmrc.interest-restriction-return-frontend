@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching, Use}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
@@ -28,13 +28,13 @@ import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
-import views.html.$className$View
-import nunjucks.$className$Template
-import nunjucks.MockNunjucksRenderer
-import nunjucks.viewmodels.BasicFormViewModel
 
-class $className$ControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
+import views.html.$className$View
+import .$className$Template
+import .MockRenderer
+import .viewmodels.BasicFormViewModel
+
+class $className$ControllerSpec extends SpecBase  with FeatureSwitching  {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -53,18 +53,18 @@ class $className$ControllerSpec extends SpecBase with NunjucksSupport with Featu
     formProvider = new $className$FormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockNunjucksRenderer
+    mockRenderer
   )
 
   def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
 
   "$className$ Controller" must {
 
-    "If rendering using the Nunjucks templating engine" must {
+    "If rendering using the  templating engine" must {
 
       "return OK and the correct view for a GET" in {
 
-        enable(UseNunjucks)
+        enable(Use)
 
         mockRender($className$Template, viewContext(form))(Html("Success"))
 
@@ -79,7 +79,7 @@ class $className$ControllerSpec extends SpecBase with NunjucksSupport with Featu
 
       "return OK and the correct view for a GET" in {
 
-        disable(UseNunjucks)
+
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

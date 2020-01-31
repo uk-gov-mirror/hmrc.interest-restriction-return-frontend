@@ -5,17 +5,16 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
 import pages.$className$Page
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching, Use}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+
 import views.html.$className$View
-import nunjucks.Renderer
-import nunjucks.viewmodels.YesNoRadioViewModel
-import nunjucks.$className$Template
+import .Renderer
+import .viewmodels.YesNoRadioViewModel
+import .$className$Template
 import play.api.data.Form
 import play.api.libs.json.Json
 import uk.gov.hmrc.viewmodels.Radios
@@ -33,9 +32,9 @@ class $className;format="cap"$Controller @Inject()(
                                          val controllerComponents: MessagesControllerComponents,
                                          view: $className$View,
                                          renderer: Renderer
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
+  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(Use)) {
       renderer.render($className$Template, Json.toJsObject(YesNoRadioViewModel(form, mode)))
     } else {
       Future.successful(view(form, mode))

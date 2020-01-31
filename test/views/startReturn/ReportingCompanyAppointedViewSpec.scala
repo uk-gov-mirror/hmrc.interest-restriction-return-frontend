@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.startReturn.routes
 import forms.startReturn.ReportingCompanyAppointedFormProvider
 import models.NormalMode
-import nunjucks.ReportingCompanyAppointedTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.YesNoViewBehaviours
 import views.html.startReturn.ReportingCompanyAppointedView
-import views.{Nunjucks, Twirl}
 
-class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyAppointed"
 
   val form = new ReportingCompanyAppointedFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"ReportingCompanyAppointed ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(ReportingCompanyAppointedTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[ReportingCompanyAppointedView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[ReportingCompanyAppointedView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

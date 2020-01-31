@@ -70,7 +70,4 @@ awk '/class/ {\
      print "  def reportingCompanyCRN: Option[SummaryListRow] = answer(ReportingCompanyCRNPage, routes.ReportingCompanyCRNController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object ReportingCompanyCRNTemplate extends WithName(\"reportingCompanyCRN.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration ReportingCompanyCRN completed"

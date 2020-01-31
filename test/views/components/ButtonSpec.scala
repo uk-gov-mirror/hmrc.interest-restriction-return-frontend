@@ -18,23 +18,20 @@ package views.components
 
 import base.SpecBase
 import org.jsoup.Jsoup
-import play.api.libs.json.Json
 import play.twirl.api.Html
+import views.Twirl
 import views.html.components.button
-import views.{Nunjucks, Twirl}
 
 class ButtonSpec extends SpecBase {
 
   lazy val buttonComponent: button = app.injector.instanceOf[button]
   lazy val twirlPhaseBanner: Html = buttonComponent("site.continue")
-  lazy val nunjucksPhaseBanner: Html =
-    await(nunjucksRenderer.render("components/button/template.njk", Json.obj("msgKey" -> "site.continue"))(fakeRequest))
 
   object Selectors {
     val button = "button"
   }
 
-  Seq(twirlPhaseBanner -> Twirl, nunjucksPhaseBanner -> Nunjucks).foreach {
+  Seq(twirlPhaseBanner -> Twirl).foreach {
     case (html, templatingSystem) =>
       s"button ($templatingSystem) component" must {
 

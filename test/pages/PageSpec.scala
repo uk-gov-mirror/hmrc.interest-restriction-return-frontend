@@ -46,9 +46,7 @@ class PageSpec extends SpecBase {
         InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
         RevisingReturnPage.toString -> RevisingReturnPage,
         ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
-        IndexPage.toString -> IndexPage,
-        HelloWorldYesNoPage.toString -> HelloWorldYesNoPage,
-        HelloWorldYesNoPageNunjucks.toString -> HelloWorldYesNoPageNunjucks
+        IndexPage.toString -> IndexPage
       )
 
       Page.pages mustBe expected

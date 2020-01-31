@@ -70,7 +70,4 @@ awk '/class/ {\
      print "  def agentName: Option[SummaryListRow] = answer(AgentNamePage, routes.AgentNameController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object AgentNameTemplate extends WithName(\"agentName.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration AgentName completed"

@@ -17,22 +17,18 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ContinueSavedReturnFormProvider
 import javax.inject.Inject
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
-import models.{ContinueSavedReturn, Mode, NormalMode}
+import models.{ContinueSavedReturn, NormalMode}
 import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, Navigator, StartReturnNavigator}
-import nunjucks.{ContinueSavedReturnTemplate, Renderer}
-import nunjucks.viewmodels.RadioOptionsViewModel
 import pages.ContinueSavedReturnPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.ContinueSavedReturnView
 
 import scala.concurrent.Future
@@ -47,21 +43,12 @@ class ContinueSavedReturnController @Inject()(
                                                formProvider: ContinueSavedReturnFormProvider,
                                                val controllerComponents: MessagesControllerComponents,
                                                view: ContinueSavedReturnView,
-                                               renderer: Renderer,
                                                startReturnNavigator: StartReturnNavigator,
                                                aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
                                                aboutReturnNavigator: AboutReturnNavigator
-                                             )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                             )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[ContinueSavedReturn])(implicit request: Request[_]) = if (isEnabled(UseNunjucks)) {
-    renderer.render(ContinueSavedReturnTemplate, Json.toJsObject(RadioOptionsViewModel(
-      ContinueSavedReturn.options(form),
-      form,
-      NormalMode
-    )))
-  } else {
-    Future.successful(view(form, NormalMode))
-  }
+  private def viewHtml(form: Form[ContinueSavedReturn])(implicit request: Request[_]) = Future.successful(view(form, NormalMode))
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

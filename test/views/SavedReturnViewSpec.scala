@@ -17,9 +17,6 @@
 package views
 
 import assets.messages.SavedReturnMessages
-import nunjucks.SavedReturnTemplate
-import nunjucks.viewmodels.SavedReturnViewModel
-import play.api.libs.json.Json
 import views.behaviours.ViewBehaviours
 import views.html.SavedReturnView
 
@@ -29,9 +26,8 @@ class SavedReturnViewSpec extends ViewBehaviours {
 
   lazy val twirlViewTemplate = viewFor[SavedReturnView](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply(savedTilDate)(fakeRequest, frontendAppConfig, messages)
-  lazy val nunjucksView = await(nunjucksRenderer.render(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTilDate)))(fakeRequest))
 
-  Seq(twirlView -> Twirl, nunjucksView -> Nunjucks).foreach {
+  Seq(twirlView -> Twirl).foreach {
     case (html, templatingSystem) =>
       s"SavedReturnView ($templatingSystem)" must {
 

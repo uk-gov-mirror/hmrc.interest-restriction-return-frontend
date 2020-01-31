@@ -23,7 +23,4 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "savedReturn.title = savedReturn" >> ../conf/messages.cy
 echo "savedReturn.heading = savedReturn" >> ../conf/messages.cy
 
-echo "Adding template to Nunjucks templates"
-echo "object SavedReturnTemplate extends WithName(\"savedReturn.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration SavedReturn completed"

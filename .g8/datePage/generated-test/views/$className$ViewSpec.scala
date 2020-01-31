@@ -4,14 +4,14 @@ import java.time.LocalDate
 
 import forms.$className$FormProvider
 import models.NormalMode
-import nunjucks.viewmodels.DateViewModel
+import .viewmodels.DateViewModel
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.QuestionViewBehaviours
 import views.html.$className$View
-import nunjucks.$className$Template
+import .$className$Template
 
 class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
@@ -19,13 +19,13 @@ class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val form = new $className$FormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(, Twirl).foreach { templatingSystem =>
 
     s"$className $ (\$templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render($className$Template, Json.toJsObject(DateViewModel(form, NormalMode)))(fakeRequest))
+        if (templatingSystem == ) {
+          await(Renderer.render($className$Template, Json.toJsObject(DateViewModel(form, NormalMode)))(fakeRequest))
         } else {
           val view = viewFor[$className$View](Some(emptyUserAnswers))
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)

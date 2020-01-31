@@ -17,14 +17,14 @@
 package controllers.startReturn
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
-import nunjucks.{MockNunjucksRenderer, ReportingCompanyRequiredTemplate}
+import javax.jws.soap.SOAPBinding.Use
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import views.html.startReturn.ReportingCompanyRequiredView
 
-class ReportingCompanyRequiredControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
+class ReportingCompanyRequiredControllerSpec extends SpecBase  with FeatureSwitching {
 
   val view = injector.instanceOf[ReportingCompanyRequiredView]
 
@@ -34,31 +34,15 @@ class ReportingCompanyRequiredControllerSpec extends SpecBase with MockNunjucksR
     getData = FakeDataRetrievalActionEmptyAnswers,
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockNunjucksRenderer
+    view = view
   )
 
   "ReportingCompanyRequired Controller" must {
 
-    "When Nunjucks rendering is enabled" must {
+
+    "When using Twirl Template" must {
 
       "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(ReportingCompanyRequiredTemplate)(Html("Success"))
-
-        val result = controller.onPageLoad(fakeRequest)
-
-        status(result) mustBe OK
-      }
-    }
-
-    "When Nunjucks rendering is disabled" must {
-
-      "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller.onPageLoad(fakeRequest)
 

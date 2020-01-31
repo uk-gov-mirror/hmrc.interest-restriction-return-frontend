@@ -17,15 +17,12 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
 import play.api.test.Helpers._
-import nunjucks.MockNunjucksRenderer
-import nunjucks.UnderConstructionTemplate
-import play.twirl.api.Html
 import views.html.UnderConstructionView
 
-class UnderConstructionControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
+class UnderConstructionControllerSpec extends SpecBase with FeatureSwitching {
 
   val view = injector.instanceOf[UnderConstructionView]
 
@@ -35,31 +32,14 @@ class UnderConstructionControllerSpec extends SpecBase with MockNunjucksRenderer
     getData = FakeDataRetrievalActionEmptyAnswers,
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockNunjucksRenderer
+    view = view
   )
 
   "UnderConstruction Controller" must {
 
-    "When Nunjucks rendering is enabled" must {
+    "When rendering with Twirl template" must {
 
       "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(UnderConstructionTemplate)(Html("Success"))
-
-        val result = controller.onPageLoad(fakeRequest)
-
-        status(result) mustBe OK
-      }
-    }
-
-    "When Nunjucks rendering is disabled" must {
-
-      "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller.onPageLoad(fakeRequest)
 

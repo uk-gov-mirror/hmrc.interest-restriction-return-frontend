@@ -1,17 +1,16 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching, Use}
 import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.{$className$, Mode}
-import navigation.Navigator
 import pages.$className$Page
-import uk.gov.hmrc.nunjucks.NunjucksSupport
-import nunjucks.Renderer
-import nunjucks.viewmodels.RadioOptionsViewModel
-import nunjucks.$className$Template
+
+import .Renderer
+import .viewmodels.RadioOptionsViewModel
+import .$className$Template
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -32,9 +31,9 @@ class $className;format="cap"$Controller @Inject()(
                                   val controllerComponents: MessagesControllerComponents,
                                   view: $className$View,
                                   renderer: Renderer
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[$className$], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
+  private def viewHtml(form: Form[$className$], mode: Mode)(implicit request: Request[_]) = if(isEnabled(Use)) {
     renderer.render($className$Template, Json.toJsObject(RadioOptionsViewModel(
       $className$.options(form),
       form,

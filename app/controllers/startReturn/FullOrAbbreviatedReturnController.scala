@@ -17,22 +17,18 @@
 package controllers.startReturn
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.startReturn.FullOrAbbreviatedReturnFormProvider
 import javax.inject.Inject
 import models.{FullOrAbbreviatedReturn, Mode}
 import navigation.StartReturnNavigator
-import nunjucks.viewmodels.RadioOptionsViewModel
-import nunjucks.{FullOrAbbreviatedReturnTemplate, Renderer}
 import pages.startReturn.FullOrAbbreviatedReturnPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.startReturn.FullOrAbbreviatedReturnView
 
 import scala.concurrent.Future
@@ -46,19 +42,10 @@ class FullOrAbbreviatedReturnController @Inject()(
                                                    requireData: DataRequiredAction,
                                                    formProvider: FullOrAbbreviatedReturnFormProvider,
                                                    val controllerComponents: MessagesControllerComponents,
-                                                   view: FullOrAbbreviatedReturnView,
-                                                   renderer: Renderer
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                                   view: FullOrAbbreviatedReturnView
+                                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[FullOrAbbreviatedReturn], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render(FullOrAbbreviatedReturnTemplate, Json.toJsObject(RadioOptionsViewModel(
-      FullOrAbbreviatedReturn.options(form),
-      form,
-      mode
-    )))
-  } else {
-    Future.successful(view(form, mode))
-  }
+  private def viewHtml(form: Form[FullOrAbbreviatedReturn], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

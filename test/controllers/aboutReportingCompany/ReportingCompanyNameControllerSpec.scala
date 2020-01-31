@@ -17,24 +17,22 @@
 package controllers.aboutReportingCompany
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyNameFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
-import nunjucks.viewmodels.BasicFormViewModel
-import nunjucks.{MockNunjucksRenderer, ReportingCompanyNameTemplate}
 import pages.aboutReportingCompany.ReportingCompanyNamePage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+
 import views.html.aboutReportingCompany.ReportingCompanyNameView
 
-class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching {
+class ReportingCompanyNameControllerSpec extends SpecBase   with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -51,34 +49,14 @@ class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport w
     requireData = new DataRequiredActionImpl,
     formProvider = new ReportingCompanyNameFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    renderer = mockNunjucksRenderer
+    view = view
   )
 
-  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
-
   "ReportingCompanyName Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(ReportingCompanyNameTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,7 +64,6 @@ class ReportingCompanyNameControllerSpec extends SpecBase with NunjucksSupport w
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       }
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 

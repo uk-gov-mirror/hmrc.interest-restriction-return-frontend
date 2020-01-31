@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.GroupSubjectToReactivationsFormProvider
 import models.NormalMode
-import nunjucks.GroupSubjectToReactivationsTemplate
-import nunjucks.viewmodels.YesNoRadioViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.YesNoViewBehaviours
 import views.html.aboutReturn.GroupSubjectToReactivationsView
-import views.{Nunjucks, Twirl}
 
-class GroupSubjectToReactivationsViewSpec extends YesNoViewBehaviours with NunjucksSupport {
+class GroupSubjectToReactivationsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "groupSubjectToReactivations"
 
   val form = new GroupSubjectToReactivationsFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"GroupSubjectToReactivations ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(GroupSubjectToReactivationsTemplate, Json.toJsObject(YesNoRadioViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[GroupSubjectToReactivationsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[GroupSubjectToReactivationsView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

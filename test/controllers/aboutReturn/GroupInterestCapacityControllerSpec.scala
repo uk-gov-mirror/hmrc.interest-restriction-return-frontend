@@ -17,24 +17,18 @@
 package controllers.aboutReturn
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.GroupInterestCapacityFormProvider
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
-import nunjucks.viewmodels.BasicFormViewModel
-import nunjucks.{GroupInterestCapacityTemplate, MockNunjucksRenderer}
 import pages.aboutReturn.GroupInterestCapacityPage
-import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReturn.GroupInterestCapacityView
 
-class GroupInterestCapacityControllerSpec extends SpecBase with NunjucksSupport with FeatureSwitching with MockNunjucksRenderer {
+class GroupInterestCapacityControllerSpec extends SpecBase with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -52,34 +46,14 @@ class GroupInterestCapacityControllerSpec extends SpecBase with NunjucksSupport 
     requireData = new DataRequiredActionImpl,
     formProvider = new GroupInterestCapacityFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockNunjucksRenderer
+    view = view
   )
 
-  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
-
   "GroupInterestCapacity Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(GroupInterestCapacityTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

@@ -4,7 +4,6 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
 import pages.$className$Page
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -12,13 +11,13 @@ import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$className$View
 import config.FrontendAppConfig
-import nunjucks.Renderer
-import nunjucks.$className$Template
+import .Renderer
+import .$className$Template
 import play.api.data.Form
 import play.api.libs.json.Json
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
-import uk.gov.hmrc.nunjucks.NunjucksSupport
-import nunjucks.viewmodels.BasicFormViewModel
+import config.featureSwitch.{FeatureSwitching, Use}
+
+import .viewmodels.BasicFormViewModel
 
 import scala.concurrent.Future
 
@@ -33,9 +32,9 @@ class $className$Controller @Inject()(
                                        val controllerComponents: MessagesControllerComponents,
                                        view: $className$View,
                                        renderer: Renderer
-                                     )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                     )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
+  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = if(isEnabled(Use)) {
     renderer.render($className$Template, Json.toJsObject(BasicFormViewModel(form, mode)))
   } else {
     Future.successful(view(form, mode))

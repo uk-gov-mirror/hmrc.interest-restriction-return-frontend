@@ -17,19 +17,15 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
 import mocks.MockSessionRepository
 import models.NormalMode
 import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeAboutReturnNavigator, FakeStartReturnNavigator}
-import nunjucks.{MockNunjucksRenderer, SavedReturnTemplate}
-import nunjucks.viewmodels.SavedReturnViewModel
-import play.api.libs.json.Json
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import views.html.SavedReturnView
 
-class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching with MockSessionRepository {
+class SavedReturnControllerSpec extends SpecBase  with FeatureSwitching with MockSessionRepository {
 
   val view = injector.instanceOf[SavedReturnView]
 
@@ -41,7 +37,6 @@ class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with 
     controllerComponents = messagesControllerComponents,
     view = view,
     sessionRepository = mockSessionRepository,
-    renderer = mockNunjucksRenderer,
     startReturnNavigator = FakeStartReturnNavigator,
     aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator,
     aboutReturnNavigator = FakeAboutReturnNavigator
@@ -51,25 +46,9 @@ class SavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
     "for the onPageLoad() method" must {
 
-      "When Nunjucks rendering is enabled" must {
+      "When rendering with Twirl template" must {
 
         "return OK and the correct view for a GET" in {
-
-          enable(UseNunjucks)
-
-          mockRender(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTilDate)))(Html("Success"))
-
-          val result = controller.onPageLoad(fakeRequest)
-
-          status(result) mustBe OK
-        }
-      }
-
-      "When Nunjucks rendering is disabled" must {
-
-        "return OK and the correct view for a GET" in {
-
-          disable(UseNunjucks)
 
           val result = controller.onPageLoad(fakeRequest)
 

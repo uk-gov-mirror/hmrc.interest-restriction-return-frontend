@@ -26,18 +26,17 @@ import models._
 @Singleton
 class Navigator @Inject()() extends BaseNavigator {
 
-  private val normalRoutes: Page => UserAnswers => Call = {
-    case HelloWorldYesNoPage => _ => routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
-    case HelloWorldYesNoPageNunjucks => ???
-    case _ => _ => routes.IndexController.onPageLoad()
-  }
+//  private val normalRoutes: Page => UserAnswers => Call = {
+//    case HelloWorldYesNoPage => _ => routes.HelloWorldYesNoNunjucksController.onPageLoad(NormalMode)
+//    case HelloWorldYesNoPageNunjucks => ???
+//    case _ => _ => routes.IndexController.onPageLoad()
+//  }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
     _ => _ => ???
   }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
-    case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
   }
 }

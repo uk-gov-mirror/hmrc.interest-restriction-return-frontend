@@ -43,56 +43,6 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
   "Check Your Answers Helper" must {
 
-    "For the HellowWorldYesNoPage" must {
-
-      "get an answer from useranswers for true" in {
-
-        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPage, true).get)
-
-        helper.helloWorldYesNo mustBe Some(summaryListRow(
-          messages("helloWorldYesNo.checkYourAnswersLabel"),
-          messages("site.yes"),
-          routes.HelloWorldYesNoController.onPageLoad(CheckMode)
-        ))
-      }
-
-      "get an answer from useranswers for false" in {
-
-        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPage, false).get)
-
-        helper.helloWorldYesNo mustBe Some(summaryListRow(
-          messages("helloWorldYesNo.checkYourAnswersLabel"),
-          messages("site.no"),
-          routes.HelloWorldYesNoController.onPageLoad(CheckMode)
-        ))
-      }
-    }
-
-    "For the HellowWorldYesNoPageNunjucks" must {
-
-      "get an answer from useranswers for true" in {
-
-        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPageNunjucks, true).get)
-
-        helper.helloWorldYesNoNunjucks mustBe Some(summaryListRow(
-          messages("helloWorldYesNoNunjucks.checkYourAnswersLabel"),
-          messages("site.yes"),
-          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode)
-        ))
-      }
-
-      "get an answer from useranswers for false" in {
-
-        val helper = new CheckYourAnswersHelper(emptyUserAnswers.set(HelloWorldYesNoPageNunjucks, false).get)
-
-        helper.helloWorldYesNoNunjucks mustBe Some(summaryListRow(
-          messages("helloWorldYesNoNunjucks.checkYourAnswersLabel"),
-          messages("site.no"),
-          routes.HelloWorldYesNoNunjucksController.onPageLoad(CheckMode)
-        ))
-      }
-    }
-
     "For the ReportingCompanyName" must {
 
       "get an answer from useranswers for true" in {

@@ -20,15 +20,13 @@ import assets.messages.SiteHeaderMessages
 import base.SpecBase
 import org.jsoup.Jsoup
 import play.twirl.api.Html
-import views.{Nunjucks, Twirl}
+import views.Twirl
 import views.html.components.siteHeader
 
 class SiteHeaderSpec extends SpecBase {
 
   lazy val siteHeader: siteHeader = app.injector.instanceOf[siteHeader]
   lazy val twirlPhaseBanner: Html = siteHeader()(fakeRequest, messages, frontendAppConfig)
-  lazy val nunjucksPhaseBanner: Html =
-    await(nunjucksRenderer.render("components/siteHeader.njk")(fakeRequest))
 
   object Selectors {
     val govUkHomeLink = "a.govuk-header__link--homepage"
@@ -36,7 +34,7 @@ class SiteHeaderSpec extends SpecBase {
     val signOutLink = "ul.govuk-header__navigation li:nth-of-type(1) a"
   }
 
-  Seq(twirlPhaseBanner -> Twirl, nunjucksPhaseBanner -> Nunjucks).foreach {
+  Seq(twirlPhaseBanner -> Twirl).foreach {
     case (html, templatingSystem) =>
       s"siteHeader ($templatingSystem) component" must {
 
