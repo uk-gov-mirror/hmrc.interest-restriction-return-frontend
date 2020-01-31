@@ -47,7 +47,6 @@ class CRNValidationHttpParserSpec extends SpecBase {
       }
     }
 
-
     "given any other status" should {
 
       "return a Left(UnexpectedFailure)" in {

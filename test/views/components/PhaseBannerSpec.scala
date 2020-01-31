@@ -19,17 +19,14 @@ package views.components
 import assets.messages.PhaseBannerMessages
 import base.SpecBase
 import org.jsoup.Jsoup
-import play.api.libs.json.Json
 import play.twirl.api.Html
-import views.{Nunjucks, Twirl}
+import views.Twirl
 import views.html.components.phaseBanner
 
 class PhaseBannerSpec extends SpecBase {
 
   lazy val phaseBannerView: phaseBanner = app.injector.instanceOf[phaseBanner]
   lazy val twirlPhaseBanner: Html = phaseBannerView("alpha")(fakeRequest, messages, frontendAppConfig)
-  lazy val nunjucksPhaseBanner: Html =
-    await(nunjucksRenderer.render("components/phaseBanner/template.njk", Json.obj("phase" -> "alpha"))(fakeRequest))
 
   object Selectors {
     val link = "a"
@@ -37,7 +34,7 @@ class PhaseBannerSpec extends SpecBase {
     val phase = "strong.govuk-tag"
   }
 
-  Seq(twirlPhaseBanner -> Twirl, nunjucksPhaseBanner -> Nunjucks).foreach {
+  Seq(twirlPhaseBanner -> Twirl).foreach {
     case (html, templatingSystem) =>
       s"phaseBanner ($templatingSystem) component" must {
 

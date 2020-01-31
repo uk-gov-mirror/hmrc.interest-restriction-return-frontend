@@ -17,15 +17,13 @@
 package controllers
 
 import java.time.{LocalDate, ZoneOffset}
-
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNavigator
-import nunjucks.viewmodels.DateViewModel
-import nunjucks.MockNunjucksRenderer
+import .viewmodels.DateViewModel
 import pages.$className$Page
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
@@ -33,12 +31,10 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import models.Mode
 import play.twirl.api.Html
-import nunjucks.$className$Template
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
 import views.html.$className$View
 
-class $className$ControllerSpec extends SpecBase with FeatureSwitching with MockNunjucksRenderer {
+class $className$ControllerSpec extends SpecBase with FeatureSwitching  {
 
   val formProvider = new $className$FormProvider()
   val form = formProvider()
@@ -56,33 +52,18 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching with Mock
     formProvider = new $className$FormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer
+    renderer = mockRenderer
   )
 
   def viewContext(form: Form[_], mode: Mode = NormalMode): JsObject = Json.toJsObject(DateViewModel(form, mode))
 
   "$className$ Controller" must {
 
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender($className$Template, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
-
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
 
-        disable(UseNunjucks)
+
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

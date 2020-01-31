@@ -17,14 +17,13 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{$className$, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNavigator
 import org.scalatestplus.mockito.MockitoSugar
 import pages.$className$Page
-import nunjucks.{MockNunjucksRenderer, $className$Template}
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
@@ -32,10 +31,7 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
 import views.html.$className$View
-import uk.gov.hmrc.nunjucks.NunjucksSupport
-import nunjucks.viewmodels.RadioOptionsViewModel
-
-class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class $className$ControllerSpec extends SpecBase with FeatureSwitching {
 
   val formProvider = new $className$FormProvider()
   val view = injector.instanceOf[$className$View]
@@ -51,7 +47,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
     formProvider = new $className$FormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer
+    renderer = mockRenderer
   )
 
   def viewContext(form: Form[$className$]): JsObject = Json.toJsObject(RadioOptionsViewModel(
@@ -62,11 +58,11 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
   "$className$ Controller" must {
 
-    "If rendering using the Nunjucks templating engine" must {
+    "If rendering using the  templating engine" must {
 
       "return OK and the correct view for a GET" in {
 
-        enable(UseNunjucks)
+        enable(Use)
 
         mockRender($className$Template, viewContext(form))(Html("Success"))
 
@@ -81,7 +77,7 @@ class $className$ControllerSpec extends SpecBase with MockNunjucksRenderer with 
 
       "return OK and the correct view for a GET" in {
 
-        disable(UseNunjucks)
+
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

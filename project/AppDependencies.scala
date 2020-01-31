@@ -15,8 +15,6 @@ object AppDependencies {
     "uk.gov.hmrc" %% "bootstrap-play-26" % "1.3.0",
     "uk.gov.hmrc" %% "play-whitelist-filter" % "3.1.0-play-26",
     "uk.gov.hmrc" %% "play-frontend-govuk" % "0.33.0-play-26",
-    "uk.gov.hmrc" %% "play-nunjucks" % "0.22.0-play-26",
-    "uk.gov.hmrc" %% "play-nunjucks-viewmodel" % "0.6.0-play-26",
     "org.webjars.npm" % "govuk-frontend" % "3.4.0"
   )
 

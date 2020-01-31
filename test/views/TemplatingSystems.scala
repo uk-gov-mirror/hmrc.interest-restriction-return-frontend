@@ -17,5 +17,4 @@
 package views
 
 sealed trait TemplatingSystems
-case object Nunjucks extends TemplatingSystems
 case object Twirl extends TemplatingSystems

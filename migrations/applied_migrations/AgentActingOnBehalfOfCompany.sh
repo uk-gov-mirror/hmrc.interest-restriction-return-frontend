@@ -66,7 +66,4 @@ awk '/class/ {\
      print "  def agentActingOnBehalfOfCompany: Option[SummaryListRow] = answer(AgentActingOnBehalfOfCompanyPage, routes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object AgentActingOnBehalfOfCompanyTemplate extends WithName(\"agentActingOnBehalfOfCompany.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration AgentActingOnBehalfOfCompany completed"

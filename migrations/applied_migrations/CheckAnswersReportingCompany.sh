@@ -70,7 +70,4 @@ awk '/class/ {\
      print "  def checkAnswersReportingCompany: Option[SummaryListRow] = answer(CheckAnswersReportingCompanyPage, routes.CheckAnswersReportingCompanyController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object CheckAnswersReportingCompanyTemplate extends WithName(\"checkAnswersReportingCompany.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration CheckAnswersReportingCompany completed"

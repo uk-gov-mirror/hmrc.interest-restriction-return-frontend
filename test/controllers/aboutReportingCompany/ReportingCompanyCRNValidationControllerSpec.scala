@@ -18,15 +18,13 @@ package controllers.aboutReportingCompany
 
 import assets.constants.BaseConstants
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching}
 import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import controllers.actions._
 import controllers.errors
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
-import nunjucks.viewmodels.BasicFormViewModel
-import nunjucks.{MockNunjucksRenderer, ReportingCompanyCRNTemplate}
 import pages.aboutReportingCompany.ReportingCompanyCRNPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
@@ -34,13 +32,11 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import services.mocks.MockCRNValidationService
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
 import play.api.http.Status
 
-
-
-class ReportingCompanyCRNValidationControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer
+class ReportingCompanyCRNValidationControllerSpec extends SpecBase
   with FeatureSwitching with MockCRNValidationService with BaseConstants {
 
   def onwardRoute = Call("GET", "/foo")
@@ -59,35 +55,15 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
     formProvider = new ReportingCompanyCRNFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer,
     crnValidationService = mockCRNValidationService,
     errorHandler = errorHandler
   )
 
-  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
-
   "ReportingCompanyCRN Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(ReportingCompanyCRNTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -95,7 +71,6 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with Nunjucks
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       }
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 

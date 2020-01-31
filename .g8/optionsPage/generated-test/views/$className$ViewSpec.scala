@@ -5,26 +5,23 @@ import models.{$className$, ContinueSavedReturn, NormalMode}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.ViewBehaviours
 import views.html.$className$View
-import nunjucks.$className$Template
-import nunjucks.viewmodels.RadioOptionsViewModel
 
-class $className$ViewSpec extends ViewBehaviours with NunjucksSupport {
+class $className$ViewSpec extends ViewBehaviours  {
 
   val messageKeyPrefix = "$className;format="decap"$"
 
   val form = new $className$FormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"$className $ (\$templatingSystem) view" must {
 
       def applyView(form: Form[$className$]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render($className$Template, Json.toJsObject(RadioOptionsViewModel(
+        if (templatingSystem == ) {
+          await(Renderer.render($className$Template, Json.toJsObject(RadioOptionsViewModel(
             $className$.options(form),
             form,
             NormalMode

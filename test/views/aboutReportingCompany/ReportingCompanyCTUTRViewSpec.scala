@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReportingCompany.routes
 import forms.aboutReportingCompany.ReportingCompanyCTUTRFormProvider
 import models.NormalMode
-import nunjucks.ReportingCompanyCTUTRTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.StringViewBehaviours
 import views.html.aboutReportingCompany.ReportingCompanyCTUTRView
-import views.{Nunjucks, Twirl}
 
-class ReportingCompanyCTUTRViewSpec extends StringViewBehaviours with NunjucksSupport {
+class ReportingCompanyCTUTRViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyCTUTR"
 
   val form = new ReportingCompanyCTUTRFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"ReportingCompanyCTUTR ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(ReportingCompanyCTUTRTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[ReportingCompanyCTUTRView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[ReportingCompanyCTUTRView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

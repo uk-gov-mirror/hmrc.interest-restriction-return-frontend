@@ -20,36 +20,24 @@ import assets.messages.BaseMessages
 import forms.ContinueSavedReturnFormProvider
 import models.{ContinueSavedReturn, NormalMode}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
-import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.ViewBehaviours
 import views.html.ContinueSavedReturnView
-import nunjucks.ContinueSavedReturnTemplate
-import nunjucks.viewmodels.RadioOptionsViewModel
 
-class ContinueSavedReturnViewSpec extends ViewBehaviours with NunjucksSupport {
+class ContinueSavedReturnViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "continueSavedReturn"
 
   val form = new ContinueSavedReturnFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"ContinueSavedReturn ($templatingSystem) view" must {
 
-      def applyView(form: Form[ContinueSavedReturn]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(ContinueSavedReturnTemplate, Json.toJsObject(RadioOptionsViewModel(
-            ContinueSavedReturn.options(form),
-            form,
-            NormalMode
-          )))(fakeRequest))
-        } else {
-          val view = viewFor[ContinueSavedReturnView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[ContinueSavedReturn]): HtmlFormat.Appendable = {
+        val view = viewFor[ContinueSavedReturnView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 
@@ -60,7 +48,7 @@ class ContinueSavedReturnViewSpec extends ViewBehaviours with NunjucksSupport {
 
       ContinueSavedReturn.options(form).zipWithIndex.foreach { case (option, i) =>
 
-        val id = if(i == 0) "value" else s"value-${i + 1}"
+        val id = if (i == 0) "value" else s"value-${i + 1}"
 
         s"contain radio buttons for the value '${option.value.get}'" in {
 
@@ -75,7 +63,7 @@ class ContinueSavedReturnViewSpec extends ViewBehaviours with NunjucksSupport {
             val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
             val doc = asDocument(applyView(formWithData))
 
-            val id = if(i == 0) "value" else s"value-${i + 1}"
+            val id = if (i == 0) "value" else s"value-${i + 1}"
             assertContainsRadioButton(doc, id, "value", option.value.get, true)
           }
         }

@@ -19,37 +19,26 @@ package views.startReturn
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.startReturn.FullOrAbbreviatedReturnFormProvider
 import models.{FullOrAbbreviatedReturn, NormalMode}
-import nunjucks.FullOrAbbreviatedReturnTemplate
-import nunjucks.viewmodels.RadioOptionsViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.ViewBehaviours
 import views.html.startReturn.FullOrAbbreviatedReturnView
-import views.{Nunjucks, Twirl}
 
-class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours with NunjucksSupport {
+class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "fullOrAbbreviatedReturn"
 
   val form = new FullOrAbbreviatedReturnFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"FullOrAbbreviatedReturn ($templatingSystem) view" must {
 
-      def applyView(form: Form[FullOrAbbreviatedReturn]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(FullOrAbbreviatedReturnTemplate, Json.toJsObject(RadioOptionsViewModel(
-            FullOrAbbreviatedReturn.options(form),
-            form,
-            NormalMode
-          )))(fakeRequest))
-        } else {
-          val view = viewFor[FullOrAbbreviatedReturnView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[FullOrAbbreviatedReturn]): HtmlFormat.Appendable = {
+        val view = viewFor[FullOrAbbreviatedReturnView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 
@@ -63,7 +52,7 @@ class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours with NunjucksSuppor
 
       FullOrAbbreviatedReturn.options(form).zipWithIndex.foreach { case (option, i) =>
 
-        val id = if(i == 0) "value" else s"value-${i + 1}"
+        val id = if (i == 0) "value" else s"value-${i + 1}"
 
         s"contain radio buttons for the value '${option.value.get}'" in {
 

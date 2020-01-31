@@ -23,7 +23,5 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "reportingCompanyRequired.title = reportingCompanyRequired" >> ../conf/messages.cy
 echo "reportingCompanyRequired.heading = reportingCompanyRequired" >> ../conf/messages.cy
 
-echo "Adding template to Nunjucks templates"
-echo "object ReportingCompanyRequiredTemplate extends WithName(\"reportingCompanyRequired.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
 
 echo "Migration ReportingCompanyRequired completed"
