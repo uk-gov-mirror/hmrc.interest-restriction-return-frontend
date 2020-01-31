@@ -6,14 +6,11 @@ import forms.$className$FormProvider
 import javax.inject.Inject
 import models.{$className$, Mode}
 import pages.$className$Page
-import config.featureSwitch.{FeatureSwitching, Use}
-import .viewmodels.CheckboxViewModel
+import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-
 import views.html.$className$View
-import .{$className$Template, Renderer}
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 
@@ -28,8 +25,7 @@ class $className$Controller @Inject()(
                                        requireData: DataRequiredAction,
                                        formProvider: $className$FormProvider,
                                        val controllerComponents: MessagesControllerComponents,
-                                       view: $className$View,
-                                       renderer: Renderer
+                                       view: $className$View
                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private def viewHtml(form: Form[Set[$className$]], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))

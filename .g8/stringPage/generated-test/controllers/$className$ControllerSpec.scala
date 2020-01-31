@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, Use}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
@@ -25,15 +25,11 @@ import navigation.FakeNavigators.FakeNavigator
 import pages.$className$Page
 import play.api.mvc.Call
 import play.api.test.Helpers._
-
 import views.html.$className$View
-import .MockRenderer
-import .$className$Template
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
-import .viewmodels.BasicFormViewModel
 
 class $className$ControllerSpec extends SpecBase   with FeatureSwitching {
 
@@ -60,26 +56,9 @@ class $className$ControllerSpec extends SpecBase   with FeatureSwitching {
 
   "$className$ Controller" must {
 
-    "If rendering using the  templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(Use)
-
-        mockRender($className$Template, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
-
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

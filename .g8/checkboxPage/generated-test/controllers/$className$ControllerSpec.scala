@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, Use}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions.{FakeDataRetrievalActionEmptyAnswers, _}
 import forms.$className$FormProvider
 import models.{$className$, NormalMode, UserAnswers}
@@ -53,21 +53,6 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching {
   def viewContext(form: Form[Set[$className$]]): JsObject = Json.toJsObject(CheckboxViewModel($className$.options(form), form, NormalMode))
 
   "$className$ Controller" must {
-
-    "If rendering using the  templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(Use)
-
-        mockRender($className$Template, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 

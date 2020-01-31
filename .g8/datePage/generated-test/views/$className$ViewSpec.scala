@@ -1,17 +1,14 @@
 package views
 
 import java.time.LocalDate
-
 import forms.$className$FormProvider
 import models.NormalMode
-import .viewmodels.DateViewModel
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.QuestionViewBehaviours
 import views.html.$className$View
-import .$className$Template
 
 class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
@@ -19,7 +16,7 @@ class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val form = new $className$FormProvider()()
 
-  Seq(, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"$className $ (\$templatingSystem) view" must {
 

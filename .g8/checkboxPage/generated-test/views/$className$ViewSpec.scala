@@ -2,7 +2,7 @@ package views
 
 import forms.$className$FormProvider
 import models.{$className$, NormalMode}
-import .$className$Template
+
 import .viewmodels.CheckboxViewModel
 import play.api.Application
 import play.api.data.Form
@@ -18,7 +18,7 @@ class $className$ViewSpec extends CheckboxViewBehaviours[$className$]  {
 
   val form = new $className$FormProvider()()
 
-  Seq(, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"$className$ (\$templatingSystem) view" must {
 

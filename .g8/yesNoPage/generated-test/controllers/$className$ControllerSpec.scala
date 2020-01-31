@@ -29,7 +29,6 @@ import views.html.$className$View
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.Html
-
 import uk.gov.hmrc.viewmodels.Radios
 
 class $className$ControllerSpec extends SpecBase with FeatureSwitching {

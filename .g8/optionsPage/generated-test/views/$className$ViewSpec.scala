@@ -5,12 +5,9 @@ import models.{$className$, ContinueSavedReturn, NormalMode}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.ViewBehaviours
 import views.html.$className$View
-import .$className$Template
-import .viewmodels.RadioOptionsViewModel
 
 class $className$ViewSpec extends ViewBehaviours  {
 
@@ -18,7 +15,7 @@ class $className$ViewSpec extends ViewBehaviours  {
 
   val form = new $className$FormProvider()()
 
-  Seq(, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"$className $ (\$templatingSystem) view" must {
 

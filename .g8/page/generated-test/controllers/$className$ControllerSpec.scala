@@ -17,15 +17,13 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, Use}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
 import play.api.test.Helpers._
-import .MockRenderer
-import .$className$Template
 import play.twirl.api.Html
 import views.html.$className$View
 
-class $className$ControllerSpec extends SpecBase  with FeatureSwitching {
+class $className$ControllerSpec extends SpecBase with FeatureSwitching {
 
   val view = injector.instanceOf[$className$View]
 
@@ -41,25 +39,9 @@ class $className$ControllerSpec extends SpecBase  with FeatureSwitching {
 
   "$className$ Controller" must {
 
-    "When  rendering is enabled" must {
+    "When Usint the Twirl Template" must {
 
       "return OK and the correct view for a GET" in {
-
-        enable(Use)
-
-        mockRender($className$Template)(Html("Success"))
-
-        val result = controller.onPageLoad(fakeRequest)
-
-        status(result) mustBe OK
-      }
-    }
-
-    "When  rendering is disabled" must {
-
-      "return OK and the correct view for a GET" in {
-
-
 
         val result = controller.onPageLoad(fakeRequest)
 

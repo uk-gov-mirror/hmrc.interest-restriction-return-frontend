@@ -1,7 +1,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, Use}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -16,8 +16,7 @@ class $className$Controller @Inject()(override val messagesApi: MessagesApi,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
                                       val controllerComponents: MessagesControllerComponents,
-                                      view: $className$View,
-                                      renderer: Renderer
+                                      view: $className$View
                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 

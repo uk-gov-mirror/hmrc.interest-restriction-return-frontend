@@ -17,14 +17,13 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, Use}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import forms.$className$FormProvider
 import models.{$className$, NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNavigator
 import org.scalatestplus.mockito.MockitoSugar
 import pages.$className$Page
-import .{MockRenderer, $className$Template}
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
@@ -32,9 +31,6 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
 import views.html.$className$View
-
-import .viewmodels.RadioOptionsViewModel
-
 class $className$ControllerSpec extends SpecBase with FeatureSwitching {
 
   val formProvider = new $className$FormProvider()

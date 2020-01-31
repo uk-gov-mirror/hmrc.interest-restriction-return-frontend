@@ -6,11 +6,8 @@ import models.NormalMode
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-
-import .$className$Template
 import views.behaviours.DecimalViewBehaviours
 import views.html.$className$View
-import .viewmodels.BasicFormViewModel
 
 class $className$ViewSpec extends DecimalViewBehaviours  {
 
@@ -18,7 +15,7 @@ class $className$ViewSpec extends DecimalViewBehaviours  {
 
   val form = new $className$FormProvider()()
 
-  Seq(, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"$className $ (\$templatingSystem) view" must {
 
