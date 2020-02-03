@@ -16,16 +16,13 @@
 
 package controllers
 
+import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
 import controllers.actions._
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.requests.DataRequest
-import nunjucks.viewmodels.ConfirmationViewModel
-import nunjucks.{ConfirmationTemplate, Renderer}
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.Json
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.ConfirmationView
@@ -38,17 +35,11 @@ class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: ConfirmationView,
-                                       renderer: Renderer,
                                        errorHandler: ErrorHandler
                                       )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(reference: String)(implicit request: DataRequest[_]) =
-    if (isEnabled(UseNunjucks)) {
-      renderer.render(ConfirmationTemplate, Json.toJsObject(ConfirmationViewModel(reference, appConfig.exitSurveyUrl)))
-    } else {
-      Future.successful(view(reference))
-    }
+  private def renderView(reference: String)(implicit request: DataRequest[_]) = Future.successful(view(reference))
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

@@ -17,22 +17,18 @@
 package controllers.aboutReturn
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.aboutReturn.InfrastructureCompanyElectionFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
-import nunjucks.viewmodels.YesNoRadioViewModel
-import nunjucks.{InfrastructureCompanyElectionTemplate, Renderer}
 import pages.aboutReturn.InfrastructureCompanyElectionPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReturn.InfrastructureCompanyElectionView
 
 import scala.concurrent.Future
@@ -46,15 +42,10 @@ class InfrastructureCompanyElectionController @Inject()(
                                                          requireData: DataRequiredAction,
                                                          formProvider: InfrastructureCompanyElectionFormProvider,
                                                          val controllerComponents: MessagesControllerComponents,
-                                                         view: InfrastructureCompanyElectionView,
-                                                         renderer: Renderer
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                                         view: InfrastructureCompanyElectionView
+                                                       )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-      renderer.render(InfrastructureCompanyElectionTemplate, Json.toJsObject(YesNoRadioViewModel(form, mode)))
-    } else {
-      Future.successful(view(form, mode))
-    }
+  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

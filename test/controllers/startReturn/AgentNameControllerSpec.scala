@@ -17,24 +17,22 @@
 package controllers.startReturn
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.startReturn.AgentNameFormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeStartReturnNavigator
-import nunjucks.viewmodels.BasicFormViewModel
-import nunjucks.{AgentNameTemplate, MockNunjucksRenderer}
 import pages.startReturn.AgentNamePage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+
 import views.html.startReturn.AgentNameView
 
-class AgentNameControllerSpec extends SpecBase with NunjucksSupport with MockNunjucksRenderer with FeatureSwitching {
+class AgentNameControllerSpec extends SpecBase with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -51,34 +49,14 @@ class AgentNameControllerSpec extends SpecBase with NunjucksSupport with MockNun
     requireData = new DataRequiredActionImpl,
     formProvider = new AgentNameFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockNunjucksRenderer
+    view = view
   )
 
-  def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
-
   "AgentName Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(AgentNameTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,7 +64,6 @@ class AgentNameControllerSpec extends SpecBase with NunjucksSupport with MockNun
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
       }
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 

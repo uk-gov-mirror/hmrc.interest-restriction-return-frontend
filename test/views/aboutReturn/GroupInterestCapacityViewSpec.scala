@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.GroupInterestCapacityFormProvider
 import models.NormalMode
-import nunjucks.GroupInterestCapacityTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.DecimalViewBehaviours
 import views.html.aboutReturn.GroupInterestCapacityView
-import views.{Nunjucks, Twirl}
 
-class GroupInterestCapacityViewSpec extends DecimalViewBehaviours with NunjucksSupport {
+class GroupInterestCapacityViewSpec extends DecimalViewBehaviours {
 
   val messageKeyPrefix = "groupInterestCapacity"
 
   val form = new GroupInterestCapacityFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"GroupInterestCapacity ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(GroupInterestCapacityTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[GroupInterestCapacityView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[GroupInterestCapacityView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

@@ -74,7 +74,4 @@ awk '/class/ {\
      print "  def groupInterestAllowance: Option[SummaryListRow] = answer(GroupInterestAllowancePage, routes.GroupInterestAllowanceController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
-echo "Adding template to Nunjucks templates"
-echo "object GroupInterestAllowanceTemplate extends WithName(\"groupInterestAllowance.njk\") with ViewTemplate" >> ../app/nunjucks/ViewTemplate.scala
-
 echo "Migration GroupInterestAllowance completed"

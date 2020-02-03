@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReturn.routes
 import forms.aboutReturn.InterestAllowanceBroughtForwardFormProvider
 import models.NormalMode
-import nunjucks.InterestAllowanceBroughtForwardTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.DecimalViewBehaviours
 import views.html.aboutReturn.InterestAllowanceBroughtForwardView
-import views.{Nunjucks, Twirl}
 
-class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours with NunjucksSupport {
+class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours {
 
   val messageKeyPrefix = "interestAllowanceBroughtForward"
 
   val form = new InterestAllowanceBroughtForwardFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"InterestAllowanceBroughtForward ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(InterestAllowanceBroughtForwardTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[InterestAllowanceBroughtForwardView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[InterestAllowanceBroughtForwardView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

@@ -17,11 +17,9 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import javax.inject.Inject
-import nunjucks.Renderer
-import nunjucks.UnderConstructionTemplate
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
@@ -30,20 +28,15 @@ import views.html.UnderConstructionView
 import scala.concurrent.{ExecutionContext, Future}
 
 class UnderConstructionController @Inject()(override val messagesApi: MessagesApi,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: UnderConstructionView,
-                                      renderer: Renderer
-                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            val controllerComponents: MessagesControllerComponents,
+                                            view: UnderConstructionView
+                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render(UnderConstructionTemplate)
-  } else {
-    Future.successful(view())
-  }
+  private def renderView(implicit request: Request[_]) = Future.successful(view())
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

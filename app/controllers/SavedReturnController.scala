@@ -20,15 +20,12 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import javax.inject.Inject
 import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, StartReturnNavigator}
-import nunjucks.{Renderer, SavedReturnTemplate}
-import nunjucks.viewmodels.SavedReturnViewModel
 import pages.{IndexPage, Page}
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
@@ -43,18 +40,12 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       val controllerComponents: MessagesControllerComponents,
                                       val sessionRepository: SessionRepository,
                                       view: SavedReturnView,
-                                      renderer: Renderer,
                                       startReturnNavigator: StartReturnNavigator,
                                       aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
                                       aboutReturnNavigator: AboutReturnNavigator
-                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(savedTil: String)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-    renderer.render(SavedReturnTemplate, Json.toJsObject(SavedReturnViewModel(savedTil)))
-  } else {
-    Future.successful(view(savedTil))
-  }
+  private def renderView(savedTil: String)(implicit request: Request[_]) = Future.successful(view(savedTil))
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -73,7 +64,7 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
   }
 
   def deleteAndStartAgain: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    sessionRepository.delete(request.userAnswers).map( _ =>
+    sessionRepository.delete(request.userAnswers).map(_ =>
       Redirect(controllers.routes.IndexController.onPageLoad())
     )
   }

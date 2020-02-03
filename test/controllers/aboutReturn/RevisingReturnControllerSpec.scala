@@ -17,23 +17,17 @@
 package controllers.aboutReturn
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.RevisingReturnFormProvider
-import models.{NormalMode, UserAnswers}
+import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
-import nunjucks.viewmodels.YesNoRadioViewModel
-import nunjucks.{MockNunjucksRenderer, RevisingReturnTemplate}
 import pages.aboutReturn.RevisingReturnPage
-import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 import play.api.test.Helpers._
-import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReturn.RevisingReturnView
 
-class RevisingReturnControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class RevisingReturnControllerSpec extends SpecBase with FeatureSwitching {
 
   val view = injector.instanceOf[RevisingReturnView]
   val formProvider = new RevisingReturnFormProvider
@@ -48,34 +42,14 @@ class RevisingReturnControllerSpec extends SpecBase with MockNunjucksRenderer wi
     requireData = new DataRequiredActionImpl,
     formProvider = new RevisingReturnFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    renderer = mockNunjucksRenderer
+    view = view
   )
 
-  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
-
   "RevisingReturn Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(RevisingReturnTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

@@ -17,18 +17,16 @@
 package views.startReturn
 
 import assets.messages.SectionHeaderMessages
-import nunjucks.ReportingCompanyRequiredTemplate
+import views.Twirl
 import views.behaviours.ViewBehaviours
 import views.html.startReturn.ReportingCompanyRequiredView
-import views.{Nunjucks, Twirl}
 
 class ReportingCompanyRequiredViewSpec extends ViewBehaviours {
 
   lazy val twirlViewTemplate = viewFor[ReportingCompanyRequiredView](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
-  lazy val nunjucksView = await(nunjucksRenderer.render(ReportingCompanyRequiredTemplate)(fakeRequest))
 
-  Seq(twirlView -> Twirl, nunjucksView -> Nunjucks).foreach {
+  Seq(twirlView -> Twirl).foreach {
     case (html, templatingSystem) =>
       s"ReportingCompanyRequiredView ($templatingSystem)" must {
 

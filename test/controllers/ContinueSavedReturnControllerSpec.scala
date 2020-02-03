@@ -17,23 +17,17 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ContinueSavedReturnFormProvider
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
 import models.{ContinueSavedReturn, NormalMode}
 import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeAboutReturnNavigator, FakeNavigator, FakeStartReturnNavigator}
-import nunjucks.viewmodels.RadioOptionsViewModel
-import nunjucks.{ContinueSavedReturnTemplate, MockNunjucksRenderer}
 import pages.ContinueSavedReturnPage
-import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 import play.api.test.Helpers._
-import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.ContinueSavedReturnView
 
-class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
   val formProvider = new ContinueSavedReturnFormProvider()
   val view = injector.instanceOf[ContinueSavedReturnView]
@@ -42,47 +36,22 @@ class ContinueSavedReturnControllerSpec extends SpecBase with MockNunjucksRender
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ContinueSavedReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
     formProvider = new ContinueSavedReturnFormProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer,
     startReturnNavigator = FakeStartReturnNavigator,
     aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator,
     aboutReturnNavigator = FakeAboutReturnNavigator
   )
 
-  def viewContext(form: Form[ContinueSavedReturn]): JsObject = Json.toJsObject(RadioOptionsViewModel(
-    ContinueSavedReturn.options(form),
-    form,
-    NormalMode
-  ))
-
   "ContinueSavedReturn Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(ContinueSavedReturnTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
 

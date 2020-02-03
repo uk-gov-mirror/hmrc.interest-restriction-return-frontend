@@ -23,7 +23,6 @@ import config.FrontendAppConfig
 import handlers.ErrorHandler
 import models.UserAnswers
 import models.requests.DataRequest
-import nunjucks.Renderer
 import org.jsoup.Jsoup
 import org.scalatest.TryValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -72,8 +71,6 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   lazy val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
   implicit val messages: Messages = messagesApi.preferred(fakeRequest)
-
-  lazy val nunjucksRenderer: Renderer = app.injector.instanceOf[Renderer]
 
   val savedTilDate = LocalDate.now().plusDays(frontendAppConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
 

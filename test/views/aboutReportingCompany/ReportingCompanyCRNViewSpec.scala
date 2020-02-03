@@ -20,33 +20,26 @@ import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReportingCompany.routes
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import models.NormalMode
-import nunjucks.ReportingCompanyCRNTemplate
-import nunjucks.viewmodels.BasicFormViewModel
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.nunjucks.NunjucksSupport
+import views.Twirl
 import views.behaviours.StringViewBehaviours
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
-import views.{Nunjucks, Twirl}
 
-class ReportingCompanyCRNViewSpec extends StringViewBehaviours with NunjucksSupport {
+class ReportingCompanyCRNViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyCRN"
 
   val form = new ReportingCompanyCRNFormProvider()()
 
-  Seq(Nunjucks, Twirl).foreach { templatingSystem =>
+  Seq(Twirl).foreach { templatingSystem =>
 
     s"ReportingCompanyCRN ($templatingSystem) view" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable =
-        if (templatingSystem == Nunjucks) {
-          await(nunjucksRenderer.render(ReportingCompanyCRNTemplate, Json.toJsObject(BasicFormViewModel(form, NormalMode)))(fakeRequest))
-        } else {
-          val view = viewFor[ReportingCompanyCRNView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = {
+        val view = viewFor[ReportingCompanyCRNView](Some(emptyUserAnswers))
+        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix)
 

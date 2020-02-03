@@ -17,23 +17,20 @@
 package controllers.startReturn
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
 import controllers.errors
 import forms.startReturn.ReportingCompanyAppointedFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{NormalMode}
 import navigation.FakeNavigators.FakeStartReturnNavigator
-import nunjucks.viewmodels.YesNoRadioViewModel
-import nunjucks.{MockNunjucksRenderer, ReportingCompanyAppointedTemplate}
 import pages.startReturn.ReportingCompanyAppointedPage
 import play.api.data.Form
 import play.api.libs.json.{JsObject, Json}
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.startReturn.ReportingCompanyAppointedView
 
-class ReportingCompanyAppointedControllerSpec extends SpecBase with MockNunjucksRenderer with NunjucksSupport with FeatureSwitching {
+class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitching {
 
   val view = injector.instanceOf[ReportingCompanyAppointedView]
   val formProvider = new ReportingCompanyAppointedFormProvider
@@ -48,34 +45,14 @@ class ReportingCompanyAppointedControllerSpec extends SpecBase with MockNunjucks
     requireData = new DataRequiredActionImpl,
     formProvider = new ReportingCompanyAppointedFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    renderer = mockNunjucksRenderer
+    view = view
   )
 
-  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
-
   "ReportingCompanyAppointed Controller" must {
-
-    "If rendering using the Nunjucks templating engine" must {
-
-      "return OK and the correct view for a GET" in {
-
-        enable(UseNunjucks)
-
-        mockRender(ReportingCompanyAppointedTemplate, viewContext(form))(Html("Success"))
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual "Success"
-      }
-    }
 
     "If rendering using the Twirl templating engine" must {
 
       "return OK and the correct view for a GET" in {
-
-        disable(UseNunjucks)
 
         val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 

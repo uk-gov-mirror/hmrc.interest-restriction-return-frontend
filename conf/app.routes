@@ -12,21 +12,9 @@ GET        /this-service-has-been-reset                 controllers.errors.Sessi
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 GET        /under-construction                          controllers.UnderConstructionController.onPageLoad()
 
-
 ### Main Journey Controllers
 ### ------------------------
 GET        /                                            controllers.IndexController.onPageLoad
-
-
-GET        /hello-world-twirl                           controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = NormalMode)
-POST       /hello-world-twirl                           controllers.HelloWorldYesNoController.onSubmit(mode: Mode = NormalMode)
-GET        /hello-world-twirl/change                    controllers.HelloWorldYesNoController.onPageLoad(mode: Mode = CheckMode)
-POST       /hello-world-twirl/change                    controllers.HelloWorldYesNoController.onSubmit(mode: Mode = CheckMode)
-
-GET        /hello-world-nunjucks                        controllers.HelloWorldYesNoNunjucksController.onPageLoad(mode: Mode = NormalMode)
-POST       /hello-world-nunjucks                        controllers.HelloWorldYesNoNunjucksController.onSubmit(mode: Mode = NormalMode)
-GET        /hello-world-nunjucks/change                 controllers.HelloWorldYesNoNunjucksController.onPageLoad(mode: Mode = CheckMode)
-POST       /hello-world-nunjucks/change                 controllers.HelloWorldYesNoNunjucksController.onSubmit(mode: Mode = CheckMode)
 
 ### Check Your Answers Controller
 ### -----------------------------

@@ -17,44 +17,35 @@
 package controllers.aboutReturn
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.aboutReturn.ReturnContainEstimatesFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
-import nunjucks.viewmodels.YesNoRadioViewModel
-import nunjucks.{Renderer, ReturnContainEstimatesTemplate}
 import pages.aboutReturn.ReturnContainEstimatesPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Json
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 import views.html.aboutReturn.ReturnContainEstimatesView
 
 import scala.concurrent.Future
 
 class ReturnContainEstimatesController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         sessionRepository: SessionRepository,
-                                         navigator: AboutReturnNavigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: ReturnContainEstimatesFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: ReturnContainEstimatesView,
-                                         renderer: Renderer
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with NunjucksSupport with FeatureSwitching {
+                                                  override val messagesApi: MessagesApi,
+                                                  sessionRepository: SessionRepository,
+                                                  navigator: AboutReturnNavigator,
+                                                  identify: IdentifierAction,
+                                                  getData: DataRetrievalAction,
+                                                  requireData: DataRequiredAction,
+                                                  formProvider: ReturnContainEstimatesFormProvider,
+                                                  val controllerComponents: MessagesControllerComponents,
+                                                  view: ReturnContainEstimatesView
+                                                )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = if(isEnabled(UseNunjucks)) {
-      renderer.render(ReturnContainEstimatesTemplate, Json.toJsObject(YesNoRadioViewModel(form, mode)))
-    } else {
-      Future.successful(view(form, mode))
-    }
+  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
