@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.groupStructure
 
-object SectionHeaderMessages {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
+class DeemedParentFormProvider @Inject() extends Mappings {
 
-
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("deemedParent.error.required")
+    )
 }

@@ -24,6 +24,9 @@ import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullO
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryDeemedParentPage: Arbitrary[DeemedParentPage.type] =
+    Arbitrary(DeemedParentPage)
+
   implicit lazy val arbitraryContinueSavedReturnPage: Arbitrary[ContinueSavedReturnPage.type] =
     Arbitrary(ContinueSavedReturnPage)
 

@@ -19,6 +19,7 @@ package utils
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
+import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
@@ -31,6 +32,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+
+  def deemedParent: Option[SummaryListRow] = answer(DeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
 
   def returnContainEstimates: Option[SummaryListRow] = answer(ReturnContainEstimatesPage, aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode))
 
