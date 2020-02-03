@@ -26,7 +26,7 @@ class $className;format="cap"$Controller @Inject()(
                                          formProvider: $className$FormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: $className$View
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
 

@@ -27,7 +27,6 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.$className$View
 import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
 
@@ -48,8 +47,6 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching {
     controllerComponents = messagesControllerComponents,
     view = view
   )
-
-  def viewContext(form: Form[Boolean]): JsObject = Json.toJsObject(YesNoRadioViewModel(form, NormalMode))
 
   "$className$ Controller" must {
 

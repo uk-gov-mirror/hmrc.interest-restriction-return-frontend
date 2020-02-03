@@ -17,7 +17,7 @@ class $className$ViewSpec extends CheckboxViewBehaviours[$className$] {
 
   val form = new $className$FormProvider()()
 
-    s"$className$ view" must {
+    s"$className$View" must {
 
       val view = viewFor[$className$View](Some(emptyUserAnswers))
 

@@ -16,7 +16,7 @@ class $className$ViewSpec extends ViewBehaviours {
 
   val form = new $className$FormProvider()()
 
-  s"$className view" must {
+  s"$className$View" must {
 
     def applyView(form: Form[$className$]): HtmlFormat.Appendable = {
       val view = viewFor[$className$View](Some(emptyUserAnswers))
