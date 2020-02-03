@@ -33,32 +33,43 @@ class PayTaxInUkViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "payTaxInUk"
 
+  val companyName = "My Company Ltd."
+  val section = Some(messages("section.groupStructure"))
+
   val form = new PayTaxInUkFormProvider()()
 
-  Seq(Twirl).foreach { templatingSystem =>
+  "PayTaxInUk view" must {
 
-    s"PayTaxInUk ($templatingSystem) view" must {
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[PayTaxInUkView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode, companyName)(fakeRequest, messages, frontendAppConfig)
+    }
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[PayTaxInUkView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-      }
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      headingArgs = Seq(companyName),
+      section = section)
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+    behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like yesNoPage(
+      form,
+      applyView,
+      messageKeyPrefix,
+      expectedFormAction = routes.PayTaxInUkController.onSubmit(NormalMode).url,
+      headingArgs = Seq(companyName),
+      section = section
+    )
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.PayTaxInUkController.onSubmit(NormalMode).url)
+    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
+    behave like pageWithSaveForLater(applyView(form))
 
-      behave like pageWithSaveForLater(applyView(form))
+    lazy val document = asDocument(applyView(form))
 
-      lazy val document = asDocument(applyView(form))
-
-      "have a hint" in {
-        document.select(Selectors.hint).text mustBe PayTaxInUkMessages.hint
-      }
+    "have a hint" in {
+      document.select(Selectors.hint).text mustBe PayTaxInUkMessages.hint
     }
   }
 }

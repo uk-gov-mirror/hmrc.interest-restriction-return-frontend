@@ -23,7 +23,7 @@ import controllers.errors
 import forms.PayTaxInUkFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.PayTaxInUkPage
+import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
 import play.api.test.Helpers._
 import views.html.groupStructure.PayTaxInUkView
 
@@ -32,6 +32,9 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
   val view = injector.instanceOf[PayTaxInUkView]
   val formProvider = new PayTaxInUkFormProvider
   val form = formProvider()
+
+  lazy val name = "My Company Ltd."
+  lazy val companyNameAnswer = emptyUserAnswers.set(ParentCompanyNamePage, name).success.value
 
   def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new PayTaxInUkController(
     messagesApi = messagesApi,
@@ -42,68 +45,108 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
     requireData = new DataRequiredActionImpl,
     formProvider = new PayTaxInUkFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    errorHandler = errorHandler
   )
 
   "PayTaxInUk Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "For the onPageLoad() method" when {
 
-      "return OK and the correct view for a GET" in {
+      "a parentCompanyName is held in the user answers" should {
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+        "return OK and the correct view for a GET" in {
 
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+          val result = controller(FakeDataRetrievalActionGeneral(Some(companyNameAnswer))).onPageLoad(NormalMode)(fakeRequest)
+
+          status(result) mustEqual OK
+          contentAsString(result) mustEqual view(form, NormalMode, name)(fakeRequest, messages, frontendAppConfig).toString
+        }
+
+        "populate the view correctly on a GET when the question has previously been answered" in {
+
+          val userAnswers = companyNameAnswer.set(PayTaxInUkPage, true).success.value
+
+          val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+
+          status(result) mustEqual OK
+        }
+      }
+
+      "a parentCompanyName is NOT held in the user answers" should {
+
+        "return ISE and Error Page" in {
+
+          val result = controller().onPageLoad(NormalMode)(fakeRequest)
+
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+          contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
+        }
+      }
+
+      "no existing data is found" should {
+
+        "redirect to Session Expired page" in {
+
+          val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+
+          status(result) mustEqual SEE_OTHER
+
+          redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+        }
       }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
+    "For the onSubmit() method" when {
 
-      val userAnswers = emptyUserAnswers.set(PayTaxInUkPage, true).success.value
+      "a parentCompanyName is held in the user answers" should {
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+        "redirect to the next page when valid data is submitted" in {
 
-      status(result) mustEqual OK
-    }
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-    "redirect to the next page when valid data is submitted" in {
+          val result = controller(FakeDataRetrievalActionGeneral(Some(companyNameAnswer))).onSubmit(NormalMode)(request)
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some("/foo")
+        }
 
-      val result = controller().onSubmit(NormalMode)(request)
+        "return a Bad Request and errors when invalid data is submitted" in {
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
-    }
+          val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-    "return a Bad Request and errors when invalid data is submitted" in {
+          val result = controller(FakeDataRetrievalActionGeneral(Some(companyNameAnswer))).onSubmit(NormalMode)(request)
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+          status(result) mustEqual BAD_REQUEST
+        }
+      }
 
-      val result = controller().onSubmit(NormalMode)(request)
+      "a parentCompanyName is NOT held in the user answers and is a bad request with invalid data" should {
 
-      status(result) mustEqual BAD_REQUEST
-    }
+        "return ISE and Error Page" in {
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+          val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+          val result = controller().onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+          contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
+        }
+      }
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-    }
+      "no existing data is found" should {
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+        "redirect to Session Expired page" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+          val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+          status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+          redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+        }
+      }
     }
   }
 }

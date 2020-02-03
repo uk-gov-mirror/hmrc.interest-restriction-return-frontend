@@ -21,10 +21,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.PayTaxInUkFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.PayTaxInUkPage
+import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -42,14 +44,20 @@ class PayTaxInUkController @Inject()(
                                       requireData: DataRequiredAction,
                                       formProvider: PayTaxInUkFormProvider,
                                       val controllerComponents: MessagesControllerComponents,
-                                      view: PayTaxInUkView
+                                      view: PayTaxInUkView,
+                                      errorHandler: ErrorHandler
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
+  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
+    request.userAnswers.get(ParentCompanyNamePage) match {
+      case Some(companyName) => f(companyName)
+      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+    }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(PayTaxInUkPage, formProvider()), mode).map(Ok(_))
+    implicit request => companyNamePredicate { name =>
+      Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider()), mode, name)))
+    }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -57,8 +65,9 @@ class PayTaxInUkController @Inject()(
 
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
+          companyNamePredicate { name =>
+            Future.successful(BadRequest(view(formWithErrors, mode, name)))
+          },
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(PayTaxInUkPage, value))
