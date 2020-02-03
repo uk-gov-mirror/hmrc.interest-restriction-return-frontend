@@ -23,6 +23,7 @@ import org.scalatest.TryValues
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn.{GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
+import pages.groupStructure.PayTaxInUkPage
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
 import play.api.libs.json.{JsPath, JsValue, Json}
 
@@ -30,6 +31,7 @@ trait UserAnswersGenerator extends TryValues {
   self: Generators =>
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
+    arbitrary[(PayTaxInUkPage.type, JsValue)] ::
     arbitrary[(DeemedParentPage.type, JsValue)] ::
     arbitrary[(ContinueSavedReturnPage.type, JsValue)] ::
     arbitrary[(CheckAnswersReportingCompanyPage.type, JsValue)] ::

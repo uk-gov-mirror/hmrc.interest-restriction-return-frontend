@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package views
+package pages.groupStructure
 
-trait BaseSelectors {
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-  val panelHeading = "main div.govuk-panel.govuk-panel--confirmation h1"
-  val panelBody = "main div.govuk-panel.govuk-panel--confirmation div.govuk-panel__body"
-  val p: Int => String = i => s"main p:nth-of-type($i)"
-  val indent = "main div.govuk-inset-text"
-  val hint = "main span.govuk-hint"
-  val bullet: Int => String = i => s"main ul.govuk-list.govuk-list--bullet li:nth-of-type($i)"
+case object PayTaxInUkPage extends QuestionPage[Boolean] {
 
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "payTaxInUk"
 }

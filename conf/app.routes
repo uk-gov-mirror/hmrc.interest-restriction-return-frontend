@@ -169,3 +169,8 @@ GET        /deemed-parent                                  controllers.groupStru
 POST       /deemed-parent                                  controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = NormalMode)
 GET        /deemed-parent/change                           controllers.groupStructure.DeemedParentController.onPageLoad(mode: Mode = CheckMode)
 POST       /deemed-parent/change                           controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = CheckMode)
+
+GET        /pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = NormalMode)
+POST       /pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = NormalMode)
+GET        /pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = CheckMode)
+POST       /pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = CheckMode)
