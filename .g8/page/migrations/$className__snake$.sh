@@ -4,8 +4,6 @@ echo ""
 echo "Applying migration $className;format="snake"$"
 
 echo "" >> ../conf/app.routes
-export kebabClassName=\$(sed --expression 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' --expression 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
-echo "GET        /\$kebabClassName                          controllers.$className$Controller;format="cap".onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -28,3 +26,7 @@ awk '/val pages/ {\
     next }1' ../app/pages/Page.scala > tmp && mv tmp ../app/pages/Page.scala
 
 echo "Migration $className;format="snake"$ completed"
+
+export kebabClassName=\$(sed --expression 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' --expression 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
+echo "GET        /\$kebabClassName                          controllers.$className;format="cap"$Controller".onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+
