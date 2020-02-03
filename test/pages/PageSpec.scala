@@ -21,6 +21,7 @@ import pages.aboutReportingCompany._
 import pages.startReturn._
 import pages.aboutReturn._
 import pages.groupStructure.PayTaxInUkPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.libs.json.{JsString, Json}
 
 class PageSpec extends SpecBase {
@@ -30,6 +31,7 @@ class PageSpec extends SpecBase {
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
         PayTaxInUkPage.toString -> PayTaxInUkPage,
+        ParentCompanyNamePage.toString -> ParentCompanyNamePage,
         DeemedParentPage.toString -> DeemedParentPage,
         ConfirmationPage.toString -> ConfirmationPage,
         ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,

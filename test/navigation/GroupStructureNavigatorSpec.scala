@@ -18,7 +18,7 @@ package navigation
 
 import base.SpecBase
 import models._
-import pages.DeemedParentPage
+import pages.groupStructure.DeemedParentPage
 
 class GroupStructureNavigatorSpec extends SpecBase {
 

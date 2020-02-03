@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package pages
+package forms
 
-import pages.behaviours.PageBehaviours
+import javax.inject.Inject
 
-class DeemedParentPageSpec extends PageBehaviours {
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  "DeemedParentPage" must {
+class ParentCompanyNameFormProvider @Inject() extends Mappings {
 
-    beRetrievable[Boolean](DeemedParentPage)
-
-    beSettable[Boolean](DeemedParentPage)
-
-    beRemovable[Boolean](DeemedParentPage)
-  }
+  def apply(): Form[String] =
+    Form(
+      "value" -> text("parentCompanyName.error.required")
+        .verifying(maxLength(160, "parentCompanyName.error.length"))
+    )
 }

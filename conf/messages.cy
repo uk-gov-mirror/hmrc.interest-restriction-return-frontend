@@ -297,3 +297,13 @@ payTaxInUk.heading = Does Name have a Unique Taxpayer Reference?
 payTaxInUk.hint = This could be for paying Corporation Tax or completing Self Assessment in the UK.
 payTaxInUk.checkYourAnswersLabel = Does Name have a Unique Taxpayer Reference?
 payTaxInUk.error.required = Select yes if Does Name have a Unique Taxpayer Reference?
+
+
+# ParentCompanyNamePage Messages
+# ----------------------------------------------------------
+parentCompanyName.title = Enter the name of the parent company
+parentCompanyName.heading = Enter the name of the parent company
+parentCompanyName.checkYourAnswersLabel = Enter the name of the parent company
+parentCompanyName.label = Enter the name of the parent company
+parentCompanyName.error.required = Enter the name of the parent company
+parentCompanyName.error.length = ParentCompanyName must be 160 characters or less

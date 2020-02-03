@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.groupStructure
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import controllers.groupStructure.DeemedParentController
+import controllers.errors
 import forms.groupStructure.DeemedParentFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.DeemedParentPage
+import pages.groupStructure.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentView
 
