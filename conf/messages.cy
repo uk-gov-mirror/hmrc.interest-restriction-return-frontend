@@ -45,6 +45,7 @@ site.saveAndComeBackLater = Save and come back later
 section.aboutReturn = About the return
 section.agents = Agents
 section.reportingCompany = About the reporting company
+section.groupStructure = Group structure
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -279,3 +280,10 @@ confirmation.refNumber = Your reference number
 confirmation.p1 = HMRC has successfully received your return
 confirmation.whatDoYouThink.link = What did you think of this service?
 confirmation.whatDoYouThink.time = (takes 30 seconds)
+
+
+# DeemedParentPage Messages
+# ----------------------------------------------------------
+deemedParent.title = Does the group have a 'deemed' parent company?
+deemedParent.heading = Does the group have a 'deemed' parent company?
+deemedParent.checkYourAnswersLabel = Does the group have a 'deemed' parent company?
