@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object SectionHeaderMessages {
+import pages.behaviours.PageBehaviours
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
+class DeemedParentPageSpec extends PageBehaviours {
 
+  "DeemedParentPage" must {
 
+    beRetrievable[Boolean](DeemedParentPage)
+
+    beSettable[Boolean](DeemedParentPage)
+
+    beRemovable[Boolean](DeemedParentPage)
+  }
 }
