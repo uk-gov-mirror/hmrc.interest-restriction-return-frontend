@@ -279,11 +279,3 @@ confirmation.refNumber = Your reference number
 confirmation.p1 = HMRC has successfully received your return
 confirmation.whatDoYouThink.link = What did you think of this service?
 confirmation.whatDoYouThink.time = (takes 30 seconds)
-
-
-# mikeyPage Messages
-# ----------------------------------------------------------
-mikey.title = mikey
-mikey.heading = yooooo
-mikey.checkYourAnswersLabel = yooooo
-mikey.error.required = Select yes if yooooo
