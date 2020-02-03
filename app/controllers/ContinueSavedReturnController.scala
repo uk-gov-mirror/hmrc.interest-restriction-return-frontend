@@ -23,7 +23,7 @@ import forms.ContinueSavedReturnFormProvider
 import javax.inject.Inject
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
 import models.{ContinueSavedReturn, NormalMode}
-import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, Navigator, StartReturnNavigator}
+import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, StartReturnNavigator}
 import pages.ContinueSavedReturnPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
@@ -36,7 +36,6 @@ import scala.concurrent.Future
 class ContinueSavedReturnController @Inject()(
                                                override val messagesApi: MessagesApi,
                                                sessionRepository: SessionRepository,
-                                               navigator: Navigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,
@@ -46,7 +45,7 @@ class ContinueSavedReturnController @Inject()(
                                                startReturnNavigator: StartReturnNavigator,
                                                aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
                                                aboutReturnNavigator: AboutReturnNavigator
-                                             )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+                                             )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private def viewHtml(form: Form[ContinueSavedReturn])(implicit request: Request[_]) = Future.successful(view(form, NormalMode))
 
