@@ -16,7 +16,7 @@ import play.api.data.Form
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 
-class $className$Controller @Inject()(
+class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        sessionRepository: SessionRepository,
                                        navigator: Navigator,
