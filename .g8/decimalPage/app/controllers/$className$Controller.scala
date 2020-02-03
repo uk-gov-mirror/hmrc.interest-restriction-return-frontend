@@ -12,7 +12,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$className$View
 import config.FrontendAppConfig
 import play.api.data.Form
-import play.api.libs.json.Json
+
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 

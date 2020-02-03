@@ -13,7 +13,7 @@ import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$className$View
 import play.api.data.Form
-import play.api.libs.json.Json
+
 import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(

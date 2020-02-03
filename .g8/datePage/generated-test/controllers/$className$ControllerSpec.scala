@@ -23,10 +23,8 @@ import controllers.actions._
 import forms.$className$FormProvider
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeNavigator
-import .viewmodels.DateViewModel
 import pages.$className$Page
 import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import models.Mode
@@ -34,7 +32,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.viewmodels.Radios
 import views.html.$className$View
 
-class $className$ControllerSpec extends SpecBase with FeatureSwitching  {
+class $className$ControllerSpec extends SpecBase with FeatureSwitching {
 
   val formProvider = new $className$FormProvider()
   val form = formProvider()
@@ -53,21 +51,15 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching  {
     controllerComponents = messagesControllerComponents,
     view = view)
 
-  def viewContext(form: Form[_], mode: Mode = NormalMode): JsObject = Json.toJsObject(DateViewModel(form, mode))
-
   "$className$ Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -82,9 +74,9 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching  {
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day"   -> validAnswer.getDayOfMonth.toString,
+        "value.day" -> validAnswer.getDayOfMonth.toString,
         "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year"  -> validAnswer.getYear.toString
+        "value.year" -> validAnswer.getYear.toString
       )
 
       val result = controller().onSubmit(NormalMode)(request)
@@ -113,9 +105,9 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching  {
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day"   -> validAnswer.getDayOfMonth.toString,
+        "value.day" -> validAnswer.getDayOfMonth.toString,
         "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year"  -> validAnswer.getYear.toString
+        "value.year" -> validAnswer.getYear.toString
       )
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)

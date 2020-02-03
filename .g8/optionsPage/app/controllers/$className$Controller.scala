@@ -12,7 +12,7 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.$className$View
 import play.api.data.Form
-import play.api.libs.json.Json
+
 import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(

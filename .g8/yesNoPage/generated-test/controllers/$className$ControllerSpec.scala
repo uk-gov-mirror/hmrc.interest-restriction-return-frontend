@@ -50,15 +50,12 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching {
 
   "$className$ Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {

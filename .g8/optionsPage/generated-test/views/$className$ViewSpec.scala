@@ -3,7 +3,6 @@ package views
 import forms.$className$FormProvider
 import models.{$className$, ContinueSavedReturn, NormalMode}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.viewmodels.Radios
 import views.behaviours.ViewBehaviours
@@ -12,7 +11,8 @@ import views.html.$className$View
 class $className$ViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "$className;format="
-  decap "$"
+  decap
+  "$"
 
   val form = new $className$FormProvider()()
 
@@ -49,6 +49,4 @@ class $className$ViewSpec extends ViewBehaviours {
       }
     }
   }
-}
-
 }

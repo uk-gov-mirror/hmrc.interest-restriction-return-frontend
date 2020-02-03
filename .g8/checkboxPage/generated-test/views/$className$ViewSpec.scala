@@ -4,9 +4,7 @@ import forms.$className$FormProvider
 import models.{$className$, NormalMode}
 import play.api.Application
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-
 import views.behaviours.CheckboxViewBehaviours
 import views.html.$className$View
 

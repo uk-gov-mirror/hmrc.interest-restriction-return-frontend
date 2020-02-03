@@ -12,7 +12,6 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.$className$View
 import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 
 import scala.concurrent.Future
 

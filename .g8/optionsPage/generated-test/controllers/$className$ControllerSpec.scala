@@ -25,7 +25,7 @@ import navigation.FakeNavigators.FakeNavigator
 import org.scalatestplus.mockito.MockitoSugar
 import pages.$className$Page
 import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
+
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -49,12 +49,6 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching {
     controllerComponents = messagesControllerComponents,
     view = view
   )
-
-  def viewContext(form: Form[$className$]): JsObject = Json.toJsObject(RadioOptionsViewModel(
-    $className$.options(form),
-    form,
-    NormalMode
-  ))
 
   "$className$ Controller" must {
 
