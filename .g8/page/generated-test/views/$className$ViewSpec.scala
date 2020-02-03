@@ -8,16 +8,13 @@ class $className$ViewSpec extends ViewBehaviours {
 
   lazy val twirlViewTemplate = viewFor[$className$View](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
-  lazy val View = await(Renderer.render($className$Template)(fakeRequest))
 
-  Seq(twirlView -> Twirl).foreach {
-    case (html, templatingSystem) =>
-      s"$className$View (\$templatingSystem)" must {
+      s"$className$View" must {
 
-        behave like normalPage(html, "$className;format="
+        behave like normalPage(twirlView, "$className;format="
         decap"$"
         )
-        behave like pageWithBackLink(html)
+        behave like pageWithBackLink(twirlView)
       }
   }
 }

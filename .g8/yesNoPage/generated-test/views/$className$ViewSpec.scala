@@ -16,9 +16,7 @@ class $className$ViewSpec extends YesNoViewBehaviours  {
 
   val form = new $className$FormProvider()()
 
-  Seq(Twirl).foreach { templatingSystem =>
-
-    s"$className $ (\$templatingSystem) view" must {
+    s"$className view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[$className$View](Some(emptyUserAnswers))
