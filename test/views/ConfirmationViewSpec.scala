@@ -26,57 +26,52 @@ class ConfirmationViewSpec extends ViewBehaviours {
 
   val ref = "abc123"
 
-  lazy val twirlViewTemplate = viewFor[ConfirmationView](Some(emptyUserAnswers))
-  lazy val twirlView = twirlViewTemplate.apply(ref)(fakeRequest, frontendAppConfig, messages)
+  lazy val viewTemplate = viewFor[ConfirmationView](Some(emptyUserAnswers))
+  lazy val view = viewTemplate.apply(ref)(fakeRequest, frontendAppConfig, messages)
 
-  Seq(twirlView -> Twirl).foreach {
+  s"ConfirmationView" must {
 
-    case (html, templatingSystem) =>
+    behave like normalPage(view, "confirmation")
 
-      s"ConfirmationView ($templatingSystem)" must {
+    behave like pageWithBackLink(view)
 
-        behave like normalPage(html, "confirmation")
+    lazy val doc = asDocument(view)
 
-        behave like pageWithBackLink(html)
+    "have a panel notification" which {
 
-        lazy val doc = asDocument(html)
+      "has the correct heading" in {
+        doc.select(Selectors.panelHeading).text mustBe ConfirmationMessages.heading
+      }
 
-        "have a panel notification" which {
+      "has the correct additional content for acknowledgement reference" in {
+        doc.select(Selectors.panelBody).text mustBe ConfirmationMessages.reference(ref)
+      }
+    }
 
-          "has the correct heading" in {
-            doc.select(Selectors.panelHeading).text mustBe ConfirmationMessages.heading
-          }
+    "have the correct 1st para" in {
+      doc.select(Selectors.p(1)).text mustBe ConfirmationMessages.p1
+    }
 
-          "has the correct additional content for acknowledgement reference" in {
-            doc.select(Selectors.panelBody).text mustBe ConfirmationMessages.reference(ref)
-          }
+    "have the correct exitSurvey paragraph" which {
+
+      lazy val exitSurvey = doc.select(Selectors.p(2))
+
+      "has the correct text" in {
+        exitSurvey.text mustBe ConfirmationMessages.feedbackLink + " " + ConfirmationMessages.feedbackTime
+      }
+
+      "has the correct link" which {
+
+        lazy val exitSurveyLink = exitSurvey.select("a")
+
+        "has the correct URL to the exit survey frontend" in {
+          exitSurveyLink.attr("href") mustBe frontendAppConfig.exitSurveyUrl
         }
 
-        "have the correct 1st para" in {
-          doc.select(Selectors.p(1)).text mustBe ConfirmationMessages.p1
-        }
-
-        "have the correct exitSurvey paragraph" which {
-
-          lazy val exitSurvey = doc.select(Selectors.p(2))
-
-          "has the correct text" in {
-            exitSurvey.text mustBe ConfirmationMessages.feedbackLink + " " + ConfirmationMessages.feedbackTime
-          }
-
-          "has the correct link" which {
-
-            lazy val exitSurveyLink = exitSurvey.select("a")
-
-            "has the correct URL to the exit survey frontend" in {
-              exitSurveyLink.attr("href") mustBe frontendAppConfig.exitSurveyUrl
-            }
-
-            "has the correct link text" in {
-              exitSurveyLink.text mustBe ConfirmationMessages.feedbackLink
-            }
-          }
+        "has the correct link text" in {
+          exitSurveyLink.text mustBe ConfirmationMessages.feedbackLink
         }
       }
+    }
   }
 }

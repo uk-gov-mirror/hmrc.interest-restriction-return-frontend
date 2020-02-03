@@ -33,13 +33,10 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching {
     getData = FakeDataRetrievalActionEmptyAnswers,
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockRenderer
+    view = view
   )
 
   "$className$ Controller" must {
-
-    "When Usint the Twirl Template" must {
 
       "return OK and the correct view for a GET" in {
 
@@ -47,6 +44,5 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching {
 
         status(result) mustBe OK
       }
-    }
   }
 }

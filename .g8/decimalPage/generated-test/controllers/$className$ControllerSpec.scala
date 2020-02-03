@@ -48,9 +48,7 @@ class $className$ControllerSpec extends SpecBase with FeatureSwitching  {
     requireData = new DataRequiredActionImpl,
     formProvider = new $className$FormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockRenderer
-  )
+    view = view)
 
   def viewContext(form: Form[_]): JsObject = Json.toJsObject(BasicFormViewModel(form, NormalMode))
 
