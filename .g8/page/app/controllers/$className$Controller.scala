@@ -11,7 +11,7 @@ import views.html.$className$View
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class $className$Controller @Inject()(override val messagesApi: MessagesApi,
+class $className;format="cap"$Controller @Inject()(override val messagesApi: MessagesApi,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
