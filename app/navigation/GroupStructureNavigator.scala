@@ -16,8 +16,6 @@
 
 package navigation
 
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.groupStructure.{routes => groupStructureRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
@@ -26,15 +24,18 @@ import play.api.mvc.Call
 @Singleton
 class GroupStructureNavigator @Inject()() extends BaseNavigator {
 
+  //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    DeemedParentPage -> (_ => groupStructureRoutes.DeemedParentController.onPageLoad(NormalMode))
+    DeemedParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
+  //TODO update with check your answers page
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode)
+    controllers.routes.UnderConstructionController.onPageLoad()
   )
 
-  private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  //TODO update with next section
+  private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
