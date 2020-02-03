@@ -288,3 +288,13 @@ deemedParent.title = Does the group have a 'deemed' parent company?
 deemedParent.heading = Does the group have a 'deemed' parent company?
 deemedParent.checkYourAnswersLabel = Does the group have a 'deemed' parent company?
 deemedParent.error.required = Select yes if the group has a 'deemed' parent company?
+
+
+# ParentCompanyNamePage Messages
+# ----------------------------------------------------------
+parentCompanyName.title = Enter the name of the parent company
+parentCompanyName.heading = Enter the name of the parent company
+parentCompanyName.checkYourAnswersLabel = Enter the name of the parent company
+parentCompanyName.label = Enter the name of the parent company
+parentCompanyName.error.required = Enter the name of the parent company
+parentCompanyName.error.length = ParentCompanyName must be 160 characters or less

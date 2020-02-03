@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 
-package views
+package views.groupStructure
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.routes
-import forms.groupStructure.DeemedParentFormProvider
+import forms.ParentCompanyNameFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
-import views.html.groupStructure.DeemedParentView
+import views.behaviours.StringViewBehaviours
+import views.html.groupStructure.ParentCompanyNameView
 
-class DeemedParentViewSpec extends YesNoViewBehaviours  {
+class ParentCompanyNameViewSpec extends StringViewBehaviours  {
 
-  val messageKeyPrefix = "deemedParent"
+  val messageKeyPrefix = "parentCompanyName"
 
-  val form = new DeemedParentFormProvider()()
+  val form = new ParentCompanyNameFormProvider()()
 
-  s"DeemedParent view" must {
+  s"ParentCompanyName view" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
-      val view = viewFor[DeemedParentView](Some(emptyUserAnswers))
+      val view = viewFor[ParentCompanyNameView](Some(emptyUserAnswers))
       view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.DeemedParentController.onSubmit(NormalMode).url)
-
     behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
+    behave like stringPage(form, applyView, messageKeyPrefix, routes.ParentCompanyNameController.onSubmit(NormalMode).url)
 
     behave like pageWithSaveForLater(applyView(form))
   }
