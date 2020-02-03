@@ -11,8 +11,7 @@ class $className$ViewSpec extends ViewBehaviours {
 
       s"$className$View" must {
 
-        behave like normalPage(twirlView, "$className;format="
-        decap"$"
+        behave like normalPage(twirlView, "$className;format="decap"$"
         )
         behave like pageWithBackLink(twirlView)
       }

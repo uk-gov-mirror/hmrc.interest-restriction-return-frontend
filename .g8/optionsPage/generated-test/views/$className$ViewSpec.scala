@@ -10,9 +10,7 @@ import views.html.$className$View
 
 class $className$ViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "$className;format="
-  decap
-  "$"
+  val messageKeyPrefix = "$className;format="decap"$"
 
   val form = new $className$FormProvider()()
 

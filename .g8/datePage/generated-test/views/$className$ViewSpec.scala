@@ -12,8 +12,7 @@ import views.html.$className$View
 
 class $className$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
-  val messageKeyPrefix = "$className;format="
-  decap "$"
+  val messageKeyPrefix = "$className;format="decap"$"
 
   val form = new $className$FormProvider()()
 
