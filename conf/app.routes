@@ -11,10 +11,6 @@ GET        /sign-out-no-survey                          controllers.SignOutContr
 GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 GET        /under-construction                          controllers.UnderConstructionController.onPageLoad()
-<<<<<<< HEAD
-
-=======
->>>>>>> 67cf13099fd8252219a1d4f79d42b6baccb1aaf2
 
 ### Main Journey Controllers
 ### ------------------------

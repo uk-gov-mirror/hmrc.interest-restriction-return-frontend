@@ -17,11 +17,10 @@
 package nunjucks.viewmodels
 
 import play.api.libs.json.{Json, OWrites}
-import uk.gov.hmrc.nunjucks.NunjucksSupport
 
 case class ConfirmationViewModel(reference: String, exitSurveyUrl: String)
 
-object ConfirmationViewModel extends NunjucksSupport {
+object ConfirmationViewModel {
 
   implicit def writes: OWrites[ConfirmationViewModel] = Json.writes[ConfirmationViewModel]
 }

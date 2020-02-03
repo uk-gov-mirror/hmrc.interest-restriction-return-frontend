@@ -18,16 +18,12 @@ package controllers
 
 import base.SpecBase
 import config.SessionKeys
-import config.featureSwitch.{FeatureSwitching, UseNunjucks}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
-import nunjucks.viewmodels.ConfirmationViewModel
-import nunjucks.{ConfirmationTemplate, MockNunjucksRenderer}
-import play.api.libs.json.Json
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import views.html.ConfirmationView
 
-class ConfirmationControllerSpec extends SpecBase with MockNunjucksRenderer with FeatureSwitching {
+class ConfirmationControllerSpec extends SpecBase with FeatureSwitching {
 
   val view = injector.instanceOf[ConfirmationView]
 
@@ -40,7 +36,6 @@ class ConfirmationControllerSpec extends SpecBase with MockNunjucksRenderer with
     requireData = new DataRequiredActionImpl,
     controllerComponents = messagesControllerComponents,
     view = view,
-    renderer = mockNunjucksRenderer,
     errorHandler = errorHandler
   )
 
@@ -50,26 +45,9 @@ class ConfirmationControllerSpec extends SpecBase with MockNunjucksRenderer with
 
     "when the acknowledgement reference is held in session" should {
 
-      "When Nunjucks rendering is enabled" must {
+      "When using the Twirl Template" must {
 
         "return OK and the correct view for a GET" in {
-
-          enable(UseNunjucks)
-
-          mockRender(ConfirmationTemplate, Json.toJsObject(ConfirmationViewModel(reference, frontendAppConfig.exitSurveyUrl)))(Html("Success"))
-
-          val result = controller.onPageLoad(requestWithRef)
-
-          status(result) mustBe OK
-          contentAsString(result) mustEqual "Success"
-        }
-      }
-
-      "When Nunjucks rendering is disabled" must {
-
-        "return OK and the correct view for a GET" in {
-
-          disable(UseNunjucks)
 
           val result = controller.onPageLoad(requestWithRef)
 
@@ -82,8 +60,6 @@ class ConfirmationControllerSpec extends SpecBase with MockNunjucksRenderer with
     "when the acknowledgement reference is NOT held in session" should {
 
       "return the ISE page" in {
-
-        disable(UseNunjucks)
 
         val result = controller.onPageLoad(fakeRequest)
 

@@ -17,9 +17,6 @@
 package views
 
 import assets.messages.ConfirmationMessages
-import nunjucks.ConfirmationTemplate
-import nunjucks.viewmodels.ConfirmationViewModel
-import play.api.libs.json.Json
 import views.behaviours.ViewBehaviours
 import views.html.ConfirmationView
 
@@ -31,11 +28,8 @@ class ConfirmationViewSpec extends ViewBehaviours {
 
   lazy val twirlViewTemplate = viewFor[ConfirmationView](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply(ref)(fakeRequest, frontendAppConfig, messages)
-  lazy val nunjucksView = await(nunjucksRenderer.render(
-    ConfirmationTemplate, Json.toJsObject(ConfirmationViewModel(ref, frontendAppConfig.exitSurveyUrl))
-  )(fakeRequest))
 
-  Seq(twirlView -> Twirl, nunjucksView -> Nunjucks).foreach {
+  Seq(twirlView -> Twirl).foreach {
 
     case (html, templatingSystem) =>
 
