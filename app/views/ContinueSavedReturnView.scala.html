@@ -31,7 +31,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "continueSavedReturn.title"))) {
 
-    @formHelper(action = ContinueSavedReturnController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ContinueSavedReturnController.onSubmit(), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

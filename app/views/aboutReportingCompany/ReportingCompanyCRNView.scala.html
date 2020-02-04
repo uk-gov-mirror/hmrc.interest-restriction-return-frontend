@@ -36,7 +36,7 @@
     pageTitle = Some(title(form, "reportingCompanyCRN.title"))
     ) {
 
-    @formHelper(action = ReportingCompanyCRNController.onSubmit(mode)) {
+    @formHelper(action = ReportingCompanyCRNController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

@@ -23,7 +23,8 @@
   name: String,
   label: String,
   isPageHeading: Boolean = false,
-  isDecimal: Boolean = true
+  isDecimal: Boolean = true,
+  hint: Option[Html] = None
 )(implicit messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukInput(Input(
@@ -35,6 +36,9 @@
         isPageHeading = isPageHeading,
         classes = if(isPageHeading) "govuk-label--xl" else ""
     ),
+    hint = hint.map(hintHtml => Hint(
+        content = HtmlContent(hintHtml)
+    )),
     value = form("value").value,
     errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*)))),
     attributes = if(isDecimal) Map("step" -> "0.01") else Map("step" -> "1")

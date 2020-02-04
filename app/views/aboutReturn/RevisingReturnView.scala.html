@@ -35,7 +35,7 @@
     pageTitle = Some(title(form, "revisingReturn.title"))
     ) {
 
-    @formHelper(action = RevisingReturnController.onSubmit(mode)) {
+    @formHelper(action = RevisingReturnController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

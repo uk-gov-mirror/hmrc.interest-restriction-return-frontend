@@ -58,6 +58,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
   lazy val loginUrl: String = servicesConfig.getString("urls.login")
   lazy val signOutUrl: String = servicesConfig.getString("urls.signOut")
   lazy val loginContinueUrl: String = servicesConfig.getString("urls.loginContinue")
+  lazy val findLostUTRUrl: String = servicesConfig.getString("urls.findLostUTR")
 
   lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")
   lazy val countdown: Int = servicesConfig.getInt("timeout.countdown")

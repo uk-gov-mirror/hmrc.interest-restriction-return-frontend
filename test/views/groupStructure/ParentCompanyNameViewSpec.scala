@@ -18,7 +18,7 @@ package views.groupStructure
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.routes
-import forms.ParentCompanyNameFormProvider
+import forms.groupStructure.ParentCompanyNameFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat

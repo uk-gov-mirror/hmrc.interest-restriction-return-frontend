@@ -35,7 +35,7 @@
     pageTitle = Some(title(form, "groupSubjectToRestrictions.title"))
     ) {
 
-    @formHelper(action = GroupSubjectToRestrictionsController.onSubmit(mode)) {
+    @formHelper(action = GroupSubjectToRestrictionsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

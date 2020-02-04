@@ -14,20 +14,11 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package assets.messages.groupStructure
 
-import forms.UTRFormValidation
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+object ParentCompanySAUTRMessages {
 
-class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings with UTRFormValidation {
-
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("reportingCompanyCTUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "reportingCompanyCTUTR.error.length"))
-        .verifying(checksum("reportingCompanyCTUTR.error.checksum"))
-    )
+  val hintLink = "find a lost UTR number"
+  val hint = s"This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can $hintLink."
 
 }

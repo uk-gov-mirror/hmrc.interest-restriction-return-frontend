@@ -20,36 +20,36 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
-import forms.groupStructure.ParentCompanyNameFormProvider
+import forms.groupStructure.ParentCompanySAUTRFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.ParentCompanySAUTRPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.groupStructure.ParentCompanyNameView
+import views.html.groupStructure.ParentCompanySAUTRView
 
 import scala.concurrent.Future
 
-class ParentCompanyNameController @Inject()(
-                                             override val messagesApi: MessagesApi,
-                                             sessionRepository: SessionRepository,
-                                             navigator: GroupStructureNavigator,
-                                             identify: IdentifierAction,
-                                             getData: DataRetrievalAction,
-                                             requireData: DataRequiredAction,
-                                             formProvider: ParentCompanyNameFormProvider,
-                                             val controllerComponents: MessagesControllerComponents,
-                                             view: ParentCompanyNameView
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class ParentCompanySAUTRController @Inject()(
+                                              override val messagesApi: MessagesApi,
+                                              sessionRepository: SessionRepository,
+                                              navigator: GroupStructureNavigator,
+                                              identify: IdentifierAction,
+                                              getData: DataRetrievalAction,
+                                              requireData: DataRequiredAction,
+                                              formProvider: ParentCompanySAUTRFormProvider,
+                                              val controllerComponents: MessagesControllerComponents,
+                                              view: ParentCompanySAUTRView
+                                     )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
   private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      viewHtml(fillForm(ParentCompanyNamePage, formProvider()), mode).map(Ok(_))
+      viewHtml(fillForm(ParentCompanySAUTRPage, formProvider()), mode).map(Ok(_))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -61,9 +61,9 @@ class ParentCompanyNameController @Inject()(
 
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ParentCompanyNamePage, value))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(ParentCompanySAUTRPage, value))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, updatedAnswers))
       )
   }
 }

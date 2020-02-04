@@ -37,7 +37,7 @@
     pageTitle = Some(title(form, "agentName.title"))
     ) {
 
-    @formHelper(action = AgentNameController.onSubmit(mode)) {
+    @formHelper(action = AgentNameController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

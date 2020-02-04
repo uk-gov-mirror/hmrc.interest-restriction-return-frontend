@@ -19,13 +19,13 @@ package forms.groupStructure
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.FormError
 
-class ParentCompanyNameFormProviderSpec extends StringFieldBehaviours {
+class ParentCompanySAUTRFormProviderSpec extends StringFieldBehaviours {
 
-  val requiredKey = "parentCompanyName.error.required"
-  val lengthKey = "parentCompanyName.error.length"
-  val maxLength = 160
+  val requiredKey = "parentCompanySAUTR.error.required"
+  val lengthKey = "parentCompanySAUTR.error.length"
+  val maxLength = 10
 
-  val form = new ParentCompanyNameFormProvider()()
+  val form = new ParentCompanySAUTRFormProvider()()
 
   ".value" must {
 
@@ -35,13 +35,6 @@ class ParentCompanyNameFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       stringsWithMaxLength(maxLength)
-    )
-
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
     )
 
     behave like mandatoryField(

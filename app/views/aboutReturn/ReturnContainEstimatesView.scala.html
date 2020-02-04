@@ -35,7 +35,7 @@
     pageTitle = Some(title(form, "returnContainEstimates.title"))
     ) {
 
-    @formHelper(action = ReturnContainEstimatesController.onSubmit(mode)) {
+    @formHelper(action = ReturnContainEstimatesController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
