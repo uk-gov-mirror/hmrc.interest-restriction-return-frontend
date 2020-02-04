@@ -31,6 +31,7 @@ class PageSpec extends SpecBase {
       val expected = Map(
         ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
         PayTaxInUkPage.toString -> PayTaxInUkPage,
+        LimitedLiabilityPartnershipPage.toString -> LimitedLiabilityPartnershipPage,
         RegisteredCompaniesHousePage.toString -> RegisteredCompaniesHousePage,
         ParentCRNPage.toString -> ParentCRNPage,
         ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,

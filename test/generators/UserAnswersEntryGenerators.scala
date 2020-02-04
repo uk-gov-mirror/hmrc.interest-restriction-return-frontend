@@ -21,6 +21,9 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReturn.{GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
+import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCompanyNamePage, RegisteredCompaniesHousePage}
+import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
 import pages.aboutReturn._
 import pages.groupStructure._
 import pages.startReturn._
@@ -56,6 +59,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
     Arbitrary {
       for {
         page  <- arbitrary[PayTaxInUkPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryLimitedLiabilityPartnershipUserAnswersEntry: Arbitrary[(LimitedLiabilityPartnershipPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[LimitedLiabilityPartnershipPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }

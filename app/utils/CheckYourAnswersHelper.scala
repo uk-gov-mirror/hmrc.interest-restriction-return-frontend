@@ -44,6 +44,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def reportingCompanySameAsParent: Option[SummaryListRow] = answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
+  def limitedLiabilityPartnership: Option[SummaryListRow] = answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(CheckMode))
+
   def registeredCompaniesHouse: Option[SummaryListRow] = answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode))
 
   def parentCompanyName: Option[SummaryListRow] = answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(CheckMode))

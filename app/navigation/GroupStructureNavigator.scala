@@ -35,6 +35,7 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
     ParentCompanyCTUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanySAUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     RegisteredCompaniesHousePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    LimitedLiabilityPartnershipPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 

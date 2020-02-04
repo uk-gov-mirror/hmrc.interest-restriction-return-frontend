@@ -22,11 +22,11 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /deemed-parent" when {
+    "GET /limited-liability-partnership" when {
 
       "user is authorised" should {
 
@@ -34,12 +34,12 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.authorised()
 
-          val res = getRequest("/deemed-parent")()
+          val res = getRequest("/limited-liability-partnership")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.deemedParent)
+              titleOf(PageTitles.limitedLiabilityPartnership)
             )
           }
         }
@@ -51,7 +51,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/deemed-parent")()
+          val res = getRequest("/limited-liability-partnership")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
       }
     }
 
-    "POST /deemed-parent" when {
+    "POST /limited-liability-partnership" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
             AuthStub.authorised()
 
-            val res = postRequest("/deemed-parent", Json.obj("value" -> true))()
+            val res = postRequest("/limited-liability-partnership", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -90,7 +90,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
             AuthStub.authorised()
 
-            val res = postRequest("/deemed-parent", Json.obj("value" -> false))()
+            val res = postRequest("/limited-liability-partnership", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -108,7 +108,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/deemed-parent", Json.obj("value" -> true))()
+          val res = postRequest("/limited-liability-partnership", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,7 +123,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
   "in Change mode" when {
 
-    "GET /deemed-parent" when {
+    "GET /limited-liability-partnership" when {
 
       "user is authorised" should {
 
@@ -131,12 +131,12 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.authorised()
 
-          val res = getRequest("/deemed-parent/change")()
+          val res = getRequest("/limited-liability-partnership/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.deemedParent)
+              titleOf(PageTitles.limitedLiabilityPartnership)
             )
           }
         }
@@ -148,7 +148,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/deemed-parent/change")()
+          val res = getRequest("/limited-liability-partnership/change")()
 
           whenReady(res) { result =>
             result should have(
