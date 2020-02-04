@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.groupStructure
 
-object BaseMessages {
+import pages.behaviours.PageBehaviours
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
+class DeemedParentPageSpec extends PageBehaviours {
 
+  "DeemedParentPage" must {
+
+    beRetrievable[Boolean](DeemedParentPage)
+
+    beSettable[Boolean](DeemedParentPage)
+
+    beRemovable[Boolean](DeemedParentPage)
+  }
 }

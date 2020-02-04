@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms
 
-object BaseMessages {
+import javax.inject.Inject
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
+import forms.mappings.Mappings
+import play.api.data.Form
 
+class ParentCompanyNameFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[String] =
+    Form(
+      "value" -> text("parentCompanyName.error.required")
+        .verifying(maxLength(160, "parentCompanyName.error.length"))
+    )
 }

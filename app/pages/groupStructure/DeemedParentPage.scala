@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.groupStructure
 
-object BaseMessages {
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
+case object DeemedParentPage extends QuestionPage[Boolean] {
 
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "deemedParent"
 }

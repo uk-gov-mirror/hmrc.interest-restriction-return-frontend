@@ -14,13 +14,32 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.groupStructure
 
-object BaseMessages {
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
+class DeemedParentFormProviderSpec extends BooleanFieldBehaviours {
 
+  val requiredKey = "deemedParent.error.required"
+  val invalidKey = "error.boolean"
+
+  val form = new DeemedParentFormProvider()()
+
+  ".value" must {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }
