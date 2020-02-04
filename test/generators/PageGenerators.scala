@@ -19,15 +19,17 @@ package generators
 import org.scalacheck.Arbitrary
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.aboutReturn.{GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
-import pages.groupStructure.PayTaxInUkPage
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
+import pages.aboutReturn._
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, PayTaxInUkPage, RegisteredCompaniesHousePage}
+import pages.startReturn._
 
 trait PageGenerators {
 
   implicit lazy val arbitraryPayTaxInUkPage: Arbitrary[PayTaxInUkPage.type] =
     Arbitrary(PayTaxInUkPage)
+
+  implicit lazy val arbitraryRegisteredCompaniesHousePage: Arbitrary[RegisteredCompaniesHousePage.type] =
+    Arbitrary(RegisteredCompaniesHousePage)
 
   implicit lazy val arbitraryParentCompanyNamePage: Arbitrary[ParentCompanyNamePage.type] =
     Arbitrary(ParentCompanyNamePage)

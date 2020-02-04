@@ -18,14 +18,13 @@ package utils
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
+import controllers.startReturn.{routes => startReturnRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
-import pages.groupStructure.PayTaxInUkPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, PayTaxInUkPage, RegisteredCompaniesHousePage}
 import pages.startReturn._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -36,6 +35,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
   def payTaxInUk: Option[SummaryListRow] = answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode))
+
+  def registeredCompaniesHouse: Option[SummaryListRow] = answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode))
 
   def parentCompanyName: Option[SummaryListRow] = answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(CheckMode))
 

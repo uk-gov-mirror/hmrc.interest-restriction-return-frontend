@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.groupStructure
 
-object BaseMessages {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
+class RegisteredCompaniesHouseFormProvider @Inject() extends Mappings {
 
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("registeredCompaniesHouse.error.required")
+    )
 }
