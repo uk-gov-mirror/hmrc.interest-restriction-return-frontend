@@ -28,6 +28,7 @@ import views.html.groupStructure.LimitedLiabilityPartnershipView
 class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "limitedLiabilityPartnership"
+  val section = Some(messages("section.groupStructure"))
 
   val form = new LimitedLiabilityPartnershipFormProvider()()
 
@@ -38,13 +39,13 @@ class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours {
       view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
     behave like pageWithBackLink(applyView(form))
 
     behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, LimitedLiabilityPartnershipController.onSubmit(NormalMode).url)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, LimitedLiabilityPartnershipController.onSubmit(NormalMode).url, section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
