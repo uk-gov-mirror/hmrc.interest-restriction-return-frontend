@@ -16,18 +16,24 @@
 
 package views.groupStructure
 
+import assets.messages.groupStructure.ParentCRNMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import forms.groupStructure.ParentCRNFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import views.BaseSelectors
 import views.behaviours.StringViewBehaviours
 import views.html.groupStructure.ParentCRNView
 
 class ParentCRNViewSpec extends StringViewBehaviours {
 
+  object Selectors extends BaseSelectors
+
   val messageKeyPrefix = "parentCRN"
+
+  val section = Some(messages("section.groupStructure"))
 
   val form = new ParentCRNFormProvider()()
 
@@ -38,7 +44,7 @@ class ParentCRNViewSpec extends StringViewBehaviours {
       view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
     behave like pageWithBackLink(applyView(form))
 
@@ -46,8 +52,19 @@ class ParentCRNViewSpec extends StringViewBehaviours {
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-    behave like stringPage(form, applyView, messageKeyPrefix, groupStructureRoutes.ParentCRNController.onSubmit(NormalMode).url)
+    behave like stringPage(form, applyView, messageKeyPrefix, groupStructureRoutes.ParentCRNController.onSubmit(NormalMode).url, section = section)
 
     behave like pageWithSaveForLater(applyView(form))
+
+    lazy val document = asDocument(applyView(form))
+
+    "have a hint" which {
+
+      lazy val hint = document.select(Selectors.hint)
+
+      "has the correct text" in {
+        hint.text mustBe ParentCRNMessages.hint
+      }
+    }
   }
 }

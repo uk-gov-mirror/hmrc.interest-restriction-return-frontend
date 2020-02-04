@@ -329,6 +329,7 @@ parentCRN.checkYourAnswersLabel = Parent Company Registration Number
 parentCRN.label = Parent Company Registration Number
 parentCRN.error.required = Enter parent company registration number
 parentCRN.error.invalid = Parent company registration number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
+parentCRN.hint = A company registration number (CRN) is a unique combination of 8 numbers, or 2 letters followed by 6 numbers.
 
 # ParentCompanyCTUTRPage Messages
 # ----------------------------------------------------------
