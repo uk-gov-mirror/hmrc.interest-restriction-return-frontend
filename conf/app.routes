@@ -200,10 +200,16 @@ POST       /registered-companies-house                     controllers.groupStru
 GET        /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = CheckMode)
 POST       /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = CheckMode)
 
-
 ### ReportingCompanySameAsParent Controller
 ### ----------------------------------------
 GET        /reporting-company-same-as-parent               controllers.groupStructure.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)
 POST       /reporting-company-same-as-parent               controllers.groupStructure.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)
 GET        /reporting-company-same-as-parent/change        controllers.groupStructure.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = CheckMode)
 POST       /reporting-company-same-as-parent/change        controllers.groupStructure.ReportingCompanySameAsParentController.onSubmit(mode: Mode = CheckMode)
+
+### Parent Company UTR Controller
+### ----------------------------------------
+GET        /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
+POST       /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
+GET        /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
+POST       /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)

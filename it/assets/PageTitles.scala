@@ -26,6 +26,7 @@ object PageTitles {
   val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
   val reportingCompanySameAsParent: String => String = name => s"Is $name also the parent company?"
   val parentCompanySAUTR = "Parent company Self Assessment Unique Tax Payer Reference"
+  val parentCompanyCTUTR = "Parent Company Corporation Unique Tax Payer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
 
 

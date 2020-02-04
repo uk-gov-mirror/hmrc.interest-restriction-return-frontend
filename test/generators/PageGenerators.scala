@@ -25,6 +25,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryParentCompanyCTUTRPage: Arbitrary[ParentCompanyCTUTRPage.type] =
+    Arbitrary(ParentCompanyCTUTRPage)
+
   implicit lazy val arbitraryParentCompanySAUTRPage: Arbitrary[ParentCompanySAUTRPage.type] =
     Arbitrary(ParentCompanySAUTRPage)
 

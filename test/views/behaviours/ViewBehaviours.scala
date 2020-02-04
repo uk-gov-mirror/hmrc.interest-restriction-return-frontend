@@ -43,7 +43,7 @@ trait ViewBehaviours extends ViewSpecBase {
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", headingArgs:_*)
         }
 
-        if(frontendAppConfig.languageTranslationEnabled) {
+        if (frontendAppConfig.languageTranslationEnabled) {
           "display language toggles" in {
             val doc = asDocument(view)
             assertRenderedById(doc, "cymraeg-switch")
@@ -122,3 +122,4 @@ trait ViewBehaviours extends ViewSpecBase {
     }
   }
 }
+
