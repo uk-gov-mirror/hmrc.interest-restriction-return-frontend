@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package forms
+package forms.groupStructure
 
 import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
 
-class PayTaxInUkFormProvider @Inject() extends Mappings {
+class ReportingCompanySameAsParentFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Boolean] =
     Form(

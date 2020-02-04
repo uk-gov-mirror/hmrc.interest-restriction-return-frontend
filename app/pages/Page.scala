@@ -38,6 +38,7 @@ object Page {
     DeemedParentPage.toString -> DeemedParentPage,
     ConfirmationPage.toString -> ConfirmationPage,
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
+    ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
     ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
     ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
     ReportingCompanyCRNPage.toString -> ReportingCompanyCRNPage,

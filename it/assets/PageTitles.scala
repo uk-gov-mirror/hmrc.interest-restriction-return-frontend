@@ -6,7 +6,7 @@ object PageTitles {
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"
   val reportingCompanyName = "Reporting company name"
-  val grouptInterestAllowance = "What is the group interest allowance for the period?"
+  val groupInterestAllowance = "What is the group interest allowance for the period?"
   val groupInterestCapacity = "What is the group interest capacity for the period?"
   val groupSubjectToReactivations = "Is the group subject to reactivations?"
   val groupSubjectToRestrictions = "Is the group subject to restrictions?"
@@ -24,6 +24,7 @@ object PageTitles {
   val deemedParent = "Does the group have a ’deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
   val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
+  val reportingCompanySameAsParent: String => String = name => s"Is $name also the parent company?"
   val parentCompanySAUTR = "Parent company Self Assessment Unique Tax Payer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
 
