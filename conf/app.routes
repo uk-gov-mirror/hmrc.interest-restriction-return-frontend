@@ -200,7 +200,6 @@ POST       /registered-companies-house                     controllers.groupStru
 GET        /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = CheckMode)
 POST       /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = CheckMode)
 
-
 ### ReportingCompanySameAsParent Controller
 ### ----------------------------------------
 GET        /reporting-company-same-as-parent               controllers.groupStructure.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)

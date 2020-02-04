@@ -69,7 +69,7 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
       val result = controller().onSubmit(NormalMode)(request)
 

@@ -16,15 +16,17 @@
 
 package forms.groupStructure
 
+import forms.UTRFormValidation
 import forms.mappings.Mappings
 import javax.inject.Inject
 import play.api.data.Form
 
-class ParentCompanyCTUTRFormProvider @Inject() extends Mappings {
+class ParentCompanyCTUTRFormProvider @Inject() extends Mappings with UTRFormValidation {
 
   def apply(): Form[String] =
     Form(
       "value" -> text("parentCompanyCTUTR.error.required")
-        .verifying(maxLength(10, "parentCompanyCTUTR.error.length"))
+        .verifying(regexp("^[0-9]{10}$", "parentCompanyCTUTR.error.length"))
+        .verifying(checksum("parentCompanyCTUTR.error.checksum"))
     )
 }
