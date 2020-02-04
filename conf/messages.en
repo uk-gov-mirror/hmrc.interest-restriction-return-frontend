@@ -330,8 +330,11 @@ parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Tax
 parentCompanyCTUTR.label = Parent Company Corporation Unique Tax Payer Reference
 parentCompanyName.error.required = Enter the Corporation Unique Tax Payer Reference for the Parent Company
 parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Tax Payer Reference must be 10 digits long
-parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Self Assessment. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
+parentCompanySAUTR.error.checksum = Corporation Unique Tax Payer Reference for the Parent Company entered is invalid
+parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
+parentCompanyCTUTR.findUtr = find a lost UTR number
 parentCompanyCTUTR.link = find a lost UTR number.
+
 
 # ParentCompanySAUTRPage Messages
 # ----------------------------------------------------------

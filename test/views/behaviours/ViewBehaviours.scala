@@ -121,20 +121,5 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
-
-  def pageWithHint(view: HtmlFormat.Appendable, hint: String): Unit = {
-
-    "behave like a page with a hint" must {
-
-      s"have a hint with message ${hint}" in {
-
-        lazy val document = asDocument(applyView(form))
-
-        lazy val hint = document.select(Selectors.hint)
-
-
-      }
-    }
-  }
 }
 
