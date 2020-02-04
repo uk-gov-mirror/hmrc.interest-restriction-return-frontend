@@ -30,6 +30,7 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
   val messageKeyPrefix = "parentCompanySAUTR"
 
   val form = new ParentCompanySAUTRFormProvider()()
+  val section = Some(messages("section.groupStructure"))
 
   s"ParentCompanySAUTR view" must {
 
@@ -38,11 +39,11 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
       view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like stringPage(form, applyView, messageKeyPrefix, routes.ParentCompanySAUTRController.onSubmit(NormalMode).url)
+    behave like stringPage(form, applyView, messageKeyPrefix, routes.ParentCompanySAUTRController.onSubmit(NormalMode).url, section = section)
 
     behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 

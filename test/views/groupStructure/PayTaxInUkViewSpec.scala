@@ -23,7 +23,7 @@ import forms.PayTaxInUkFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.{BaseSelectors, Twirl}
+import views.BaseSelectors
 import views.behaviours.YesNoViewBehaviours
 import views.html.groupStructure.PayTaxInUkView
 

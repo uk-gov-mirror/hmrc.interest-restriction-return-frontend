@@ -73,7 +73,7 @@ class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "101"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -84,7 +84,7 @@ class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching {
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -101,7 +101,7 @@ class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching {
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
