@@ -15,7 +15,7 @@ echo "POST       /\$kebabClassName/change                   controllers.$classNa
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "# $className$Page Messages" >> ../conf/messages.
+echo "# $className$Page Messages" >> ../conf/messages.en
 echo "# ---------------------------------------------en-------------" >> ../conf/messages.en
 echo "$className$.title = $className;format="decap"$" >> ../conf/messages.en
 echo "$className$.heading = $className;format="decap"$" >> ../conf/messages.en
