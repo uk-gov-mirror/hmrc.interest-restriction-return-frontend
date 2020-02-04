@@ -284,11 +284,10 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 
 # DeemedParentPage Messages
 # ----------------------------------------------------------
-deemedParent.title = Does the group have a 'deemed' parent company?
-deemedParent.heading = Does the group have a 'deemed' parent company?
-deemedParent.checkYourAnswersLabel = Does the group have a 'deemed' parent company?
-deemedParent.error.required = Select yes if the group has a 'deemed' parent company?
-
+deemedParent.title = Does the group have a ’deemed’ parent company?
+deemedParent.heading = Does the group have a ’deemed’ parent company?
+deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent company?
+deemedParent.error.required = Select yes if the group has a ’deemed’ parent company?
 
 # ParentCompanyNamePage Messages
 # ----------------------------------------------------------
