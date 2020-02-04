@@ -16,16 +16,20 @@
 
 package views.groupStructure
 
+import assets.messages.groupStructure.ParentCompanySAUTRMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.routes
 import forms.groupStructure.ParentCompanySAUTRFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import views.BaseSelectors
 import views.behaviours.StringViewBehaviours
 import views.html.groupStructure.ParentCompanySAUTRView
 
 class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
+
+  object Selectors extends BaseSelectors
 
   val messageKeyPrefix = "parentCompanySAUTR"
 
@@ -50,5 +54,29 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     behave like pageWithSaveForLater(applyView(form))
+
+    lazy val document = asDocument(applyView(form))
+
+    "have a hint" which {
+
+      lazy val hint = document.select(Selectors.hint)
+
+      "has the correct text" in {
+        hint.text mustBe ParentCompanySAUTRMessages.hint
+      }
+
+      "has a link to find a lost UTR" which {
+
+        val hintLink = hint.select("a")
+
+        "has the correct URL" in {
+          hintLink.attr("href") mustBe frontendAppConfig.findLostUTRUrl
+        }
+
+        "has the correct link text" in {
+          hintLink.text mustBe ParentCompanySAUTRMessages.hintLink
+        }
+      }
+    }
   }
 }
