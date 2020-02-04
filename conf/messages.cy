@@ -354,3 +354,9 @@ reportingCompanySameAsParent.title = Is {0} also the parent company?
 reportingCompanySameAsParent.heading = Is {0} also the parent company?
 reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
+# LimitedLiabilityPartnershipPage Messages
+# ----------------------------------------------------------
+LimitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
+LimitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
+LimitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
+LimitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership?

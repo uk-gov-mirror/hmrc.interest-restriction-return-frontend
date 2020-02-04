@@ -37,6 +37,9 @@ trait PageGenerators {
   implicit lazy val arbitraryPayTaxInUkPage: Arbitrary[PayTaxInUkPage.type] =
     Arbitrary(PayTaxInUkPage)
 
+  implicit lazy val arbitraryLimitedLiabilityPartnershipPage: Arbitrary[LimitedLiabilityPartnershipPage.type] =
+    Arbitrary(LimitedLiabilityPartnershipPage)
+
   implicit lazy val arbitraryRegisteredCompaniesHousePage: Arbitrary[RegisteredCompaniesHousePage.type] =
     Arbitrary(RegisteredCompaniesHousePage)
 
