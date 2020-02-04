@@ -16,7 +16,7 @@
 
 package views.groupStructure
 
-import assets.messages.SectionHeaderMessages
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import assets.messages.groupStructure.PayTaxInUkMessages
 import controllers.groupStructure.routes
 import forms.PayTaxInUkFormProvider
@@ -65,6 +65,8 @@ class PayTaxInUkViewSpec extends YesNoViewBehaviours  {
     behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 
     behave like pageWithSaveForLater(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     lazy val document = asDocument(applyView(form))
 
