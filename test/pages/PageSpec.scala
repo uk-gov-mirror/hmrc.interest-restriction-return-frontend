@@ -32,6 +32,7 @@ class PageSpec extends SpecBase {
         ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
         PayTaxInUkPage.toString -> PayTaxInUkPage,
         RegisteredCompaniesHousePage.toString -> RegisteredCompaniesHousePage,
+        ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
         ParentCompanyNamePage.toString -> ParentCompanyNamePage,
         DeemedParentPage.toString -> DeemedParentPage,
         ConfirmationPage.toString -> ConfirmationPage,
