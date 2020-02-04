@@ -201,7 +201,7 @@ GET        /registered-companies-house/change              controllers.groupStru
 POST       /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = CheckMode)
 
 
-### PayTaxInUk Controller
+### ReportingCompanySameAsParent Controller
 ### ----------------------------------------
 GET        /reporting-company-same-as-parent               controllers.groupStructure.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)
 POST       /reporting-company-same-as-parent               controllers.groupStructure.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)
