@@ -16,35 +16,35 @@
 
 package controllers.groupStructure
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
+import forms.groupStructure.ReportingCompanySameAsParentFormProvider
 import handlers.ErrorHandler
-import javax.inject.Inject
-
-import forms.groupStructure.PayTaxInUkFormProvider
 import models.Mode
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
+import pages.groupStructure.{ParentCompanyNamePage, ReportingCompanySameAsParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.groupStructure.PayTaxInUkView
+import views.html.groupStructure.ReportingCompanySameAsParentView
 
 import scala.concurrent.Future
 
-class PayTaxInUkController @Inject()(
+class ReportingCompanySameAsParentController @Inject()(
                                       override val messagesApi: MessagesApi,
                                       sessionRepository: SessionRepository,
                                       navigator: GroupStructureNavigator,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
-                                      formProvider: PayTaxInUkFormProvider,
+                                      formProvider: ReportingCompanySameAsParentFormProvider,
                                       val controllerComponents: MessagesControllerComponents,
-                                      view: PayTaxInUkView,
+                                      view: ReportingCompanySameAsParentView,
                                       errorHandler: ErrorHandler
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
@@ -56,7 +56,7 @@ class PayTaxInUkController @Inject()(
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request => companyNamePredicate { name =>
-      Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider()), mode, name)))
+      Future.successful(Ok(view(fillForm(ReportingCompanySameAsParentPage, formProvider()), mode, name)))
     }
   }
 
@@ -70,9 +70,9 @@ class PayTaxInUkController @Inject()(
           },
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(PayTaxInUkPage, value))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanySameAsParentPage, value))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ReportingCompanySameAsParentPage, mode, updatedAnswers))
       )
   }
 }

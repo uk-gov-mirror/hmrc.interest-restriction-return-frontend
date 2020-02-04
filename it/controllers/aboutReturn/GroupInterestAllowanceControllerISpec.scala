@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReportingCompany
+package controllers.aboutReturn
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
@@ -40,7 +40,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.grouptInterestAllowance)
+              titleOf(PageTitles.groupInterestAllowance)
             )
           }
         }
@@ -120,7 +120,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.grouptInterestAllowance)
+              titleOf(PageTitles.groupInterestAllowance)
             )
           }
         }

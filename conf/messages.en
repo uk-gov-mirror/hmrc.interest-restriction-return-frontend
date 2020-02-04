@@ -341,3 +341,11 @@ registeredCompaniesHouse.title = Is the parent company registered with companies
 registeredCompaniesHouse.heading = Is the parent company registered with companies house?
 registeredCompaniesHouse.checkYourAnswersLabel = Is the parent company registered with companies house?
 registeredCompaniesHouse.error.required = Select yes if the parent company is registered with companies house
+
+
+# ReportingCompanySameAsParent Messages
+# ----------------------------------------------------------
+reportingCompanySameAsParent.title = Is {0} also the parent company?
+reportingCompanySameAsParent.heading = Is {0} also the parent company?
+reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
+reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company

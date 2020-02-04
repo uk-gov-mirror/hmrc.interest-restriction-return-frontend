@@ -20,7 +20,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.PayTaxInUkFormProvider
+import forms.groupStructure.PayTaxInUkFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}

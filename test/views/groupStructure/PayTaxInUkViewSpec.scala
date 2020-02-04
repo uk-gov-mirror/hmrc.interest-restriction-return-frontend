@@ -19,7 +19,7 @@ package views.groupStructure
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import assets.messages.groupStructure.PayTaxInUkMessages
 import controllers.groupStructure.routes
-import forms.PayTaxInUkFormProvider
+import forms.groupStructure.PayTaxInUkFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat

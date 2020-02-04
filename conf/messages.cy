@@ -327,3 +327,11 @@ registeredCompaniesHouse.title = RegisteredCompaniesHouse
 registeredCompaniesHouse.heading = RegisteredCompaniesHouse
 registeredCompaniesHouse.checkYourAnswersLabel = RegisteredCompaniesHouse
 registeredCompaniesHouse.error.required = Select yes if RegisteredCompaniesHouse
+
+
+# ReportingCompanySameAsParent Messages
+# ----------------------------------------------------------
+reportingCompanySameAsParent.title = Is {0} also the parent company?
+reportingCompanySameAsParent.heading = Is {0} also the parent company?
+reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
+reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
