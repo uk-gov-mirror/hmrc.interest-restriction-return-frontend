@@ -322,6 +322,17 @@ parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 
 
+# ParentCompanyCTUTRPage Messages
+# ----------------------------------------------------------
+parentCompanyCTUTR.title = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.heading = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.label = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyName.error.required = Enter the Corporation Unique Tax Payer Reference for the Parent Company
+parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Tax Payer Reference must be 10 digits long
+parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Self Assessment. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
+parentCompanyCTUTR.link = find a lost UTR number.
+
 # ParentCompanySAUTRPage Messages
 # ----------------------------------------------------------
 parentCompanySAUTR.title = Parent company Self Assessment Unique Tax Payer Reference

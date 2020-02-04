@@ -43,7 +43,7 @@ trait ViewBehaviours extends ViewSpecBase {
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", headingArgs:_*)
         }
 
-        if(frontendAppConfig.languageTranslationEnabled) {
+        if (frontendAppConfig.languageTranslationEnabled) {
           "display language toggles" in {
             val doc = asDocument(view)
             assertRenderedById(doc, "cymraeg-switch")
@@ -121,4 +121,20 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithHint(view: HtmlFormat.Appendable, hint: String): Unit = {
+
+    "behave like a page with a hint" must {
+
+      s"have a hint with message ${hint}" in {
+
+        lazy val document = asDocument(applyView(form))
+
+        lazy val hint = document.select(Selectors.hint)
+
+
+      }
+    }
+  }
 }
+

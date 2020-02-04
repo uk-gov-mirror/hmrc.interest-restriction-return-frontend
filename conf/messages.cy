@@ -308,6 +308,16 @@ parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 
 
+# ParentCompanyCTUTRPage Messages
+# ----------------------------------------------------------
+parentCompanyCTUTR.title = parentCompanyCTUTR
+parentCompanyCTUTR.heading = parentCompanyCTUTR
+parentCompanyCTUTR.checkYourAnswersLabel = parentCompanyCTUTR
+parentCompanyCTUTR.label = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.error.required = Enter parentCompanyCTUTR
+parentCompanyCTUTR.error.length = ParentCompanyCTUTR must be 10 characters or less
+
+
 # ParentCompanySAUTRPage Messages
 # ----------------------------------------------------------
 parentCompanySAUTR.title = Parent company Self Assessment Unique Tax Payer Reference
