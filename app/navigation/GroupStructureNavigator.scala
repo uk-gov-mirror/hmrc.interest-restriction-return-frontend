@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage}
+import pages.groupStructure._
 import play.api.mvc.Call
 
 @Singleton
@@ -30,6 +30,7 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
     DeemedParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanyNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     PayTaxInUkPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ParentCompanyCTUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanySAUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     RegisteredCompaniesHousePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
