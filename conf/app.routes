@@ -213,10 +213,3 @@ GET        /parent-company-ctutr                           controllers.groupStru
 POST       /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
 GET        /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
 POST       /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
-
-### Parent Company UTR Controller
-### ----------------------------------------
-GET        /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
-POST       /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
-GET        /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
-POST       /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
