@@ -14,8 +14,20 @@
  * limitations under the License.
  */
 
-package pages
+package forms.groupStructure
 
-import queries.{Gettable, Settable}
+import play.api.data.Forms.{text => optionalText, optional}
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-trait QuestionPage[A] extends Page with Gettable[A] with Settable[A]
+class ParentCRNFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[String] =
+    Form(
+      "value" -> optional(
+        optionalText
+          .verifying(regexp("^([0-9]{8})|([A-Za-z]{2}[0-9]{6})$", "parentCRN.error.invalid"))
+      ).transform[String](_.fold("")(answer => answer), answer => Some(answer))
+    )
+}

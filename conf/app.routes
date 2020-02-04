@@ -186,6 +186,13 @@ POST       /parent-company-name                            controllers.groupStru
 GET        /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = CheckMode)
 
+### ParentCRN Controller
+### ----------------------------------------
+GET        /parent-crn                                     controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = NormalMode)
+POST       /parent-crn                                     controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = NormalMode)
+GET        /parent-crn/change                              controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = CheckMode)
+POST       /parent-crn/change                              controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = CheckMode)
+
 ### ParentCompanySAUTR Controller
 ### ----------------------------------------
 GET        /parent-company-sautr                           controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = NormalMode)

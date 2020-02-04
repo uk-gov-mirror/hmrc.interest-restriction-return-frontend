@@ -307,6 +307,15 @@ parentCompanyName.label = Enter the name of the parent company
 parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 
+# ParentCRNPage Messages
+# ----------------------------------------------------------
+parentCRN.title = Parent Company Registration Number
+parentCRN.heading = Parent Company Registration Number
+parentCRN.checkYourAnswersLabel = Parent Company Registration Number
+parentCRN.label = Parent Company Registration Number
+parentCRN.error.required = Enter parent company registration number
+parentCRN.error.invalid = Parent company registration number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
+
 
 # ParentCompanyCTUTRPage Messages
 # ----------------------------------------------------------

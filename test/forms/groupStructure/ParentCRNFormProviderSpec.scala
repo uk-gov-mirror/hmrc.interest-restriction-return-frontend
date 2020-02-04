@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package forms.groupStructure
 
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.FormError
 
-class ReportingCompanyCRNFormProviderSpec extends StringFieldBehaviours {
+class ParentCRNFormProviderSpec extends StringFieldBehaviours {
 
-  val requiredKey = "reportingCompanyCRN.error.required"
-  val invalidFormatKey = "reportingCompanyCRN.error.invalidFormat"
+  val requiredKey = "parentCRN.error.required"
+  val invalidFormatKey = "parentCRN.error.invalid"
   val maxLength = 8
   val regexPattern = "^([0-9]{8})|([A-Za-z]{2}[0-9]{6})$"
 
-  val form = new ReportingCompanyCRNFormProvider()()
+  val form = new ParentCRNFormProvider()()
 
   ".value" must {
 
@@ -38,12 +38,12 @@ class ReportingCompanyCRNFormProviderSpec extends StringFieldBehaviours {
       stringsWithMaxLength(maxLength)
     )
 
-    behave like mandatoryField(
+    behave like fieldWithMaxLength(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      maxLength = maxLength,
+      lengthError = FormError(fieldName, invalidFormatKey, Seq(regexPattern))
     )
-
 
     "error when given an invalid format for the CRN" in {
 

@@ -34,6 +34,7 @@ object Page {
     ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
     PayTaxInUkPage.toString -> PayTaxInUkPage,
     RegisteredCompaniesHousePage.toString -> RegisteredCompaniesHousePage,
+    ParentCRNPage.toString -> ParentCRNPage,
     ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
     ParentCompanyNamePage.toString -> ParentCompanyNamePage,
     DeemedParentPage.toString -> DeemedParentPage,

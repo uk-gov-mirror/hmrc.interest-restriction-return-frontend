@@ -24,10 +24,11 @@ import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.libs.json.Format
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import utils.ImplicitOptionFormatter
 
 import scala.concurrent.ExecutionContext
 
-trait BaseController extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+trait BaseController extends FrontendBaseController with I18nSupport with Enumerable.Implicits with ImplicitOptionFormatter {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

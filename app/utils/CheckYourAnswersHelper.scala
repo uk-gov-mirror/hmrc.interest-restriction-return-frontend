@@ -32,7 +32,9 @@ import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter with ImplicitOptionFormatter {
+
+  def parentCRN: Option[SummaryListRow] = answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(CheckMode))
 
   def parentCompanyCTUTR: Option[SummaryListRow] = answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(CheckMode))
 
