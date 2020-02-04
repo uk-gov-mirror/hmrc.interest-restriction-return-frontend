@@ -27,7 +27,6 @@ import models.Mode
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository

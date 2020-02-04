@@ -292,11 +292,11 @@ deemedParent.error.required = Select yes if the group has a 'deemed' parent comp
 
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
-payTaxInUk.title = Does Name have a Unique Taxpayer Reference?
-payTaxInUk.heading = Does Name have a Unique Taxpayer Reference?
+payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
+payTaxInUk.heading = Does {0} have a Unique Taxpayer Reference?
 payTaxInUk.hint = This could be for paying Corporation Tax or completing Self Assessment in the UK.
-payTaxInUk.checkYourAnswersLabel = Does Name have a Unique Taxpayer Reference?
-payTaxInUk.error.required = Select yes if Does Name have a Unique Taxpayer Reference?
+payTaxInUk.checkYourAnswersLabel = Does {0} have a Unique Taxpayer Reference?
+payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference?
 
 
 # ParentCompanyNamePage Messages
