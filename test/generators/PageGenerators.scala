@@ -20,7 +20,7 @@ import org.scalacheck.Arbitrary
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage}
+import pages.groupStructure._
 import pages.startReturn._
 
 trait PageGenerators {
@@ -30,6 +30,9 @@ trait PageGenerators {
 
   implicit lazy val arbitraryPayTaxInUkPage: Arbitrary[PayTaxInUkPage.type] =
     Arbitrary(PayTaxInUkPage)
+
+  implicit lazy val arbitraryRegisteredCompaniesHousePage: Arbitrary[RegisteredCompaniesHousePage.type] =
+    Arbitrary(RegisteredCompaniesHousePage)
 
   implicit lazy val arbitraryParentCompanyNamePage: Arbitrary[ParentCompanyNamePage.type] =
     Arbitrary(ParentCompanyNamePage)

@@ -24,7 +24,7 @@ import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage}
+import pages.groupStructure._
 import pages.startReturn._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -37,6 +37,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def parentCompanySAUTR: Option[SummaryListRow] = answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode))
 
   def payTaxInUk: Option[SummaryListRow] = answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode))
+
+  def registeredCompaniesHouse: Option[SummaryListRow] = answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode))
 
   def parentCompanyName: Option[SummaryListRow] = answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(CheckMode))
 

@@ -17,7 +17,6 @@
 package views.startReturn
 
 import assets.messages.SectionHeaderMessages
-import views.Twirl
 import views.behaviours.ViewBehaviours
 import views.html.startReturn.ReportingCompanyRequiredView
 
@@ -26,15 +25,12 @@ class ReportingCompanyRequiredViewSpec extends ViewBehaviours {
   lazy val twirlViewTemplate = viewFor[ReportingCompanyRequiredView](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
 
-  Seq(twirlView -> Twirl).foreach {
-    case (html, templatingSystem) =>
-      s"ReportingCompanyRequiredView ($templatingSystem)" must {
+  "ReportingCompanyRequiredView" must {
 
-        behave like normalPage(html, "reportingCompanyRequired")
+    behave like normalPage(twirlView, "reportingCompanyRequired")
 
-        behave like pageWithSubHeading(html, SectionHeaderMessages.reportingCompany)
+    behave like pageWithSubHeading(twirlView, SectionHeaderMessages.reportingCompany)
 
-        behave like pageWithBackLink(html)
-      }
+    behave like pageWithBackLink(twirlView)
   }
 }

@@ -284,19 +284,18 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 
 # DeemedParentPage Messages
 # ----------------------------------------------------------
-deemedParent.title = Does the group have a 'deemed' parent company?
-deemedParent.heading = Does the group have a 'deemed' parent company?
-deemedParent.checkYourAnswersLabel = Does the group have a 'deemed' parent company?
-deemedParent.error.required = Select yes if the group has a 'deemed' parent company?
-
+deemedParent.title = Does the group have a ’deemed’ parent company?
+deemedParent.heading = Does the group have a ’deemed’ parent company?
+deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent company?
+deemedParent.error.required = Select yes if the group has a ’deemed’ parent company?
 
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
-payTaxInUk.title = Does Name have a Unique Taxpayer Reference?
-payTaxInUk.heading = Does Name have a Unique Taxpayer Reference?
+payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
+payTaxInUk.heading = Does {0} have a Unique Taxpayer Reference?
 payTaxInUk.hint = This could be for paying Corporation Tax or completing Self Assessment in the UK.
-payTaxInUk.checkYourAnswersLabel = Does Name have a Unique Taxpayer Reference?
-payTaxInUk.error.required = Select yes if Does Name have a Unique Taxpayer Reference?
+payTaxInUk.checkYourAnswersLabel = Does {0} have a Unique Taxpayer Reference?
+payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference?
 
 
 # ParentCompanyNamePage Messages
@@ -320,3 +319,11 @@ parentCompanySAUTR.findUtr = find a lost UTR number
 parentCompanySAUTR.error.required = Enter your Self Assessment Unique Tax Payer Reference
 parentCompanySAUTR.error.length = Self Assessment Unique Tax Payer Reference must be 10 numbers
 parentCompanySAUTR.error.checksum = Self Assessment Unique Tax Payer Reference entered is invalid
+
+
+# RegisteredCompaniesHousePage Messages
+# ----------------------------------------------------------
+registeredCompaniesHouse.title = RegisteredCompaniesHouse
+registeredCompaniesHouse.heading = RegisteredCompaniesHouse
+registeredCompaniesHouse.checkYourAnswersLabel = RegisteredCompaniesHouse
+registeredCompaniesHouse.error.required = Select yes if RegisteredCompaniesHouse

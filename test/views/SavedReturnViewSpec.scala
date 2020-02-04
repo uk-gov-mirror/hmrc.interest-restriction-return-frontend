@@ -27,64 +27,61 @@ class SavedReturnViewSpec extends ViewBehaviours {
   lazy val twirlViewTemplate = viewFor[SavedReturnView](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply(savedTilDate)(fakeRequest, frontendAppConfig, messages)
 
-  Seq(twirlView -> Twirl).foreach {
-    case (html, templatingSystem) =>
-      s"SavedReturnView ($templatingSystem)" must {
+  "SavedReturnView" must {
 
-        behave like normalPage(html, "savedReturn")
+    behave like normalPage(twirlView, "savedReturn")
 
-        behave like pageWithBackLink(html)
+    behave like pageWithBackLink(twirlView)
 
-        lazy val doc = asDocument(html)
+    lazy val doc = asDocument(twirlView)
 
-        "have a panel notification" which {
+    "have a panel notification" which {
 
-          "has the correct heading" in {
-            doc.select(Selectors.panelHeading).text mustBe SavedReturnMessages.heading
-          }
-
-          "has the correct additional content for the saved until date" in {
-            doc.select(Selectors.panelBody).text mustBe SavedReturnMessages.savedTil(savedTilDate)
-          }
-        }
-
-        "have the correct 1st para" in {
-          doc.select(Selectors.p(1)).text mustBe SavedReturnMessages.p1
-        }
-
-        "have the correct panel indent" in {
-          doc.select(Selectors.indent).text mustBe SavedReturnMessages.indent
-        }
-
-        "have the correct 2nd para" in {
-          doc.select(Selectors.p(2)).text mustBe SavedReturnMessages.p2
-        }
-
-        "have the correct bullet1" which {
-
-          lazy val bullet1 = doc.select(Selectors.bullet(1))
-
-          "has the correct message" in {
-            bullet1.text mustBe SavedReturnMessages.bullet1
-          }
-
-          "has the correct link" in {
-            bullet1.select("a").attr("href") mustBe controllers.routes.SavedReturnController.nextUnansweredPage().url
-          }
-        }
-
-        "have the correct bullet2" which {
-
-          lazy val bullet1 = doc.select(Selectors.bullet(2))
-
-          "has the correct message" in {
-            bullet1.text mustBe SavedReturnMessages.bullet2
-          }
-
-          "has the correct link" in {
-            bullet1.select("a").attr("href") mustBe controllers.routes.SavedReturnController.deleteAndStartAgain().url
-          }
-        }
+      "has the correct heading" in {
+        doc.select(Selectors.panelHeading).text mustBe SavedReturnMessages.heading
       }
+
+      "has the correct additional content for the saved until date" in {
+        doc.select(Selectors.panelBody).text mustBe SavedReturnMessages.savedTil(savedTilDate)
+      }
+    }
+
+    "have the correct 1st para" in {
+      doc.select(Selectors.p(1)).text mustBe SavedReturnMessages.p1
+    }
+
+    "have the correct panel indent" in {
+      doc.select(Selectors.indent).text mustBe SavedReturnMessages.indent
+    }
+
+    "have the correct 2nd para" in {
+      doc.select(Selectors.p(2)).text mustBe SavedReturnMessages.p2
+    }
+
+    "have the correct bullet1" which {
+
+      lazy val bullet1 = doc.select(Selectors.bullet(1))
+
+      "has the correct message" in {
+        bullet1.text mustBe SavedReturnMessages.bullet1
+      }
+
+      "has the correct link" in {
+        bullet1.select("a").attr("href") mustBe controllers.routes.SavedReturnController.nextUnansweredPage().url
+      }
+    }
+
+    "have the correct bullet2" which {
+
+      lazy val bullet1 = doc.select(Selectors.bullet(2))
+
+      "has the correct message" in {
+        bullet1.text mustBe SavedReturnMessages.bullet2
+      }
+
+      "has the correct link" in {
+        bullet1.select("a").attr("href") mustBe controllers.routes.SavedReturnController.deleteAndStartAgain().url
+      }
+    }
   }
 }

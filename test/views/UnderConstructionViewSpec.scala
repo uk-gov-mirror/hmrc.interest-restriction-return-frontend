@@ -16,7 +16,6 @@
 
 package views
 
-import nunjucks.UnderConstructionTemplate
 import views.behaviours.ViewBehaviours
 import views.html.UnderConstructionView
 
@@ -25,13 +24,10 @@ class UnderConstructionViewSpec extends ViewBehaviours {
   lazy val twirlViewTemplate = viewFor[UnderConstructionView](Some(emptyUserAnswers))
   lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
 
-  Seq(twirlView -> Twirl).foreach {
-    case (html, templatingSystem) =>
-      s"UnderConstructionView ($templatingSystem)" must {
+  "UnderConstructionView" must {
 
-        behave like normalPage(html, "underConstruction")
+    behave like normalPage(twirlView, "underConstruction")
 
-        behave like pageWithBackLink(html)
-      }
+    behave like pageWithBackLink(twirlView)
   }
 }

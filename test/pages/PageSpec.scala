@@ -19,7 +19,7 @@ package pages
 import base.SpecBase
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage}
+import pages.groupStructure._
 import pages.startReturn._
 import play.api.libs.json.{JsString, Json}
 
@@ -31,6 +31,7 @@ class PageSpec extends SpecBase {
       val expected = Map(
         ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
         PayTaxInUkPage.toString -> PayTaxInUkPage,
+        RegisteredCompaniesHousePage.toString -> RegisteredCompaniesHousePage,
         ParentCompanyNamePage.toString -> ParentCompanyNamePage,
         DeemedParentPage.toString -> DeemedParentPage,
         ConfirmationPage.toString -> ConfirmationPage,
