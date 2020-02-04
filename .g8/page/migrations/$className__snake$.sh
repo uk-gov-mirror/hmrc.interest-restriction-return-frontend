@@ -8,14 +8,12 @@ echo "GET        /$className;format="decap"$                            controll
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "" >> ../conf/messages.en
 echo "# $className$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className$.title = $className;format="decap"$" >> ../conf/messages.en
 echo "$className$.heading = $className;format="decap"$" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
-echo "" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
 echo "# $className$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy

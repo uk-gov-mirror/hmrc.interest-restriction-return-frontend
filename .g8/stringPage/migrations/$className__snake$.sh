@@ -10,11 +10,10 @@ echo "" >> ../conf/app.routes
 export kebabClassName=\$(sed --expression 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' --expression 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
 echo "GET        /\$kebabClassName                          controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
 echo "POST       /\$kebabClassName                          controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /\$kebabClassName-change                   controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /\$kebabClassName-change                   controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /\$kebabClassName/change                   controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /\$kebabClassName/change                   controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
-echo "" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
 echo "# $className$Page Messages" >> ../conf/messages.
 echo "# ---------------------------------------------en-------------" >> ../conf/messages.en
@@ -26,7 +25,6 @@ echo "$className$.error.required = Enter $className;format="decap"$" >> ../conf/
 echo "$className$.error.length = $className;format="cap"$ must be $maxLength$ characters or less" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
-echo "" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
 echo "# $className$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
