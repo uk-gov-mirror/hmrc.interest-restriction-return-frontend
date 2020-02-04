@@ -17,9 +17,8 @@
 package pages.groupStructure
 
 import pages.behaviours.PageBehaviours
-import utils.ImplicitOptionFormatter
 
-class ParentCRNPageSpec extends PageBehaviours with ImplicitOptionFormatter {
+class ParentCRNPageSpec extends PageBehaviours {
 
   "ParentCRNPage" must {
 
