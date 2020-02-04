@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, RegisteredCompaniesHousePage}
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, PayTaxInUkPage, RegisteredCompaniesHousePage}
 import play.api.mvc.Call
 
 @Singleton
@@ -29,6 +29,7 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     DeemedParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanyNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    PayTaxInUkPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     RegisteredCompaniesHousePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 

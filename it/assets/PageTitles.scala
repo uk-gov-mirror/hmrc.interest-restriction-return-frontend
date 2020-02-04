@@ -23,6 +23,7 @@ object PageTitles {
   val confirmation = "Return submitted"
   val deemedParent = "Does the group have a ’deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
+  val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
 
 

@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package views
+package forms
 
-trait BaseSelectors {
+import javax.inject.Inject
 
-  val panelHeading = "main div.govuk-panel.govuk-panel--confirmation h1"
-  val panelBody = "main div.govuk-panel.govuk-panel--confirmation div.govuk-panel__body"
-  val p: Int => String = i => s"main p:nth-of-type($i)"
-  val indent = "main div.govuk-inset-text"
-  val hint = "main span.govuk-hint"
-  val bullet: Int => String = i => s"main ul.govuk-list.govuk-list--bullet li:nth-of-type($i)"
+import forms.mappings.Mappings
+import play.api.data.Form
 
+class PayTaxInUkFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("payTaxInUk.error.required")
+    )
 }

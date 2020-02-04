@@ -165,11 +165,22 @@ POST       /continue-saved-return                          controllers.ContinueS
 ### ----------------------------------------
 GET        /confirmation                                   controllers.ConfirmationController.onPageLoad()
 
+### DeemedParent Controller
+### ----------------------------------------
 GET        /deemed-parent                                  controllers.groupStructure.DeemedParentController.onPageLoad(mode: Mode = NormalMode)
 POST       /deemed-parent                                  controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = NormalMode)
 GET        /deemed-parent/change                           controllers.groupStructure.DeemedParentController.onPageLoad(mode: Mode = CheckMode)
 POST       /deemed-parent/change                           controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = CheckMode)
 
+### PayTaxInUk Controller
+### ----------------------------------------
+GET        /pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = NormalMode)
+POST       /pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = NormalMode)
+GET        /pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = CheckMode)
+POST       /pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = CheckMode)
+
+### ParentCompanyName Controller
+### ----------------------------------------
 GET        /parent-company-name                            controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = NormalMode)
 POST       /parent-company-name                            controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = NormalMode)
 GET        /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = CheckMode)
