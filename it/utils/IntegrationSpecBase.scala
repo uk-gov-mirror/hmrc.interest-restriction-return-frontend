@@ -1,5 +1,7 @@
 package utils
 
+import java.util.concurrent.TimeUnit
+
 import models.UserAnswers
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.{TryValues, _}
@@ -48,14 +50,8 @@ trait IntegrationSpecBase extends WordSpec
 
   override def beforeEach(): Unit = {
     resetWiremock()
-
     AuthStub.authorised()
-
-    whenReady(getRequest("/", follow = true)()) { result =>
-      result should have(
-        httpStatus(OK)
-      )
-    }
+    Await.result(mongo.set(UserAnswers("id", Json.obj())), Duration(2, TimeUnit.SECONDS))
   }
 
   override def beforeAll(): Unit = {

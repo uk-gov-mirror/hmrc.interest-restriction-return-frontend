@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, PayTaxInUkPage}
 import play.api.mvc.Call
 
 @Singleton
@@ -28,7 +28,8 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     DeemedParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ParentCompanyNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    ParentCompanyNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    PayTaxInUkPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page
