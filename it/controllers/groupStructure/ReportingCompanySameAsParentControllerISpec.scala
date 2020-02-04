@@ -95,7 +95,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/pay-tax-in-uk", Json.obj("value" -> "true"))()
+            val res = postRequest("/reporting-company-same-as-parent", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(

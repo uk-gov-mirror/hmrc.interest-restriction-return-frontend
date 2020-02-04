@@ -25,6 +25,6 @@ class ReportingCompanySameAsParentFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Boolean] =
     Form(
-      "value" -> boolean("payTaxInUk.error.required")
+      "value" -> boolean("reportingCompanySameAsParent.error.required")
     )
 }
