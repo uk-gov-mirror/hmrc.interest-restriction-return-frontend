@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package pages.groupStructure
 
-import forms.UTRFormValidation
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings with UTRFormValidation {
+case object ParentCompanySAUTRPage extends QuestionPage[String] {
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("reportingCompanyCTUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "reportingCompanyCTUTR.error.length"))
-        .verifying(checksum("reportingCompanyCTUTR.error.checksum"))
-    )
+  override def path: JsPath = JsPath \ toString
 
+  override def toString: String = "parentCompanySAUTR"
 }

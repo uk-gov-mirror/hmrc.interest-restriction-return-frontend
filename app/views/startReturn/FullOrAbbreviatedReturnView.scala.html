@@ -33,7 +33,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "fullOrAbbreviatedReturn.title"))) {
 
-    @formHelper(action = FullOrAbbreviatedReturnController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = FullOrAbbreviatedReturnController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

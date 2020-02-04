@@ -35,7 +35,7 @@
     pageTitle = Some(title(form, "deemedParent.title"))
     ) {
 
-    @formHelper(action = DeemedParentController.onSubmit(mode)) {
+    @formHelper(action = DeemedParentController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

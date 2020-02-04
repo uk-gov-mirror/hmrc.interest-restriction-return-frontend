@@ -35,7 +35,7 @@
     pageTitle = Some(title(form, "groupSubjectToReactivations.title"))
     ) {
 
-    @formHelper(action = GroupSubjectToReactivationsController.onSubmit(mode)) {
+    @formHelper(action = GroupSubjectToReactivationsController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

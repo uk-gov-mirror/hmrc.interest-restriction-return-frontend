@@ -18,14 +18,13 @@ package utils
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
+import controllers.startReturn.{routes => startReturnRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
-import pages.groupStructure.PayTaxInUkPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage}
 import pages.startReturn._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
@@ -34,6 +33,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+
+  def parentCompanySAUTR: Option[SummaryListRow] = answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode))
 
   def payTaxInUk: Option[SummaryListRow] = answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode))
 

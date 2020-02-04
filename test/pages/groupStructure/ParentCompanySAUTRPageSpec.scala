@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package forms
+package pages.groupStructure
 
-import javax.inject.Inject
+import pages.behaviours.PageBehaviours
 
-import forms.mappings.Mappings
-import play.api.data.Form
+class ParentCompanySAUTRPageSpec extends PageBehaviours {
 
-class ParentCompanyNameFormProvider @Inject() extends Mappings {
+  "ParentCompanySAUTRPage" must {
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("parentCompanyName.error.required")
-        .verifying(maxLength(160, "parentCompanyName.error.length"))
-    )
+    beRetrievable[String](ParentCompanySAUTRPage)
+
+    beSettable[String](ParentCompanySAUTRPage)
+
+    beRemovable[String](ParentCompanySAUTRPage)
+  }
 }

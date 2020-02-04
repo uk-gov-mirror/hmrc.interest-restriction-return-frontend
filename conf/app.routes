@@ -185,3 +185,10 @@ GET        /parent-company-name                            controllers.groupStru
 POST       /parent-company-name                            controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = NormalMode)
 GET        /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = CheckMode)
+
+### ParentCompanySAUTR Controller
+### ----------------------------------------
+GET        /parent-company-sautr                           controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = NormalMode)
+POST       /parent-company-sautr                           controllers.groupStructure.ParentCompanySAUTRController.onSubmit(mode: Mode = NormalMode)
+GET        /parent-company-sautr/change                    controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = CheckMode)
+POST       /parent-company-sautr/change                    controllers.groupStructure.ParentCompanySAUTRController.onSubmit(mode: Mode = CheckMode)

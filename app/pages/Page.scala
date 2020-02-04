@@ -18,8 +18,7 @@ package pages
 
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
-import pages.groupStructure.PayTaxInUkPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage}
 import pages.startReturn._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
@@ -32,6 +31,7 @@ object Page {
   implicit def toString(page: Page): String = page.toString
 
   val pages: Map[String, Page] = Map(
+    ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
     PayTaxInUkPage.toString -> PayTaxInUkPage,
     ParentCompanyNamePage.toString -> ParentCompanyNamePage,
     DeemedParentPage.toString -> DeemedParentPage,

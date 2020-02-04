@@ -16,38 +16,43 @@
 
 package controllers.groupStructure
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.groupStructure.ParentCompanyNameFormProvider
+import forms.groupStructure.ParentCompanySAUTRFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.ParentCompanySAUTRPage
+import play.api.data.Form
+import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.groupStructure.ParentCompanyNameView
+import views.html.groupStructure.ParentCompanySAUTRView
 
-class ParentCompanyNameControllerSpec extends SpecBase   with FeatureSwitching {
+class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
-  val view = injector.instanceOf[ParentCompanyNameView]
-  val formProvider = new ParentCompanyNameFormProvider()
+  val view = injector.instanceOf[ParentCompanySAUTRView]
+  val formProvider = new ParentCompanySAUTRFormProvider()
   val form = formProvider()
+  val validAnswer = "1111111111"
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ParentCompanyNameController(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ParentCompanySAUTRController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new ParentCompanyNameFormProvider,
+    formProvider = new ParentCompanySAUTRFormProvider,
     controllerComponents = messagesControllerComponents,
-    view = view)
+    view = view
+  )
 
-  "ParentCompanyName Controller" must {
+  "ParentCompanySAUTR Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -59,26 +64,27 @@ class ParentCompanyNameControllerSpec extends SpecBase   with FeatureSwitching {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, "answer").success.value
+      val userAnswers = emptyUserAnswers.set(ParentCompanySAUTRPage, validAnswer).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual OK
+      status(result) mustBe OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "101"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
+
       redirectLocation(result) mustBe Some("/foo")
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
       val result = controller().onSubmit(NormalMode)(request)
 
@@ -90,18 +96,18 @@ class ParentCompanyNameControllerSpec extends SpecBase   with FeatureSwitching {
       val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
 
       val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }

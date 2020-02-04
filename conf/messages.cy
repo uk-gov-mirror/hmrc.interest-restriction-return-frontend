@@ -307,3 +307,16 @@ parentCompanyName.checkYourAnswersLabel = Enter the name of the parent company
 parentCompanyName.label = Enter the name of the parent company
 parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
+
+
+# ParentCompanySAUTRPage Messages
+# ----------------------------------------------------------
+parentCompanySAUTR.title = Parent company Self Assessment Unique Tax Payer Reference
+parentCompanySAUTR.heading = Parent company Self Assessment Unique Tax Payer Reference
+parentCompanySAUTR.label = Parent company Self Assessment Unique Tax Payer Reference
+parentCompanySAUTR.checkYourAnswersLabel = ParentCompanySAUTR
+parentCompanySAUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
+parentCompanySAUTR.findUtr = find a lost UTR number
+parentCompanySAUTR.error.required = Enter your Self Assessment Unique Tax Payer Reference
+parentCompanySAUTR.error.length = Self Assessment Unique Tax Payer Reference must be 10 numbers
+parentCompanySAUTR.error.checksum = Self Assessment Unique Tax Payer Reference entered is invalid
