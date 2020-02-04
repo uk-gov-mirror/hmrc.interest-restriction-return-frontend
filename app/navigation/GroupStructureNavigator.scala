@@ -34,7 +34,8 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
     PayTaxInUkPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanyCTUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanySAUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    RegisteredCompaniesHousePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    RegisteredCompaniesHousePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page

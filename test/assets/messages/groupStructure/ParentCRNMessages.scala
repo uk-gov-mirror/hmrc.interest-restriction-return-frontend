@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package pages
+package assets.messages.groupStructure
 
-import queries.{Gettable, Settable}
+object ParentCRNMessages {
 
-trait QuestionPage[A] extends Page with Gettable[A] with Settable[A]
+  val hint = "A company registration number (CRN) is a unique combination of 8 numbers, or 2 letters followed by 6 numbers."
+}

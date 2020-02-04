@@ -14,8 +14,18 @@
  * limitations under the License.
  */
 
-package pages
+package pages.groupStructure
 
-import queries.{Gettable, Settable}
+import pages.behaviours.PageBehaviours
 
-trait QuestionPage[A] extends Page with Gettable[A] with Settable[A]
+class ParentCRNPageSpec extends PageBehaviours {
+
+  "ParentCRNPage" must {
+
+    beRetrievable[String](ParentCRNPage)
+
+    beSettable[String](ParentCRNPage)
+
+    beRemovable[String](ParentCRNPage)
+  }
+}

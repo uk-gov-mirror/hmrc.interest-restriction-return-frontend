@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-package pages
+package pages.groupStructure
 
-import queries.{Gettable, Settable}
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-trait QuestionPage[A] extends Page with Gettable[A] with Settable[A]
+case object ParentCRNPage extends QuestionPage[String] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "parentCRN"
+}
