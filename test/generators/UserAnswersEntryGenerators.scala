@@ -22,11 +22,19 @@ import org.scalacheck.Arbitrary.arbitrary
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn.{GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InfrastructureCompanyElectionPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage, RevisingReturnPage}
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, RegisteredCompaniesHousePage}
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyRequiredPage}
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+
+  implicit lazy val arbitraryRegisteredCompaniesHouseUserAnswersEntry: Arbitrary[(RegisteredCompaniesHousePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[RegisteredCompaniesHousePage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
 
   implicit lazy val arbitraryParentCompanyNameUserAnswersEntry: Arbitrary[(ParentCompanyNamePage.type, JsValue)] =
     Arbitrary {

@@ -311,3 +311,11 @@ parentCompanyName.checkYourAnswersLabel = Enter the name of the parent company
 parentCompanyName.label = Enter the name of the parent company
 parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
+
+
+# RegisteredCompaniesHousePage Messages
+# ----------------------------------------------------------
+registeredCompaniesHouse.title = Is the parent company registered with companies house?
+registeredCompaniesHouse.heading = Is the parent company registered with companies house?
+registeredCompaniesHouse.checkYourAnswersLabel = Is the parent company registered with companies house?
+registeredCompaniesHouse.error.required = Select yes if the parent company is registered with companies house
