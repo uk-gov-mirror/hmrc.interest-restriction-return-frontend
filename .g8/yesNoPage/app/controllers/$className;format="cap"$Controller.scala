@@ -1,4 +1,4 @@
-package controllers
+package controllers.$section;format="decap"$
 
 import config.FrontendAppConfig
 import controllers.actions._
