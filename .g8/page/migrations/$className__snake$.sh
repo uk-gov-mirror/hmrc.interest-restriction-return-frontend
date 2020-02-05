@@ -4,21 +4,23 @@ echo ""
 echo "Applying migration $className;format="snake"$"
 
 echo "" >> ../conf/app.routes
+echo "### $className;format="cap"$ Controller" >> ../conf/app.routes
+echo "### ----------------------------------------" >> ../conf/app.routes
 echo "GET        /$className;format="decap"$                            controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "# $className$Page Messages" >> ../conf/messages.en
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
-echo "$className$.title = $className;format="decap"$" >> ../conf/messages.en
-echo "$className$.heading = $className;format="decap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
-echo "# $className$Page Messages" >> ../conf/messages.cy
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
-echo "$className$.title = $className;format="decap"$" >> ../conf/messages.cy
-echo "$className$.heading = $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
 
 echo "Adding to Pages map"
 awk '/val pages/ {\

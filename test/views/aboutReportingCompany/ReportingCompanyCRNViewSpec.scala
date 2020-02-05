@@ -29,7 +29,7 @@ import views.html.aboutReportingCompany.ReportingCompanyCRNView
 class ReportingCompanyCRNViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyCRN"
-
+  val section = Some(messages("section.aboutReportingCompany"))
   val form = new ReportingCompanyCRNFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class ReportingCompanyCRNViewSpec extends StringViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class ReportingCompanyCRNViewSpec extends StringViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCRNController.onSubmit(NormalMode).url)
+      behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCRNController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

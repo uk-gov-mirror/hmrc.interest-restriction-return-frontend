@@ -29,7 +29,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import models.Mode
 import play.twirl.api.Html
-import uk.gov.hmrc.viewmodels.Radios
+
 import views.html.$className;format="cap"$View
 
 class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching {

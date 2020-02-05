@@ -29,7 +29,7 @@ import views.html.aboutReturn.InterestAllowanceBroughtForwardView
 class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours {
 
   val messageKeyPrefix = "interestAllowanceBroughtForward"
-
+  val section = Some(messages("section.aboutReturn"))
   val form = new InterestAllowanceBroughtForwardFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class InterestAllowanceBroughtForwardViewSpec extends DecimalViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestAllowanceBroughtForwardController.onSubmit(NormalMode).url)
+      behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestAllowanceBroughtForwardController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

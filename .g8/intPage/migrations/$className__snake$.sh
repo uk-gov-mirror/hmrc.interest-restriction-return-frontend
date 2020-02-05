@@ -6,7 +6,8 @@ echo "Applying migration $className;format="snake"$"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-
+echo "### $className;format="cap"$ Controller" >> ../conf/app.routes
+echo "### ----------------------------------------" >> ../conf/app.routes
 export kebabClassName=\$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
 echo "GET        /\$kebabClassName                          controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
 echo "POST       /\$kebabClassName                          controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
@@ -15,29 +16,29 @@ echo "POST       /\$kebabClassName/change                   controllers.$classNa
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "# $className$Page Messages" >> ../conf/messages.en
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
-echo "$className$.title = $className;format="cap"$" >> ../conf/messages.en
-echo "$className$.heading = $className;format="cap"$" >> ../conf/messages.en
-echo "$className$.label = $label$" >> ../conf/messages.en
-echo "$className$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.en
-echo "$className$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.en
-echo "$className$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.en
-echo "$className$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.en
-echo "$className$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.en
+echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.label= $label$" >> ../conf/messages.en
+echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.en
+echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.en
+echo "$className;format="decap"$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
-echo "# $className$Page Messages" >> ../conf/messages.cy
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
-echo "$className$.title = $className;format="cap"$" >> ../conf/messages.cy
-echo "$className$.heading = $className;format="cap"$" >> ../conf/messages.cy
-echo "$className$.label =$label$" >> ../conf/messages.cy
-echo "$className$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.cy
-echo "$className$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.cy
-echo "$className$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.cy
-echo "$className$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.cy
-echo "$className$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.label=$label$" >> ../conf/messages.cy
+echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\

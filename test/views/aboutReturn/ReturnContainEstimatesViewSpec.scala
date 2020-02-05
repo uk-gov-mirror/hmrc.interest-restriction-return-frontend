@@ -29,7 +29,7 @@ import views.html.aboutReturn.ReturnContainEstimatesView
 class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "returnContainEstimates"
-
+  val section = Some(messages("section.aboutReturn"))
   val form = new ReturnContainEstimatesFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class ReturnContainEstimatesViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ReturnContainEstimatesController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ReturnContainEstimatesController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

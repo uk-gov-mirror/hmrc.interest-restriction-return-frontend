@@ -28,7 +28,7 @@ import views.html.startReturn.FullOrAbbreviatedReturnView
 class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "fullOrAbbreviatedReturn"
-
+  val section = Some(messages("section.startReturn"))
   val form = new FullOrAbbreviatedReturnFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -40,7 +40,7 @@ class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 

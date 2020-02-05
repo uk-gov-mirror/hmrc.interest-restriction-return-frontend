@@ -6,6 +6,8 @@ echo "Applying migration $className;format="snake"$"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
+echo "### $className;format="cap"$ Controller" >> ../conf/app.routes
+echo "### ----------------------------------------" >> ../conf/app.routes
 
 export kebabClassName=\$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
 echo "GET        /\$kebabClassName                          controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
@@ -15,21 +17,21 @@ echo "POST       /\$kebabClassName/change                   controllers.$classNa
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "# $className$Page Messages" >> ../conf/messages.en
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
-echo "$className$.title = $title$" >> ../conf/messages.en
-echo "$className$.heading = $heading$" >> ../conf/messages.en
-echo "$className$.checkYourAnswersLabel = $heading$" >> ../conf/messages.en
-echo "$className$.error.required = Select yes if $heading$" >> ../conf/messages.en
+echo "$className;format="decap"$.title = $title$" >> ../conf/messages.en
+echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.en
+echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.en
+echo "$className;format="decap"$.error.required = Select yes if $heading$" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
-echo "# $className$Page Messages" >> ../conf/messages.cy
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
-echo "$className$.title = $title$" >> ../conf/messages.cy
-echo "$className$.heading = $heading$" >> ../conf/messages.cy
-echo "$className$.checkYourAnswersLabel = $heading$" >> ../conf/messages.cy
-echo "$className$.error.required = Select yes if $heading$" >> ../conf/messages.cy
+echo "$className;format="decap"$.title = $title$" >> ../conf/messages.cy
+echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.cy
+echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = Select yes if $heading$" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\

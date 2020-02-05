@@ -26,7 +26,9 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
   def decimalPage(form: Form[BigDecimal],
                   createView: Form[BigDecimal] => HtmlFormat.Appendable,
                   messageKeyPrefix: String,
-                  expectedFormAction: String): Unit = {
+                  expectedFormAction: String,
+                  headingArgs: Seq[String] = Seq(),
+                  section: Option[String] = None): Unit = {
 
     "behave like a page with a decimal value field" when {
 
@@ -72,7 +74,7 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title"))}""")
+          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
         }
       }
     }

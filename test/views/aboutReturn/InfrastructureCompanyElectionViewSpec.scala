@@ -29,7 +29,7 @@ import views.{Twirl, ViewSpecBase}
 class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with ViewSpecBase {
 
   val messageKeyPrefix = "infrastructureCompanyElection"
-
+  val section = Some(messages("section.aboutReturn"))
   val form = new InfrastructureCompanyElectionFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Vie
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class InfrastructureCompanyElectionViewSpec extends YesNoViewBehaviours with Vie
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InfrastructureCompanyElectionController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InfrastructureCompanyElectionController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

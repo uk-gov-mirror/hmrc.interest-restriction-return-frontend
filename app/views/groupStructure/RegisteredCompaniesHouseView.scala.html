@@ -31,9 +31,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(
-    pageTitle = Some(title(form, "registeredCompaniesHouse.title"))
-    ) {
+@govukLayout(pageTitle = Some(title(form, "registeredCompaniesHouse.title", Some("section.groupStructure")))) {
 
     @formHelper(action = RegisteredCompaniesHouseController.onSubmit(mode)) {
 

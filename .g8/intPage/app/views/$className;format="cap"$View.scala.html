@@ -6,30 +6,36 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    button: components.button,
     inputNumber: components.inputNumber,
     h1: components.h1,
-    fieldset: components.fieldset
+    fieldset: components.fieldset,
+    subheading: components.subheading,
+    button: components.button,
+    link: components.link,
+    saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(
-    pageTitle = Some(title(form, "$className;format="decap"$.title"))
-    ) {
+@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section$")))) {
 
     @formHelper(action = $className;format="cap"$Controller.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-    @fieldset("$className;format="decap"$.heading") {
-            @inputNumber(
-                form,
-                id = "value",
-                name = "value",
-                label = "$className;format="decap"$.label"
-            )
-        }
-        @button("site.continue")
+        @subheading("section.$subheading;format="decap"$")
+
+        @fieldset("$className;format="decap"$.heading") {
+                @inputNumber(
+                    form,
+                    id = "value",
+                    name = "value",
+                    label = "$className;format="decap"$.label"
+                )
+            }
+
+        @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }
