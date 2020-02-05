@@ -28,7 +28,7 @@ import views.html.groupStructure.RegisteredCompaniesHouseView
 class RegisteredCompaniesHouseViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "registeredCompaniesHouse"
-
+  val section = Some(messages("section.groupStructure"))
   val form = new RegisteredCompaniesHouseFormProvider()()
 
     s"RegisteredCompaniesHouse view" must {
@@ -38,11 +38,11 @@ class RegisteredCompaniesHouseViewSpec extends YesNoViewBehaviours  {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RegisteredCompaniesHouseController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RegisteredCompaniesHouseController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

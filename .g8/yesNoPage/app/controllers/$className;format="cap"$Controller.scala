@@ -12,8 +12,6 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.$className;format="cap"$View
 import play.api.data.Form
-
-import uk.gov.hmrc.viewmodels.Radios
 import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(

@@ -7,23 +7,31 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    checkboxes: components.inputCheckboxes
+    checkboxes: components.inputCheckboxes,
+    button: components.button,
+    link: components.link,
+    subheading: components.subheading,
+    saveForLater: components.saveForLater
 )
 
 @(form: Form[Set[$className;format="cap"$]], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title"))) {
+@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section$")))) {
 
     @formHelper(action = $className;format="cap"$Controller.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @checkboxes(
-            form = form,
-            legend = messages("$className;format="decap"$.heading"),
-            items = $className;format="cap"$.options(form)
-        )
+        @subheading("section.$subheading;format="decap"$")
 
-        @button("site.continue")
+        @checkboxes(
+                    form = form,
+                    legend = messages("$className;format="decap"$.heading"),
+                    items = $className;format="decap"$.options(form)
+                   )
+
+        @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }

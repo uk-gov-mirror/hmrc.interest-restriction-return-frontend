@@ -29,7 +29,7 @@ import views.html.aboutReturn.RevisingReturnView
 class RevisingReturnViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "revisingReturn"
-
+  val section = Some(messages("section.aboutReturn"))
   val form = new RevisingReturnFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class RevisingReturnViewSpec extends YesNoViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class RevisingReturnViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

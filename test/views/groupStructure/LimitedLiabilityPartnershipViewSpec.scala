@@ -29,10 +29,9 @@ class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "limitedLiabilityPartnership"
   val section = Some(messages("section.groupStructure"))
-
   val form = new LimitedLiabilityPartnershipFormProvider()()
 
-  s"LimitedLiabilityPartnershipView" must {
+  "LimitedLiabilityPartnershipView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[LimitedLiabilityPartnershipView](Some(emptyUserAnswers))
