@@ -7,17 +7,22 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
+    inputRadio: components.inputRadio,
+    subheading: components.subheading,
     button: components.button,
-    inputRadio: components.inputRadio
+    link: components.link,
+    saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title"))) {
+@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section$")))) {
 
     @formHelper(action = $className;format="cap"$Controller.onSubmit(mode), 'autoComplete -> "off") {
 
         @errorSummary(form.errors)
+
+        @subheading("section.$subheading:format="decap"$")
 
         @inputRadio(
             form = form,
@@ -25,6 +30,8 @@
             items = $className;format="cap"$.options(form)
         )
 
-        @button("site.continue")
+        @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }
