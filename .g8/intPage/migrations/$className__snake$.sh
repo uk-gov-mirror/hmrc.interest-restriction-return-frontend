@@ -22,10 +22,10 @@ echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/me
 echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.label= $label$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.en
-echo "$className$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.en
+echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.en
-echo "$className$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.en
-echo "$className$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.en
+echo "$className;format="decap"$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.en
+echo "$className;format="decap"$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
@@ -35,10 +35,10 @@ echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/me
 echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.cy
 echo "$className;format="decap"$.label=$label$" >> ../conf/messages.cy
 echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.cy
-echo "$className$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.nonNumeric = Enter your $className;format="decap"$ using numbers" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = Enter your $className;format="decap"$" >> ../conf/messages.cy
-echo "$className$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.cy
-echo "$className$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.wholeNumber = Enter your $className;format="decap"$ using whole numbers" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.outOfRange = $className;format="cap"$ must be between {0} and {1}" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
