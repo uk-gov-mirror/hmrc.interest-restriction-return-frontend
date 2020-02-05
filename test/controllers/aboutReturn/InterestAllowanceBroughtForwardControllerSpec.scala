@@ -24,49 +24,47 @@ import forms.aboutReturn.InterestAllowanceBroughtForwardFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
 import pages.aboutReturn.InterestAllowanceBroughtForwardPage
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.aboutReturn.InterestAllowanceBroughtForwardView
 
-class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with FeatureSwitching {
-
-  def onwardRoute = Call("GET", "/foo")
+class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[InterestAllowanceBroughtForwardView]
-  val formProvider = new InterestAllowanceBroughtForwardFormProvider()
+  val formProvider = injector.instanceOf[InterestAllowanceBroughtForwardFormProvider]
   val form = formProvider()
   val validAnswer = 0
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InterestAllowanceBroughtForwardController(
+  object Controller extends InterestAllowanceBroughtForwardController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new InterestAllowanceBroughtForwardFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
   "InterestAllowanceBroughtForward Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      mockGetAnswers(Some(emptyUserAnswers))
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers.set[BigDecimal](InterestAllowanceBroughtForwardPage, validAnswer).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -75,25 +73,31 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
 
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
@@ -103,7 +107,9 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

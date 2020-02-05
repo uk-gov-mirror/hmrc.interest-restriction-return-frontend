@@ -18,7 +18,7 @@ package controllers.aboutReportingCompany
 
 import assets.constants.BaseConstants
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import controllers.actions._
 import controllers.errors
@@ -26,33 +26,26 @@ import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import pages.aboutReportingCompany.ReportingCompanyCRNPage
-import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
-import play.api.mvc.Call
-import play.api.test.Helpers._
-import play.twirl.api.Html
-import services.mocks.MockCRNValidationService
-
-import views.html.aboutReportingCompany.ReportingCompanyCRNView
 import play.api.http.Status
+import play.api.test.Helpers._
+import services.mocks.MockCRNValidationService
+import views.html.aboutReportingCompany.ReportingCompanyCRNView
 
-class ReportingCompanyCRNValidationControllerSpec extends SpecBase
-  with FeatureSwitching with MockCRNValidationService with BaseConstants {
-
-  def onwardRoute = Call("GET", "/foo")
+class ReportingCompanyCRNValidationControllerSpec extends SpecBase with FeatureSwitching
+  with MockCRNValidationService with BaseConstants with MockDataRetrievalAction {
 
   val view = injector.instanceOf[ReportingCompanyCRNView]
-  val formProvider = new ReportingCompanyCRNFormProvider()
+  val formProvider = injector.instanceOf[ReportingCompanyCRNFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReportingCompanyCRNController(
+  object Controller extends ReportingCompanyCRNController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new ReportingCompanyCRNFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     crnValidationService = mockCRNValidationService,
@@ -65,7 +58,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase
 
       "return OK and the correct view for a GET" in {
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+        mockGetAnswers(Some(emptyUserAnswers))
+
+        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -76,7 +71,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase
 
       val userAnswers = emptyUserAnswers.set(ReportingCompanyCRNPage, "answer").success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -87,17 +84,21 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -108,7 +109,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -119,14 +122,18 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -136,7 +143,9 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

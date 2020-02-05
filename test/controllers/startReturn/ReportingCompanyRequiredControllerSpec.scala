@@ -18,36 +18,32 @@ package controllers.startReturn
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
-import javax.jws.soap.SOAPBinding.Use
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import views.html.startReturn.ReportingCompanyRequiredView
 
-class ReportingCompanyRequiredControllerSpec extends SpecBase  with FeatureSwitching {
+class ReportingCompanyRequiredControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[ReportingCompanyRequiredView]
 
   def controller = new ReportingCompanyRequiredController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = FakeDataRetrievalActionEmptyAnswers,
-    requireData = new DataRequiredActionImpl,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
   "ReportingCompanyRequired Controller" must {
 
-
-    "When using Twirl Template" must {
-
       "return OK and the correct view for a GET" in {
+
+        mockGetAnswers(Some(emptyUserAnswers))
 
         val result = controller.onPageLoad(fakeRequest)
 
         status(result) mustBe OK
       }
-    }
   }
 }

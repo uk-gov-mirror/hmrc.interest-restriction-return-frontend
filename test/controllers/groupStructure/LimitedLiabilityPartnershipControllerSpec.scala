@@ -29,20 +29,20 @@ import views.html.groupStructure.LimitedLiabilityPartnershipView
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.aboutReportingCompany.ReportingCompanyNamePage
 
-class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants {
+class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
   val view = injector.instanceOf[LimitedLiabilityPartnershipView]
-  val formProvider = new LimitedLiabilityPartnershipFormProvider
+  val formProvider = injector.instanceOf[LimitedLiabilityPartnershipFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new LimitedLiabilityPartnershipController(
+  object Controller extends LimitedLiabilityPartnershipController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new LimitedLiabilityPartnershipFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     errorHandler = errorHandler
@@ -54,7 +54,9 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       val userAnswers = emptyUserAnswers.set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
@@ -66,7 +68,9 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
         .set(LimitedLiabilityPartnershipPage, true).success.value
         .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -75,10 +79,12 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -86,16 +92,20 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
       val userAnswers = emptyUserAnswers
         .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
+      mockGetAnswers(Some(userAnswers))
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -106,7 +116,9 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

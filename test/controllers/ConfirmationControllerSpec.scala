@@ -19,21 +19,21 @@ package controllers
 import base.SpecBase
 import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
-import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import play.api.test.Helpers._
 import views.html.ConfirmationView
 
-class ConfirmationControllerSpec extends SpecBase with FeatureSwitching {
+class ConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[ConfirmationView]
 
   val reference = "abc123"
 
-  def controller = new ConfirmationController(
+  object Controller extends ConfirmationController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = FakeDataRetrievalActionEmptyAnswers,
-    requireData = new DataRequiredActionImpl,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
     errorHandler = errorHandler
@@ -45,15 +45,14 @@ class ConfirmationControllerSpec extends SpecBase with FeatureSwitching {
 
     "when the acknowledgement reference is held in session" should {
 
-      "When using the Twirl Template" must {
+      "return OK and the correct view for a GET" in {
 
-        "return OK and the correct view for a GET" in {
+        mockGetAnswers(Some(emptyUserAnswers))
 
-          val result = controller.onPageLoad(requestWithRef)
+        val result = Controller.onPageLoad(requestWithRef)
 
-          status(result) mustBe OK
-          contentAsString(result) mustEqual view(reference)(requestWithRef, frontendAppConfig, messages).toString
-        }
+        status(result) mustBe OK
+        contentAsString(result) mustEqual view(reference)(requestWithRef, frontendAppConfig, messages).toString
       }
     }
 
@@ -61,7 +60,9 @@ class ConfirmationControllerSpec extends SpecBase with FeatureSwitching {
 
       "return the ISE page" in {
 
-        val result = controller.onPageLoad(fakeRequest)
+        mockGetAnswers(Some(emptyUserAnswers))
+
+        val result = Controller.onPageLoad(fakeRequest)
 
         status(result) mustBe INTERNAL_SERVER_ERROR
         contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString

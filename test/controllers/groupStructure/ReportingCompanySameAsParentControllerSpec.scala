@@ -29,20 +29,20 @@ import pages.groupStructure.ReportingCompanySameAsParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.ReportingCompanySameAsParentView
 
-class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSwitching with BaseConstants {
+class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
   val view = injector.instanceOf[ReportingCompanySameAsParentView]
-  val formProvider = new ReportingCompanySameAsParentFormProvider
+  val formProvider = injector.instanceOf[ReportingCompanySameAsParentFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReportingCompanySameAsParentController(
+  object Controller extends ReportingCompanySameAsParentController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new ReportingCompanySameAsParentFormProvider(),
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     errorHandler = errorHandler
@@ -55,7 +55,9 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
       val userAnswers = emptyUserAnswers
         .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
@@ -67,7 +69,9 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
         .set(ReportingCompanyNamePage, companyNameModel.name).success.value
         .set(ReportingCompanySameAsParentPage, true).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -76,10 +80,12 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -87,16 +93,20 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
       val userAnswers = emptyUserAnswers
         .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
+      mockGetAnswers(Some(userAnswers))
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -107,7 +117,9 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

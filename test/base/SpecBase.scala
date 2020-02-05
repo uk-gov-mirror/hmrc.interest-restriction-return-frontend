@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 import config.FrontendAppConfig
+import controllers.actions.DataRequiredActionImpl
 import handlers.ErrorHandler
 import models.UserAnswers
 import models.requests.DataRequest
@@ -31,7 +32,7 @@ import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
 import play.api.libs.json.Json
-import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents}
+import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
 import play.api.test.CSRFTokenHelper._
 import play.api.test.FakeRequest
 import repositories.DefaultSessionRepository
@@ -41,6 +42,8 @@ import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport {
+
+  def onwardRoute = Call("GET", "/foo")
 
   val userAnswersId = "id"
 
@@ -75,6 +78,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   val savedTilDate = LocalDate.now().plusDays(frontendAppConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
 
   lazy val errorHandler = injector.instanceOf[ErrorHandler]
+
+  lazy val dataRequiredAction = injector.instanceOf[DataRequiredActionImpl]
 
   implicit val hc = HeaderCarrier()
 
