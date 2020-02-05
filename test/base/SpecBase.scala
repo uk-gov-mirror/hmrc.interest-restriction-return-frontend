@@ -46,7 +46,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   val emptyUserAnswers = UserAnswers(userAnswersId, Json.obj())
 
-  val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
+  lazy val fakeRequest = FakeRequest("", "").withSession(SessionKeys.sessionId -> "foo").withCSRFToken.asInstanceOf[FakeRequest[AnyContentAsEmpty.type]]
 
   lazy val fakeDataRequest = DataRequest(fakeRequest,"id", emptyUserAnswers)
 
@@ -58,7 +58,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   def titleOf(result: String): String = Jsoup.parse(result).title
 
-  val injector: Injector = app.injector
+  lazy val injector: Injector = app.injector
 
   implicit lazy val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
@@ -74,7 +74,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   val savedTilDate = LocalDate.now().plusDays(frontendAppConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
 
-  val errorHandler = injector.instanceOf[ErrorHandler]
+  lazy val errorHandler = injector.instanceOf[ErrorHandler]
 
   implicit val hc = HeaderCarrier()
 

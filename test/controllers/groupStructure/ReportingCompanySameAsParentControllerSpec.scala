@@ -21,38 +21,39 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.LimitedLiabilityPartnershipFormProvider
+import forms.groupStructure.ReportingCompanySameAsParentFormProvider
 import models.NormalMode
-import pages.groupStructure.LimitedLiabilityPartnershipPage
-import play.api.test.Helpers._
-import views.html.groupStructure.LimitedLiabilityPartnershipView
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.aboutReportingCompany.ReportingCompanyNamePage
+import pages.groupStructure.ReportingCompanySameAsParentPage
+import play.api.test.Helpers._
+import views.html.groupStructure.ReportingCompanySameAsParentView
 
-class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants {
+class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSwitching with BaseConstants {
 
-  val view = injector.instanceOf[LimitedLiabilityPartnershipView]
-  val formProvider = new LimitedLiabilityPartnershipFormProvider
+  val view = injector.instanceOf[ReportingCompanySameAsParentView]
+  val formProvider = new ReportingCompanySameAsParentFormProvider
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new LimitedLiabilityPartnershipController(
+  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReportingCompanySameAsParentController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrieval,
     requireData = new DataRequiredActionImpl,
-    formProvider = new LimitedLiabilityPartnershipFormProvider,
+    formProvider = new ReportingCompanySameAsParentFormProvider(),
     controllerComponents = messagesControllerComponents,
     view = view,
     errorHandler = errorHandler
   )
 
-  "LimitedLiabilityPartnership Controller" must {
+  "ReportingCompanySameAsParent Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val userAnswers = emptyUserAnswers.set(ReportingCompanyNamePage, companyNameModel.name).success.value
+      val userAnswers = emptyUserAnswers
+        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
@@ -63,8 +64,8 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(LimitedLiabilityPartnershipPage, true).success.value
         .set(ReportingCompanyNamePage, companyNameModel.name).success.value
+        .set(ReportingCompanySameAsParentPage, true).success.value
 
       val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
 
