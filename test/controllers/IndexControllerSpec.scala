@@ -23,11 +23,11 @@ import navigation.FakeNavigators.FakeStartReturnNavigator
 import pages.startReturn.ReportingCompanyAppointedPage
 import play.api.test.Helpers._
 
-class IndexControllerSpec extends SpecBase with MockSessionRepository {
+class IndexControllerSpec extends SpecBase with MockSessionRepository with MockDataRetrievalAction {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new IndexController(
+  object Controller extends IndexController(
     identify = FakeIdentifierAction,
-    getData = dataRetrievalAction,
+    getData = mockDataRetrievalAction,
     sessionRepository = mockSessionRepository,
     navigator = FakeStartReturnNavigator,
     controllerComponents = messagesControllerComponents
@@ -39,29 +39,34 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository {
 
       val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, true).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad()(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some("/interest-restriction-return/continue-saved-return")
     }
 
     "return OK and the correct view for a GET with UserAnswers NOT already supplied" in {
-      mockSet(true)
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad()(fakeRequest)
+      mockGetAnswers(None)
+      mockSetAnswers(true)
+
+      val result = Controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return OK and get the correct view for a GET with empty userAnswers supplied due to 'start a new return' being selected" in {
-      mockSet(true)
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(emptyUserAnswers))).onPageLoad()(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
+
+      val result = Controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
-
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }

@@ -26,15 +26,15 @@ import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
-class CheckAnswersReportingCompanyControllerSpec extends SpecBase  with FeatureSwitching {
+class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new CheckAnswersReportingCompanyController(
+  object Controller extends CheckAnswersReportingCompanyController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = injector.instanceOf[DataRequiredActionImpl],
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
     navigator = FakeAboutReportingCompanyNavigator
@@ -44,21 +44,23 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase  with FeatureS
 
     "calling the onPageLoad() method" must {
 
-      "If Twirl library is being used" must {
+      "return a OK (200) when given empty answers" in {
 
-        "return a OK (200) when given empty answers" in {
+        mockGetAnswers(Some(emptyUserAnswers))
 
-          val result = controller().onPageLoad()(fakeRequest)
+        val result = Controller.onPageLoad()(fakeRequest)
 
-          status(result) mustEqual OK
-          titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title)
-        }
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title)
       }
 
       "calling the onSubmit() method" must {
 
         "redirect to the next page in the navigator" in {
-          val result = controller().onSubmit()(fakeRequest)
+
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onSubmit()(fakeRequest)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(FakeAboutReportingCompanyNavigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, emptyUserAnswers).url)

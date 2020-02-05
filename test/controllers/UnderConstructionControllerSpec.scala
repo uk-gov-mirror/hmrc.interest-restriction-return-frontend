@@ -18,33 +18,32 @@ package controllers
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import play.api.test.Helpers._
 import views.html.UnderConstructionView
 
-class UnderConstructionControllerSpec extends SpecBase with FeatureSwitching {
+class UnderConstructionControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[UnderConstructionView]
 
   def controller = new UnderConstructionController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = FakeDataRetrievalActionEmptyAnswers,
-    requireData = new DataRequiredActionImpl,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
   "UnderConstruction Controller" must {
 
-    "When rendering with Twirl template" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      mockGetAnswers(Some(emptyUserAnswers))
 
-        val result = controller.onPageLoad(fakeRequest)
+      val result = controller.onPageLoad(fakeRequest)
 
-        status(result) mustBe OK
-      }
+      status(result) mustBe OK
     }
   }
 }

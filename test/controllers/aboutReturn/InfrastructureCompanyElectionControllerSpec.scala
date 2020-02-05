@@ -27,20 +27,20 @@ import pages.aboutReturn.InfrastructureCompanyElectionPage
 import play.api.test.Helpers._
 import views.html.aboutReturn.InfrastructureCompanyElectionView
 
-class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureSwitching {
+class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[InfrastructureCompanyElectionView]
-  val formProvider = new InfrastructureCompanyElectionFormProvider
+  val formProvider = injector.instanceOf[InfrastructureCompanyElectionFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new InfrastructureCompanyElectionController(
+  object Controller extends InfrastructureCompanyElectionController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new InfrastructureCompanyElectionFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
@@ -51,7 +51,9 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
 
       "return OK and the correct view for a GET" in {
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+        mockGetAnswers(Some(emptyUserAnswers))
+
+        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -62,7 +64,9 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
 
       val userAnswers = emptyUserAnswers.set(InfrastructureCompanyElectionPage, true).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -71,24 +75,30 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -99,7 +109,9 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

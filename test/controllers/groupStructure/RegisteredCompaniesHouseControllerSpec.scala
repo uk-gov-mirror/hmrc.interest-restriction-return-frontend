@@ -27,42 +27,43 @@ import pages.groupStructure.RegisteredCompaniesHousePage
 import play.api.test.Helpers._
 import views.html.groupStructure.RegisteredCompaniesHouseView
 
-class RegisteredCompaniesHouseControllerSpec extends SpecBase with FeatureSwitching {
+class RegisteredCompaniesHouseControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[RegisteredCompaniesHouseView]
-  val formProvider = new RegisteredCompaniesHouseFormProvider
+  val formProvider = injector.instanceOf[RegisteredCompaniesHouseFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new RegisteredCompaniesHouseController(
+  object Controller extends RegisteredCompaniesHouseController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new RegisteredCompaniesHouseFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
   "RegisteredCompaniesHouse Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      mockGetAnswers(Some(emptyUserAnswers))
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, true).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -71,24 +72,30 @@ class RegisteredCompaniesHouseControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -99,7 +106,9 @@ class RegisteredCompaniesHouseControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

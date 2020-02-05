@@ -17,11 +17,10 @@
 package controllers
 
 import base.SpecBase
-import mocks.MockSessionRepository
 import play.api.test.Helpers._
 import uk.gov.hmrc.play.binders.ContinueUrl
 
-class SignOutControllerSpec extends SpecBase with MockSessionRepository {
+class SignOutControllerSpec extends SpecBase {
 
   object TestSignOutController extends SignOutController(
     controllerComponents = messagesControllerComponents,

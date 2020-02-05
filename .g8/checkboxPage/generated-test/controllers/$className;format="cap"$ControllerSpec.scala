@@ -75,7 +75,7 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
       val result = controller().onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

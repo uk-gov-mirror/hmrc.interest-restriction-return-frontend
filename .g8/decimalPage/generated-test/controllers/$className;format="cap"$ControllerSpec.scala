@@ -84,7 +84,7 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       status(result) mustBe SEE_OTHER
 
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
