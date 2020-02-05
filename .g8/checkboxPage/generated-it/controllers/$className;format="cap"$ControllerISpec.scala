@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.$section$
+package controllers
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode

@@ -95,10 +95,9 @@ awk '/val expected/ {\
 echo "adding to PageTitles"
 awk '/object PageTitles/ {\
     print;\
-    print "    val $className;format="decap"$ = "$title";\
+    print "  val $className;format="decap"$ = \"$title$\"";\
     next }1' ../it/assets/PageTitles.scala > tmp && mv tmp ../it/assets/PageTitles.scala
 
 echo "adding route to integration test"
-sed -i 's/ROUTING_PLACEHOLDER/$kebabClassName/g' ../it/controllers/$section/$className;format="cap"ControllerISpec
 
 echo "Migration $className;format="snake"$ completed"
