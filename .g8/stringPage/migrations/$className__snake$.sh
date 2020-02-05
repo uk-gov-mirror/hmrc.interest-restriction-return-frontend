@@ -22,9 +22,9 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.en
-echo "$className$.label = $label$" >> ../conf/messages.en
+echo "$className;format="decap"$.label= $label$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Enter $className;format="decap"$" >> ../conf/messages.en
-echo "$className$.error.length = $className;format="cap"$ must be $maxLength$ characters or less" >> ../conf/messages.en
+echo "$className;format="decap"$.error.length = $className;format="cap"$ must be $maxLength$ characters or less" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
@@ -33,9 +33,9 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
 echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="decap"$" >> ../conf/messages.cy
-echo "$className$.label = $label$" >> ../conf/messages.cy
+echo "$className;format="decap"$.label = $label$" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = Enter $className;format="decap"$" >> ../conf/messages.cy
-echo "$className$.error.length = $className;format="cap"$ must be $maxLength$ characters or less" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.length = $className;format="cap"$ must be $maxLength$ characters or less" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
