@@ -32,4 +32,3 @@ class $className;format="cap"$ViewSpec extends QuestionViewBehaviours[LocalDate]
       behave like pageWithSaveForLater(applyView(form)
     }
   }
-}

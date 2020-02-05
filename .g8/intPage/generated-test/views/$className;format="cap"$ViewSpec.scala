@@ -34,4 +34,4 @@ class $className;format="cap"$ViewSpec extends IntViewBehaviours  {
       behave like pageWithSaveForLater(applyView(form))
     }
   }
-}
+

@@ -34,4 +34,3 @@ class $className;format="cap"$ViewSpec extends YesNoViewBehaviours  {
       behave like pageWithSaveForLater(applyView(form))
     }
   }
-}
