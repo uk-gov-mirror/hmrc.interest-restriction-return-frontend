@@ -4,7 +4,7 @@ import forms.$className;format="cap"$FormProvider
 import models.{$className;format="cap"$, ContinueSavedReturn, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.viewmodels.Radios
+
 import views.behaviours.ViewBehaviours
 import views.html.$className;format="cap"$View
 

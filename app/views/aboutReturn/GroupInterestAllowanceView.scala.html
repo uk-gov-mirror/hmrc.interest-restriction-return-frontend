@@ -17,6 +17,7 @@
 @import controllers.aboutReturn.routes._
 @import models.Mode
 @import config.FrontendAppConfig
+@import views.ViewUtils._
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -25,12 +26,13 @@
     button: components.button,
     inputNumber: components.inputNumber,
     subheading: components.subheading,
-    saveForLater: components.saveForLater
+    saveForLater: components.saveForLater,
+    link: components.link
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "groupInterestAllowance.title"))) {
+@govukLayout(pageTitle = Some(title(form, "groupInterestAllowance.title", Some("section.aboutReturn")))) {
 
     @formHelper(action = GroupInterestAllowanceController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 

@@ -29,7 +29,7 @@ import views.html.aboutReturn.GroupSubjectToRestrictionsView
 class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "groupSubjectToRestrictions"
-
+  val section = Some(messages("section.aboutReturn"))
   val form = new GroupSubjectToRestrictionsFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class GroupSubjectToRestrictionsViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToRestrictionsController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.GroupSubjectToRestrictionsController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

@@ -28,7 +28,7 @@ import play.api.test.Helpers._
 import views.html.$className;format="cap"$View
 import play.api.data.Form
 import play.twirl.api.Html
-import uk.gov.hmrc.viewmodels.Radios
+
 
 class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching {
 

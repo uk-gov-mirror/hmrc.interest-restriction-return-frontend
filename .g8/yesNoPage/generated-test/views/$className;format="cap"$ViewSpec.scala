@@ -5,7 +5,7 @@ import forms.$className;format="cap"$FormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.viewmodels.Radios
+
 import views.behaviours.YesNoViewBehaviours
 import views.html.$className;format="cap"$View
 
@@ -22,7 +22,7 @@ class $className;format="cap"$ViewSpec extends YesNoViewBehaviours  {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+
 
       behave like pageWithBackLink(applyView(form))
 

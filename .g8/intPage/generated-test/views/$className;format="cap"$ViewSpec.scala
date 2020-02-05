@@ -21,7 +21,7 @@ class $className;format="cap"$ViewSpec extends IntViewBehaviours  {
           view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
