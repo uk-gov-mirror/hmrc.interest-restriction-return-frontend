@@ -27,5 +27,4 @@ class $className;format="cap"$ViewSpec extends QuestionViewBehaviours[LocalDate]
 
       behave like pageWithBackLink(applyView(form))
     }
-  }
 }

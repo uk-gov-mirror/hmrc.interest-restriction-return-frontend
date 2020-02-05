@@ -29,6 +29,5 @@ class $className;format="cap"$ViewSpec extends CheckboxViewBehaviours[$className
 
       behave like checkboxPage(form, applyView, messageKeyPrefix, $className;format="cap"$.options(form))
     }
-  }
 }
 

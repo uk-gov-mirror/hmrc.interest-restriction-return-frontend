@@ -360,3 +360,10 @@ LimitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
 LimitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
 LimitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
 LimitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership?
+
+# registeredForTaxInAnotherCountryPage Messages
+# ----------------------------------------------------------
+registeredForTaxInAnotherCountry.title = registeredForTaxInAnotherCountry
+registeredForTaxInAnotherCountry.heading = registeredForTaxInAnotherCountry
+registeredForTaxInAnotherCountry.checkYourAnswersLabel = registeredForTaxInAnotherCountry
+registeredForTaxInAnotherCountry.error.required = Select yes if registeredForTaxInAnotherCountry

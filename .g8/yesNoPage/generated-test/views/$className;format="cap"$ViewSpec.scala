@@ -28,5 +28,4 @@ class $className;format="cap"$ViewSpec extends YesNoViewBehaviours  {
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.$className;format="cap"$Controller.onSubmit(NormalMode).url)
     }
-  }
 }

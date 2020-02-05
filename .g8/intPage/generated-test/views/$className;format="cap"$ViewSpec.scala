@@ -27,5 +27,4 @@ class $className;format="cap"$ViewSpec extends IntViewBehaviours  {
 
       behave like intPage(form, applyView, messageKeyPrefix, routes.$className;format="cap"$Controller.onSubmit(NormalMode).url)
     }
-  }
 }

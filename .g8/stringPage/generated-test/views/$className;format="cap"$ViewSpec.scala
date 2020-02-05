@@ -28,5 +28,4 @@ class $className;format="cap"$ViewSpec extends StringViewBehaviours  {
 
       behave like stringPage(form, applyView, messageKeyPrefix, routes.$className;format="cap"$Controller.onSubmit(NormalMode).url)
     }
-  }
 }

@@ -15,5 +15,4 @@ class $className;format="cap"$ViewSpec extends ViewBehaviours {
         )
         behave like pageWithBackLink(twirlView)
       }
-  }
 }
