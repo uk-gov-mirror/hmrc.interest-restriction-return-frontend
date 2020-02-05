@@ -11,10 +11,10 @@ import views.html.$className;format="cap"$View
 class $className;format="cap"$ViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "$className;format="decap"$"
-  val section = Some(messages(s"section.$section$"))
+  val section = Some(messages("section.$section;format="decap"$"))
   val form = new $className;format="cap"$FormProvider()()
 
-    s"$className;format="cap"$View" must {
+    "$className;format="cap"$View" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[$className;format="cap"$View](Some(emptyUserAnswers))
