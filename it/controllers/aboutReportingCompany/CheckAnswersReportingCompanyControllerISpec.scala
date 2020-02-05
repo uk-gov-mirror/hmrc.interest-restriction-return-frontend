@@ -27,7 +27,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
   "in Normal mode" when {
 
-    "GET /check-answers-reporting-company" when {
+    "GET /reporting-company/check-answers" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.authorised()
 
-          val res = getRequest("/check-answers-reporting-company")()
+          val res = getRequest("/reporting-company/check-answers")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/check-answers-reporting-company")()
+          val res = getRequest("/reporting-company/check-answers")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
       }
     }
 
-    "POST /check-answers-reporting-company" when {
+    "POST /reporting-company/check-answers" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/check-answers-reporting-company", JsString(""))()
+            val res = postRequest("/reporting-company/check-answers", JsString(""))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/check-answers-reporting-company", Json.obj("value" -> ctutr))()
+          val res = postRequest("/reporting-company/check-answers", Json.obj("value" -> ctutr))()
 
           whenReady(res) { result =>
             result should have(

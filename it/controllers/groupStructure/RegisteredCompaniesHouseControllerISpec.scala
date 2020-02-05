@@ -26,7 +26,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
   "in Normal mode" when {
 
-    "GET /registered-companies-house" when {
+    "GET /group-structure/registered-companies-house" when {
 
       "user is authorised" should {
 
@@ -34,7 +34,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/registered-companies-house")()
+          val res = getRequest("/group-structure/registered-companies-house")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/registered-companies-house")()
+          val res = getRequest("/group-structure/registered-companies-house")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "POST /registered-companies-house" when {
+    "POST /group-structure/registered-companies-house" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
             AuthStub.authorised()
 
-            val res = postRequest("/registered-companies-house", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/registered-companies-house", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/registered-companies-house", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/registered-companies-house", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
   "in Change mode" when {
 
-    "GET /registered-companies-house" when {
+    "GET /group-structure/registered-companies-house" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/registered-companies-house/change")()
+          val res = getRequest("/group-structure/registered-companies-house/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/registered-companies-house/change")()
+          val res = getRequest("/group-structure/registered-companies-house/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -143,7 +143,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "POST /registered-companies-house" when {
+    "POST /group-structure/registered-companies-house" when {
 
       "user is authorised" when {
 
@@ -153,7 +153,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
             AuthStub.authorised()
 
-            val res = postRequest("/registered-companies-house/change", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/registered-companies-house/change", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -171,7 +171,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/registered-companies-house/change", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/registered-companies-house/change", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(

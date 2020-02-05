@@ -27,7 +27,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Normal mode" when {
 
-    "GET /agent-name" when {
+    "GET /start/agent-name" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/agent-name")()
+          val res = getRequest("/start/agent-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/agent-name")()
+          val res = getRequest("/start/agent-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "POST /agent-name" when {
+    "POST /start/agent-name" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
             AuthStub.authorised()
 
-            val res = postRequest("/agent-name", Json.obj("value" -> "a name"))()
+            val res = postRequest("/start/agent-name", Json.obj("value" -> "a name"))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/agent-name", Json.obj("value" -> true))()
+          val res = postRequest("/start/agent-name", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Change mode" when {
 
-    "GET /agent-name" when {
+    "GET /start/agent-name" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/agent-name/change")()
+          val res = getRequest("/start/agent-name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class AgentNameControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/agent-name/change")()
+          val res = getRequest("/start/agent-name/change")()
 
           whenReady(res) { result =>
             result should have(

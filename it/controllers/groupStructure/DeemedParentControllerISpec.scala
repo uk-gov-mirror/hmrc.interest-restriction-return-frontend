@@ -26,7 +26,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
   "in Normal mode" when {
 
-    "GET /deemed-parent" when {
+    "GET /group-structure/deemed-parent" when {
 
       "user is authorised" should {
 
@@ -34,7 +34,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.authorised()
 
-          val res = getRequest("/deemed-parent")()
+          val res = getRequest("/group-structure/deemed-parent")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/deemed-parent")()
+          val res = getRequest("/group-structure/deemed-parent")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
       }
     }
 
-    "POST /deemed-parent" when {
+    "POST /group-structure/deemed-parent" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
             AuthStub.authorised()
 
-            val res = postRequest("/deemed-parent", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/deemed-parent", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -90,7 +90,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
             AuthStub.authorised()
 
-            val res = postRequest("/deemed-parent", Json.obj("value" -> false))()
+            val res = postRequest("/group-structure/deemed-parent", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -108,7 +108,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/deemed-parent", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/deemed-parent", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,7 +123,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
   "in Change mode" when {
 
-    "GET /deemed-parent" when {
+    "GET /group-structure/deemed-parent" when {
 
       "user is authorised" should {
 
@@ -131,7 +131,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.authorised()
 
-          val res = getRequest("/deemed-parent/change")()
+          val res = getRequest("/group-structure/deemed-parent/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -148,7 +148,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/deemed-parent/change")()
+          val res = getRequest("/group-structure/deemed-parent/change")()
 
           whenReady(res) { result =>
             result should have(

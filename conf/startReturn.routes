@@ -1,0 +1,34 @@
+# Start Return Section Routes
+# ===========================
+
+### ReportingCompanyAppointed Controller
+### ----------------------------------------
+GET        /reporting-company-appointed                 controllers.startReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-appointed                 controllers.startReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-appointed/change          controllers.startReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-appointed/change          controllers.startReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)
+
+### ReportingCompanyRequired Controller
+### ----------------------------------------
+GET        /reporting-company-required                  controllers.startReturn.ReportingCompanyRequiredController.onPageLoad()
+
+### AgentActingOnBehalfOfCompany Controller
+### ----------------------------------------
+GET        /agent-acting-on-behalf-of-company           controllers.startReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-acting-on-behalf-of-company           controllers.startReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-acting-on-behalf-of-company/change    controllers.startReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-acting-on-behalf-of-company/change    controllers.startReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)
+
+### AgentName Controller
+### ----------------------------------------
+GET        /agent-name                                  controllers.startReturn.AgentNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-name                                  controllers.startReturn.AgentNameController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-name/change                           controllers.startReturn.AgentNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-name/change                           controllers.startReturn.AgentNameController.onSubmit(mode: Mode = CheckMode)
+
+### FullOrAbbreviatedReturn Controller
+### ----------------------------------------
+GET        /full-or-abbreviated-return                  controllers.startReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /full-or-abbreviated-return                  controllers.startReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /full-or-abbreviated-return/change           controllers.startReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /full-or-abbreviated-return/change           controllers.startReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)

@@ -27,7 +27,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
   "in Normal mode" when {
 
-    "GET /agent-acting-on-behalf-of-company" when {
+    "GET /start/agent-acting-on-behalf-of-company" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.authorised()
 
-          val res = getRequest("/agent-acting-on-behalf-of-company")()
+          val res = getRequest("/start/agent-acting-on-behalf-of-company")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/agent-acting-on-behalf-of-company")()
+          val res = getRequest("/start/agent-acting-on-behalf-of-company")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
       }
     }
 
-    "POST /agent-acting-on-behalf-of-company" when {
+    "POST /start/agent-acting-on-behalf-of-company" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/agent-acting-on-behalf-of-company", Json.obj("value" -> true))()
+            val res = postRequest("/start/agent-acting-on-behalf-of-company", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/agent-acting-on-behalf-of-company", Json.obj("value" -> false))()
+            val res = postRequest("/start/agent-acting-on-behalf-of-company", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +109,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/agent-acting-on-behalf-of-company", Json.obj("value" -> true))()
+          val res = postRequest("/start/agent-acting-on-behalf-of-company", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +124,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
   "in Change mode" when {
 
-    "GET /agent-acting-on-behalf-of-company" when {
+    "GET /start/agent-acting-on-behalf-of-company" when {
 
       "user is authorised" should {
 
@@ -132,7 +132,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.authorised()
 
-          val res = getRequest("/agent-acting-on-behalf-of-company/change")()
+          val res = getRequest("/start/agent-acting-on-behalf-of-company/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -149,7 +149,7 @@ class AgentActingOnBehalfOfCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/agent-acting-on-behalf-of-company/change")()
+          val res = getRequest("/start/agent-acting-on-behalf-of-company/change")()
 
           whenReady(res) { result =>
             result should have(

@@ -27,7 +27,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
   "in Normal mode" when {
 
-    "GET /group-interest-allowance" when {
+    "GET /about-return/group-interest-allowance" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-interest-allowance")()
+          val res = getRequest("/about-return/group-interest-allowance")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-interest-allowance")()
+          val res = getRequest("/about-return/group-interest-allowance")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
       }
     }
 
-    "POST /group-interest-allowance" when {
+    "POST /about-return/group-interest-allowance" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))()
+            val res = postRequest("/about-return/group-interest-allowance", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))()
+          val res = postRequest("/about-return/group-interest-allowance", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
   "in Change mode" when {
 
-    "GET /group-interest-allowance" when {
+    "GET /about-return/group-interest-allowance" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-interest-allowance/change")()
+          val res = getRequest("/about-return/group-interest-allowance/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class GroupInterestAllowanceControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-interest-allowance/change")()
+          val res = getRequest("/about-return/group-interest-allowance/change")()
 
           whenReady(res) { result =>
             result should have(

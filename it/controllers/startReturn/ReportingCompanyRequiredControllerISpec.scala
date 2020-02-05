@@ -25,7 +25,7 @@ class ReportingCompanyRequiredControllerISpec extends IntegrationSpecBase with C
 
   "in Normal mode" when {
 
-    "GET /reporting-company-required" when {
+    "GET /start/reporting-company-required" when {
 
       "user is authorised" should {
 
@@ -33,7 +33,7 @@ class ReportingCompanyRequiredControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-required")()
+          val res = getRequest("/start/reporting-company-required")()
 
           whenReady(res) { result =>
             result should have(
@@ -50,7 +50,7 @@ class ReportingCompanyRequiredControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-required")()
+          val res = getRequest("/start/reporting-company-required")()
 
           whenReady(res) { result =>
             result should have(
