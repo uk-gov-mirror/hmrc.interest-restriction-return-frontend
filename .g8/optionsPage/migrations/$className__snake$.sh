@@ -17,7 +17,7 @@ echo "POST       /\$kebabClassName/change                   controllers.$classNa
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "# $className$Page;format="cap"$ Messages" >> ../conf/messages.en
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $title$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $title$" >> ../conf/messages.en
@@ -28,7 +28,7 @@ echo "$className;format="decap"$.error.required = Select $className;format="deca
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
-echo "# $className$Page;format="cap"$ Messages" >> ../conf/messages.cy
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
 echo "$className;format="decap"$.title = $title$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $title$" >> ../conf/messages.cy

@@ -16,7 +16,7 @@ echo "POST       /\$kebabClassName/change                   controllers.$classNa
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
-echo "# $className$Page;format="cap"$ Messages" >> ../conf/messages.en
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.en
@@ -29,7 +29,7 @@ echo "$className;format="decap"$.error.invalid = Enter a real date" >> ../conf/m
 echo ""
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
-echo "# $className$Page;format="cap"$ Messages" >> ../conf/messages.cy
+echo "# $className;format="cap"$Page Messages" >> ../conf/messages.cy
 echo "# ----------------------------------------------------------" >> ../conf/messages.cy
 echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.cy
