@@ -28,6 +28,7 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ReportingCompanySameAsParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     DeemedParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ParentCompanyNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),

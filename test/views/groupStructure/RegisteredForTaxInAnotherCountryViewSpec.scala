@@ -16,31 +16,55 @@
 
 package views.groupStructure
 
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import controllers.groupStructure.routes
 import forms.groupStructure.RegisteredForTaxInAnotherCountryFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import views.BaseSelectors
 import views.behaviours.YesNoViewBehaviours
 import views.html.groupStructure.RegisteredForTaxInAnotherCountryView
-import controllers.groupStructure.routes
 
 class RegisteredForTaxInAnotherCountryViewSpec extends YesNoViewBehaviours  {
 
+  object Selectors extends BaseSelectors
+
   val messageKeyPrefix = "registeredForTaxInAnotherCountry"
+
+  val companyName = "My Company Ltd."
+  val section = Some(messages("section.groupStructure"))
 
   val form = new RegisteredForTaxInAnotherCountryFormProvider()()
 
-  s"RegisteredForTaxInAnotherCountryView" must {
+  "RegisteredForTaxInAnotherCountry view" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[RegisteredForTaxInAnotherCountryView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyName)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+    behave like normalPage(
+      applyView(form),
+      messageKeyPrefix,
+      headingArgs = Seq(companyName),
+      section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RegisteredForTaxInAnotherCountryController.onSubmit(NormalMode).url)
+    behave like yesNoPage(
+      form,
+      applyView,
+      messageKeyPrefix,
+      expectedFormAction = routes.RegisteredForTaxInAnotherCountryController.onSubmit(NormalMode).url,
+      headingArgs = Seq(companyName),
+      section = section
+    )
+
+    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
+
+    behave like pageWithSaveForLater(applyView(form))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
   }
 }

@@ -17,6 +17,7 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
+import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -30,17 +31,37 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/group-structure/registered-for-tax-in-another-country")()
+            AuthStub.authorised()
+            setAnswers(ParentCompanyNamePage, companyName)
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.registeredCompaniesHouse)
-            )
+            val res = getRequest("/group-structure/registered-for-tax-in-another-country")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.registeredForTaxInAnotherCountry(companyName))
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name does NOT exist" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/registered-for-tax-in-another-country")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -67,19 +88,56 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a valid answer" should {
 
+          //TODO: Update when real routing is in place
           "redirect to under construction page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
                 redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
+            }
+          }
+        }
+
+        "enters an invalid answer" when {
+
+          "user answer for parent company name exists" should {
+
+            "return a BAD_REQUEST (400)" in {
+
+              AuthStub.authorised()
+              setAnswers(ParentCompanyNamePage, companyName)
+
+              val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> ""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(BAD_REQUEST)
+                )
+              }
+            }
+          }
+
+          "user answer for parent company name does NOT exist" should {
+
+            "return a ISE (500)" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> ""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(INTERNAL_SERVER_ERROR)
+                )
+              }
             }
           }
         }
@@ -91,7 +149,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,21 +164,41 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
   "in Change mode" when {
 
-    "GET /group-structure/registered-for-tax-in-another-country" when {
+    "GET /group-structure/registered-for-tax-in-another-country/change" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/group-structure/registered-for-tax-in-another-country/change")()
+            AuthStub.authorised()
+            setAnswers(ParentCompanyNamePage, companyName)
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.registeredCompaniesHouse)
-            )
+            val res = getRequest("/group-structure/registered-for-tax-in-another-country/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.registeredForTaxInAnotherCountry(companyName))
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name does NOT exist" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/registered-for-tax-in-another-country/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -149,11 +227,12 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
         "enters a valid answer" when {
 
-          "redirect to CRN page" in {
+          //TODO: Update when real routing is in place
+          "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -163,6 +242,43 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
             }
           }
         }
+
+        "enters an invalid answer" when {
+
+          "user answer for parent company name exists" should {
+
+            "return a BAD_REQUEST (400)" in {
+
+              AuthStub.authorised()
+              setAnswers(ParentCompanyNamePage, companyName)
+
+              val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> ""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(BAD_REQUEST)
+                )
+              }
+            }
+          }
+
+          "user answer for parent company name does NOT exist" should {
+
+            "return a ISE (500)" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> ""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(INTERNAL_SERVER_ERROR)
+                )
+              }
+            }
+          }
+        }
+
       }
 
       "user not authorised" should {
@@ -171,7 +287,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

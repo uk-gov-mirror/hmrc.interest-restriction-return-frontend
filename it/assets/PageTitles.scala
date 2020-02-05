@@ -30,6 +30,7 @@ object PageTitles {
   val parentCompanyCTUTR = "Parent Company Corporation Unique Tax Payer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
   val limitedLiabilityPartnership = "Is Company a Limited Liability Partnership?"
+  val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
 
 
 }

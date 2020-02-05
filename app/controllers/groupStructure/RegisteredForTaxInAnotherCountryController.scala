@@ -23,10 +23,11 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.groupStructure.RegisteredForTaxInAnotherCountryFormProvider
+import handlers.ErrorHandler
 import models.Mode
+import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.RegisteredForTaxInAnotherCountryPage
-import play.api.data.Form
+import pages.groupStructure.{ParentCompanyNamePage, RegisteredForTaxInAnotherCountryPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,14 +44,20 @@ class RegisteredForTaxInAnotherCountryController @Inject()(
                                                             requireData: DataRequiredAction,
                                                             formProvider: RegisteredForTaxInAnotherCountryFormProvider,
                                                             val controllerComponents: MessagesControllerComponents,
-                                                            view: RegisteredForTaxInAnotherCountryView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+                                                            view: RegisteredForTaxInAnotherCountryView,
+                                                            errorHandler: ErrorHandler
+                                                          )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
+  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
+    request.userAnswers.get(ParentCompanyNamePage) match {
+      case Some(companyName) => f(companyName)
+      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+    }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(RegisteredForTaxInAnotherCountryPage, formProvider()), mode).map(Ok(_))
+    implicit request => companyNamePredicate { name =>
+      Future.successful(Ok(view(fillForm(RegisteredForTaxInAnotherCountryPage, formProvider()), mode, name)))
+    }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
@@ -58,8 +65,9 @@ class RegisteredForTaxInAnotherCountryController @Inject()(
 
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
+          companyNamePredicate { name =>
+            Future.successful(BadRequest(view(formWithErrors, mode, name)))
+          },
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(RegisteredForTaxInAnotherCountryPage, value))

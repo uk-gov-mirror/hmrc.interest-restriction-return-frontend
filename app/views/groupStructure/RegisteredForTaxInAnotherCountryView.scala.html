@@ -20,25 +20,31 @@
 @import config.FrontendAppConfig
 
 @this(
-    govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
-    button: components.button
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        yesNoRadio: components.yesNoRadio,
+        subheading: components.subheading,
+        button: components.button,
+        saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "registeredForTaxInAnotherCountry.title"))
-    ) {
+    pageTitle = Some(title(form, "registeredForTaxInAnotherCountry.title", Some("section.groupStructure"), Seq(companyName)))
+) {
 
     @formHelper(action = RegisteredForTaxInAnotherCountryController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @yesNoRadio(form, "registeredForTaxInAnotherCountry.heading")
+        @subheading("section.groupStructure")
 
-        @button("site.continue")
+        @yesNoRadio(form, "registeredForTaxInAnotherCountry.heading", None, Seq(companyName))
+
+        @button("site.saveAndContinue")
+
+        @saveForLater()
     }
 }
