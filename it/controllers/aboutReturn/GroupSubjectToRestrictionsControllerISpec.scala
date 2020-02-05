@@ -27,7 +27,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
   "in Normal mode" when {
 
-    "GET /group-subject-to-restrictions" when {
+    "GET /about-return/group-subject-to-restrictions" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-restrictions")()
+          val res = getRequest("/about-return/group-subject-to-restrictions")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-restrictions")()
+          val res = getRequest("/about-return/group-subject-to-restrictions")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
       }
     }
 
-    "POST /group-subject-to-restrictions" when {
+    "POST /about-return/group-subject-to-restrictions" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))()
+            val res = postRequest("/about-return/group-subject-to-restrictions", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-subject-to-restrictions", Json.obj("value" -> "true"))()
+          val res = postRequest("/about-return/group-subject-to-restrictions", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
   "in Change mode" when {
 
-    "GET /group-subject-to-restrictions" when {
+    "GET /about-return/group-subject-to-restrictions" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-subject-to-restrictions/change")()
+          val res = getRequest("/about-return/group-subject-to-restrictions/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-subject-to-restrictions/change")()
+          val res = getRequest("/about-return/group-subject-to-restrictions/change")()
 
           whenReady(res) { result =>
             result should have(

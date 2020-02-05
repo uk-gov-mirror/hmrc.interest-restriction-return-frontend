@@ -27,7 +27,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
   "in Normal mode" when {
 
-    "GET /interest-reactivations-cap" when {
+    "GET /about-return/interest-reactivations-cap" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-reactivations-cap")()
+          val res = getRequest("/about-return/interest-reactivations-cap")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-reactivations-cap")()
+          val res = getRequest("/about-return/interest-reactivations-cap")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "POST /interest-reactivations-cap" when {
+    "POST /about-return/interest-reactivations-cap" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
             AuthStub.authorised()
 
-            val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))()
+            val res = postRequest("/about-return/interest-reactivations-cap", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/interest-reactivations-cap", Json.obj("value" -> 1))()
+          val res = postRequest("/about-return/interest-reactivations-cap", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
   "in Change mode" when {
 
-    "GET /interest-reactivations-cap" when {
+    "GET /about-return/interest-reactivations-cap" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-reactivations-cap/change")()
+          val res = getRequest("/about-return/interest-reactivations-cap/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class InterestReactivationsCapControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-reactivations-cap/change")()
+          val res = getRequest("/about-return/interest-reactivations-cap/change")()
 
           whenReady(res) { result =>
             result should have(

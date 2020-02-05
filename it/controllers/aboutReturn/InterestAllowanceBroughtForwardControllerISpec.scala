@@ -27,7 +27,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
   "in Normal mode" when {
 
-    "GET /interest-allowance-brought-forward" when {
+    "GET /about-return/interest-allowance-brought-forward" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-allowance-brought-forward")()
+          val res = getRequest("/about-return/interest-allowance-brought-forward")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-allowance-brought-forward")()
+          val res = getRequest("/about-return/interest-allowance-brought-forward")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
       }
     }
 
-    "POST /interest-allowance-brought-forward" when {
+    "POST /about-return/interest-allowance-brought-forward" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
             AuthStub.authorised()
 
-            val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))()
+            val res = postRequest("/about-return/interest-allowance-brought-forward", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/interest-allowance-brought-forward", Json.obj("value" -> 1))()
+          val res = postRequest("/about-return/interest-allowance-brought-forward", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
   "in Change mode" when {
 
-    "GET /interest-allowance-brought-forward" when {
+    "GET /about-return/interest-allowance-brought-forward" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.authorised()
 
-          val res = getRequest("/interest-allowance-brought-forward/change")()
+          val res = getRequest("/about-return/interest-allowance-brought-forward/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class InterestAllowanceBroughtForwardControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/interest-allowance-brought-forward/change")()
+          val res = getRequest("/about-return/interest-allowance-brought-forward/change")()
 
           whenReady(res) { result =>
             result should have(

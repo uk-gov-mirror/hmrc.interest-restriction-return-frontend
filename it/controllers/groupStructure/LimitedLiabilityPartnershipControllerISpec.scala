@@ -26,7 +26,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
   "in Normal mode" when {
 
-    "GET /limited-liability-partnership" when {
+    "GET /group-structure/limited-liability-partnership" when {
 
       "user is authorised" should {
 
@@ -34,7 +34,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/limited-liability-partnership")()
+          val res = getRequest("/group-structure/limited-liability-partnership")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/limited-liability-partnership")()
+          val res = getRequest("/group-structure/limited-liability-partnership")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    "POST /limited-liability-partnership" when {
+    "POST /group-structure/limited-liability-partnership" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
             AuthStub.authorised()
 
-            val res = postRequest("/limited-liability-partnership", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -90,7 +90,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
             AuthStub.authorised()
 
-            val res = postRequest("/limited-liability-partnership", Json.obj("value" -> false))()
+            val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -108,7 +108,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/limited-liability-partnership", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,7 +123,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
   "in Change mode" when {
 
-    "GET /limited-liability-partnership" when {
+    "GET /group-structure/limited-liability-partnership" when {
 
       "user is authorised" should {
 
@@ -131,7 +131,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          val res = getRequest("/limited-liability-partnership/change")()
+          val res = getRequest("/group-structure/limited-liability-partnership/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -148,7 +148,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/limited-liability-partnership/change")()
+          val res = getRequest("/group-structure/limited-liability-partnership/change")()
 
           whenReady(res) { result =>
             result should have(

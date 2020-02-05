@@ -27,7 +27,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
   "in Normal mode" when {
 
-    "GET /parent-company-sautr" when {
+    "GET /group-structure/parent-company-sautr" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.authorised()
 
-          val res = getRequest("/parent-company-sautr")()
+          val res = getRequest("/group-structure/parent-company-sautr")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/parent-company-sautr")()
+          val res = getRequest("/group-structure/parent-company-sautr")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /parent-company-sautr" when {
+    "POST /group-structure/parent-company-sautr" when {
 
       "user is authorised" when {
 
@@ -75,7 +75,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-company-sautr", Json.obj("value" -> "1111111111"))()
+            val res = postRequest("/group-structure/parent-company-sautr", Json.obj("value" -> "1111111111"))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-company-sautr", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company-sautr", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +109,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/parent-company-sautr", Json.obj("value" -> "1111111111"))()
+          val res = postRequest("/group-structure/parent-company-sautr", Json.obj("value" -> "1111111111"))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +124,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
   "in Change mode" when {
 
-    "GET /parent-company-sautr/change" when {
+    "GET /group-structure/parent-company-sautr/change" when {
 
       "user is authorised" should {
 
@@ -132,7 +132,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.authorised()
 
-          val res = getRequest("/parent-company-sautr/change")()
+          val res = getRequest("/group-structure/parent-company-sautr/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -149,7 +149,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/parent-company-sautr/change")()
+          val res = getRequest("/group-structure/parent-company-sautr/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -161,7 +161,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /parent-company-sautr" when {
+    "POST /group-structure/parent-company-sautr" when {
 
       "user is authorised" when {
 
@@ -172,7 +172,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-company-sautr/change", Json.obj("value" -> "1111111111"))()
+            val res = postRequest("/group-structure/parent-company-sautr/change", Json.obj("value" -> "1111111111"))()
 
             whenReady(res) { result =>
               result should have(
@@ -189,7 +189,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-company-sautr/change", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company-sautr/change", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -206,7 +206,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/parent-company-sautr/change", Json.obj("value" -> "1111111111"))()
+          val res = postRequest("/group-structure/parent-company-sautr/change", Json.obj("value" -> "1111111111"))()
 
           whenReady(res) { result =>
             result should have(
