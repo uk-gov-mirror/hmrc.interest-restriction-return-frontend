@@ -97,5 +97,3 @@ awk '/object PageTitles/ {\
 echo "adding route to integration test"
 
 echo "Migration $className;format="snake"$ completed"
-
-echo "Migration $className;format="snake"$ completed"
