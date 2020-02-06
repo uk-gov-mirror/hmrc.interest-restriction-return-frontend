@@ -23,10 +23,11 @@ import controllers.actions._
 import controllers.errors
 import forms.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.{LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
+import pages.groupStructure.LimitedLiabilityPartnershipPage
 import play.api.test.Helpers._
 import views.html.groupStructure.LimitedLiabilityPartnershipView
+import navigation.FakeNavigators.FakeGroupStructureNavigator
+import pages.groupStructure.ParentCompanyNamePage
 
 class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
@@ -43,8 +44,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    errorHandler = errorHandler
+    view = view
   )
 
   "LimitedLiabilityPartnership Controller" must {

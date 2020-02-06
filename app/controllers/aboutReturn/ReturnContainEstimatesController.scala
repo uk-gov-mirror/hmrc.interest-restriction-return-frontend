@@ -18,14 +18,13 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReturn.ReturnContainEstimatesFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
 import pages.aboutReturn.ReturnContainEstimatesPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,37 +32,27 @@ import views.html.aboutReturn.ReturnContainEstimatesView
 
 import scala.concurrent.Future
 
-class ReturnContainEstimatesController @Inject()(
-                                                  override val messagesApi: MessagesApi,
-                                                  sessionRepository: SessionRepository,
-                                                  navigator: AboutReturnNavigator,
-                                                  identify: IdentifierAction,
-                                                  getData: DataRetrievalAction,
-                                                  requireData: DataRequiredAction,
-                                                  formProvider: ReturnContainEstimatesFormProvider,
-                                                  val controllerComponents: MessagesControllerComponents,
-                                                  view: ReturnContainEstimatesView
-                                                )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+class ReturnContainEstimatesController @Inject()(override val messagesApi: MessagesApi,
+                                                 val sessionRepository: SessionRepository,
+                                                 val navigator: AboutReturnNavigator,
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 formProvider: ReturnContainEstimatesFormProvider,
+                                                 val controllerComponents: MessagesControllerComponents,
+                                                 view: ReturnContainEstimatesView
+                                                )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(ReturnContainEstimatesPage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ReturnContainEstimatesPage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ReturnContainEstimatesPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ReturnContainEstimatesPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(ReturnContainEstimatesPage, value, mode)
+    )
   }
 }

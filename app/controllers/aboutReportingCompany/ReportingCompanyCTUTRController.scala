@@ -18,14 +18,13 @@ package controllers.aboutReportingCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReportingCompany.ReportingCompanyCTUTRFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReportingCompanyNavigator
 import pages.aboutReportingCompany.ReportingCompanyCTUTRPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,37 +32,27 @@ import views.html.aboutReportingCompany.ReportingCompanyCTUTRView
 
 import scala.concurrent.Future
 
-class ReportingCompanyCTUTRController @Inject()(
-                                                 override val messagesApi: MessagesApi,
-                                                 sessionRepository: SessionRepository,
-                                                 navigator: AboutReportingCompanyNavigator,
-                                                 identify: IdentifierAction,
-                                                 getData: DataRetrievalAction,
-                                                 requireData: DataRequiredAction,
-                                                 formProvider: ReportingCompanyCTUTRFormProvider,
-                                                 val controllerComponents: MessagesControllerComponents,
-                                                 view: ReportingCompanyCTUTRView
-                                               )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class ReportingCompanyCTUTRController @Inject()(override val messagesApi: MessagesApi,
+                                                val sessionRepository: SessionRepository,
+                                                val navigator: AboutReportingCompanyNavigator,
+                                                identify: IdentifierAction,
+                                                getData: DataRetrievalAction,
+                                                requireData: DataRequiredAction,
+                                                formProvider: ReportingCompanyCTUTRFormProvider,
+                                                val controllerComponents: MessagesControllerComponents,
+                                                view: ReportingCompanyCTUTRView
+                                               )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(ReportingCompanyCTUTRPage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ReportingCompanyCTUTRPage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCTUTRPage, value))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ReportingCompanyCTUTRPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(ReportingCompanyCTUTRPage, value, mode)
+    )
   }
 }

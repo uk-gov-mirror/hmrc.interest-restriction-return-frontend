@@ -19,7 +19,7 @@ package controllers.aboutReportingCompany
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.httpParsers.{InvalidCRN, ValidCRN}
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
 import handlers.ErrorHandler
@@ -27,7 +27,6 @@ import javax.inject.Inject
 import models.Mode
 import navigation.AboutReportingCompanyNavigator
 import pages.aboutReportingCompany.ReportingCompanyCRNPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -37,8 +36,8 @@ import views.html.aboutReportingCompany.ReportingCompanyCRNView
 import scala.concurrent.Future
 
 class ReportingCompanyCRNController @Inject()(override val messagesApi: MessagesApi,
-                                              sessionRepository: SessionRepository,
-                                              navigator: AboutReportingCompanyNavigator,
+                                              val sessionRepository: SessionRepository,
+                                              val navigator: AboutReportingCompanyNavigator,
                                               identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
@@ -47,34 +46,25 @@ class ReportingCompanyCRNController @Inject()(override val messagesApi: Messages
                                               view: ReportingCompanyCRNView,
                                               crnValidationService: CRNValidationService,
                                               errorHandler: ErrorHandler
-                                             )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+                                             )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(ReportingCompanyCRNPage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ReportingCompanyCRNPage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-        value =>
-          crnValidationService.validateCRN(value).flatMap {
-            case Right(ValidCRN) =>
-              for {
-                updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyCRNPage, value))
-                _ <- sessionRepository.set(updatedAnswers)
-              } yield Redirect(navigator.nextPage(ReportingCompanyCRNPage, mode, updatedAnswers))
-            case Left(InvalidCRN) => {
-              val formWithError = formProvider().withError("value", "reportingCompanyCRN.error.invalid").bind(Map("value" -> value))
-              viewHtml(formWithError, mode).map(BadRequest(_))
-            }
-            case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        crnValidationService.validateCRN(value).flatMap {
+          case Right(ValidCRN) => saveAndRedirect(ReportingCompanyCRNPage, value, mode)
+          case Left(InvalidCRN) => {
+            val formWithError = formProvider().withError("value", "reportingCompanyCRN.error.invalid").bind(Map("value" -> value))
+            Future.successful(BadRequest(view(formWithError, mode)))
           }
-      )
+          case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        }
+    )
   }
 }

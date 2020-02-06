@@ -77,7 +77,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   val savedTilDate = LocalDate.now().plusDays(frontendAppConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
 
-  lazy val errorHandler = injector.instanceOf[ErrorHandler]
+  implicit lazy val errorHandler = injector.instanceOf[ErrorHandler]
 
   lazy val dataRequiredAction = injector.instanceOf[DataRequiredActionImpl]
 

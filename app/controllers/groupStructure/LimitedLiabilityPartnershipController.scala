@@ -18,13 +18,12 @@ package controllers.groupStructure
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.LimitedLiabilityPartnershipFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
-import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
@@ -34,44 +33,31 @@ import views.html.groupStructure.LimitedLiabilityPartnershipView
 
 import scala.concurrent.Future
 
-class LimitedLiabilityPartnershipController @Inject()(
-                                                       override val messagesApi: MessagesApi,
-                                                       sessionRepository: SessionRepository,
-                                                       navigator: GroupStructureNavigator,
-                                                       identify: IdentifierAction,
-                                                       getData: DataRetrievalAction,
-                                                       requireData: DataRequiredAction,
-                                                       formProvider: LimitedLiabilityPartnershipFormProvider,
-                                                       val controllerComponents: MessagesControllerComponents,
-                                                       view: LimitedLiabilityPartnershipView,
-                                                       errorHandler: ErrorHandler
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: MessagesApi,
+                                                      val sessionRepository: SessionRepository,
+                                                      val navigator: GroupStructureNavigator,
+                                                      identify: IdentifierAction,
+                                                      getData: DataRetrievalAction,
+                                                      requireData: DataRequiredAction,
+                                                      formProvider: LimitedLiabilityPartnershipFormProvider,
+                                                      val controllerComponents: MessagesControllerComponents,
+                                                      view: LimitedLiabilityPartnershipView
+                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
-      case Some(companyName) => f(companyName)
-      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-    }
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => companyNamePredicate { name =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage) { name =>
       Future.successful(Ok(view(fillForm(LimitedLiabilityPartnershipPage, formProvider()), mode, name)))
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          companyNamePredicate { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name)))
-          },
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(LimitedLiabilityPartnershipPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        answerFor(ParentCompanyNamePage) { name =>
+          Future.successful(BadRequest(view(formWithErrors, mode, name)))
+        },
+      value =>
+        saveAndRedirect(LimitedLiabilityPartnershipPage, value, mode)
+    )
   }
 }
