@@ -28,10 +28,6 @@ session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 # UnderConstructionPage Messages
 # ----------------------------------------------------------
 underConstruction.title = This page is under construction
@@ -57,10 +53,6 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.submitReturn = Submit a Corporate Interest Restriction return
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 # Timeout Messages
 # ----------------------------------------------------------
 timeout.title = You’re about to be signed out
@@ -68,10 +60,6 @@ timeout.message = For security reasons, you will be signed out of this service i
 timeout.keepAlive = Stay signed in
 timeout.signOut = Sign out
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 # Sections
 # ----------------------------------------------------------
 section.agents = Agents
@@ -194,11 +182,7 @@ fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated retu
 fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
 fullOrAbbreviatedReturn.full = Full
 fullOrAbbreviatedReturn.abbreviated = Abbreviated
-<<<<<<< HEAD
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
-=======
 fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
->>>>>>> master
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
@@ -275,18 +259,9 @@ savedReturn.bullet2 = Delete this form and start again
 
 # CheckAnswersReportingCompanyPage Messages
 # ----------------------------------------------------------
-<<<<<<< HEAD
-reportingCompany.checkYourAnswers.title = Check Your Answers for Reporting Company
-reportingCompany.checkYourAnswers.heading = Check Your Answers for Reporting Company
-reportingCompany.checkYourAnswers.subheading = Reporting company details
-reportingCompany.checkYourAnswers.checkYourAnswersLabel = Check Your Answers for Reporting CompanyLabel
-reportingCompany.checkYourAnswers.guidance = Guidance for check your answers for reporting company
-
-=======
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
 reportingCompany.checkYourAnswers.subheading = Reporting company details
->>>>>>> master
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
