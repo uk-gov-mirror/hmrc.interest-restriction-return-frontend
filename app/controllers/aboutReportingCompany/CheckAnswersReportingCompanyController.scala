@@ -53,6 +53,10 @@ class CheckAnswersReportingCompanyController @Inject()(
       val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
       val sections = Seq(
+        checkYourAnswersHelper.reportingCompanyAppointed,
+        checkYourAnswersHelper.agentActingOnBehalfOfCompany,
+        checkYourAnswersHelper.agentName,
+        checkYourAnswersHelper.fullOrAbbreviatedReturn,
         checkYourAnswersHelper.reportingCompanyName,
         checkYourAnswersHelper.reportingCompanyCTUTR,
         checkYourAnswersHelper.reportingCompanyCRN
