@@ -91,7 +91,7 @@ class $className;format="cap"$ControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-interest-allowance", Json.obj("value" -> 1))()
+          val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
