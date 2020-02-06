@@ -382,3 +382,9 @@ limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
+
+# CheckAnswersReportingCompanyPage Messages
+# ----------------------------------------------------------
+groupStructure.checkYourAnswers.title = Check your answers
+groupStructure.checkYourAnswers.heading = Check parent company details
+groupStructure.checkYourAnswers.subheading = Check parent company details

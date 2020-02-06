@@ -53,13 +53,12 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
     RegisteredCompaniesHousePage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
-    ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
+    RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad())
   )
 
-  //TODO update with check your answers page
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    controllers.routes.UnderConstructionController.onPageLoad()
+    routes.CheckAnswersGroupStructureController.onPageLoad()
   )
 
   //TODO update with next section

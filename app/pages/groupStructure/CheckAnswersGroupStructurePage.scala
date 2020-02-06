@@ -14,29 +14,14 @@
  * limitations under the License.
  */
 
-package models
+package pages.groupStructure
 
-import play.api.libs.json.{JsValue, Json, Writes}
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-sealed trait Section
+case object CheckAnswersGroupStructurePage extends QuestionPage[String] {
 
-object Section {
+  override def path: JsPath = JsPath \ toString
 
-  object ReportingCompany extends Section {
-
-    override val toString = "reportingCompany"
-  }
-
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
-  }
-
-  object HelloWorld extends Section {
-
-    override val toString = "helloWorld"
-  }
-
-  implicit object SectionWrites extends Writes[Section]{
-    def writes(section: Section): JsValue = Json.toJson(section.toString)
-  }
+  override def toString: String = "checkAnswersGroupStructure"
 }
