@@ -74,17 +74,10 @@ feedback.after = will help us to improve it.
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
-
-helloWorldYesNo.error.required = Select yes if you want to say Hello World
-
 helloWorldYesNo.title = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.heading = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World? (Twirl Style)
-
-helloWorldYesNo.title = Would you like to say Hello World? ( Style)
-helloWorldYesNo.heading = Would you like to say Hello World? ( Style)
-helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World? ( Style)
-helloWorldYesNo.error.required = Select yes if you want to say Hello World ( Style)
+helloWorldYesNo.error.required = Select yes if you want to say Hello World
 
 
 # ReportingCompanyCRNPage Messages
@@ -218,8 +211,7 @@ groupInterestCapacity.error.outOfRange = Group interest capacity must be between
 groupSubjectToRestrictions.title = Is the group subject to restrictions?
 groupSubjectToRestrictions.heading = Is the group subject to restrictions?
 groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
-groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions?
-
+groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions
 
 # GroupInterestAllowancePage Messages
 # ----------------------------------------------------------
@@ -297,7 +289,8 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 deemedParent.title = Does the group have a ’deemed’ parent company?
 deemedParent.heading = Does the group have a ’deemed’ parent company?
 deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent company?
-deemedParent.error.required = Select yes if the group has a ’deemed’ parent company?
+deemedParent.error.required = Select yes if the group has a ’deemed’ parent company
+
 
 
 # PayTaxInUkPage Messages
@@ -306,7 +299,7 @@ payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
 payTaxInUk.heading = Does {0} have a Unique Taxpayer Reference?
 payTaxInUk.hint = This could be for paying Corporation Tax or completing Self Assessment in the UK.
 payTaxInUk.checkYourAnswersLabel = Does {0} have a Unique Taxpayer Reference?
-payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference?
+payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference
 
 
 # ParentCompanyNamePage Messages
@@ -318,6 +311,7 @@ parentCompanyName.label = Enter the name of the parent company
 parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 
+
 # ParentCRNPage Messages
 # ----------------------------------------------------------
 parentCRN.title = Parent Company Registration Number
@@ -328,13 +322,16 @@ parentCRN.error.required = Enter parent company registration number
 parentCRN.error.invalid = Parent company registration number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
 parentCRN.hint = A company registration number (CRN) is a unique combination of 8 numbers, or 2 letters followed by 6 numbers.
 
+
 # ParentCompanyCTUTRPage Messages
 # ----------------------------------------------------------
 parentCompanyCTUTR.title = Parent Company Corporation Unique Tax Payer Reference
 parentCompanyCTUTR.heading = Parent Company Corporation Unique Tax Payer Reference
 parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Tax Payer Reference
 parentCompanyCTUTR.label = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.error.required = Enter the Corporation Unique Tax Payer Reference for the Parent Company
 parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Tax Payer Reference must be 10 digits long
+parentCompanyCTUTR.error.checksum = Corporation Unique Tax Payer Reference for the Parent Company entered is invalid
 parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanyCTUTR.findUtr = find a lost UTR number
 parentCompanyCTUTR.link = find a lost UTR number.
@@ -366,9 +363,19 @@ reportingCompanySameAsParent.title = Is {0} also the parent company?
 reportingCompanySameAsParent.heading = Is {0} also the parent company?
 reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
+
+
 # LimitedLiabilityPartnershipPage Messages
 # ----------------------------------------------------------
 limitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
 limitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership?
+limitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership
+
+
+# registeredForTaxInAnotherCountryPage Messages
+# ----------------------------------------------------------
+registeredForTaxInAnotherCountry.title = Is {0} registered for tax in another country?
+registeredForTaxInAnotherCountry.heading = Is {0} registered for tax in another country?
+registeredForTaxInAnotherCountry.checkYourAnswersLabel = Is {0} registered for tax in another country?
+registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registered for tax in another country
