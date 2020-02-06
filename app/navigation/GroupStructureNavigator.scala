@@ -54,8 +54,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     RegisteredCompaniesHousePage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
-    ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     CountryOfIncorporationPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
