@@ -70,3 +70,10 @@ GET        /registered-for-tax-in-another-country         controllers.groupStruc
 POST       /registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = NormalMode)
 GET        /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = CheckMode)
 POST       /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = CheckMode)
+
+### CountryOfIncorporation Controller
+### ----------------------------------------
+GET        /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = NormalMode)
+POST       /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = NormalMode)
+GET        /country-of-incorporation/change                   controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = CheckMode)
+POST       /country-of-incorporation/change                   controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = CheckMode)

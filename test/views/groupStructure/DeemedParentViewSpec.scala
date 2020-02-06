@@ -28,7 +28,7 @@ import views.html.groupStructure.DeemedParentView
 class DeemedParentViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "deemedParent"
-
+  val section = Some(messages("section.groupStructure"))
   val form = new DeemedParentFormProvider()()
 
   s"DeemedParent view" must {
@@ -38,9 +38,9 @@ class DeemedParentViewSpec extends YesNoViewBehaviours  {
       view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.DeemedParentController.onSubmit(NormalMode).url)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.DeemedParentController.onSubmit(NormalMode).url, section = section)
 
     behave like pageWithBackLink(applyView(form))
 

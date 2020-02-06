@@ -364,7 +364,6 @@ reportingCompanySameAsParent.heading = Is {0} also the parent company?
 reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
 
-
 # LimitedLiabilityPartnershipPage Messages
 # ----------------------------------------------------------
 limitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
@@ -373,9 +372,19 @@ limitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liabili
 limitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership
 
 
-# registeredForTaxInAnotherCountryPage Messages
+# RegisteredForTaxInAnotherCountryPage Messages
 # ----------------------------------------------------------
 registeredForTaxInAnotherCountry.title = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.heading = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.checkYourAnswersLabel = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registered for tax in another country
+
+# CountryOfIncorporationPage Messages
+# ----------------------------------------------------------
+countryOfIncorporation.title = Where is {0} registered for tax?
+countryOfIncorporation.heading = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.label= Where is {0} registered for tax?
+countryOfIncorporation.error.required = CountryOfIncorporation is optional
+countryOfIncorporation.error.length = CountryOfIncorporation must be 2 characters
+countryOfIncorporation.hint = (Optional)

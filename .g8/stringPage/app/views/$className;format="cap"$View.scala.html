@@ -25,7 +25,6 @@
 
         @subheading("section.$subheading;format="decap"$")
 
-        @fieldset("$className;format="decap"$.heading") {
             @inputText(
               form,
               id = "value",
@@ -33,10 +32,9 @@
               label = "$className;format="decap"$.label",
               isPageHeading = true
             )
-        }
 
-        @button("site.continue")
+        @button("site.saveAndContinue")
 
-        saveForLater()
+        @saveForLater()
     }
 }
