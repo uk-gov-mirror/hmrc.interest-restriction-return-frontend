@@ -17,34 +17,28 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching}
-import controllers.actions.{FakeDataRetrievalActionEmptyAnswers, _}
+import config.featureSwitch.FeatureSwitching
+import controllers.actions._
 import forms.$className;format="cap"$FormProvider
-import models.{$className;format="cap"$, NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
-import org.scalatestplus.mockito.MockitoSugar
+import models.{$className;format="cap"$, NormalMode}
 import pages.$className;format="cap"$Page
-import play.api.data.Form
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.Html
-
 import views.html.$className;format="cap"$View
 
-class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching {
+class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[$className;format="cap"$View]
-  val formProvider = new $className;format="cap"$FormProvider
+  val formProvider = injector.instanceOf[$className;format="cap"$FormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className;format="cap"$Controller(
+  object Controller extends $className;format="cap"$Controller(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new $className;format="cap"$FormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
@@ -53,7 +47,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
     "return OK and the correct view for a GET" in {
 
-      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -63,7 +59,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val userAnswers = emptyUserAnswers.set($className;format="cap"$Page, $className;format="cap"$.values.toSet).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -72,7 +70,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value[0]", $className;format="cap"$.values.head.toString))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -82,14 +82,18 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -99,7 +103,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value[0]", $className;format="cap"$.values.head.toString))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
