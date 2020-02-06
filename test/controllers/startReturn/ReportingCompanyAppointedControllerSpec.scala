@@ -17,55 +17,53 @@
 package controllers.startReturn
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.startReturn.ReportingCompanyAppointedFormProvider
-import models.{NormalMode}
+import models.NormalMode
 import navigation.FakeNavigators.FakeStartReturnNavigator
 import pages.startReturn.ReportingCompanyAppointedPage
-import play.api.data.Form
-import play.api.libs.json.{JsObject, Json}
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import views.html.startReturn.ReportingCompanyAppointedView
 
-class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitching {
+class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[ReportingCompanyAppointedView]
-  val formProvider = new ReportingCompanyAppointedFormProvider
+  val formProvider = injector.instanceOf[ReportingCompanyAppointedFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ReportingCompanyAppointedController(
+  object Controller extends ReportingCompanyAppointedController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeStartReturnNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new ReportingCompanyAppointedFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
   "ReportingCompanyAppointed Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      mockGetAnswers(Some(emptyUserAnswers))
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, true).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -74,24 +72,30 @@ class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitc
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -102,7 +106,9 @@ class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitc
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

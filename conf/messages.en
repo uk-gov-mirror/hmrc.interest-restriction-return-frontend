@@ -87,7 +87,7 @@ helloWorldYesNo.error.required = Select yes if you want to say Hello World
 # ----------------------------------------------------------
 reportingCompanyCRN.title = Company Registration Number (CRN)
 reportingCompanyCRN.heading = Company Registration Number (CRN)
-reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
+reportingCompanyCRN.checkYourAnswersLabel = Reporting Company CRN
 reportingCompanyCRN.label = Company Registration Number (CRN)
 reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
 reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
@@ -98,7 +98,7 @@ reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not fo
 # ----------------------------------------------------------
 reportingCompanyCTUTR.title = UK Tax reference - CT UTR
 reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
-reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
+reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
 reportingCompanyCTUTR.label = UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 numbers
@@ -109,7 +109,7 @@ reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid che
 # ----------------------------------------------------------
 reportingCompanyName.title = Reporting company name
 reportingCompanyName.heading = Reporting company name
-reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.checkYourAnswersLabel = Name
 reportingCompanyName.label = Reporting company name
 reportingCompanyName.error.required = Enter Reporting company name
 reportingCompanyName.error.length = Reporting company name must be 160 characters or less
@@ -119,7 +119,7 @@ reportingCompanyName.error.length = Reporting company name must be 160 character
 # ----------------------------------------------------------
 reportingCompanyAppointed.title = Has the reporting company been appointed
 reportingCompanyAppointed.heading = Has the reporting company been appointed
-reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
@@ -137,7 +137,7 @@ reportingCompanyRequired.p2 = before submitting a return
 # ----------------------------------------------------------
 agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
 agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
-agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Agent
 agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
 
 
@@ -185,7 +185,7 @@ fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated retu
 fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
 fullOrAbbreviatedReturn.full = Full
 fullOrAbbreviatedReturn.abbreviated = Abbreviated
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
@@ -262,12 +262,9 @@ savedReturn.bullet2 = Delete this form and start again
 
 # CheckAnswersReportingCompanyPage Messages
 # ----------------------------------------------------------
-reportingCompany.checkYourAnswers.title = Check Your Answers for Reporting Company
-reportingCompany.checkYourAnswers.heading = Check Your Answers for Reporting Company
+reportingCompany.checkYourAnswers.title = Check your answers
+reportingCompany.checkYourAnswers.heading = Check your answers
 reportingCompany.checkYourAnswers.subheading = Reporting company details
-reportingCompany.checkYourAnswers.checkYourAnswersLabel = Check Your Answers for Reporting CompanyLabel
-reportingCompany.checkYourAnswers.guidance = Guidance for check your answers for reporting company
-
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -371,17 +368,17 @@ reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent comp
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
 
 
-# LimitedLiabilityPartnershipPage Messages
-# ----------------------------------------------------------
-limitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership
-
-
 # registeredForTaxInAnotherCountryPage Messages
 # ----------------------------------------------------------
 registeredForTaxInAnotherCountry.title = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.heading = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.checkYourAnswersLabel = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registered for tax in another country
+
+
+# LimitedLiabilityPartnershipPage Messages
+# ----------------------------------------------------------
+limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?

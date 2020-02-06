@@ -16,6 +16,7 @@
 
 package views.groupStructure
 
+import assets.constants.BaseConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.routes.LimitedLiabilityPartnershipController
 import forms.LimitedLiabilityPartnershipFormProvider
@@ -25,7 +26,7 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.groupStructure.LimitedLiabilityPartnershipView
 
-class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours {
+class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "limitedLiabilityPartnership"
   val section = Some(messages("section.groupStructure"))
@@ -35,16 +36,28 @@ class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[LimitedLiabilityPartnershipView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(
+      view = applyView(form),
+      messageKeyPrefix = messageKeyPrefix,
+      section = section,
+      headingArgs = Seq(companyNameModel.name)
+    )
 
     behave like pageWithBackLink(applyView(form))
 
     behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, LimitedLiabilityPartnershipController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(
+      form = form,
+      createView = applyView,
+      messageKeyPrefix = messageKeyPrefix,
+      expectedFormAction = LimitedLiabilityPartnershipController.onSubmit(NormalMode).url,
+      section = section,
+      headingArgs = Seq(companyNameModel.name)
+    )
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

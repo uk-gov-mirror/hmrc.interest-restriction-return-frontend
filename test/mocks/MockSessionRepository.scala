@@ -26,19 +26,19 @@ trait MockSessionRepository extends MockFactory {
 
   val mockSessionRepository = mock[SessionRepository]
 
-  def mockGet(result: Option[UserAnswers]): Unit = {
+  def mockGetAnswers(result: Option[UserAnswers]): Unit = {
     (mockSessionRepository.get(_: String))
       .expects(*)
       .returns(Future.successful(result))
   }
 
-  def mockSet(result: Boolean): Unit = {
+  def mockSetAnswers(result: Boolean): Unit = {
     (mockSessionRepository.set(_: UserAnswers))
       .expects(*)
       .returns(Future.successful(result))
   }
 
-  def mockDelete(result: Boolean): Unit = {
+  def mockDeleteAnswers(result: Boolean): Unit = {
     (mockSessionRepository.delete(_: UserAnswers))
       .expects(*)
       .returns(Future.successful(result))

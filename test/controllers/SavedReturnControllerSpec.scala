@@ -18,22 +18,22 @@ package controllers
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import mocks.MockSessionRepository
 import models.NormalMode
 import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeAboutReturnNavigator, FakeStartReturnNavigator}
 import play.api.test.Helpers._
 import views.html.SavedReturnView
 
-class SavedReturnControllerSpec extends SpecBase  with FeatureSwitching with MockSessionRepository {
+class SavedReturnControllerSpec extends SpecBase with FeatureSwitching with MockSessionRepository with MockDataRetrievalAction {
 
   val view = injector.instanceOf[SavedReturnView]
 
-  def controller = new SavedReturnController(
+  object Controller extends SavedReturnController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = FakeDataRetrievalActionEmptyAnswers,
-    requireData = new DataRequiredActionImpl,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
     sessionRepository = mockSessionRepository,
@@ -46,14 +46,13 @@ class SavedReturnControllerSpec extends SpecBase  with FeatureSwitching with Moc
 
     "for the onPageLoad() method" must {
 
-      "When rendering with Twirl template" must {
+      "return OK and the correct view for a GET" in {
 
-        "return OK and the correct view for a GET" in {
+        mockGetAnswers(Some(emptyUserAnswers))
 
-          val result = controller.onPageLoad(fakeRequest)
+        val result = Controller.onPageLoad(fakeRequest)
 
-          status(result) mustBe OK
-        }
+        status(result) mustBe OK
       }
     }
   }
@@ -62,7 +61,9 @@ class SavedReturnControllerSpec extends SpecBase  with FeatureSwitching with Moc
 
     "redirect to the next page" in {
 
-      val result = controller.nextUnansweredPage(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.nextUnansweredPage(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
@@ -73,9 +74,10 @@ class SavedReturnControllerSpec extends SpecBase  with FeatureSwitching with Moc
 
     "redirect to the IndexRoute and clear the user answers held" in {
 
-      mockDelete(result = true)
+      mockGetAnswers(Some(emptyUserAnswers))
+      mockDeleteAnswers(result = true)
 
-      val result = controller.deleteAndStartAgain(fakeRequest)
+      val result = Controller.deleteAndStartAgain(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

@@ -20,6 +20,8 @@ import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
@@ -69,7 +71,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
         "enters a valid answer" when {
 
-          "redirect to under construction page" in {
+          "redirect to ParentCRN page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +80,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode).url)
               )
             }
           }

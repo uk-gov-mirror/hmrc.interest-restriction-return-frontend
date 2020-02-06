@@ -34,4 +34,5 @@ trait BaseConstants {
   val nonUkCrn = "1234567890"
   val nonUkCountryCode = CountryCodeModel("US")
   val invalidCountryCode = CountryCodeModel("AA")
+  val agentName = "Agent A"
 }

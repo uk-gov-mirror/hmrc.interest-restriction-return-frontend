@@ -22,6 +22,8 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
 
 class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -88,14 +90,31 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
       "user is authorised" when {
 
-        "enters a valid answer" should {
+        "enters true" should {
+
+          "redirect to under Limited Liability Partnership page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters false" should {
 
           //TODO: Update when real routing is in place
           "redirect to under construction page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> "false"))()
 
             whenReady(res) { result =>
               result should have(

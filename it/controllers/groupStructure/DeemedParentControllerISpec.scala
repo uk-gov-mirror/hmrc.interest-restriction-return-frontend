@@ -21,6 +21,8 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
 
 class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -95,7 +97,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode).url)
               )
             }
           }

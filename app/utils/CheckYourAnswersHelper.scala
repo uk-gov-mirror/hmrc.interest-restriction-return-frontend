@@ -64,7 +64,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def interestReactivationsCap: Option[SummaryListRow] = answer(InterestReactivationsCapPage, aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(CheckMode))
 
-  def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode))
+  def fullOrAbbreviatedReturn: Option[SummaryListRow] = answer(FullOrAbbreviatedReturnPage, startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode), answerIsMsgKey = true)
 
   def reportingCompanyAppointed: Option[SummaryListRow] = answer(ReportingCompanyAppointedPage, startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
 
@@ -88,12 +88,12 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def infrastructureCompanyElection: Option[SummaryListRow] = answer(InfrastructureCompanyElectionPage, aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))
 
-  private def answer[A](page: QuestionPage[A], changeLinkCall: Call)
+  private def answer[A](page: QuestionPage[A], changeLinkCall: Call, answerIsMsgKey: Boolean = false)
                        (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
       SummaryListRow(
         key = Key(content = Text(messages(s"$page.checkYourAnswersLabel"))),
-        value = Value(content = Text(ans)),
+        value = Value(content = Text(if(answerIsMsgKey) messages(s"$page.$ans") else ans)),
         actions = Some(Actions(
           items = Seq(ActionItem(
             href = changeLinkCall.url,

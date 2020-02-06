@@ -18,6 +18,14 @@ package assets.messages
 
 object CheckAnswersReportingCompanyMessages {
 
-  val title = "Check Your Answers for Reporting Company"
+  val title = "Check your answers"
+
+  val reportingCompanyAppointed = "Reporting company appointed"
+  val agentAppointed = "Agent"
+  val agentName = "Agent name"
+  val fullOrAbbreviatedReturn = "Type of return"
+  val name = "Name"
+  val ctutr = "CTUTR"
+  val crn = "Reporting Company CRN"
 
 }

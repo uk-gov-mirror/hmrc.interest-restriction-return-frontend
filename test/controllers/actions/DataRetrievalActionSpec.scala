@@ -37,7 +37,7 @@ class DataRetrievalActionSpec extends SpecBase with MockSessionRepository with S
 
       "set userAnswers to 'None' in the request" in {
 
-        mockGet(None)
+        mockGetAnswers(None)
 
         val futureResult = Action.callTransform(IdentifierRequest(fakeRequest, "id"))
 
@@ -51,7 +51,7 @@ class DataRetrievalActionSpec extends SpecBase with MockSessionRepository with S
 
       "build a userAnswers object and add it to the request" in {
 
-        mockGet(Some(emptyUserAnswers))
+        mockGetAnswers(Some(emptyUserAnswers))
 
         val futureResult = Action.callTransform(IdentifierRequest(fakeRequest, "id"))
 

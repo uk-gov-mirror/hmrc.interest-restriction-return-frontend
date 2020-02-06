@@ -2,7 +2,7 @@ package assets
 
 object PageTitles {
 
-  val checkAnswersReportingCompany = "Check Your Answers for Reporting Company"
+  val checkAnswersReportingCompany = "Check your answers - About the reporting company"
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"
   val reportingCompanyName = "Reporting company name"
@@ -29,8 +29,6 @@ object PageTitles {
   val parentCompanySAUTR = "Parent company Self Assessment Unique Tax Payer Reference"
   val parentCompanyCTUTR = "Parent Company Corporation Unique Tax Payer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
-  val limitedLiabilityPartnership = "Is Company a Limited Liability Partnership?"
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
-
-
+  val limitedLiabilityPartnership: String => String = name => s"Is $name a Limited Liability Partnership?"
 }

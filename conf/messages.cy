@@ -28,7 +28,10 @@ session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 # UnderConstructionPage Messages
 # ----------------------------------------------------------
 underConstruction.title = This page is under construction
@@ -54,7 +57,10 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.submitReturn = Submit a Corporate Interest Restriction return
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 # Timeout Messages
 # ----------------------------------------------------------
 timeout.title = You’re about to be signed out
@@ -62,7 +68,10 @@ timeout.message = For security reasons, you will be signed out of this service i
 timeout.keepAlive = Stay signed in
 timeout.signOut = Sign out
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 # Sections
 # ----------------------------------------------------------
 section.agents = Agents
@@ -87,7 +96,7 @@ helloWorldYesNo.error.required = Select yes if you want to say Hello World
 # ----------------------------------------------------------
 reportingCompanyCRN.title = Company Registration Number (CRN)
 reportingCompanyCRN.heading = Company Registration Number (CRN)
-reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
+reportingCompanyCRN.checkYourAnswersLabel = Reporting Company CRN
 reportingCompanyCRN.label = Company Registration Number (CRN)
 reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
 reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
@@ -98,7 +107,7 @@ reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not fo
 # ----------------------------------------------------------
 reportingCompanyCTUTR.title = UK Tax reference - CT UTR
 reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
-reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
+reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
 reportingCompanyCTUTR.label = UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 numbers
@@ -109,7 +118,7 @@ reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid che
 # ----------------------------------------------------------
 reportingCompanyName.title = Reporting company name
 reportingCompanyName.heading = Reporting company name
-reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.checkYourAnswersLabel = Name
 reportingCompanyName.label = Reporting company name
 reportingCompanyName.error.required = Enter Reporting company name
 reportingCompanyName.error.length = Reporting company name must be 160 characters or less
@@ -119,7 +128,7 @@ reportingCompanyName.error.length = Reporting company name must be 160 character
 # ----------------------------------------------------------
 reportingCompanyAppointed.title = Has the reporting company been appointed
 reportingCompanyAppointed.heading = Has the reporting company been appointed
-reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
@@ -137,7 +146,7 @@ reportingCompanyRequired.p2 = before submitting a return
 # ----------------------------------------------------------
 agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
 agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
-agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Agent
 agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
 
 
@@ -185,7 +194,11 @@ fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated retu
 fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
 fullOrAbbreviatedReturn.full = Full
 fullOrAbbreviatedReturn.abbreviated = Abbreviated
+<<<<<<< HEAD
 fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
+=======
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
+>>>>>>> master
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
@@ -262,12 +275,18 @@ savedReturn.bullet2 = Delete this form and start again
 
 # CheckAnswersReportingCompanyPage Messages
 # ----------------------------------------------------------
+<<<<<<< HEAD
 reportingCompany.checkYourAnswers.title = Check Your Answers for Reporting Company
 reportingCompany.checkYourAnswers.heading = Check Your Answers for Reporting Company
 reportingCompany.checkYourAnswers.subheading = Reporting company details
 reportingCompany.checkYourAnswers.checkYourAnswersLabel = Check Your Answers for Reporting CompanyLabel
 reportingCompany.checkYourAnswers.guidance = Guidance for check your answers for reporting company
 
+=======
+reportingCompany.checkYourAnswers.title = Check your answers
+reportingCompany.checkYourAnswers.heading = Check your answers
+reportingCompany.checkYourAnswers.subheading = Reporting company details
+>>>>>>> master
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -296,6 +315,7 @@ deemedParent.title = Does the group have a ’deemed’ parent company?
 deemedParent.heading = Does the group have a ’deemed’ parent company?
 deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent company?
 deemedParent.error.required = Select yes if the group has a ’deemed’ parent company
+
 
 
 # PayTaxInUkPage Messages
@@ -353,7 +373,6 @@ parentCompanySAUTR.findUtr = find a lost UTR number
 parentCompanySAUTR.error.required = Enter your Self Assessment Unique Tax Payer Reference
 parentCompanySAUTR.error.length = Self Assessment Unique Tax Payer Reference must be 10 numbers
 parentCompanySAUTR.error.checksum = Self Assessment Unique Tax Payer Reference entered is invalid
-
 
 # RegisteredCompaniesHousePage Messages
 # ----------------------------------------------------------

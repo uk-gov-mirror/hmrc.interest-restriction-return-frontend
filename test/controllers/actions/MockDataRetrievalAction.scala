@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package views
+package controllers.actions
 
-trait BaseSelectors {
+import base.SpecBase
+import mocks.MockSessionRepository
+import org.scalatestplus.mockito.MockitoSugar
 
-  val panelHeading = "main div.govuk-panel.govuk-panel--confirmation h1"
-  val panelBody = "main div.govuk-panel.govuk-panel--confirmation div.govuk-panel__body"
-  val p: Int => String = i => s"main p:nth-of-type($i)"
-  val indent = "main div.govuk-inset-text"
-  val hint = "main span.govuk-hint"
-  val bullet: Int => String = i => s"main ul.govuk-list.govuk-list--bullet li:nth-of-type($i)"
 
-  def checkAnswersHeading(row: Int) = s"dl div:nth-of-type($row) dt"
-  def checkAnswersAnswerValue(row: Int) = s"dl div:nth-of-type($row) dd:nth-of-type(1)"
+trait MockDataRetrievalAction extends SpecBase with MockitoSugar with MockSessionRepository {
+
+  val mockDataRetrievalAction = new DataRetrievalActionImpl(mockSessionRepository)
 
 }
