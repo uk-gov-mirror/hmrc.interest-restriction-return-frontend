@@ -17,7 +17,6 @@
 package controllers
 
 import assets.{BaseITConstants, PageTitles}
-import config.SessionKeys
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -38,7 +37,7 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.authorised()
 
-          val res = getRequest("/continue-saved-return")(SessionKeys.acknowledgementReference -> ackRef)
+          val res = getRequest("/continue-saved-return")()
 
           whenReady(res) { result =>
             result should have(
