@@ -17,12 +17,12 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
-import pages.aboutReportingCompany.ReportingCompanyNamePage
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
+import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
-import controllers.groupStructure.{routes => groupStructureRoutes}
-import models.NormalMode
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
@@ -37,14 +37,14 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          setAnswers(ReportingCompanyNamePage, companyName)
+          setAnswers(ParentCompanyNamePage, companyName)
 
           val res = getRequest("/group-structure/limited-liability-partnership")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.limitedLiabilityPartnership)
+              titleOf(PageTitles.limitedLiabilityPartnership(companyName))
             )
           }
         }
@@ -136,14 +136,14 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.authorised()
 
-          setAnswers(ReportingCompanyNamePage, companyName)
+          setAnswers(ParentCompanyNamePage, companyName)
 
           val res = getRequest("/group-structure/limited-liability-partnership/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.limitedLiabilityPartnership)
+              titleOf(PageTitles.limitedLiabilityPartnership(companyName))
             )
           }
         }

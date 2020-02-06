@@ -26,8 +26,7 @@ import javax.inject.Inject
 import models.Mode
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.aboutReportingCompany.ReportingCompanyNamePage
-import pages.groupStructure.LimitedLiabilityPartnershipPage
+import pages.groupStructure.{LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -49,7 +48,7 @@ class LimitedLiabilityPartnershipController @Inject()(
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ReportingCompanyNamePage) match {
+    request.userAnswers.get(ParentCompanyNamePage) match {
       case Some(companyName) => f(companyName)
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }

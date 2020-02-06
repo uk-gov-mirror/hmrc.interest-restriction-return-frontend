@@ -23,11 +23,10 @@ import controllers.actions._
 import controllers.errors
 import forms.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
-import pages.groupStructure.LimitedLiabilityPartnershipPage
+import navigation.FakeNavigators.FakeGroupStructureNavigator
+import pages.groupStructure.{LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
 import play.api.test.Helpers._
 import views.html.groupStructure.LimitedLiabilityPartnershipView
-import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.aboutReportingCompany.ReportingCompanyNamePage
 
 class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
@@ -52,7 +51,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
     "return OK and the correct view for a GET" in {
 
-      val userAnswers = emptyUserAnswers.set(ReportingCompanyNamePage, companyNameModel.name).success.value
+      val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
 
       mockGetAnswers(Some(userAnswers))
 
@@ -66,7 +65,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       val userAnswers = emptyUserAnswers
         .set(LimitedLiabilityPartnershipPage, true).success.value
-        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
+        .set(ParentCompanyNamePage, companyNameModel.name).success.value
 
       mockGetAnswers(Some(userAnswers))
 
@@ -90,7 +89,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val userAnswers = emptyUserAnswers
-        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
+        .set(ParentCompanyNamePage, companyNameModel.name).success.value
 
       mockGetAnswers(Some(userAnswers))
 
