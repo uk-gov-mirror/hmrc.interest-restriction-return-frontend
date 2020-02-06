@@ -22,6 +22,7 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import controllers.groupStructure.{routes => groupStructureRoutes}
 
 class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -70,7 +71,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
         "enters a valid answer" when {
 
-          "redirect to under construction page" in {
+          "redirect to PayTaxInUk page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +80,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.PayTaxInUkController.onPageLoad(NormalMode).url)
               )
             }
           }

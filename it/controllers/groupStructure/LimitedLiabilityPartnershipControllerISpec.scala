@@ -17,9 +17,12 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
+import pages.aboutReportingCompany.ReportingCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
@@ -33,6 +36,8 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
         "return OK (200)" in {
 
           AuthStub.authorised()
+
+          setAnswers(ReportingCompanyNamePage, companyName)
 
           val res = getRequest("/group-structure/limited-liability-partnership")()
 
@@ -69,7 +74,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
         "enters true" when {
 
-          "redirect to UnderConstruction page" in {
+          "redirect to ParentCompanySAUTR page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +83,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -86,7 +91,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
         "enters false" when {
 
-          "redirect to InfrastructureCompanyElection page" in {
+          "redirect to ParentCompanyCTUTR page" in {
 
             AuthStub.authorised()
 
@@ -95,7 +100,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -130,6 +135,8 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
         "return OK (200)" in {
 
           AuthStub.authorised()
+
+          setAnswers(ReportingCompanyNamePage, companyName)
 
           val res = getRequest("/group-structure/limited-liability-partnership/change")()
 
