@@ -18,7 +18,7 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.{BaseController, BaseNavigationController}
 import controllers.actions._
 import forms.aboutReturn.GroupInterestAllowanceFormProvider
 import javax.inject.Inject
@@ -33,37 +33,28 @@ import views.html.aboutReturn.GroupInterestAllowanceView
 
 import scala.concurrent.Future
 
-class GroupInterestAllowanceController @Inject()(
-                                                  override val messagesApi: MessagesApi,
-                                                  sessionRepository: SessionRepository,
-                                                  navigator: AboutReturnNavigator,
-                                                  identify: IdentifierAction,
-                                                  getData: DataRetrievalAction,
-                                                  requireData: DataRequiredAction,
-                                                  formProvider: GroupInterestAllowanceFormProvider,
-                                                  val controllerComponents: MessagesControllerComponents,
-                                                  view: GroupInterestAllowanceView
-                                                )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class GroupInterestAllowanceController @Inject()(override val messagesApi: MessagesApi,
+                                                 val sessionRepository: SessionRepository,
+                                                 val navigator: AboutReturnNavigator,
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 formProvider: GroupInterestAllowanceFormProvider,
+                                                 val controllerComponents: MessagesControllerComponents,
+                                                 view: GroupInterestAllowanceView
+                                                )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(GroupInterestAllowancePage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(GroupInterestAllowancePage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupInterestAllowancePage, value))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(GroupInterestAllowancePage, mode, updatedAnswers))
-      )
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(GroupInterestAllowancePage, value, mode)
+    )
   }
 }

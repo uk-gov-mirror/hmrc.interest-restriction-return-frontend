@@ -26,7 +26,7 @@ import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullO
 import play.api.mvc.Call
 
 @Singleton
-class StartReturnNavigator @Inject()() extends BaseNavigator {
+class StartReturnNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     IndexPage -> (_ => startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)),

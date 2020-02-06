@@ -26,13 +26,11 @@ import navigation.AboutReportingCompanyNavigator
 import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
-import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 class CheckAnswersReportingCompanyController @Inject()(
                                                         override val messagesApi: MessagesApi,
@@ -45,28 +43,24 @@ class CheckAnswersReportingCompanyController @Inject()(
                                                       )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, ReportingCompany, postAction))
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+    val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
-      val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
+    val sections = Seq(
+      checkYourAnswersHelper.reportingCompanyAppointed,
+      checkYourAnswersHelper.agentActingOnBehalfOfCompany,
+      checkYourAnswersHelper.agentName,
+      checkYourAnswersHelper.fullOrAbbreviatedReturn,
+      checkYourAnswersHelper.reportingCompanyName,
+      checkYourAnswersHelper.reportingCompanyCTUTR,
+      checkYourAnswersHelper.reportingCompanyCRN
+    ).flatten
 
-      val sections = Seq(
-        checkYourAnswersHelper.reportingCompanyAppointed,
-        checkYourAnswersHelper.agentActingOnBehalfOfCompany,
-        checkYourAnswersHelper.agentName,
-        checkYourAnswersHelper.fullOrAbbreviatedReturn,
-        checkYourAnswersHelper.reportingCompanyName,
-        checkYourAnswersHelper.reportingCompanyCTUTR,
-        checkYourAnswersHelper.reportingCompanyCRN
-      ).flatten
-
-      renderView(sections, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()).map(Ok(_))
+    Ok(view(sections, ReportingCompany, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-      Redirect(navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, request.userAnswers))
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Redirect(navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, request.userAnswers))
   }
 }

@@ -25,7 +25,7 @@ import play.api.mvc.Call
 import controllers.groupStructure.routes
 
 @Singleton
-class GroupStructureNavigator @Inject()() extends BaseNavigator {
+class GroupStructureNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(

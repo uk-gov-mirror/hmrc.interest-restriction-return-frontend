@@ -25,7 +25,7 @@ import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingC
 import play.api.mvc.Call
 
 @Singleton
-class AboutReportingCompanyNavigator @Inject()() extends BaseNavigator {
+class AboutReportingCompanyNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     ReportingCompanyNamePage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
