@@ -24,27 +24,24 @@ import forms.aboutReturn.GroupInterestAllowanceFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
 import pages.aboutReturn.GroupInterestAllowancePage
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.aboutReturn.GroupInterestAllowanceView
 
-class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitching {
-
-  def onwardRoute = Call("GET", "/foo")
+class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[GroupInterestAllowanceView]
-  val formProvider = new GroupInterestAllowanceFormProvider()
+  val formProvider = injector.instanceOf[GroupInterestAllowanceFormProvider]
   val form = formProvider()
   val validAnswer = 0
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new GroupInterestAllowanceController(
+  object Controller extends GroupInterestAllowanceController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new GroupInterestAllowanceFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
@@ -56,7 +53,9 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
 
       "return OK and the correct view for a GET" in {
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+        mockGetAnswers(Some(emptyUserAnswers))
+
+        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -67,7 +66,9 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
 
       val userAnswers = emptyUserAnswers.set[BigDecimal](GroupInterestAllowancePage, validAnswer).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -76,25 +77,31 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
 
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
@@ -104,7 +111,9 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

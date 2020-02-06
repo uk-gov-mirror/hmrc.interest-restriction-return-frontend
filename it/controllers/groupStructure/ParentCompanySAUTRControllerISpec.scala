@@ -17,11 +17,12 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
-import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
 
 class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -70,8 +71,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" should {
 
-          //TODO: Update when real routing is in place
-          "redirect to under construction page" in {
+          "redirect to ParentCRN page" in {
 
             AuthStub.authorised()
 
@@ -80,7 +80,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode).url)
               )
             }
           }

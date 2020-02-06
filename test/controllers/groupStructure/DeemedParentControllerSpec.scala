@@ -18,7 +18,7 @@ package controllers.groupStructure
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import controllers.actions._
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction, _}
 import controllers.errors
 import forms.groupStructure.DeemedParentFormProvider
 import models.NormalMode
@@ -27,20 +27,20 @@ import pages.groupStructure.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentView
 
-class DeemedParentControllerSpec extends SpecBase with FeatureSwitching {
+class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[DeemedParentView]
-  val formProvider = new DeemedParentFormProvider
+  val formProvider = injector.instanceOf[DeemedParentFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new DeemedParentController(
+  object Controller extends DeemedParentController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new DeemedParentFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
@@ -49,7 +49,9 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching {
 
     "return OK and the correct view for a GET" in {
 
-      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -59,7 +61,9 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching {
 
       val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -68,24 +72,30 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -96,7 +106,9 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

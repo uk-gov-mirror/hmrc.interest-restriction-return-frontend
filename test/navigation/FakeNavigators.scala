@@ -24,7 +24,7 @@ import play.api.mvc.Call
 object FakeNavigators extends SpecBase {
 
   trait FakeNavigator extends BaseNavigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = Call("POST", "/foo")
+    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
   }
 
   object FakeStartReturnNavigator extends StartReturnNavigator() with FakeNavigator

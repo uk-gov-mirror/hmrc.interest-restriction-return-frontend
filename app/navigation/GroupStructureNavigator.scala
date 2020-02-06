@@ -22,20 +22,37 @@ import models._
 import pages._
 import pages.groupStructure._
 import play.api.mvc.Call
+import controllers.groupStructure.routes
 
 @Singleton
 class GroupStructureNavigator @Inject()() extends BaseNavigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    ReportingCompanySameAsParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    DeemedParentPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ParentCompanyNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    PayTaxInUkPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ParentCompanyCTUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ParentCompanySAUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    RegisteredCompaniesHousePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    LimitedLiabilityPartnershipPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ReportingCompanySameAsParentPage -> (_.get(ReportingCompanySameAsParentPage) match {
+      case Some(false) => routes.DeemedParentController.onPageLoad(NormalMode)
+      case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
+      case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
+    }),
+    DeemedParentPage -> (_.get(DeemedParentPage) match {
+      case Some(false) => routes.ParentCompanyNameController.onPageLoad(NormalMode)
+      case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
+      case _ => routes.DeemedParentController.onPageLoad(NormalMode)
+    }),
+    ParentCompanyNamePage -> (_ => routes.PayTaxInUkController.onPageLoad(NormalMode)),
+    PayTaxInUkPage -> (_.get(PayTaxInUkPage) match {
+      case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
+      case Some(false) => controllers.routes.UnderConstructionController.onPageLoad()
+      case _ => routes.PayTaxInUkController.onPageLoad(NormalMode)
+    }),
+    LimitedLiabilityPartnershipPage -> (_.get(LimitedLiabilityPartnershipPage) match {
+      case Some(true) => routes.ParentCompanySAUTRController.onPageLoad(NormalMode)
+      case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(NormalMode)
+      case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
+    }),
+    ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
+    RegisteredCompaniesHousePage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
+    ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 

@@ -17,32 +17,33 @@
 package controllers
 
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching}
-import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalActionEmptyAnswers, FakeIdentifierAction}
+import config.featureSwitch.FeatureSwitching
+import controllers.actions._
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import views.html.$className;format="cap"$View
 
-class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching {
+class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[$className;format="cap"$View]
 
-  def controller = new $className;format="cap"$Controller(
+  object Controller extends $className;format="cap"$Controller(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
-    getData = FakeDataRetrievalActionEmptyAnswers,
-    requireData = new DataRequiredActionImpl,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view
   )
 
   "$className;format="cap"$ Controller" must {
 
-      "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET" in {
 
-        val result = controller.onPageLoad(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
 
-        status(result) mustBe OK
-      }
+      val result = Controller.onPageLoad(fakeRequest)
+
+      status(result) mustBe OK
+    }
   }
 }

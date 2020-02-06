@@ -14,83 +14,92 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.groupStructure
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.aboutReturn.InterestAllowanceBroughtForwardFormProvider
+import forms.groupStructure.ReportingCompanySameAsParentFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.InterestAllowanceBroughtForwardPage
+import navigation.FakeNavigators.FakeGroupStructureNavigator
+import pages.aboutReportingCompany.ReportingCompanyNamePage
+import pages.groupStructure.ReportingCompanySameAsParentPage
 import play.api.test.Helpers._
-import views.html.aboutReturn.InterestAllowanceBroughtForwardView
+import views.html.groupStructure.ReportingCompanySameAsParentView
 
-class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[InterestAllowanceBroughtForwardView]
-  val formProvider = injector.instanceOf[InterestAllowanceBroughtForwardFormProvider]
+  val view = injector.instanceOf[ReportingCompanySameAsParentView]
+  val formProvider = injector.instanceOf[ReportingCompanySameAsParentFormProvider]
   val form = formProvider()
-  val validAnswer = 0
 
-  object Controller extends InterestAllowanceBroughtForwardController(
+  object Controller extends ReportingCompanySameAsParentController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeAboutReturnNavigator,
+    navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    errorHandler = errorHandler
   )
 
-  "InterestAllowanceBroughtForward Controller" must {
+  "ReportingCompanySameAsParent Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers.set[BigDecimal](InterestAllowanceBroughtForwardPage, validAnswer).success.value
+      val userAnswers = emptyUserAnswers
+        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe OK
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
+    }
+
+    "populate the view correctly on a GET when the question has previously been answered" in {
+
+      val userAnswers = emptyUserAnswers
+        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
+        .set(ReportingCompanySameAsParentPage, true).success.value
+
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustEqual OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe SEE_OTHER
-
+      status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
+      val userAnswers = emptyUserAnswers
+        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe BAD_REQUEST
+      status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -99,13 +108,14 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(None)
 
@@ -113,7 +123,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }

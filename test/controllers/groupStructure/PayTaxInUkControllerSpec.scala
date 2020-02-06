@@ -16,6 +16,7 @@
 
 package controllers.groupStructure
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -27,23 +28,22 @@ import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
 import play.api.test.Helpers._
 import views.html.groupStructure.PayTaxInUkView
 
-class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
+class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
   val view = injector.instanceOf[PayTaxInUkView]
-  val formProvider = new PayTaxInUkFormProvider
+  val formProvider = injector.instanceOf[PayTaxInUkFormProvider]
   val form = formProvider()
 
-  lazy val name = "My Company Ltd."
-  lazy val companyNameAnswer = emptyUserAnswers.set(ParentCompanyNamePage, name).success.value
+  lazy val companyNameAnswer = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new PayTaxInUkController(
+  object Controller extends PayTaxInUkController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new PayTaxInUkFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     errorHandler = errorHandler
@@ -57,17 +57,21 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
 
         "return OK and the correct view for a GET" in {
 
-          val result = controller(FakeDataRetrievalActionGeneral(Some(companyNameAnswer))).onPageLoad(NormalMode)(fakeRequest)
+          mockGetAnswers(Some(companyNameAnswer))
+
+          val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
           status(result) mustEqual OK
-          contentAsString(result) mustEqual view(form, NormalMode, name)(fakeRequest, messages, frontendAppConfig).toString
+          contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
         }
 
         "populate the view correctly on a GET when the question has previously been answered" in {
 
           val userAnswers = companyNameAnswer.set(PayTaxInUkPage, true).success.value
 
-          val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+          mockGetAnswers(Some(userAnswers))
+
+          val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
           status(result) mustEqual OK
         }
@@ -77,7 +81,9 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
 
         "return ISE and Error Page" in {
 
-          val result = controller().onPageLoad(NormalMode)(fakeRequest)
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
           status(result) mustEqual INTERNAL_SERVER_ERROR
           contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
@@ -88,7 +94,9 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
 
         "redirect to Session Expired page" in {
 
-          val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+          mockGetAnswers(None)
+
+          val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
           status(result) mustEqual SEE_OTHER
 
@@ -105,17 +113,21 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-          val result = controller(FakeDataRetrievalActionGeneral(Some(companyNameAnswer))).onSubmit(NormalMode)(request)
+          mockGetAnswers(Some(companyNameAnswer))
+
+          val result = Controller.onSubmit(NormalMode)(request)
 
           status(result) mustEqual SEE_OTHER
-          redirectLocation(result) mustBe Some("/foo")
+          redirectLocation(result) mustBe Some(onwardRoute.url)
         }
 
         "return a Bad Request and errors when invalid data is submitted" in {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-          val result = controller(FakeDataRetrievalActionGeneral(Some(companyNameAnswer))).onSubmit(NormalMode)(request)
+          mockGetAnswers(Some(companyNameAnswer))
+
+          val result = Controller.onSubmit(NormalMode)(request)
 
           status(result) mustEqual BAD_REQUEST
         }
@@ -127,7 +139,9 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-          val result = controller().onSubmit(NormalMode)(request)
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onSubmit(NormalMode)(request)
 
           status(result) mustEqual INTERNAL_SERVER_ERROR
           contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
@@ -140,7 +154,9 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-          val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+          mockGetAnswers(None)
+
+          val result = Controller.onSubmit(NormalMode)(request)
 
           status(result) mustEqual SEE_OTHER
 

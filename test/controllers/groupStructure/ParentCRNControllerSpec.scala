@@ -30,22 +30,20 @@ import play.api.test.Helpers._
 import views.html.groupStructure.ParentCRNView
 
 
-class ParentCRNControllerSpec extends SpecBase with FeatureSwitching with BaseConstants {
-
-  def onwardRoute = Call("GET", "/foo")
+class ParentCRNControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
   val view = injector.instanceOf[ParentCRNView]
-  val formProvider = new ParentCRNFormProvider()
+  val formProvider = injector.instanceOf[ParentCRNFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ParentCRNController(
+  object Controller extends ParentCRNController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new ParentCRNFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
@@ -54,7 +52,9 @@ class ParentCRNControllerSpec extends SpecBase with FeatureSwitching with BaseCo
 
     "return OK and the correct view for a GET" in {
 
-      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -64,7 +64,9 @@ class ParentCRNControllerSpec extends SpecBase with FeatureSwitching with BaseCo
 
       val userAnswers = emptyUserAnswers.set(ParentCRNPage, "answer").success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -73,34 +75,42 @@ class ParentCRNControllerSpec extends SpecBase with FeatureSwitching with BaseCo
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "redirect to the next page when no data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", invalidCrn.crn))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -110,7 +120,9 @@ class ParentCRNControllerSpec extends SpecBase with FeatureSwitching with BaseCo
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

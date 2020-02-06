@@ -27,19 +27,19 @@ import pages.ContinueSavedReturnPage
 import play.api.test.Helpers._
 import views.html.ContinueSavedReturnView
 
-class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
+class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val formProvider = new ContinueSavedReturnFormProvider()
   val view = injector.instanceOf[ContinueSavedReturnView]
+  val formProvider = injector.instanceOf[ContinueSavedReturnFormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new ContinueSavedReturnController(
+  object Controller extends ContinueSavedReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new ContinueSavedReturnFormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     startReturnNavigator = FakeStartReturnNavigator,
@@ -53,7 +53,9 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
       "return OK and the correct view for a GET" in {
 
-        val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad()(fakeRequest)
+        mockGetAnswers(Some(emptyUserAnswers))
+
+        val result = Controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -64,7 +66,9 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
       val userAnswers = emptyUserAnswers.set(ContinueSavedReturnPage, ContinueSavedReturn.values.head).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad()(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad()(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -77,7 +81,9 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", ContinueReturn.toString))
 
-          val result = controller().onSubmit()(request)
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.SavedReturnController.nextUnansweredPage().url)
@@ -90,7 +96,9 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", NewReturn.toString))
 
-          val result = controller().onSubmit()(request)
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(controllers.routes.SavedReturnController.deleteAndStartAgain().url)
@@ -102,14 +110,18 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      val result = controller().onSubmit()(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit()(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad()(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad()(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
@@ -119,7 +131,9 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ContinueSavedReturn.values.head.toString))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit()(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit()(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url

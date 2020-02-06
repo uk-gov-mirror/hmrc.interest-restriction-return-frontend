@@ -16,18 +16,18 @@
 
 package controllers.groupStructure
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.groupStructure.ReportingCompanySameAsParentFormProvider
 import handlers.ErrorHandler
+import javax.inject.Inject
 import models.Mode
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{ParentCompanyNamePage, ReportingCompanySameAsParentPage}
+import pages.aboutReportingCompany.ReportingCompanyNamePage
+import pages.groupStructure.ReportingCompanySameAsParentPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -49,7 +49,7 @@ class ReportingCompanySameAsParentController @Inject()(
                                  )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
 
   private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
+    request.userAnswers.get(ReportingCompanyNamePage) match {
       case Some(companyName) => f(companyName)
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
