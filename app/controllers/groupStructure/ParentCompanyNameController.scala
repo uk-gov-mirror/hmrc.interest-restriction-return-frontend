@@ -18,7 +18,7 @@ package controllers.groupStructure
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.{BaseController, BaseNavigationController}
 import controllers.actions._
 import forms.groupStructure.ParentCompanyNameFormProvider
 import javax.inject.Inject
@@ -33,37 +33,27 @@ import views.html.groupStructure.ParentCompanyNameView
 
 import scala.concurrent.Future
 
-class ParentCompanyNameController @Inject()(
-                                             override val messagesApi: MessagesApi,
-                                             sessionRepository: SessionRepository,
-                                             navigator: GroupStructureNavigator,
-                                             identify: IdentifierAction,
-                                             getData: DataRetrievalAction,
-                                             requireData: DataRequiredAction,
-                                             formProvider: ParentCompanyNameFormProvider,
-                                             val controllerComponents: MessagesControllerComponents,
-                                             view: ParentCompanyNameView
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class ParentCompanyNameController @Inject()(override val messagesApi: MessagesApi,
+                                            val sessionRepository: SessionRepository,
+                                            val navigator: GroupStructureNavigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: ParentCompanyNameFormProvider,
+                                            val controllerComponents: MessagesControllerComponents,
+                                            view: ParentCompanyNameView
+                                           )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(ParentCompanyNamePage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ParentCompanyNamePage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ParentCompanyNamePage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(ParentCompanyNamePage, value, mode)
+    )
   }
 }

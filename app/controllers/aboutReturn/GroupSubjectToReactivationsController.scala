@@ -18,14 +18,13 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReturn.GroupSubjectToReactivationsFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
 import pages.aboutReturn.GroupSubjectToReactivationsPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,36 +32,27 @@ import views.html.aboutReturn.GroupSubjectToReactivationsView
 
 import scala.concurrent.Future
 
-class GroupSubjectToReactivationsController @Inject()(
-                                                       override val messagesApi: MessagesApi,
-                                                       sessionRepository: SessionRepository,
-                                                       navigator: AboutReturnNavigator,
-                                                       identify: IdentifierAction,
-                                                       getData: DataRetrievalAction,
-                                                       requireData: DataRequiredAction,
-                                                       formProvider: GroupSubjectToReactivationsFormProvider,
-                                                       val controllerComponents: MessagesControllerComponents,
-                                                       view: GroupSubjectToReactivationsView
-                                                     )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
-
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
+class GroupSubjectToReactivationsController @Inject()(override val messagesApi: MessagesApi,
+                                                      val sessionRepository: SessionRepository,
+                                                      val navigator: AboutReturnNavigator,
+                                                      identify: IdentifierAction,
+                                                      getData: DataRetrievalAction,
+                                                      requireData: DataRequiredAction,
+                                                      formProvider: GroupSubjectToReactivationsFormProvider,
+                                                      val controllerComponents: MessagesControllerComponents,
+                                                      view: GroupSubjectToReactivationsView
+                                                     )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(GroupSubjectToReactivationsPage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupSubjectToReactivationsPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(GroupSubjectToReactivationsPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(GroupSubjectToReactivationsPage, value, mode)
+    )
   }
 }

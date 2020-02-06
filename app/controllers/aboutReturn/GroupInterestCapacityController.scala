@@ -49,12 +49,11 @@ class GroupInterestCapacityController @Inject()(override val messagesApi: Messag
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode))),
-        value =>
-          saveAndRedirect(GroupInterestCapacityPage, value, mode)
-      )
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(GroupInterestCapacityPage, value, mode)
+    )
   }
 }

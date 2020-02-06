@@ -17,15 +17,17 @@
 package controllers
 
 
+import handlers.ErrorHandler
 import models._
 import models.requests.DataRequest
 import pages.QuestionPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.libs.json.Format
+import play.api.libs.json.{Format, Reads}
+import play.api.mvc.Result
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 trait BaseController extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
@@ -33,4 +35,11 @@ trait BaseController extends FrontendBaseController with I18nSupport with Enumer
 
   def fillForm[A](page: QuestionPage[A], form: Form[A])(implicit request: DataRequest[_], format: Format[A]): Form[A] =
     request.userAnswers.get(page).fold(form)(form.fill)
+
+  def answerFor[A](page: QuestionPage[A])(f: A => Future[Result])
+                          (implicit request: DataRequest[_], reads: Reads[A], errorHandler: ErrorHandler): Future[Result] =
+    request.userAnswers.get(page) match {
+      case Some(ans) => f(ans)
+      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+    }
 }

@@ -18,14 +18,13 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReturn.GroupSubjectToRestrictionsFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
 import pages.aboutReturn.GroupSubjectToRestrictionsPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,37 +32,28 @@ import views.html.aboutReturn.GroupSubjectToRestrictionsView
 
 import scala.concurrent.Future
 
-class GroupSubjectToRestrictionsController @Inject()(
-                                                      override val messagesApi: MessagesApi,
-                                                      sessionRepository: SessionRepository,
-                                                      navigator: AboutReturnNavigator,
-                                                      identify: IdentifierAction,
-                                                      getData: DataRetrievalAction,
-                                                      requireData: DataRequiredAction,
-                                                      formProvider: GroupSubjectToRestrictionsFormProvider,
-                                                      val controllerComponents: MessagesControllerComponents,
-                                                      view: GroupSubjectToRestrictionsView
-                                                    )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+class GroupSubjectToRestrictionsController @Inject()(override val messagesApi: MessagesApi,
+                                                     val sessionRepository: SessionRepository,
+                                                     val navigator: AboutReturnNavigator,
+                                                     identify: IdentifierAction,
+                                                     getData: DataRetrievalAction,
+                                                     requireData: DataRequiredAction,
+                                                     formProvider: GroupSubjectToRestrictionsFormProvider,
+                                                     val controllerComponents: MessagesControllerComponents,
+                                                     view: GroupSubjectToRestrictionsView
+                                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[Boolean], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(GroupSubjectToRestrictionsPage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(GroupSubjectToRestrictionsPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
+          Future.successful(BadRequest(view(formWithErrors, mode))),
         value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupSubjectToRestrictionsPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(GroupSubjectToRestrictionsPage, mode, updatedAnswers))
+          saveAndRedirect(GroupSubjectToRestrictionsPage, value, mode)
       )
   }
 }

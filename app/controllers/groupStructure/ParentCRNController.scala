@@ -18,14 +18,13 @@ package controllers.groupStructure
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.ParentCRNFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
 import pages.groupStructure.ParentCRNPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,37 +32,27 @@ import views.html.groupStructure.ParentCRNView
 
 import scala.concurrent.Future
 
-class ParentCRNController @Inject()(
-                                     override val messagesApi: MessagesApi,
-                                     sessionRepository: SessionRepository,
-                                     navigator: GroupStructureNavigator,
-                                     identify: IdentifierAction,
-                                     getData: DataRetrievalAction,
-                                     requireData: DataRequiredAction,
-                                     formProvider: ParentCRNFormProvider,
-                                     val controllerComponents: MessagesControllerComponents,
-                                     view: ParentCRNView
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class ParentCRNController @Inject()(override val messagesApi: MessagesApi,
+                                    val sessionRepository: SessionRepository,
+                                    val navigator: GroupStructureNavigator,
+                                    identify: IdentifierAction,
+                                    getData: DataRetrievalAction,
+                                    requireData: DataRequiredAction,
+                                    formProvider: ParentCRNFormProvider,
+                                    val controllerComponents: MessagesControllerComponents,
+                                    view: ParentCRNView
+                                   )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(ParentCRNPage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ParentCRNPage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(ParentCRNPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ParentCRNPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(ParentCRNPage, value, mode)
+    )
   }
 }

@@ -32,14 +32,13 @@ import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
 
-class CheckAnswersReportingCompanyController @Inject()(
-                                                        override val messagesApi: MessagesApi,
-                                                        identify: IdentifierAction,
-                                                        getData: DataRetrievalAction,
-                                                        requireData: DataRequiredAction,
-                                                        val controllerComponents: MessagesControllerComponents,
-                                                        navigator: AboutReportingCompanyNavigator,
-                                                        view: CheckYourAnswersView
+class CheckAnswersReportingCompanyController @Inject()(override val messagesApi: MessagesApi,
+                                                       identify: IdentifierAction,
+                                                       getData: DataRetrievalAction,
+                                                       requireData: DataRequiredAction,
+                                                       val controllerComponents: MessagesControllerComponents,
+                                                       navigator: AboutReportingCompanyNavigator,
+                                                       view: CheckYourAnswersView
                                                       )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
