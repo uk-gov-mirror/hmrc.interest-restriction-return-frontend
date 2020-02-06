@@ -39,5 +39,5 @@ trait BaseNavigationController extends BaseController {
     for {
       updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer))
       _              <- sessionRepository.set(updatedAnswers)
-    } yield Redirect(navigator.nextPage(GroupSubjectToReactivationsPage, mode, updatedAnswers))
+    } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
 }

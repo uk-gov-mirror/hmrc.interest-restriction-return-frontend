@@ -63,3 +63,10 @@ GET        /parent-crn                                     controllers.groupStru
 POST       /parent-crn                                     controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = NormalMode)
 GET        /parent-crn/change                              controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = CheckMode)
 POST       /parent-crn/change                              controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = CheckMode)
+
+### RegisteredForTaxInAnotherCountry Controller
+### ----------------------------------------
+GET        /registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = NormalMode)
+POST       /registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = NormalMode)
+GET        /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = CheckMode)
+POST       /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = CheckMode)

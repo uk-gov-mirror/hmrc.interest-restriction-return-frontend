@@ -25,6 +25,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryRegisteredForTaxInAnotherCountryPage: Arbitrary[RegisteredForTaxInAnotherCountryPage.type] =
+    Arbitrary(RegisteredForTaxInAnotherCountryPage)
+
   implicit lazy val arbitraryParentCRNPage: Arbitrary[ParentCRNPage.type] =
     Arbitrary(ParentCRNPage)
 
