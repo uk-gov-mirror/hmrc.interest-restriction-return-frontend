@@ -31,26 +31,23 @@ class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper 
 
     "user is authorised" when {
 
-      "there are no existing user answers" should {
+      "return SEE_OTHER (303)" in {
 
-        "return OK (303)" in {
+        AuthStub.authorised()
 
-          AuthStub.authorised()
+        val res = getRequest("/")()
 
-          val res = getRequest("/")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
-            )
-          }
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
+          )
         }
       }
 
       "there are existing user answers" should {
 
-        "return OK (303)" in {
+        "return SEE_OTHER (303)" in {
 
           AuthStub.authorised()
 

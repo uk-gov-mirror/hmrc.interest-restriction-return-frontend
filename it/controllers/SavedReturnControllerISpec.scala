@@ -17,17 +17,17 @@
 package controllers
 
 import assets.{BaseITConstants, PageTitles}
-import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
+import models.NormalMode
+import pages.startReturn.ReportingCompanyAppointedPage
 import play.api.http.Status._
-import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class SavedReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   val ackRef = "abc123"
 
-  "GET /continue-saved-return" when {
+  "GET /saved-return" when {
 
     "user is authorised" when {
 
@@ -35,12 +35,12 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
 
         AuthStub.authorised()
 
-        val res = getRequest("/continue-saved-return")()
+        val res = getRequest("/saved-return")()
 
         whenReady(res) { result =>
           result should have(
             httpStatus(OK),
-            titleOf(PageTitles.continueSavedReturn)
+            titleOf(PageTitles.savedReturn)
           )
         }
       }
@@ -52,7 +52,7 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
 
         AuthStub.unauthorised()
 
-        val res = getRequest("/continue-saved-return")()
+        val res = getRequest("/saved-return")()
 
         whenReady(res) { result =>
           result should have(
@@ -64,59 +64,42 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
     }
   }
 
-  "POST /continue-saved-return" when {
+  "GET /continue-from-save" when {
 
     "user is authorised" when {
 
-      "enters true" should {
+      "no previous answers" must {
 
-        "redirect to under Limited Liability Partnership page" in {
+        "return SEE_OTHER (303)" in {
 
           AuthStub.authorised()
 
-          val res = postRequest("/continue-saved-return", Json.obj("value" -> NewReturn.toString))()
+          val res = getRequest("/continue-from-save")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.routes.SavedReturnController.deleteAndStartAgain().url)
+              redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
             )
           }
         }
       }
 
-      "enters false" should {
+      "existing previous answers" must {
 
-        "redirect to under construction page" in {
+        "return SEE_OTHER (303)" in {
 
           AuthStub.authorised()
 
-          val res = postRequest("/continue-saved-return", Json.obj("value" -> ContinueReturn.toString))()
+          setAnswers(ReportingCompanyAppointedPage, true)
+
+          val res = getRequest("/continue-from-save")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.routes.SavedReturnController.nextUnansweredPage().url)
+              redirectLocation(controllers.startReturn.routes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode).url)
             )
-          }
-        }
-      }
-
-      "enters an invalid answer" when {
-
-        "user answer for parent company name exists" should {
-
-          "return a BAD_REQUEST (400)" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/continue-saved-return", Json.obj("value" -> ""))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(BAD_REQUEST)
-              )
-            }
           }
         }
       }
@@ -128,7 +111,44 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
 
         AuthStub.unauthorised()
 
-        val res = postRequest("/continue-saved-return", Json.obj("value" -> companyName))()
+        val res = getRequest("/continue-from-save")()
+
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+          )
+        }
+      }
+    }
+  }
+
+  "GET /delete-answers" when {
+
+    "user is authorised" when {
+
+      "return SEE_OTHER (303)" in {
+
+        AuthStub.authorised()
+
+        val res = getRequest("/delete-answers")()
+
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.routes.IndexController.onPageLoad().url)
+          )
+        }
+      }
+    }
+
+    "user not authorised" should {
+
+      "return SEE_OTHER (303)" in {
+
+        AuthStub.unauthorised()
+
+        val res = getRequest("/delete-answers")()
 
         whenReady(res) { result =>
           result should have(
