@@ -32,20 +32,20 @@ import play.twirl.api.Html
 
 import views.html.$className;format="cap"$View
 
-class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching {
+class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val formProvider = new $className;format="cap"$FormProvider()
   val view = injector.instanceOf[$className;format="cap"$View]
+  val formProvider = injector.instanceOf[$className;format="cap"$FormProvider]
   val form = formProvider()
 
-  def controller(dataRetrieval: DataRetrievalAction = FakeDataRetrievalActionEmptyAnswers) = new $className;format="cap"$Controller(
+  object Controller extends $className;format="cap"$Controller(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeNavigator,
     identify = FakeIdentifierAction,
-    getData = dataRetrieval,
-    requireData = new DataRequiredActionImpl,
-    formProvider = new $className;format="cap"$FormProvider,
+    getData = mockDataRetrievalAction,
+    requireData = dataRequiredAction,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view
   )
@@ -54,7 +54,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
     "return OK and the correct view for a GET" in {
 
-      val result = controller(FakeDataRetrievalActionEmptyAnswers).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -64,7 +66,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val userAnswers = emptyUserAnswers.set($className;format="cap"$Page, $className;format="cap"$.values.head).success.value
 
-      val result = controller(FakeDataRetrievalActionGeneral(Some(userAnswers))).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -73,7 +77,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", $className;format="cap"$.values.head.toString))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -83,14 +89,18 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      val result = controller().onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val result = controller(FakeDataRetrievalActionNone).onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(None)
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
@@ -100,7 +110,9 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", $className;format="cap"$.values.head.toString))
 
-      val result = controller(FakeDataRetrievalActionNone).onSubmit(NormalMode)(request)
+      mockGetAnswers(None)
+
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
