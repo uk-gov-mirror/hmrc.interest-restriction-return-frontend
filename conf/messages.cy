@@ -1,8 +1,9 @@
 service.name = Interest Restriction Return
 
-checkYourAnswers.title = Check Your Answers
-checkYourAnswers.heading = Check Your Answers
-checkYourAnswers.guidance = Guidance for check your answers
+helloWorld.checkYourAnswers.title = Check Your Answers
+helloWorld.checkYourAnswers.heading = Check Your Answers
+helloWorld.checkYourAnswers.subheading = HelloWorld Subheading
+helloWorld.checkYourAnswers.guidance = Guidance for check your answers
 
 date.day = Day
 date.month = Month
@@ -27,7 +28,16 @@ session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
+# UnderConstructionPage Messages
+# ----------------------------------------------------------
+underConstruction.title = This page is under construction
+underConstruction.heading = This page is under construction
+
+
+# Sitewide Messages
+# ----------------------------------------------------------
 site.back = Back
+site.saveForLater = Save and come back later
 site.delete = Remove
 site.edit = Change
 site.hidden-delete = Delete {0}
@@ -36,14 +46,24 @@ site.no = No
 site.yes = Yes
 site.continue = Continue
 site.saveAndContinue = Save and continue
+site.submitAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
-site.saveAndComeBackLater = Save and come back later
+site.submitReturn = Submit a Corporate Interest Restriction return
 
-section.aboutReturn = About the return
+# Timeout Messages
+# ----------------------------------------------------------
+timeout.title = You’re about to be signed out
+timeout.message = For security reasons, you will be signed out of this service in
+timeout.keepAlive = Stay signed in
+timeout.signOut = Sign out
+
+# Sections
+# ----------------------------------------------------------
 section.agents = Agents
+section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 
@@ -71,17 +91,18 @@ helloWorldYesNo.error.required = Select yes if you want to say Hello World ( Sty
 # ----------------------------------------------------------
 reportingCompanyCRN.title = Company Registration Number (CRN)
 reportingCompanyCRN.heading = Company Registration Number (CRN)
-reportingCompanyCRN.checkYourAnswersLabel = Company Registration Number (CRN)
+reportingCompanyCRN.checkYourAnswersLabel = Reporting Company CRN
 reportingCompanyCRN.label = Company Registration Number (CRN)
 reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
 reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
+reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not found on Companies House
 
 
 # ReportingCompanyCTUTRPage Messages
 # ----------------------------------------------------------
 reportingCompanyCTUTR.title = UK Tax reference - CT UTR
 reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
-reportingCompanyCTUTR.checkYourAnswersLabel = UK Tax reference - CT UTR
+reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
 reportingCompanyCTUTR.label = UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 numbers
@@ -92,7 +113,7 @@ reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid che
 # ----------------------------------------------------------
 reportingCompanyName.title = Reporting company name
 reportingCompanyName.heading = Reporting company name
-reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.checkYourAnswersLabel = Name
 reportingCompanyName.label = Reporting company name
 reportingCompanyName.error.required = Enter Reporting company name
 reportingCompanyName.error.length = Reporting company name must be 160 characters or less
@@ -102,16 +123,15 @@ reportingCompanyName.error.length = Reporting company name must be 160 character
 # ----------------------------------------------------------
 reportingCompanyAppointed.title = Has the reporting company been appointed
 reportingCompanyAppointed.heading = Has the reporting company been appointed
-reportingCompanyAppointed.checkYourAnswersLabel = Has the reporting company been appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
 # ReportingCompanyRequiredPage Messages
 # ----------------------------------------------------------
 reportingCompanyRequired.title = A reporting company is required
-reportingCompanyRequired.heading = Is the reporting Company the same as the ultimate parent?
-reportingCompanyRequired.checkYourAnswersLabel = Is the reporting Company the same as the ultimate parent?
-reportingCompanyRequired.error.required = Select yes if the reporting Company the same as the ultimate parent
+reportingCompanyRequired.heading = A reporting company is required
+reportingCompanyRequired.checkYourAnswersLabel = A reporting company is required
 reportingCompanyRequired.p1 = You need to
 reportingCompanyRequired.a1 = appoint a reporting company
 reportingCompanyRequired.p2 = before submitting a return
@@ -121,7 +141,7 @@ reportingCompanyRequired.p2 = before submitting a return
 # ----------------------------------------------------------
 agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
 agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
-agentActingOnBehalfOfCompany.checkYourAnswersLabel = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.checkYourAnswersLabel = Agent
 agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
 
 
@@ -135,6 +155,26 @@ agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
 
 
+# InterestAllowanceBroughtForwardPage Messages
+# ----------------------------------------------------------
+interestAllowanceBroughtForward.title = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.heading = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.label = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.checkYourAnswersLabel = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.error.nonNumeric = Enter the group interest allowance brought forward using numbers
+interestAllowanceBroughtForward.error.required = Enter the group interest allowance brought forward
+interestAllowanceBroughtForward.error.invalidNumeric = The group interest allowance brought forward must be valid decimal or whole number
+interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForward must be between {0} and {1}
+
+
+# GroupSubjectToReactivationsPage Messages
+# ----------------------------------------------------------
+groupSubjectToReactivations.title = Is the group subject to reactivations?
+groupSubjectToReactivations.heading = Is the group subject to reactivations?
+groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reactivations?
+groupSubjectToReactivations.error.required = Select yes if you are a group subject to reactivations
+
+
 # InfrastructureCompanyElectionPage Messages
 # ----------------------------------------------------------
 infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
@@ -142,34 +182,15 @@ infrastructureCompanyElection.heading = Has the group made the Infrastructure co
 infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
 infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
 
-# InterestAllowanceBroughtForwardPage Messages
-# ----------------------------------------------------------
-interestAllowanceBroughtForward.title = InterestAllowanceBroughtForward
-interestAllowanceBroughtForward.heading = InterestAllowanceBroughtForward
-interestAllowanceBroughtForward.label =What is the group interest allowance brought forward?
-interestAllowanceBroughtForward.checkYourAnswersLabel = InterestAllowanceBroughtForward
-interestAllowanceBroughtForward.error.nonNumeric = Enter your interestAllowanceBroughtForward using numbers
-interestAllowanceBroughtForward.error.required = Enter your interestAllowanceBroughtForward
-interestAllowanceBroughtForward.error.invalidNumeric = Enter your interestAllowanceBroughtForward using whole numbers
-interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForward must be between {0} and {1}
-
-
-# GroupSubjectToReactivationsPage Messages
-# ----------------------------------------------------------
-groupSubjectToReactivations.title = groupSubjectToReactivations
-groupSubjectToReactivations.heading = groupSubjectToReactivations
-groupSubjectToReactivations.checkYourAnswersLabel = groupSubjectToReactivations
-groupSubjectToReactivations.error.required = Select yes if groupSubjectToReactivations
-
 
 # FullOrAbbreviatedReturnPage Messages
 # ----------------------------------------------------------
 fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
 fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.full = Submit a full return
-fullOrAbbreviatedReturn.abbreviated = Submit an abbreviated return
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn
+fullOrAbbreviatedReturn.full = Full
+fullOrAbbreviatedReturn.abbreviated = Abbreviated
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
+fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
 # RevisingReturnPage Messages
@@ -177,20 +198,19 @@ fullOrAbbreviatedReturn.error.required = Select fullOrAbbreviatedReturn
 revisingReturn.title = Are you revising a return you have already submitted?
 revisingReturn.heading = Are you revising a return you have already submitted?
 revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
-revisingReturn.error.required = Select yes if Are you revising a return you have already submitted?
+revisingReturn.error.required = Select yes if you revising a return you have already submitted
 
 
 # GroupInterestCapacityPage Messages
 # ----------------------------------------------------------
-groupInterestCapacity.title = Group interest capacity
-groupInterestCapacity.heading = Group interest capacity
+groupInterestCapacity.title = What is the group interest capacity for the period?
+groupInterestCapacity.heading = What is the group interest capacity for the period?
 groupInterestCapacity.label = What is the group interest capacity for the period?
 groupInterestCapacity.checkYourAnswersLabel = Group interest capacity
 groupInterestCapacity.error.nonNumeric = Enter your group interest capacity using numbers
 groupInterestCapacity.error.required = Enter your group interest capacity
 groupInterestCapacity.error.invalidNumeric = The group interest capacity must be valid decimal or whole number
 groupInterestCapacity.error.outOfRange = Group interest capacity must be between {0} and {1}
-
 
 
 # GroupSubjectToRestrictionsPage Messages
@@ -203,8 +223,8 @@ groupSubjectToRestrictions.error.required = Select yes if the group subject to r
 
 # GroupInterestAllowancePage Messages
 # ----------------------------------------------------------
-groupInterestAllowance.title = Group interest allowance
-groupInterestAllowance.heading = Group interest allowance
+groupInterestAllowance.title = What is the group interest allowance for the period?
+groupInterestAllowance.heading = What is the group interest allowance for the period?
 groupInterestAllowance.label = What is the group interest allowance for the period?
 groupInterestAllowance.checkYourAnswersLabel = Group interest allowance
 groupInterestAllowance.error.nonNumeric = Enter your group interest allowance using numbers
@@ -213,13 +233,12 @@ groupInterestAllowance.error.invalidNumeric = The group interest allowance must 
 groupInterestAllowance.error.outOfRange = Group interest allowance must be between {0} and {1}
 
 
-
 # InterestReactivationsCapPage Messages
 # ----------------------------------------------------------
-interestReactivationsCap.title = InterestReactivationsCap
-interestReactivationsCap.heading = InterestReactivationsCap
-interestReactivationsCap.label =interestReactivationsCap
-interestReactivationsCap.checkYourAnswersLabel = InterestReactivationsCap
+interestReactivationsCap.title = What is the group reactivation cap?
+interestReactivationsCap.heading = What is the group reactivation cap?
+interestReactivationsCap.label = What is the group reactivation cap?
+interestReactivationsCap.checkYourAnswersLabel = Interest Reactivations Cap
 interestReactivationsCap.error.nonNumeric = Enter your interestReactivationsCap using numbers
 interestReactivationsCap.error.required = Enter your interestReactivationsCap
 interestReactivationsCap.error.invalidNumeric = The interestReactivationsCap must be valid decimal or whole number
@@ -246,30 +265,21 @@ savedReturn.bullet1 = Continue this return
 savedReturn.bullet2 = Delete this form and start again
 
 
+# CheckAnswersReportingCompanyPage Messages
+# ----------------------------------------------------------
+reportingCompany.checkYourAnswers.title = Check your answers
+reportingCompany.checkYourAnswers.heading = Check your answers
+reportingCompany.checkYourAnswers.subheading = Reporting company details
+
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
-continueSavedReturn.title = Do you want to start a new return or continue working on a saved return (if you have one)?
-continueSavedReturn.heading = Do you want to start a new return or continue working on a saved return (if you have one)?
+continueSavedReturn.title = Do you want to start a new return or continue working on a saved return?
+continueSavedReturn.heading = Do you want to start a new return or continue working on a saved return?
 continueSavedReturn.newReturn = Start a new return
 continueSavedReturn.continueSavedReturn = Continue working on a saved return
 continueSavedReturn.checkYourAnswersLabel = Do you want to start a new return or continue working on a saved return (if you have one)?
 continueSavedReturn.error.required = Select continue working on a saved return if you have a previously saved return you would like to continue.
-
-
-# CheckAnswersReportingCompanyPage Messages
-# ----------------------------------------------------------
-checkAnswersReportingCompany.title = checkAnswersReportingCompany
-checkAnswersReportingCompany.heading = checkAnswersReportingCompany
-checkAnswersReportingCompany.checkYourAnswersLabel = checkAnswersReportingCompany
-checkAnswersReportingCompany.label = CheckAnswersReportingCompany
-checkAnswersReportingCompany.error.required = Enter checkAnswersReportingCompany
-checkAnswersReportingCompany.error.length = CheckAnswersReportingCompany must be Check your answers for reporting company section characters or less
-
-
-# UnderConstructionPage Messages
-# ----------------------------------------------------------
-underConstruction.title = underConstruction
-underConstruction.heading = underConstruction
+continueSavedReturn.p1 = You can start and save one or more returns and come back to work on them later.
 
 
 # ConfirmationPage Messages
@@ -288,6 +298,7 @@ deemedParent.title = Does the group have a ’deemed’ parent company?
 deemedParent.heading = Does the group have a ’deemed’ parent company?
 deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent company?
 deemedParent.error.required = Select yes if the group has a ’deemed’ parent company?
+
 
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
@@ -319,12 +330,14 @@ parentCRN.hint = A company registration number (CRN) is a unique combination of 
 
 # ParentCompanyCTUTRPage Messages
 # ----------------------------------------------------------
-parentCompanyCTUTR.title = parentCompanyCTUTR
-parentCompanyCTUTR.heading = parentCompanyCTUTR
-parentCompanyCTUTR.checkYourAnswersLabel = parentCompanyCTUTR
+parentCompanyCTUTR.title = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.heading = Parent Company Corporation Unique Tax Payer Reference
+parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Tax Payer Reference
 parentCompanyCTUTR.label = Parent Company Corporation Unique Tax Payer Reference
-parentCompanyCTUTR.error.required = Enter parentCompanyCTUTR
-parentCompanyCTUTR.error.length = ParentCompanyCTUTR must be 10 characters or less
+parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Tax Payer Reference must be 10 digits long
+parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
+parentCompanyCTUTR.findUtr = find a lost UTR number
+parentCompanyCTUTR.link = find a lost UTR number.
 
 
 # ParentCompanySAUTRPage Messages
@@ -339,13 +352,12 @@ parentCompanySAUTR.error.required = Enter your Self Assessment Unique Tax Payer 
 parentCompanySAUTR.error.length = Self Assessment Unique Tax Payer Reference must be 10 numbers
 parentCompanySAUTR.error.checksum = Self Assessment Unique Tax Payer Reference entered is invalid
 
-
 # RegisteredCompaniesHousePage Messages
 # ----------------------------------------------------------
-registeredCompaniesHouse.title = RegisteredCompaniesHouse
-registeredCompaniesHouse.heading = RegisteredCompaniesHouse
-registeredCompaniesHouse.checkYourAnswersLabel = RegisteredCompaniesHouse
-registeredCompaniesHouse.error.required = Select yes if RegisteredCompaniesHouse
+registeredCompaniesHouse.title = Is the parent company registered with companies house?
+registeredCompaniesHouse.heading = Is the parent company registered with companies house?
+registeredCompaniesHouse.checkYourAnswersLabel = Is the parent company registered with companies house?
+registeredCompaniesHouse.error.required = Select yes if the parent company is registered with companies house
 
 
 # ReportingCompanySameAsParent Messages
@@ -356,7 +368,7 @@ reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent comp
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
 # LimitedLiabilityPartnershipPage Messages
 # ----------------------------------------------------------
-LimitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
-LimitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
-LimitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
-LimitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership?
+limitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
+limitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
+limitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
+limitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership?
