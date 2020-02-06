@@ -49,8 +49,22 @@ class CheckAnswersGroupStructureController @Inject()(
 
   private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, ReportingCompany, postAction))
 
+  private def parentCompanyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
+    request.userAnswers.get(ParentCompanyNamePage) match {
+      case Some(parentCompanyName) => f(parentCompanyName)
+      case _ => f("the parent company")
+    }
+
+  private def reportingCompanyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
+    request.userAnswers.get(ReportingCompanyNamePage) match {
+      case Some(reportingCompanyName) => f(reportingCompanyName)
+      case _ => f("the parent company")
+    }
+
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
+      reportingCompanyNamePredicate { reportingCompanyName =>
+        parentCompanyNamePredicate { parentCompanyName =>
 
           val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
