@@ -27,7 +27,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Normal mode" when {
 
-    "GET /pay-tax-in-uk" when {
+    "GET /group-structure/pay-tax-in-uk" when {
 
       "user is authorised" should {
 
@@ -38,7 +38,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             AuthStub.authorised()
             setAnswers(ParentCompanyNamePage, companyName)
 
-            val res = getRequest("/pay-tax-in-uk")()
+            val res = getRequest("/group-structure/pay-tax-in-uk")()
 
             whenReady(res) { result =>
               result should have(
@@ -55,7 +55,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = getRequest("/pay-tax-in-uk")()
+            val res = getRequest("/group-structure/pay-tax-in-uk")()
 
             whenReady(res) { result =>
               result should have(
@@ -72,7 +72,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/pay-tax-in-uk")()
+          val res = getRequest("/group-structure/pay-tax-in-uk")()
 
           whenReady(res) { result =>
             result should have(
@@ -84,7 +84,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "POST /pay-tax-in-uk" when {
+    "POST /group-structure/pay-tax-in-uk" when {
 
       "user is authorised" when {
 
@@ -95,7 +95,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = postRequest("/pay-tax-in-uk", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -115,7 +115,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
               AuthStub.authorised()
               setAnswers(ParentCompanyNamePage, companyName)
 
-              val res = postRequest("/pay-tax-in-uk", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -131,7 +131,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
               AuthStub.authorised()
 
-              val res = postRequest("/pay-tax-in-uk", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -149,7 +149,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/pay-tax-in-uk", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -164,7 +164,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Change mode" when {
 
-    "GET /pay-tax-in-uk/change" when {
+    "GET /group-structure/pay-tax-in-uk/change" when {
 
       "user is authorised" should {
 
@@ -175,7 +175,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             AuthStub.authorised()
             setAnswers(ParentCompanyNamePage, companyName)
 
-            val res = getRequest("/pay-tax-in-uk/change")()
+            val res = getRequest("/group-structure/pay-tax-in-uk/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -192,7 +192,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = getRequest("/pay-tax-in-uk/change")()
+            val res = getRequest("/group-structure/pay-tax-in-uk/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -209,7 +209,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/pay-tax-in-uk/change")()
+          val res = getRequest("/group-structure/pay-tax-in-uk/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -221,7 +221,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "POST /pay-tax-in-uk" when {
+    "POST /group-structure/pay-tax-in-uk" when {
 
       "user is authorised" when {
 
@@ -232,7 +232,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = postRequest("/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -252,7 +252,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
               AuthStub.authorised()
               setAnswers(ParentCompanyNamePage, companyName)
 
-              val res = postRequest("/pay-tax-in-uk/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -268,7 +268,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
               AuthStub.authorised()
 
-              val res = postRequest("/pay-tax-in-uk/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -287,7 +287,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/pay-tax-in-uk/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

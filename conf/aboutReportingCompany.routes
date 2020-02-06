@@ -1,0 +1,28 @@
+# About the Reporting Company Section Routes
+# ==========================================
+
+### ReportingCompanyName Controller
+### ----------------------------------------
+GET        /name                                        controllers.aboutReportingCompany.ReportingCompanyNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /name                                        controllers.aboutReportingCompany.ReportingCompanyNameController.onSubmit(mode: Mode = NormalMode)
+GET        /name/change                                 controllers.aboutReportingCompany.ReportingCompanyNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /name/change                                 controllers.aboutReportingCompany.ReportingCompanyNameController.onSubmit(mode: Mode = CheckMode)
+
+### ReportingCompanyCRN Controller
+### ----------------------------------------
+GET        /crn                                         controllers.aboutReportingCompany.ReportingCompanyCRNController.onPageLoad(mode: Mode = NormalMode)
+POST       /crn                                         controllers.aboutReportingCompany.ReportingCompanyCRNController.onSubmit(mode: Mode = NormalMode)
+GET        /crn/change                                  controllers.aboutReportingCompany.ReportingCompanyCRNController.onPageLoad(mode: Mode = CheckMode)
+POST       /crn/change                                  controllers.aboutReportingCompany.ReportingCompanyCRNController.onSubmit(mode: Mode = CheckMode)
+
+### ReportingCompanyCTUTR Controller
+### ----------------------------------------
+GET        /ctutr                                       controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
+POST       /ctutr                                       controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
+GET        /ctutr/change                                controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
+POST       /ctutr/change                                controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
+
+### CheckYourAnswersController
+### -----------------------------
+GET        /check-answers                               controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad
+POST       /check-answers                               controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onSubmit

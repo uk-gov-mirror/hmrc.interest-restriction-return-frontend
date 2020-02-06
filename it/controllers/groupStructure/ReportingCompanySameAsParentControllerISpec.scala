@@ -27,7 +27,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
   "in Normal mode" when {
 
-    "GET /reporting-company-same-as-parent" when {
+    "GET /group-structure/reporting-company-same-as-parent" when {
 
       "user is authorised" should {
 
@@ -38,7 +38,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             AuthStub.authorised()
             setAnswers(ParentCompanyNamePage, companyName)
 
-            val res = getRequest("/reporting-company-same-as-parent")()
+            val res = getRequest("/group-structure/reporting-company-same-as-parent")()
 
             whenReady(res) { result =>
               result should have(
@@ -55,7 +55,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = getRequest("/reporting-company-same-as-parent")()
+            val res = getRequest("/group-structure/reporting-company-same-as-parent")()
 
             whenReady(res) { result =>
               result should have(
@@ -72,7 +72,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-same-as-parent")()
+          val res = getRequest("/group-structure/reporting-company-same-as-parent")()
 
           whenReady(res) { result =>
             result should have(
@@ -84,7 +84,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
       }
     }
 
-    "POST /reporting-company-same-as-parent" when {
+    "POST /group-structure/reporting-company-same-as-parent" when {
 
       "user is authorised" when {
 
@@ -95,7 +95,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-same-as-parent", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/reporting-company-same-as-parent", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -115,7 +115,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
               AuthStub.authorised()
               setAnswers(ParentCompanyNamePage, companyName)
 
-              val res = postRequest("/reporting-company-same-as-parent", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/reporting-company-same-as-parent", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -131,7 +131,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
               AuthStub.authorised()
 
-              val res = postRequest("/reporting-company-same-as-parent", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/reporting-company-same-as-parent", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -149,7 +149,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-same-as-parent", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/reporting-company-same-as-parent", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -164,7 +164,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
   "in Change mode" when {
 
-    "GET /reporting-company-same-as-parent/change" when {
+    "GET /group-structure/reporting-company-same-as-parent/change" when {
 
       "user is authorised" should {
 
@@ -175,7 +175,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             AuthStub.authorised()
             setAnswers(ParentCompanyNamePage, companyName)
 
-            val res = getRequest("/reporting-company-same-as-parent/change")()
+            val res = getRequest("/group-structure/reporting-company-same-as-parent/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -192,7 +192,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = getRequest("/reporting-company-same-as-parent/change")()
+            val res = getRequest("/group-structure/reporting-company-same-as-parent/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -209,7 +209,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-same-as-parent/change")()
+          val res = getRequest("/group-structure/reporting-company-same-as-parent/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -221,7 +221,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
       }
     }
 
-    "POST /reporting-company-same-as-parent" when {
+    "POST /group-structure/reporting-company-same-as-parent" when {
 
       "user is authorised" when {
 
@@ -232,7 +232,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-same-as-parent/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/reporting-company-same-as-parent/change", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -252,7 +252,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
               AuthStub.authorised()
               setAnswers(ParentCompanyNamePage, companyName)
 
-              val res = postRequest("/reporting-company-same-as-parent/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/reporting-company-same-as-parent/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -268,7 +268,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
               AuthStub.authorised()
 
-              val res = postRequest("/reporting-company-same-as-parent/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/reporting-company-same-as-parent/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -287,7 +287,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-same-as-parent/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/reporting-company-same-as-parent/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

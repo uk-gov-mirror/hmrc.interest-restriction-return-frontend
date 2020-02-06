@@ -27,7 +27,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Normal mode" when {
 
-    "GET /parent-company-name" when {
+    "GET /group-structure/parent-company-name" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.authorised()
 
-          val res = getRequest("/parent-company-name")()
+          val res = getRequest("/group-structure/parent-company-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/parent-company-name")()
+          val res = getRequest("/group-structure/parent-company-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "POST /parent-company-name" when {
+    "POST /group-structure/parent-company-name" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-company-name", Json.obj("value" -> companyName))()
+            val res = postRequest("/group-structure/parent-company-name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/parent-company-name", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company-name", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Change mode" when {
 
-    "GET /parent-company-name" when {
+    "GET /group-structure/parent-company-name" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.authorised()
 
-          val res = getRequest("/parent-company-name/change")()
+          val res = getRequest("/group-structure/parent-company-name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/parent-company-name/change")()
+          val res = getRequest("/group-structure/parent-company-name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -144,7 +144,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "POST /parent-company-name" when {
+    "POST /group-structure/parent-company-name" when {
 
       "user is authorised" when {
 
@@ -154,7 +154,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-company-name/change", Json.obj("value" -> companyName))()
+            val res = postRequest("/group-structure/parent-company-name/change", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
@@ -172,7 +172,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/parent-company-name/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company-name/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

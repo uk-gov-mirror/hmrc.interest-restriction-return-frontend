@@ -33,9 +33,7 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(
-    pageTitle = Some(title(form, "agentName.title"))
-    ) {
+@govukLayout(pageTitle = Some(title(form, "agentName.title", Some("section.startReturn")))) {
 
     @formHelper(action = AgentNameController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 

@@ -27,7 +27,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
   "in Normal mode" when {
 
-    "GET /reporting-company-name" when {
+    "GET /reporting-company/name" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-name")()
+          val res = getRequest("/reporting-company/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-name")()
+          val res = getRequest("/reporting-company/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /reporting-company-name" when {
+    "POST /reporting-company/name" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-name", Json.obj("value" -> companyName))()
+            val res = postRequest("/reporting-company/name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-name", Json.obj("value" -> companyName))()
+          val res = postRequest("/reporting-company/name", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +107,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
   "in Change mode" when {
 
-    "GET /reporting-company-name" when {
+    "GET /reporting-company/name" when {
 
       "user is authorised" should {
 
@@ -115,7 +115,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company-name/change")()
+          val res = getRequest("/reporting-company/name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -132,7 +132,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company-name/change")()
+          val res = getRequest("/reporting-company/name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -144,7 +144,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /reporting-company-name" when {
+    "POST /reporting-company/name" when {
 
       "user is authorised" when {
 
@@ -154,7 +154,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company-name/change", Json.obj("value" -> companyName))()
+            val res = postRequest("/reporting-company/name/change", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
@@ -172,7 +172,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company-name/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/reporting-company/name/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

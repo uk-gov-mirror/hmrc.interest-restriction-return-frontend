@@ -26,7 +26,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
   "in Normal mode" when {
 
-    "GET /group-interest-capacity" when {
+    "GET /about-return/group-interest-capacity" when {
 
       "user is authorised" should {
 
@@ -34,7 +34,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-interest-capacity")()
+          val res = getRequest("/about-return/group-interest-capacity")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-interest-capacity")()
+          val res = getRequest("/about-return/group-interest-capacity")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
       }
     }
 
-    "POST /group-interest-capacity" when {
+    "POST /about-return/group-interest-capacity" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-interest-capacity", Json.obj("value" -> 1))()
+            val res = postRequest("/about-return/group-interest-capacity", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-interest-capacity", Json.obj("value" -> 1))()
+          val res = postRequest("/about-return/group-interest-capacity", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
   "in Change mode" when {
 
-    "GET /group-interest-capacity" when {
+    "GET /about-return/group-interest-capacity" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-interest-capacity/change")()
+          val res = getRequest("/about-return/group-interest-capacity/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-interest-capacity/change")()
+          val res = getRequest("/about-return/group-interest-capacity/change")()
 
           whenReady(res) { result =>
             result should have(

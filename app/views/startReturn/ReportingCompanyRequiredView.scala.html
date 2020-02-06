@@ -25,7 +25,7 @@
 
 @()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(pageTitle = Some(titleNoForm("reportingCompanyRequired.title"))) {
+@govukLayout(pageTitle = Some(titleNoForm("reportingCompanyRequired.title", Some("section.startReturn")))) {
 
     @subheading("section.reportingCompany")
 

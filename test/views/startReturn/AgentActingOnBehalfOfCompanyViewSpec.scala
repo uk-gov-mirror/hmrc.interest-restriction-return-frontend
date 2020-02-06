@@ -29,19 +29,18 @@ import views.html.startReturn.AgentActingOnBehalfOfCompanyView
 class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "agentActingOnBehalfOfCompany"
-
+  val section = Some(messages("section.startReturn"))
   val form = new AgentActingOnBehalfOfCompanyFormProvider()()
 
-  Seq(Twirl).foreach { templatingSystem =>
 
-    s"AgentActingOnBehalfOfCompany ($templatingSystem) view" must {
+    s"AgentActingOnBehalfOfCompany view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[AgentActingOnBehalfOfCompanyView](Some(emptyUserAnswers))
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,9 +48,8 @@ class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AgentActingOnBehalfOfCompanyController.onSubmit(NormalMode).url)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AgentActingOnBehalfOfCompanyController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }
-  }
 }

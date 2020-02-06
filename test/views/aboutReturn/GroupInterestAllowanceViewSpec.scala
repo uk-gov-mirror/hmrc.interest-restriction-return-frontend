@@ -29,7 +29,7 @@ import views.html.aboutReturn.GroupInterestAllowanceView
 class GroupInterestAllowanceViewSpec extends DecimalViewBehaviours {
 
   val messageKeyPrefix = "groupInterestAllowance"
-
+  val section = Some(messages("section.aboutReturn"))
   val form = new GroupInterestAllowanceFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -41,7 +41,7 @@ class GroupInterestAllowanceViewSpec extends DecimalViewBehaviours {
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -49,7 +49,7 @@ class GroupInterestAllowanceViewSpec extends DecimalViewBehaviours {
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like decimalPage(form, applyView, messageKeyPrefix, routes.GroupInterestAllowanceController.onSubmit(NormalMode).url)
+      behave like decimalPage(form, applyView, messageKeyPrefix, routes.GroupInterestAllowanceController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }

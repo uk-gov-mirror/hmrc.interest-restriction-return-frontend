@@ -8,7 +8,7 @@
 
 @()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(pageTitle = Some(titleNoForm("$className;format="decap"$.title"))) {
+@govukLayout(pageTitle = Some(titleNoForm("$className;format="decap"$.title", Some("section.$section$")))) {
 
     @h1("$className;format="decap"$.heading")
 }

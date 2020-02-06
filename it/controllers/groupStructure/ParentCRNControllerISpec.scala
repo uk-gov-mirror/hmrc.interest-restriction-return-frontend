@@ -26,7 +26,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Normal mode" when {
 
-    "GET /parent-crn" when {
+    "GET /group-structure/parent-crn" when {
 
       "user is authorised" should {
 
@@ -34,7 +34,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/parent-crn")()
+          val res = getRequest("/group-structure/parent-crn")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/parent-crn")()
+          val res = getRequest("/group-structure/parent-crn")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "POST /parent-crn" when {
+    "POST /group-structure/parent-crn" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-crn", Json.obj("value" -> crn))()
+            val res = postRequest("/group-structure/parent-crn", Json.obj("value" -> crn))()
 
             whenReady(res) { result =>
               result should have(
@@ -90,7 +90,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-crn", Json.obj())()
+            val res = postRequest("/group-structure/parent-crn", Json.obj())()
 
             whenReady(res) { result =>
               result should have(
@@ -108,7 +108,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/parent-crn", Json.obj("value" -> crn))()
+          val res = postRequest("/group-structure/parent-crn", Json.obj("value" -> crn))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,7 +123,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Change mode" when {
 
-    "GET /parent-crn" when {
+    "GET /group-structure/parent-crn" when {
 
       "user is authorised" should {
 
@@ -131,7 +131,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/parent-crn/change")()
+          val res = getRequest("/group-structure/parent-crn/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -148,7 +148,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/parent-crn/change")()
+          val res = getRequest("/group-structure/parent-crn/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -160,7 +160,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "POST /parent-crn" when {
+    "POST /group-structure/parent-crn" when {
 
       "user is authorised" when {
 
@@ -170,7 +170,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
             AuthStub.authorised()
 
-            val res = postRequest("/parent-crn/change", Json.obj("value" -> crn))()
+            val res = postRequest("/group-structure/parent-crn/change", Json.obj("value" -> crn))()
 
             whenReady(res) { result =>
               result should have(
@@ -188,7 +188,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/parent-crn/change", Json.obj("value" -> crn))()
+          val res = postRequest("/group-structure/parent-crn/change", Json.obj("value" -> crn))()
 
           whenReady(res) { result =>
             result should have(
