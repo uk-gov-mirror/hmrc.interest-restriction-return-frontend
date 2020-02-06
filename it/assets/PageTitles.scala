@@ -20,6 +20,7 @@ object PageTitles {
   val reportingCompanyAppointed = "Has the reporting company been appointed"
   val reportingCompanyRequired = "A reporting company is required"
   val confirmation = "Return submitted"
+  val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
   val deemedParent = "Does the group have a ’deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
   val parentCRN = "Parent Company Registration Number"
