@@ -2,7 +2,7 @@ package assets
 
 object PageTitles {
 
-  val checkAnswersReportingCompany = "Check Your Answers for Reporting Company"
+  val checkAnswersReportingCompany = "Check your answers - About the reporting company"
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"
   val reportingCompanyName = "Reporting company name"
