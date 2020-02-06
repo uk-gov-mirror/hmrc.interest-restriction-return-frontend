@@ -29,8 +29,6 @@ class $className;format="cap"$Controller @Inject()(
                                        view: $className;format="cap"$View
                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[_], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm($className;format="cap"$Page, formProvider()), mode))
   }
