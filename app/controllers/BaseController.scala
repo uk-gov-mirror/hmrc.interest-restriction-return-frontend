@@ -24,7 +24,7 @@ import pages.QuestionPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.libs.json.{Format, Reads}
-import play.api.mvc.Result
+import play.api.mvc.{Request, Result}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -42,4 +42,10 @@ trait BaseController extends FrontendBaseController with I18nSupport with Enumer
       case Some(ans) => f(ans)
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
+
+  def getSessionData(key: String)(f: String => Future[Result])(implicit request: Request[_], errorHandler: ErrorHandler): Future[Result] =
+    request.session.get(key) match {
+      case Some(data) => f(data)
+      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+  }
 }

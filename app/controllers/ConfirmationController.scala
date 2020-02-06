@@ -16,15 +16,12 @@
 
 package controllers
 
-import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import controllers.actions._
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.requests.DataRequest
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.MessagesApi
 import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.ConfirmationView
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -34,18 +31,12 @@ class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents,
-                                       view: ConfirmationView,
-                                       errorHandler: ErrorHandler
-                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                       view: ConfirmationView
+                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
-  private def renderView(reference: String)(implicit request: DataRequest[_]) = Future.successful(view(reference))
-
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      request.session.get(SessionKeys.acknowledgementReference) match {
-        case Some(ref) => renderView(ref).map(Ok(_))
-        case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-      }
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    getSessionData(SessionKeys.acknowledgementReference) { ref =>
+      Future.successful(Ok(view(ref)))
+    }
   }
 }

@@ -33,37 +33,31 @@ import views.html.ContinueSavedReturnView
 
 import scala.concurrent.Future
 
-class ContinueSavedReturnController @Inject()(
-                                               override val messagesApi: MessagesApi,
-                                               sessionRepository: SessionRepository,
-                                               identify: IdentifierAction,
-                                               getData: DataRetrievalAction,
-                                               requireData: DataRequiredAction,
-                                               formProvider: ContinueSavedReturnFormProvider,
-                                               val controllerComponents: MessagesControllerComponents,
-                                               view: ContinueSavedReturnView,
-                                               startReturnNavigator: StartReturnNavigator,
-                                               aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
-                                               aboutReturnNavigator: AboutReturnNavigator
+class ContinueSavedReturnController @Inject()(override val messagesApi: MessagesApi,
+                                              sessionRepository: SessionRepository,
+                                              identify: IdentifierAction,
+                                              getData: DataRetrievalAction,
+                                              requireData: DataRequiredAction,
+                                              formProvider: ContinueSavedReturnFormProvider,
+                                              val controllerComponents: MessagesControllerComponents,
+                                              view: ContinueSavedReturnView,
+                                              startReturnNavigator: StartReturnNavigator,
+                                              aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
+                                              aboutReturnNavigator: AboutReturnNavigator
                                              )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
-  private def viewHtml(form: Form[ContinueSavedReturn])(implicit request: Request[_]) = Future.successful(view(form, NormalMode))
-
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(ContinueSavedReturnPage, formProvider())).map(Ok(_))
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ContinueSavedReturnPage, formProvider()), NormalMode))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors).map(BadRequest(_)),
-        {
-          case NewReturn => Future.successful(Redirect(controllers.routes.SavedReturnController.deleteAndStartAgain()))
-          case ContinueReturn => Future.successful(Redirect(controllers.routes.SavedReturnController.nextUnansweredPage()))
-        }
-      )
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        BadRequest(view(formWithErrors, NormalMode)),
+      {
+        case NewReturn => Redirect(controllers.routes.SavedReturnController.deleteAndStartAgain())
+        case ContinueReturn => Redirect(controllers.routes.SavedReturnController.nextUnansweredPage())
+      }
+    )
   }
 }

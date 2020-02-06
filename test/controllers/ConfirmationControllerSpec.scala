@@ -35,8 +35,7 @@ class ConfirmationControllerSpec extends SpecBase with FeatureSwitching with Moc
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    errorHandler = errorHandler
+    view = view
   )
 
   lazy val requestWithRef = fakeRequest.withSession(SessionKeys.acknowledgementReference -> reference)
