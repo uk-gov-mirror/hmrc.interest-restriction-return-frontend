@@ -19,8 +19,8 @@ import navigation.Navigator
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
-                                       sessionRepository: SessionRepository,
-                                       navigator: Navigator,
+                                       val sessionRepository: SessionRepository,
+                                       val navigator: Navigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
