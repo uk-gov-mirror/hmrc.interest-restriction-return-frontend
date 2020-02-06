@@ -73,4 +73,20 @@ awk '/val pages/ {\
     print "    $className;format="cap"$Page.toString -> $className;format="cap"$Page,";\
     next }1' ../app/pages/Page.scala > tmp && mv tmp ../app/pages/Page.scala
 
+echo "adding to Pages map spec"
+awk '/val expected/ {\
+    print;\
+    print "    $className;format="cap"$Page.toString -> $className;format="cap"$Page,";\
+    next }1' ../test/pages/PageSpec.scala > tmp && mv tmp ../test/pages/PageSpec.scala
+
+echo "adding to PageTitles"
+awk '/object PageTitles/ {\
+    print;\
+    print "  val $className;format="decap"$ = \"$title$\"";\
+    next }1' ../it/assets/PageTitles.scala > tmp && mv tmp ../it/assets/PageTitles.scala
+
+echo "adding route to integration test"
+
+sed -i "s|ROUTING_PLACEHOLDER|$section$\/\${kebabClassName}|g" ../generated-it/controllers/$className$ControllerISpec.scala
+
 echo "Migration $className;format="snake"$ completed"
