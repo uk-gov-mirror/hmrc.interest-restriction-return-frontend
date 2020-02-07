@@ -14,34 +14,31 @@
  * limitations under the License.
  */
 
-package controllers.groupStructure
+package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
-import controllers.groupStructure.{routes => groupStructureRoutes}
-import models.NormalMode
 
-class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-structure/deemed-parent" when {
+    "GET /elections/group-ratio-election" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/group-structure/deemed-parent")()
+          val res = getRequest("/elections/group-ratio-election")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.deemedParent)
+              titleOf(PageTitles.groupRatioElection)
             )
           }
         }
@@ -53,7 +50,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/deemed-parent")()
+          val res = getRequest("/elections/group-ratio-election")()
 
           whenReady(res) { result =>
             result should have(
@@ -65,39 +62,22 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
       }
     }
 
-    "POST /group-structure/deemed-parent" when {
+    "POST /elections/group-ratio-election" when {
 
       "user is authorised" when {
 
-        "enters true" when {
+        "enters a valid answer" when {
 
-          "redirect to ParentCompanyName page" in {
+          "redirect to GroupRatioElection page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/deemed-parent", Json.obj("value" -> true))()
+            val res = postRequest("/elections/group-ratio-election", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode).url)
-              )
-            }
-          }
-        }
-
-        "enters false" when {
-
-          "redirect to ParentCompanyName page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/group-structure/deemed-parent", Json.obj("value" -> false))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
@@ -110,7 +90,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/deemed-parent", Json.obj("value" -> true))()
+          val res = postRequest("/elections/group-ratio-election", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -125,7 +105,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
   "in Change mode" when {
 
-    "GET /group-structure/deemed-parent" when {
+    "GET /elections/group-ratio-election" when {
 
       "user is authorised" should {
 
@@ -133,12 +113,12 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-structure/deemed-parent/change")()
+          val res = getRequest("/elections/group-ratio-election/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.deemedParent)
+              titleOf(PageTitles.groupRatioElection)
             )
           }
         }
@@ -150,7 +130,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/deemed-parent/change")()
+          val res = getRequest("/elections/group-ratio-election/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -161,7 +141,5 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
         }
       }
     }
-
-    //TODO: Add Check Your Answers tests
   }
 }

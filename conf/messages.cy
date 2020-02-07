@@ -364,6 +364,7 @@ reportingCompanySameAsParent.heading = Is {0} also the parent company?
 reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
 
+
 # LimitedLiabilityPartnershipPage Messages
 # ----------------------------------------------------------
 limitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
@@ -388,3 +389,9 @@ countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.required = CountryOfIncorporation is optional
 countryOfIncorporation.error.length = CountryOfIncorporation must be 2 characters
 countryOfIncorporation.hint = (Optional)
+# GroupRatioElectionPage Messages
+# ----------------------------------------------------------
+groupRatioElection.title = Are you making a group ratio election?
+groupRatioElection.heading = Are you making a group ratio election?
+groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
+groupRatioElection.error.required = Select yes if you are making a group ratio election?

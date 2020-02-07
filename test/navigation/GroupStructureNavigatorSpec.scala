@@ -63,20 +63,6 @@ class GroupStructureNavigatorSpec extends SpecBase {
           navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
             groupRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
-
-        "go to the under construction page when given true" in {
-
-          val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
-
-          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
-        }
-
-        "go to the DeemedParentPage" in {
-
-          navigator.nextPage(DeemedParentPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.DeemedParentController.onPageLoad(NormalMode)
-        }
       }
 
       "from the ParentCompanyNamePage" should {

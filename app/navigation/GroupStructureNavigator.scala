@@ -34,11 +34,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
       case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
       case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
     }),
-    DeemedParentPage -> (_.get(DeemedParentPage) match {
-      case Some(false) => routes.ParentCompanyNameController.onPageLoad(NormalMode)
-      case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
-      case _ => routes.DeemedParentController.onPageLoad(NormalMode)
-    }),
+    DeemedParentPage -> (_ => routes.ParentCompanyNameController.onPageLoad(NormalMode)),
     ParentCompanyNamePage -> (_ => routes.PayTaxInUkController.onPageLoad(NormalMode)),
     PayTaxInUkPage -> (_.get(PayTaxInUkPage) match {
       case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)

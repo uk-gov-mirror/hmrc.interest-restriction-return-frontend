@@ -20,7 +20,6 @@ error.date.year_blank = Enter a year
 error.date.year_invalid = Give a correct year
 error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
-error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
@@ -70,6 +69,7 @@ section.agents = Agents
 section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
+section.elections = Elections
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -392,3 +392,9 @@ countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
 countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.invalid = Enter a valid country
 countryOfIncorporation.hint = (Optional)
+# GroupRatioElectionPage Messages
+# ----------------------------------------------------------
+groupRatioElection.title = Are you making a group ratio election?
+groupRatioElection.heading = Are you making a group ratio election?
+groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
+groupRatioElection.error.required = Select yes if you are making a group ratio election?

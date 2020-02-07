@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.groupStructure
 
-object SectionHeaderMessages {
+import pages.behaviours.PageBehaviours
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
+class ReportingCompanySameAsParentPageSpec extends PageBehaviours {
+
+  "ReportingCompanySameAsParentPage" must {
+
+    beRetrievable[Boolean](ReportingCompanySameAsParentPage)
+
+    beSettable[Boolean](ReportingCompanySameAsParentPage)
+
+    beRemovable[Boolean](ReportingCompanySameAsParentPage)
+  }
 }
