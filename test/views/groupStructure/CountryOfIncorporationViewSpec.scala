@@ -18,19 +18,21 @@ package views.groupStructure
 
 import assets.constants.BaseConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.groupStructure.routes.CountryOfIncorporationController
-import forms.CountryOfIncorporationFormProvider
+import controllers.groupStructure.routes
+import forms.groupStructure.CountryOfIncorporationFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.StringViewBehaviours
+import views.behaviours.AutocompleteViewBehaviours
 import views.html.groupStructure.CountryOfIncorporationView
 
-class CountryOfIncorporationViewSpec extends StringViewBehaviours with BaseConstants {
+class CountryOfIncorporationViewSpec extends AutocompleteViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "countryOfIncorporation"
   val section = Some(messages("section.groupStructure"))
-  val form = new CountryOfIncorporationFormProvider()()
+  val form = new CountryOfIncorporationFormProvider(frontendAppConfig)()
+
+  override val answerValue: String = frontendAppConfig.countryCodeMap("GB")
 
   "CountryOfIncorporationView" must {
 
@@ -49,10 +51,10 @@ class CountryOfIncorporationViewSpec extends StringViewBehaviours with BaseConst
 
     behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 
-    behave like stringPage(form,
+    behave like selectPage(form,
                            applyView,
                            messageKeyPrefix,
-                           CountryOfIncorporationController.onSubmit(NormalMode).url,
+                           routes.CountryOfIncorporationController.onSubmit(NormalMode).url,
                            section = section,
                            headingArgs = Seq(companyNameModel.name)
                           )

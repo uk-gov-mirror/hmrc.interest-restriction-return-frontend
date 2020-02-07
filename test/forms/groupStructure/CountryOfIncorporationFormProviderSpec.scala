@@ -14,40 +14,36 @@
  * limitations under the License.
  */
 
-package forms
+package forms.groupStructure
 
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.FormError
 
 class CountryOfIncorporationFormProviderSpec extends StringFieldBehaviours {
 
-  val requiredKey = "countryOfIncorporation.error.required"
-  val lengthKey = "countryOfIncorporation.error.length"
-  val maxLength = 2
+  val invalidKey = "countryOfIncorporation.error.invalid"
 
-  val form = new CountryOfIncorporationFormProvider()()
+  val form = new CountryOfIncorporationFormProvider(frontendAppConfig)()
 
   ".value" must {
 
     val fieldName = "value"
 
-    behave like fieldThatBindsValidData(
-      form,
-      fieldName,
-      stringsWithMaxLength(maxLength)
-    )
+    "be able to bind valid country codes" in {
+      frontendAppConfig.countryCodeMap.foreach { case (_, country) =>
+        val result = form.bind(Map(fieldName -> country)).apply(fieldName)
+        result.value.value mustBe country
+      }
+    }
 
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
-    )
+    "return an error for invalid country" in {
+      val result = form.bind(Map(fieldName -> "abc")).apply(fieldName)
+      result.errors mustEqual Seq(FormError(fieldName, invalidKey))
+    }
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "be optional" in {
+      val result = form.bind(emptyForm).apply(fieldName)
+      result.value mustBe None
+    }
   }
 }

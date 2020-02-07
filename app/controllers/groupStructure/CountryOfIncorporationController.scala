@@ -17,17 +17,14 @@
 package controllers.groupStructure
 
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
-import forms.CountryOfIncorporationFormProvider
+import forms.groupStructure.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
-import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{CountryOfIncorporationPage, ParentCompanyNamePage}
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -35,45 +32,31 @@ import views.html.groupStructure.CountryOfIncorporationView
 
 import scala.concurrent.Future
 
-class CountryOfIncorporationController @Inject()(
-                                                  override val messagesApi: MessagesApi,
-                                                  sessionRepository: SessionRepository,
-                                                  navigator: GroupStructureNavigator,
-                                                  identify: IdentifierAction,
-                                                  getData: DataRetrievalAction,
-                                                  requireData: DataRequiredAction,
-                                                  formProvider: CountryOfIncorporationFormProvider,
-                                                  val controllerComponents: MessagesControllerComponents,
-                                                  view: CountryOfIncorporationView,
-                                                  errorHandler: ErrorHandler
-                                                )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+class CountryOfIncorporationController @Inject()(override val messagesApi: MessagesApi,
+                                                 val sessionRepository: SessionRepository,
+                                                 val navigator: GroupStructureNavigator,
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 formProvider: CountryOfIncorporationFormProvider,
+                                                 val controllerComponents: MessagesControllerComponents,
+                                                 view: CountryOfIncorporationView
+                                                )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
-      case Some(companyName) => f(companyName)
-      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage) { name =>
+      Future.successful(Ok(view(fillForm(CountryOfIncorporationPage, formProvider()), mode, name)))
     }
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      companyNamePredicate { name =>
-        Future.successful(Ok(view(fillForm(CountryOfIncorporationPage, formProvider()), mode, name)))
-      }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors => companyNamePredicate { name =>
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        answerFor(ParentCompanyNamePage) { name =>
           Future.successful(BadRequest(view(formWithErrors, mode, name)))
         },
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(CountryOfIncorporationPage, value))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers))
-      )
+      value =>
+        saveAndRedirect(CountryOfIncorporationPage, value, mode)
+    )
   }
 }

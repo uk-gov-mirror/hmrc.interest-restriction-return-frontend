@@ -30,4 +30,6 @@ object PageTitles {
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
   val limitedLiabilityPartnership: String => String = name => s"Is $name a Limited Liability Partnership?"
+  val countryOfIncorporation: String => String = name => s"Where is $name registered for tax?"
+
 }

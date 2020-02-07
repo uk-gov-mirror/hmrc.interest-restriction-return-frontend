@@ -21,7 +21,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.CountryOfIncorporationFormProvider
+import forms.groupStructure.CountryOfIncorporationFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.groupStructure.{CountryOfIncorporationPage, ParentCompanyNamePage}
@@ -43,8 +43,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    errorHandler = errorHandler
+    view = view
   )
 
   "CountryOfIncorporation Controller" must {
@@ -76,7 +75,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "US"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", frontendAppConfig.countryCodeMap("US")))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
@@ -93,7 +92,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
 
       mockGetAnswers(Some(userAnswers))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "Invalid Country Name"))
 
       val result = Controller.onSubmit(NormalMode)(request)
 

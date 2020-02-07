@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package forms
+package forms.groupStructure
 
-import javax.inject.Inject
-
+import config.FrontendAppConfig
 import forms.mappings.Mappings
+import javax.inject.Inject
 import play.api.data.Form
+import play.api.data.Forms.optional
 
-class CountryOfIncorporationFormProvider @Inject() extends Mappings {
+class CountryOfIncorporationFormProvider @Inject()(appConfig: FrontendAppConfig) extends Mappings {
 
   def apply(): Form[String] =
     Form(
-      "value" -> text("countryOfIncorporation.error.required")
-        .verifying(maxLength(2, "countryOfIncorporation.error.length"))
+      "value" -> optional(
+        text("countryOfIncorporation.error.required")
+        .verifying(keyExists(appConfig.countryCodes.map(_.country), "countryOfIncorporation.error.invalid"))
+      ).transform[String](_.fold("")(countryCode => countryCode), answer => Some(answer))
     )
 }

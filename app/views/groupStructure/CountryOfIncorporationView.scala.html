@@ -28,12 +28,13 @@
     fieldset: components.fieldset,
     link: components.link,
     subheading: components.subheading,
-    saveForLater: components.saveForLater
+    saveForLater: components.saveForLater,
+    autocomplete: components.autocomplete
 )
 
 @(form: Form[_], mode: Mode, companyName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "countryOfIncorporation.title", Some("section.groupStructure"), Seq(companyName)))) {
+@govukLayout(pageTitle = Some(title(form, "countryOfIncorporation.title", Some("section.groupStructure"), Seq(companyName))), js = Some(autocompleteJs)) {
 
     @formHelper(action = CountryOfIncorporationController.onSubmit(mode)) {
 
@@ -41,15 +42,16 @@
 
         @subheading("section.groupStructure")
 
-        @inputText(
-                form,
-                id = "value",
-                name = "value",
-                label = "countryOfIncorporation.label",
-                isPageHeading = true,
-                headingMessageArgs = Seq(companyName),
-                hint = Some(hint)
-                )
+        @autocomplete(
+            form,
+            id = "countryCode",
+            name = "value",
+            label = "countryOfIncorporation.label",
+            isPageHeading = true,
+            autocompleteOptions = Seq("") ++ appConfig.countryCodes.map(_.country),
+            headingMessageArgs = Seq(companyName),
+            hint = Some(hint)
+        )
 
         @button("site.saveAndContinue")
 
@@ -61,3 +63,19 @@
     @messages("countryOfIncorporation.hint")
 }
 
+@autocompleteJs = {
+    <script type="text/javascript">
+            accessibleAutocomplete.enhanceSelectElement({
+                defaultValue: '@form.value.fold("")(x => x)',
+                selectElement: document.querySelector('#value'),
+                id: "value",
+                autoselect: true,
+                name: "value"
+            })
+
+            $("#value").removeClass().addClass("govuk-input");
+            if (@{form.hasErrors}) {
+                $("#value").addClass("govuk-input--error");
+            };
+    </script>
+}
