@@ -71,7 +71,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
         "enters true" when {
 
-          "redirect to InfrastructureCompanyElection page" in {
+          "redirect to ParentCompanyName page" in {
 
             AuthStub.authorised()
 
@@ -88,7 +88,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
         "enters false" when {
 
-          "redirect to InfrastructureCompanyElection page" in {
+          "redirect to ParentCompanyName page" in {
 
             AuthStub.authorised()
 
