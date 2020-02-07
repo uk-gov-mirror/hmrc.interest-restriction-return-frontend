@@ -25,8 +25,6 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class SavedReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
-  val ackRef = "abc123"
-
   "GET /saved-return" when {
 
     "user is authorised" when {

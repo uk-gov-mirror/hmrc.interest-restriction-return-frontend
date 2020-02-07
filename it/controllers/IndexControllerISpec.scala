@@ -25,23 +25,24 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
-  val ackRef = "abc123"
-
   "GET /" when {
 
     "user is authorised" when {
 
-      "return SEE_OTHER (303)" in {
+      "there are no existing user answers" should {
 
-        AuthStub.authorised()
+        "return SEE_OTHER (303)" in {
 
-        val res = getRequest("/")()
+          AuthStub.authorised()
 
-        whenReady(res) { result =>
-          result should have(
-            httpStatus(SEE_OTHER),
-            redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
-          )
+          val res = getRequest("/")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
+            )
+          }
         }
       }
 
