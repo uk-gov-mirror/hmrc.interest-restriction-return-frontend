@@ -26,6 +26,7 @@ trait BaseConstants {
   val crnModel = CRNModel("12345678")
   val crnLetters = CRNModel("AB123456")
   val companyNameModel = CompanyNameModel("Company Name ltd")
+  val companyNameModelS = CompanyNameModel("Company Name ltds")
   val knownAs = "something"
   val companyNameMaxLength = 160
   val companyNameTooLong = CompanyNameModel("a" * (companyNameMaxLength + 1))

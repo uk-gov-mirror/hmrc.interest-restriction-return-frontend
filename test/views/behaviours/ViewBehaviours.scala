@@ -19,13 +19,15 @@ package views.behaviours
 import assets.messages.BaseMessages
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
+import views.ViewUtils._
 
 trait ViewBehaviours extends ViewSpecBase {
 
   def normalPage(view: HtmlFormat.Appendable,
                  messageKeyPrefix: String,
                  headingArgs: Seq[String] = Seq(),
-                 section: Option[String] = None): Unit = {
+                 section: Option[String] = None,
+                 possession: Boolean = false): Unit = {
 
     "behave like a normal page" when {
 
@@ -34,13 +36,21 @@ trait ViewBehaviours extends ViewSpecBase {
         "display the correct browser title" in {
 
           val doc = asDocument(view)
-          assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section))
+          if(possession){
+            assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title", addPossessive(headingArgs)), section))
+          } else {
+            assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section))
+          }
         }
 
         "display the correct page heading" in {
 
           val doc = asDocument(view)
-          assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", headingArgs:_*)
+          if(possession){
+            assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", addPossessive(headingArgs))
+          } else {
+            assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", headingArgs:_*)
+          }
         }
 
         if (frontendAppConfig.languageTranslationEnabled) {
