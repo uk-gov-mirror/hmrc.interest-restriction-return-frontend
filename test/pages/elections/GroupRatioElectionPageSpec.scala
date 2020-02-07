@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.elections
 
-object SectionHeaderMessages {
+import pages.behaviours.PageBehaviours
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
+class GroupRatioElectionPageSpec extends PageBehaviours {
+
+  "GroupRatioElectionPage" must {
+
+    beRetrievable[Boolean](GroupRatioElectionPage)
+
+    beSettable[Boolean](GroupRatioElectionPage)
+
+    beRemovable[Boolean](GroupRatioElectionPage)
+  }
 }
