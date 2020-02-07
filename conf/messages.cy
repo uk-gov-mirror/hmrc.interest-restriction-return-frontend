@@ -66,6 +66,7 @@ section.agents = Agents
 section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
+section.elections = Elections
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -379,3 +380,10 @@ registeredForTaxInAnotherCountry.title = Is {0} registered for tax in another co
 registeredForTaxInAnotherCountry.heading = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.checkYourAnswersLabel = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registered for tax in another country
+
+# GroupRatioElectionPage Messages
+# ----------------------------------------------------------
+groupRatioElection.title = Are you making a group ratio election?
+groupRatioElection.heading = Are you making a group ratio election?
+groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
+groupRatioElection.error.required = Select yes if you are making a group ratio election?

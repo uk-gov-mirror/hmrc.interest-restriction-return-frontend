@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.elections
 
-object SectionHeaderMessages {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
+class GroupRatioElectionFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("groupRatioElection.error.required")
+    )
 }

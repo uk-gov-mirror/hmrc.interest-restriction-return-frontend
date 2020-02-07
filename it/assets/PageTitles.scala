@@ -1,7 +1,7 @@
 package assets
 
 object PageTitles {
-
+  val groupRatioElection = "Are you making a group ratio election?"
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"
