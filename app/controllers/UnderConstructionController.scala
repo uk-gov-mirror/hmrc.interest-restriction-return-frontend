@@ -36,10 +36,7 @@ class UnderConstructionController @Inject()(override val messagesApi: MessagesAp
                                            )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
-  private def renderView(implicit request: Request[_]) = Future.successful(view())
-
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      renderView.map(Ok(_))
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view())
   }
 }

@@ -1,0 +1,9 @@
+# Elections Section Routes
+# ===========================
+
+### GroupRatioElection Controller
+### ----------------------------------------
+GET        /group-ratio-election                          controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ratio-election                          controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ratio-election/change                   controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ratio-election/change                   controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = CheckMode)

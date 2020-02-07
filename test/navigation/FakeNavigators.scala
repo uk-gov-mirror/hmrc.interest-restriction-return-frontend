@@ -23,7 +23,7 @@ import play.api.mvc.Call
 
 object FakeNavigators extends SpecBase {
 
-  trait FakeNavigator extends BaseNavigator {
+  trait FakeNavigator extends Navigator {
     override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
   }
 
@@ -31,4 +31,5 @@ object FakeNavigators extends SpecBase {
   object FakeAboutReportingCompanyNavigator extends AboutReportingCompanyNavigator() with FakeNavigator
   object FakeAboutReturnNavigator extends AboutReturnNavigator() with FakeNavigator
   object FakeGroupStructureNavigator extends GroupStructureNavigator() with FakeNavigator
+  object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
 }

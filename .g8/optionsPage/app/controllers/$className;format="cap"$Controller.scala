@@ -14,38 +14,30 @@ import views.html.$className;format="cap"$View
 import play.api.data.Form
 
 import scala.concurrent.Future
+import navigation.Navigator
 
 class $className;format="cap"$Controller @Inject()(
                                   override val messagesApi: MessagesApi,
-                                  sessionRepository: SessionRepository,
-                                  navigator: Navigator,
+                                  val sessionRepository: SessionRepository,
+                                  val navigator: Navigator,
                                   identify: IdentifierAction,
                                   getData: DataRetrievalAction,
                                   requireData: DataRequiredAction,
                                   formProvider: $className;format="cap"$FormProvider,
                                   val controllerComponents: MessagesControllerComponents,
                                   view: $className;format="cap"$View
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[$className;format="cap"$], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm($className;format="cap"$Page, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm($className;format="cap"$Page, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set($className;format="cap"$Page, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage($className;format="cap"$Page, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect($className;format="cap"$Page, value, mode)
+    )
   }
 }

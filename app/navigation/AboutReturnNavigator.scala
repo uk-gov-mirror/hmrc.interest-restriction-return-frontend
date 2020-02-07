@@ -26,7 +26,7 @@ import pages.aboutReturn._
 import play.api.mvc.Call
 
 @Singleton
-class AboutReturnNavigator @Inject()() extends BaseNavigator {
+class AboutReturnNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     RevisingReturnPage -> (_.get(RevisingReturnPage) match {

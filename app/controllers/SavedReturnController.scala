@@ -43,14 +43,11 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       startReturnNavigator: StartReturnNavigator,
                                       aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
                                       aboutReturnNavigator: AboutReturnNavigator
-                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
-  private def renderView(savedTil: String)(implicit request: Request[_]) = Future.successful(view(savedTil))
-
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
       val savedTilDate = LocalDate.now().plusDays(appConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))
-      renderView(savedTilDate).map(Ok(_))
+      Ok(view(savedTilDate))
   }
 
   def nextUnansweredPage: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

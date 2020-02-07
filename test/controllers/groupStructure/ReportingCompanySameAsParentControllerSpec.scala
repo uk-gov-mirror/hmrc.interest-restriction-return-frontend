@@ -44,8 +44,7 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    errorHandler = errorHandler
+    view = view
   )
 
   "ReportingCompanySameAsParent Controller" must {

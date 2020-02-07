@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package navigation
+package pages.groupStructure
 
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import pages.behaviours.PageBehaviours
 
-abstract class BaseNavigator {
+class ReportingCompanySameAsParentPageSpec extends PageBehaviours {
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call
+  "ReportingCompanySameAsParentPage" must {
 
+    beRetrievable[Boolean](ReportingCompanySameAsParentPage)
+
+    beSettable[Boolean](ReportingCompanySameAsParentPage)
+
+    beRemovable[Boolean](ReportingCompanySameAsParentPage)
+  }
 }

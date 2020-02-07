@@ -22,6 +22,5 @@ object SectionHeaderMessages {
   val reportingCompany = "About the reporting company"
   val agents = "Agents"
   val groupStructure = "Group structure"
-
-
+  val elections = "Elections"
 }

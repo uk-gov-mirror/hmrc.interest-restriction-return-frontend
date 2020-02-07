@@ -45,8 +45,7 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    errorHandler = errorHandler
+    view = view
   )
 
   "PayTaxInUk Controller" must {

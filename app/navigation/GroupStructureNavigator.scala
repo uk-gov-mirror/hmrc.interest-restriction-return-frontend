@@ -25,7 +25,7 @@ import play.api.mvc.Call
 import controllers.groupStructure.routes
 
 @Singleton
-class GroupStructureNavigator @Inject()() extends BaseNavigator {
+class GroupStructureNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
@@ -34,11 +34,7 @@ class GroupStructureNavigator @Inject()() extends BaseNavigator {
       case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
       case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
     }),
-    DeemedParentPage -> (_.get(DeemedParentPage) match {
-      case Some(false) => routes.ParentCompanyNameController.onPageLoad(NormalMode)
-      case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
-      case _ => routes.DeemedParentController.onPageLoad(NormalMode)
-    }),
+    DeemedParentPage -> (_ => routes.ParentCompanyNameController.onPageLoad(NormalMode)),
     ParentCompanyNamePage -> (_ => routes.PayTaxInUkController.onPageLoad(NormalMode)),
     PayTaxInUkPage -> (_.get(PayTaxInUkPage) match {
       case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)

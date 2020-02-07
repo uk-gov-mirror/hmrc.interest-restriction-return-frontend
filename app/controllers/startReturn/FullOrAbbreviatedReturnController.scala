@@ -18,14 +18,13 @@ package controllers.startReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.startReturn.FullOrAbbreviatedReturnFormProvider
 import javax.inject.Inject
-import models.{FullOrAbbreviatedReturn, Mode}
+import models.Mode
 import navigation.StartReturnNavigator
 import pages.startReturn.FullOrAbbreviatedReturnPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,37 +32,27 @@ import views.html.startReturn.FullOrAbbreviatedReturnView
 
 import scala.concurrent.Future
 
-class FullOrAbbreviatedReturnController @Inject()(
-                                                   override val messagesApi: MessagesApi,
-                                                   sessionRepository: SessionRepository,
-                                                   navigator: StartReturnNavigator,
-                                                   identify: IdentifierAction,
-                                                   getData: DataRetrievalAction,
-                                                   requireData: DataRequiredAction,
-                                                   formProvider: FullOrAbbreviatedReturnFormProvider,
-                                                   val controllerComponents: MessagesControllerComponents,
-                                                   view: FullOrAbbreviatedReturnView
-                                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+class FullOrAbbreviatedReturnController @Inject()(override val messagesApi: MessagesApi,
+                                                  val sessionRepository: SessionRepository,
+                                                  val navigator: StartReturnNavigator,
+                                                  identify: IdentifierAction,
+                                                  getData: DataRetrievalAction,
+                                                  requireData: DataRequiredAction,
+                                                  formProvider: FullOrAbbreviatedReturnFormProvider,
+                                                  val controllerComponents: MessagesControllerComponents,
+                                                  view: FullOrAbbreviatedReturnView
+                                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  private def viewHtml(form: Form[FullOrAbbreviatedReturn], mode: Mode)(implicit request: Request[_]) = Future.successful(view(form, mode))
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      viewHtml(fillForm(FullOrAbbreviatedReturnPage, formProvider()), mode).map(Ok(_))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(FullOrAbbreviatedReturnPage, formProvider()), mode))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          viewHtml(formWithErrors, mode).map(BadRequest(_)),
-
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(FullOrAbbreviatedReturnPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(FullOrAbbreviatedReturnPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(view(formWithErrors, mode))),
+      value =>
+        saveAndRedirect(FullOrAbbreviatedReturnPage, value, mode)
+    )
   }
 }

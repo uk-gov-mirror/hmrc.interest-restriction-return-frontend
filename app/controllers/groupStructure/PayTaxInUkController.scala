@@ -18,14 +18,12 @@ package controllers.groupStructure
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
+import forms.groupStructure.PayTaxInUkFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-
-import forms.groupStructure.PayTaxInUkFormProvider
 import models.Mode
-import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
@@ -35,44 +33,31 @@ import views.html.groupStructure.PayTaxInUkView
 
 import scala.concurrent.Future
 
-class PayTaxInUkController @Inject()(
-                                      override val messagesApi: MessagesApi,
-                                      sessionRepository: SessionRepository,
-                                      navigator: GroupStructureNavigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: PayTaxInUkFormProvider,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: PayTaxInUkView,
-                                      errorHandler: ErrorHandler
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
+                                     val sessionRepository: SessionRepository,
+                                     val navigator: GroupStructureNavigator,
+                                     identify: IdentifierAction,
+                                     getData: DataRetrievalAction,
+                                     requireData: DataRequiredAction,
+                                     formProvider: PayTaxInUkFormProvider,
+                                     val controllerComponents: MessagesControllerComponents,
+                                     view: PayTaxInUkView
+                                    )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
-      case Some(companyName) => f(companyName)
-      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-    }
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => companyNamePredicate { name =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage) { name =>
       Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider()), mode, name)))
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          companyNamePredicate { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name)))
-          },
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(PayTaxInUkPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers))
-      )
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        answerFor(ParentCompanyNamePage) { name =>
+          Future.successful(BadRequest(view(formWithErrors, mode, name)))
+        },
+      value =>
+        saveAndRedirect(PayTaxInUkPage, value, mode)
+    )
   }
 }

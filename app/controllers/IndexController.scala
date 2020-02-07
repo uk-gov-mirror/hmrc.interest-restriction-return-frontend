@@ -30,8 +30,7 @@ class IndexController @Inject()(identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 sessionRepository: SessionRepository,
                                 navigator: StartReturnNavigator,
-                                val controllerComponents: MessagesControllerComponents
-                               ) extends BaseController {
+                                val controllerComponents: MessagesControllerComponents) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.fold(UserAnswers(request.internalId))(x => x)

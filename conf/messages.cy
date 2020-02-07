@@ -69,6 +69,7 @@ section.agents = Agents
 section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
+section.elections = Elections
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -381,7 +382,8 @@ registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registere
 limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
-limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership
+limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
+
 
 # LocalRegistrationNumberPage Messages
 # ----------------------------------------------------------
@@ -391,3 +393,11 @@ localRegistrationNumber.checkYourAnswersLabel = Enter {0} local Registration Num
 localRegistrationNumber.label= Enter {0} local Registration Number
 localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
 localRegistrationNumber.hint = (optional)
+
+
+# GroupRatioElectionPage Messages
+# ----------------------------------------------------------
+groupRatioElection.title = Are you making a group ratio election?
+groupRatioElection.heading = Are you making a group ratio election?
+groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
+groupRatioElection.error.required = Select yes if you are making a group ratio election?
