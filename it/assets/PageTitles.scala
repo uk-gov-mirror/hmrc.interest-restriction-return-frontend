@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"
@@ -20,6 +21,7 @@ object PageTitles {
   val reportingCompanyAppointed = "Has the reporting company been appointed"
   val reportingCompanyRequired = "A reporting company is required"
   val confirmation = "Return submitted"
+  val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
   val deemedParent = "Does the group have a ’deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
   val parentCRN = "Parent Company Registration Number"
@@ -28,6 +30,7 @@ object PageTitles {
   val parentCompanySAUTR = "Parent company Self Assessment Unique Tax Payer Reference"
   val parentCompanyCTUTR = "Parent Company Corporation Unique Tax Payer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
+  val savedReturn = "Your return has been saved"
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
   val limitedLiabilityPartnership: String => String = name => s"Is $name a Limited Liability Partnership?"
 }
