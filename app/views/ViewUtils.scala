@@ -23,7 +23,11 @@ object ViewUtils {
 
   def title(form: Form[_], titleStr: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq(),
             possession: Boolean = false)(implicit messages: Messages): String = {
-    titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, if(possession) addPossessive(titleMessageArgs) else titleMessageArgs)}", section)
+    if(possession){
+      titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, addPossessive(titleMessageArgs))}", section)
+    } else {
+      titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, titleMessageArgs:_*)}", section)
+    }
   }
 
   def titleNoForm(title: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq())(implicit messages: Messages): String =
@@ -33,8 +37,10 @@ object ViewUtils {
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
   }
 
-  def addPossessive(name: Seq[String]): String = name match {
-      case l if l.headOption.getOrElse("").last.toLower == 's' => s"${name:_*}’"
-      case _ => s"${name:_*}’s"
+  def addPossessive(name: Seq[String]): String = {
+    name match {
+      case h::_ if h.last.toLower == 's' => s"$name’"
+      case _ => s"${name.head}’s"
+    }
   }
 }
