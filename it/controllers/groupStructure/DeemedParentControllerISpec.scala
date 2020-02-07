@@ -71,7 +71,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
 
         "enters true" when {
 
-          "redirect to UnderConstruction page" in {
+          "redirect to InfrastructureCompanyElection page" in {
 
             AuthStub.authorised()
 
@@ -80,7 +80,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode).url)
               )
             }
           }
