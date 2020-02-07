@@ -93,7 +93,7 @@ class LocalRegistrationNumberControllerSpec extends SpecBase with FeatureSwitchi
 
       mockGetAnswers(Some(userAnswers))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"*101))
 
       val result = Controller.onSubmit(NormalMode)(request)
 

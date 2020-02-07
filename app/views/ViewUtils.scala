@@ -39,7 +39,7 @@ object ViewUtils {
 
   def addPossessive(name: Seq[String]): String = {
     name match {
-      case h::_ if h.last.toLower == 's' => s"$name’"
+      case h::_ if h.last.toLower == 's' => s"$h’"
       case _ => s"${name.head}’s"
     }
   }

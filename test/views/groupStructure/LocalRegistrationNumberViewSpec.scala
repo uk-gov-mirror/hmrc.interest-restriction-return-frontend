@@ -17,7 +17,7 @@
 package views.groupStructure
 
 import assets.constants.BaseConstants
-import assets.messages.groupStructure.ParentCompanyCTUTRMessages
+import assets.messages.groupStructure.LocalRegistrationNumberMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.routes
 import forms.groupStructure.LocalRegistrationNumberFormProvider
@@ -66,7 +66,16 @@ class LocalRegistrationNumberViewSpec extends StringViewBehaviours with BaseCons
       lazy val hint = document.select(Selectors.hint)
 
       "has the correct text" in {
-        hint.text mustBe ParentCompanyCTUTRMessages.hint
+        hint.text mustBe LocalRegistrationNumberMessages.hint
+      }
+    }
+
+    "have " which {
+
+      lazy val hint = document.select(Selectors.label)
+
+      "has the correct text" in {
+        hint.text mustBe LocalRegistrationNumberMessages.hint
       }
     }
   }

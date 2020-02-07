@@ -19,5 +19,6 @@ package assets.messages.groupStructure
 object LocalRegistrationNumberMessages {
 
   val hint = "(optional)"
+  val label = "Enter Seline Ladon’s local Registration Number"
 
 }
