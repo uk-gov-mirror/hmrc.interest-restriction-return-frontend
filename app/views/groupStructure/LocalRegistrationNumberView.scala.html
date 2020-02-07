@@ -1,0 +1,63 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.groupStructure.routes._
+@import models.Mode
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        inputText: components.inputText,
+        button: components.button,
+        subheading: components.subheading,
+        saveForLater: components.saveForLater
+)
+
+@(form: Form[_], mode: Mode, companyName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+    @govukLayout(
+        pageTitle = Some(title(form, "localRegistrationNumber.title", Some("section.groupStructure"), Seq(companyName), possession = true))
+    ) {
+
+        @formHelper(action = LocalRegistrationNumberController.onSubmit(mode)) {
+
+            @errorSummary(form.errors)
+
+            @subheading("section.groupStructure")
+
+            @inputText(
+                form,
+                id = "value",
+                name = "value",
+                label = "localRegistrationNumber.label",
+                isPageHeading = true,
+                hint = Some(hint),
+                headingMessageArgs = Seq(companyName),
+                possession = true
+            )
+            @button("site.saveAndContinue")
+
+            @saveForLater()
+        }
+    }
+
+    @hint = {
+    @messages("localRegistrationNumber.hint")
+    }
+    

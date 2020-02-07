@@ -31,4 +31,5 @@ object PageTitles {
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
   val limitedLiabilityPartnership: String => String = name => s"Is $name a Limited Liability Partnership?"
+  val localRegistrationNumber: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} local Registration Number"
 }

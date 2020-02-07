@@ -34,6 +34,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def localRegistrationNumber: Option[SummaryListRow] = answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(CheckMode))
+
   def registeredForTaxInAnotherCountry: Option[SummaryListRow] = answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(CheckMode))
 
   def parentCRN: Option[SummaryListRow] = answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(CheckMode))
