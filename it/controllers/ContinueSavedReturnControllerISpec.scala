@@ -66,7 +66,7 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
 
     "user is authorised" when {
 
-      "enters true" should {
+      "enters NewReturn" should {
 
         "redirect to under Limited Liability Partnership page" in {
 
@@ -83,7 +83,7 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
         }
       }
 
-      "enters false" should {
+      "enters ContinueReturn" should {
 
         "redirect to under construction page" in {
 
@@ -102,19 +102,16 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
 
       "enters an invalid answer" when {
 
-        "user answer for parent company name exists" should {
+        "return a BAD_REQUEST (400)" in {
 
-          "return a BAD_REQUEST (400)" in {
+          AuthStub.authorised()
 
-            AuthStub.authorised()
+          val res = postRequest("/continue-saved-return", Json.obj("value" -> ""))()
 
-            val res = postRequest("/continue-saved-return", Json.obj("value" -> ""))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(BAD_REQUEST)
-              )
-            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(BAD_REQUEST)
+            )
           }
         }
       }
