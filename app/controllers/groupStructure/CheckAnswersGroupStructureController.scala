@@ -33,6 +33,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersHelper
 import views.html.CheckYourAnswersView
+import controllers.BaseController
+import handlers.ErrorHandler
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -44,37 +46,26 @@ class CheckAnswersGroupStructureController @Inject()(
                                                       val controllerComponents: MessagesControllerComponents,
                                                       navigator: GroupStructureNavigator,
                                                       view: CheckYourAnswersView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseController {
 
   private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, ReportingCompany, postAction))
 
-  private def parentCompanyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
-      case Some(parentCompanyName) => f(parentCompanyName)
-      case _ => f("the parent company")
-    }
-
-  private def reportingCompanyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ReportingCompanyNamePage) match {
-      case Some(reportingCompanyName) => f(reportingCompanyName)
-      case _ => f("the parent company")
-    }
-
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      reportingCompanyNamePredicate { reportingCompanyName =>
-        parentCompanyNamePredicate { parentCompanyName =>
+
+      answerFor(ReportingCompanyNamePage) { reportingCompanyName =>
+        answerFor(ParentCompanyNamePage) { parentCompanyName =>
 
           val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
           val sections = Seq(
-            checkYourAnswersHelper.reportingCompanySameAsParent,
+            checkYourAnswersHelper.reportingCompanySameAsParent(reportingCompanyName),
             checkYourAnswersHelper.deemedParent,
             checkYourAnswersHelper.parentCompanyName,
-            checkYourAnswersHelper.payTaxInUk,
+            checkYourAnswersHelper.payTaxInUk(parentCompanyName),
             checkYourAnswersHelper.registeredForTaxInAnotherCountry,
-            checkYourAnswersHelper.limitedLiabilityPartnership,
+            checkYourAnswersHelper.limitedLiabilityPartnership(parentCompanyName),
             checkYourAnswersHelper.parentCompanyCTUTR,
             checkYourAnswersHelper.parentCompanySAUTR,
             checkYourAnswersHelper.registeredCompaniesHouse,
