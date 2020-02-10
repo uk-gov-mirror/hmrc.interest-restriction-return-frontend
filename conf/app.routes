@@ -13,6 +13,7 @@ GET        /                                            controllers.IndexControl
 ->         /reporting-company                           aboutReportingCompany.Routes
 ->     	   /group-structure                             groupStructure.Routes
 ->         /about-return                                aboutReturn.Routes
+->         /elections                                   elections.Routes
 
 ### Error Pages
 ### -----------

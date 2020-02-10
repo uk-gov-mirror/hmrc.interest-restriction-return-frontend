@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.groupStructure
+package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
@@ -23,24 +23,23 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-structure/parent-crn" when {
+    "GET /elections/enter-angie" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/group-structure/parent-crn")()
+          val res = getRequest("/elections/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.parentCRN)
+              titleOf(PageTitles.enterANGIE)
             )
           }
         }
@@ -52,7 +51,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-crn")()
+          val res = getRequest("/elections/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,39 +63,22 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "POST /group-structure/parent-crn" when {
+    "POST /elections/enter-angie" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to under construction page" in {
+          "redirect to EnterANGIE page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/parent-crn", Json.obj("value" -> crn))()
+            val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
-              )
-            }
-          }
-        }
-
-        "enters a no answer" when {
-
-          "redirect to under construction page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/group-structure/parent-crn", Json.obj())()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
@@ -109,7 +91,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-crn", Json.obj("value" -> crn))()
+          val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +106,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Change mode" when {
 
-    "GET /group-structure/parent-crn" when {
+    "GET /elections/enter-angie" when {
 
       "user is authorised" should {
 
@@ -132,12 +114,12 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-structure/parent-crn/change")()
+          val res = getRequest("/elections/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.parentCRN)
+              titleOf(PageTitles.enterANGIE)
             )
           }
         }
@@ -149,47 +131,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-crn/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-
-    "POST /group-structure/parent-crn/change" when {
-
-      "user is authorised" when {
-
-        "enters a valid answer" when {
-
-          "redirect to CheckYourAnswers page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/group-structure/parent-crn/change", Json.obj("value" -> crn))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
-              )
-            }
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = postRequest("/group-structure/parent-crn/change", Json.obj("value" -> crn))()
+          val res = getRequest("/elections/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(

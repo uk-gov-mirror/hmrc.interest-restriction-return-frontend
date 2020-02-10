@@ -17,6 +17,7 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import pages.aboutReportingCompany.ReportingCompanyNamePage
 import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
@@ -100,7 +101,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
               )
             }
           }

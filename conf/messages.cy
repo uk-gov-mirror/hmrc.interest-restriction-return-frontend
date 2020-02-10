@@ -28,6 +28,7 @@ session_expired.title = For your security, this service has been reset
 session_expired.heading = For your security, this service has been reset
 session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
 
+
 # UnderConstructionPage Messages
 # ----------------------------------------------------------
 underConstruction.title = This page is under construction
@@ -53,6 +54,7 @@ site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.submitReturn = Submit a Corporate Interest Restriction return
 
+
 # Timeout Messages
 # ----------------------------------------------------------
 timeout.title = You’re about to be signed out
@@ -60,12 +62,14 @@ timeout.message = For security reasons, you will be signed out of this service i
 timeout.keepAlive = Stay signed in
 timeout.signOut = Sign out
 
+
 # Sections
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
+section.elections = Elections
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -292,7 +296,6 @@ deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent c
 deemedParent.error.required = Select yes if the group has a ’deemed’ parent company
 
 
-
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
 payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
@@ -325,13 +328,13 @@ parentCRN.hint = A company registration number (CRN) is a unique combination of 
 
 # ParentCompanyCTUTRPage Messages
 # ----------------------------------------------------------
-parentCompanyCTUTR.title = Parent Company Corporation Unique Tax Payer Reference
-parentCompanyCTUTR.heading = Parent Company Corporation Unique Tax Payer Reference
-parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Tax Payer Reference
-parentCompanyCTUTR.label = Parent Company Corporation Unique Tax Payer Reference
-parentCompanyCTUTR.error.required = Enter the Corporation Unique Tax Payer Reference for the Parent Company
-parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Tax Payer Reference must be 10 digits long
-parentCompanyCTUTR.error.checksum = Corporation Unique Tax Payer Reference for the Parent Company entered is invalid
+parentCompanyCTUTR.title = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.heading = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.label = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.error.required = Enter the Corporation Unique Taxpayer Reference for the Parent Company
+parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
+parentCompanyCTUTR.error.checksum = Corporation Unique Taxpayer Reference for the Parent Company entered is invalid
 parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanyCTUTR.findUtr = find a lost UTR number
 parentCompanyCTUTR.link = find a lost UTR number.
@@ -339,15 +342,16 @@ parentCompanyCTUTR.link = find a lost UTR number.
 
 # ParentCompanySAUTRPage Messages
 # ----------------------------------------------------------
-parentCompanySAUTR.title = Parent company Self Assessment Unique Tax Payer Reference
-parentCompanySAUTR.heading = Parent company Self Assessment Unique Tax Payer Reference
-parentCompanySAUTR.label = Parent company Self Assessment Unique Tax Payer Reference
+parentCompanySAUTR.title = Parent company Self Assessment Unique Taxpayer Reference
+parentCompanySAUTR.heading = Parent company Self Assessment Unique Taxpayer Reference
+parentCompanySAUTR.label = Parent company Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.checkYourAnswersLabel = ParentCompanySAUTR
 parentCompanySAUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanySAUTR.findUtr = find a lost UTR number
-parentCompanySAUTR.error.required = Enter your Self Assessment Unique Tax Payer Reference
-parentCompanySAUTR.error.length = Self Assessment Unique Tax Payer Reference must be 10 numbers
-parentCompanySAUTR.error.checksum = Self Assessment Unique Tax Payer Reference entered is invalid
+parentCompanySAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference
+parentCompanySAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 numbers
+parentCompanySAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
+
 
 # RegisteredCompaniesHousePage Messages
 # ----------------------------------------------------------
@@ -365,17 +369,35 @@ reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent comp
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
 
 
-# LimitedLiabilityPartnershipPage Messages
-# ----------------------------------------------------------
-limitedLiabilityPartnership.title = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.heading = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.checkYourAnswersLabel = Is Company a Limited Liability Partnership?
-limitedLiabilityPartnership.error.required = Select yes if Is Company a Limited Liability Partnership
-
-
 # registeredForTaxInAnotherCountryPage Messages
 # ----------------------------------------------------------
 registeredForTaxInAnotherCountry.title = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.heading = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.checkYourAnswersLabel = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registered for tax in another country
+
+
+# LimitedLiabilityPartnershipPage Messages
+# ----------------------------------------------------------
+limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
+
+# GroupRatioElectionPage Messages
+# ----------------------------------------------------------
+groupRatioElection.title = Are you making a group ratio election?
+groupRatioElection.heading = Are you making a group ratio election?
+groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
+groupRatioElection.error.required = Select yes if you are making a group ratio election?
+
+# EnterANGIEPage Messages
+# ----------------------------------------------------------
+enterANGIE.title = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.heading = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.label = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.checkYourAnswersLabel = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.error.nonNumeric = Enter the adjusted net group-interest expense (ANGIE) using numbers
+enterANGIE.error.required = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.error.invalidNumeric = The adjusted net group-interest expense (ANGIE) must be valid decimal or whole number
+enterANGIE.error.outOfRange = Adjusted net group-interest expense (ANGIE) must be between {0} and {1}

@@ -16,29 +16,28 @@
 
 package navigation
 
-import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.groupStructure.{routes => groupStructureRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import play.api.mvc.Call
 
 @Singleton
-class AboutReportingCompanyNavigator @Inject()() extends Navigator {
+class ElectionsNavigator @Inject()() extends Navigator {
 
+  //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    ReportingCompanyNamePage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
-    ReportingCompanyCTUTRPage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)),
-    ReportingCompanyCRNPage -> (_ => aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()),
-    CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
+    GroupRatioElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    EnterANGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
+  //TODO update with check your answers page
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+    controllers.routes.UnderConstructionController.onPageLoad()
   )
 
-  private def nextSection(mode: Mode): Call = groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
+  //TODO update with next section
+  private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

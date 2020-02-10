@@ -20,10 +20,12 @@ import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
+import controllers.elections.{routes => electionsRoutes}
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import pages.groupStructure._
 import pages.startReturn._
 import play.api.i18n.Messages
@@ -33,6 +35,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+
+  def enterANGIE: Option[SummaryListRow] = answer(EnterANGIEPage, electionsRoutes.EnterANGIEController.onPageLoad(CheckMode))
+
+  def groupRatioElection: Option[SummaryListRow] = answer(GroupRatioElectionPage, electionsRoutes.GroupRatioElectionController.onPageLoad(CheckMode))
 
   def registeredForTaxInAnotherCountry: Option[SummaryListRow] =
     answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(CheckMode))

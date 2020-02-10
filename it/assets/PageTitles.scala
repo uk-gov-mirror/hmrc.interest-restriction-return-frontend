@@ -2,6 +2,8 @@ package assets
 
 object PageTitles {
   val checkAnswersGroupStructure = "Check parent company details - Group structure - Interest Restriction Return - GOV.UK"
+  val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
+  val groupRatioElection = "Are you making a group ratio election?"
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"
@@ -21,14 +23,16 @@ object PageTitles {
   val reportingCompanyAppointed = "Has the reporting company been appointed"
   val reportingCompanyRequired = "A reporting company is required"
   val confirmation = "Return submitted"
+  val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
   val deemedParent = "Does the group have a ’deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
   val parentCRN = "Parent Company Registration Number"
   val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
   val reportingCompanySameAsParent: String => String = name => s"Is $name also the parent company?"
-  val parentCompanySAUTR = "Parent company Self Assessment Unique Tax Payer Reference"
-  val parentCompanyCTUTR = "Parent Company Corporation Unique Tax Payer Reference"
+  val parentCompanySAUTR = "Parent company Self Assessment Unique Taxpayer Reference"
+  val parentCompanyCTUTR = "Parent Company Corporation Unique Taxpayer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
+  val savedReturn = "Your return has been saved"
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
   val limitedLiabilityPartnership: String => String = name => s"Is $name a Limited Liability Partnership?"
 }

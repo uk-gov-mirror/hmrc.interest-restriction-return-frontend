@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.elections
 
-object SectionHeaderMessages {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
+class EnterANGIEFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "enterANGIE.error.required",
+        "enterANGIE.error.invalidNumeric",
+        "enterANGIE.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "enterANGIE.error.outOfRange"))
+    )
 }

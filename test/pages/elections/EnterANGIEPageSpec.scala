@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.elections
 
-object SectionHeaderMessages {
+import pages.behaviours.PageBehaviours
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
+class EnterANGIEPageSpec extends PageBehaviours {
+
+  "EnterANGIEPage" must {
+
+    beRetrievable[BigDecimal](EnterANGIEPage)
+
+    beSettable[BigDecimal](EnterANGIEPage)
+
+    beRemovable[BigDecimal](EnterANGIEPage)
+  }
 }
