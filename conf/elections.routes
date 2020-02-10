@@ -7,3 +7,10 @@ GET        /group-ratio-election                          controllers.elections.
 POST       /group-ratio-election                          controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /group-ratio-election/change                   controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-ratio-election/change                   controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = CheckMode)
+
+GET        /enter-angie                                   controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-angie                                   controllers.elections.EnterANGIEController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-angie/change                            controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-angie/change                            controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
+
+

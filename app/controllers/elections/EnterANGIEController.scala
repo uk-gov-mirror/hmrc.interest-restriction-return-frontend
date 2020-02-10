@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.elections.EnterANGIEFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.ElectionsNavigator
 import pages.elections.EnterANGIEPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -33,15 +33,15 @@ import views.html.elections.EnterANGIEView
 import scala.concurrent.Future
 
 class EnterANGIEController @Inject()(
-                                       override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: Navigator,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: EnterANGIEFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: EnterANGIEView
+                                      override val messagesApi: MessagesApi,
+                                      val sessionRepository: SessionRepository,
+                                      val navigator: ElectionsNavigator,
+                                      identify: IdentifierAction,
+                                      getData: DataRetrievalAction,
+                                      requireData: DataRequiredAction,
+                                      formProvider: EnterANGIEFormProvider,
+                                      val controllerComponents: MessagesControllerComponents,
+                                      view: EnterANGIEView
                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

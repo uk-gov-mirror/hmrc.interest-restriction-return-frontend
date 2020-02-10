@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.elections.GroupRatioElectionPage
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import play.api.mvc.Call
 
 @Singleton
@@ -27,7 +27,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    GroupRatioElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    GroupRatioElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    EnterANGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page

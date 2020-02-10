@@ -22,9 +22,10 @@ import controllers.actions._
 import controllers.errors
 import forms.elections.EnterANGIEFormProvider
 import models.NormalMode
+import navigation.FakeNavigators.FakeElectionsNavigator
 import pages.elections.EnterANGIEPage
 import play.api.test.Helpers._
-import views.html.EnterANGIEView
+import views.html.elections.EnterANGIEView
 
 class EnterANGIEControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -37,7 +38,7 @@ class EnterANGIEControllerSpec extends SpecBase with FeatureSwitching with MockD
   object Controller extends EnterANGIEController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = FakeElectionsNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

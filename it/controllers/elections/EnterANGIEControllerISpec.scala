@@ -27,14 +27,14 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Normal mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /elections/enter-angie" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest("/elections/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest("/elections/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "POST /ROUTING_PLACEHOLDER" when {
+    "POST /elections/enter-angie" when {
 
       "user is authorised" when {
 
@@ -73,12 +73,12 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+            val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.EnterANGIEController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
@@ -91,7 +91,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+          val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Change mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /elections/enter-angie" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.authorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest("/elections/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest("/elections/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(

@@ -16,18 +16,19 @@
 
 package views.elections
 
-import controllers.routes
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import controllers.elections.routes
 import forms.elections.EnterANGIEFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.DecimalViewBehaviours
-import views.html.EnterANGIEView
+import views.html.elections.EnterANGIEView
 
 class EnterANGIEViewSpec extends DecimalViewBehaviours  {
 
   val messageKeyPrefix = "enterANGIE"
-
+  val section = Some(messages("section.elections"))
   val form = new EnterANGIEFormProvider()()
 
     "EnterANGIEView" must {
