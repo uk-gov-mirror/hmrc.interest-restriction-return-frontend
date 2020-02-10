@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, ReportingCompanySameAsParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, ReportingCompanySameAsParentPage}
 
 class GroupStructureNavigatorSpec extends SpecBase {
 
@@ -171,6 +171,15 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
           navigator.nextPage(ParentCRNPage, NormalMode, emptyUserAnswers) mustBe
             groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
+        }
+      }
+
+      "from the check answers page" should {
+
+        "go to the underConstruction page" in {
+
+          navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers) mustBe
+          controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
     }

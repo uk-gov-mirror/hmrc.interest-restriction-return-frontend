@@ -17,9 +17,8 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import models._
-import pages._
+import pages.{groupStructure, _}
 import pages.groupStructure._
 import play.api.mvc.Call
 import controllers.groupStructure.routes
@@ -54,7 +53,8 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     RegisteredCompaniesHousePage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
-    RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad())
+    RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
+    groupStructure.CheckAnswersGroupStructurePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>

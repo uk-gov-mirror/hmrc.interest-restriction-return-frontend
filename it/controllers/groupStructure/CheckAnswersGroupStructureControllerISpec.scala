@@ -72,7 +72,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to Under Construction page" in {
 
             AuthStub.authorised()
 
@@ -81,7 +81,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
