@@ -49,9 +49,7 @@ class CheckAnswersGroupStructureController @Inject()(
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseController {
 
-  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, GroupStructure, postAction))
-
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
 
       val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
@@ -69,7 +67,7 @@ class CheckAnswersGroupStructureController @Inject()(
         checkYourAnswersHelper.parentCRN
       ).flatten
 
-      renderView(sections, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()).map(Ok(_))
+      Ok(view(sections, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
