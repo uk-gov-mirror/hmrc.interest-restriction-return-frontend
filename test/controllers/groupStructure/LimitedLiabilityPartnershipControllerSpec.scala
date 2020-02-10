@@ -21,7 +21,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.LimitedLiabilityPartnershipFormProvider
+import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
 import pages.groupStructure.LimitedLiabilityPartnershipPage
 import play.api.test.Helpers._

@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
-import models.Section.ReportingCompany
+import models.Section.GroupStructure
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
@@ -49,7 +49,7 @@ class CheckAnswersGroupStructureController @Inject()(
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseController {
 
-  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, ReportingCompany, postAction))
+  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, GroupStructure, postAction))
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
@@ -67,8 +67,8 @@ class CheckAnswersGroupStructureController @Inject()(
             checkYourAnswersHelper.registeredForTaxInAnotherCountry,
             checkYourAnswersHelper.limitedLiabilityPartnership(parentCompanyName),
             checkYourAnswersHelper.parentCompanyCTUTR,
-            checkYourAnswersHelper.parentCompanySAUTR,
             checkYourAnswersHelper.registeredCompaniesHouse,
+            checkYourAnswersHelper.parentCompanySAUTR,
             checkYourAnswersHelper.parentCRN
           ).flatten
 

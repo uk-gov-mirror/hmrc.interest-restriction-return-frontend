@@ -91,7 +91,6 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
         "enters a valid answer" should {
 
-          //TODO: Update when real routing is in place
           "redirect to under construction page" in {
 
             AuthStub.authorised()
@@ -228,7 +227,6 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
         "enters a valid answer" when {
 
-          //TODO: Update when real routing is in place
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
@@ -238,7 +236,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }
@@ -279,7 +277,6 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             }
           }
         }
-
       }
 
       "user not authorised" should {

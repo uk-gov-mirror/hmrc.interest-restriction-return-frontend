@@ -19,7 +19,7 @@ package views.groupStructure
 import assets.constants.BaseConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.groupStructure.routes.LimitedLiabilityPartnershipController
-import forms.LimitedLiabilityPartnershipFormProvider
+import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat

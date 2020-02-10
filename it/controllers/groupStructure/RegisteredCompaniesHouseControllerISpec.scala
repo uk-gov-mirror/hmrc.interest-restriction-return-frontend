@@ -160,7 +160,7 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }

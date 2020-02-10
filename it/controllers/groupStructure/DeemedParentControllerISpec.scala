@@ -161,7 +161,60 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
         }
       }
     }
+    "POST /group-structure/deemed-parent" when {
 
-    //TODO: Add Check Your Answers tests
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckYourAnswers page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/group-structure/deemed-parent/change", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+              )
+            }
+          }
+        }
+
+        "enters an invalid answer" when {
+
+          "return a BAD_REQUEST (400)" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/group-structure/deemed-parent/change", Json.obj("value" -> ""))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(BAD_REQUEST)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/group-structure/deemed-parent/change", Json.obj("value" -> true))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
   }
 }
