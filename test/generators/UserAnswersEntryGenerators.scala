@@ -22,12 +22,20 @@ import org.scalacheck.Arbitrary.arbitrary
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.elections.GroupRatioElectionPage
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCompanyNamePage, RegisteredCompaniesHousePage, _}
 import pages.startReturn._
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+
+  implicit lazy val arbitraryEnterANGIEUserAnswersEntry: Arbitrary[(EnterANGIEPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[EnterANGIEPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
 
   implicit lazy val arbitraryGroupRatioElectionUserAnswersEntry: Arbitrary[(GroupRatioElectionPage.type, JsValue)] =
     Arbitrary {

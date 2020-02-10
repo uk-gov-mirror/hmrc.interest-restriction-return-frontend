@@ -18,7 +18,7 @@ package navigation
 
 import base.SpecBase
 import models._
-import pages.elections.GroupRatioElectionPage
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import pages.groupStructure._
 
 class ElectionsNavigatorSpec extends SpecBase {
@@ -34,6 +34,15 @@ class ElectionsNavigatorSpec extends SpecBase {
         "go to the Under Construction page when given false" in {
 
           navigator.nextPage(GroupRatioElectionPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the EnterANGIEPage" should {
+
+        "go to the Under Construction page when given false" in {
+
+          navigator.nextPage(EnterANGIEPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }

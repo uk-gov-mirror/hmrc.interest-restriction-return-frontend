@@ -20,11 +20,14 @@ import org.scalacheck.Arbitrary
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.elections.GroupRatioElectionPage
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import pages.groupStructure._
 import pages.startReturn._
 
 trait PageGenerators {
+
+  implicit lazy val arbitraryEnterANGIEPage: Arbitrary[EnterANGIEPage.type] =
+    Arbitrary(EnterANGIEPage)
 
   implicit lazy val arbitraryGroupRatioElectionPage: Arbitrary[GroupRatioElectionPage.type] =
     Arbitrary(GroupRatioElectionPage)
