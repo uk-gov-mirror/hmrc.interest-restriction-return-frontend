@@ -25,7 +25,7 @@ import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.elections.GroupRatioElectionPage
+import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
 import pages.groupStructure._
 import pages.startReturn._
 import play.api.i18n.Messages
@@ -35,6 +35,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+
+  def enterANGIE: Option[SummaryListRow] = answer(EnterANGIEPage, electionsRoutes.EnterANGIEController.onPageLoad(CheckMode))
 
   def groupRatioElection: Option[SummaryListRow] = answer(GroupRatioElectionPage, electionsRoutes.GroupRatioElectionController.onPageLoad(CheckMode))
 

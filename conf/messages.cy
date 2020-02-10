@@ -387,3 +387,14 @@ groupRatioElection.title = Are you making a group ratio election?
 groupRatioElection.heading = Are you making a group ratio election?
 groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
 groupRatioElection.error.required = Select yes if you are making a group ratio election?
+
+# EnterANGIEPage Messages
+# ----------------------------------------------------------
+enterANGIE.title = EnterANGIE
+enterANGIE.heading = EnterANGIE
+enterANGIE.label=Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.checkYourAnswersLabel = EnterANGIE
+enterANGIE.error.nonNumeric = Enter your enterANGIE using numbers
+enterANGIE.error.required = Enter your enterANGIE
+enterANGIE.error.invalidNumeric = The enterANGIE must be valid decimal or whole number
+enterANGIE.error.outOfRange = EnterANGIE must be between {0} and {1}
