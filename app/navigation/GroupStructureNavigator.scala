@@ -55,7 +55,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
     RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
-    groupStructure.CheckAnswersGroupStructurePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    groupStructure.CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>

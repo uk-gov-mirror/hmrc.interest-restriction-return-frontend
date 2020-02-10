@@ -192,10 +192,10 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the check answers page" should {
 
-        "go to the underConstruction page" in {
+        "go to the revisingReturn page" in {
 
           navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
         }
       }
     }
