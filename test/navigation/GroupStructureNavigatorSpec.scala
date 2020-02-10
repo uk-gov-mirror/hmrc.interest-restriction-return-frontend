@@ -56,24 +56,26 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the DeemedParentPage" should {
 
-        "go to the ParentCompanyNamePage" in {
+        "go to the ParentCompanyNamePage when false is selected" in {
 
-          navigator.nextPage(DeemedParentPage, NormalMode, emptyUserAnswers) mustBe
+          val userAnswers = emptyUserAnswers.set(DeemedParentPage, false).success.value
+
+          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
             groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
 
-        "go to the under construction page when given true" in {
+        "go to the ParentCompanyNamePage when given true" in {
 
           val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
 
           navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
 
-        "go to the DeemedParentPage" in {
+        "go to the ParentCompanyPage" in {
 
           navigator.nextPage(DeemedParentPage, NormalMode, emptyUserAnswers) mustBe
-            groupStructureRoutes.DeemedParentController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
       }
 
@@ -152,7 +154,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, true).success.value
 
           navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers) mustBe
-            groupRoutes.ParentCRNController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode)
         }
 
         "go to the RevisingReturnController when given false" in {
@@ -193,7 +195,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the underConstruction page" in {
 
           navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers) mustBe
-          controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+            controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
     }

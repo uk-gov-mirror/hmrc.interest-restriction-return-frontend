@@ -1,7 +1,7 @@
 package assets
 
 object PageTitles {
-  val checkAnswersGroupStructure = "Check parent company details - Group structure - Interest Restriction Return - GOV.UK"
+  val checkAnswersGroupStructure = "Check parent company details"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
   val groupRatioElection = "Are you making a group ratio election?"
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"
@@ -30,7 +30,7 @@ object PageTitles {
   val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
   val reportingCompanySameAsParent: String => String = name => s"Is $name also the parent company?"
   val parentCompanySAUTR = "Parent company Self Assessment Unique Taxpayer Reference"
-  val parentCompanyCTUTR = "Parent Company Corporation Unique Taxpayer Reference"
+  val parentCompanyCTUTR = "Parent Company Corporation Unique Tax Payer Reference"
   val registeredCompaniesHouse = "Is the parent company registered with companies house?"
   val savedReturn = "Your return has been saved"
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
