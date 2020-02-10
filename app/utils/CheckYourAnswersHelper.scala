@@ -46,16 +46,14 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def parentCompanySAUTR: Option[SummaryListRow] =
     answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode))
 
-  def payTaxInUk(parentCompanyName: String): Option[SummaryListRow] =
-    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode), headingMessageArgs = Seq(parentCompanyName))
+  def payTaxInUk: Option[SummaryListRow] =
+    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode))
 
-  def reportingCompanySameAsParent(reportingCompanyName: String): Option[SummaryListRow] =
-    answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode),
-      headingMessageArgs = Seq(reportingCompanyName))
+  def reportingCompanySameAsParent: Option[SummaryListRow] =
+    answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
-  def limitedLiabilityPartnership(parentCompanyName: String): Option[SummaryListRow] =
-    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(CheckMode),
-      headingMessageArgs = Seq(parentCompanyName))
+  def limitedLiabilityPartnership: Option[SummaryListRow] =
+    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(CheckMode))
 
   def registeredCompaniesHouse: Option[SummaryListRow] =
     answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode))

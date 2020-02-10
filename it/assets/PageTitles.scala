@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val checkAnswersGroupStructure = "Check parent company details - Group structure - Interest Restriction Return - GOV.UK"
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"
   val reportingCompanyCRN = "Company Registration Number (CRN)"
   val reportingCompanyCTUTR = "UK Tax reference"

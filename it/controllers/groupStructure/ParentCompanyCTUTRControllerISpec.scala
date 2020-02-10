@@ -167,7 +167,6 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" when {
 
-          //TODO: Update when real routing is in place
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
@@ -177,7 +176,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }

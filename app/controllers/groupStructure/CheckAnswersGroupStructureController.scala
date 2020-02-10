@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
-import models.Section.ReportingCompany
+import models.Section.GroupStructure
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
@@ -49,32 +49,27 @@ class CheckAnswersGroupStructureController @Inject()(
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseController {
 
-  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, ReportingCompany, postAction))
+  private def renderView(answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_]): Future[Html] = Future.successful(view(answers, GroupStructure, postAction))
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
-      answerFor(ReportingCompanyNamePage) { reportingCompanyName =>
-        answerFor(ParentCompanyNamePage) { parentCompanyName =>
+      val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
-          val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
+      val sections = Seq(
+        checkYourAnswersHelper.reportingCompanySameAsParent,
+        checkYourAnswersHelper.deemedParent,
+        checkYourAnswersHelper.parentCompanyName,
+        checkYourAnswersHelper.payTaxInUk,
+        checkYourAnswersHelper.registeredForTaxInAnotherCountry,
+        checkYourAnswersHelper.limitedLiabilityPartnership,
+        checkYourAnswersHelper.parentCompanyCTUTR,
+        checkYourAnswersHelper.registeredCompaniesHouse,
+        checkYourAnswersHelper.parentCompanySAUTR,
+        checkYourAnswersHelper.parentCRN
+      ).flatten
 
-          val sections = Seq(
-            checkYourAnswersHelper.reportingCompanySameAsParent(reportingCompanyName),
-            checkYourAnswersHelper.deemedParent,
-            checkYourAnswersHelper.parentCompanyName,
-            checkYourAnswersHelper.payTaxInUk(parentCompanyName),
-            checkYourAnswersHelper.registeredForTaxInAnotherCountry,
-            checkYourAnswersHelper.limitedLiabilityPartnership(parentCompanyName),
-            checkYourAnswersHelper.parentCompanyCTUTR,
-            checkYourAnswersHelper.parentCompanySAUTR,
-            checkYourAnswersHelper.registeredCompaniesHouse,
-            checkYourAnswersHelper.parentCRN
-          ).flatten
-
-          renderView(sections, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()).map(Ok(_))
-        }
-      }
+      renderView(sections, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()).map(Ok(_))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
