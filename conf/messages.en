@@ -384,6 +384,17 @@ limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = LLP
 limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
 
+
+# LocalRegistrationNumberPage Messages
+# ----------------------------------------------------------
+localRegistrationNumber.title = Enter {0} local Registration Number
+localRegistrationNumber.heading = Enter {0} local Registration Number
+localRegistrationNumber.checkYourAnswersLabel = Enter {0} local Registration Number
+localRegistrationNumber.label= Enter {0} local Registration Number
+localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
+localRegistrationNumber.hint = (optional)
+
+
 # CountryOfIncorporationPage Messages
 # ----------------------------------------------------------
 countryOfIncorporation.title = Where is {0} registered for tax?

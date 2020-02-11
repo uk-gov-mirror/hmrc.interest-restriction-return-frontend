@@ -71,6 +71,13 @@ POST       /registered-for-tax-in-another-country         controllers.groupStruc
 GET        /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = CheckMode)
 POST       /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = CheckMode)
 
+### LocalRegistrationNumber Controller
+### ----------------------------------------
+GET        /local-registration-number                   controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /local-registration-number                   controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /local-registration-number/change            controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /local-registration-number/change            controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = CheckMode)
+
 ### CheckYourAnswersController
 ### -----------------------------
 GET        /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onPageLoad
