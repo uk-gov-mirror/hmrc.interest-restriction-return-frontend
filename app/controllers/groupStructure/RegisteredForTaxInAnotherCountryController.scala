@@ -16,63 +16,49 @@
 
 package controllers.groupStructure
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.RegisteredForTaxInAnotherCountryFormProvider
 import handlers.ErrorHandler
+import javax.inject.Inject
 import models.Mode
-import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{ParentCompanyNamePage, RegisteredForTaxInAnotherCountryPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.groupStructure.RegisteredForTaxInAnotherCountryView
 
 import scala.concurrent.Future
 
-class RegisteredForTaxInAnotherCountryController @Inject()(
-                                                            override val messagesApi: MessagesApi,
-                                                            sessionRepository: SessionRepository,
-                                                            navigator: GroupStructureNavigator,
+class RegisteredForTaxInAnotherCountryController @Inject()(override val messagesApi: MessagesApi,
+                                                            val sessionRepository: SessionRepository,
+                                                            val navigator: GroupStructureNavigator,
+                                                            val questionDeletionLookupService: QuestionDeletionLookupService,
                                                             identify: IdentifierAction,
                                                             getData: DataRetrievalAction,
                                                             requireData: DataRequiredAction,
                                                             formProvider: RegisteredForTaxInAnotherCountryFormProvider,
                                                             val controllerComponents: MessagesControllerComponents,
-                                                            view: RegisteredForTaxInAnotherCountryView,
-                                                            errorHandler: ErrorHandler
-                                                          )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+                                                            view: RegisteredForTaxInAnotherCountryView
+                                                          )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
-      case Some(companyName) => f(companyName)
-      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-    }
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => companyNamePredicate { name =>
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage) { name =>
       Future.successful(Ok(view(fillForm(RegisteredForTaxInAnotherCountryPage, formProvider()), mode, name)))
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          companyNamePredicate { name =>
+          answerFor(ParentCompanyNamePage) { name =>
             Future.successful(BadRequest(view(formWithErrors, mode, name)))
           },
         value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(RegisteredForTaxInAnotherCountryPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(RegisteredForTaxInAnotherCountryPage, mode, updatedAnswers))
+          saveAndRedirect(RegisteredForTaxInAnotherCountryPage, value, mode)
       )
   }
 }

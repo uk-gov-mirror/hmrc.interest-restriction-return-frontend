@@ -17,9 +17,9 @@
 package navigation
 
 import base.SpecBase
-import controllers.groupStructure.{routes => groupRoutes}
+import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, ReportingCompanySameAsParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, ReportingCompanySameAsParentPage}
 
 class GroupStructureNavigatorSpec extends SpecBase {
 
@@ -36,7 +36,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, false).success.value
 
           navigator.nextPage(ReportingCompanySameAsParentPage, NormalMode, userAnswers) mustBe
-            groupRoutes.DeemedParentController.onPageLoad(NormalMode)
+            groupStructureRoutes.DeemedParentController.onPageLoad(NormalMode)
         }
 
         "go to the under construction page when given true" in {
@@ -50,16 +50,32 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the ReportingCompanySameAsParentPage if not answered" in {
 
           navigator.nextPage(ReportingCompanySameAsParentPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
+            groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
         }
       }
 
       "from the DeemedParentPage" should {
 
-        "go to the ParentCompanyNamePage" in {
+        "go to the ParentCompanyNamePage when false is selected" in {
+
+          val userAnswers = emptyUserAnswers.set(DeemedParentPage, false).success.value
+
+          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
+            groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
+        }
+
+        "go to the ParentCompanyNamePage when given true" in {
+
+          val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+
+          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
+            groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
+        }
+
+        "go to the ParentCompanyPage" in {
 
           navigator.nextPage(DeemedParentPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
       }
 
@@ -68,7 +84,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the PayTaxInUkPage" in {
 
           navigator.nextPage(ParentCompanyNamePage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.PayTaxInUkController.onPageLoad(NormalMode)
+            groupStructureRoutes.PayTaxInUkController.onPageLoad(NormalMode)
         }
       }
 
@@ -79,7 +95,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(PayTaxInUkPage, true).success.value
 
           navigator.nextPage(PayTaxInUkPage, NormalMode, userAnswers) mustBe
-            groupRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
+            groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
         }
 
         "go to the under construction page when given false" in {
@@ -93,7 +109,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the PayTaxInUkPage if not answered" in {
 
           navigator.nextPage(PayTaxInUkPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.PayTaxInUkController.onPageLoad(NormalMode)
+            groupStructureRoutes.PayTaxInUkController.onPageLoad(NormalMode)
         }
       }
 
@@ -104,7 +120,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(LimitedLiabilityPartnershipPage, true).success.value
 
           navigator.nextPage(LimitedLiabilityPartnershipPage, NormalMode, userAnswers) mustBe
-            groupRoutes.ParentCompanySAUTRController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(NormalMode)
         }
 
         "go to the ParentCompanyCTUTRPage when given false" in {
@@ -112,13 +128,13 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(LimitedLiabilityPartnershipPage, false).success.value
 
           navigator.nextPage(LimitedLiabilityPartnershipPage, NormalMode, userAnswers) mustBe
-            groupRoutes.ParentCompanyCTUTRController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(NormalMode)
         }
 
         "go to the LimitedLiabilityPartnershipPage when no answer" in {
 
           navigator.nextPage(LimitedLiabilityPartnershipPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
+            groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
         }
       }
 
@@ -127,7 +143,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the RegisteredCompaniesHousePage" in {
 
           navigator.nextPage(ParentCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
+            groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
         }
       }
 
@@ -138,7 +154,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, true).success.value
 
           navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers) mustBe
-            groupRoutes.ParentCRNController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode)
         }
 
         "go to the RevisingReturnController when given false" in {
@@ -146,13 +162,13 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, false).success.value
 
           navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers) mustBe
-            controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+            groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
         }
 
         "go to the RegisteredCompaniesHousePage when no answer" in {
 
           navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
+            groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
         }
       }
 
@@ -161,7 +177,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the ParentCRNPage" in {
 
           navigator.nextPage(ParentCompanySAUTRPage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.ParentCRNController.onPageLoad(NormalMode)
+            groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode)
         }
       }
 
@@ -170,6 +186,15 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the RevisingReturnPage" in {
 
           navigator.nextPage(ParentCRNPage, NormalMode, emptyUserAnswers) mustBe
+            groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
+        }
+      }
+
+      "from the check answers page" should {
+
+        "go to the revisingReturn page" in {
+
+          navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers) mustBe
             controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
         }
       }
@@ -177,10 +202,10 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to Reporting Company Under construction" in {
+      "go to group structure check your answers" in {
 
         navigator.nextPage(DeemedParentPage, CheckMode, emptyUserAnswers) mustBe
-          controllers.routes.UnderConstructionController.onPageLoad()
+          groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
       }
     }
   }

@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val checkAnswersGroupStructure = "Check parent company details"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
   val groupRatioElection = "Are you making a group ratio election?"
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"

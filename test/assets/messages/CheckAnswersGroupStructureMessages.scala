@@ -14,29 +14,20 @@
  * limitations under the License.
  */
 
-package models
+package assets.messages
 
-import play.api.libs.json.{JsValue, Json, Writes}
+object CheckAnswersGroupStructureMessages {
 
-sealed trait Section
+  val title = "Check parent company details"
 
-object Section {
-
-  object ReportingCompany extends Section {
-
-    override val toString = "reportingCompany"
-  }
-
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
-  }
-
-  object HelloWorld extends Section {
-
-    override val toString = "helloWorld"
-  }
-
-  implicit object SectionWrites extends Writes[Section]{
-    def writes(section: Section): JsValue = Json.toJson(section.toString)
-  }
+  val reportingCompanySameAsParent = "Same as reporting company"
+  val deemedParent = "Deemed Parent"
+  val parentCompanyName = "Name"
+  val payTaxInUk = "UK Taxpayer"
+  val registeredForTaxInAnotherCountry = "Registered for tax in another country"
+  val limitedLiabilityPartnership = "LLP"
+  val parentCompanyCTUTR = "UTR"
+  val registeredWithCompaniesHouse = "Registered with Companies House"
+  val parentCompanySAUTR = "UTR"
+  val parentCRN = "CRN"
 }

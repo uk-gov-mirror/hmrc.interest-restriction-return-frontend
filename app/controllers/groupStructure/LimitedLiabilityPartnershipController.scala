@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.LimitedLiabilityPartnershipFormProvider
+import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
@@ -29,6 +29,7 @@ import pages.groupStructure.{LimitedLiabilityPartnershipPage, ParentCompanyNameP
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.groupStructure.LimitedLiabilityPartnershipView
 
 import scala.concurrent.Future
@@ -36,6 +37,7 @@ import scala.concurrent.Future
 class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: MessagesApi,
                                                       val sessionRepository: SessionRepository,
                                                       val navigator: GroupStructureNavigator,
+                                                      val questionDeletionLookupService: QuestionDeletionLookupService,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,

@@ -71,6 +71,11 @@ POST       /registered-for-tax-in-another-country         controllers.groupStruc
 GET        /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = CheckMode)
 POST       /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = CheckMode)
 
+### CheckYourAnswersController
+### -----------------------------
+GET        /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onPageLoad
+POST       /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onSubmit
+
 ### CountryOfIncorporation Controller
 ### ----------------------------------------
 GET        /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = NormalMode)

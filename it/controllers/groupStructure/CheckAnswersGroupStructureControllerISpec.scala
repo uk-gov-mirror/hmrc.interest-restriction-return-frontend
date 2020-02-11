@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package controllers.aboutReportingCompany
+package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.aboutReportingCompany.ReportingCompanyNamePage
+import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
-
-    "GET /reporting-company/check-answers" when {
+    
+    "GET /group-structure/check-answers" when {
 
       "user is authorised" should {
 
@@ -35,12 +37,12 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.authorised()
 
-          val res = getRequest("/reporting-company/check-answers")()
+          val res = getRequest("/group-structure/check-answers")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.checkAnswersReportingCompany)
+              titleOf(PageTitles.checkAnswersGroupStructure)
             )
           }
         }
@@ -52,7 +54,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company/check-answers")()
+          val res = getRequest("/group-structure/check-answers")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +66,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
       }
     }
 
-    "POST /reporting-company/check-answers" when {
+    "POST /group-structure/check-answers" when {
 
       "user is authorised" when {
 
@@ -74,12 +76,12 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company/check-answers", JsString(""))()
+            val res = postRequest("/group-structure/check-answers", JsString(""))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -92,7 +94,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/check-answers", Json.obj("value" -> ctutr))()
+          val res = postRequest("/group-structure/check-answers", Json.obj("value" -> ctutr))()
 
           whenReady(res) { result =>
             result should have(

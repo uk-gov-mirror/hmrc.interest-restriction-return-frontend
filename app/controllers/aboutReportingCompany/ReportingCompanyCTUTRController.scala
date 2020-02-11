@@ -28,6 +28,7 @@ import pages.aboutReportingCompany.ReportingCompanyCTUTRPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.aboutReportingCompany.ReportingCompanyCTUTRView
 
 import scala.concurrent.Future
@@ -35,6 +36,7 @@ import scala.concurrent.Future
 class ReportingCompanyCTUTRController @Inject()(override val messagesApi: MessagesApi,
                                                 val sessionRepository: SessionRepository,
                                                 val navigator: AboutReportingCompanyNavigator,
+                                                val questionDeletionLookupService: QuestionDeletionLookupService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
