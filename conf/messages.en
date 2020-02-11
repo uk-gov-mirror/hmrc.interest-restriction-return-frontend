@@ -389,7 +389,7 @@ limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liab
 # ----------------------------------------------------------
 localRegistrationNumber.title = Enter {0} local Registration Number
 localRegistrationNumber.heading = Enter {0} local Registration Number
-localRegistrationNumber.checkYourAnswersLabel = Enter {0} local Registration Number
+localRegistrationNumber.checkYourAnswersLabel = Local Registration Number
 localRegistrationNumber.label= Enter {0} local Registration Number
 localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
 localRegistrationNumber.hint = (optional)
@@ -399,7 +399,7 @@ localRegistrationNumber.hint = (optional)
 # ----------------------------------------------------------
 countryOfIncorporation.title = Where is {0} registered for tax?
 countryOfIncorporation.heading = Where is {0} registered for tax?
-countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Registered for tax in
 countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.invalid = Enter a valid country
 countryOfIncorporation.hint = (Optional)

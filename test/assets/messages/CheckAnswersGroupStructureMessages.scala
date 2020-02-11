@@ -24,10 +24,12 @@ object CheckAnswersGroupStructureMessages {
   val deemedParent = "Deemed Parent"
   val parentCompanyName = "Name"
   val payTaxInUk = "UK Taxpayer"
-  val registeredForTaxInAnotherCountry = "Registered for tax in another country"
   val limitedLiabilityPartnership = "LLP"
   val parentCompanyCTUTR = "UTR"
   val registeredWithCompaniesHouse = "Registered with Companies House"
   val parentCompanySAUTR = "UTR"
   val parentCRN = "CRN"
+  val registeredForTaxInAnotherCountry = "Registered for tax in another country"
+  val registeredCountry = "Registered for tax in"
+  val localCRN = "Local Registration Number"
 }

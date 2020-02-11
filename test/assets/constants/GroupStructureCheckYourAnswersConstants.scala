@@ -31,6 +31,22 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
     .set(RegisteredCompaniesHousePage, true).get
     .set(ParentCRNPage, ultimateParentCompanyUK.crn.toString).get
 
+  val userAnswersForeignRegisteredCompany = emptyUserAnswers
+    .set(ReportingCompanySameAsParentPage, false).get
+    .set(DeemedParentPage, false).get
+    .set(ParentCompanyNamePage, ultimateParentCompanyForeign.companyName.toString).get
+    .set(PayTaxInUkPage, false).get
+    .set(RegisteredForTaxInAnotherCountryPage, true).get
+    .set(CountryOfIncorporationPage, ultimateParentCompanyForeign.countryOfIncorporation.get.country).get
+    .set(LocalRegistrationNumberPage, ultimateParentCompanyForeign.nonUkCrn.get).get
+
+  val userAnswersForeignNotRegisteredCompany = emptyUserAnswers
+    .set(ReportingCompanySameAsParentPage, false).get
+    .set(DeemedParentPage, false).get
+    .set(ParentCompanyNamePage, ultimateParentCompanyForeign.companyName.toString).get
+    .set(PayTaxInUkPage, false).get
+    .set(RegisteredForTaxInAnotherCountryPage, false).get
+
   val userAnswersUKLLP = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
     .set(DeemedParentPage, false).get

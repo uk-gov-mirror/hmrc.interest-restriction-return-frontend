@@ -534,5 +534,207 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
         }
       }
     }
+
+    "ultimate parent is foreign company" must {
+
+      "maximum values are provided" must {
+
+        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersForeignRegisteredCompany)
+
+        val groupStructureAnswers = Seq(
+          checkYourAnswersHelper.reportingCompanySameAsParent,
+          checkYourAnswersHelper.deemedParent,
+          checkYourAnswersHelper.parentCompanyName,
+          checkYourAnswersHelper.payTaxInUk,
+          checkYourAnswersHelper.registeredForTaxInAnotherCountry,
+          checkYourAnswersHelper.countryOfIncorporation,
+          checkYourAnswersHelper.localRegistrationNumber
+        ).flatten
+
+        def applyView(): HtmlFormat.Appendable = {
+          val view = viewFor[CheckYourAnswersView](Some(userAnswersUKCompany))
+          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+        }
+
+        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+
+        behave like pageWithBackLink(applyView())
+
+        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+
+        behave like pageWithHeading(applyView(), groupStructureHeading)
+
+        behave like pageWithSubmitButton(applyView(), saveAndContinue)
+
+        behave like pageWithSaveForLater(applyView())
+
+        lazy val document = asDocument(applyView())
+
+        "have an answer row for reportingCompanySameAsParent" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(1)).text mustBe CheckAnswersGroupStructureMessages.reportingCompanySameAsParent
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(1)).text mustBe "No"
+          }
+        }
+
+        "have an answer row for deemedParent" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(2)).text mustBe CheckAnswersGroupStructureMessages.deemedParent
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(2)).text mustBe "No"
+          }
+        }
+
+        "have an answer row for parentCompanyName" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(3)).text mustBe CheckAnswersGroupStructureMessages.parentCompanyName
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(3)).text mustBe ultimateParentCompanyUK.companyName.toString
+          }
+        }
+
+        "have an answer row for payTaxInUk" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(4)).text mustBe CheckAnswersGroupStructureMessages.payTaxInUk
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(4)).text mustBe "No"
+          }
+        }
+
+        "have an answer row for registered for tax in another country" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(5)).text mustBe CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(5)).text mustBe "Yes"
+          }
+        }
+
+        "have an answer row for country of incorporation" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(6)).text mustBe CheckAnswersGroupStructureMessages.registeredCountry
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(6)).text mustBe ultimateParentCompanyForeign.countryOfIncorporation.get.country
+          }
+        }
+
+        "have an answer row for local CRN" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(7)).text mustBe CheckAnswersGroupStructureMessages.localCRN
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(7)).text mustBe ultimateParentCompanyForeign.nonUkCrn.get
+          }
+        }
+      }
+
+      "minimum values are provided" must {
+
+        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersForeignNotRegisteredCompany)
+
+        val groupStructureAnswers = Seq(
+          checkYourAnswersHelper.reportingCompanySameAsParent,
+          checkYourAnswersHelper.deemedParent,
+          checkYourAnswersHelper.parentCompanyName,
+          checkYourAnswersHelper.payTaxInUk,
+          checkYourAnswersHelper.registeredForTaxInAnotherCountry
+        ).flatten
+
+        def applyView(): HtmlFormat.Appendable = {
+          val view = viewFor[CheckYourAnswersView](Some(userAnswersForeignNotRegisteredCompany))
+          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+        }
+
+        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+
+        behave like pageWithBackLink(applyView())
+
+        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+
+        behave like pageWithHeading(applyView(), groupStructureHeading)
+
+        behave like pageWithSubmitButton(applyView(), saveAndContinue)
+
+        behave like pageWithSaveForLater(applyView())
+
+        lazy val document = asDocument(applyView())
+
+        "have an answer row for reportingCompanySameAsParent" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(1)).text mustBe CheckAnswersGroupStructureMessages.reportingCompanySameAsParent
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(1)).text mustBe "No"
+          }
+        }
+
+        "have an answer row for deemedParent" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(2)).text mustBe CheckAnswersGroupStructureMessages.deemedParent
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(2)).text mustBe "No"
+          }
+        }
+
+        "have an answer row for parentCompanyName" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(3)).text mustBe CheckAnswersGroupStructureMessages.parentCompanyName
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(3)).text mustBe ultimateParentCompanyUKMin.companyName.toString
+          }
+        }
+
+        "have an answer row for payTaxInUk" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(4)).text mustBe CheckAnswersGroupStructureMessages.payTaxInUk
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(4)).text mustBe "No"
+          }
+        }
+
+        "have an answer row for registered for tax in another country" which {
+
+          "should have the correct heading" in {
+            document.select(Selectors.checkAnswersHeading(5)).text mustBe CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry
+          }
+
+          "should have the correct value" in {
+            document.select(Selectors.checkAnswersAnswerValue(5)).text mustBe "No"
+          }
+        }
+      }
+    }
+
   }
 }

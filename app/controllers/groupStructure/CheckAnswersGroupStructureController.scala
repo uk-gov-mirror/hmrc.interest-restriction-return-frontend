@@ -59,12 +59,14 @@ class CheckAnswersGroupStructureController @Inject()(
         checkYourAnswersHelper.deemedParent,
         checkYourAnswersHelper.parentCompanyName,
         checkYourAnswersHelper.payTaxInUk,
-        checkYourAnswersHelper.registeredForTaxInAnotherCountry,
         checkYourAnswersHelper.limitedLiabilityPartnership,
         checkYourAnswersHelper.parentCompanyCTUTR,
         checkYourAnswersHelper.registeredCompaniesHouse,
         checkYourAnswersHelper.parentCompanySAUTR,
-        checkYourAnswersHelper.parentCRN
+        checkYourAnswersHelper.parentCRN,
+        checkYourAnswersHelper.registeredForTaxInAnotherCountry,
+        checkYourAnswersHelper.countryOfIncorporation,
+        checkYourAnswersHelper.localRegistrationNumber
       ).flatten
 
       Ok(view(sections, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
