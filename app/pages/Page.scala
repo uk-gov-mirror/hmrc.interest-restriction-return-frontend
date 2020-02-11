@@ -67,6 +67,8 @@ object Page {
     IndexPage.toString -> IndexPage
   )
 
+  val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
+
   def apply(page: String): Page = pages(page)
 
   def unapply(arg: Page): String = pages.map(_.swap).apply(arg)

@@ -28,6 +28,7 @@ import pages.aboutReturn.GroupSubjectToRestrictionsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.aboutReturn.GroupSubjectToRestrictionsView
 
 import scala.concurrent.Future
@@ -35,6 +36,7 @@ import scala.concurrent.Future
 class GroupSubjectToRestrictionsController @Inject()(override val messagesApi: MessagesApi,
                                                      val sessionRepository: SessionRepository,
                                                      val navigator: AboutReturnNavigator,
+                                                     val questionDeletionLookupService: QuestionDeletionLookupService,
                                                      identify: IdentifierAction,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,

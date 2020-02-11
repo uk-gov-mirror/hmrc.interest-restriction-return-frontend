@@ -28,6 +28,7 @@ import pages.elections.EnterANGIEPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.elections.EnterANGIEView
 
 import scala.concurrent.Future
@@ -36,6 +37,7 @@ class EnterANGIEController @Inject()(
                                       override val messagesApi: MessagesApi,
                                       val sessionRepository: SessionRepository,
                                       val navigator: ElectionsNavigator,
+                                      val questionDeletionLookupService: QuestionDeletionLookupService,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
