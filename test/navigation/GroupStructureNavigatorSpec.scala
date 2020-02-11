@@ -31,7 +31,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyNamePage" should {
 
-        "go to the DeemedParentpage when given false" in {
+        "go to the DeemedParentPage when given false" in {
 
           val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, false).success.value
 
@@ -44,10 +44,10 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, true).success.value
 
           navigator.nextPage(ReportingCompanySameAsParentPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
         }
 
-        "go to the ReportingCompanySameAsParentPage" in {
+        "go to the ReportingCompanySameAsParentPage if not answered" in {
 
           navigator.nextPage(ReportingCompanySameAsParentPage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
@@ -56,18 +56,16 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the DeemedParentPage" should {
 
-        "go to the ParentCompanyNamePage when given false" in {
+        "go to the ParentCompanyNamePage" in {
 
-          val userAnswers = emptyUserAnswers.set(DeemedParentPage, false).success.value
-
-          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
+          navigator.nextPage(DeemedParentPage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
       }
 
       "from the ParentCompanyNamePage" should {
 
-        "go to the PayTaxInUkPage when given false" in {
+        "go to the PayTaxInUkPage" in {
 
           navigator.nextPage(ParentCompanyNamePage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.PayTaxInUkController.onPageLoad(NormalMode)
@@ -76,7 +74,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the PayTaxInUkPage" should {
 
-        "go to the LimitedLiabilityPartnershipPage when given false" in {
+        "go to the LimitedLiabilityPartnershipPage when given true" in {
 
           val userAnswers = emptyUserAnswers.set(PayTaxInUkPage, true).success.value
 
@@ -84,7 +82,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
             groupRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
         }
 
-        "go to the under construction page when given true" in {
+        "go to the under construction page when given false" in {
 
           val userAnswers = emptyUserAnswers.set(PayTaxInUkPage, false).success.value
 
@@ -92,7 +90,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
 
-        "go to the PayTaxInUkPage" in {
+        "go to the PayTaxInUkPage if not answered" in {
 
           navigator.nextPage(PayTaxInUkPage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.PayTaxInUkController.onPageLoad(NormalMode)
@@ -101,7 +99,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the LimitedLiabilityPartnershipPage" should {
 
-        "go to the ParentCompanySAUTRPage when given false" in {
+        "go to the ParentCompanySAUTRPage when given true" in {
 
           val userAnswers = emptyUserAnswers.set(LimitedLiabilityPartnershipPage, true).success.value
 
@@ -109,7 +107,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
             groupRoutes.ParentCompanySAUTRController.onPageLoad(NormalMode)
         }
 
-        "go to the ParentCompanyCTUTRPage when given true" in {
+        "go to the ParentCompanyCTUTRPage when given false" in {
 
           val userAnswers = emptyUserAnswers.set(LimitedLiabilityPartnershipPage, false).success.value
 
@@ -117,7 +115,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
             groupRoutes.ParentCompanyCTUTRController.onPageLoad(NormalMode)
         }
 
-        "go to the PayTaxInUkPage" in {
+        "go to the LimitedLiabilityPartnershipPage when no answer" in {
 
           navigator.nextPage(LimitedLiabilityPartnershipPage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
@@ -126,7 +124,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the ParentCompanyCTUTRPage" should {
 
-        "go to the RegisteredCompaniesHousePage when given false" in {
+        "go to the RegisteredCompaniesHousePage" in {
 
           navigator.nextPage(ParentCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
@@ -135,16 +133,32 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the RegisteredCompaniesHousePage" should {
 
-        "go to the RegisteredCompaniesHousePage when given false" in {
+        "go to the ParentCRNController when given true" in {
+
+          val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, true).success.value
+
+          navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers) mustBe
+            groupRoutes.ParentCRNController.onPageLoad(NormalMode)
+        }
+
+        "go to the RevisingReturnController when given false" in {
+
+          val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, false).success.value
+
+          navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers) mustBe
+            controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+        }
+
+        "go to the RegisteredCompaniesHousePage when no answer" in {
 
           navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, emptyUserAnswers) mustBe
-            groupRoutes.ParentCRNController.onPageLoad(NormalMode)
+            groupRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
         }
       }
 
       "from the ParentCompanySAUTRPage" should {
 
-        "go to the RegisteredCompaniesHousePage when given false" in {
+        "go to the ParentCRNPage" in {
 
           navigator.nextPage(ParentCompanySAUTRPage, NormalMode, emptyUserAnswers) mustBe
             groupRoutes.ParentCRNController.onPageLoad(NormalMode)
@@ -153,10 +167,10 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "from the ParentCRNPage" should {
 
-        "go to the RegisteredCompaniesHousePage when given false" in {
+        "go to the RevisingReturnPage" in {
 
           navigator.nextPage(ParentCRNPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
         }
       }
     }

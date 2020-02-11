@@ -18,7 +18,7 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 
@@ -58,7 +58,7 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
         "go to the next section" in {
           navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
+            groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
         }
       }
     }

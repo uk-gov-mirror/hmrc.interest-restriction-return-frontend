@@ -17,6 +17,7 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -78,7 +79,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -95,7 +96,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -160,7 +161,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "POST /group-structure/parent-crn" when {
+    "POST /group-structure/parent-crn/change" when {
 
       "user is authorised" when {
 

@@ -23,6 +23,7 @@ import pages._
 import pages.groupStructure._
 import play.api.mvc.Call
 import controllers.groupStructure.routes
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 
 @Singleton
 class GroupStructureNavigator @Inject()() extends Navigator {
@@ -31,7 +32,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     ReportingCompanySameAsParentPage -> (_.get(ReportingCompanySameAsParentPage) match {
       case Some(false) => routes.DeemedParentController.onPageLoad(NormalMode)
-      case Some(true) => controllers.routes.UnderConstructionController.onPageLoad()
+      case Some(true) => nextSection(NormalMode)
       case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
     }),
     DeemedParentPage -> (_ => routes.ParentCompanyNameController.onPageLoad(NormalMode)),
@@ -47,9 +48,13 @@ class GroupStructureNavigator @Inject()() extends Navigator {
       case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
     }),
     ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
-    RegisteredCompaniesHousePage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
+    RegisteredCompaniesHousePage -> (_.get(RegisteredCompaniesHousePage) match {
+      case Some(true) => routes.ParentCRNController.onPageLoad(NormalMode)
+      case Some(false) => nextSection(NormalMode)
+      case _ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
+    }),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
-    ParentCRNPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ParentCRNPage -> (_ => nextSection(NormalMode)),
     RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     CountryOfIncorporationPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
@@ -59,8 +64,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     controllers.routes.UnderConstructionController.onPageLoad()
   )
 
-  //TODO update with next section
-  private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
+  private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

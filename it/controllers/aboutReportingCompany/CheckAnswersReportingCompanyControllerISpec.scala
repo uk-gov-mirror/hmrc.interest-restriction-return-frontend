@@ -79,7 +79,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode).url)
               )
             }
           }
