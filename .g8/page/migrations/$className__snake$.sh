@@ -3,10 +3,10 @@
 echo ""
 echo "Applying migration $className;format="snake"$"
 
-echo "" >> ../conf/app.routes
-echo "### $className;format="cap"$ Controller" >> ../conf/app.routes
-echo "### ----------------------------------------" >> ../conf/app.routes
-echo "GET        /\$kebabClassName                         controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "" >> ../conf/$section;format="decap"$.routes
+echo "### $className;format="cap"$ Controller" >> ../conf/$section;format="decap"$.routes
+echo "### ----------------------------------------" >> ../conf/$section;format="decap"$.routes
+echo "GET        /\$kebabClassName                         controllers.$section;format="decap"$.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/$section;format="decap"$.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

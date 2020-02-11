@@ -5,15 +5,15 @@ echo "Applying migration $className;format="snake"$"
 
 echo "Adding routes to conf/app.routes"
 
-echo "" >> ../conf/app.routes
-echo "### $className;format="cap"$ Controller" >> ../conf/app.routes
-echo "### ----------------------------------------" >> ../conf/app.routes
+echo "" >> ../conf/$section;format="decap"$.routes
+echo "### $className;format="cap"$ Controller" >> ../conf/$section;format="decap"$.routes
+echo "### ----------------------------------------" >> ../conf/$section;format="decap"$.routes
 
 export kebabClassName=\$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
-echo "GET        /\$kebabClassName                          controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /\$kebabClassName                          controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /\$kebabClassName/change                   controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /\$kebabClassName/change                   controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /\$kebabClassName                          controllers.$section;format="decap"$.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/$section;format="decap"$.routes
+echo "POST       /\$kebabClassName                          controllers.$section;format="decap"$.$className;format="cap"$Controller.onSubmit(mode: Mode = NormalMode)" >> ../conf/$section;format="decap"$.routes
+echo "GET        /\$kebabClassName/change                   controllers.$section;format="decap"$.$className;format="cap"$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/$section;format="decap"$.routes
+echo "POST       /\$kebabClassName/change                   controllers.$section;format="decap"$.$className;format="cap"$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/$section;format="decap"$.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
