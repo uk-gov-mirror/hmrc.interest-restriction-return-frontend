@@ -428,6 +428,17 @@ enterANGIE.error.required = Enter the adjusted net group-interest expense (ANGIE
 enterANGIE.error.invalidNumeric = The adjusted net group-interest expense (ANGIE) must be valid decimal or whole number
 enterANGIE.error.outOfRange = Adjusted net group-interest expense (ANGIE) must be between {0} and {1}
 
+# GroupRatioPercentagePage Messages
+# ----------------------------------------------------------
+groupRatioPercentage.title = Enter the group ratio percentage
+groupRatioPercentage.heading = Enter the group ratio percentage
+groupRatioPercentage.label= Enter the group ratio percentage
+groupRatioPercentage.checkYourAnswersLabel = Group ratio percentage
+groupRatioPercentage.error.nonNumeric = Enter the group ratio percentage using numbers
+groupRatioPercentage.error.required = Enter the group ratio percentage
+groupRatioPercentage.error.invalidNumeric = The group ratio percentage must be valid decimal (2dp) or whole number
+groupRatioPercentage.error.outOfRange = The group ratio percentage must be between {0} and {1}
+
 # EnterQNGIEPage Messages
 # ----------------------------------------------------------
 enterQNGIE.title = Enter the qualifying net group-interest expense (QNGIE)

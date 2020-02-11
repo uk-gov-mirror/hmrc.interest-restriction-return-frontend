@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,19 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import views.ViewUtils._
-@import config.FrontendAppConfig
+package pages.elections
 
-@this(
-    govukLayout: templates.GovukLayoutWrapper,
-    h1: components.h1
-)
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+case object GroupRatioPercentagePage extends QuestionPage[BigDecimal] {
 
-@govukLayout(pageTitle = Some(titleNoForm("underConstruction.title"))) {
+  override def path: JsPath = JsPath \ toString
 
-    @h1("underConstruction.heading")
+  override def toString: String = "groupRatioPercentage"
 }

@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,19 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import views.ViewUtils._
-@import config.FrontendAppConfig
+package forms.elections
 
-@this(
-    govukLayout: templates.GovukLayoutWrapper,
-    h1: components.h1
-)
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+class GroupRatioPercentageFormProvider @Inject() extends Mappings {
 
-@govukLayout(pageTitle = Some(titleNoForm("underConstruction.title"))) {
-
-    @h1("underConstruction.heading")
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "groupRatioPercentage.error.required",
+        "groupRatioPercentage.error.invalidNumeric",
+        "groupRatioPercentage.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 100, "groupRatioPercentage.error.outOfRange"))
+    )
 }

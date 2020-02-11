@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,19 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import views.ViewUtils._
-@import config.FrontendAppConfig
+package pages.elections
 
-@this(
-    govukLayout: templates.GovukLayoutWrapper,
-    h1: components.h1
-)
+import pages.behaviours.PageBehaviours
 
-@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+class GroupRatioPercentagePageSpec extends PageBehaviours {
 
-@govukLayout(pageTitle = Some(titleNoForm("underConstruction.title"))) {
+  "GroupRatioPercentagePage" must {
 
-    @h1("underConstruction.heading")
+    beRetrievable[BigDecimal](GroupRatioPercentagePage)
+
+    beSettable[BigDecimal](GroupRatioPercentagePage)
+
+    beRemovable[BigDecimal](GroupRatioPercentagePage)
+  }
 }
