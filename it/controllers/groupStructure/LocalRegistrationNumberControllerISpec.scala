@@ -72,35 +72,36 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
       "user is authorised" when {
 
-        "enters true" when {
+        "a value is entered" should {
 
-          "redirect to ParentCompanySAUTR page" in {
+          //TODO: Update as part of routing subtask
+          "redirect to Under Construction page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> "CRN"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
         }
 
-        "enters false" when {
+        "a value is NOT entered" should {
 
-          "redirect to ParentCompanyCTUTR page" in {
-
+          //TODO: Update as part of routing subtask
+          "redirect to Under Construction page" in {
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> false))()
+            val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
