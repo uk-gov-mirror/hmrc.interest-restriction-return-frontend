@@ -47,7 +47,7 @@ class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationC
 
         "the answer for the page is false" must {
 
-          "return no all question pages to delete" in {
+          "return all question pages to be deleted" in {
 
             val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, false).get
 
