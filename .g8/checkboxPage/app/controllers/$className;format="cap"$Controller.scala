@@ -13,6 +13,7 @@ import repositories.SessionRepository
 import views.html.$className;format="cap"$View
 import play.api.data.Form
 import navigation.Navigator
+import services.QuestionDeletionLookupService
 
 import scala.concurrent.Future
 
@@ -20,6 +21,7 @@ class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        val sessionRepository: SessionRepository,
                                        val navigator: Navigator,
+                                       val questionDeletionLookupService: QuestionDeletionLookupService,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
