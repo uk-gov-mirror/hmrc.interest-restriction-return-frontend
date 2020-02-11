@@ -49,13 +49,13 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
     RegisteredCompaniesHousePage -> (_.get(RegisteredCompaniesHousePage) match {
       case Some(true) => routes.ParentCRNController.onPageLoad(NormalMode)
-      case Some(false) => nextSection(NormalMode)
+      case Some(false) => routes.CheckAnswersGroupStructureController.onPageLoad()
       case _ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
     }),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
     RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
-    groupStructure.CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
+    CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>

@@ -162,7 +162,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(RegisteredCompaniesHousePage, false).success.value
 
           navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers) mustBe
-            controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+            groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
         }
 
         "go to the RegisteredCompaniesHousePage when no answer" in {
