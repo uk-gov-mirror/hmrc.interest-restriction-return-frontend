@@ -14,33 +14,32 @@
  * limitations under the License.
  */
 
-package controllers.aboutReportingCompany
+package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /reporting-company/check-answers" when {
+    "GET /elections/enter-angie" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/reporting-company/check-answers")()
+          val res = getRequest("/elections/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.checkAnswersReportingCompany)
+              titleOf(PageTitles.enterANGIE)
             )
           }
         }
@@ -52,7 +51,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reporting-company/check-answers")()
+          val res = getRequest("/elections/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,22 +63,22 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
       }
     }
 
-    "POST /reporting-company/check-answers" when {
+    "POST /elections/enter-angie" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to EnterANGIE page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company/check-answers", JsString(""))()
+            val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
               )
             }
           }
@@ -92,7 +91,47 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/check-answers", Json.obj("value" -> ctutr))()
+          val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+  }
+
+  "in Change mode" when {
+
+    "GET /elections/enter-angie" when {
+
+      "user is authorised" should {
+
+        "return OK (200)" in {
+
+          AuthStub.authorised()
+
+          val res = getRequest("/elections/enter-angie/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(PageTitles.enterANGIE)
+            )
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = getRequest("/elections/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(

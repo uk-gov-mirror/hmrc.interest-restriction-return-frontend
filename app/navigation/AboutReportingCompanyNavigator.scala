@@ -17,7 +17,7 @@
 package navigation
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.groupStructure.{routes => groupStructureRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
@@ -38,7 +38,7 @@ class AboutReportingCompanyNavigator @Inject()() extends Navigator {
     aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
   )
 
-  private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  private def nextSection(mode: Mode): Call = groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

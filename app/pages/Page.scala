@@ -18,11 +18,10 @@ package pages
 
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.elections.GroupRatioElectionPage
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, RegisteredCompaniesHousePage}
+import pages.elections._
+import pages.groupStructure._
 import pages.startReturn._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
-import pages.groupStructure._
 
 import scala.language.implicitConversions
 
@@ -34,6 +33,7 @@ object Page {
 
   val pages: Map[String, Page] = Map(
     LocalRegistrationNumberPage.toString -> LocalRegistrationNumberPage,
+    EnterANGIEPage.toString -> EnterANGIEPage,
     GroupRatioElectionPage.toString -> GroupRatioElectionPage,
     RegisteredForTaxInAnotherCountryPage.toString -> RegisteredForTaxInAnotherCountryPage,
     ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
