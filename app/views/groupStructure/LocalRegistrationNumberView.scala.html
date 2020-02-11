@@ -31,33 +31,32 @@
 
 @(form: Form[_], mode: Mode, companyName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-    @govukLayout(
-        pageTitle = Some(title(form, "localRegistrationNumber.title", Some("section.groupStructure"), Seq(companyName), possession = true))
-    ) {
+@govukLayout(
+    pageTitle = Some(title(form, "localRegistrationNumber.title", Some("section.groupStructure"), Seq(addPossessive(companyName))))
+) {
 
-        @formHelper(action = LocalRegistrationNumberController.onSubmit(mode)) {
+    @formHelper(action = LocalRegistrationNumberController.onSubmit(mode)) {
 
-            @errorSummary(form.errors)
+        @errorSummary(form.errors)
 
-            @subheading("section.groupStructure")
+        @subheading("section.groupStructure")
 
-            @inputText(
-                form,
-                id = "value",
-                name = "value",
-                label = "localRegistrationNumber.label",
-                isPageHeading = true,
-                hint = Some(hint),
-                headingMessageArgs = Seq(companyName),
-                possession = true
-            )
-            @button("site.saveAndContinue")
+        @inputText(
+            form,
+            id = "value",
+            name = "value",
+            label = "localRegistrationNumber.label",
+            isPageHeading = true,
+            hint = Some(hint),
+            headingMessageArgs = Seq(addPossessive(companyName))
+        )
+        @button("site.saveAndContinue")
 
-            @saveForLater()
-        }
+        @saveForLater()
     }
+}
 
-    @hint = {
+@hint = {
     @messages("localRegistrationNumber.hint")
-    }
+}
     

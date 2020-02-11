@@ -21,13 +21,9 @@ import play.api.i18n.Messages
 
 object ViewUtils {
 
-  def title(form: Form[_], titleStr: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq(),
-            possession: Boolean = false)(implicit messages: Messages): String = {
-    if(possession){
-      titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, addPossessive(titleMessageArgs))}", section)
-    } else {
+  def title(form: Form[_], titleStr: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq())
+           (implicit messages: Messages): String = {
       titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, titleMessageArgs:_*)}", section)
-    }
   }
 
   def titleNoForm(title: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq())(implicit messages: Messages): String =
@@ -37,10 +33,10 @@ object ViewUtils {
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
   }
 
-  def addPossessive(name: Seq[String]): String = {
+  def addPossessive(name: String): String = {
     name match {
-      case h::_ if h.last.toLower == 's' => s"$h’"
-      case _ => s"${name.head}’s"
+      case h if h.last.toLower == 's' => s"$h’"
+      case _ => s"$name’s"
     }
   }
 }

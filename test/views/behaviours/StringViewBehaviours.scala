@@ -18,7 +18,6 @@ package views.behaviours
 
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.ViewUtils._
 
 trait StringViewBehaviours extends QuestionViewBehaviours[String] {
 
@@ -30,8 +29,7 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
                  expectedFormAction: String,
                  expectedHintKey: Option[String] = None,
                  section: Option[String] = None,
-                 possession: Boolean = false,
-                 companyName: Option[String] = None) = {
+                 headingArgs: Seq[String] = Seq()) = {
 
     "behave like a page with a string value field" when {
 
@@ -42,11 +40,7 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
           val doc = asDocument(createView(form))
           val expectedHintText = expectedHintKey map (k => messages(k))
 
-          if(possession){
-            assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label",addPossessive(Seq(companyName.get))), expectedHintText)
-          } else {
-            assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label"), expectedHintText)
-          }
+          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label", headingArgs:_*), expectedHintText)
         }
 
         "contain an input for the value" in {
@@ -83,12 +77,7 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-
-          if(possession){
-            assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix",addPossessive(Seq(companyName.get)))} ${title(messages(s"$messageKeyPrefix.title",addPossessive(Seq(companyName.get))), section)}""")
-          } else {
-            assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title"), section)}""")
-          }
+          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
         }
       }
     }

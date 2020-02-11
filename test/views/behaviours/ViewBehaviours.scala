@@ -26,8 +26,7 @@ trait ViewBehaviours extends ViewSpecBase {
   def normalPage(view: HtmlFormat.Appendable,
                  messageKeyPrefix: String,
                  headingArgs: Seq[String] = Seq(),
-                 section: Option[String] = None,
-                 possession: Boolean = false): Unit = {
+                 section: Option[String] = None): Unit = {
 
     "behave like a normal page" when {
 
@@ -36,21 +35,13 @@ trait ViewBehaviours extends ViewSpecBase {
         "display the correct browser title" in {
 
           val doc = asDocument(view)
-          if(possession){
-            assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title", addPossessive(headingArgs)), section))
-          } else {
-            assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section))
-          }
+          assertEqualsMessage(doc, "title", title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section))
         }
 
         "display the correct page heading" in {
 
           val doc = asDocument(view)
-          if(possession){
-            assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", addPossessive(headingArgs))
-          } else {
-            assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", headingArgs:_*)
-          }
+          assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", headingArgs:_*)
         }
 
         if (frontendAppConfig.languageTranslationEnabled) {

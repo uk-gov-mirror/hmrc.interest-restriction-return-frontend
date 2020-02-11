@@ -27,6 +27,8 @@ import play.twirl.api.HtmlFormat
 import views.BaseSelectors
 import views.behaviours.StringViewBehaviours
 import views.html.groupStructure.LocalRegistrationNumberView
+import views.ViewUtils._
+
 class LocalRegistrationNumberViewSpec extends StringViewBehaviours with BaseConstants {
 
   object Selectors extends BaseSelectors
@@ -35,39 +37,37 @@ class LocalRegistrationNumberViewSpec extends StringViewBehaviours with BaseCons
   val section = Some(messages("section.groupStructure"))
   val form = new LocalRegistrationNumberFormProvider()()
 
-  def applyView(form: Form[_]): HtmlFormat.Appendable = {
+  def applyView(companyName: String = companyNameModel.name)(form: Form[_]): HtmlFormat.Appendable = {
     val view = viewFor[LocalRegistrationNumberView](Some(emptyUserAnswers))
-    view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
-  }
-
-  def applyViewS(form: Form[_]): HtmlFormat.Appendable = {
-    val view = viewFor[LocalRegistrationNumberView](Some(emptyUserAnswers))
-    view.apply(form, NormalMode, companyNameModelS.name)(fakeRequest, messages, frontendAppConfig)
+    view.apply(form, NormalMode, companyName)(fakeRequest, messages, frontendAppConfig)
   }
 
   "LocalRegistrationNumberView" must {
 
     behave like normalPage(
-      view = applyView(form),
+      view = applyView()(form),
       messageKeyPrefix = messageKeyPrefix,
       section = section,
-      headingArgs = Seq(companyNameModel.name),
-      possession = true
+      headingArgs = Seq(addPossessive(companyNameModel.name))
     )
 
-    behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView()(form))
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
+    behave like pageWithSubHeading(applyView()(form), SectionHeaderMessages.groupStructure)
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView()(form), BaseMessages.saveAndContinue)
 
-    behave like stringPage(form, applyView, messageKeyPrefix, routes.LocalRegistrationNumberController.onSubmit(NormalMode).url,
-      possession = true, companyName = Some(companyNameModel.name),section = section)
+    behave like stringPage(
+      form = form,
+      createView = applyView(),
+      messageKeyPrefix = messageKeyPrefix,
+      expectedFormAction = routes.LocalRegistrationNumberController.onSubmit(NormalMode).url,
+      section = section,
+      headingArgs = Seq(addPossessive(companyNameModel.name)))
 
-    behave like pageWithSaveForLater(applyView(form))
+    behave like pageWithSaveForLater(applyView()(form))
 
-    lazy val document = asDocument(applyView(form))
-    lazy val documentS = asDocument(applyViewS(form))
+    lazy val document = asDocument(applyView()(form))
 
     "have a hint" which {
 
@@ -80,15 +80,15 @@ class LocalRegistrationNumberViewSpec extends StringViewBehaviours with BaseCons
 
     "have correct grammar" which {
 
-      lazy val hint = document.select(Selectors.label)
-      lazy val hintS = documentS.select(Selectors.label)
-
       "uses possessives correctly when the company name doesn't end with 's'" in {
-        hint.text mustBe LocalRegistrationNumberMessages.label
+        lazy val hint = document.select(Selectors.label)
+        hint.text mustBe LocalRegistrationNumberMessages.labelPossive
       }
 
-      "uses possessives correctly when the company name ends with 's'" in {
-        hintS.text mustBe LocalRegistrationNumberMessages.labelFancy
+      "uses possessives correctly when the company name ends with 's' (plural possessive)" in {
+        lazy val document = asDocument(applyView(companyNameModelS.name)(form))
+        lazy val hint = document.select(Selectors.label)
+        hint.text mustBe LocalRegistrationNumberMessages.labelPossivePlural
       }
     }
   }

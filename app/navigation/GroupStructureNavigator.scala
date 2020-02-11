@@ -55,7 +55,8 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     }),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => nextSection(NormalMode)),
-    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    LocalRegistrationNumberPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page
