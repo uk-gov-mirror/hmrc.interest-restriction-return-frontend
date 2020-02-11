@@ -1,4 +1,4 @@
-package forms
+package forms.$section;format="decap"$
 
 import forms.behaviours.StringFieldBehaviours
 import play.api.data.FormError

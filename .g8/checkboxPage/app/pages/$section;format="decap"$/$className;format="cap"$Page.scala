@@ -1,5 +1,5 @@
-package pages
-
+package pages.$section;format="decap"$
+import pages.QuestionPage
 import models.$className;format="cap"$
 import play.api.libs.json.JsPath
 

@@ -1,5 +1,5 @@
-package pages
-
+package pages.$section;format="decap"$
+import pages.QuestionPage
 import java.time.LocalDate
 
 import play.api.libs.json.JsPath

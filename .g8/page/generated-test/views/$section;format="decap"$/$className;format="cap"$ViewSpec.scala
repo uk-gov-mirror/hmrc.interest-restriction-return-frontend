@@ -1,5 +1,6 @@
-package views
+package views.$section;format="decap"$
 
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import views.behaviours.ViewBehaviours
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import views.{Twirl}
@@ -11,7 +12,6 @@ class $className;format="cap"$ViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "$className;format="decap"$"
   val section = Some(messages("section.$section;format="decap"$"))
-  val form = new $className;format="cap"$FormProvider()()
 
       "$className;format="cap"$View" must {
 

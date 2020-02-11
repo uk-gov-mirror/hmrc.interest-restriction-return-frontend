@@ -1,7 +1,8 @@
-package views
+package views.$section;format="decap"$
 
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import java.time.LocalDate
-import forms.$className;format="cap"$FormProvider
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -23,12 +24,12 @@ class $className;format="cap"$ViewSpec extends QuestionViewBehaviours[LocalDate]
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section$)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section;format="decap"$)
 
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSaveForLater(applyView(form)
+      behave like pageWithSaveForLater(applyView(form))
     }
   }

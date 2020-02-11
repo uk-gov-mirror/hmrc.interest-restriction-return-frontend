@@ -1,5 +1,5 @@
 package models
-
+import pages.QuestionPage
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
@@ -7,7 +7,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 sealed trait $className;format="cap"$
 
-object $className;format="cap"$Model extends Enumerable.Implicits {
+object $className;format="cap"$ extends Enumerable.Implicits {
 
   case object $option1key;format="Camel"$ extends WithName("$option1key;format="decap"$") with $className;format="cap"$
   case object $option2key;format="Camel"$ extends WithName("$option2key;format="decap"$") with $className;format="cap"$

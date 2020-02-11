@@ -16,6 +16,7 @@
 
 package controllers.$section;format="decap"$
 
+import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._

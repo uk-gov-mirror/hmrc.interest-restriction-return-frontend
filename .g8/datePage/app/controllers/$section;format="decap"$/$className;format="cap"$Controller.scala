@@ -1,11 +1,11 @@
-package controllers
+package controllers.$section;format="decap"$
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.$className;format="cap"$FormProvider
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.$className;format="cap"$Page
+import pages.$section;format="decap"$.$className;format="cap"$Page
 import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._

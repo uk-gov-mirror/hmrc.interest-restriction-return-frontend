@@ -1,6 +1,7 @@
 @import controllers.$section;format="decap"$.routes._
 @import models.Mode
 @import config.FrontendAppConfig
+@import models.$className;format="cap"$
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -8,7 +9,6 @@
     errorSummary: components.errorSummary,
     button: components.button,
     checkboxes: components.inputCheckboxes,
-    button: components.button,
     link: components.link,
     subheading: components.subheading,
     saveForLater: components.saveForLater
@@ -27,7 +27,7 @@
         @checkboxes(
                     form = form,
                     legend = messages("$className;format="decap"$.heading"),
-                    items = $className;format="decap"$.options(form)
+                    items = $className;format="cap"$.options(form)
                    )
 
         @button("site.saveAndContinue")

@@ -1,6 +1,7 @@
-package views
+package views.$section;format="decap"$
 
-import forms.$className;format="cap"$FormProvider
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import models.{$className;format="cap"$, ContinueSavedReturn, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -22,7 +23,7 @@ class $className;format="cap"$ViewSpec extends ViewBehaviours {
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section$)
+    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section;format="decap"$)
 
     behave like pageWithBackLink(applyView(form))
 

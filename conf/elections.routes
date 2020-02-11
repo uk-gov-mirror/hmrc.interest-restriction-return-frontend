@@ -13,4 +13,3 @@ POST       /enter-angie                                   controllers.elections.
 GET        /enter-angie/change                            controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-angie/change                            controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
 
-

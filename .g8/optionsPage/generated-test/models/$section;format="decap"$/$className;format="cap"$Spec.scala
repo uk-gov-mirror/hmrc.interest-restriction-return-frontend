@@ -1,5 +1,5 @@
 package models
-
+import pages.QuestionPage
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks

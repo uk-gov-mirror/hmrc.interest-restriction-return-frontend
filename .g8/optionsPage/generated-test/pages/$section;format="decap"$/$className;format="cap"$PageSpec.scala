@@ -1,4 +1,4 @@
-package pages
+package pages.$section;format="decap"$
 
 import models.$className;format="cap"$
 import pages.behaviours.PageBehaviours

@@ -2,10 +2,11 @@ package controllers.$section;format="decap"$
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.$className;format="cap"$FormProvider
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import javax.inject.Inject
-import models.{$className;format="cap"$, Mode}
-import pages.$className;format="cap"$Page
+import models.$className;format="cap"$
+import models.Mode
+import pages.$section;format="decap"$.$className;format="cap"$Page
 import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -37,7 +38,7 @@ class $className;format="cap"$Controller @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(viewformWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
         saveAndRedirect($className;format="cap"$Page, value, mode)
     )

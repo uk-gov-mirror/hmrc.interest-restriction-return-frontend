@@ -1,4 +1,4 @@
-package forms
+package forms.$section;format="decap"$
 
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package pages
+package pages.$section;format="decap"$
 
 import pages.behaviours.PageBehaviours
 

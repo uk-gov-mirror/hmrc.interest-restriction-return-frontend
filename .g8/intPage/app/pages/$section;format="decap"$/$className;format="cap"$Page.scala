@@ -1,5 +1,5 @@
-package pages
-
+package pages.$section;format="decap"$
+import pages.QuestionPage
 import play.api.libs.json.JsPath
 
 case object $className;format="cap"$Page extends QuestionPage[Int] {

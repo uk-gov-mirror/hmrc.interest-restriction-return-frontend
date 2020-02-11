@@ -1,7 +1,8 @@
-package views
+package views.$section;format="decap"$
 
-import controllers.routes
-import forms.$className;format="cap"$FormProvider
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import controllers.$section;format="decap"$.routes
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -25,9 +26,9 @@ class $className;format="cap"$ViewSpec extends IntViewBehaviours  {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section;format="decap"$)
 
-      behave like intPage(form, applyView, messageKeyPrefix, routes.$className;format="cap"$Controller.onSubmit(NormalMode).url, section = section)
+      behave like intPage(form, applyView, messageKeyPrefix, Seq(), routes.$className;format="cap"$Controller.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

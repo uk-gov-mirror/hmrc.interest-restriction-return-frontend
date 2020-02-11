@@ -1,13 +1,14 @@
-package views
+package views.$section;format="decap"$
 
-import forms.$className;format="cap"$FormProvider
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import models.{$className;format="cap"$, NormalMode}
 import play.api.Application
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
 import views.html.$section;format="decap"$.$className;format="cap"$View
-import controllers.$section$.routes.$className;format="cap"$Controller
+import controllers.$section;format="decap"$.routes.$className;format="cap"$Controller
 
 class $className;format="cap"$ViewSpec extends CheckboxViewBehaviours[$className;format="cap"$] {
 
@@ -28,9 +29,9 @@ class $className;format="cap"$ViewSpec extends CheckboxViewBehaviours[$className
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section$)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.$section;format="decap"$)
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, $className;format="cap"$.options(form), section = section)
+      behave like checkboxPage(form, applyView, messageKeyPrefix, $className;format="cap"$.options(form), messages("section.$section;format="decap"$"))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

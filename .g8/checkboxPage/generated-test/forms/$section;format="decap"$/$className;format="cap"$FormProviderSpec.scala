@@ -1,4 +1,4 @@
-package forms
+package forms.$section;format="decap"$
 
 import forms.behaviours.CheckboxFieldBehaviours
 import models.$className;format="cap"$

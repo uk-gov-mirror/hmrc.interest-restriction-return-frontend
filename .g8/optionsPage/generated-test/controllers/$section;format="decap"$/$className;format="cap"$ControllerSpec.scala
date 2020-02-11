@@ -16,14 +16,15 @@
 
 package controllers.$section;format="decap"$
 
+import controllers.errors
 import base.SpecBase
 import config.featureSwitch.{FeatureSwitching}
 import controllers.actions._
-import forms.$className;format="cap"$FormProvider
+import forms.$section;format="decap"$.$className;format="cap"$FormProvider
 import models.{$className;format="cap"$, NormalMode, UserAnswers}
-import navigation.FakeNavigators.FakeNavigator
+import navigation.FakeNavigators.Fake$section;format="cap"$Navigator
 import org.scalatestplus.mockito.MockitoSugar
-import pages.$className;format="cap"$Page
+import pages.$section;format="decap"$.$className;format="cap"$Page
 import play.api.data.Form
 
 import play.api.mvc.Call
@@ -41,7 +42,7 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
   object Controller extends $className;format="cap"$Controller(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeNavigator,
+    navigator = Fake$section;format="cap"$Navigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

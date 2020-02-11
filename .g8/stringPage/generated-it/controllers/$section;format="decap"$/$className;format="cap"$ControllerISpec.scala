@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.$section;format="decap"$
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
@@ -74,13 +74,13 @@ class $className;format="cap"$ControllerISpec extends IntegrationSpecBase with C
             AuthStub.authorised()
 
             val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.$className;format="cap"$Controller.onPageLoad(NormalMode).url)
-              )
-            }
+//TODO: Implement
+//            whenReady(res) { result =>
+//              result should have(
+//                httpStatus(SEE_OTHER),
+//                redirectLocation(controllers.$section;format="decap"$.routes.$className;format="cap"$Controller.onPageLoad(NormalMode).url)
+//              )
+//            }
           }
         }
       }
