@@ -384,6 +384,15 @@ limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
 
+# CountryOfIncorporationPage Messages
+# ----------------------------------------------------------
+countryOfIncorporation.title = Where is {0} registered for tax?
+countryOfIncorporation.heading = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.label= Where is {0} registered for tax?
+countryOfIncorporation.error.invalid = Enter a valid country
+countryOfIncorporation.hint = (Optional)
+
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------
 groupRatioElection.title = Are you making a group ratio election?

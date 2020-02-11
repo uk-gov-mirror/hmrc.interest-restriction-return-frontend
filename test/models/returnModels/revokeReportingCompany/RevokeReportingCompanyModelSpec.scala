@@ -17,11 +17,11 @@
 package models.returnModels.revokeReportingCompany
 
 import assets.constants.BaseConstants
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.revokeReportingCompany.RevokeReportingCompanyConstants._
 
-class RevokeReportingCompanyModelSpec extends WordSpec with Matchers with BaseConstants {
+class RevokeReportingCompanyModelSpec extends WordSpec with MustMatchers with BaseConstants {
 
   "RevokeReportingCompanyModel" must {
 
@@ -32,7 +32,7 @@ class RevokeReportingCompanyModelSpec extends WordSpec with Matchers with BaseCo
         val expectedValue = revokeReportingCompanyJsonMax
         val actualValue = Json.toJson(revokeReportingCompanyModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
@@ -40,7 +40,7 @@ class RevokeReportingCompanyModelSpec extends WordSpec with Matchers with BaseCo
         val expectedValue = revokeReportingCompanyJsonMax
         val actualValue = Json.toJson(revokeReportingCompanyModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }

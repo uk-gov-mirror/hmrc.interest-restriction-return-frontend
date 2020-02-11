@@ -109,4 +109,12 @@ trait Constraints {
       case _ =>
         Invalid(errorKey)
     }
+
+  protected def keyExists(keys: Seq[String], errorKey: String): Constraint[String] =
+    Constraint {
+      case country if keys.contains(country) =>
+        Valid
+      case _ =>
+        Invalid(errorKey)
+    }
 }

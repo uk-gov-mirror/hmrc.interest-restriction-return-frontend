@@ -43,6 +43,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
   def registeredForTaxInAnotherCountry: Option[SummaryListRow] =
     answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(CheckMode))
 
+  def countryOfIncorporation: Option[SummaryListRow] = answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(CheckMode))
+
   def parentCRN: Option[SummaryListRow] =
     answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(CheckMode))
 

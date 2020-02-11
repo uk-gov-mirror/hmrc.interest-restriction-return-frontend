@@ -16,11 +16,11 @@
 
 package models.returnModels.fullReturn
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.fullReturn.AdjustedGroupInterestConstants._
 
-class AdjustedGroupInterestModelSpec extends WordSpec with Matchers {
+class AdjustedGroupInterestModelSpec extends WordSpec with MustMatchers {
 
   "AdjustedGroupInterestModel" must {
 
@@ -29,7 +29,7 @@ class AdjustedGroupInterestModelSpec extends WordSpec with Matchers {
       val expectedValue = adjustedGroupInterestJson
       val actualValue = Json.toJson(adjustedGroupInterestModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

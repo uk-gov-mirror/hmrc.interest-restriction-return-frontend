@@ -19,11 +19,11 @@ package views.behaviours
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 
-trait StringViewBehaviours extends QuestionViewBehaviours[String] {
+trait AutocompleteViewBehaviours extends QuestionViewBehaviours[String] {
 
-  val answer = "answer"
+  val answerValue = "value"
 
-  def stringPage(form: Form[String],
+  def selectPage(form: Form[String],
                  createView: Form[String] => HtmlFormat.Appendable,
                  messageKeyPrefix: String,
                  expectedFormAction: String,
@@ -43,10 +43,10 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
           assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.heading", headingArgs:_*), expectedHintText)
         }
 
-        "contain an input for the value" in {
+        "contain a select input for the value" in {
 
           val doc = asDocument(createView(form))
-          assertRenderedById(doc, "value")
+          assertRenderedByCssSelector(doc, "select#value")
         }
       }
 
@@ -54,8 +54,8 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
 
         "include the form's value in the value input" in {
 
-          val doc = asDocument(createView(form.fill(answer)))
-          doc.getElementById("value").attr("value") mustBe answer
+          val doc = asDocument(createView(form.fill(answerValue)))
+          doc.select(s"option[value='$answerValue']").attr("selected") mustBe "selected"
         }
       }
 

@@ -48,7 +48,7 @@ class ParentCRNFormProviderSpec extends StringFieldBehaviours {
     "error when given an invalid format for the CRN" in {
 
       val result = form.bind(Map(fieldName -> "InvalidCRN")).apply(fieldName)
-      result.errors(0) shouldEqual FormError(fieldName, invalidFormatKey, Seq(regexPattern))
+      result.errors(0) mustEqual FormError(fieldName, invalidFormatKey, Seq(regexPattern))
     }
   }
 }

@@ -18,10 +18,10 @@ package models.returnModels.abbreviatedReturn
 
 import assets.constants.BaseConstants
 import assets.constants.abbreviatedReturn.AbbreviatedReturnConstants._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 
-class AbbreviatedReturnModelSpec extends WordSpec with Matchers with BaseConstants {
+class AbbreviatedReturnModelSpec extends WordSpec with MustMatchers with BaseConstants {
 
   "AbbreviatedReturnModel" must {
 
@@ -32,7 +32,7 @@ class AbbreviatedReturnModelSpec extends WordSpec with Matchers with BaseConstan
         val expectedValue = abbreviatedReturnUltimateParentJson
         val actualValue = Json.toJson(abbreviatedReturnUltimateParentModel)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
@@ -40,7 +40,7 @@ class AbbreviatedReturnModelSpec extends WordSpec with Matchers with BaseConstan
         val expectedValue = abbreviatedReturnJsonMin
         val actualValue = Json.toJson(abbreviatedReturnModelMin)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }

@@ -32,8 +32,8 @@ trait BaseConstants {
   val knownAsTooLong = "a" * (companyNameMaxLength + 1)
   val invalidCrn = CRNModel("AAAA1234")
   val nonUkCrn = "1234567890"
-  val nonUkCountryCode = CountryCodeModel("US")
-  val invalidCountryCode = CountryCodeModel("AA")
+  val nonUkCountryCode = CountryCodeModel("US", "United States of America")
+  val invalidCountryCode = CountryCodeModel("AA", "Invalid")
   val agentName = "Agent A"
   val ultimateParentCompanyUK = UltimateParentModel(
     isUk = true,

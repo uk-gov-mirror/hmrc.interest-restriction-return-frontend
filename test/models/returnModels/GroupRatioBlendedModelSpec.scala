@@ -16,11 +16,11 @@
 
 package models.returnModels
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.GroupRatioBlendedConstants._
 
-class GroupRatioBlendedModelSpec extends WordSpec with Matchers {
+class GroupRatioBlendedModelSpec extends WordSpec with MustMatchers {
 
   "GroupRatioBlendedModel" must {
 
@@ -31,7 +31,7 @@ class GroupRatioBlendedModelSpec extends WordSpec with Matchers {
         val expectedValue = groupRatioBlendedJsonMax
         val actualValue = Json.toJson(groupRatioBlendedModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
@@ -39,7 +39,7 @@ class GroupRatioBlendedModelSpec extends WordSpec with Matchers {
         val expectedValue = groupRatioBlendedJsonMin
         val actualValue = Json.toJson(groupRatioBlendedModelMin)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
 

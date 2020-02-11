@@ -54,7 +54,8 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     }),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
     ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
-    RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
+    CountryOfIncorporationPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
   )
 

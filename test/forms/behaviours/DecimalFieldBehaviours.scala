@@ -30,13 +30,13 @@ trait DecimalFieldBehaviours extends FieldBehaviours {
       forAll(nonNumerics -> "nonNumeric") {
         nonNumeric =>
           val result = form.bind(Map(fieldName -> nonNumeric)).apply(fieldName)
-          result.errors shouldEqual Seq(nonNumericError)
+          result.errors mustEqual Seq(nonNumericError)
       }
     }
 
     "not bind invalid decimals (over 2dp)" in {
       val result = form.bind(Map(fieldName -> "12.123")).apply(fieldName)
-      result.errors shouldEqual Seq(invalidNumericError)
+      result.errors mustEqual Seq(invalidNumericError)
     }
   }
 
@@ -48,7 +48,7 @@ trait DecimalFieldBehaviours extends FieldBehaviours {
     "value is less than the minimum" in {
 
       val result = form.bind(Map(fieldName -> (minimum - 0.01).toString)).apply(fieldName)
-      result.errors shouldEqual Seq(expectedError)
+      result.errors mustEqual Seq(expectedError)
     }
   }
 
@@ -60,7 +60,7 @@ trait DecimalFieldBehaviours extends FieldBehaviours {
     "value is greater than the maximum" in {
 
       val result = form.bind(Map(fieldName -> (maximum + 0.01).toString)).apply(fieldName)
-      result.errors shouldEqual Seq(expectedError)
+      result.errors mustEqual Seq(expectedError)
     }
   }
 
@@ -75,13 +75,13 @@ trait DecimalFieldBehaviours extends FieldBehaviours {
       "value is greater than the maximum" in {
 
         val result = form.bind(Map(fieldName -> (maximum + 0.01).toString)).apply(fieldName)
-        result.errors shouldEqual Seq(expectedError)
+        result.errors mustEqual Seq(expectedError)
       }
 
       "value is less than the minimum" in {
 
         val result = form.bind(Map(fieldName -> (minimum - 0.01).toString)).apply(fieldName)
-        result.errors shouldEqual Seq(expectedError)
+        result.errors mustEqual Seq(expectedError)
       }
     }
   }

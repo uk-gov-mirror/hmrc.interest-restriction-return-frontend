@@ -17,10 +17,10 @@
 package models.returnModels
 
 import assets.constants.AgentDetailsConstants._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 
-class AgentDetailsModelSpec extends WordSpec with Matchers {
+class AgentDetailsModelSpec extends WordSpec with MustMatchers {
 
   "AgentDetailsModel" must {
 
@@ -31,7 +31,7 @@ class AgentDetailsModelSpec extends WordSpec with Matchers {
         val expectedValue = agentDetailsJsonMax
         val actualValue = Json.toJson(agentDetailsModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
@@ -39,7 +39,7 @@ class AgentDetailsModelSpec extends WordSpec with Matchers {
         val expectedValue = agentDetailsJsonMin
         val actualValue = Json.toJson(agentDetailsModelMin)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }

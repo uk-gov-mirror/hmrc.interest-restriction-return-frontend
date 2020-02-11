@@ -18,10 +18,10 @@ package models.returnModels.abbreviatedReturn
 
 import assets.constants.abbreviatedReturn.UkCompanyConstants._
 import models.returnModels.abbreviatedReturnModel.UkCompanyModel
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 
-class UkCompanyModelSpec extends WordSpec with Matchers {
+class UkCompanyModelSpec extends WordSpec with MustMatchers {
 
   "UkCompanyModel" must {
 
@@ -30,7 +30,7 @@ class UkCompanyModelSpec extends WordSpec with Matchers {
       val expectedValue = ukCompanyJson
       val actualValue = Json.toJson(ukCompanyModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

@@ -18,10 +18,10 @@ package models.returnModels.appointReportingCompany
 
 import assets.constants.BaseConstants
 import assets.constants.appointReportingCompany.AppointReportingCompanyConstants._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 
-class AppointReportingCompanyModelSpec extends WordSpec with Matchers with BaseConstants {
+class AppointReportingCompanyModelSpec extends WordSpec with MustMatchers with BaseConstants {
 
   "AppointReportingCompanyModel" must {
 
@@ -32,7 +32,7 @@ class AppointReportingCompanyModelSpec extends WordSpec with Matchers with BaseC
         val expectedValue = appointReportingCompanyJsonMax
         val actualValue = Json.toJson(appointReportingCompanyModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "With Min values" in {
@@ -40,7 +40,7 @@ class AppointReportingCompanyModelSpec extends WordSpec with Matchers with BaseC
         val expectedValue = appointReportingCompanyJsonMin
         val actualValue = Json.toJson(appointReportingCompanyModelMin)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }
