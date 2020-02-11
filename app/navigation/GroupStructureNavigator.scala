@@ -17,9 +17,8 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import models._
-import pages._
+import pages.{groupStructure, _}
 import pages.groupStructure._
 import play.api.mvc.Call
 import controllers.groupStructure.routes
@@ -50,17 +49,17 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
     RegisteredCompaniesHousePage -> (_.get(RegisteredCompaniesHousePage) match {
       case Some(true) => routes.ParentCRNController.onPageLoad(NormalMode)
-      case Some(false) => nextSection(NormalMode)
+      case Some(false) => routes.CheckAnswersGroupStructureController.onPageLoad()
       case _ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
     }),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
-    ParentCRNPage -> (_ => nextSection(NormalMode)),
-    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
+    RegisteredForTaxInAnotherCountryPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
+    CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
   )
 
-  //TODO update with check your answers page
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    controllers.routes.UnderConstructionController.onPageLoad()
+    routes.CheckAnswersGroupStructureController.onPageLoad()
   )
 
   private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
