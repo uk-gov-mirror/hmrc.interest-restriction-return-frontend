@@ -14,11 +14,13 @@ import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
+import services.QuestionDeletionLookupService
 
 class $className;format="cap"$Controller @Inject()(
                                          override val messagesApi: MessagesApi,
                                          val sessionRepository: SessionRepository,
                                          val navigator: $section;format="cap"$Navigator,
+                                         val questionDeletionLookupService: QuestionDeletionLookupService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
