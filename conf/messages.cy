@@ -401,3 +401,14 @@ enterANGIE.error.nonNumeric = Enter the adjusted net group-interest expense (ANG
 enterANGIE.error.required = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.error.invalidNumeric = The adjusted net group-interest expense (ANGIE) must be valid decimal or whole number
 enterANGIE.error.outOfRange = Adjusted net group-interest expense (ANGIE) must be between {0} and {1}
+
+# EnterQNGIEPage Messages
+# ----------------------------------------------------------
+enterQNGIE.title = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.heading = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.label= Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.checkYourAnswersLabel = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.error.nonNumeric = Enter your qualifying net group-interest expense (QNGIE) using numbers
+enterQNGIE.error.required = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.error.invalidNumeric = The qualifying net group-interest expense (QNGIE) must be valid decimal or whole number
+enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must be between {0} and {1}

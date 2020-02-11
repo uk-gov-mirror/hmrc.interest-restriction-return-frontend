@@ -23,7 +23,7 @@ import org.scalatest.TryValues
 import pages._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.aboutReturn._
-import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
+import pages.elections.{EnterANGIEPage, EnterQNGIEPage, GroupRatioElectionPage}
 import pages.groupStructure._
 import pages.startReturn._
 import play.api.libs.json.{JsValue, Json}
@@ -32,6 +32,7 @@ trait UserAnswersGenerator extends TryValues {
   self: Generators =>
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
+    arbitrary[(EnterQNGIEPage.type, JsValue)] ::
     arbitrary[(EnterANGIEPage.type, JsValue)] ::
     arbitrary[(GroupRatioElectionPage.type, JsValue)] ::
     arbitrary[(RegisteredForTaxInAnotherCountryPage.type, JsValue)] ::
