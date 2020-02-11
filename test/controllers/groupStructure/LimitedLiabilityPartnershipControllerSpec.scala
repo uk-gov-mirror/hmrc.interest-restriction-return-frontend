@@ -39,6 +39,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

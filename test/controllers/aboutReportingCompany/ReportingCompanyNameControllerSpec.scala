@@ -37,6 +37,7 @@ class ReportingCompanyNameControllerSpec extends SpecBase with FeatureSwitching 
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

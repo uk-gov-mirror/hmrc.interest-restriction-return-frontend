@@ -37,6 +37,7 @@ class GroupSubjectToReactivationsControllerSpec extends SpecBase with FeatureSwi
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

@@ -38,6 +38,7 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = new DataRequiredActionImpl,

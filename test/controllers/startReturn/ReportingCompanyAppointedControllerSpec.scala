@@ -37,6 +37,7 @@ class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitc
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeStartReturnNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
