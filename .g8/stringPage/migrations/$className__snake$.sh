@@ -91,6 +91,6 @@ awk '/object PageTitles/ {\
 
 echo "adding route to integration test"
 
-sed -i "s|ROUTING_PLACEHOLDER|$section$\/\${kebabClassName}|g" ../generated-it/controllers/$className$ControllerISpec.scala
+sed -i "s|ROUTING_PLACEHOLDER|$section;format="decap"$\/\${kebabClassName}|g" ../generated-it/controllers/$section;format="decap"$/$className$ControllerISpec.scala
 
 echo "Migration $className;format="snake"$ completed"

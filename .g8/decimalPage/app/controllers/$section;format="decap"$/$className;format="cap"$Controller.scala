@@ -15,12 +15,12 @@ import play.api.data.Form
 
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
-import navigation.Navigator
+import navigation.$section;format="cap"$Navigator
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        val sessionRepository: SessionRepository,
-                                       val navigator: Navigator,
+                                       val navigator: $section;format="cap"$Navigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,

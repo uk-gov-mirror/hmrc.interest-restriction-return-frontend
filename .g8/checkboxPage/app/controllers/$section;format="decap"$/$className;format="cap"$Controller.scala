@@ -12,14 +12,14 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
-import navigation.Navigator
+import navigation.$section;format="cap"$Navigator
 
 import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        val sessionRepository: SessionRepository,
-                                       val navigator: Navigator,
+                                       val navigator: $section;format="cap"$Navigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
