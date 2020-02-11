@@ -109,8 +109,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
         "enters false" should {
 
-          //TODO: Update when real routing is in place
-          "redirect to under construction page" in {
+          "redirect to Registered For Tax in Another Country page" in {
 
             AuthStub.authorised()
 
@@ -119,7 +118,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode).url)
               )
             }
           }
