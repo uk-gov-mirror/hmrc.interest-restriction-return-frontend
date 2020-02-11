@@ -1,4 +1,4 @@
-package controllers
+package controllers.$section;format="decap"$
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching}
@@ -8,7 +8,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$section;format="decap"$.$className;format="cap"$View
-
+import controllers.BaseNavigationController
 import scala.concurrent.{ExecutionContext, Future}
 
 class $className;format="cap"$Controller @Inject()(override val messagesApi: MessagesApi,

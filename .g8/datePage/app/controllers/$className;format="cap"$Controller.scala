@@ -14,7 +14,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
 import navigation.$section;format="cap"$Navigator
-
+import controllers.BaseNavigationController
 import scala.concurrent.Future
 import services.QuestionDeletionLookupService
 

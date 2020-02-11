@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.$section;format="decap"$
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching

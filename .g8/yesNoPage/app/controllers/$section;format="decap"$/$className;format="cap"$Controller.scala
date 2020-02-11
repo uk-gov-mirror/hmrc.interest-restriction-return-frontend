@@ -1,4 +1,4 @@
-package controllers
+package controllers.$section;format="decap"$
 
 import config.FrontendAppConfig
 import controllers.actions._
@@ -15,6 +15,7 @@ import play.api.data.Form
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
 import services.QuestionDeletionLookupService
+import controllers.BaseNavigationController
 
 class $className;format="cap"$Controller @Inject()(
                                          override val messagesApi: MessagesApi,

@@ -1,4 +1,4 @@
-package controllers
+package controllers.$section;format="decap"$
 
 import controllers.actions._
 import forms.$className;format="cap"$FormProvider
@@ -17,6 +17,7 @@ import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
 import services.QuestionDeletionLookupService
+import controllers.BaseNavigationController
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,

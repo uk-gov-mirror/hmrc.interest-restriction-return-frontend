@@ -1,4 +1,4 @@
-package controllers
+package controllers.$section;format="decap"$
 
 import config.FrontendAppConfig
 import controllers.actions._
@@ -10,11 +10,11 @@ import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
+import views.html.$section;format="decap"$.$className;format="cap"$View
 import navigation.$section;format="cap"$Navigator
 import services.QuestionDeletionLookupService
-
+import controllers.BaseNavigationController
 import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(
