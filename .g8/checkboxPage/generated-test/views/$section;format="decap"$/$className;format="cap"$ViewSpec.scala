@@ -6,7 +6,7 @@ import play.api.Application
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 import controllers.$section$.routes.$className;format="cap"$Controller
 
 class $className;format="cap"$ViewSpec extends CheckboxViewBehaviours[$className;format="cap"$] {

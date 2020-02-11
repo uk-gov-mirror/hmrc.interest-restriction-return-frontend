@@ -17,13 +17,13 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section$")))) {
+@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section;format="decap"$")))) {
 
     @formHelper(action = $className;format="cap"$Controller.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
-        @subheading("section.$subheading;format="decap"$")
+        @subheading("section.$section;format="decap"$")
 
         @inputNumber(
             form,

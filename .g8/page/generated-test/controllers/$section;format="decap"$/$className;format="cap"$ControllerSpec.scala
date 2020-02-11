@@ -20,7 +20,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import play.api.test.Helpers._
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 
 class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 

@@ -30,7 +30,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 
 class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 

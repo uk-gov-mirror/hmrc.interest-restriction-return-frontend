@@ -6,7 +6,7 @@ import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 
 class $className;format="cap"$ViewSpec extends YesNoViewBehaviours  {
 

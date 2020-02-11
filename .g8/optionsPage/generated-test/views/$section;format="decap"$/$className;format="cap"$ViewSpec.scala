@@ -5,7 +5,7 @@ import models.{$className;format="cap"$, ContinueSavedReturn, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 
 class $className;format="cap"$ViewSpec extends ViewBehaviours {
 

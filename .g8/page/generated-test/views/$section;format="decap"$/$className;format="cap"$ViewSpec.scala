@@ -1,7 +1,7 @@
 package views
 
 import views.behaviours.ViewBehaviours
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 import views.{Twirl}
 
 class $className;format="cap"$ViewSpec extends ViewBehaviours {

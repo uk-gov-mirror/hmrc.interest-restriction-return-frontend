@@ -23,7 +23,7 @@ import forms.$className;format="cap"$FormProvider
 import models.NormalMode
 import pages.$className;format="cap"$Page
 import play.api.test.Helpers._
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 import navigation.FakeNavigators.FakeNavigator
 
 class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {

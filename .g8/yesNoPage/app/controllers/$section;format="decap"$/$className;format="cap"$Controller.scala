@@ -10,7 +10,7 @@ import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.$className;format="cap"$View
+import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
 import scala.concurrent.Future
 import navigation.Navigator
