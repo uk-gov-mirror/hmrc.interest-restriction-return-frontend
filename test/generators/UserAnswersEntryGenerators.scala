@@ -37,6 +37,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryEnterANGIEUserAnswersEntry: Arbitrary[(EnterANGIEPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[EnterANGIEPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryGroupRatioElectionUserAnswersEntry: Arbitrary[(GroupRatioElectionPage.type, JsValue)] =
     Arbitrary {
       for {
