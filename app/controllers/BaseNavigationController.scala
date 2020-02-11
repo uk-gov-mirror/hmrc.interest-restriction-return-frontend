@@ -20,24 +20,24 @@ import models._
 import models.requests.DataRequest
 import navigation.Navigator
 import pages.QuestionPage
-import pages.aboutReturn.GroupSubjectToReactivationsPage
-import play.api.data.Form
-import play.api.i18n.I18nSupport
-import play.api.libs.json.{Format, Writes}
+import play.api.libs.json.Writes
 import play.api.mvc.Result
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import services.QuestionDeletionLookupService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 trait BaseNavigationController extends BaseController {
 
   val sessionRepository: SessionRepository
   val navigator: Navigator
+  val questionDeletionLookupService: QuestionDeletionLookupService
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode)(implicit request: DataRequest[_], writes: Writes[A]): Future[Result] =
     for {
       updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer))
-      _              <- sessionRepository.set(updatedAnswers)
+      pagesToDelete  = questionDeletionLookupService.getPagesToRemove(page)(updatedAnswers)
+      cleanedAnswers <- Future.fromTry(updatedAnswers.remove(pagesToDelete))
+      _              <- sessionRepository.set(cleanedAnswers)
     } yield Redirect(navigator.nextPage(page, mode, updatedAnswers))
 }

@@ -40,13 +40,13 @@ class RegisteredForTaxInAnotherCountryControllerSpec extends SpecBase with Featu
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    errorHandler = errorHandler
+    view = view
   )
 
   "RegisteredForTaxInAnotherCountry Controller" must {

@@ -21,6 +21,7 @@ import java.time.LocalDateTime
 import pages._
 import play.api.libs.json._
 
+import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
 
 final case class UserAnswers(
@@ -60,6 +61,18 @@ final case class UserAnswers(
     updatedData.map {
       d =>
         copy (data = d, lastPageSaved = Some(page))
+    }
+  }
+
+  def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
+
+  @tailrec
+  private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] = {
+    if(pages.isEmpty) Success(userAnswers) else {
+      userAnswers.remove(pages.head) match {
+        case Success(answers) => recursivelyClearQuestions(pages.tail,answers)
+        case failure@Failure(_) => failure
+      }
     }
   }
 }

@@ -16,11 +16,11 @@
 
 package models.returnModels
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.GroupLevelElectionsConstants._
 
-class GroupLevelElectionsModelSpec extends WordSpec with Matchers {
+class GroupLevelElectionsModelSpec extends WordSpec with MustMatchers {
 
   "GroupLevelElectionsModel" must {
 
@@ -31,7 +31,7 @@ class GroupLevelElectionsModelSpec extends WordSpec with Matchers {
         val expectedValue = groupLevelElectionsJsonMax
         val actualValue = Json.toJson(groupLevelElectionsModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }

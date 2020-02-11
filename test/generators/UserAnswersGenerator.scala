@@ -21,9 +21,9 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.TryValues
 import pages._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.elections.{EnterANGIEPage, GroupRatioElectionPage}
+import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
 import play.api.libs.json.{JsValue, Json}
@@ -33,6 +33,7 @@ trait UserAnswersGenerator extends TryValues {
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
     arbitrary[(LocalRegistrationNumberPage.type, JsValue)] ::
+    arbitrary[(CountryOfIncorporationPage.type, JsValue)] ::
     arbitrary[(EnterANGIEPage.type, JsValue)] ::
     arbitrary[(GroupRatioElectionPage.type, JsValue)] ::
     arbitrary[(RegisteredForTaxInAnotherCountryPage.type, JsValue)] ::

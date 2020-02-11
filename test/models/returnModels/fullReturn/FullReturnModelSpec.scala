@@ -19,11 +19,11 @@ package models.returnModels.fullReturn
 import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 import assets.constants.fullReturn.AllocatedReactivationsConstants._
 import assets.constants.fullReturn.FullReturnConstants._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.fullReturn.UkCompanyConstants._
 
-class FullReturnModelSpec extends WordSpec with Matchers {
+class FullReturnModelSpec extends WordSpec with MustMatchers {
 
   "FullReturnModel" must {
 
@@ -34,79 +34,79 @@ class FullReturnModelSpec extends WordSpec with Matchers {
         val expectedValue = fullReturnJsonMax
         val actualValue = Json.toJson(fullReturnModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
 
         val expectedValue = fullReturnJsonMin
         val actualValue = Json.toJson(fullReturnModelMin)
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
 
     "derive the correct derived values" when {
 
       "deriving the numberOfUkCompanies when given one or multiple companies" in {
-        fullReturnModelMin.numberOfUkCompanies shouldBe 1
-        fullReturnNetTaxExpenseModelMax.numberOfUkCompanies shouldBe 4
+        fullReturnModelMin.numberOfUkCompanies mustBe 1
+        fullReturnNetTaxExpenseModelMax.numberOfUkCompanies mustBe 4
       }
 
       "deriving the aggregateNetTaxInterest" when {
 
         "income is bigger" in {
-          fullReturnNetTaxIncomeModelMax.aggregateNetTaxInterest shouldBe ((3 * netTaxInterestIncome) - netTaxInterestExpense)
+          fullReturnNetTaxIncomeModelMax.aggregateNetTaxInterest mustBe ((3 * netTaxInterestIncome) - netTaxInterestExpense)
         }
 
         "expense is bigger" in {
-          fullReturnNetTaxExpenseModelMax.aggregateNetTaxInterest shouldBe (netTaxInterestIncome - (3 * netTaxInterestExpense))
+          fullReturnNetTaxExpenseModelMax.aggregateNetTaxInterest mustBe (netTaxInterestIncome - (3 * netTaxInterestExpense))
         }
 
         "income and expense are equal" in {
-          fullReturnModelMax.aggregateNetTaxInterest shouldBe 0
+          fullReturnModelMax.aggregateNetTaxInterest mustBe 0
         }
       }
 
       "deriving the aggregateTaxEBITDA" when {
 
         "one company has a taxEBITDA" in {
-          fullReturnModelMin.aggregateTaxEBITDA shouldBe taxEBITDA
+          fullReturnModelMin.aggregateTaxEBITDA mustBe taxEBITDA
         }
 
         "multiple companies have a taxEBITDA" in {
-          fullReturnModelMax.aggregateTaxEBITDA shouldBe (2 * taxEBITDA)
+          fullReturnModelMax.aggregateTaxEBITDA mustBe (2 * taxEBITDA)
         }
       }
 
       "deriving the aggregateAllocatedRestrictions" when {
 
         "no companies have a allocatedRestrictions" in {
-          fullReturnModelMin.aggregateAllocatedRestrictions shouldBe None
+          fullReturnModelMin.aggregateAllocatedRestrictions mustBe None
         }
 
         "one company has a allocatedRestrictions" in {
-          fullReturnModelMax.aggregateAllocatedRestrictions shouldBe Some(totalDisallowances)
+          fullReturnModelMax.aggregateAllocatedRestrictions mustBe Some(totalDisallowances)
 
         }
 
         "multiple companies have a allocatedRestrictions" in {
-          fullReturnNetTaxExpenseModelMax.aggregateAllocatedRestrictions shouldBe Some(3 * totalDisallowances)
+          fullReturnNetTaxExpenseModelMax.aggregateAllocatedRestrictions mustBe Some(3 * totalDisallowances)
         }
       }
 
       "deriving the aggregateAllocatedReactivations" when {
 
         "no companies have a allocatedRestrictions" in {
-          fullReturnModelMin.aggregateAllocatedReactivations shouldBe None
+          fullReturnModelMin.aggregateAllocatedReactivations mustBe None
         }
 
         "one company has a allocatedRestrictions" in {
-          fullReturnModelMax.aggregateAllocatedReactivations shouldBe Some(currentPeriodReactivation)
+          fullReturnModelMax.aggregateAllocatedReactivations mustBe Some(currentPeriodReactivation)
 
         }
 
         "multiple companies have a allocatedRestrictions" in {
-          fullReturnNetTaxExpenseModelMax.aggregateAllocatedReactivations shouldBe Some(3 * currentPeriodReactivation)
+          fullReturnNetTaxExpenseModelMax.aggregateAllocatedReactivations mustBe Some(3 * currentPeriodReactivation)
         }
 
       }

@@ -17,12 +17,11 @@
 package controllers.startReturn
 
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import javax.inject.Inject
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.MessagesApi
 import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.startReturn.ReportingCompanyRequiredView
 
 import scala.concurrent.ExecutionContext
@@ -33,8 +32,7 @@ class ReportingCompanyRequiredController @Inject()(override val messagesApi: Mes
                                                    requireData: DataRequiredAction,
                                                    val controllerComponents: MessagesControllerComponents,
                                                    view: ReportingCompanyRequiredView
-                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view())

@@ -29,6 +29,9 @@ trait PageGenerators {
   implicit lazy val arbitraryLocalRegistrationNumberPage: Arbitrary[LocalRegistrationNumberPage.type] =
     Arbitrary(LocalRegistrationNumberPage)
 
+  implicit lazy val arbitraryCountryOfIncorporationPage: Arbitrary[CountryOfIncorporationPage.type] =
+    Arbitrary(CountryOfIncorporationPage)
+
   implicit lazy val arbitraryEnterANGIEPage: Arbitrary[EnterANGIEPage.type] =
     Arbitrary(EnterANGIEPage)
 

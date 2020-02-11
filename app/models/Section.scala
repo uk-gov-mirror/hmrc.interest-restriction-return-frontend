@@ -27,6 +27,10 @@ object Section {
     override val toString = "reportingCompany"
   }
 
+  object GroupStructure extends Section {
+    override val toString = "groupStructure"
+  }
+
   object HelloWorld extends Section {
 
     override val toString = "helloWorld"

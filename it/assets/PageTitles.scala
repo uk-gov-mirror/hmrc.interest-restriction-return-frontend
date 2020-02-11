@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val checkAnswersGroupStructure = "Check parent company details"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
   val groupRatioElection = "Are you making a group ratio election?"
   val checkAnswersReportingCompany = "Check your answers - About the reporting company"
@@ -35,4 +36,6 @@ object PageTitles {
   val registeredForTaxInAnotherCountry: String => String = name => s"Is $name registered for tax in another country?"
   val limitedLiabilityPartnership: String => String = name => s"Is $name a Limited Liability Partnership?"
   val localRegistrationNumber: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} local Registration Number"
+  val countryOfIncorporation: String => String = name => s"Where is $name registered for tax?"
+
 }

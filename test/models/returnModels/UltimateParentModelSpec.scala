@@ -16,11 +16,11 @@
 
 package models.returnModels
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.UltimateParentConstants._
 
-class UltimateParentModelSpec extends WordSpec with Matchers {
+class UltimateParentModelSpec extends WordSpec with MustMatchers {
 
   "UltimateParentModel" when {
 
@@ -31,7 +31,7 @@ class UltimateParentModelSpec extends WordSpec with Matchers {
         val expectedValue = ultimateParentJsonMax
         val actualValue = Json.toJson(ultimateParentModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
@@ -39,7 +39,7 @@ class UltimateParentModelSpec extends WordSpec with Matchers {
         val expectedValue = ultimateParentJsonMin
         val actualValue = Json.toJson(ultimateParentModelMin)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }

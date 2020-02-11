@@ -32,7 +32,6 @@ class ParentCompanyCTUTRViewSpec extends StringViewBehaviours {
   object Selectors extends BaseSelectors
 
   val messageKeyPrefix = "parentCompanyCTUTR"
-
   val form = new ParentCompanyCTUTRFormProvider()()
   val section = Some(messages("section.groupStructure"))
 

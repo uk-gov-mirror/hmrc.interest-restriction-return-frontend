@@ -16,11 +16,11 @@
 
 package models.returnModels.fullReturn
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import assets.constants.fullReturn.GroupLevelAmountConstants._
 import play.api.libs.json.Json
 
-class GroupLevelAmountModelSpec extends WordSpec with Matchers {
+class GroupLevelAmountModelSpec extends WordSpec with MustMatchers {
 
   "GroupLevelAmountModel" must {
 
@@ -29,7 +29,7 @@ class GroupLevelAmountModelSpec extends WordSpec with Matchers {
       val expectedValue = groupLevelAmountJson
       val actualValue = Json.toJson(groupLevelAmountModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

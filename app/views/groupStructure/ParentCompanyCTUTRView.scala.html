@@ -32,8 +32,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "parentCompanyCTUTR.title", Some("section.groupStructure")))
-    ) {
+    pageTitle = Some(title(form, "parentCompanyCTUTR.title", Some("section.groupStructure")))) {
 
     @formHelper(action = ParentCompanyCTUTRController.onSubmit(mode)) {
 

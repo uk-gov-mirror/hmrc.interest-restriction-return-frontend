@@ -36,6 +36,7 @@ object Page {
     EnterANGIEPage.toString -> EnterANGIEPage,
     GroupRatioElectionPage.toString -> GroupRatioElectionPage,
     RegisteredForTaxInAnotherCountryPage.toString -> RegisteredForTaxInAnotherCountryPage,
+    CountryOfIncorporationPage.toString -> CountryOfIncorporationPage,
     ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
     PayTaxInUkPage.toString -> PayTaxInUkPage,
     LimitedLiabilityPartnershipPage.toString -> LimitedLiabilityPartnershipPage,
@@ -66,6 +67,8 @@ object Page {
     ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
     IndexPage.toString -> IndexPage
   )
+
+  val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
 
   def apply(page: String): Page = pages(page)
 

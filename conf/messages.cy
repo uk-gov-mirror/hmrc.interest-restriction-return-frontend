@@ -396,6 +396,15 @@ localRegistrationNumber.error.length = Local Registration Number must be 100 cha
 localRegistrationNumber.hint = (optional)
 
 
+# CountryOfIncorporationPage Messages
+# ----------------------------------------------------------
+countryOfIncorporation.title = Where is {0} registered for tax?
+countryOfIncorporation.heading = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.label= Where is {0} registered for tax?
+countryOfIncorporation.error.invalid = Enter a valid country
+countryOfIncorporation.hint = (Optional)
+
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------
 groupRatioElection.title = Are you making a group ratio election?
