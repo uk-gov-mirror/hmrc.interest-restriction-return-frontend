@@ -16,11 +16,11 @@
 
 package models.returnModels.fullReturn
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.fullReturn.AllocatedReactivationsConstants._
 
-class AllocatedReactivationsModelSpec extends WordSpec with Matchers {
+class AllocatedReactivationsModelSpec extends WordSpec with MustMatchers {
 
   "AllocatedReactivationsModel" must {
 
@@ -29,7 +29,7 @@ class AllocatedReactivationsModelSpec extends WordSpec with Matchers {
       val expectedValue = allocatedReactivationsJson
       val actualValue = Json.toJson(allocatedReactivationsModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

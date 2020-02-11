@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package forms
+package forms.groupStructure
 
 import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
+import play.api.data.Forms.{text => optionalText}
 
-class LimitedLiabilityPartnershipFormProvider @Inject() extends Mappings {
+class LocalRegistrationNumberFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Boolean] =
+  def apply(): Form[String] =
     Form(
-      "value" -> boolean("limitedLiabilityPartnership.error.required")
+      "value" -> optionalText
+        .verifying(maxLength(100, "localRegistrationNumber.error.length"))
     )
 }

@@ -22,6 +22,7 @@ import controllers.routes
 import controllers.startReturn.{routes => startReturnRoutes}
 import models._
 import pages._
+import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 
 class StartReturnNavigatorSpec extends SpecBase {
@@ -102,6 +103,89 @@ class StartReturnNavigatorSpec extends SpecBase {
     }
 
     "in Check mode" must {
+
+      "from the Reporting Company appointed page" when {
+
+        "answer is set to false" should {
+
+          "go to the Reporting Company required page in Normal Mode when answer is false" in {
+
+            val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, false).get
+
+            navigator.nextPage(ReportingCompanyAppointedPage, CheckMode, userAnswers) mustBe
+              startReturnRoutes.ReportingCompanyRequiredController.onPageLoad()
+          }
+        }
+
+        "answer is set to true" should {
+
+          "go to Agent Acting on behalf of Company (in Normal Mode)" in {
+
+            val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, true).get
+
+            navigator.nextPage(ReportingCompanyAppointedPage, CheckMode, userAnswers) mustBe
+              startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+          }
+        }
+      }
+
+      "from the Agent Acting on behalf of Company page" when {
+
+        "answer is set to false" should {
+
+          "go to the Check Your Answers page" in {
+
+            val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, false).get
+
+            navigator.nextPage(AgentActingOnBehalfOfCompanyPage, CheckMode, userAnswers) mustBe
+              aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+          }
+        }
+
+        "answer is set to true" should {
+
+          "go to the Agent Name page" in {
+
+            val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, true).get
+
+            navigator.nextPage(AgentActingOnBehalfOfCompanyPage, CheckMode, userAnswers) mustBe
+              startReturnRoutes.AgentNameController.onPageLoad(CheckMode)
+          }
+        }
+      }
+
+      "from the Agent Name page" should {
+
+        "go to the Check Your Answers page" in {
+          navigator.nextPage(AgentNamePage, CheckMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+        }
+      }
+
+      "from the Reporting Company UTR page" should {
+
+        "go to the Check Your Answers page" in {
+          navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+        }
+      }
+
+      "from the Reporting Company CRN page" should {
+
+        "go to the Check Your Answers page" in {
+          navigator.nextPage(ReportingCompanyCRNPage, CheckMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+        }
+      }
+
+      "from the Reporting Company Name page" should {
+
+        "go to the Check Your Answers page" in {
+          navigator.nextPage(ReportingCompanyNamePage, CheckMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+        }
+      }
+
 
       "go to CheckYourAnswers from a page that doesn't exist in the edit route map" ignore {
 

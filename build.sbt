@@ -60,7 +60,8 @@ lazy val root = (project in file("."))
           "lib/govuk-frontend/govuk/all.js",
           "javascripts/jquery.min.js",
           "javascripts/interestrestrictionreturn.js",
-          "javascripts/timeout/timeoutDialog.js"
+          "javascripts/timeout/timeoutDialog.js",
+          "javascripts/autocomplete.js"
         ))
     ),
     // prevent removal of unused code which generates warning errors due to use of third-party libs

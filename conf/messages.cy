@@ -353,6 +353,7 @@ parentCompanySAUTR.error.length = Self Assessment Unique Taxpayer Reference must
 parentCompanySAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 
+
 # RegisteredCompaniesHousePage Messages
 # ----------------------------------------------------------
 registeredCompaniesHouse.title = Is the parent company registered with companies house?
@@ -383,6 +384,26 @@ limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
+
+
+# LocalRegistrationNumberPage Messages
+# ----------------------------------------------------------
+localRegistrationNumber.title = Enter {0} local Registration Number
+localRegistrationNumber.heading = Enter {0} local Registration Number
+localRegistrationNumber.checkYourAnswersLabel = Enter {0} local Registration Number
+localRegistrationNumber.label= Enter {0} local Registration Number
+localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
+localRegistrationNumber.hint = (optional)
+
+
+# CountryOfIncorporationPage Messages
+# ----------------------------------------------------------
+countryOfIncorporation.title = Where is {0} registered for tax?
+countryOfIncorporation.heading = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.label= Where is {0} registered for tax?
+countryOfIncorporation.error.invalid = Enter a valid country
+countryOfIncorporation.hint = (Optional)
 
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------

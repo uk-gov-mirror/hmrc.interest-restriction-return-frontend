@@ -70,3 +70,22 @@ GET        /registered-for-tax-in-another-country         controllers.groupStruc
 POST       /registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = NormalMode)
 GET        /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = CheckMode)
 POST       /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = CheckMode)
+
+### LocalRegistrationNumber Controller
+### ----------------------------------------
+GET        /local-registration-number                   controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = NormalMode)
+POST       /local-registration-number                   controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = NormalMode)
+GET        /local-registration-number/change            controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)
+POST       /local-registration-number/change            controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = CheckMode)
+
+### CheckYourAnswersController
+### -----------------------------
+GET        /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onPageLoad
+POST       /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onSubmit
+
+### CountryOfIncorporation Controller
+### ----------------------------------------
+GET        /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = NormalMode)
+POST       /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = NormalMode)
+GET        /country-of-incorporation/change                   controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = CheckMode)
+POST       /country-of-incorporation/change                   controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = CheckMode)

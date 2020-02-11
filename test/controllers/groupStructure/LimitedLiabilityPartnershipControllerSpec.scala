@@ -21,7 +21,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.LimitedLiabilityPartnershipFormProvider
+import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
 import pages.groupStructure.LimitedLiabilityPartnershipPage
 import play.api.test.Helpers._
@@ -39,6 +39,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

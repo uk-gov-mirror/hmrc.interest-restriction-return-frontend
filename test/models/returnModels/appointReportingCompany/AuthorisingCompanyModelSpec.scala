@@ -17,10 +17,10 @@
 package models.returnModels.appointReportingCompany
 
 import assets.constants.AuthorisingCompanyConstants._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 
-class AuthorisingCompanyModelSpec extends WordSpec with Matchers {
+class AuthorisingCompanyModelSpec extends WordSpec with MustMatchers {
 
   "AuthorisingCompanyModel" must {
 
@@ -29,7 +29,7 @@ class AuthorisingCompanyModelSpec extends WordSpec with Matchers {
       val expectedValue = authorisingCompanyJson
       val actualValue = Json.toJson(authorisingCompanyModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

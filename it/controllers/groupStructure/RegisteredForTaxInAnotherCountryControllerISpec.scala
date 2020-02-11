@@ -90,8 +90,8 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
         "enters a valid answer" should {
 
-          //TODO: Update when real routing is in place
-          "redirect to under construction page" in {
+          //TODO: Update as part of routing story
+          "redirect to Under Construction page" in {
 
             AuthStub.authorised()
 
@@ -227,7 +227,6 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
         "enters a valid answer" when {
 
-          //TODO: Update when real routing is in place
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
@@ -237,7 +236,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }

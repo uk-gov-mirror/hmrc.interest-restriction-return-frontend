@@ -28,6 +28,7 @@ import pages.aboutReturn.GroupSubjectToReactivationsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.aboutReturn.GroupSubjectToReactivationsView
 
 import scala.concurrent.Future
@@ -35,6 +36,7 @@ import scala.concurrent.Future
 class GroupSubjectToReactivationsController @Inject()(override val messagesApi: MessagesApi,
                                                       val sessionRepository: SessionRepository,
                                                       val navigator: AboutReturnNavigator,
+                                                      val questionDeletionLookupService: QuestionDeletionLookupService,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,

@@ -16,11 +16,11 @@
 
 package models.returnModels
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.IdentityOfCompanySubmittingConstants._
 
-class IdentityOfCompanySubmittingModelSpec extends WordSpec with Matchers {
+class IdentityOfCompanySubmittingModelSpec extends WordSpec with MustMatchers {
 
   "IdentityOfCompanySubmittingModel" must {
 
@@ -31,7 +31,7 @@ class IdentityOfCompanySubmittingModelSpec extends WordSpec with Matchers {
         val expectedValue = identityOfCompanySubmittingJsonMax
         val actualValue = Json.toJson(identityOfCompanySubmittingModelMax)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
 
       "min values given" in {
@@ -39,7 +39,7 @@ class IdentityOfCompanySubmittingModelSpec extends WordSpec with Matchers {
         val expectedValue = identityOfCompanySubmittingJsonMin
         val actualValue = Json.toJson(identityOfCompanySubmittingModelMin)
 
-        actualValue shouldBe expectedValue
+        actualValue mustBe expectedValue
       }
     }
   }

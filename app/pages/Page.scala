@@ -18,11 +18,10 @@ package pages
 
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.elections.{EnterANGIEPage, EnterQNGIEPage, GroupRatioElectionPage}
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, RegisteredCompaniesHousePage}
+import pages.elections._
+import pages.groupStructure._
 import pages.startReturn._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
-import pages.groupStructure._
 
 import scala.language.implicitConversions
 
@@ -34,9 +33,11 @@ object Page {
 
   val pages: Map[String, Page] = Map(
     EnterQNGIEPage.toString -> EnterQNGIEPage,
+    LocalRegistrationNumberPage.toString -> LocalRegistrationNumberPage,
     EnterANGIEPage.toString -> EnterANGIEPage,
     GroupRatioElectionPage.toString -> GroupRatioElectionPage,
     RegisteredForTaxInAnotherCountryPage.toString -> RegisteredForTaxInAnotherCountryPage,
+    CountryOfIncorporationPage.toString -> CountryOfIncorporationPage,
     ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
     PayTaxInUkPage.toString -> PayTaxInUkPage,
     LimitedLiabilityPartnershipPage.toString -> LimitedLiabilityPartnershipPage,
@@ -67,6 +68,8 @@ object Page {
     ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
     IndexPage.toString -> IndexPage
   )
+
+  val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
 
   def apply(page: String): Page = pages(page)
 

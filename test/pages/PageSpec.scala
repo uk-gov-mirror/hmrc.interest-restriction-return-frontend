@@ -19,7 +19,7 @@ package pages
 import base.SpecBase
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.elections.{EnterANGIEPage, EnterQNGIEPage, GroupRatioElectionPage}
+import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
 import play.api.libs.json.{JsString, Json}
@@ -30,10 +30,14 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
-    EnterQNGIEPage.toString -> EnterQNGIEPage,
-    EnterANGIEPage.toString -> EnterANGIEPage,
-    GroupRatioElectionPage.toString -> GroupRatioElectionPage,
+        EnterQNGIEPage.toString -> EnterQNGIEPage,
+        EnterANGIEPage.toString -> EnterANGIEPage,
+        GroupRatioElectionPage.toString -> GroupRatioElectionPage,
+        LocalRegistrationNumberPage.toString -> LocalRegistrationNumberPage,
+        CountryOfIncorporationPage.toString -> CountryOfIncorporationPage,
         RegisteredForTaxInAnotherCountryPage.toString -> RegisteredForTaxInAnotherCountryPage,
+        EnterANGIEPage.toString -> EnterANGIEPage,
+        GroupRatioElectionPage.toString -> GroupRatioElectionPage,
         ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
         PayTaxInUkPage.toString -> PayTaxInUkPage,
         LimitedLiabilityPartnershipPage.toString -> LimitedLiabilityPartnershipPage,

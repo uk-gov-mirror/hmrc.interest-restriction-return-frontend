@@ -18,13 +18,21 @@
 
 @this(govukInput: GovukInput)
 
-@(form: Form[_], id: String, name: String, label: String, isPageHeading: Boolean, hint: Option[Html] = None)(implicit messages: Messages)
+@(
+        form: Form[_],
+        id: String,
+        name: String,
+        label: String,
+        isPageHeading: Boolean,
+        headingMessageArgs: Seq[String] = Seq(),
+        hint: Option[Html] = None
+)(implicit messages: Messages)
 
 @govukInput(Input(
   id,
   name,
   label = Label(
-    content = Text(messages(label)),
+    content = Text(messages(label, headingMessageArgs:_*)),
     isPageHeading = isPageHeading,
     classes = if(isPageHeading) "govuk-label--xl" else ""
   ),

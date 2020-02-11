@@ -16,11 +16,11 @@
 
 package models.returnModels
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 import assets.constants.GroupCompanyDetailsConstants._
 
-class GroupCompanyDetailsModelSpec extends WordSpec with Matchers {
+class GroupCompanyDetailsModelSpec extends WordSpec with MustMatchers {
 
   "GroupCompanyDetailsModel" must {
 
@@ -29,7 +29,7 @@ class GroupCompanyDetailsModelSpec extends WordSpec with Matchers {
       val expectedValue = groupCompanyDetailsJson
       val actualValue = Json.toJson(groupCompanyDetailsModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

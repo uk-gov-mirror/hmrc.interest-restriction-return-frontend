@@ -30,7 +30,7 @@ import pages.aboutReportingCompany.ReportingCompanyCRNPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.CRNValidationService
+import services.{CRNValidationService, QuestionDeletionLookupService}
 import views.html.aboutReportingCompany.ReportingCompanyCRNView
 
 import scala.concurrent.Future
@@ -38,6 +38,7 @@ import scala.concurrent.Future
 class ReportingCompanyCRNController @Inject()(override val messagesApi: MessagesApi,
                                               val sessionRepository: SessionRepository,
                                               val navigator: AboutReportingCompanyNavigator,
+                                              val questionDeletionLookupService: QuestionDeletionLookupService,
                                               identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,

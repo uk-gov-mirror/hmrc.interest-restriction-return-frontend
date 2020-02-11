@@ -21,6 +21,7 @@ import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.startReturn.ReportingCompanyAppointedPage
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 

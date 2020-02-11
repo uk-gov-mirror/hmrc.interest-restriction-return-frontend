@@ -70,7 +70,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to Revising Return page" in {
 
             AuthStub.authorised()
 

@@ -16,7 +16,7 @@
 
 package assets.constants
 
-import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRModel}
+import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRModel, UltimateParentModel}
 
 trait BaseConstants {
 
@@ -26,13 +26,54 @@ trait BaseConstants {
   val crnModel = CRNModel("12345678")
   val crnLetters = CRNModel("AB123456")
   val companyNameModel = CompanyNameModel("Company Name ltd")
+  val companyNameModelS = CompanyNameModel("Company Name ltds")
   val knownAs = "something"
   val companyNameMaxLength = 160
   val companyNameTooLong = CompanyNameModel("a" * (companyNameMaxLength + 1))
   val knownAsTooLong = "a" * (companyNameMaxLength + 1)
   val invalidCrn = CRNModel("AAAA1234")
   val nonUkCrn = "1234567890"
-  val nonUkCountryCode = CountryCodeModel("US")
-  val invalidCountryCode = CountryCodeModel("AA")
+  val nonUkCountryCode = CountryCodeModel("US", "United States of America")
+  val invalidCountryCode = CountryCodeModel("AA", "Invalid")
   val agentName = "Agent A"
+  val ultimateParentCompanyUK = UltimateParentModel(
+    isUk = true,
+    companyName = companyNameModel,
+    ctutr = Some(ctutrModel),
+    sautr = None,
+    crn = Some(crnModel),
+    knownAs = None,
+    countryOfIncorporation = None,
+    nonUkCrn = None
+  )
+  val ultimateParentUKLLP = UltimateParentModel(
+    isUk = true,
+    companyName = companyNameModel,
+    ctutr = None,
+    sautr = Some(sautrModel),
+    crn = Some(crnModel),
+    knownAs = None,
+    countryOfIncorporation = None,
+    nonUkCrn = None
+  )
+  val ultimateParentCompanyUKMin = UltimateParentModel(
+    isUk = true,
+    companyName = companyNameModel,
+    ctutr = Some(ctutrModel),
+    sautr = None,
+    crn = None,
+    knownAs = None,
+    countryOfIncorporation = None,
+    nonUkCrn = None
+  )
+  val ultimateParentUKLLPMin = UltimateParentModel(
+    isUk = true,
+    companyName = companyNameModel,
+    ctutr = None,
+    sautr = Some(sautrModel),
+    crn = None,
+    knownAs = None,
+    countryOfIncorporation = None,
+    nonUkCrn = None
+  )
 }

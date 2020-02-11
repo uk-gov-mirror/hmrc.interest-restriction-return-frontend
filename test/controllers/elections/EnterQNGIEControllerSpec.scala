@@ -21,8 +21,8 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.elections.EnterQNGIEFormProvider
-import navigation.FakeNavigators.FakeElectionsNavigator
 import models.NormalMode
+import navigation.FakeNavigators.FakeElectionsNavigator
 import pages.elections.EnterQNGIEPage
 import play.api.test.Helpers._
 import views.html.elections.EnterQNGIEView
@@ -39,6 +39,7 @@ class EnterQNGIEControllerSpec extends SpecBase with FeatureSwitching with MockD
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

@@ -18,9 +18,9 @@ package models.returnModels
 
 import play.api.libs.json.Json
 
-case class CountryCodeModel(code: String)
+case class CountryCodeModel(code: String, country: String)
 
 object CountryCodeModel {
 
-  implicit val writes = Json.writes[CountryCodeModel]
+  implicit val format = Json.format[CountryCodeModel]
 }

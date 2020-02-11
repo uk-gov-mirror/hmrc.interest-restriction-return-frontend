@@ -24,6 +24,7 @@ trait BaseSelectors {
   val indent = "main div.govuk-inset-text"
   val hint = "main span.govuk-hint"
   val bullet: Int => String = i => s"main ul.govuk-list.govuk-list--bullet li:nth-of-type($i)"
+  val label = "main label.govuk-label"
 
   def checkAnswersHeading(row: Int) = s"dl div:nth-of-type($row) dt"
   def checkAnswersAnswerValue(row: Int) = s"dl div:nth-of-type($row) dd:nth-of-type(1)"

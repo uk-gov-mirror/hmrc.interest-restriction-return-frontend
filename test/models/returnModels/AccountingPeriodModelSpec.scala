@@ -17,10 +17,10 @@
 package models.returnModels
 
 import assets.constants.AccountingPeriodConstants._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 
-class AccountingPeriodModelSpec extends WordSpec with Matchers {
+class AccountingPeriodModelSpec extends WordSpec with MustMatchers {
 
   "AccountingPeriodModel" must {
 
@@ -29,7 +29,7 @@ class AccountingPeriodModelSpec extends WordSpec with Matchers {
       val expectedValue = accountingPeriodJson
       val actualValue = Json.toJson(accountingPeriodModel)
 
-      actualValue shouldBe expectedValue
+      actualValue mustBe expectedValue
     }
   }
 }

@@ -20,13 +20,16 @@ import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
+import models.returnModels.CountryCodeModel
+import play.api.Environment
 import play.api.i18n.Lang
+import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.mvc.{Call, Request, RequestHeader}
 import uk.gov.hmrc.play.binders.ContinueUrl
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
-class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
+class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environment: Environment) {
 
   lazy val host: String = servicesConfig.getString("host")
 
@@ -79,4 +82,14 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig) {
 
   lazy val cacheTtl = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
   lazy val cacheTtlDays = cacheTtl / 24 / 3600
+
+  lazy val countryCodes: Seq[CountryCodeModel] = environment.resourceAsStream("countryCodes.json").map(Json.parse) match {
+    case Some(json) => json.validate[Seq[CountryCodeModel]] match {
+      case JsSuccess(value, _) => value
+      case _ => throw new IllegalArgumentException("Country code JSON does not match model")
+    }
+    case None => throw new IllegalArgumentException("Country code JSON resource missing")
+  }
+
+  lazy val countryCodeMap: Map[String, String] = countryCodes.map(x => x.code -> x.country).toMap
 }
