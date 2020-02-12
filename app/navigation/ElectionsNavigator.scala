@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.elections.{ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, EnterANGIEPage, EnterQNGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage, InterestAllowanceAlternativeCalcElectionPage}
+import pages.elections._
 import play.api.mvc.Call
 
 @Singleton

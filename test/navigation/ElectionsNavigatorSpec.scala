@@ -18,7 +18,7 @@ package navigation
 
 import base.SpecBase
 import models._
-import pages.elections.{ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, EnterANGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage, InterestAllowanceAlternativeCalcElectionPage}
+import pages.elections._
 import pages.groupStructure._
 
 class ElectionsNavigatorSpec extends SpecBase {

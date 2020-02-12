@@ -56,3 +56,10 @@ GET        /interest-allowance-alternative-calc-election                controll
 POST       /interest-allowance-alternative-calc-election                controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /interest-allowance-alternative-calc-election/change         controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /interest-allowance-alternative-calc-election/change         controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = CheckMode)
+
+### ElectedGroupEBITDABefore Controller
+### ----------------------------------------
+GET        /elected-group-ebitda-before                                 controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = NormalMode)
+POST       /elected-group-ebitda-before                                 controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = NormalMode)
+GET        /elected-group-ebitda-before/change                          controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = CheckMode)
+POST       /elected-group-ebitda-before/change                          controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = CheckMode)
