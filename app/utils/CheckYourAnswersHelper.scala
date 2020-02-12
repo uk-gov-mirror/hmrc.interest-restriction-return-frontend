@@ -36,6 +36,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def enterQNGIE: Option[SummaryListRow] = answer(EnterQNGIEPage, electionsRoutes.EnterQNGIEController.onPageLoad(CheckMode))
+
   def localRegistrationNumber: Option[SummaryListRow] = answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(CheckMode))
 
   def enterANGIE: Option[SummaryListRow] = answer(EnterANGIEPage, electionsRoutes.EnterANGIEController.onPageLoad(CheckMode))

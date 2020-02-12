@@ -26,6 +26,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryEnterQNGIEPage: Arbitrary[EnterQNGIEPage.type] =
+    Arbitrary(EnterQNGIEPage)
+
   implicit lazy val arbitraryLocalRegistrationNumberPage: Arbitrary[LocalRegistrationNumberPage.type] =
     Arbitrary(LocalRegistrationNumberPage)
 
