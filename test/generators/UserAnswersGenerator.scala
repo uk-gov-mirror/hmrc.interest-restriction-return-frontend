@@ -32,6 +32,7 @@ trait UserAnswersGenerator extends TryValues {
   self: Generators =>
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
+    arbitrary[(ElectedGroupEBITDABeforePage.type, JsValue)] ::
     arbitrary[(GroupRatioBlendedElectionPage.type, JsValue)] ::
     arbitrary[(EnterQNGIEPage.type, JsValue)] ::
     arbitrary[(LocalRegistrationNumberPage.type, JsValue)] ::

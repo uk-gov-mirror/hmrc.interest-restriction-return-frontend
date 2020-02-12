@@ -28,3 +28,10 @@ GET        /group-ratio-blended-election                  controllers.elections.
 POST       /group-ratio-blended-election                  controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /group-ratio-blended-election/change           controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-ratio-blended-election/change           controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = CheckMode)
+
+### ElectedGroupEBITDABefore Controller
+### ----------------------------------------
+GET        /elected-group-ebitda-before                   controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = NormalMode)
+POST       /elected-group-ebitda-before                   controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = NormalMode)
+GET        /elected-group-ebitda-before/change            controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = CheckMode)
+POST       /elected-group-ebitda-before/change            controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = CheckMode)
