@@ -389,7 +389,7 @@ limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liab
 # ----------------------------------------------------------
 localRegistrationNumber.title = Enter {0} local Registration Number
 localRegistrationNumber.heading = Enter {0} local Registration Number
-localRegistrationNumber.checkYourAnswersLabel = Enter {0} local Registration Number
+localRegistrationNumber.checkYourAnswersLabel = Local Registration Number
 localRegistrationNumber.label= Enter {0} local Registration Number
 localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
 localRegistrationNumber.hint = (optional)
@@ -399,7 +399,7 @@ localRegistrationNumber.hint = (optional)
 # ----------------------------------------------------------
 countryOfIncorporation.title = Where is {0} registered for tax?
 countryOfIncorporation.heading = Where is {0} registered for tax?
-countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Registered for tax in
 countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.invalid = Enter a valid country
 countryOfIncorporation.hint = (Optional)
@@ -428,3 +428,48 @@ enterANGIE.error.required = Enter the adjusted net group-interest expense (ANGIE
 enterANGIE.error.invalidNumeric = The adjusted net group-interest expense (ANGIE) must be valid decimal or whole number
 enterANGIE.error.outOfRange = Adjusted net group-interest expense (ANGIE) must be between {0} and {1}
 
+# EnterQNGIEPage Messages
+# ----------------------------------------------------------
+enterQNGIE.title = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.heading = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.label= Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.checkYourAnswersLabel = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.error.nonNumeric = Enter your qualifying net group-interest expense (QNGIE) using numbers
+enterQNGIE.error.required = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.error.invalidNumeric = The qualifying net group-interest expense (QNGIE) must be valid decimal or whole number
+enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must be between {0} and {1}
+
+# GroupRatioBlendedElectionPage Messages
+# ----------------------------------------------------------
+groupRatioBlendedElection.title = Are you making a blended group ratio election?
+groupRatioBlendedElection.heading = Are you making a blended group ratio election?
+groupRatioBlendedElection.checkYourAnswersLabel = Are you making a blended group ratio election?
+groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
+
+# ElectedGroupEBITDABeforePage Messages
+# ----------------------------------------------------------
+electedGroupEBITDABefore.title = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.heading = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.checkYourAnswersLabel = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.error.required = Select yes if the group made a group-EBITDA (chargeable gains) election in any previous returns
+
+# GroupEBITDAChargeableGainsElectionPage Messages
+# ----------------------------------------------------------
+groupEBITDAChargeableGainsElection.title = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.heading = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to make a group-EBITDA (chargeable gains) election for this return?
+
+# ElectedInterestAllowanceAlternativeCalcBeforePage Messages
+# ----------------------------------------------------------
+electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
+
+# InterestAllowanceAlternativeCalcElectionPage Messages
+# ----------------------------------------------------------
+interestAllowanceAlternativeCalcElection.title = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.heading = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.error.required = Select yes if you want to make an interest allowance (alternative calculation) election for this return

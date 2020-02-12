@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, ReportingCompanySameAsParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, CountryOfIncorporationPage, DeemedParentPage, LimitedLiabilityPartnershipPage, LocalRegistrationNumberPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, RegisteredForTaxInAnotherCountryPage, ReportingCompanySameAsParentPage}
 
 class GroupStructureNavigatorSpec extends SpecBase {
 
@@ -29,7 +29,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "from the ReportingCompanyNamePage" should {
+      "from the ReportingCompanySameAsParentPage" should {
 
         "go to the DeemedParentPage when given false" in {
 
@@ -39,7 +39,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
             groupStructureRoutes.DeemedParentController.onPageLoad(NormalMode)
         }
 
-        "go to the under construction page when given true" in {
+        "go to the Revising Return page when given true" in {
 
           val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, true).success.value
 
@@ -98,12 +98,12 @@ class GroupStructureNavigatorSpec extends SpecBase {
             groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
         }
 
-        "go to the under construction page when given false" in {
+        "go to the Registered For Tax in Another country page when given false" in {
 
           val userAnswers = emptyUserAnswers.set(PayTaxInUkPage, false).success.value
 
           navigator.nextPage(PayTaxInUkPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode)
         }
 
         "go to the PayTaxInUkPage if not answered" in {
@@ -186,6 +186,43 @@ class GroupStructureNavigatorSpec extends SpecBase {
         "go to the RevisingReturnPage" in {
 
           navigator.nextPage(ParentCRNPage, NormalMode, emptyUserAnswers) mustBe
+            groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
+        }
+      }
+
+      "from the Registered For Tax In Another country page" should {
+
+        "go to the Country of Incorporation page when true" in {
+
+          val userAnswers = emptyUserAnswers.set(RegisteredForTaxInAnotherCountryPage, true).get
+
+          navigator.nextPage(RegisteredForTaxInAnotherCountryPage, NormalMode, userAnswers) mustBe
+            groupStructureRoutes.CountryOfIncorporationController.onPageLoad(NormalMode)
+        }
+
+        "go to the Check Your Answers page when false" in {
+
+          val userAnswers = emptyUserAnswers.set(RegisteredForTaxInAnotherCountryPage, false).get
+
+          navigator.nextPage(RegisteredForTaxInAnotherCountryPage, NormalMode, userAnswers) mustBe
+            groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
+        }
+      }
+
+      "from the Country of Incorporation page" should {
+
+        "go to the Local CRN page" in {
+
+          navigator.nextPage(CountryOfIncorporationPage, NormalMode, emptyUserAnswers) mustBe
+            groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Local CRN page" should {
+
+        "go to the Check Your Answers page" in {
+
+          navigator.nextPage(LocalRegistrationNumberPage, NormalMode, emptyUserAnswers) mustBe
             groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
         }
       }

@@ -36,6 +36,7 @@ trait BaseConstants {
   val nonUkCountryCode = CountryCodeModel("US", "United States of America")
   val invalidCountryCode = CountryCodeModel("AA", "Invalid")
   val agentName = "Agent A"
+
   val ultimateParentCompanyUK = UltimateParentModel(
     isUk = true,
     companyName = companyNameModel,
@@ -46,6 +47,18 @@ trait BaseConstants {
     countryOfIncorporation = None,
     nonUkCrn = None
   )
+
+  val ultimateParentCompanyForeign = UltimateParentModel(
+    isUk = false,
+    companyName = companyNameModel,
+    ctutr = None,
+    sautr = None,
+    crn = None,
+    knownAs = None,
+    countryOfIncorporation = Some(nonUkCountryCode),
+    nonUkCrn = Some(nonUkCrn)
+  )
+
   val ultimateParentUKLLP = UltimateParentModel(
     isUk = true,
     companyName = companyNameModel,

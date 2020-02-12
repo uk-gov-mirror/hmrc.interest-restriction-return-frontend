@@ -92,7 +92,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
         "enters a valid country " should {
 
-          "redirect to UnderConstruction page" in {
+          "redirect to Local CRN page" in {
 
             AuthStub.authorised()
 
@@ -101,7 +101,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.LocalRegistrationNumberController.onPageLoad(NormalMode).url)
               )
             }
           }

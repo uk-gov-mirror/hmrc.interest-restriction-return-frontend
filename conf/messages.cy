@@ -292,7 +292,7 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 # ----------------------------------------------------------
 deemedParent.title = Does the group have a ’deemed’ parent company?
 deemedParent.heading = Does the group have a ’deemed’ parent company?
-deemedParent.checkYourAnswersLabel = Does the group have a ’deemed’ parent company?
+deemedParent.checkYourAnswersLabel = Deemed Parent
 deemedParent.error.required = Select yes if the group has a ’deemed’ parent company
 
 
@@ -301,7 +301,7 @@ deemedParent.error.required = Select yes if the group has a ’deemed’ parent 
 payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
 payTaxInUk.heading = Does {0} have a Unique Taxpayer Reference?
 payTaxInUk.hint = This could be for paying Corporation Tax or completing Self Assessment in the UK.
-payTaxInUk.checkYourAnswersLabel = Does {0} have a Unique Taxpayer Reference?
+payTaxInUk.checkYourAnswersLabel = UK Taxpayer
 payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference
 
 
@@ -309,7 +309,7 @@ payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference
 # ----------------------------------------------------------
 parentCompanyName.title = Enter the name of the parent company
 parentCompanyName.heading = Enter the name of the parent company
-parentCompanyName.checkYourAnswersLabel = Enter the name of the parent company
+parentCompanyName.checkYourAnswersLabel = Name
 parentCompanyName.label = Enter the name of the parent company
 parentCompanyName.error.required = Enter the name of the parent company
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
@@ -319,7 +319,7 @@ parentCompanyName.error.length = ParentCompanyName must be 160 characters or les
 # ----------------------------------------------------------
 parentCRN.title = Parent Company Registration Number
 parentCRN.heading = Parent Company Registration Number
-parentCRN.checkYourAnswersLabel = Parent Company Registration Number
+parentCRN.checkYourAnswersLabel = CRN
 parentCRN.label = Parent Company Registration Number
 parentCRN.error.required = Enter parent company registration number
 parentCRN.error.invalid = Parent company registration number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
@@ -330,7 +330,7 @@ parentCRN.hint = A company registration number (CRN) is a unique combination of 
 # ----------------------------------------------------------
 parentCompanyCTUTR.title = Parent Company Corporation Unique Taxpayer Reference
 parentCompanyCTUTR.heading = Parent Company Corporation Unique Taxpayer Reference
-parentCompanyCTUTR.checkYourAnswersLabel = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.checkYourAnswersLabel = UTR
 parentCompanyCTUTR.label = Parent Company Corporation Unique Taxpayer Reference
 parentCompanyCTUTR.error.required = Enter the Corporation Unique Taxpayer Reference for the Parent Company
 parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
@@ -345,7 +345,7 @@ parentCompanyCTUTR.link = find a lost UTR number.
 parentCompanySAUTR.title = Parent company Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.heading = Parent company Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.label = Parent company Self Assessment Unique Taxpayer Reference
-parentCompanySAUTR.checkYourAnswersLabel = ParentCompanySAUTR
+parentCompanySAUTR.checkYourAnswersLabel = UTR
 parentCompanySAUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanySAUTR.findUtr = find a lost UTR number
 parentCompanySAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference
@@ -353,12 +353,11 @@ parentCompanySAUTR.error.length = Self Assessment Unique Taxpayer Reference must
 parentCompanySAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 
-
 # RegisteredCompaniesHousePage Messages
 # ----------------------------------------------------------
 registeredCompaniesHouse.title = Is the parent company registered with companies house?
 registeredCompaniesHouse.heading = Is the parent company registered with companies house?
-registeredCompaniesHouse.checkYourAnswersLabel = Is the parent company registered with companies house?
+registeredCompaniesHouse.checkYourAnswersLabel = Registered with Companies House
 registeredCompaniesHouse.error.required = Select yes if the parent company is registered with companies house
 
 
@@ -366,7 +365,7 @@ registeredCompaniesHouse.error.required = Select yes if the parent company is re
 # ----------------------------------------------------------
 reportingCompanySameAsParent.title = Is {0} also the parent company?
 reportingCompanySameAsParent.heading = Is {0} also the parent company?
-reportingCompanySameAsParent.checkYourAnswersLabel = Is {0} also the parent company?
+reportingCompanySameAsParent.checkYourAnswersLabel = Same as reporting company
 reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
 
 
@@ -374,7 +373,7 @@ reportingCompanySameAsParent.error.required = Select yes if {0} is also the pare
 # ----------------------------------------------------------
 registeredForTaxInAnotherCountry.title = Is {0} registered for tax in another country?
 registeredForTaxInAnotherCountry.heading = Is {0} registered for tax in another country?
-registeredForTaxInAnotherCountry.checkYourAnswersLabel = Is {0} registered for tax in another country?
+registeredForTaxInAnotherCountry.checkYourAnswersLabel = Registered for tax in another country
 registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registered for tax in another country
 
 
@@ -382,7 +381,7 @@ registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registere
 # ----------------------------------------------------------
 limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
 limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
-limitedLiabilityPartnership.checkYourAnswersLabel = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.checkYourAnswersLabel = LLP
 limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
 
 
@@ -390,7 +389,7 @@ limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liab
 # ----------------------------------------------------------
 localRegistrationNumber.title = Enter {0} local Registration Number
 localRegistrationNumber.heading = Enter {0} local Registration Number
-localRegistrationNumber.checkYourAnswersLabel = Enter {0} local Registration Number
+localRegistrationNumber.checkYourAnswersLabel = Local Registration Number
 localRegistrationNumber.label= Enter {0} local Registration Number
 localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
 localRegistrationNumber.hint = (optional)
@@ -400,10 +399,16 @@ localRegistrationNumber.hint = (optional)
 # ----------------------------------------------------------
 countryOfIncorporation.title = Where is {0} registered for tax?
 countryOfIncorporation.heading = Where is {0} registered for tax?
-countryOfIncorporation.checkYourAnswersLabel = Where is {0} registered for tax?
+countryOfIncorporation.checkYourAnswersLabel = Registered for tax in
 countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.invalid = Enter a valid country
 countryOfIncorporation.hint = (Optional)
+
+# CheckAnswersGroupStructurePage Messages
+# ----------------------------------------------------------
+groupStructure.checkYourAnswers.title = Check parent company details
+groupStructure.checkYourAnswers.heading = Check parent company details
+groupStructure.checkYourAnswers.subheading = Group structure
 
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------
@@ -423,4 +428,48 @@ enterANGIE.error.required = Enter the adjusted net group-interest expense (ANGIE
 enterANGIE.error.invalidNumeric = The adjusted net group-interest expense (ANGIE) must be valid decimal or whole number
 enterANGIE.error.outOfRange = Adjusted net group-interest expense (ANGIE) must be between {0} and {1}
 
+# EnterQNGIEPage Messages
+# ----------------------------------------------------------
+enterQNGIE.title = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.heading = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.label= Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.checkYourAnswersLabel = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.error.nonNumeric = Enter your qualifying net group-interest expense (QNGIE) using numbers
+enterQNGIE.error.required = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.error.invalidNumeric = The qualifying net group-interest expense (QNGIE) must be valid decimal or whole number
+enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must be between {0} and {1}
 
+# GroupRatioBlendedElectionPage Messages
+# ----------------------------------------------------------
+groupRatioBlendedElection.title = Are you making a blended group ratio election?
+groupRatioBlendedElection.heading = Are you making a blended group ratio election?
+groupRatioBlendedElection.checkYourAnswersLabel = Are you making a blended group ratio election?
+groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
+
+# ElectedGroupEBITDABeforePage Messages
+# ----------------------------------------------------------
+electedGroupEBITDABefore.title = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.heading = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.checkYourAnswersLabel = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.error.required = Select yes if the group made a group-EBITDA (chargeable gains) election in any previous returns
+
+# GroupEBITDAChargeableGainsElectionPage Messages
+# ----------------------------------------------------------
+groupEBITDAChargeableGainsElection.title = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.heading = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to make a group-EBITDA (chargeable gains) election for this return?
+
+# ElectedInterestAllowanceAlternativeCalcBeforePage Messages
+# ----------------------------------------------------------
+electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
+
+# InterestAllowanceAlternativeCalcElectionPage Messages
+# ----------------------------------------------------------
+interestAllowanceAlternativeCalcElection.title = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.heading = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.error.required = Select yes if you want to make an interest allowance (alternative calculation) election for this return

@@ -17,6 +17,7 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -88,10 +89,9 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
       "user is authorised" when {
 
-        "enters a valid answer" should {
+        "enters a valid answer of true" should {
 
-          //TODO: Update as part of routing story
-          "redirect to Under Construction page" in {
+          "redirect to Country Of Incorporation page" in {
 
             AuthStub.authorised()
 
@@ -100,7 +100,24 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CountryOfIncorporationController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a valid answer of false" should {
+
+          "redirect to Check Your Answers page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }

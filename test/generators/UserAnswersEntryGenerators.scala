@@ -29,6 +29,55 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryInterestAllowanceAlternativeCalcElectionUserAnswersEntry: Arbitrary[(InterestAllowanceAlternativeCalcElectionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[InterestAllowanceAlternativeCalcElectionPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryElectedInterestAllowanceAlternativeCalcBeforeUserAnswersEntry: Arbitrary[(ElectedInterestAllowanceAlternativeCalcBeforePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ElectedInterestAllowanceAlternativeCalcBeforePage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryGroupEBITDAChargeableGainsElectionUserAnswersEntry: Arbitrary[(GroupEBITDAChargeableGainsElectionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[GroupEBITDAChargeableGainsElectionPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryElectedGroupEBITDABeforeUserAnswersEntry: Arbitrary[(ElectedGroupEBITDABeforePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ElectedGroupEBITDABeforePage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryGroupRatioBlendedElectionUserAnswersEntry: Arbitrary[(GroupRatioBlendedElectionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[GroupRatioBlendedElectionPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+
+  implicit lazy val arbitraryEnterQNGIEUserAnswersEntry: Arbitrary[(EnterQNGIEPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[EnterQNGIEPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryLocalRegistrationNumberUserAnswersEntry: Arbitrary[(LocalRegistrationNumberPage.type, JsValue)] =
     Arbitrary {
       for {
