@@ -438,3 +438,10 @@ enterQNGIE.error.nonNumeric = Enter your qualifying net group-interest expense (
 enterQNGIE.error.required = Enter the qualifying net group-interest expense (QNGIE)
 enterQNGIE.error.invalidNumeric = The qualifying net group-interest expense (QNGIE) must be valid decimal or whole number
 enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must be between {0} and {1}
+
+# GroupRatioBlendedElectionPage Messages
+# ----------------------------------------------------------
+groupRatioBlendedElection.title = Are you making a blended group ratio election?
+groupRatioBlendedElection.heading = Are you making a blended group ratio election?
+groupRatioBlendedElection.checkYourAnswersLabel = Are you making a blended group ratio election?
+groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
