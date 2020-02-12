@@ -36,6 +36,9 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def interestAllowanceConsolidatedPshipElection: Option[SummaryListRow] =
+    answer(InterestAllowanceConsolidatedPshipElectionPage, electionsRoutes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(CheckMode))
+
   def electedInterestAllowanceConsolidatedPshipBefore: Option[SummaryListRow] =
     answer(ElectedInterestAllowanceConsolidatedPshipBeforePage, electionsRoutes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(CheckMode))
 

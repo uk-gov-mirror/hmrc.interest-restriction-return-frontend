@@ -109,6 +109,15 @@ class ElectionsNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
+
+      "from the InterestAllowanceConsolidatedPshipElection page" should {
+
+        "go to the Under Construction page" in {
+
+          navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {
