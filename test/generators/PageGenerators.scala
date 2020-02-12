@@ -26,6 +26,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryGroupRatioPercentagePage: Arbitrary[GroupRatioPercentagePage.type] =
+    Arbitrary(GroupRatioPercentagePage)
+
   implicit lazy val arbitraryInterestAllowanceAlternativeCalcElectionPage: Arbitrary[InterestAllowanceAlternativeCalcElectionPage.type] =
     Arbitrary(InterestAllowanceAlternativeCalcElectionPage)
 
