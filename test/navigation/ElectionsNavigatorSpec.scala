@@ -101,6 +101,15 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the ElectedInterestAllowanceConsolidatedPshipBefore page" should {
+
+        "go to the Under Construction page" in {
+
+          navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
       "from the GroupRatioPercentagePage" should {
 
         "go to the Under Construction page" in {

@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val electedInterestAllowanceConsolidatedPshipBefore = "Has the group made an interest allowance election for consolidated partnerships in any previous returns?"
   val interestAllowanceNonConsolidatedInvestmentsElection = "Do you want to make an interest allowance election for non-consolidated investments?"
   val groupRatioPercentage = "Enter the group ratio percentage"
   val interestAllowanceAlternativeCalcElection = "Do you want to make an interest allowance (alternative calculation) election for this return?"
