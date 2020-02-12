@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.elections.{ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, EnterANGIEPage, EnterQNGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage}
+import pages.elections.{ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, EnterANGIEPage, EnterQNGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage, InterestAllowanceAlternativeCalcElectionPage}
 import play.api.mvc.Call
 
 @Singleton
@@ -33,7 +33,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     GroupRatioBlendedElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ElectedGroupEBITDABeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     GroupEBITDAChargeableGainsElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    InterestAllowanceAlternativeCalcElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page

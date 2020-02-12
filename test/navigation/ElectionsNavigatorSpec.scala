@@ -18,7 +18,7 @@ package navigation
 
 import base.SpecBase
 import models._
-import pages.elections.{ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, EnterANGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage}
+import pages.elections.{ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, EnterANGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage, InterestAllowanceAlternativeCalcElectionPage}
 import pages.groupStructure._
 
 class ElectionsNavigatorSpec extends SpecBase {
@@ -79,6 +79,15 @@ class ElectionsNavigatorSpec extends SpecBase {
         "go to the Under Construction page" in {
 
           navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the InterestAllowanceAlternativeCalcElectionPage page" should {
+
+        "go to the Under Construction page" in {
+
+          navigator.nextPage(InterestAllowanceAlternativeCalcElectionPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }

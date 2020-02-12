@@ -466,3 +466,10 @@ electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an inte
 electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
 electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Has the group made an interest allowance (alternative calculation) election in any previous returns?
 electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
+
+# InterestAllowanceAlternativeCalcElectionPage Messages
+# ----------------------------------------------------------
+interestAllowanceAlternativeCalcElection.title = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.heading = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.error.required = Select yes if you want to make an interest allowance (alternative calculation) election for this return

@@ -49,3 +49,10 @@ GET        /elected-interest-allowance-alternative-calc-before          controll
 POST       /elected-interest-allowance-alternative-calc-before          controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = NormalMode)
 GET        /elected-interest-allowance-alternative-calc-before/change   controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = CheckMode)
 POST       /elected-interest-allowance-alternative-calc-before/change   controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = CheckMode)
+
+### InterestAllowanceAlternativeCalcElection Controller
+### ----------------------------------------
+GET        /interest-allowance-alternative-calc-election                controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-allowance-alternative-calc-election                controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-allowance-alternative-calc-election/change         controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-allowance-alternative-calc-election/change         controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = CheckMode)
