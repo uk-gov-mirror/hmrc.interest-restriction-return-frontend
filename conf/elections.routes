@@ -3,35 +3,42 @@
 
 ### GroupRatioElection Controller
 ### ----------------------------------------
-GET        /group-ratio-election                          controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ratio-election                          controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ratio-election/change                   controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ratio-election/change                   controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = CheckMode)
+GET        /group-ratio-election                                        controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ratio-election                                        controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ratio-election/change                                 controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ratio-election/change                                 controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### EnterANGIE Controller
 ### ----------------------------------------
-GET        /enter-angie                                   controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-angie                                   controllers.elections.EnterANGIEController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-angie/change                            controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-angie/change                            controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
+GET        /enter-angie                                                 controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-angie                                                 controllers.elections.EnterANGIEController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-angie/change                                          controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-angie/change                                          controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
 
 ### EnterQNGIE Controller
 ### ----------------------------------------
-GET        /enter-qngie                                   controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-qngie                                   controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-qngie/change                            controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-qngie/change                            controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
+GET        /enter-qngie                                                 controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-qngie                                                 controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-qngie/change                                          controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-qngie/change                                          controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
 
 ### GroupRatioBlendedElection Controller
 ### ----------------------------------------
-GET        /group-ratio-blended-election                  controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ratio-blended-election                  controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ratio-blended-election/change           controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ratio-blended-election/change           controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = CheckMode)
+GET        /group-ratio-blended-election                                controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ratio-blended-election                                controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ratio-blended-election/change                         controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ratio-blended-election/change                         controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### ElectedGroupEBITDABefore Controller
 ### ----------------------------------------
-GET        /elected-group-ebitda-before                   controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = NormalMode)
-POST       /elected-group-ebitda-before                   controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = NormalMode)
-GET        /elected-group-ebitda-before/change            controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = CheckMode)
-POST       /elected-group-ebitda-before/change            controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = CheckMode)
+GET        /elected-group-ebitda-before                                 controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = NormalMode)
+POST       /elected-group-ebitda-before                                 controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = NormalMode)
+GET        /elected-group-ebitda-before/change                          controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = CheckMode)
+POST       /elected-group-ebitda-before/change                          controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = CheckMode)
+
+### GroupEBITDAChargeableGainsElection Controller
+### ----------------------------------------
+GET        /group-ebitda-chargeable-gains-election                      controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ebitda-chargeable-gains-election                      controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ebitda-chargeable-gains-election/change               controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ebitda-chargeable-gains-election/change               controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = CheckMode)

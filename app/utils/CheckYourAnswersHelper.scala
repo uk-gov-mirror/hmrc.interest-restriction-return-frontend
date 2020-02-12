@@ -36,6 +36,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def groupEBITDAChargeableGainsElection: Option[SummaryListRow] = answer(GroupEBITDAChargeableGainsElectionPage, electionsRoutes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode))
+
   def electedGroupEBITDABefore: Option[SummaryListRow] = answer(ElectedGroupEBITDABeforePage, electionsRoutes.ElectedGroupEBITDABeforeController.onPageLoad(CheckMode))
 
   def groupRatioBlendedElection: Option[SummaryListRow] = answer(GroupRatioBlendedElectionPage, electionsRoutes.GroupRatioBlendedElectionController.onPageLoad(CheckMode))
