@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val interestAllowanceNonConsolidatedInvestmentsElection = "Do you want to make an interest allowance election for non-consolidated investments?"
   val interestAllowanceAlternativeCalcElection = "Do you want to make an interest allowance (alternative calculation) election for this return?"
   val electedInterestAllowanceAlternativeCalcBefore = "Has the group made an interest allowance (alternative calculation) election in any previous returns?"
   val groupEBITDAChargeableGainsElection = "Do you want to make a group-EBITDA (chargeable gains) election for this return?"
