@@ -26,6 +26,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryElectedGroupEBITDABeforePage: Arbitrary[ElectedGroupEBITDABeforePage.type] =
+    Arbitrary(ElectedGroupEBITDABeforePage)
+
   implicit lazy val arbitraryGroupRatioBlendedElectionPage: Arbitrary[GroupRatioBlendedElectionPage.type] =
     Arbitrary(GroupRatioBlendedElectionPage)
 
