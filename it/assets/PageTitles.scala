@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val groupRatioBlendedElection = "Are you making a blended group ratio election?"
 
   val enterQNGIE = "Enter the qualifying net group-interest expense (QNGIE)"
   val checkAnswersGroupStructure = "Check parent company details"

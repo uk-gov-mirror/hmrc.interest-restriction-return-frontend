@@ -17,7 +17,14 @@ POST       /enter-angie/change                            controllers.elections.
 
 ### EnterQNGIE Controller
 ### ----------------------------------------
-GET        /enter-qngie                          controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-qngie                          controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-qngie/change                   controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-qngie/change                   controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
+GET        /enter-qngie                                   controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-qngie                                   controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-qngie/change                            controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-qngie/change                            controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
+
+### GroupRatioBlendedElection Controller
+### ----------------------------------------
+GET        /group-ratio-blended-election                  controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ratio-blended-election                  controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ratio-blended-election/change           controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ratio-blended-election/change           controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = CheckMode)
