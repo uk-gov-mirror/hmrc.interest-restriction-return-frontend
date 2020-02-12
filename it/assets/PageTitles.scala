@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val electedGroupEBITDABefore = "Has the group made a group-EBITDA (chargeable gains) election in any previous returns?"
   val groupRatioBlendedElection = "Are you making a blended group ratio election?"
 
   val enterQNGIE = "Enter the qualifying net group-interest expense (QNGIE)"

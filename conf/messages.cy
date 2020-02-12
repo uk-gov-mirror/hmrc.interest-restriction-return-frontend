@@ -445,3 +445,10 @@ groupRatioBlendedElection.title = Are you making a blended group ratio election?
 groupRatioBlendedElection.heading = Are you making a blended group ratio election?
 groupRatioBlendedElection.checkYourAnswersLabel = Are you making a blended group ratio election?
 groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
+
+# ElectedGroupEBITDABeforePage Messages
+# ----------------------------------------------------------
+electedGroupEBITDABefore.title = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.heading = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.checkYourAnswersLabel = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.error.required = Select yes if the group made a group-EBITDA (chargeable gains) election in any previous returns
