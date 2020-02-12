@@ -459,3 +459,10 @@ groupEBITDAChargeableGainsElection.title = Do you want to make a group-EBITDA (c
 groupEBITDAChargeableGainsElection.heading = Do you want to make a group-EBITDA (chargeable gains) election for this return?
 groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Do you want to make a group-EBITDA (chargeable gains) election for this return?
 groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to make a group-EBITDA (chargeable gains) election for this return?
+
+# ElectedInterestAllowanceAlternativeCalcBeforePage Messages
+# ----------------------------------------------------------
+electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns

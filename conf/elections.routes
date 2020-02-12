@@ -42,3 +42,10 @@ GET        /group-ebitda-chargeable-gains-election                      controll
 POST       /group-ebitda-chargeable-gains-election                      controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /group-ebitda-chargeable-gains-election/change               controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-ebitda-chargeable-gains-election/change               controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = CheckMode)
+
+### ElectedInterestAllowanceAlternativeCalcBefore Controller
+### ----------------------------------------
+GET        /elected-interest-allowance-alternative-calc-before          controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = NormalMode)
+POST       /elected-interest-allowance-alternative-calc-before          controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = NormalMode)
+GET        /elected-interest-allowance-alternative-calc-before/change   controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = CheckMode)
+POST       /elected-interest-allowance-alternative-calc-before/change   controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = CheckMode)
