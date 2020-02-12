@@ -63,3 +63,10 @@ GET        /interest-allowance-non-consolidated-investments-election            
 POST       /interest-allowance-non-consolidated-investments-election            controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /interest-allowance-non-consolidated-investments-election/change     controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /interest-allowance-non-consolidated-investments-election/change     controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onSubmit(mode: Mode = CheckMode)
+
+### ElectedInterestAllowanceConsolidatedPshipBefore Controller
+### ----------------------------------------
+GET        /elected-interest-allowance-consolidated-pship-before                controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(mode: Mode = NormalMode)
+POST       /elected-interest-allowance-consolidated-pship-before                controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onSubmit(mode: Mode = NormalMode)
+GET        /elected-interest-allowance-consolidated-pship-before/change         controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(mode: Mode = CheckMode)
+POST       /elected-interest-allowance-consolidated-pship-before/change         controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onSubmit(mode: Mode = CheckMode)
