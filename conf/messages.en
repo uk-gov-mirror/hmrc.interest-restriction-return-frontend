@@ -452,3 +452,24 @@ electedGroupEBITDABefore.title = Has the group made a group-EBITDA (chargeable g
 electedGroupEBITDABefore.heading = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
 electedGroupEBITDABefore.checkYourAnswersLabel = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
 electedGroupEBITDABefore.error.required = Select yes if the group made a group-EBITDA (chargeable gains) election in any previous returns
+
+# GroupEBITDAChargeableGainsElectionPage Messages
+# ----------------------------------------------------------
+groupEBITDAChargeableGainsElection.title = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.heading = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to make a group-EBITDA (chargeable gains) election for this return?
+
+# ElectedInterestAllowanceAlternativeCalcBeforePage Messages
+# ----------------------------------------------------------
+electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
+
+# InterestAllowanceAlternativeCalcElectionPage Messages
+# ----------------------------------------------------------
+interestAllowanceAlternativeCalcElection.title = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.heading = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.error.required = Select yes if you want to make an interest allowance (alternative calculation) election for this return
