@@ -35,6 +35,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(InterestAllowanceConsolidatedPshipElectionPage.type, JsValue)] ::
     arbitrary[(ElectedInterestAllowanceConsolidatedPshipBeforePage.type, JsValue)] ::
     arbitrary[(InterestAllowanceNonConsolidatedInvestmentsElectionPage.type, JsValue)] ::
+    arbitrary[(GroupRatioPercentagePage.type, JsValue)] ::
     arbitrary[(InterestAllowanceAlternativeCalcElectionPage.type, JsValue)] ::
     arbitrary[(ElectedInterestAllowanceAlternativeCalcBeforePage.type, JsValue)] ::
     arbitrary[(GroupEBITDAChargeableGainsElectionPage.type, JsValue)] ::

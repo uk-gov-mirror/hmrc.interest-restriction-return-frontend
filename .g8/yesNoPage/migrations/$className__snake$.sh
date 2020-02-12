@@ -5,15 +5,15 @@ echo "Applying migration $className;format="snake"$"
 
 echo "Adding routes to conf/app.routes"
 
-echo "" >> ../conf/app.routes
-echo "### $className;format="cap"$ Controller" >> ../conf/app.routes
-echo "### ----------------------------------------" >> ../conf/app.routes
+echo "" >> ../conf/$section;format="decap"$.routes
+echo "### $className;format="cap"$ Controller" >> ../conf/$section;format="decap"$.routes
+echo "### ----------------------------------------" >> ../conf/$section;format="decap"$.routes
 
 export kebabClassName=\$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "$className$" | tr '[:upper:]' '[:lower:]')
-echo "GET        /\$kebabClassName                          controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /\$kebabClassName                          controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /\$kebabClassName/change                   controllers.$className;format="cap"$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /\$kebabClassName/change                   controllers.$className;format="cap"$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /\$kebabClassName                          controllers.$section;format="decap"$.$className;format="cap"$Controller.onPageLoad(mode: Mode = NormalMode)" >> ../conf/$section;format="decap"$.routes
+echo "POST       /\$kebabClassName                          controllers.$section;format="decap"$.$className;format="cap"$Controller.onSubmit(mode: Mode = NormalMode)" >> ../conf/$section;format="decap"$.routes
+echo "GET        /\$kebabClassName/change                   controllers.$section;format="decap"$.$className;format="cap"$Controller.onPageLoad(mode: Mode = CheckMode)" >> ../conf/$section;format="decap"$.routes
+echo "POST       /\$kebabClassName/change                   controllers.$section;format="decap"$.$className;format="cap"$Controller.onSubmit(mode: Mode = CheckMode)" >> ../conf/$section;format="decap"$.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -64,7 +64,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def $className;format="decap"$: Option[SummaryListRow] = answer($className;format="cap"$Page, routes.$className;format="cap"$Controller.onPageLoad(CheckMode))";\
+     print "  def $className;format="decap"$: Option[SummaryListRow] = answer($className;format="cap"$Page, $section;format="decap"$Routes.$className;format="cap"$Controller.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Adding to Pages map"
@@ -87,6 +87,6 @@ awk '/object PageTitles/ {\
 
 echo "adding route to integration test"
 
-sed -i "s|ROUTING_PLACEHOLDER|$section$\/\${kebabClassName}|g" ../generated-it/controllers/$className$ControllerISpec.scala
+sed -i "" "s|ROUTING_PLACEHOLDER|$section;format="decap"$\/\${kebabClassName}|g" ../generated-it/controllers/$section;format="decap"$/$className$ControllerISpec.scala
 
 echo "Migration $className;format="snake"$ completed"

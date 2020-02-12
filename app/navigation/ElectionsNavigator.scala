@@ -28,6 +28,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     GroupRatioElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    GroupRatioPercentagePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     EnterANGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     EnterQNGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     GroupRatioBlendedElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),

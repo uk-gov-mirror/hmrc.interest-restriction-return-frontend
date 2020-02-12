@@ -31,7 +31,7 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the GroupRatioElectionPage" should {
 
-        "go to the Under Construction page when given false" in {
+        "go to the Under Construction pag" in {
 
           navigator.nextPage(GroupRatioElectionPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
@@ -40,7 +40,7 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the EnterANGIEPage" should {
 
-        "go to the Under Construction page when given false" in {
+        "go to the Under Construction page" in {
 
           navigator.nextPage(EnterANGIEPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
@@ -115,6 +115,15 @@ class ElectionsNavigatorSpec extends SpecBase {
         "go to the Under Construction page" in {
 
           navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the GroupRatioPercentagePage" should {
+
+        "go to the Under Construction page" in {
+
+          navigator.nextPage(GroupRatioPercentagePage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }

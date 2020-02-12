@@ -1,0 +1,33 @@
+@import controllers.$section;format="decap"$.routes._
+@import models.Mode
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    yesNoRadio: components.yesNoRadio,
+    button: components.button,
+    subheading: components.subheading,
+    link: components.link,
+    saveForLater: components.saveForLater
+)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section;format="decap"$")))) {
+
+    @formHelper(action = $className;format="cap"$Controller.onSubmit(mode)) {
+
+        @errorSummary(form.errors)
+
+        @subheading("section.$section;format="decap"$")
+
+        @yesNoRadio(form, "$className;format="decap"$.heading")
+
+        @button("site.saveAndContinue")
+
+        @saveForLater()
+    }
+}

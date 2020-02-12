@@ -29,6 +29,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
+
   private def summaryListRow(label: String, answer: String, changeLink: Call) =
     SummaryListRow(
       key = Key(Text(label)),

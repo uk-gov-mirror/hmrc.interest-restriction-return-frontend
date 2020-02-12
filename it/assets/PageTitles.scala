@@ -4,6 +4,7 @@ object PageTitles {
   val interestAllowanceConsolidatedPshipElection = "Do you want to make an interest allowance election for consolidated partnerships?"
   val electedInterestAllowanceConsolidatedPshipBefore = "Has the group made an interest allowance election for consolidated partnerships in any previous returns?"
   val interestAllowanceNonConsolidatedInvestmentsElection = "Do you want to make an interest allowance election for non-consolidated investments?"
+  val groupRatioPercentage = "Enter the group ratio percentage"
   val interestAllowanceAlternativeCalcElection = "Do you want to make an interest allowance (alternative calculation) election for this return?"
   val electedInterestAllowanceAlternativeCalcBefore = "Has the group made an interest allowance (alternative calculation) election in any previous returns?"
   val groupEBITDAChargeableGainsElection = "Do you want to make a group-EBITDA (chargeable gains) election for this return?"

@@ -1,0 +1,37 @@
+@import controllers.$section;format="decap"$.routes._
+@import models.{Mode, $className;format="cap"$}
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
+    errorSummary: components.errorSummary,
+    inputRadio: components.inputRadio,
+    subheading: components.subheading,
+    button: components.button,
+    link: components.link,
+    saveForLater: components.saveForLater
+)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section;format="decap"$")))) {
+
+    @formHelper(action = $className;format="cap"$Controller.onSubmit(mode), 'autoComplete -> "off") {
+
+        @errorSummary(form.errors)
+
+        @subheading("section.$section;format="decap"$")
+
+        @inputRadio(
+            form = form,
+            legend = messages("$className;format="decap"$.heading"),
+            items = $className;format="cap"$.options(form)
+        )
+
+        @button("site.saveAndContinue")
+
+        @saveForLater()
+    }
+}

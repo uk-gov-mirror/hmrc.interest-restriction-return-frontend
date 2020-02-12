@@ -15,6 +15,13 @@ POST       /enter-angie                                                         
 GET        /enter-angie/change                                                  controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-angie/change                                                  controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
 
+### GroupRatioPercentage Controller
+### ----------------------------------------
+GET        /group-ratio-percentage                        controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ratio-percentage                        controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ratio-percentage/change                 controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ratio-percentage/change                 controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = CheckMode)
+
 ### EnterQNGIE Controller
 ### ----------------------------------------
 GET        /enter-qngie                                                         controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
