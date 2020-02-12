@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package forms
+package forms.elections
 
 import forms.behaviours.DecimalFieldBehaviours
-import forms.elections.EnterQNGIEFormProvider
 import play.api.data.FormError
 
 class EnterQNGIEFormProviderSpec extends DecimalFieldBehaviours {
@@ -28,7 +27,7 @@ class EnterQNGIEFormProviderSpec extends DecimalFieldBehaviours {
 
     val fieldName = "value"
 
-    val minimum = 0
+    val minimum = -999999999999999.99
     val maximum = 999999999999999.99
 
     val validDataGenerator = decimalInRangeWithCommas(minimum, maximum)

@@ -28,6 +28,6 @@ class EnterQNGIEFormProvider @Inject() extends Mappings {
         "enterQNGIE.error.required",
         "enterQNGIE.error.invalidNumeric",
         "enterQNGIE.error.nonNumeric")
-        .verifying(inRange[BigDecimal](0, 999999999999999.99, "enterQNGIE.error.outOfRange"))
+        .verifying(inRange[BigDecimal](-999999999999999.99, 999999999999999.99, "enterQNGIE.error.outOfRange"))
     )
 }
