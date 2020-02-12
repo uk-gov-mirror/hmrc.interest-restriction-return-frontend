@@ -484,3 +484,10 @@ interestAllowanceAlternativeCalcElection.title = Do you want to make an interest
 interestAllowanceAlternativeCalcElection.heading = Do you want to make an interest allowance (alternative calculation) election for this return?
 interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Do you want to make an interest allowance (alternative calculation) election for this return?
 interestAllowanceAlternativeCalcElection.error.required = Select yes if you want to make an interest allowance (alternative calculation) election for this return
+
+# InterestAllowanceNonConsolidatedInvestmentsElectionPage Messages
+# ----------------------------------------------------------
+interestAllowanceNonConsolidatedInvestmentsElection.title = Do you want to make an interest allowance election for non-consolidated investments?
+interestAllowanceNonConsolidatedInvestmentsElection.heading = Do you want to make an interest allowance election for non-consolidated investments?
+interestAllowanceNonConsolidatedInvestmentsElection.checkYourAnswersLabel = Do you want to make an interest allowance election for non-consolidated investments?
+interestAllowanceNonConsolidatedInvestmentsElection.error.required = Select yes if you want to make an interest allowance election for non-consolidated investments
