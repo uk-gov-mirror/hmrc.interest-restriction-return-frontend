@@ -1,0 +1,14 @@
+@import views.ViewUtils._
+@import config.FrontendAppConfig
+
+@this(
+    govukLayout: templates.GovukLayoutWrapper,
+    h1: components.h1
+)
+
+@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+
+@govukLayout(pageTitle = Some(titleNoForm("$className;format="decap"$.title", Some("section.$section;format="decap"$")))) {
+
+    @h1("$className;format="decap"$.heading")
+}
