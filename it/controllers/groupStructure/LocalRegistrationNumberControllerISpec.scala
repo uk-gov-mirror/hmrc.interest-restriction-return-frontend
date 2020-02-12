@@ -74,8 +74,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
         "a value is entered" should {
 
-          //TODO: Update as part of routing subtask
-          "redirect to Under Construction page" in {
+          "redirect to Check Your Answers page" in {
 
             AuthStub.authorised()
 
@@ -84,7 +83,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }
@@ -92,8 +91,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
         "a value is NOT entered" should {
 
-          //TODO: Update as part of routing subtask
-          "redirect to Under Construction page" in {
+          "redirect to Check Your Answers page" in {
             AuthStub.authorised()
 
             val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> ""))()
@@ -101,7 +99,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad().url)
               )
             }
           }

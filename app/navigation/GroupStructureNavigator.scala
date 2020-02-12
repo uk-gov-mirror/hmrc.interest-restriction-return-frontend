@@ -38,7 +38,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanyNamePage -> (_ => routes.PayTaxInUkController.onPageLoad(NormalMode)),
     PayTaxInUkPage -> (_.get(PayTaxInUkPage) match {
       case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
-      case Some(false) => controllers.routes.UnderConstructionController.onPageLoad()
+      case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode)
       case _ => routes.PayTaxInUkController.onPageLoad(NormalMode)
     }),
     LimitedLiabilityPartnershipPage -> (_.get(LimitedLiabilityPartnershipPage) match {
@@ -49,21 +49,24 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
     RegisteredCompaniesHousePage -> (_.get(RegisteredCompaniesHousePage) match {
       case Some(true) => routes.ParentCRNController.onPageLoad(NormalMode)
-      case Some(false) => routes.CheckAnswersGroupStructureController.onPageLoad()
+      case Some(false) => checkYourAnswers
       case _ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
     }),
     ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
-    ParentCRNPage -> (_ => routes.CheckAnswersGroupStructureController.onPageLoad()),
-    LocalRegistrationNumberPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    CountryOfIncorporationPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    RegisteredForTaxInAnotherCountryPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ParentCRNPage -> (_ => checkYourAnswers),
+    RegisteredForTaxInAnotherCountryPage -> (_.get(RegisteredForTaxInAnotherCountryPage) match {
+      case Some(true) => routes.CountryOfIncorporationController.onPageLoad(NormalMode)
+      case Some(false) => checkYourAnswers
+      case _ => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode)
+    }),
+    CountryOfIncorporationPage -> (_ => routes.LocalRegistrationNumberController.onPageLoad(NormalMode)),
+    LocalRegistrationNumberPage -> (_ => checkYourAnswers),
     CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    routes.CheckAnswersGroupStructureController.onPageLoad()
-  )
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => checkYourAnswers)
 
+  private def checkYourAnswers: Call = routes.CheckAnswersGroupStructureController.onPageLoad()
   private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
