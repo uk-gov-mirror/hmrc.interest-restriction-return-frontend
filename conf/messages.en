@@ -498,3 +498,10 @@ electedInterestAllowanceConsolidatedPshipBefore.title = Has the group made an in
 electedInterestAllowanceConsolidatedPshipBefore.heading = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
 electedInterestAllowanceConsolidatedPshipBefore.checkYourAnswersLabel = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
 electedInterestAllowanceConsolidatedPshipBefore.error.required = Select yes if the group made an interest allowance election for consolidated partnerships in any previous returns
+
+# InterestAllowanceConsolidatedPshipElectionPage Messages
+# ----------------------------------------------------------
+interestAllowanceConsolidatedPshipElection.title = Do you want to make an interest allowance election for consolidated partnerships?
+interestAllowanceConsolidatedPshipElection.heading = Do you want to make an interest allowance election for consolidated partnerships?
+interestAllowanceConsolidatedPshipElection.checkYourAnswersLabel = Do you want to make an interest allowance election for consolidated partnerships?
+interestAllowanceConsolidatedPshipElection.error.required = Select yes if you want to make an interest allowance election for consolidated partnerships
