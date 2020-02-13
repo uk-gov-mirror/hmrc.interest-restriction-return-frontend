@@ -18,6 +18,7 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.elections.{routes => electionRoutes}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.{CheckMode, NormalMode, UserAnswers}
 import pages.Page
@@ -146,10 +147,10 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "from the Group Interest Capacity page" should {
 
-        "go to the next section page" ignore {
+        "go to the next section page" in {
 
           navigator.nextPage(GroupInterestCapacityPage, NormalMode, emptyUserAnswers) mustBe
-            ??? //TODO add route to next section once implemented
+            electionRoutes.GroupRatioElectionController.onPageLoad(NormalMode)
         }
       }
 

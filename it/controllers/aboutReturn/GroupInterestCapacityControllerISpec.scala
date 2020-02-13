@@ -17,6 +17,7 @@
 package controllers.aboutReturn
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -69,7 +70,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to UnderConstruction page" in {
+          "redirect to Group Ratio Election page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +79,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode).url)
               )
             }
           }
