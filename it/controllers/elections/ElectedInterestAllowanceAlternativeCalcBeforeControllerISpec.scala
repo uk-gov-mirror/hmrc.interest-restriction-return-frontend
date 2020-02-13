@@ -23,7 +23,8 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec
+  extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
@@ -69,18 +70,37 @@ class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec extends Integ
 
         "enters a valid answer" when {
 
-          //TODO: Update routing as part of navigation subtask
-          "redirect to Under Construction page" in {
+          "the answer is false" should {
 
-            AuthStub.authorised()
+            "redirect to Interest Allowance Alternative Calculation Election page" in {
 
-            val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before", Json.obj("value" -> true))()
+              AuthStub.authorised()
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
-              )
+              val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before", Json.obj("value" -> false))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode).url)
+                )
+              }
+            }
+          }
+
+          "the answer is true" should {
+
+            "redirect to Interest Allowance Non Consolidated Investments Election page" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before", Json.obj("value" -> true))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode).url)
+                )
+              }
             }
           }
         }

@@ -69,7 +69,7 @@ class GroupEBITDAChargeableGainsElectionControllerISpec extends IntegrationSpecB
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to Elected Interest Allowance Alternative Calculation Before page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +78,7 @@ class GroupEBITDAChargeableGainsElectionControllerISpec extends IntegrationSpecB
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
               )
             }
           }

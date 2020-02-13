@@ -67,9 +67,17 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the GroupEBITDA page" in {
 
-          //TODO: Update with routing
           navigator.nextPage(EnterQNGIEPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.GroupEBITDAController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the EnterQNGIEPage" should {
+
+        "go to the GroupRatioPercentage page" in {
+
+          navigator.nextPage(GroupEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+            routes.GroupRatioPercentageController.onPageLoad(NormalMode)
         }
       }
 

@@ -69,8 +69,7 @@ class InterestAllowanceAlternativeCalcElectionControllerISpec extends Integratio
 
         "enters a valid answer" when {
 
-          //TODO: Update routing as part of navigation subtask
-          "redirect to Under Construction page" in {
+          "redirect to Interest Allowance Non Consolidated Investments Election page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +78,7 @@ class InterestAllowanceAlternativeCalcElectionControllerISpec extends Integratio
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode).url)
               )
             }
           }

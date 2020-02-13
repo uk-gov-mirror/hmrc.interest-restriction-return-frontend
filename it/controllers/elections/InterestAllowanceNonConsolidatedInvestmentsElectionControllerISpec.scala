@@ -23,7 +23,8 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends
+  IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
@@ -69,7 +70,7 @@ class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to Elected Interest Allowance Consolidated Partnerships Before page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +79,7 @@ class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode).url)
               )
             }
           }

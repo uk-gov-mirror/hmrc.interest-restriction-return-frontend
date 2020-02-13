@@ -17,6 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -68,7 +69,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" when {
 
-          "redirect to GroupRatioElection page" in {
+          "redirect to ANGIE page" in {
 
             AuthStub.authorised()
 
@@ -77,7 +78,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.EnterANGIEController.onPageLoad(NormalMode).url)
               )
             }
           }

@@ -34,8 +34,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case Some(false) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
       case None => routes.GroupRatioElectionController.onPageLoad(NormalMode)
     }),
-    EnterQNGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    GroupEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    EnterQNGIEPage -> (_ => routes.GroupEBITDAController.onPageLoad(NormalMode)),
+    GroupEBITDAPage -> (_ => routes.GroupRatioPercentageController.onPageLoad(NormalMode)),
     GroupRatioPercentagePage -> (_ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)),
     GroupRatioBlendedElectionPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
     ElectedGroupEBITDABeforePage -> (_.get(ElectedGroupEBITDABeforePage) match {
