@@ -16,12 +16,12 @@
 
 package navigation
 
+import controllers.elections.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.elections._
 import play.api.mvc.Call
-import controllers.elections.routes
 
 @Singleton
 class ElectionsNavigator @Inject()() extends Navigator {
@@ -58,7 +58,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     }),
     InterestAllowanceConsolidatedPshipElectionPage -> (_ => checkYourAnswers),
     AddInvestorGroupPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InvestorGroupNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    InvestorGroupNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    InvestorRatioMethodPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page

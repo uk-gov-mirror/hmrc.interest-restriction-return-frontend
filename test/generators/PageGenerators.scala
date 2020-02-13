@@ -26,6 +26,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryInvestorRatioMethodPage: Arbitrary[InvestorRatioMethodPage.type] =
+    Arbitrary(InvestorRatioMethodPage)
+
   implicit lazy val arbitraryInvestorGroupNamePage: Arbitrary[InvestorGroupNamePage.type] =
     Arbitrary(InvestorGroupNamePage)
 

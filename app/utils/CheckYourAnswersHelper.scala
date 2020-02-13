@@ -35,6 +35,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
+  def investorRatioMethod: Option[SummaryListRow] = answer(InvestorRatioMethodPage, electionsRoutes.InvestorRatioMethodController.onPageLoad(CheckMode))
 
   def investorGroupName: Option[SummaryListRow] = answer(InvestorGroupNamePage, electionsRoutes.InvestorGroupNameController.onPageLoad(CheckMode))
 

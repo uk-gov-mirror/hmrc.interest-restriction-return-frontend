@@ -18,9 +18,17 @@
 
 @this(govukRadios: GovukRadios)
 
-@(form: Form[_], legend: String, items: Seq[RadioItem], legendAsHeading: Boolean = true, classes: String = "govuk-fieldset__legend--xl")(implicit messages: Messages)
+@(
+        form: Form[_],
+        legend: String,
+        items: Seq[RadioItem],
+        legendAsHeading: Boolean = true,
+        classes: String = "govuk-fieldset__legend--xl",
+        inline: Boolean = false
+)(implicit messages: Messages)
 
 @govukRadios(Radios(
+    classes = s"${if(inline){"govuk-radios--inline"}}",
     name = "value",
     fieldset = Some(Fieldset(
         legend = Some(Legend(

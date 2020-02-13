@@ -105,3 +105,10 @@ GET        /investor-group-name                          controllers.elections.I
 POST       /investor-group-name                          controllers.elections.InvestorGroupNameController.onSubmit(mode: Mode = NormalMode)
 GET        /investor-group-name/change                   controllers.elections.InvestorGroupNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /investor-group-name/change                   controllers.elections.InvestorGroupNameController.onSubmit(mode: Mode = CheckMode)
+
+### InvestorRatioMethod Controller
+### ----------------------------------------
+GET        /investor-ratio-method                          controllers.elections.InvestorRatioMethodController.onPageLoad(mode: Mode = NormalMode)
+POST       /investor-ratio-method                          controllers.elections.InvestorRatioMethodController.onSubmit(mode: Mode = NormalMode)
+GET        /investor-ratio-method/change                   controllers.elections.InvestorRatioMethodController.onPageLoad(mode: Mode = CheckMode)
+POST       /investor-ratio-method/change                   controllers.elections.InvestorRatioMethodController.onSubmit(mode: Mode = CheckMode)
