@@ -17,6 +17,7 @@
 package navigation
 
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.elections.{routes => electionRoutes}
 import controllers.routes
 import javax.inject.{Inject, Singleton}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
@@ -58,7 +59,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)
 
-  private def nextSection(mode: Mode): Call = routes.UnderConstructionController.onPageLoad() //TODO: Link to About the Elections Section when implemented
+  private def nextSection(mode: Mode): Call = electionRoutes.GroupRatioElectionController.onPageLoad(NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

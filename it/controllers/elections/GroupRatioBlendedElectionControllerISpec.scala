@@ -69,8 +69,7 @@ class GroupRatioBlendedElectionControllerISpec extends IntegrationSpecBase with 
 
         "enters a valid answer" when {
 
-          //TODO: Update as part of routing story
-          "redirect to Under Construction page" in {
+          "redirect to Elected Group EBITDA Chargeable Gains Before page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +78,7 @@ class GroupRatioBlendedElectionControllerISpec extends IntegrationSpecBase with 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode).url)
               )
             }
           }

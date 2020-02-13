@@ -69,17 +69,38 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "the answer is false" should {
 
-            AuthStub.authorised()
+            "redirect to Interest Allowance Consolidated Partnerships Election page" in {
 
-            val res = postRequest("/elections/elected-interest-allowance-consolidated-pship-before", Json.obj("value" -> true))()
+              AuthStub.authorised()
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
-              )
+              val res = postRequest("/elections/elected-interest-allowance-consolidated-pship-before", Json.obj("value" -> false))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode).url)
+                )
+              }
+            }
+          }
+
+          "the answer is true" should {
+
+            //TODO: Update routing when CYA page is built. Currently redirect to Under Construction.
+            "redirect to Check Your Answers page" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/elections/elected-interest-allowance-consolidated-pship-before", Json.obj("value" -> true))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                )
+              }
             }
           }
         }

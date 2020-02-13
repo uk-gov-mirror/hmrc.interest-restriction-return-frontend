@@ -18,6 +18,7 @@ package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.elections.GroupRatioElectionPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -69,17 +70,41 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
         "enters a valid answer" when {
 
-          "redirect to EnterANGIE page" in {
+          "Group Ratio is elected" should {
 
-            AuthStub.authorised()
+            "redirect to QNGIE page" in {
 
-            val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
+              AuthStub.authorised()
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
-              )
+              setAnswers(GroupRatioElectionPage, true)
+
+              val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.EnterQNGIEController.onPageLoad(NormalMode).url)
+                )
+              }
+            }
+          }
+
+          "Group Ratio is NOT elected" should {
+
+            "redirect to Elected Interest Allowance Alternative Calculation Before page" in {
+
+              AuthStub.authorised()
+
+              setAnswers(GroupRatioElectionPage, false)
+
+              val res = postRequest("/elections/enter-angie", Json.obj("value" -> 1))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
+                )
+              }
             }
           }
         }

@@ -69,17 +69,37 @@ class ElectedGroupEBITDABeforeControllerISpec extends IntegrationSpecBase with C
 
         "enters a valid answer" when {
 
-          "redirect to Under Constructed page" in {
+          "the answer is false" should {
 
-            AuthStub.authorised()
+            "redirect to Group EBITDA Chargeable Gains Election page" in {
 
-            val res = postRequest("/elections/elected-group-ebitda-before", Json.obj("value" -> true))()
+              AuthStub.authorised()
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
-              )
+              val res = postRequest("/elections/elected-group-ebitda-before", Json.obj("value" -> false))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode).url)
+                )
+              }
+            }
+          }
+
+          "the answer is true" should {
+
+            "redirect to Elected Interest Allowance Alternative Calcaultion Before page" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/elections/elected-group-ebitda-before", Json.obj("value" -> true))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
+                )
+              }
             }
           }
         }

@@ -17,6 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -68,7 +69,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to Group Ratio Blended Election page" in {
 
             AuthStub.authorised()
 
@@ -77,7 +78,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode).url)
               )
             }
           }

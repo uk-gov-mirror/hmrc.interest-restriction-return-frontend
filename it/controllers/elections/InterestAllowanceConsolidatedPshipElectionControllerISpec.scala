@@ -69,7 +69,8 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          //TODO: Update routing when CYA page is built. Currently redirect to Under Construction.
+          "redirect to Check Your Answers page" in {
 
             AuthStub.authorised()
 

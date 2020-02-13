@@ -69,8 +69,7 @@ class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestH
 
         "enters a valid answer" when {
 
-          //TODO: Update as part of routing subtask
-          "redirect to Under Construction page" in {
+          "redirect to Group Ratio Percentage page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +78,7 @@ class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestH
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.GroupRatioPercentageController.onPageLoad(NormalMode).url)
               )
             }
           }

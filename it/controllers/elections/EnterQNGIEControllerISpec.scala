@@ -69,7 +69,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
         "enters a valid answer" when {
 
-          "redirect to under contrsuciton page" in {
+          "redirect to Group EBITDA page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +78,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.GroupEBITDAController.onPageLoad(NormalMode).url)
               )
             }
           }
