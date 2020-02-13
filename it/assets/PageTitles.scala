@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val groupEBITDA = "Enter the group-EBITDA"
   val interestAllowanceConsolidatedPshipElection = "Do you want to make an interest allowance election for consolidated partnerships?"
   val electedInterestAllowanceConsolidatedPshipBefore = "Has the group made an interest allowance election for consolidated partnerships in any previous returns?"
   val interestAllowanceNonConsolidatedInvestmentsElection = "Do you want to make an interest allowance election for non-consolidated investments?"

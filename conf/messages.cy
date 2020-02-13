@@ -505,3 +505,14 @@ interestAllowanceConsolidatedPshipElection.title = Do you want to make an intere
 interestAllowanceConsolidatedPshipElection.heading = Do you want to make an interest allowance election for consolidated partnerships?
 interestAllowanceConsolidatedPshipElection.checkYourAnswersLabel = Do you want to make an interest allowance election for consolidated partnerships?
 interestAllowanceConsolidatedPshipElection.error.required = Select yes if you want to make an interest allowance election for consolidated partnerships
+
+# GroupEBITDAPage Messages
+# ----------------------------------------------------------
+groupEBITDA.title = Enter the group-EBITDA
+groupEBITDA.heading = Enter the group-EBITDA
+groupEBITDA.label= Enter the group-EBITDA
+groupEBITDA.checkYourAnswersLabel = group-EBITDA
+groupEBITDA.error.nonNumeric = Enter the group-EBITDA using numbers
+groupEBITDA.error.required = Enter the group-EBITDA
+groupEBITDA.error.invalidNumeric = The group-EBITDA must be valid decimal or whole number
+groupEBITDA.error.outOfRange = The group-EBITDA must be between {0} and {1}
