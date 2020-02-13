@@ -84,3 +84,10 @@ GET        /interest-allowance-consolidated-pship-election                      
 POST       /interest-allowance-consolidated-pship-election                      controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onSubmit(mode: Mode = NormalMode)
 GET        /interest-allowance-consolidated-pship-election/change               controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(mode: Mode = CheckMode)
 POST       /interest-allowance-consolidated-pship-election/change               controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onSubmit(mode: Mode = CheckMode)
+
+### GroupEBITDA Controller
+### ----------------------------------------
+GET        /group-ebitda                          controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ebitda                          controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ebitda/change                   controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ebitda/change                   controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)

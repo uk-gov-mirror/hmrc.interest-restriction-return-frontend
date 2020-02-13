@@ -38,7 +38,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InterestAllowanceAlternativeCalcElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InterestAllowanceConsolidatedPshipElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    InterestAllowanceConsolidatedPshipElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    GroupEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page
