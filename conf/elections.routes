@@ -91,3 +91,10 @@ GET        /group-ebitda                          controllers.elections.GroupEBI
 POST       /group-ebitda                          controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
 GET        /group-ebitda/change                   controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
 POST       /group-ebitda/change                   controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)
+
+### AddInvestorGroup Controller
+### ----------------------------------------
+GET        /add-investor-group                          controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-investor-group                          controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = NormalMode)
+GET        /add-investor-group/change                   controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-investor-group/change                   controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = CheckMode)

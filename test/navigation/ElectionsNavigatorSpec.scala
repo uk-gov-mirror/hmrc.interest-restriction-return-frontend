@@ -211,6 +211,15 @@ class ElectionsNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
+
+      "from the AddInvestorGroup page" should {
+
+        "go to the Under Construction page" in {
+
+          navigator.nextPage(AddInvestorGroupPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {

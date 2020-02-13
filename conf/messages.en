@@ -516,3 +516,10 @@ groupEBITDA.error.nonNumeric = Enter the group-EBITDA using numbers
 groupEBITDA.error.required = Enter the group-EBITDA
 groupEBITDA.error.invalidNumeric = The group-EBITDA must be valid decimal or whole number
 groupEBITDA.error.outOfRange = The group-EBITDA must be between {0} and {1}
+
+# AddInvestorGroupPage Messages
+# ----------------------------------------------------------
+addInvestorGroup.title = Do you want to add an investor group?
+addInvestorGroup.heading = Do you want to add an investor group?
+addInvestorGroup.checkYourAnswersLabel = Do you want to add an investor group?
+addInvestorGroup.error.required = Select yes if you want to add an investor group

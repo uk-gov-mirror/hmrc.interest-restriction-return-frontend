@@ -36,6 +36,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
 
+  def addInvestorGroup: Option[SummaryListRow] = answer(AddInvestorGroupPage, electionsRoutes.AddInvestorGroupController.onPageLoad(CheckMode))
+
   def groupEBITDA: Option[SummaryListRow] = answer(GroupEBITDAPage, electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode))
 
   def electedInterestAllowanceConsolidatedPshipBefore: Option[SummaryListRow] =
