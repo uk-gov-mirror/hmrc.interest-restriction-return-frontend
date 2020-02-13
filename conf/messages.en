@@ -516,3 +516,28 @@ groupEBITDA.error.nonNumeric = Enter the group-EBITDA using numbers
 groupEBITDA.error.required = Enter the group-EBITDA
 groupEBITDA.error.invalidNumeric = The group-EBITDA must be valid decimal or whole number
 groupEBITDA.error.outOfRange = The group-EBITDA must be between {0} and {1}
+
+# AddInvestorGroupPage Messages
+# ----------------------------------------------------------
+addInvestorGroup.title = Do you want to add an investor group?
+addInvestorGroup.heading = Do you want to add an investor group?
+addInvestorGroup.checkYourAnswersLabel = Do you want to add an investor group?
+addInvestorGroup.error.required = Select yes if you want to add an investor group
+
+# InvestorGroupNamePage Messages
+# ----------------------------------------------------------
+investorGroupName.title = Enter the name of the investor group
+investorGroupName.heading = Enter the name of the investor group
+investorGroupName.checkYourAnswersLabel = Investor group name
+investorGroupName.label= Enter the name of the investor group
+investorGroupName.error.required = Enter the name of the investor group
+investorGroupName.error.length = Investor group name must be 160 characters or less
+
+# InvestorRatioMethodPage Messages
+# ----------------------------------------------------------
+investorRatioMethod.title = Which ratio do you want to elect for this investor group?
+investorRatioMethod.heading = Which ratio do you want to elect for this investor group?
+investorRatioMethod.groupRatioMethod = Group Ratio
+investorRatioMethod.fixedRatioMethod = Fixed Ratio
+investorRatioMethod.checkYourAnswersLabel = Investor group ratio
+investorRatioMethod.error.required = Select which ratio you want to elect for this investor group

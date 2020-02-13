@@ -22,6 +22,11 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryInvestorRatioMethod: Arbitrary[InvestorRatioMethod] =
+    Arbitrary {
+      Gen.oneOf(InvestorRatioMethod.values.toSeq)
+    }
+
   implicit lazy val arbitraryContinueSavedReturn: Arbitrary[ContinueSavedReturn] =
     Arbitrary {
       Gen.oneOf(ContinueSavedReturn.values.toSeq)
