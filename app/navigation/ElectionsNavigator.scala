@@ -21,25 +21,42 @@ import models._
 import pages._
 import pages.elections._
 import play.api.mvc.Call
+import controllers.elections.routes
 
 @Singleton
 class ElectionsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    GroupRatioElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    GroupRatioPercentagePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    EnterANGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    GroupRatioElectionPage -> (_ => routes.EnterANGIEController.onPageLoad(NormalMode)),
+    EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
+      case Some(true) => routes.EnterQNGIEController.onPageLoad(NormalMode)
+      case Some(false) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+      case None => routes.GroupRatioElectionController.onPageLoad(NormalMode)
+    }),
     EnterQNGIEPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    GroupRatioBlendedElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ElectedGroupEBITDABeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    GroupEBITDAChargeableGainsElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InterestAllowanceAlternativeCalcElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InterestAllowanceConsolidatedPshipElectionPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    GroupEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    GroupEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    GroupRatioPercentagePage -> (_ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)),
+    GroupRatioBlendedElectionPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
+    ElectedGroupEBITDABeforePage -> (_.get(ElectedGroupEBITDABeforePage) match {
+      case Some(true) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+      case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
+      case _ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+    }),
+    GroupEBITDAChargeableGainsElectionPage -> (_ => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)),
+    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_.get(ElectedInterestAllowanceAlternativeCalcBeforePage) match {
+      case Some(true) => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
+      case Some(false) => routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
+      case _ => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+    }),
+    InterestAllowanceAlternativeCalcElectionPage -> (_ => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)),
+    InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
+    ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_.get(ElectedInterestAllowanceConsolidatedPshipBeforePage) match {
+      case Some(true) => checkYourAnswers
+      case Some(false) => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
+      case _ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+    }),
+    InterestAllowanceConsolidatedPshipElectionPage -> (_ => checkYourAnswers)
   )
 
   //TODO update with check your answers page
@@ -47,7 +64,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     controllers.routes.UnderConstructionController.onPageLoad()
   )
 
-  //TODO update with next section
+  //TODO update with CYA and Next Section calls
+  private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
   private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {

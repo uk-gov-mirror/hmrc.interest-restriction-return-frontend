@@ -17,9 +17,9 @@
 package navigation
 
 import base.SpecBase
+import controllers.elections.routes
 import models._
 import pages.elections._
-import pages.groupStructure._
 
 class ElectionsNavigatorSpec extends SpecBase {
 
@@ -31,99 +31,175 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the GroupRatioElectionPage" should {
 
-        "go to the Under Construction pag" in {
+        "go to the Enter ANGIE page" in {
 
           navigator.nextPage(GroupRatioElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.EnterANGIEController.onPageLoad(NormalMode)
         }
       }
 
       "from the EnterANGIEPage" should {
 
-        "go to the Under Construction page" in {
+        "go to the Enter QNGIE page when Group Ratio is elected" in {
+
+          val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).success.value
+
+          navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
+            routes.EnterQNGIEController.onPageLoad(NormalMode)
+        }
+
+        "go to the Elected Interest Allowance Alternative Calc Before page when Group Ratio is NOT elected" in {
+
+          val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
+
+          navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
+            routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+        }
+
+        "go to the Group Ratio Election page when there is no answer for Group Ratio Election" in {
 
           navigator.nextPage(EnterANGIEPage, NormalMode, emptyUserAnswers) mustBe
+            routes.GroupRatioElectionController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the EnterQNGIEPage" should {
+
+        "go to the GroupEBITDA page" in {
+
+          //TODO: Update with routing
+          navigator.nextPage(EnterQNGIEPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the GroupRatioPercentage page" should {
+
+        "go to the Group Ratio Blended Election page" in {
+
+          navigator.nextPage(GroupRatioPercentagePage, NormalMode, emptyUserAnswers) mustBe
+            routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
         }
       }
 
       "from the GroupRatioBlendedElection page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Elected Group EBITDA Chargeable Gains Before page" in {
 
           navigator.nextPage(GroupRatioBlendedElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
         }
       }
 
       "from the ElectedGroupEBITDABefore page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Group EBITDA Chargeable Gains Election page when answer is false" in {
+
+          val userAnswers = emptyUserAnswers.set(ElectedGroupEBITDABeforePage, false).success.value
+
+          navigator.nextPage(ElectedGroupEBITDABeforePage, NormalMode, userAnswers) mustBe
+            routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
+        }
+
+        "go to the Elected Interest Allowance Alternative Calculation page when answer is true" in {
+
+          val userAnswers = emptyUserAnswers.set(ElectedGroupEBITDABeforePage, true).success.value
+
+          navigator.nextPage(ElectedGroupEBITDABeforePage, NormalMode, userAnswers) mustBe
+            routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+        }
+
+        "go to the Elected Group EBITDA Before page when there's no answer" in {
 
           navigator.nextPage(ElectedGroupEBITDABeforePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
         }
       }
 
       "from the GroupEBITDAChargeableGainsElection page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Elected Interest Allowance Alternative Calculation Before page" in {
 
           navigator.nextPage(GroupEBITDAChargeableGainsElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
         }
       }
 
       "from the ElectedInterestAllowanceAlternativeCalcBefore page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Interest Allowance Non Consolidated Investments page when answer is true" in {
+
+          val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).success.value
+
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, userAnswers) mustBe
+            routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
+        }
+
+        "go to the Interest Allowance Alternative Calculation page when answer is false" in {
+
+          val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).success.value
+
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, userAnswers) mustBe
+            routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
+        }
+
+        "go to the Elected Interest Allowance Alternative Calc Before page when there's no answer" in {
 
           navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
         }
       }
 
       "from the InterestAllowanceAlternativeCalcElectionPage page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Interest Allowance Non-Consolidated Investments page" in {
 
           navigator.nextPage(InterestAllowanceAlternativeCalcElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
         }
       }
 
       "from the InterestAllowanceNonConsolidatedInvestmentsElection page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Elected Interest Allowance Consolidated Partnership Before page" in {
 
           navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
         }
       }
 
       "from the ElectedInterestAllowanceConsolidatedPshipBefore page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Interest Allowance Consolidated Partnership Election page when answer is false" in {
+
+          val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, false).success.value
+
+          navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
+            routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
+        }
+
+        //TODO: Update with Check Your Answers page when built
+        "go to the Under Construction page when answer is true" in {
+
+          val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
+
+          navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+        "go to the Elected Interest Allowance Consolidated Partnership Before page when answer there's no answer" in {
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
         }
       }
 
       "from the InterestAllowanceConsolidatedPshipElection page" should {
 
+        //TODO: Update with Check Your Answers page when built
         "go to the Under Construction page" in {
 
           navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
-        }
-      }
-
-      "from the GroupRatioPercentagePage" should {
-
-        "go to the Under Construction page" in {
-
-          navigator.nextPage(GroupRatioPercentagePage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
@@ -131,9 +207,9 @@ class ElectionsNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to Reporting Company Under construction" in {
+      "go to the Under Construction page" in {
 
-        navigator.nextPage(DeemedParentPage, CheckMode, emptyUserAnswers) mustBe
+        navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, emptyUserAnswers) mustBe
           controllers.routes.UnderConstructionController.onPageLoad()
       }
     }
