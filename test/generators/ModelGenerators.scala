@@ -27,6 +27,11 @@ trait ModelGenerators {
       Gen.oneOf(InvestorRatioMethod.values.toSeq)
     }
 
+  implicit lazy val arbitraryOtherInvestorGroupElections: Arbitrary[OtherInvestorGroupElections] =
+    Arbitrary {
+      Gen.oneOf(OtherInvestorGroupElections.values.toSeq)
+    }
+
   implicit lazy val arbitraryContinueSavedReturn: Arbitrary[ContinueSavedReturn] =
     Arbitrary {
       Gen.oneOf(ContinueSavedReturn.values.toSeq)

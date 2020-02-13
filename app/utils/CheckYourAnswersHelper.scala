@@ -41,6 +41,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messag
 
   def addInvestorGroup: Option[SummaryListRow] = answer(AddInvestorGroupPage, electionsRoutes.AddInvestorGroupController.onPageLoad(CheckMode))
 
+  def otherInvestorGroupElections: Option[SummaryListRow] = answer(OtherInvestorGroupElectionsPage, electionsRoutes.OtherInvestorGroupElectionsController.onPageLoad(CheckMode))
+
   def groupEBITDA: Option[SummaryListRow] = answer(GroupEBITDAPage, electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode))
 
   def electedInterestAllowanceConsolidatedPshipBefore: Option[SummaryListRow] =

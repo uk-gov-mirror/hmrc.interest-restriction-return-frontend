@@ -35,6 +35,9 @@ trait PageGenerators {
   implicit lazy val arbitraryAddInvestorGroupPage: Arbitrary[AddInvestorGroupPage.type] =
     Arbitrary(AddInvestorGroupPage)
 
+  implicit lazy val arbitraryOtherInvestorGroupElectionsPage: Arbitrary[OtherInvestorGroupElectionsPage.type] =
+    Arbitrary(OtherInvestorGroupElectionsPage)
+
   implicit lazy val arbitraryGroupEBITDAPage: Arbitrary[GroupEBITDAPage.type] =
     Arbitrary(GroupEBITDAPage)
 

@@ -541,3 +541,12 @@ investorRatioMethod.value = Group Ratio
 investorRatioMethod.value-2 = Fixed Ratio
 investorRatioMethod.checkYourAnswersLabel = Investor group ratio
 investorRatioMethod.error.required = Select which ratio you want to elect for this investor group
+
+# OtherInvestorGroupElectionsPage Messages
+# ----------------------------------------------------------
+otherInvestorGroupElections.title = Which other elections apply to this investor group?
+otherInvestorGroupElections.heading = Which other elections apply to this investor group?
+otherInvestorGroupElections.groupRatioBlended = Group ratio (blended)
+otherInvestorGroupElections.groupEBITDA = Option 2
+otherInvestorGroupElections.checkYourAnswersLabel = Which other elections apply to this investor group?
+otherInvestorGroupElections.error.required = Select otherInvestorGroupElections
