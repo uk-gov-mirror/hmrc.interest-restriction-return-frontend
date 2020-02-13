@@ -491,3 +491,10 @@ interestAllowanceNonConsolidatedInvestmentsElection.title = Do you want to make 
 interestAllowanceNonConsolidatedInvestmentsElection.heading = Do you want to make an interest allowance election for non-consolidated investments?
 interestAllowanceNonConsolidatedInvestmentsElection.checkYourAnswersLabel = Do you want to make an interest allowance election for non-consolidated investments?
 interestAllowanceNonConsolidatedInvestmentsElection.error.required = Select yes if you want to make an interest allowance election for non-consolidated investments
+
+# ElectedInterestAllowanceConsolidatedPshipBeforePage Messages
+# ----------------------------------------------------------
+electedInterestAllowanceConsolidatedPshipBefore.title = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
+electedInterestAllowanceConsolidatedPshipBefore.heading = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
+electedInterestAllowanceConsolidatedPshipBefore.checkYourAnswersLabel = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
+electedInterestAllowanceConsolidatedPshipBefore.error.required = Select yes if the group made an interest allowance election for consolidated partnerships in any previous returns
