@@ -98,3 +98,10 @@ GET        /add-investor-group                          controllers.elections.Ad
 POST       /add-investor-group                          controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = NormalMode)
 GET        /add-investor-group/change                   controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = CheckMode)
 POST       /add-investor-group/change                   controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = CheckMode)
+
+### InvestorGroupName Controller
+### ----------------------------------------
+GET        /investor-group-name                          controllers.elections.InvestorGroupNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /investor-group-name                          controllers.elections.InvestorGroupNameController.onSubmit(mode: Mode = NormalMode)
+GET        /investor-group-name/change                   controllers.elections.InvestorGroupNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /investor-group-name/change                   controllers.elections.InvestorGroupNameController.onSubmit(mode: Mode = CheckMode)

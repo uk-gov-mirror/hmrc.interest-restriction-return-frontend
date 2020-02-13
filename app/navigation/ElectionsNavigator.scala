@@ -57,7 +57,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
     }),
     InterestAllowanceConsolidatedPshipElectionPage -> (_ => checkYourAnswers),
-    AddInvestorGroupPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    AddInvestorGroupPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    InvestorGroupNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page

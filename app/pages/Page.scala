@@ -32,6 +32,7 @@ object Page {
   implicit def toString(page: Page): String = page.toString
 
   val pages: Map[String, Page] = Map(
+    InvestorGroupNamePage.toString -> InvestorGroupNamePage,
     AddInvestorGroupPage.toString -> AddInvestorGroupPage,
     GroupEBITDAPage.toString -> GroupEBITDAPage,
     InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,

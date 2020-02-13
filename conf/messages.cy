@@ -523,3 +523,12 @@ addInvestorGroup.title = Do you want to add an investor group?
 addInvestorGroup.heading = Do you want to add an investor group?
 addInvestorGroup.checkYourAnswersLabel = Do you want to add an investor group?
 addInvestorGroup.error.required = Select yes if you want to add an investor group
+
+# InvestorGroupNamePage Messages
+# ----------------------------------------------------------
+investorGroupName.title = Enter the name of the investor group
+investorGroupName.heading = Enter the name of the investor group
+investorGroupName.checkYourAnswersLabel = Investor group name
+investorGroupName.label= Enter the name of the investor group
+investorGroupName.error.required = Enter the name of the investor group
+investorGroupName.error.length = Investor group name must be 160 characters or less
