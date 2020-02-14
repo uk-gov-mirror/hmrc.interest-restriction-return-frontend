@@ -36,6 +36,10 @@ trait BaseConstants {
   val nonUkCountryCode = CountryCodeModel("US", "United States of America")
   val invalidCountryCode = CountryCodeModel("AA", "Invalid")
   val agentName = "Agent A"
+  val angie = BigDecimal(120000.23)
+  val qngie = BigDecimal(240000.99)
+  val ebitda = BigDecimal(5000000)
+  val groupRatioPercentage = BigDecimal(12)
 
   val ultimateParentCompanyUK = UltimateParentModel(
     isUk = true,

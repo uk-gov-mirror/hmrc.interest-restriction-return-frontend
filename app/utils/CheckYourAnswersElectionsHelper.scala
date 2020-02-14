@@ -78,8 +78,8 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
 
   //TODO: This is a placeholder row. It needs to be updated to calculate number of investors held in UserAnswers
   def investorGroupsRow(implicit messages: Messages): Option[SummaryListRow] = {
-    val numberOfInvestorGroupsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
-    if (numberOfInvestorGroupsAdded <= 0) None else {
+    if(!userAnswers.get(AddInvestorGroupPage).contains(true)) None else {
+      val numberOfInvestorGroupsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
       val valueMsgSuffix = if (numberOfInvestorGroupsAdded > 1) "plural" else "singular"
       Some(summaryListRow(
         Messages("investorGroupsAdded.checkYourAnswers.label"),
@@ -91,8 +91,10 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
 
   //TODO: This is a placeholder row. It needs to be updated to calculate number of partnerships held in UserAnswers
   def consolidatedPartnershipsRow(implicit messages: Messages): Option[SummaryListRow] = {
-    val numberOfPartnershipsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
-    if (numberOfPartnershipsAdded <= 0) None else {
+    val addedPships = userAnswers.get(ElectedInterestAllowanceConsolidatedPshipBeforePage).contains(true) ||
+      userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage).contains(true)
+    if (!addedPships) None else {
+      val numberOfPartnershipsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
       val valueMsgSuffix = if(numberOfPartnershipsAdded > 1) "plural" else "singular"
       Some(summaryListRow(
         Messages("consolidatedPartnershipsAdded.checkYourAnswers.label"),
@@ -104,8 +106,8 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
 
   //TODO: This is a placeholder row. It needs to be updated to calculate number of nonConsolidatedInvestments held in UserAnswers
   def nonConsolidatedInvestmentsRow(implicit messages: Messages): Option[SummaryListRow] = {
-    val numberOfInvestmentsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
-    if (numberOfInvestmentsAdded <= 0) None else {
+    if(!userAnswers.get(InterestAllowanceNonConsolidatedInvestmentsElectionPage).contains(true)) None else {
+      val numberOfInvestmentsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
       val valueMsgSuffix = if(numberOfInvestmentsAdded > 1) "plural" else "singular"
       Some(summaryListRow(
         Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.label"),
