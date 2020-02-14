@@ -20,16 +20,12 @@ import assets.constants.{BaseConstants, ElectionsCheckYourAnswersConstants}
 import assets.messages.BaseMessages.saveAndContinue
 import assets.messages.{CheckAnswersElectionsMessages, SectionHeaderMessages}
 import models.Section.Elections
-import org.jsoup.nodes.Document
 import play.twirl.api.HtmlFormat
 import utils.{CheckYourAnswersElectionsHelper, CurrencyFormatter}
-import views.BaseSelectors
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstants with ElectionsCheckYourAnswersConstants with CurrencyFormatter {
-
-  object Selectors extends BaseSelectors
 
   val messageKeyPrefix = s"$Elections.checkYourAnswers"
   val subheading = s"$Elections.checkYourAnswers.subheading"
@@ -61,7 +57,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
-      rowChecks(Seq(
+      checkYourAnswersRowChecks(Seq(
         CheckAnswersElectionsMessages.groupRatioElection -> "Yes",
         CheckAnswersElectionsMessages.angie -> currencyFormat(angie),
         CheckAnswersElectionsMessages.qngie -> currencyFormat(qngie),
@@ -99,7 +95,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
-      rowChecks(Seq(
+      checkYourAnswersRowChecks(Seq(
         CheckAnswersElectionsMessages.groupRatioElection -> "No",
         CheckAnswersElectionsMessages.angie -> currencyFormat(angie),
         CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore -> "Yes",
@@ -107,26 +103,6 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
         CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "Yes",
         CheckAnswersElectionsMessages.consolidatedPartnershipsHeading -> CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1)
       ))
-    }
-  }
-
-
-  def rowChecks(expectedRowData: Seq[(String, String)])(implicit document: Document): Unit = {
-
-    expectedRowData.zipWithIndex.foreach { case ((heading, value), i) =>
-
-      val rowPosition = i + 1
-
-      s"have the correct answer row at position $rowPosition" which {
-
-        s"should have the correct heading of '$heading'" in {
-          document.select(Selectors.checkAnswersHeading(rowPosition)).text mustBe heading
-        }
-
-        s"should have the correct value of '$value'" in {
-          document.select(Selectors.checkAnswersAnswerValue(rowPosition)).text mustBe value
-        }
-      }
     }
   }
 }
