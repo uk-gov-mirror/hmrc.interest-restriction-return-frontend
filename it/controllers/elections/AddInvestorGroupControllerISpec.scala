@@ -67,9 +67,9 @@ class AddInvestorGroupControllerISpec extends IntegrationSpecBase with CreateReq
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "answer is true" should {
 
-          "redirect to AddInvestorGroup page" in {
+          "redirect to Investor Group Name page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +78,24 @@ class AddInvestorGroupControllerISpec extends IntegrationSpecBase with CreateReq
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.InvestorGroupNameController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "answer is false" should {
+
+          "redirect to Elected Group EBITDA Before page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/add-investor-group", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode).url)
               )
             }
           }

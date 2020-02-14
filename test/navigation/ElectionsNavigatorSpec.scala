@@ -90,12 +90,37 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the GroupRatioBlendedElection page" should {
+      "from the GroupRatioBlendedElection page" when {
 
-        "go to the Elected Group EBITDA Chargeable Gains Before page" in {
+        "the answer is false" should {
 
-          navigator.nextPage(GroupRatioBlendedElectionPage, NormalMode, emptyUserAnswers) mustBe
-            routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+          "go to the Elected Group EBITDA Chargeable Gains Before page" in {
+
+            val userAnswers = emptyUserAnswers.set(GroupRatioBlendedElectionPage, false).success.value
+
+            navigator.nextPage(GroupRatioBlendedElectionPage, NormalMode, userAnswers) mustBe
+              routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+          }
+        }
+
+        "the answer is true" should {
+
+          "go to the Add Investor Group page" in {
+
+            val userAnswers = emptyUserAnswers.set(GroupRatioBlendedElectionPage, true).success.value
+
+            navigator.nextPage(GroupRatioBlendedElectionPage, NormalMode, userAnswers) mustBe
+              routes.AddInvestorGroupController.onPageLoad(NormalMode)
+          }
+        }
+
+        "there is no answer" should {
+
+          "go to the Group Ratio Blended Election page" in {
+
+            navigator.nextPage(GroupRatioBlendedElectionPage, NormalMode, emptyUserAnswers) mustBe
+              routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+          }
         }
       }
 
@@ -212,30 +237,64 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the AddInvestorGroup page" should {
+      "from the AddInvestorGroup page" when {
 
-        "go to the Under Construction page" in {
+        "the answer is true" should {
 
-          navigator.nextPage(AddInvestorGroupPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+          "go to the Investor Group Name page" in {
+
+            val userAnswers = emptyUserAnswers.set(AddInvestorGroupPage, true).success.value
+
+            navigator.nextPage(AddInvestorGroupPage, NormalMode, userAnswers) mustBe
+              routes.InvestorGroupNameController.onPageLoad(NormalMode)
+          }
+        }
+
+        "the answer is false" should {
+
+          "go to the Elected Group EBITDA Before page" in {
+
+            val userAnswers = emptyUserAnswers.set(AddInvestorGroupPage, false).success.value
+
+            navigator.nextPage(AddInvestorGroupPage, NormalMode, userAnswers) mustBe
+              routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+          }
+        }
+
+        "there is no answer" should {
+
+          "go to the Add Investor Group page" in {
+
+            navigator.nextPage(AddInvestorGroupPage, NormalMode, emptyUserAnswers) mustBe
+              routes.AddInvestorGroupController.onPageLoad(NormalMode)
+          }
         }
       }
 
       "from the InvestorGroupName page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Investor Ratio Method page" in {
 
           navigator.nextPage(InvestorGroupNamePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.InvestorRatioMethodController.onPageLoad(NormalMode)
         }
       }
 
       "from the InvestorRatioMethod page" should {
 
-        "go to the Under Construction page" in {
+        "go to the Other Investor Group Elections page" in {
 
-          navigator.nextPage(InvestorGroupNamePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+          navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers) mustBe
+            routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Other Investor Group Elections page" should {
+
+        "go to the Elected Group EBITDA Before page" in {
+
+          navigator.nextPage(OtherInvestorGroupElectionsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
         }
       }
     }
