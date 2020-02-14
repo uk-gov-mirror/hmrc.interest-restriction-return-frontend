@@ -107,7 +107,7 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
     }
   }
 
-  def checkYourAnswersRowChecks(expectedRowData: Seq[(String, String)])(implicit document: Document): Unit = {
+  def checkYourAnswersRowChecks(expectedRowData: (String, String)*)(implicit document: Document): Unit = {
 
     expectedRowData.zipWithIndex.foreach { case ((heading, value), i) =>
 

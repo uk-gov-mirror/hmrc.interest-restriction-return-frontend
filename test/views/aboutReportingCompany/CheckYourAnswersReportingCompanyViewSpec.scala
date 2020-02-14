@@ -67,83 +67,16 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
 
     behave like pageWithSaveForLater(applyView())
 
-    lazy val document = asDocument(applyView())
+    implicit lazy val document = asDocument(applyView())
 
-    "have an answer row for Reporting Company appointed" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(1)).text mustBe CheckAnswersReportingCompanyMessages.reportingCompanyAppointed
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(1)).text mustBe "Yes"
-      }
-    }
-
-    "have an answer row for Agent Appointed" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(2)).text mustBe CheckAnswersReportingCompanyMessages.agentAppointed
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(2)).text mustBe "Yes"
-      }
-    }
-
-    "have an answer row for Agent Name" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(3)).text mustBe CheckAnswersReportingCompanyMessages.agentName
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(3)).text mustBe agentName
-      }
-    }
-
-    "have an answer row for Type of Return" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(4)).text mustBe CheckAnswersReportingCompanyMessages.fullOrAbbreviatedReturn
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(4)).text mustBe "Full"
-      }
-    }
-
-    "have an answer row for Reporting Company name" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(5)).text mustBe CheckAnswersReportingCompanyMessages.name
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(5)).text mustBe companyNameModel.name
-      }
-    }
-
-    "have an answer row for CTUTR" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(6)).text mustBe CheckAnswersReportingCompanyMessages.ctutr
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(6)).text mustBe ctutrModel.ctutr
-      }
-    }
-
-    "have an answer row for CRN" which {
-
-      "should have the correct heading" in {
-        document.select(Selectors.checkAnswersHeading(7)).text mustBe CheckAnswersReportingCompanyMessages.crn
-      }
-
-      "should have the correct value" in {
-        document.select(Selectors.checkAnswersAnswerValue(7)).text mustBe crnModel.crn
-      }
-    }
+    checkYourAnswersRowChecks(
+      CheckAnswersReportingCompanyMessages.reportingCompanyAppointed -> "Yes",
+      CheckAnswersReportingCompanyMessages.agentAppointed -> "Yes",
+      CheckAnswersReportingCompanyMessages.agentName -> agentName,
+      CheckAnswersReportingCompanyMessages.fullOrAbbreviatedReturn -> "Full",
+      CheckAnswersReportingCompanyMessages.name -> companyNameModel.name,
+      CheckAnswersReportingCompanyMessages.ctutr -> ctutrModel.ctutr,
+      CheckAnswersReportingCompanyMessages.crn -> crnModel.crn
+    )
   }
 }

@@ -57,7 +57,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
-      checkYourAnswersRowChecks(Seq(
+      checkYourAnswersRowChecks(
         CheckAnswersElectionsMessages.groupRatioElection -> "Yes",
         CheckAnswersElectionsMessages.angie -> currencyFormat(angie),
         CheckAnswersElectionsMessages.qngie -> currencyFormat(qngie),
@@ -74,7 +74,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
         CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "No",
         CheckAnswersElectionsMessages.interestAllowanceConsolidatedPshipElection -> "Yes",
         CheckAnswersElectionsMessages.consolidatedPartnershipsHeading -> CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1)
-      ))
+      )
     }
 
     "Minimum values are provided" must {
@@ -95,14 +95,14 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
-      checkYourAnswersRowChecks(Seq(
+      checkYourAnswersRowChecks(
         CheckAnswersElectionsMessages.groupRatioElection -> "No",
         CheckAnswersElectionsMessages.angie -> currencyFormat(angie),
         CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore -> "Yes",
         CheckAnswersElectionsMessages.interestAllowanceNonConsolidatedElection -> "No",
         CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "Yes",
         CheckAnswersElectionsMessages.consolidatedPartnershipsHeading -> CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1)
-      ))
+      )
     }
   }
 }
