@@ -69,7 +69,7 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to Other Investor Group Elections page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +78,7 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode).url)
               )
             }
           }

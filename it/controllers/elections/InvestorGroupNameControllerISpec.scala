@@ -69,7 +69,7 @@ class InvestorGroupNameControllerISpec extends IntegrationSpecBase with CreateRe
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to Investor Group Name page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +78,7 @@ class InvestorGroupNameControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.InvestorRatioMethodController.onPageLoad(NormalMode).url)
               )
             }
           }

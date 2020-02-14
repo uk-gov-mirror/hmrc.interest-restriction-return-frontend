@@ -21,7 +21,7 @@ import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.elections._
-import play.api.mvc.Call
+import play.api.mvc.{Call, NoHeaderRangeSet}
 
 @Singleton
 class ElectionsNavigator @Inject()() extends Navigator {
@@ -37,7 +37,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
     EnterQNGIEPage -> (_ => routes.GroupEBITDAController.onPageLoad(NormalMode)),
     GroupEBITDAPage -> (_ => routes.GroupRatioPercentageController.onPageLoad(NormalMode)),
     GroupRatioPercentagePage -> (_ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)),
-    GroupRatioBlendedElectionPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
+    GroupRatioBlendedElectionPage -> (_.get(GroupRatioBlendedElectionPage) match {
+      case Some(true) => routes.AddInvestorGroupController.onPageLoad(NormalMode)
+      case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+      case _ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+    }),
     ElectedGroupEBITDABeforePage -> (_.get(ElectedGroupEBITDABeforePage) match {
       case Some(true) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
@@ -57,10 +61,14 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
     }),
     InterestAllowanceConsolidatedPshipElectionPage -> (_ => checkYourAnswers),
-    AddInvestorGroupPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InvestorGroupNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InvestorRatioMethodPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    OtherInvestorGroupElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
+      case Some(true) => routes.InvestorGroupNameController.onPageLoad(NormalMode)
+      case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+      case _ => routes.AddInvestorGroupController.onPageLoad(NormalMode)
+    }),
+    InvestorGroupNamePage -> (_ => routes.InvestorRatioMethodController.onPageLoad(NormalMode)),
+    InvestorRatioMethodPage -> (_ => routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)),
+    OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode))
   )
 
   //TODO update with check your answers page

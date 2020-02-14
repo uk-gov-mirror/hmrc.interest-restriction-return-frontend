@@ -67,13 +67,30 @@ class GroupRatioBlendedElectionControllerISpec extends IntegrationSpecBase with 
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "answer is true" should {
 
-          "redirect to Elected Group EBITDA Chargeable Gains Before page" in {
+          "redirect to Add Investor Group page" in {
 
             AuthStub.authorised()
 
             val res = postRequest("/elections/group-ratio-blended-election", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.AddInvestorGroupController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "answer is false" should {
+
+          "redirect to Elected Group EBITDA Before page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/group-ratio-blended-election", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(

@@ -18,6 +18,7 @@ package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
 import models.InvestorRatioMethod.FixedRatioMethod
+import models.NormalMode
 import models.OtherInvestorGroupElections.GroupEBITDA
 import pages.elections.InvestorRatioMethodPage
 import play.api.http.Status._
@@ -93,7 +94,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
         "when valid data is submitted" should {
 
-          "return SEE_OTHER (303) and redirect to the Under Construction page" in {
+          "return SEE_OTHER (303) and redirect to the Elected Group EBITDA Before page" in {
 
             AuthStub.authorised()
             val res = postRequest("/elections/other-investor-group-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
@@ -101,7 +102,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode).url)
               )
             }
           }
