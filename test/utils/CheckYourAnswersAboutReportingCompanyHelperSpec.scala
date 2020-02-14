@@ -19,15 +19,18 @@ package utils
 import assets.constants.BaseConstants
 import base.SpecBase
 import controllers.routes
+import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import models.FullOrAbbreviatedReturn.Full
 import models.{CheckMode, UserAnswers}
 import pages._
 import pages.aboutReportingCompany._
+import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
+class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with BaseConstants {
 
 
   private def summaryListRow(label: String, answer: String, changeLink: Call) =
@@ -44,12 +47,64 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
   val helper = new CheckYourAnswersAboutReportingCompanyHelper(
     UserAnswers("id")
+      .set(ReportingCompanyAppointedPage, true).get
+      .set(AgentActingOnBehalfOfCompanyPage, true).get
+      .set(AgentNamePage, agentName).get
+      .set(FullOrAbbreviatedReturnPage, Full).get
       .set(ReportingCompanyNamePage, companyNameModel.name).get
       .set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get
       .set(ReportingCompanyCRNPage, crnModel.crn).get
   )
 
   "Check Your Answers Helper" must {
+
+    "For the ReportingCompanyAppointed answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.reportingCompanyAppointed mustBe Some(summaryListRow(
+          messages("reportingCompanyAppointed.checkYourAnswersLabel"),
+          "Yes",
+          startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode)
+        ))
+      }
+    }
+
+    "For the AgentActingOnBehalfOfCompany answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.agentActingOnBehalfOfCompany mustBe Some(summaryListRow(
+          messages("agentActingOnBehalfOfCompany.checkYourAnswersLabel"),
+          "Yes",
+          startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode)
+        ))
+      }
+    }
+
+    "For the AgentName answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.agentName mustBe Some(summaryListRow(
+          messages("agentName.checkYourAnswersLabel"),
+          agentName,
+          startReturnRoutes.AgentNameController.onPageLoad(CheckMode)
+        ))
+      }
+    }
+
+    "For the FullOrAbbreviatedReturn answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.fullOrAbbreviatedReturn mustBe Some(summaryListRow(
+          messages("fullOrAbbreviatedReturn.checkYourAnswersLabel"),
+          messages("fullOrAbbreviatedReturn.full"),
+          startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode)
+        ))
+      }
+    }
 
     "For the ReportingCompanyName" must {
 
