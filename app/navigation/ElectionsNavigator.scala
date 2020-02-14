@@ -71,9 +71,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode))
   )
 
-  //TODO update with check your answers page
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    controllers.routes.UnderConstructionController.onPageLoad()
+    routes.CheckAnswersElectionsController.onPageLoad()
   )
 
   //TODO update with CYA and Next Section calls

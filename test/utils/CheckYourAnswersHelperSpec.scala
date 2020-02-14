@@ -42,13 +42,18 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
       ))
     )
 
+  val helper = new CheckYourAnswersAboutReportingCompanyHelper(
+    UserAnswers("id")
+      .set(ReportingCompanyNamePage, companyNameModel.name).get
+      .set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get
+      .set(ReportingCompanyCRNPage, crnModel.crn).get
+  )
+
   "Check Your Answers Helper" must {
 
     "For the ReportingCompanyName" must {
 
       "get an answer from useranswers for true" in {
-
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyNamePage, companyNameModel.name).get)
 
         helper.reportingCompanyName mustBe Some(summaryListRow(
           messages("reportingCompanyName.checkYourAnswersLabel"),
@@ -62,8 +67,6 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
 
       "get an answer from useranswers for true" in {
 
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get)
-
         helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
           ctutrModel.ctutr,
@@ -75,8 +78,6 @@ class CheckYourAnswersHelperSpec extends SpecBase with BaseConstants {
     "For the ReportingCompanyCRN" must {
 
       "get an answer from useranswers for true" in {
-
-        val helper = new CheckYourAnswersHelper(UserAnswers("id").set(ReportingCompanyCRNPage, crnModel.crn).get)
 
         helper.reportingCompanyCRN mustBe Some(summaryListRow(
           messages("reportingCompanyCRN.checkYourAnswersLabel"),

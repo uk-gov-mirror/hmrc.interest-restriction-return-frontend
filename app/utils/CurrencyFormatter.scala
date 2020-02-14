@@ -14,32 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
-import play.api.libs.json.{JsValue, Json, Writes}
+import java.text.NumberFormat
+import java.util.{Currency, Locale}
 
-sealed trait Section
+import scala.language.implicitConversions
 
-object Section {
-
-  object ReportingCompany extends Section {
-    override val toString = "reportingCompany"
-  }
-
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
-  }
-
-  object Elections extends Section {
-    override val toString = "elections"
-  }
-
-  object HelloWorld extends Section {
-
-    override val toString = "helloWorld"
-  }
-
-  implicit object SectionWrites extends Writes[Section]{
-    def writes(section: Section): JsValue = Json.toJson(section.toString)
-  }
+trait CurrencyFormatter {
+  val currency = NumberFormat.getCurrencyInstance
+  currency.setCurrency(Currency.getInstance(Locale.UK))
+  def currencyFormat(amt: BigDecimal): String = currency.format(amt).replace(".00", "")
 }

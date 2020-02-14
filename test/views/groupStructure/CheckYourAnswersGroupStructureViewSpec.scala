@@ -16,19 +16,17 @@
 
 package views.groupStructure
 
-import assets.constants.BaseConstants
+import assets.constants.{BaseConstants, GroupStructureCheckYourAnswersConstants}
 import assets.messages.BaseMessages.saveAndContinue
 import assets.messages.{CheckAnswersGroupStructureMessages, SectionHeaderMessages}
-import models.Section.{GroupStructure, ReportingCompany}
+import models.Section.GroupStructure
+import play.twirl.api.HtmlFormat
+import utils.CheckYourAnswersGroupStructureHelper
 import views.BaseSelectors
 import views.behaviours.ViewBehaviours
-import pages.groupStructure._
-import play.twirl.api.HtmlFormat
-import utils.CheckYourAnswersHelper
 import views.html.CheckYourAnswersView
-import assets.constants.GroupStructureCheckYourAnswersConstants
 
-class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with GroupStructureCheckYourAnswersConstants {
+class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with BaseConstants with GroupStructureCheckYourAnswersConstants {
 
   object Selectors extends BaseSelectors
 
@@ -36,43 +34,33 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
   val groupStructureSubheading = s"$GroupStructure.checkYourAnswers.subheading"
   val groupStructureHeading = s"$GroupStructure.checkYourAnswers.heading"
 
+  val view = injector.instanceOf[CheckYourAnswersView]
+
+  def applyView(checkYourAnswersHelper: CheckYourAnswersGroupStructureHelper)(): HtmlFormat.Appendable = {
+    view.apply(checkYourAnswersHelper, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+  }
+
   "CheckYourAnswer view" when {
 
     "ultimate parent is uk company" must {
 
       "maximum values are provided" must {
 
-        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersUKCompany)
+        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKCompany)
 
-        val groupStructureAnswers = Seq(
-          checkYourAnswersHelper.reportingCompanySameAsParent,
-          checkYourAnswersHelper.deemedParent,
-          checkYourAnswersHelper.parentCompanyName,
-          checkYourAnswersHelper.payTaxInUk,
-          checkYourAnswersHelper.limitedLiabilityPartnership,
-          checkYourAnswersHelper.parentCompanyCTUTR,
-          checkYourAnswersHelper.registeredCompaniesHouse,
-          checkYourAnswersHelper.parentCRN
-        ).flatten
+        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
 
-        def applyView(): HtmlFormat.Appendable = {
-          val view = viewFor[CheckYourAnswersView](Some(userAnswersUKCompany))
-          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-        }
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
 
-        behave like pageWithBackLink(applyView())
+        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
 
-        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-        behave like pageWithHeading(applyView(), groupStructureHeading)
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
-        behave like pageWithSubmitButton(applyView(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView())
-
-        lazy val document = asDocument(applyView())
+        lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
         "have an answer row for reportingCompanySameAsParent" which {
 
@@ -162,39 +150,24 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
           }
         }
       }
+
       "minimum values are provided" must {
 
-        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersUKCompanyMin)
+        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKCompanyMin)
 
-        val groupStructureAnswers = Seq(
-          checkYourAnswersHelper.reportingCompanySameAsParent,
-          checkYourAnswersHelper.deemedParent,
-          checkYourAnswersHelper.parentCompanyName,
-          checkYourAnswersHelper.payTaxInUk,
-          checkYourAnswersHelper.limitedLiabilityPartnership,
-          checkYourAnswersHelper.parentCompanyCTUTR,
-          checkYourAnswersHelper.registeredCompaniesHouse,
-          checkYourAnswersHelper.parentCRN
-        ).flatten
+        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
 
-        def applyView(): HtmlFormat.Appendable = {
-          val view = viewFor[CheckYourAnswersView](Some(userAnswersUKCompanyMin))
-          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-        }
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
 
-        behave like pageWithBackLink(applyView())
+        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
 
-        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-        behave like pageWithHeading(applyView(), groupStructureHeading)
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
-        behave like pageWithSubmitButton(applyView(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView())
-
-        lazy val document = asDocument(applyView())
+        lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
         "have an answer row for reportingCompanySameAsParent" which {
 
@@ -290,37 +263,21 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
 
       "maximum values are provided" must {
 
-        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersUKLLP)
+        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKLLP)
 
-        val groupStructureAnswers = Seq(
-          checkYourAnswersHelper.reportingCompanySameAsParent,
-          checkYourAnswersHelper.deemedParent,
-          checkYourAnswersHelper.parentCompanyName,
-          checkYourAnswersHelper.payTaxInUk,
-          checkYourAnswersHelper.limitedLiabilityPartnership,
-          checkYourAnswersHelper.parentCompanySAUTR,
-          checkYourAnswersHelper.registeredCompaniesHouse,
-          checkYourAnswersHelper.parentCRN
-        ).flatten
+        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
 
-        def applyView(): HtmlFormat.Appendable = {
-          val view = viewFor[CheckYourAnswersView](Some(userAnswersUKLLP))
-          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-        }
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
 
-        behave like pageWithBackLink(applyView())
+        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
 
-        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-        behave like pageWithHeading(applyView(), groupStructureHeading)
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
-        behave like pageWithSubmitButton(applyView(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView())
-
-        lazy val document = asDocument(applyView())
+        lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
         "have an answer row for reportingCompanySameAsParent" which {
 
@@ -413,37 +370,21 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
 
       "minimum values are provided" must {
 
-        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersUKLLPMin)
+        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKLLPMin)
 
-        val groupStructureAnswers = Seq(
-          checkYourAnswersHelper.reportingCompanySameAsParent,
-          checkYourAnswersHelper.deemedParent,
-          checkYourAnswersHelper.parentCompanyName,
-          checkYourAnswersHelper.payTaxInUk,
-          checkYourAnswersHelper.limitedLiabilityPartnership,
-          checkYourAnswersHelper.parentCompanySAUTR,
-          checkYourAnswersHelper.registeredCompaniesHouse,
-          checkYourAnswersHelper.parentCRN
-        ).flatten
+        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
 
-        def applyView(): HtmlFormat.Appendable = {
-          val view = viewFor[CheckYourAnswersView](Some(userAnswersUKLLPMin))
-          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-        }
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
 
-        behave like pageWithBackLink(applyView())
+        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
 
-        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-        behave like pageWithHeading(applyView(), groupStructureHeading)
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
-        behave like pageWithSubmitButton(applyView(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView())
-
-        lazy val document = asDocument(applyView())
+        lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
         "have an answer row for reportingCompanySameAsParent" which {
 
@@ -539,36 +480,21 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
 
       "maximum values are provided" must {
 
-        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersForeignRegisteredCompany)
+        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersForeignRegisteredCompany)
 
-        val groupStructureAnswers = Seq(
-          checkYourAnswersHelper.reportingCompanySameAsParent,
-          checkYourAnswersHelper.deemedParent,
-          checkYourAnswersHelper.parentCompanyName,
-          checkYourAnswersHelper.payTaxInUk,
-          checkYourAnswersHelper.registeredForTaxInAnotherCountry,
-          checkYourAnswersHelper.countryOfIncorporation,
-          checkYourAnswersHelper.localRegistrationNumber
-        ).flatten
+        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
 
-        def applyView(): HtmlFormat.Appendable = {
-          val view = viewFor[CheckYourAnswersView](Some(userAnswersUKCompany))
-          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-        }
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
 
-        behave like pageWithBackLink(applyView())
+        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
 
-        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-        behave like pageWithHeading(applyView(), groupStructureHeading)
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
-        behave like pageWithSubmitButton(applyView(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView())
-
-        lazy val document = asDocument(applyView())
+        lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
         "have an answer row for reportingCompanySameAsParent" which {
 
@@ -650,34 +576,21 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants with Gr
 
       "minimum values are provided" must {
 
-        val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswersForeignNotRegisteredCompany)
+        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersForeignNotRegisteredCompany)
 
-        val groupStructureAnswers = Seq(
-          checkYourAnswersHelper.reportingCompanySameAsParent,
-          checkYourAnswersHelper.deemedParent,
-          checkYourAnswersHelper.parentCompanyName,
-          checkYourAnswersHelper.payTaxInUk,
-          checkYourAnswersHelper.registeredForTaxInAnotherCountry
-        ).flatten
+        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
 
-        def applyView(): HtmlFormat.Appendable = {
-          val view = viewFor[CheckYourAnswersView](Some(userAnswersForeignNotRegisteredCompany))
-          view.apply(groupStructureAnswers, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-        }
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-        behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
 
-        behave like pageWithBackLink(applyView())
+        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
 
-        behave like pageWithSubHeading(applyView(), groupStructureSubheading)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-        behave like pageWithHeading(applyView(), groupStructureHeading)
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
-        behave like pageWithSubmitButton(applyView(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView())
-
-        lazy val document = asDocument(applyView())
+        lazy val document = asDocument(applyView(checkYourAnswersHelper)())
 
         "have an answer row for reportingCompanySameAsParent" which {
 

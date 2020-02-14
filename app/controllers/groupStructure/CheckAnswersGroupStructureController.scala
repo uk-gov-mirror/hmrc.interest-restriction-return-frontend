@@ -18,58 +18,34 @@ package controllers.groupStructure
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.GroupStructure
-import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
-import pages.groupStructure.{CheckAnswersGroupStructurePage, ParentCompanyNamePage}
-import play.api.i18n.{I18nSupport, MessagesApi}
+import pages.groupStructure.CheckAnswersGroupStructurePage
+import play.api.i18n.MessagesApi
 import play.api.mvc._
-import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import utils.CheckYourAnswersHelper
+import utils.CheckYourAnswersGroupStructureHelper
 import views.html.CheckYourAnswersView
-import controllers.BaseController
-import handlers.ErrorHandler
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
-class CheckAnswersGroupStructureController @Inject()(
-                                                      override val messagesApi: MessagesApi,
-                                                      identify: IdentifierAction,
-                                                      getData: DataRetrievalAction,
-                                                      requireData: DataRequiredAction,
-                                                      val controllerComponents: MessagesControllerComponents,
-                                                      navigator: GroupStructureNavigator,
-                                                      view: CheckYourAnswersView
+class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
+                                                     identify: IdentifierAction,
+                                                     getData: DataRetrievalAction,
+                                                     requireData: DataRequiredAction,
+                                                     val controllerComponents: MessagesControllerComponents,
+                                                     navigator: GroupStructureNavigator,
+                                                     view: CheckYourAnswersView
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseController {
+  extends BaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
-
-      val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
-
-      val sections = Seq(
-        checkYourAnswersHelper.reportingCompanySameAsParent,
-        checkYourAnswersHelper.deemedParent,
-        checkYourAnswersHelper.parentCompanyName,
-        checkYourAnswersHelper.payTaxInUk,
-        checkYourAnswersHelper.limitedLiabilityPartnership,
-        checkYourAnswersHelper.parentCompanyCTUTR,
-        checkYourAnswersHelper.registeredCompaniesHouse,
-        checkYourAnswersHelper.parentCompanySAUTR,
-        checkYourAnswersHelper.parentCRN,
-        checkYourAnswersHelper.registeredForTaxInAnotherCountry,
-        checkYourAnswersHelper.countryOfIncorporation,
-        checkYourAnswersHelper.localRegistrationNumber
-      ).flatten
-
-      Ok(view(sections, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
+      val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(request.userAnswers)
+      Ok(view(checkYourAnswersHelper, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {

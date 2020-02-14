@@ -24,12 +24,12 @@ import models.Section._
 import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 import play.twirl.api.HtmlFormat
-import utils.CheckYourAnswersHelper
+import utils.{CheckYourAnswersAboutReportingCompanyHelper, CheckYourAnswersHelper}
 import views.BaseSelectors
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants {
+class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseConstants {
 
   object Selectors extends BaseSelectors
 
@@ -46,23 +46,13 @@ class CheckYourAnswersViewSpec extends ViewBehaviours with BaseConstants {
     .set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get
     .set(ReportingCompanyCRNPage, crnModel.crn).get
 
-  val checkYourAnswersHelper = new CheckYourAnswersHelper(userAnswers)
-
-  val reportingCompanyAnswers = Seq(
-    checkYourAnswersHelper.reportingCompanyAppointed,
-    checkYourAnswersHelper.agentActingOnBehalfOfCompany,
-    checkYourAnswersHelper.agentName,
-    checkYourAnswersHelper.fullOrAbbreviatedReturn,
-    checkYourAnswersHelper.reportingCompanyName,
-    checkYourAnswersHelper.reportingCompanyCTUTR,
-    checkYourAnswersHelper.reportingCompanyCRN
-  ).flatten
+  val checkYourAnswersHelper = new CheckYourAnswersAboutReportingCompanyHelper(userAnswers)
 
   s"CheckYourAnswer view" must {
 
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[CheckYourAnswersView](Some(userAnswers))
-      view.apply(reportingCompanyAnswers, ReportingCompany, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(checkYourAnswersHelper, ReportingCompany, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.reportingCompany))

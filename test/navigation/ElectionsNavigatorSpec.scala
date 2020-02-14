@@ -301,10 +301,10 @@ class ElectionsNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to the Under Construction page" in {
+      "go to the Check Answers Elections page" in {
 
         navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, emptyUserAnswers) mustBe
-          controllers.routes.UnderConstructionController.onPageLoad()
+          routes.CheckAnswersElectionsController.onPageLoad()
       }
     }
   }

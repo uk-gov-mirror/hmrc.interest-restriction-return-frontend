@@ -16,175 +16,64 @@
 
 package utils
 
-import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.elections.{routes => electionsRoutes}
-import controllers.groupStructure.{routes => groupStructureRoutes}
-import controllers.startReturn.{routes => startReturnRoutes}
-import models.{CheckMode, UserAnswers}
+import models.UserAnswers
 import pages._
-import pages.aboutReportingCompany._
-import pages.aboutReturn._
-import pages.elections._
-import pages.groupStructure._
-import pages.startReturn._
 import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
+import viewmodels.SummaryListRowHelper
 
-class CheckYourAnswersHelper(userAnswers: UserAnswers)(implicit messages: Messages) extends ImplicitDateFormatter {
-  def investorRatioMethod: Option[SummaryListRow] = answer(InvestorRatioMethodPage, electionsRoutes.InvestorRatioMethodController.onPageLoad(CheckMode))
+trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHelper with CurrencyFormatter {
 
-  def investorGroupName: Option[SummaryListRow] = answer(InvestorGroupNamePage, electionsRoutes.InvestorGroupNameController.onPageLoad(CheckMode))
+  val userAnswers: UserAnswers
+  implicit val messages: Messages
+  val rows: Seq[SummaryListRow]
 
-  def addInvestorGroup: Option[SummaryListRow] = answer(AddInvestorGroupPage, electionsRoutes.AddInvestorGroupController.onPageLoad(CheckMode))
-
-  def otherInvestorGroupElections: Option[SummaryListRow] = answer(OtherInvestorGroupElectionsPage, electionsRoutes.OtherInvestorGroupElectionsController.onPageLoad(CheckMode))
-
-  def groupEBITDA: Option[SummaryListRow] = answer(GroupEBITDAPage, electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode))
-
-  def electedInterestAllowanceConsolidatedPshipBefore: Option[SummaryListRow] =
-    answer(ElectedInterestAllowanceConsolidatedPshipBeforePage, electionsRoutes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(CheckMode))
-
-  def groupRatioPercentage: Option[SummaryListRow] = answer(GroupRatioPercentagePage, electionsRoutes.GroupRatioPercentageController.onPageLoad(CheckMode))
-
-  def interestAllowanceNonConsolidatedInvestmentsElection: Option[SummaryListRow] =
-    answer(InterestAllowanceNonConsolidatedInvestmentsElectionPage, electionsRoutes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(CheckMode))
-
-  def interestAllowanceAlternativeCalcElection: Option[SummaryListRow] =
-    answer(InterestAllowanceAlternativeCalcElectionPage, electionsRoutes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(CheckMode))
-
-  def electedInterestAllowanceAlternativeCalcBefore: Option[SummaryListRow] =
-    answer(ElectedInterestAllowanceAlternativeCalcBeforePage, electionsRoutes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(CheckMode))
-
-  def groupEBITDAChargeableGainsElection: Option[SummaryListRow] =
-    answer(GroupEBITDAChargeableGainsElectionPage, electionsRoutes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode))
-
-  def electedGroupEBITDABefore: Option[SummaryListRow] =
-    answer(ElectedGroupEBITDABeforePage, electionsRoutes.ElectedGroupEBITDABeforeController.onPageLoad(CheckMode))
-
-  def groupRatioBlendedElection: Option[SummaryListRow] =
-    answer(GroupRatioBlendedElectionPage, electionsRoutes.GroupRatioBlendedElectionController.onPageLoad(CheckMode))
-
-  def enterQNGIE: Option[SummaryListRow] =
-    answer(EnterQNGIEPage, electionsRoutes.EnterQNGIEController.onPageLoad(CheckMode))
-
-  def localRegistrationNumber: Option[SummaryListRow] =
-    answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(CheckMode))
-
-  def enterANGIE: Option[SummaryListRow] =
-    answer(EnterANGIEPage, electionsRoutes.EnterANGIEController.onPageLoad(CheckMode))
-
-  def groupRatioElection: Option[SummaryListRow] =
-    answer(GroupRatioElectionPage, electionsRoutes.GroupRatioElectionController.onPageLoad(CheckMode))
-
-  def registeredForTaxInAnotherCountry: Option[SummaryListRow] =
-    answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(CheckMode))
-
-  def countryOfIncorporation: Option[SummaryListRow] =
-    answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(CheckMode))
-
-  def parentCRN: Option[SummaryListRow] =
-    answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(CheckMode))
-
-  def parentCompanyCTUTR: Option[SummaryListRow] =
-    answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(CheckMode))
-
-  def parentCompanySAUTR: Option[SummaryListRow] =
-    answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode))
-
-  def payTaxInUk: Option[SummaryListRow] =
-    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode))
-
-  def reportingCompanySameAsParent: Option[SummaryListRow] =
-    answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
-
-  def limitedLiabilityPartnership: Option[SummaryListRow] =
-    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(CheckMode))
-
-  def registeredCompaniesHouse: Option[SummaryListRow] =
-    answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode))
-
-  def parentCompanyName: Option[SummaryListRow] =
-    answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(CheckMode))
-
-  def deemedParent: Option[SummaryListRow] =
-    answer(DeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
-
-  def returnContainEstimates: Option[SummaryListRow] =
-    answer(ReturnContainEstimatesPage, aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode))
-
-  def groupInterestAllowance: Option[SummaryListRow] =
-    answer(GroupInterestAllowancePage, aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(CheckMode))
-
-  def groupInterestCapacity: Option[SummaryListRow] =
-    answer(GroupInterestCapacityPage, aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(CheckMode))
-
-  def groupSubjectToRestrictions: Option[SummaryListRow] =
-    answer(GroupSubjectToRestrictionsPage, aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode))
-
-  def interestReactivationsCap: Option[SummaryListRow] =
-    answer(InterestReactivationsCapPage, aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(CheckMode))
-
-  def fullOrAbbreviatedReturn: Option[SummaryListRow] =
-    answer(FullOrAbbreviatedReturnPage, startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode), answerIsMsgKey = true)
-
-  def reportingCompanyAppointed: Option[SummaryListRow] =
-    answer(ReportingCompanyAppointedPage, startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode))
-
-  def reportingCompanyName: Option[SummaryListRow] =
-    answer(ReportingCompanyNamePage, aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(CheckMode))
-
-  def reportingCompanyRequired: Option[SummaryListRow] =
-    answer(ReportingCompanyRequiredPage, startReturnRoutes.ReportingCompanyRequiredController.onPageLoad())
-
-  def reportingCompanyCTUTR: Option[SummaryListRow] =
-    answer(ReportingCompanyCTUTRPage, aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
-
-  def reportingCompanyCRN: Option[SummaryListRow] =
-    answer(ReportingCompanyCRNPage, aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode))
-
-  def revisingReturn: Option[SummaryListRow] =
-    answer(RevisingReturnPage, aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode))
-
-  def groupSubjectToReactivations: Option[SummaryListRow] =
-    answer(GroupSubjectToReactivationsPage, aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))
-
-  def interestAllowanceBroughtForward: Option[SummaryListRow] =
-    answer(InterestAllowanceBroughtForwardPage, aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
-
-  def agentName: Option[SummaryListRow] =
-    answer(AgentNamePage, startReturnRoutes.AgentNameController.onPageLoad(CheckMode))
-
-  def agentActingOnBehalfOfCompany: Option[SummaryListRow] =
-    answer(AgentActingOnBehalfOfCompanyPage, startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode))
-
-  def infrastructureCompanyElection: Option[SummaryListRow] =
-    answer(InfrastructureCompanyElectionPage, aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(CheckMode))
-
-  private def answer[A](page: QuestionPage[A], changeLinkCall: Call, answerIsMsgKey: Boolean = false, headingMessageArgs: Seq[String] = Seq())
-                       (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+  def answer[A](page: QuestionPage[A],
+                changeLinkCall: Call,
+                answerIsMsgKey: Boolean = false,
+                headingMessageArgs: Seq[String] = Seq(),
+                answerIsMonetary: Boolean = false)
+               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
     userAnswers.get(page) map { ans =>
-      SummaryListRow(
-        key = Key(content = Text(messages(s"$page.checkYourAnswersLabel", headingMessageArgs:_*))),
-        value = Value(content = Text(if(answerIsMsgKey) messages(s"$page.$ans") else ans)),
-        actions = Some(Actions(
-          items = Seq(ActionItem(
-            href = changeLinkCall.url,
-            content = Text(messages("site.edit"))
-          ))
-        ))
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        value = if (answerIsMsgKey) messages(s"$page.$ans") else ans,
+        changeLinkCall -> messages("site.edit")
       )
     }
 
-  implicit private val yesNoValue: Boolean => String = {
+  def monetaryAnswer(page: QuestionPage[BigDecimal],
+                     changeLinkCall: Call,
+                     headingMessageArgs: Seq[String] = Seq())
+                    (implicit messages: Messages): Option[SummaryListRow] =
+    userAnswers.get(page) map { ans =>
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        value = currencyFormat(ans),
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  def percentageAnswer(page: QuestionPage[BigDecimal],
+                       changeLinkCall: Call,
+                       headingMessageArgs: Seq[String] = Seq())
+                      (implicit messages: Messages): Option[SummaryListRow] =
+    userAnswers.get(page) map { ans =>
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        value = s"$ans%",
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
+  implicit val yesNoValue: Boolean => String = {
     case true => messages("site.yes")
     case _ => messages("site.no")
   }
 
-  implicit private val intToString: Int => String = _.toString
+  implicit val intToString: Int => String = _.toString
 
   implicit val bigDecimalConversion: BigDecimal => String = _.toString
 }
