@@ -18,8 +18,8 @@ package views.elections
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.elections.OtherInvestorGroupElectionsFormProvider
-import models.InvestorRatioMethod.FixedRatioMethod
-import models.{NormalMode, OtherInvestorGroupElections}
+import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
+import models.{InvestorRatioMethod, NormalMode, OtherInvestorGroupElections}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours
@@ -31,25 +31,31 @@ class OtherInvestorGroupElectionsViewSpec extends CheckboxViewBehaviours[OtherIn
   val section = Some(messages("section.elections"))
   val form = new OtherInvestorGroupElectionsFormProvider()()
 
-    "OtherInvestorGroupElectionsView" must {
+  def applyView(ratioMethod: InvestorRatioMethod)(form: Form[Set[OtherInvestorGroupElections]]): HtmlFormat.Appendable = {
+    val view = viewFor[OtherInvestorGroupElectionsView](Some(emptyUserAnswers))
+    view.apply(form, NormalMode, ratioMethod)(fakeRequest, messages, frontendAppConfig)
+  }
 
-      val view = viewFor[OtherInvestorGroupElectionsView](Some(emptyUserAnswers))
+  for (ratioMethod <- Seq(FixedRatioMethod, GroupRatioMethod)) {
 
-      def applyView(form: Form[Set[OtherInvestorGroupElections]]): HtmlFormat.Appendable = {
-        val view = viewFor[OtherInvestorGroupElectionsView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode, FixedRatioMethod)(fakeRequest, messages, frontendAppConfig)
-      }
+    s"OtherInvestorGroupElectionsView for the $ratioMethod" should {
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+      behave like normalPage(applyView(ratioMethod)(form), messageKeyPrefix, section = section)
 
-      behave like pageWithBackLink(applyView(form))
+      behave like pageWithBackLink(applyView(ratioMethod)(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.elections)
+      behave like pageWithSubHeading(applyView(ratioMethod)(form), SectionHeaderMessages.elections)
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, OtherInvestorGroupElections.options(form, FixedRatioMethod), messages("section.elections"))
+      behave like checkboxPage(form,
+        applyView(ratioMethod),
+        messageKeyPrefix,
+        OtherInvestorGroupElections.options(form, ratioMethod),
+        messages("section.elections")
+      )
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+      behave like pageWithSubmitButton(applyView(ratioMethod)(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSaveForLater(applyView(form))
+      behave like pageWithSaveForLater(applyView(ratioMethod)(form))
+    }
   }
 }

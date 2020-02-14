@@ -16,7 +16,8 @@
 
 package models
 import generators.ModelGenerators
-import models.InvestorRatioMethod.GroupRatioMethod
+import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
+import models.OtherInvestorGroupElections.{GroupEBITDA, GroupRatioBlended, InterestAllowanceAlternativeCalculation, InterestAllowanceConsolidatedPartnership, InterestAllowanceNonConsolidatedInvestment}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -56,6 +57,27 @@ class OtherInvestorGroupElectionsSpec extends WordSpec with MustMatchers with Sc
         otherInvestorGroupElections =>
 
           Json.toJson(otherInvestorGroupElections) mustEqual JsString(otherInvestorGroupElections.toString)
+      }
+    }
+
+    "Have the correct set of options" when {
+
+      "Investor Ratio Method is Fixed Ratio" in {
+        OtherInvestorGroupElections.values(FixedRatioMethod) mustBe Seq(
+          InterestAllowanceAlternativeCalculation,
+          InterestAllowanceNonConsolidatedInvestment,
+          InterestAllowanceConsolidatedPartnership
+        )
+      }
+
+      "Investor Ratio Method is Group Ratio" in {
+        OtherInvestorGroupElections.values(GroupRatioMethod) mustBe Seq(
+          GroupRatioBlended,
+          GroupEBITDA,
+          InterestAllowanceAlternativeCalculation,
+          InterestAllowanceNonConsolidatedInvestment,
+          InterestAllowanceConsolidatedPartnership
+        )
       }
     }
   }
