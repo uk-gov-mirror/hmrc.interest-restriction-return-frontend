@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,10 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.elections.OtherInvestorGroupElectionsFormProvider
-import models.{OtherInvestorGroupElections, NormalMode}
-import pages.elections.OtherInvestorGroupElectionsPage
+import models.InvestorRatioMethod.FixedRatioMethod
+import models.OtherInvestorGroupElections.GroupRatioBlended
+import models.{NormalMode, OtherInvestorGroupElections}
+import pages.elections.{InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
 import play.api.test.Helpers._
 import views.html.elections.OtherInvestorGroupElectionsView
 import navigation.FakeNavigators.FakeElectionsNavigator
@@ -46,21 +48,41 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
     view = view
   )
 
-  "OtherInvestorGroupElections Controller" must {
+  "OtherInvestorGroupElections Controller" when {
 
-    "return OK and the correct view for a GET" in {
+    "an answer exists for the Investor Ratio Method page" should {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "return OK and the correct view for a GET" in {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        val userAnswers = emptyUserAnswers.set(InvestorRatioMethodPage, FixedRatioMethod).success.value
 
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+        mockGetAnswers(Some(userAnswers))
+
+        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual view(form, NormalMode, FixedRatioMethod)(fakeRequest, messages, frontendAppConfig).toString
+      }
+    }
+
+    "an answer DOES NOT exist for the Investor Ratio Method page" should {
+
+      "return ISE" in {
+
+        mockGetAnswers(Some(emptyUserAnswers))
+
+        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustEqual INTERNAL_SERVER_ERROR
+        contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
+      }
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(OtherInvestorGroupElectionsPage, OtherInvestorGroupElections.values.toSet).success.value
+      val userAnswers = emptyUserAnswers
+        .set(InvestorRatioMethodPage, FixedRatioMethod).success.value
+        .set[Set[OtherInvestorGroupElections]](OtherInvestorGroupElectionsPage, OtherInvestorGroupElections.allValues.toSet).success.value
 
       mockGetAnswers(Some(userAnswers))
 
@@ -71,7 +93,7 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", OtherInvestorGroupElections.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", OtherInvestorGroupElections.values(FixedRatioMethod).head.toString))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
@@ -83,9 +105,11 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", "invalid value"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val userAnswers = emptyUserAnswers.set(InvestorRatioMethodPage, FixedRatioMethod).success.value
+
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
@@ -104,7 +128,7 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", OtherInvestorGroupElections.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", OtherInvestorGroupElections.values(FixedRatioMethod).head.toString))
 
       mockGetAnswers(None)
 

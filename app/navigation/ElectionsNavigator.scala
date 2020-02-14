@@ -59,7 +59,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InterestAllowanceConsolidatedPshipElectionPage -> (_ => checkYourAnswers),
     AddInvestorGroupPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     InvestorGroupNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InvestorRatioMethodPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    InvestorRatioMethodPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    OtherInvestorGroupElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with check your answers page

@@ -553,4 +553,4 @@ otherInvestorGroupElections.interestAllowanceNonConsolidatedInvestment = Interes
 otherInvestorGroupElections.interestAllowanceConsolidatedPartnership = Interest allowance (Consolidated partnership)
 otherInvestorGroupElections.hint = Select all that apply.
 otherInvestorGroupElections.checkYourAnswersLabel = Which other elections apply to this investor group?
-otherInvestorGroupElections.error.required = Select otherInvestorGroupElections
+otherInvestorGroupElections.error.invalid = Select any of the valid options below that apply

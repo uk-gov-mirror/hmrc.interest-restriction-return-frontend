@@ -17,37 +17,35 @@
 package controllers.elections
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.OtherInvestorGroupElectionsFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
-import models.OtherInvestorGroupElections
 import models.Mode
+import navigation.ElectionsNavigator
 import pages.elections.{InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
-import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import play.api.data.Form
-import views.html.elections.OtherInvestorGroupElectionsView
-import navigation.ElectionsNavigator
 import services.QuestionDeletionLookupService
-import controllers.BaseNavigationController
-import handlers.ErrorHandler
+import views.html.elections.OtherInvestorGroupElectionsView
 
 import scala.concurrent.Future
 
-class OtherInvestorGroupElectionsController @Inject()(
-                                       override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: ElectionsNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: OtherInvestorGroupElectionsFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: OtherInvestorGroupElectionsView
-                                   )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: MessagesApi,
+                                                      val sessionRepository: SessionRepository,
+                                                      val navigator: ElectionsNavigator,
+                                                      val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                      identify: IdentifierAction,
+                                                      getData: DataRetrievalAction,
+                                                      requireData: DataRequiredAction,
+                                                      formProvider: OtherInvestorGroupElectionsFormProvider,
+                                                      val controllerComponents: MessagesControllerComponents,
+                                                      view: OtherInvestorGroupElectionsView
+                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(InvestorRatioMethodPage) { investorRatioMethod =>

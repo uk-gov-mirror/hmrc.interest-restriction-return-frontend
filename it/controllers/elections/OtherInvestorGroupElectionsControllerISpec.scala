@@ -17,7 +17,9 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.InvestorRatioMethod.FixedRatioMethod
+import models.OtherInvestorGroupElections.GroupEBITDA
+import pages.elections.InvestorRatioMethodPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -29,18 +31,40 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
     "GET /elections/other-investor-group-elections" when {
 
-      "user is authorised" should {
+      "user is authorised" when {
 
-        "return OK (200)" in {
+        "answer for Investor Ratio Method page exists" should {
 
-          AuthStub.authorised()
-          val res = getRequest("/elections/other-investor-group-elections")()
+          "return OK (200)" in {
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.otherInvestorGroupElections)
-            )
+            AuthStub.authorised()
+
+            setAnswers(InvestorRatioMethodPage, FixedRatioMethod)
+
+            val res = getRequest("/elections/other-investor-group-elections")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.otherInvestorGroupElections)
+              )
+            }
+          }
+        }
+
+        "answer for Investor Ratio Method page does NOT exist" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/elections/other-investor-group-elections")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -62,25 +86,69 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
         }
       }
     }
+
+    "POST /elections/other-investor-group-elections" when {
+
+      "user is authorised" should {
+
+        "when valid data is submitted" should {
+
+          "return SEE_OTHER (303) and redirect to the Under Construction page" in {
+
+            AuthStub.authorised()
+            val res = postRequest("/elections/other-investor-group-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/elections/other-investor-group-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
   }
 
   "in Change mode" when {
 
     "GET /elections/other-investor-group-elections" when {
 
-      "user is authorised" should {
+      "answer for Investor Ratio Method page exists" should {
 
-        "return OK (200)" in {
+        "user is authorised" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/elections/other-investor-group-elections/change")()
+            AuthStub.authorised()
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.otherInvestorGroupElections)
-            )
+            setAnswers(InvestorRatioMethodPage, FixedRatioMethod)
+
+            val res = getRequest("/elections/other-investor-group-elections/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.otherInvestorGroupElections)
+              )
+            }
           }
         }
       }

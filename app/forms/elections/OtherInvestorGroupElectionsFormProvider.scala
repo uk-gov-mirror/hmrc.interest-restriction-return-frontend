@@ -27,6 +27,6 @@ class OtherInvestorGroupElectionsFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Set[OtherInvestorGroupElections]] =
     Form(
-      "value" -> set(enumerable[OtherInvestorGroupElections]())
+      "value" -> set(enumerable[OtherInvestorGroupElections](invalidKey = "otherInvestorGroupElections.error.invalid"))
     )
 }
