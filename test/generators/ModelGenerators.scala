@@ -16,25 +16,30 @@
 
 package generators
 
+import models.InvestorRatioMethod.GroupRatioMethod
 import models._
-import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
   implicit lazy val arbitraryInvestorRatioMethod: Arbitrary[InvestorRatioMethod] =
     Arbitrary {
-      Gen.oneOf(InvestorRatioMethod.values.toSeq)
+      Gen.oneOf(InvestorRatioMethod.values)
+    }
+
+  implicit lazy val arbitraryOtherInvestorGroupElections: Arbitrary[OtherInvestorGroupElections] =
+    Arbitrary {
+      Gen.oneOf(OtherInvestorGroupElections.values(GroupRatioMethod))
     }
 
   implicit lazy val arbitraryContinueSavedReturn: Arbitrary[ContinueSavedReturn] =
     Arbitrary {
-      Gen.oneOf(ContinueSavedReturn.values.toSeq)
+      Gen.oneOf(ContinueSavedReturn.values)
     }
 
   implicit lazy val arbitraryFullOrAbbreviatedReturn: Arbitrary[FullOrAbbreviatedReturn] =
     Arbitrary {
-      Gen.oneOf(FullOrAbbreviatedReturn.values.toSeq)
+      Gen.oneOf(FullOrAbbreviatedReturn.values)
     }
 
 }

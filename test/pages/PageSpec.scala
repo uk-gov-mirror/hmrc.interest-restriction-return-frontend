@@ -33,6 +33,7 @@ class PageSpec extends SpecBase {
     InvestorRatioMethodPage.toString -> InvestorRatioMethodPage,
     InvestorGroupNamePage.toString -> InvestorGroupNamePage,
     AddInvestorGroupPage.toString -> AddInvestorGroupPage,
+    OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
     GroupEBITDAPage.toString -> GroupEBITDAPage,
     InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,
     ElectedInterestAllowanceConsolidatedPshipBeforePage.toString -> ElectedInterestAllowanceConsolidatedPshipBeforePage,
