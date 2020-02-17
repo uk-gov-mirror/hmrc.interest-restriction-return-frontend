@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val isUkPartnership: String => String = name => s"Is $name a UK Partnership?"
   val partnershipName = "Enter the name of the partnership"
   val investorRatioMethod = "Which ratio do you want to elect for this investor group?"
   val investorGroupName = "Enter the name of the investor group"

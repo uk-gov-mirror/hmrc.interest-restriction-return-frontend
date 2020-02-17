@@ -564,6 +564,13 @@ partnershipName.label = Enter the name of the partnership
 partnershipName.error.required = Enter the name of the partnership
 partnershipName.error.length = Name of the partnership must be 160 characters or less
 
+# IsUkPartnershipPage Messages
+# ----------------------------------------------------------
+isUkPartnership.title = Is {0} a UK Partnership?
+isUkPartnership.heading = Is {0} a UK Partnership?
+isUkPartnership.checkYourAnswersLabel = Is {0} a UK Partnership?
+isUkPartnership.error.required = Select yes if Is {0} a UK Partnership?
+
 # CheckAnswersElectionsPage Messages
 # ----------------------------------------------------------
 elections.checkYourAnswers.title = Check your answers for this section

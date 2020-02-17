@@ -557,12 +557,19 @@ otherInvestorGroupElections.error.invalid = Select any of the valid options belo
 
 # PartnershipNamePage Messages
 # ----------------------------------------------------------
-partnershipName.title = partnershipName
-partnershipName.heading = partnershipName
-partnershipName.checkYourAnswersLabel = partnershipName
+partnershipName.title = Enter the name of the partnership
+partnershipName.heading = Enter the name of the partnership
+partnershipName.checkYourAnswersLabel = Enter the name of the partnership
 partnershipName.label = Enter the name of the partnership
-partnershipName.error.required = Enter partnershipName
-partnershipName.error.length = PartnershipName must be 160 characters or less
+partnershipName.error.required = Enter the name of the partnership
+partnershipName.error.length = Name of the partnership must be 160 characters or less
+
+# IsUkPartnershipPage Messages
+# ----------------------------------------------------------
+isUkPartnership.title = Is {0} a UK Partnership?
+isUkPartnership.heading = Is {0} a UK Partnership?
+isUkPartnership.checkYourAnswersLabel = Is {0} a UK Partnership?
+isUkPartnership.error.required = Select yes if Is {0} a UK Partnership?
 
 # CheckAnswersElectionsPage Messages
 # ----------------------------------------------------------

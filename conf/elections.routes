@@ -127,6 +127,13 @@ POST       /partnership-name                          controllers.elections.Part
 GET        /partnership-name/change                   controllers.elections.PartnershipNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /partnership-name/change                   controllers.elections.PartnershipNameController.onSubmit(mode: Mode = CheckMode)
 
+### IsUkPartnership Controller
+### ----------------------------------------
+GET        /is-uk-partnership                          controllers.elections.IsUkPartnershipController.onPageLoad(mode: Mode = NormalMode)
+POST       /is-uk-partnership                          controllers.elections.IsUkPartnershipController.onSubmit(mode: Mode = NormalMode)
+GET        /is-uk-partnership/change                   controllers.elections.IsUkPartnershipController.onPageLoad(mode: Mode = CheckMode)
+POST       /is-uk-partnership/change                   controllers.elections.IsUkPartnershipController.onSubmit(mode: Mode = CheckMode)
+
 ### Check Answers Controller
 ### ----------------------------------------
 GET        /check-answers                               controllers.elections.CheckAnswersElectionsController.onPageLoad()
