@@ -28,6 +28,7 @@ object CheckAnswersElectionsMessages {
   val groupRatioBlended = "Elect group ratio (blended)"
   val investorGroupsHeading = "Group ratio (blended) investor groups"
   val investorGroupsValue: Int => String = i =>  s"$i investor group${if(i > 1) "s" else ""} added"
+  val investorGroupsReview = "Review investor groups"
   val electedGroupEBITDABefore = "Elected group EBITDA (chargeable gains) before"
   val groupEBITDAElection = "Elect group EBITDA (chargeable gains)"
   val electedInterestAllowanceAlternativeCalcBefore = "Elected interest allowance (alternative calculation) before"
@@ -35,9 +36,11 @@ object CheckAnswersElectionsMessages {
   val interestAllowanceNonConsolidatedElection = "Elect interest allowance (non-consolidated investments)"
   val nonConsolidatedInvestmentsHeading = "Non-consolidated investments"
   val nonConsolidatedInvestmentsValue: Int => String = i =>  s"$i investment${if(i > 1) "s" else ""} added"
+  val nonConsolidatedInvestmentsReview = "Review investments"
   val electedInterestAllowanceConsolidatedPshipBefore = "Elected interest allowance (consolidated partnerships) before"
   val interestAllowanceConsolidatedPshipElection = "Elect interest allowance (consolidated partnerships)"
   val consolidatedPartnershipsHeading = "Consolidated partnerships"
   val consolidatedPartnershipsValue: Int => String = i =>  s"$i partnership${if(i > 1) "s" else ""} added"
+  val consolidatedPartnershipsReview = "Review partnerships"
 
 }

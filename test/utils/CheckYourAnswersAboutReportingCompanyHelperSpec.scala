@@ -17,33 +17,17 @@
 package utils
 
 import assets.constants.BaseConstants
+import assets.messages.BaseMessages
 import base.SpecBase
-import controllers.routes
-import controllers.startReturn.{routes => startReturnRoutes}
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.startReturn.{routes => startReturnRoutes}
 import models.FullOrAbbreviatedReturn.Full
 import models.{CheckMode, UserAnswers}
-import pages._
 import pages.aboutReportingCompany._
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
-import play.api.mvc.Call
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
-import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
+import viewmodels.SummaryListRowHelper
 
-class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with BaseConstants {
-
-
-  private def summaryListRow(label: String, answer: String, changeLink: Call) =
-    SummaryListRow(
-      key = Key(Text(label)),
-      value = Value(Text(answer)),
-      actions = Some(Actions(
-        items = Seq(ActionItem(
-          href = changeLink.url,
-          content = Text(messages("site.edit"))
-        ))
-      ))
-    )
+class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper {
 
   val helper = new CheckYourAnswersAboutReportingCompanyHelper(
     UserAnswers("id")
@@ -65,7 +49,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.reportingCompanyAppointed mustBe Some(summaryListRow(
           messages("reportingCompanyAppointed.checkYourAnswersLabel"),
           "Yes",
-          startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode)
+          startReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -77,7 +61,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.agentActingOnBehalfOfCompany mustBe Some(summaryListRow(
           messages("agentActingOnBehalfOfCompany.checkYourAnswersLabel"),
           "Yes",
-          startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode)
+          startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -89,7 +73,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.agentName mustBe Some(summaryListRow(
           messages("agentName.checkYourAnswersLabel"),
           agentName,
-          startReturnRoutes.AgentNameController.onPageLoad(CheckMode)
+          startReturnRoutes.AgentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -101,7 +85,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.fullOrAbbreviatedReturn mustBe Some(summaryListRow(
           messages("fullOrAbbreviatedReturn.checkYourAnswersLabel"),
           messages("fullOrAbbreviatedReturn.full"),
-          startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode)
+          startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -113,7 +97,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.reportingCompanyName mustBe Some(summaryListRow(
           messages("reportingCompanyName.checkYourAnswersLabel"),
           companyNameModel.name,
-          aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(CheckMode)
+          aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -125,7 +109,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
           ctutrModel.ctutr,
-          aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode)
+          aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -137,7 +121,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
         helper.reportingCompanyCRN mustBe Some(summaryListRow(
           messages("reportingCompanyCRN.checkYourAnswersLabel"),
           crnModel.crn,
-          aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode)
+          aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
