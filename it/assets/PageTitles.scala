@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val partnershipName = "Enter the name of the partnership"
   val investorRatioMethod = "Which ratio do you want to elect for this investor group?"
   val investorGroupName = "Enter the name of the investor group"
   val addInvestorGroup = "Do you want to add an investor group?"

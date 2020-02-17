@@ -555,6 +555,15 @@ otherInvestorGroupElections.hint = Select all that apply.
 otherInvestorGroupElections.checkYourAnswersLabel = Which other elections apply to this investor group?
 otherInvestorGroupElections.error.invalid = Select any of the valid options below that apply
 
+# PartnershipNamePage Messages
+# ----------------------------------------------------------
+partnershipName.title = Enter the name of the partnership
+partnershipName.heading = Enter the name of the partnership
+partnershipName.checkYourAnswersLabel = Enter the name of the partnership
+partnershipName.label = Enter the name of the partnership
+partnershipName.error.required = Enter the name of the partnership
+partnershipName.error.length = Name of the partnership must be 160 characters or less
+
 # CheckAnswersElectionsPage Messages
 # ----------------------------------------------------------
 elections.checkYourAnswers.title = Check your answers for this section
