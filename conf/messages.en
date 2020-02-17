@@ -571,6 +571,16 @@ isUkPartnership.heading = Is {0} a UK Partnership?
 isUkPartnership.checkYourAnswersLabel = Is {0} a UK Partnership?
 isUkPartnership.error.required = Select yes if Is {0} a UK Partnership?
 
+# PartnershipSAUTRPage Messages
+# ----------------------------------------------------------
+partnershipSAUTR.title = Enter {0} Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.heading = Enter {0} Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.checkYourAnswersLabel = Enter {0} Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.label= Enter {0} Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.error.required = Enter Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 characters or less
+partnershipSAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
+
 # CheckAnswersElectionsPage Messages
 # ----------------------------------------------------------
 elections.checkYourAnswers.title = Check your answers for this section

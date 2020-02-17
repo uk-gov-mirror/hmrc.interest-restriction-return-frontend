@@ -17,24 +17,25 @@
 package controllers.elections
 
 import assets.constants.BaseConstants
+import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import controllers.errors
-import forms.elections.IsUkPartnershipFormProvider
+import forms.elections.PartnershipSAUTRFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeElectionsNavigator
-import pages.elections.{IsUkPartnershipPage, PartnershipNamePage}
+import pages.elections.{PartnershipNamePage, PartnershipSAUTRPage}
 import play.api.test.Helpers._
-import views.html.elections.IsUkPartnershipView
+import views.html.elections.PartnershipSAUTRView
+import navigation.FakeNavigators.FakeElectionsNavigator
 
-class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants {
 
-  val view = injector.instanceOf[IsUkPartnershipView]
-  val formProvider = injector.instanceOf[IsUkPartnershipFormProvider]
+class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants {
+
+  val view = injector.instanceOf[PartnershipSAUTRView]
+  val formProvider = injector.instanceOf[PartnershipSAUTRFormProvider]
   val form = formProvider()
 
-  object Controller extends IsUkPartnershipController(
+  object Controller extends PartnershipSAUTRController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
@@ -47,7 +48,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
     view = view
   )
 
-  "IsUkPartnership Controller" must {
+  "PartnershipSAUTR Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -62,10 +63,11 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
       contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
     }
 
+
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(IsUkPartnershipPage, true).success.value
+        .set(PartnershipSAUTRPage, "answer").success.value
         .set(PartnershipNamePage, companyNameModel.name).success.value
 
       mockGetAnswers(Some(userAnswers))
@@ -77,18 +79,17 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+      status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-
 
       val userAnswers = emptyUserAnswers
         .set(PartnershipNamePage, companyNameModel.name).success.value
@@ -99,7 +100,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -108,14 +109,13 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(None)
 
@@ -123,7 +123,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
   }
 }
