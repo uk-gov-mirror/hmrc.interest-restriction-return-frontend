@@ -17,12 +17,11 @@
 package utils
 
 import assets.constants.BaseConstants
-import assets.messages.{BaseMessages, CheckAnswersElectionsMessages, CheckAnswersGroupStructureMessages}
+import assets.messages.{BaseMessages, CheckAnswersGroupStructureMessages}
 import base.SpecBase
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.{CheckMode, UserAnswers}
-import pages.elections._
-import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage, LimitedLiabilityPartnershipPage, LocalRegistrationNumberPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, RegisteredForTaxInAnotherCountryPage, ReportingCompanySameAsParentPage}
+import pages.groupStructure._
 import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {

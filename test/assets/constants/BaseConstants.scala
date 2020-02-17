@@ -40,6 +40,10 @@ trait BaseConstants {
   val qngie = BigDecimal(240000.99)
   val ebitda = BigDecimal(5000000)
   val groupRatioPercentage = BigDecimal(12)
+  val groupInterestAllowance = BigDecimal(9231)
+  val groupInterestCapacity = BigDecimal(34567)
+  val interestReactivationCap = BigDecimal(8765)
+  val interestAllowanceBroughtForward = BigDecimal(76969)
 
   val ultimateParentCompanyUK = UltimateParentModel(
     isUk = true,
