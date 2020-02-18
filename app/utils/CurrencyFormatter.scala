@@ -16,13 +16,6 @@
 
 package utils
 
-import java.text.NumberFormat
-import java.util.{Currency, Locale}
-
-import scala.language.implicitConversions
-
 trait CurrencyFormatter {
-  val currency = NumberFormat.getCurrencyInstance
-  currency.setCurrency(Currency.getInstance(Locale.UK))
-  def currencyFormat(amt: BigDecimal): String = currency.format(amt).replace(".00", "")
+  def currencyFormat(amt: BigDecimal): String = f"&pound;$amt%,1.2f".replace(".00","")
 }
