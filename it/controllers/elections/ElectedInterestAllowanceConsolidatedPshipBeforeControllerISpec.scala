@@ -88,7 +88,6 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
 
           "the answer is true" should {
 
-            //TODO: Update routing when CYA page is built. Currently redirect to Under Construction.
             "redirect to Check Your Answers page" in {
 
               AuthStub.authorised()
@@ -98,7 +97,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                  redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
                 )
               }
             }

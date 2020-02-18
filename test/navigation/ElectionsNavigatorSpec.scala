@@ -211,13 +211,12 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
 
-        //TODO: Update with Check Your Answers page when built
         "go to the Under Construction page when answer is true" in {
 
           val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.CheckAnswersElectionsController.onPageLoad()
         }
 
         "go to the Elected Interest Allowance Consolidated Partnership Before page when answer there's no answer" in {
@@ -229,11 +228,10 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the InterestAllowanceConsolidatedPshipElection page" should {
 
-        //TODO: Update with Check Your Answers page when built
         "go to the Under Construction page" in {
 
           navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.CheckAnswersElectionsController.onPageLoad()
         }
       }
 

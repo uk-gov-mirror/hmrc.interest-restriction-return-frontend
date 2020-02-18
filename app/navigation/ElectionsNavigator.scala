@@ -76,7 +76,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   )
 
   //TODO update with CYA and Next Section calls
-  private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
+  private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
   private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
