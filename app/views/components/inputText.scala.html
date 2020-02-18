@@ -25,12 +25,14 @@
         label: String,
         isPageHeading: Boolean,
         headingMessageArgs: Seq[String] = Seq(),
-        hint: Option[Html] = None
+        hint: Option[Html] = None,
+        classes: Option[String] = None
 )(implicit messages: Messages)
 
 @govukInput(Input(
   id,
   name,
+  classes = classes.fold("")(x => x),
   label = Label(
     content = Text(messages(label, headingMessageArgs:_*)),
     isPageHeading = isPageHeading,
