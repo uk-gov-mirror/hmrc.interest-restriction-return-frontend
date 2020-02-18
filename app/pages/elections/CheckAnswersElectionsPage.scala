@@ -14,32 +14,14 @@
  * limitations under the License.
  */
 
-package models
+package pages.elections
 
-import play.api.libs.json.{JsValue, Json, Writes}
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-sealed trait Section
+case object CheckAnswersElectionsPage extends QuestionPage[String] {
 
-object Section {
+  override def path: JsPath = JsPath \ toString
 
-  object ReportingCompany extends Section {
-    override val toString = "reportingCompany"
-  }
-
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
-  }
-
-  object Elections extends Section {
-    override val toString = "elections"
-  }
-
-  object HelloWorld extends Section {
-
-    override val toString = "helloWorld"
-  }
-
-  implicit object SectionWrites extends Writes[Section]{
-    def writes(section: Section): JsValue = Json.toJson(section.toString)
-  }
+  override def toString: String = "checkAnswersElections"
 }

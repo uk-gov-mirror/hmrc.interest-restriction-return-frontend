@@ -25,7 +25,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent,
 
 import scala.reflect.ClassTag
 
-trait ViewSpecBase extends SpecBase {
+trait ViewSpecBase extends SpecBase with BaseSelectors {
 
   def viewFor[A](data: Option[UserAnswers] = None)(implicit tag: ClassTag[A]): A = app.injector.instanceOf[A]
 
@@ -104,6 +104,25 @@ trait ViewSpecBase extends SpecBase {
       assert(radio.hasAttr("checked"), s"\n\nElement $id is not checked")
     } else {
       assert(!radio.hasAttr("checked"), s"\n\nElement $id is checked")
+    }
+  }
+
+  def checkYourAnswersRowChecks(expectedRowData: (String, String)*)(implicit document: Document): Unit = {
+
+    expectedRowData.zipWithIndex.foreach { case ((heading, value), i) =>
+
+      val rowPosition = i + 1
+
+      s"have the correct answer row at position $rowPosition" which {
+
+        s"should have the correct heading of '$heading'" in {
+          document.select(checkAnswersHeading(rowPosition)).text mustBe heading
+        }
+
+        s"should have the correct value of '$value'" in {
+          document.select(checkAnswersAnswerValue(rowPosition)).text mustBe value
+        }
+      }
     }
   }
 }

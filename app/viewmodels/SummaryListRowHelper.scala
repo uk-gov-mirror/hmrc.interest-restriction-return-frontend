@@ -14,32 +14,24 @@
  * limitations under the License.
  */
 
-package models
+package viewmodels
 
-import play.api.libs.json.{JsValue, Json, Writes}
+import play.api.mvc.Call
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-sealed trait Section
+trait SummaryListRowHelper {
 
-object Section {
-
-  object ReportingCompany extends Section {
-    override val toString = "reportingCompany"
-  }
-
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
-  }
-
-  object Elections extends Section {
-    override val toString = "elections"
-  }
-
-  object HelloWorld extends Section {
-
-    override val toString = "helloWorld"
-  }
-
-  implicit object SectionWrites extends Writes[Section]{
-    def writes(section: Section): JsValue = Json.toJson(section.toString)
+  def summaryListRow(label: String, value: String, actions: (Call, String)*): SummaryListRow = {
+    SummaryListRow(
+      key = Key(content = Text(label)),
+      value = Value(content = Text(value)),
+      actions = Some(Actions(
+        items = actions.map { case (call, linkText) => ActionItem(
+          href = call.url,
+          content = Text(linkText)
+        )})
+      )
+    )
   }
 }

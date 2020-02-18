@@ -18,16 +18,15 @@ package controllers.aboutReportingCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.ReportingCompany
 import navigation.AboutReportingCompanyNavigator
 import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import utils.CheckYourAnswersHelper
+import play.api.i18n.MessagesApi
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import utils.CheckYourAnswersAboutReportingCompanyHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
@@ -39,24 +38,11 @@ class CheckAnswersReportingCompanyController @Inject()(override val messagesApi:
                                                        val controllerComponents: MessagesControllerComponents,
                                                        navigator: AboutReportingCompanyNavigator,
                                                        view: CheckYourAnswersView
-                                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
-    val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
-
-    val sections = Seq(
-      checkYourAnswersHelper.reportingCompanyAppointed,
-      checkYourAnswersHelper.agentActingOnBehalfOfCompany,
-      checkYourAnswersHelper.agentName,
-      checkYourAnswersHelper.fullOrAbbreviatedReturn,
-      checkYourAnswersHelper.reportingCompanyName,
-      checkYourAnswersHelper.reportingCompanyCTUTR,
-      checkYourAnswersHelper.reportingCompanyCRN
-    ).flatten
-
-    Ok(view(sections, ReportingCompany, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()))
+    val checkAnswersHelper = new CheckYourAnswersAboutReportingCompanyHelper(request.userAnswers)
+    Ok(view(checkAnswersHelper, ReportingCompany, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

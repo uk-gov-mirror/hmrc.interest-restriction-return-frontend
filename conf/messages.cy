@@ -414,7 +414,7 @@ groupStructure.checkYourAnswers.subheading = Group structure
 # ----------------------------------------------------------
 groupRatioElection.title = Are you making a group ratio election?
 groupRatioElection.heading = Are you making a group ratio election?
-groupRatioElection.checkYourAnswersLabel = Are you making a group ratio election?
+groupRatioElection.checkYourAnswersLabel = Elect group ratio
 groupRatioElection.error.required = Select yes if you are making a group ratio election?
 
 # EnterANGIEPage Messages
@@ -422,7 +422,7 @@ groupRatioElection.error.required = Select yes if you are making a group ratio e
 enterANGIE.title = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.heading = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.label = Enter the adjusted net group-interest expense (ANGIE)
-enterANGIE.checkYourAnswersLabel = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.checkYourAnswersLabel = ANGIE
 enterANGIE.error.nonNumeric = Enter the adjusted net group-interest expense (ANGIE) using numbers
 enterANGIE.error.required = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.error.invalidNumeric = The adjusted net group-interest expense (ANGIE) must be valid decimal or whole number
@@ -444,7 +444,7 @@ groupRatioPercentage.error.outOfRange = The group ratio percentage must be betwe
 enterQNGIE.title = Enter the qualifying net group-interest expense (QNGIE)
 enterQNGIE.heading = Enter the qualifying net group-interest expense (QNGIE)
 enterQNGIE.label= Enter the qualifying net group-interest expense (QNGIE)
-enterQNGIE.checkYourAnswersLabel = Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.checkYourAnswersLabel = QNGIE
 enterQNGIE.error.nonNumeric = Enter your qualifying net group-interest expense (QNGIE) using numbers
 enterQNGIE.error.required = Enter the qualifying net group-interest expense (QNGIE)
 enterQNGIE.error.invalidNumeric = The qualifying net group-interest expense (QNGIE) must be valid decimal or whole number
@@ -454,56 +454,56 @@ enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must
 # ----------------------------------------------------------
 groupRatioBlendedElection.title = Are you making a blended group ratio election?
 groupRatioBlendedElection.heading = Are you making a blended group ratio election?
-groupRatioBlendedElection.checkYourAnswersLabel = Are you making a blended group ratio election?
+groupRatioBlendedElection.checkYourAnswersLabel = Elect group ratio (blended)
 groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
 
 # ElectedGroupEBITDABeforePage Messages
 # ----------------------------------------------------------
 electedGroupEBITDABefore.title = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
 electedGroupEBITDABefore.heading = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
-electedGroupEBITDABefore.checkYourAnswersLabel = Has the group made a group-EBITDA (chargeable gains) election in any previous returns?
+electedGroupEBITDABefore.checkYourAnswersLabel = Elected group EBITDA (chargeable gains) before
 electedGroupEBITDABefore.error.required = Select yes if the group made a group-EBITDA (chargeable gains) election in any previous returns
 
 # GroupEBITDAChargeableGainsElectionPage Messages
 # ----------------------------------------------------------
 groupEBITDAChargeableGainsElection.title = Do you want to make a group-EBITDA (chargeable gains) election for this return?
 groupEBITDAChargeableGainsElection.heading = Do you want to make a group-EBITDA (chargeable gains) election for this return?
-groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Do you want to make a group-EBITDA (chargeable gains) election for this return?
+groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Elect group EBITDA (chargeable gains)
 groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to make a group-EBITDA (chargeable gains) election for this return?
 
 # ElectedInterestAllowanceAlternativeCalcBeforePage Messages
 # ----------------------------------------------------------
 electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election in any previous returns?
 electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
-electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Elected interest allowance (alternative calculation) before
 electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
 
 # InterestAllowanceAlternativeCalcElectionPage Messages
 # ----------------------------------------------------------
 interestAllowanceAlternativeCalcElection.title = Do you want to make an interest allowance (alternative calculation) election for this return?
 interestAllowanceAlternativeCalcElection.heading = Do you want to make an interest allowance (alternative calculation) election for this return?
-interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Do you want to make an interest allowance (alternative calculation) election for this return?
+interestAllowanceAlternativeCalcElection.checkYourAnswersLabel = Elect interest allowance (alternative calculation)
 interestAllowanceAlternativeCalcElection.error.required = Select yes if you want to make an interest allowance (alternative calculation) election for this return
 
 # InterestAllowanceNonConsolidatedInvestmentsElectionPage Messages
 # ----------------------------------------------------------
 interestAllowanceNonConsolidatedInvestmentsElection.title = Do you want to make an interest allowance election for non-consolidated investments?
 interestAllowanceNonConsolidatedInvestmentsElection.heading = Do you want to make an interest allowance election for non-consolidated investments?
-interestAllowanceNonConsolidatedInvestmentsElection.checkYourAnswersLabel = Do you want to make an interest allowance election for non-consolidated investments?
+interestAllowanceNonConsolidatedInvestmentsElection.checkYourAnswersLabel = Elect interest allowance (non-consolidated investments)
 interestAllowanceNonConsolidatedInvestmentsElection.error.required = Select yes if you want to make an interest allowance election for non-consolidated investments
 
 # ElectedInterestAllowanceConsolidatedPshipBeforePage Messages
 # ----------------------------------------------------------
 electedInterestAllowanceConsolidatedPshipBefore.title = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
 electedInterestAllowanceConsolidatedPshipBefore.heading = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
-electedInterestAllowanceConsolidatedPshipBefore.checkYourAnswersLabel = Has the group made an interest allowance election for consolidated partnerships in any previous returns?
+electedInterestAllowanceConsolidatedPshipBefore.checkYourAnswersLabel = Elected interest allowance (consolidated partnerships) before
 electedInterestAllowanceConsolidatedPshipBefore.error.required = Select yes if the group made an interest allowance election for consolidated partnerships in any previous returns
 
 # InterestAllowanceConsolidatedPshipElectionPage Messages
 # ----------------------------------------------------------
 interestAllowanceConsolidatedPshipElection.title = Do you want to make an interest allowance election for consolidated partnerships?
 interestAllowanceConsolidatedPshipElection.heading = Do you want to make an interest allowance election for consolidated partnerships?
-interestAllowanceConsolidatedPshipElection.checkYourAnswersLabel = Do you want to make an interest allowance election for consolidated partnerships?
+interestAllowanceConsolidatedPshipElection.checkYourAnswersLabel = Elect interest allowance (consolidated partnerships)
 interestAllowanceConsolidatedPshipElection.error.required = Select yes if you want to make an interest allowance election for consolidated partnerships
 
 # GroupEBITDAPage Messages
@@ -511,7 +511,7 @@ interestAllowanceConsolidatedPshipElection.error.required = Select yes if you wa
 groupEBITDA.title = Enter the group-EBITDA
 groupEBITDA.heading = Enter the group-EBITDA
 groupEBITDA.label= Enter the group-EBITDA
-groupEBITDA.checkYourAnswersLabel = group-EBITDA
+groupEBITDA.checkYourAnswersLabel = Group EBITDA
 groupEBITDA.error.nonNumeric = Enter the group-EBITDA using numbers
 groupEBITDA.error.required = Enter the group-EBITDA
 groupEBITDA.error.invalidNumeric = The group-EBITDA must be valid decimal or whole number
@@ -537,8 +537,8 @@ investorGroupName.error.length = Investor group name must be 160 characters or l
 # ----------------------------------------------------------
 investorRatioMethod.title = Which ratio do you want to elect for this investor group?
 investorRatioMethod.heading = Which ratio do you want to elect for this investor group?
-investorRatioMethod.value = Group Ratio
-investorRatioMethod.value-2 = Fixed Ratio
+investorRatioMethod.groupRatioMethod = Group Ratio
+investorRatioMethod.fixedRatioMethod = Fixed Ratio
 investorRatioMethod.checkYourAnswersLabel = Investor group ratio
 investorRatioMethod.error.required = Select which ratio you want to elect for this investor group
 
@@ -554,3 +554,24 @@ otherInvestorGroupElections.interestAllowanceConsolidatedPartnership = Interest 
 otherInvestorGroupElections.hint = Select all that apply.
 otherInvestorGroupElections.checkYourAnswersLabel = Which other elections apply to this investor group?
 otherInvestorGroupElections.error.invalid = Select any of the valid options below that apply
+
+# CheckAnswersElectionsPage Messages
+# ----------------------------------------------------------
+elections.checkYourAnswers.title = Check your answers for this section
+elections.checkYourAnswers.heading = Check your answers for this section
+elections.checkYourAnswers.subheading = Elections
+
+investorGroupsAdded.checkYourAnswers.label = Group ratio (blended) investor groups
+investorGroupsAdded.checkYourAnswers.value.singular = {0} investor group added
+investorGroupsAdded.checkYourAnswers.value.plural = {0} investor groups added
+investorGroupsAdded.checkYourAnswers.review = Review investor groups
+
+consolidatedPartnershipsAdded.checkYourAnswers.label = Consolidated partnerships
+consolidatedPartnershipsAdded.checkYourAnswers.value.singular = {0} partnership added
+consolidatedPartnershipsAdded.checkYourAnswers.value.plural = {0} partnerships added
+consolidatedPartnershipsAdded.checkYourAnswers.review = Review partnerships
+
+nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated investments
+nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
+nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
+nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments

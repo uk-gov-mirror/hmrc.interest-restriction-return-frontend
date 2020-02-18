@@ -69,7 +69,6 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
         "enters a valid answer" when {
 
-          //TODO: Update routing when CYA page is built. Currently redirect to Under Construction.
           "redirect to Check Your Answers page" in {
 
             AuthStub.authorised()
@@ -79,7 +78,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
               )
             }
           }
