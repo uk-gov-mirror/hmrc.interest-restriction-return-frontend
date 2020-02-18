@@ -23,7 +23,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.Elections
-import navigation.GroupStructureNavigator
+import navigation.ElectionsNavigator
 import pages.elections.CheckAnswersElectionsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -37,7 +37,7 @@ class CheckAnswersElectionsController @Inject()(override val messagesApi: Messag
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
                                                 val controllerComponents: MessagesControllerComponents,
-                                                navigator: GroupStructureNavigator,
+                                                navigator: ElectionsNavigator,
                                                 view: CheckYourAnswersView
                                                )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseController {
