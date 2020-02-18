@@ -80,7 +80,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url)
               )
             }
           }

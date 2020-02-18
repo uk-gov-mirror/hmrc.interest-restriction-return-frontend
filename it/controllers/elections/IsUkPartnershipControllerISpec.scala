@@ -98,7 +98,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url)
               )
             }
           }

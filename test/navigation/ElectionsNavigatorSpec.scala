@@ -350,7 +350,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             val userAnswers = emptyUserAnswers.set(IsUkPartnershipPage, false).success.value
 
             navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers) mustBe
-              controllers.routes.UnderConstructionController.onPageLoad()
+              routes.CheckAnswersElectionsController.onPageLoad()
           }
         }
 
@@ -369,7 +369,7 @@ class ElectionsNavigatorSpec extends SpecBase {
         "go to the Under construction page page" in {
 
           navigator.nextPage(PartnershipSAUTRPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.CheckAnswersElectionsController.onPageLoad()
         }
       }
     }
