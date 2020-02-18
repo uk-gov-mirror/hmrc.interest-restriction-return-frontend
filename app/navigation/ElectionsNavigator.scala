@@ -68,7 +68,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     }),
     InvestorGroupNamePage -> (_ => routes.InvestorRatioMethodController.onPageLoad(NormalMode)),
     InvestorRatioMethodPage -> (_ => routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)),
-    OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode))
+    OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
+    CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
