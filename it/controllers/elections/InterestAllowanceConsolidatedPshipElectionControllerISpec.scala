@@ -67,13 +67,30 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a true" when {
 
           "redirect to Check Your Answers page" in {
 
             AuthStub.authorised()
 
             val res = postRequest("/elections/interest-allowance-consolidated-pship-election", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.PartnershipNameController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a false" when {
+
+          "redirect to Check Your Answers page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/interest-allowance-consolidated-pship-election", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(

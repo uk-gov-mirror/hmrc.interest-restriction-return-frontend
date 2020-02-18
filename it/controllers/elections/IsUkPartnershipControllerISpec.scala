@@ -17,6 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import pages.elections.PartnershipNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -69,20 +70,37 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters true" when {
 
-          "redirect to IsUkPartnership page" in {
+          "redirect to PartnershipSAUTR page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/is-uk-partnership", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.elections.routes.IsUkPartnershipController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/elections/is-uk-partnership", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.PartnershipSAUTRController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters false" when {
+
+          "redirect to Under construction page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/is-uk-partnership", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }

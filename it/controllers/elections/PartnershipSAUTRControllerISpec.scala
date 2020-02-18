@@ -75,14 +75,14 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.elections.routes.PartnershipSAUTRController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> ctutr))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }

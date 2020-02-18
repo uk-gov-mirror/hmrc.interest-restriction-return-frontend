@@ -73,14 +73,14 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnership-name", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.elections.routes.PartnershipNameController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/elections/partnership-name", Json.obj("value" -> companyName))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.IsUkPartnershipController.onPageLoad(NormalMode).url)
+              )
+            }
           }
         }
       }
@@ -91,7 +91,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/partnership-name", Json.obj("value" -> 1))()
+          val res = postRequest("/elections/partnership-name", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

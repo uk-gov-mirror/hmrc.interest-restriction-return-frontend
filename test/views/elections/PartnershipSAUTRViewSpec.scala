@@ -23,6 +23,7 @@ import forms.elections.PartnershipSAUTRFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import views.ViewUtils.addPossessive
 import views.behaviours.StringViewBehaviours
 import views.html.elections.PartnershipSAUTRView
 
@@ -42,7 +43,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
       behave like normalPage(view = applyView(form),
         messageKeyPrefix = messageKeyPrefix,
         section = section,
-        headingArgs = Seq(companyNameModel.name)
+        headingArgs = Seq(addPossessive(companyNameModel.name))
       )
 
       behave like pageWithBackLink(applyView(form))
@@ -54,7 +55,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
         messageKeyPrefix = messageKeyPrefix,
         expectedFormAction = routes.PartnershipSAUTRController.onSubmit(NormalMode).url,
         section = section,
-        headingArgs = Seq(companyNameModel.name)
+        headingArgs = Seq(addPossessive(companyNameModel.name))
       )
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)

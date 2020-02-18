@@ -73,14 +73,13 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestorGroupNamePage -> (_ => routes.InvestorRatioMethodController.onPageLoad(NormalMode)),
     InvestorRatioMethodPage -> (_ => routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)),
     OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
-
     PartnershipNamePage -> (_ => routes.IsUkPartnershipController.onPageLoad(NormalMode)),
     IsUkPartnershipPage -> (_.get(IsUkPartnershipPage) match {
       case Some(true) => routes.PartnershipSAUTRController.onPageLoad(NormalMode)
-      case Some(false) => controllers.routes.UnderConstructionController.onPageLoad()
+      case Some(false) => checkYourAnswers
       case _ => routes.IsUkPartnershipController.onPageLoad(NormalMode)
     }),
-    PartnershipSAUTRPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    PartnershipSAUTRPage -> (_ => checkYourAnswers),
     CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
