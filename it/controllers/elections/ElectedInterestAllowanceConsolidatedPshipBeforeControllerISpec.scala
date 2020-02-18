@@ -23,7 +23,8 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends IntegrationSpecBase with CreateRequestHelper with
+  CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
@@ -88,7 +89,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
 
           "the answer is true" should {
 
-            "redirect to Check Your Answers page" in {
+            "redirect to PartnershipName page" in {
 
               AuthStub.authorised()
 
@@ -97,7 +98,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
+                  redirectLocation(routes.PartnershipNameController.onPageLoad(NormalMode).url)
                 )
               }
             }

@@ -23,23 +23,23 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class InterestAllowanceConsolidatedPshipElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /elections/interest-allowance-consolidated-pship-election" when {
+    "GET /elections/partnership-name" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/elections/interest-allowance-consolidated-pship-election")()
+          val res = getRequest("/elections/partnership-name")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.interestAllowanceConsolidatedPshipElection)
+              titleOf(PageTitles.partnershipName)
             )
           }
         }
@@ -51,7 +51,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/interest-allowance-consolidated-pship-election")()
+          val res = getRequest("/elections/partnership-name")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,39 +63,22 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
       }
     }
 
-    "POST /elections/interest-allowance-consolidated-pship-election" when {
+    "POST /elections/partnership-name" when {
 
       "user is authorised" when {
 
-        "enters a true" when {
+        "enters a valid answer" when {
 
-          "redirect to Check Your Answers page" in {
+          "redirect to PartnershipName page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/interest-allowance-consolidated-pship-election", Json.obj("value" -> true))()
+            val res = postRequest("/elections/partnership-name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.PartnershipNameController.onPageLoad(NormalMode).url)
-              )
-            }
-          }
-        }
-
-        "enters a false" when {
-
-          "redirect to Check Your Answers page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/elections/interest-allowance-consolidated-pship-election", Json.obj("value" -> false))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
+                redirectLocation(controllers.elections.routes.IsUkPartnershipController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -108,7 +91,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/interest-allowance-consolidated-pship-election", Json.obj("value" -> true))()
+          val res = postRequest("/elections/partnership-name", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,7 +106,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
   "in Change mode" when {
 
-    "GET /elections/interest-allowance-consolidated-pship-election" when {
+    "GET /elections/partnership-name" when {
 
       "user is authorised" should {
 
@@ -131,12 +114,12 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
           AuthStub.authorised()
 
-          val res = getRequest("/elections/interest-allowance-consolidated-pship-election/change")()
+          val res = getRequest("/elections/partnership-name/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.interestAllowanceConsolidatedPshipElection)
+              titleOf(PageTitles.partnershipName)
             )
           }
         }
@@ -148,7 +131,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/interest-allowance-consolidated-pship-election/change")()
+          val res = getRequest("/elections/partnership-name/change")()
 
           whenReady(res) { result =>
             result should have(

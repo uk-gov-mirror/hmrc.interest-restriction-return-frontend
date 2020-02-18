@@ -216,7 +216,7 @@ class ElectionsNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
-            routes.CheckAnswersElectionsController.onPageLoad()
+            routes.PartnershipNameController.onPageLoad(NormalMode)
         }
 
         "go to the Elected Interest Allowance Consolidated Partnership Before page when answer there's no answer" in {
@@ -226,12 +226,37 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the InterestAllowanceConsolidatedPshipElection page" should {
+      "from the InterestAllowanceConsolidatedPshipElection page" when {
 
-        "go to the Under Construction page" in {
+        "the answer is true" should {
 
-          navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
-            routes.CheckAnswersElectionsController.onPageLoad()
+          "go to the PartnershipName page" in {
+
+            val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, true).success.value
+
+            navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
+              routes.PartnershipNameController.onPageLoad(NormalMode)
+          }
+        }
+
+        "the answer is false" should {
+
+          "go to the Under Construction page" in {
+
+            val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, false).success.value
+
+            navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+        }
+
+        "no answer is given" should {
+
+          "go to the InterestAllowanceConsolidatedPshipElection page" in {
+
+            navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
+              routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
+          }
         }
       }
 
@@ -293,6 +318,58 @@ class ElectionsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(OtherInvestorGroupElectionsPage, NormalMode, emptyUserAnswers) mustBe
             routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the PartnershipName page" should {
+
+        "go to the IsUkPartnership page" in {
+
+          navigator.nextPage(PartnershipNamePage, NormalMode, emptyUserAnswers) mustBe
+            routes.IsUkPartnershipController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the IsUkPartnership page" when {
+
+        "answer is true" should {
+
+          "go to the PartnershipSAUTR page" in {
+
+            val userAnswers = emptyUserAnswers.set(IsUkPartnershipPage, true).success.value
+
+            navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers) mustBe
+              routes.PartnershipSAUTRController.onPageLoad(NormalMode)
+          }
+        }
+
+        "answer is false" should {
+
+          "go to the under construction page" in {
+
+            val userAnswers = emptyUserAnswers.set(IsUkPartnershipPage, false).success.value
+
+            navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+        }
+
+        "no answer given" should {
+
+          "go to the IsUkPartnership page" in {
+
+            navigator.nextPage(IsUkPartnershipPage, NormalMode, emptyUserAnswers) mustBe
+              routes.IsUkPartnershipController.onPageLoad(NormalMode)
+          }
+        }
+      }
+
+      "from the PartnershipSAUTR page" should {
+
+        "go to the Under construction page page" in {
+
+          navigator.nextPage(PartnershipSAUTRPage, NormalMode, emptyUserAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
         }
       }
     }

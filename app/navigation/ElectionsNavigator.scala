@@ -56,11 +56,15 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InterestAllowanceAlternativeCalcElectionPage -> (_ => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)),
     InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
     ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_.get(ElectedInterestAllowanceConsolidatedPshipBeforePage) match {
-      case Some(true) => checkYourAnswers
+      case Some(true) => routes.PartnershipNameController.onPageLoad(NormalMode)
       case Some(false) => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
       case _ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
     }),
-    InterestAllowanceConsolidatedPshipElectionPage -> (_ => checkYourAnswers),
+    InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
+      case Some(true) => routes.PartnershipNameController.onPageLoad(NormalMode)
+      case Some(false) => checkYourAnswers
+      case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
+    }),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
       case Some(true) => routes.InvestorGroupNameController.onPageLoad(NormalMode)
       case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
@@ -69,6 +73,13 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestorGroupNamePage -> (_ => routes.InvestorRatioMethodController.onPageLoad(NormalMode)),
     InvestorRatioMethodPage -> (_ => routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)),
     OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
+    PartnershipNamePage -> (_ => routes.IsUkPartnershipController.onPageLoad(NormalMode)),
+    IsUkPartnershipPage -> (_.get(IsUkPartnershipPage) match {
+      case Some(true) => routes.PartnershipSAUTRController.onPageLoad(NormalMode)
+      case Some(false) => checkYourAnswers
+      case _ => routes.IsUkPartnershipController.onPageLoad(NormalMode)
+    }),
+    PartnershipSAUTRPage -> (_ => checkYourAnswers),
     CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
