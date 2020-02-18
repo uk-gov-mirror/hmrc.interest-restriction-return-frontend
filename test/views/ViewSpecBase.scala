@@ -125,4 +125,7 @@ trait ViewSpecBase extends SpecBase with BaseSelectors {
       }
     }
   }
+
+  def currency(amt: BigDecimal): String = f"£$amt%,1.2f".replace(".00","")
+
 }

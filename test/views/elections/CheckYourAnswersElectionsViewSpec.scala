@@ -20,12 +20,12 @@ import assets.constants.{BaseConstants, ElectionsCheckYourAnswersConstants}
 import assets.messages.BaseMessages.saveAndContinue
 import assets.messages.{CheckAnswersElectionsMessages, SectionHeaderMessages}
 import models.Section.Elections
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import utils.{CheckYourAnswersElectionsHelper, CurrencyFormatter}
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstants with ElectionsCheckYourAnswersConstants with CurrencyFormatter {
+class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstants with ElectionsCheckYourAnswersConstants {
 
   val messageKeyPrefix = s"$Elections.checkYourAnswers"
   val subheading = s"$Elections.checkYourAnswers.subheading"
@@ -59,9 +59,9 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       checkYourAnswersRowChecks(
         CheckAnswersElectionsMessages.groupRatioElection -> "Yes",
-        CheckAnswersElectionsMessages.angie -> currencyFormat(angie),
-        CheckAnswersElectionsMessages.qngie -> currencyFormat(qngie),
-        CheckAnswersElectionsMessages.ebitda -> currencyFormat(ebitda),
+        CheckAnswersElectionsMessages.angie -> currency(angie),
+        CheckAnswersElectionsMessages.qngie -> currency(qngie),
+        CheckAnswersElectionsMessages.ebitda -> currency(ebitda),
         CheckAnswersElectionsMessages.groupRatioPercentage -> s"$groupRatioPercentage%",
         CheckAnswersElectionsMessages.groupRatioBlended -> "Yes",
         CheckAnswersElectionsMessages.investorGroupsHeading -> CheckAnswersElectionsMessages.investorGroupsValue(1),
@@ -97,7 +97,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       checkYourAnswersRowChecks(
         CheckAnswersElectionsMessages.groupRatioElection -> "No",
-        CheckAnswersElectionsMessages.angie -> currencyFormat(angie),
+        CheckAnswersElectionsMessages.angie -> currency(angie),
         CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore -> "Yes",
         CheckAnswersElectionsMessages.interestAllowanceNonConsolidatedElection -> "No",
         CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "Yes",

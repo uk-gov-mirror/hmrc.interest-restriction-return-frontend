@@ -17,7 +17,7 @@
 package viewmodels
 
 import play.api.mvc.Call
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 trait SummaryListRowHelper {
@@ -25,7 +25,7 @@ trait SummaryListRowHelper {
   def summaryListRow(label: String, value: String, actions: (Call, String)*): SummaryListRow = {
     SummaryListRow(
       key = Key(content = Text(label)),
-      value = Value(content = Text(value)),
+      value = Value(content = HtmlContent(value)),
       actions = Some(Actions(
         items = actions.map { case (call, linkText) => ActionItem(
           href = call.url,
