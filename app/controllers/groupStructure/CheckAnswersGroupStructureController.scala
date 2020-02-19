@@ -23,14 +23,16 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.GroupStructure
+import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.CheckAnswersGroupStructurePage
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import services.DeemedParentService
 import utils.CheckYourAnswersGroupStructureHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
                                                      identify: IdentifierAction,
@@ -38,7 +40,8 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      navigator: GroupStructureNavigator,
-                                                     view: CheckYourAnswersView
+                                                     view: CheckYourAnswersView,
+                                                     deemedParentService: DeemedParentService
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseController {
 
@@ -48,8 +51,18 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
       Ok(view(checkYourAnswersHelper, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers))
+      answerFor(DeemedParentPage) {
+        case true =>
+          deemedParentService.addDeemedParent(request.userAnswers).map {
+            case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+            case Right(_) => nextPage
+          }
+        case false => Future.successful(nextPage)
+      }
   }
+
+  private def nextPage(implicit request: DataRequest[_]): Result =
+    Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers))
 }

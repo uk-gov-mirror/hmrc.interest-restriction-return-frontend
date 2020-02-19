@@ -20,13 +20,16 @@ import assets.messages.{CheckAnswersGroupStructureMessages, SectionHeaderMessage
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import models.NormalMode
+import models.{ErrorModel, NormalMode}
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.CheckAnswersGroupStructurePage
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage}
 import play.api.test.Helpers._
+import play.filters.csrf.CSRF.ErrorHandler
+import services.AddedDeemedParentSuccess
+import services.mocks.MockDeemedParentService
 import views.html.CheckYourAnswersView
 
-class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with MockDeemedParentService {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
@@ -37,7 +40,8 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    navigator = FakeGroupStructureNavigator
+    navigator = FakeGroupStructureNavigator,
+    deemedParentService = mockDeemedParentService
   )
 
   "Check Your Answers Controller" when {
@@ -53,12 +57,49 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
         status(result) mustEqual OK
         titleOf(contentAsString(result)) mustEqual title(CheckAnswersGroupStructureMessages.title, Some(SectionHeaderMessages.groupStructure))
       }
+    }
 
-      "calling the onSubmit() method" must {
+    "calling the onSubmit() method" when {
+
+      "given a deemed parent" when {
+
+        lazy val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+
+        "deeemd parent service is successful" must {
+
+          "redirect to the next page in the navigator" in {
+
+            mockGetAnswers(Some(userAnswers))
+            mockAddDeemedParent(userAnswers)(Right(AddedDeemedParentSuccess))
+
+            val result = Controller.onSubmit()(fakeRequest)
+
+            status(result) mustBe SEE_OTHER
+            redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers).url)
+          }
+        }
+
+        "deeemd parent service fails" must {
+
+          "show internal server error page" in {
+
+            mockGetAnswers(Some(userAnswers))
+            mockAddDeemedParent(userAnswers)(Left(ErrorModel("wrong")))
+
+            val result = Controller.onSubmit()(fakeRequest)
+
+            status(result) mustBe INTERNAL_SERVER_ERROR
+            contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeRequest).toString
+          }
+        }
+      }
+
+      "given a ultimate parent" when {
 
         "redirect to the next page in the navigator" in {
 
-          mockGetAnswers(Some(emptyUserAnswers))
+          val userAnswers = emptyUserAnswers.set(DeemedParentPage, false).success.value
+          mockGetAnswers(Some(userAnswers))
 
           val result = Controller.onSubmit()(fakeRequest)
 
