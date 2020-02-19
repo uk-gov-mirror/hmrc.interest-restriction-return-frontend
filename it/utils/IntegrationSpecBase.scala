@@ -42,11 +42,12 @@ trait IntegrationSpecBase extends WordSpec
 
   lazy val mongo = app.injector.instanceOf[SessionRepository]
 
-  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit = {
-    Await.result(mongo.set(
-      UserAnswers("id", Json.obj()).set(page, value).success.value
-    ),timeout)
-  }
+  val emptyUserAnswers = UserAnswers("id", Json.obj())
+
+  def setAnswers(userAnswers: UserAnswers)(implicit timeout: Duration): Unit = Await.result(mongo.set(userAnswers), timeout)
+
+  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit =
+    setAnswers(emptyUserAnswers.set(page, value).success.value)
 
   override def beforeEach(): Unit = {
     resetWiremock()

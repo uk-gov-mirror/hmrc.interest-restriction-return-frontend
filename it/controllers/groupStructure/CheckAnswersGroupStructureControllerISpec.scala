@@ -18,8 +18,7 @@ package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.aboutReportingCompany.ReportingCompanyNamePage
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.http.Status._
 import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
@@ -70,19 +69,49 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "deemed parent answer is true" must {
 
-          "redirect to Revising Return page" in {
+          "enters a valid answer" when {
 
-            AuthStub.authorised()
+            "redirect to Revising Return page" in {
 
-            val res = postRequest("/group-structure/check-answers", JsString(""))()
+              AuthStub.authorised()
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
-              )
+              val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+                  .set(ParentCompanyNamePage, companyName).success.value
+
+              setAnswers(userAnswers)
+
+              val res = postRequest("/group-structure/check-answers", JsString(""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                )
+              }
+            }
+          }
+        }
+
+        "deemed parent answer is false" must {
+
+          "enters a valid answer" when {
+
+            "redirect to Revising Return page" in {
+
+              AuthStub.authorised()
+
+              setAnswers(DeemedParentPage, false)
+
+              val res = postRequest("/group-structure/check-answers", JsString(""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                )
+              }
             }
           }
         }
