@@ -52,6 +52,8 @@ class InterestReactivationsCapViewSpec extends DecimalViewBehaviours {
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.InterestReactivationsCapController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
+
+      behave like currencyPage(applyView)
     }
   }
 }

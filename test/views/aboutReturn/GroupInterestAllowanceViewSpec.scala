@@ -52,6 +52,8 @@ class GroupInterestAllowanceViewSpec extends DecimalViewBehaviours {
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.GroupInterestAllowanceController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
+
+      behave like currencyPage(applyView)
     }
   }
 }
