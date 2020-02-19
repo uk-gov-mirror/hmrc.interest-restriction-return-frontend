@@ -47,7 +47,7 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage) { name =>
+    answerFor(ParentCompanyNamePage, Some(id)) { name =>
       Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider()), mode, name, routes.PayTaxInUkController.onSubmit(id, mode))))
     }
   }

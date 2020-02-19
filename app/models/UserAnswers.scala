@@ -31,8 +31,10 @@ final case class UserAnswers(
                               lastPageSaved: Option[Page] = None
                             ) {
 
-  def get[A](page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] =
-    Reads.optionNoError(Reads.at(page.path)).reads(data).getOrElse(None)
+  def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] = {
+    val path = idx.fold(page.path)(idx => page.path \ idx)
+    Reads.optionNoError(Reads.at(path)).reads(data).getOrElse(None)
+  }
 
   def addToList[A](path: JsPath, value: A)(implicit format: Format[A]): Try[UserAnswers] = {
 
@@ -45,8 +47,9 @@ final case class UserAnswers(
     updatedData.map( d => copy(data = d))
   }
 
-  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Try[UserAnswers] = {
-    setData(page.path, value).map {
+  def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
+    val path = idx.fold(page.path)(idx => page.path \ idx)
+    setData(path, value).map {
       d => copy (data = d, lastPageSaved = Some(page))
     }
   }

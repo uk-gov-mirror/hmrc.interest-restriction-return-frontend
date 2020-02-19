@@ -36,7 +36,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     }),
     DeemedParentPage -> ((id, _) => routes.ParentCompanyNameController.onPageLoad(id, NormalMode)),
     ParentCompanyNamePage -> ((id, _) => routes.PayTaxInUkController.onPageLoad(id, NormalMode)),
-    PayTaxInUkPage -> ((id, userAnswers) => userAnswers.get(PayTaxInUkPage) match {
+    PayTaxInUkPage -> ((id, userAnswers) => userAnswers.get(PayTaxInUkPage, Some(id)) match {
       case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(id, NormalMode)
       case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(id, NormalMode)
       case _ => routes.PayTaxInUkController.onPageLoad(id, NormalMode)
