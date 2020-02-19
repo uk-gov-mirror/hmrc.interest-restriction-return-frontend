@@ -24,7 +24,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputNumber: components.inputNumber,
+        inputCurrency: components.inputCurrency,
     subheading: components.subheading,
     saveForLater: components.saveForLater,
     link: components.link
@@ -40,13 +40,14 @@
 
         @subheading("section.aboutReturn")
 
-        @inputNumber(
+        @inputCurrency(
             form,
             id = "value",
             name = "value",
             label = "groupInterestAllowance.label",
             isPageHeading = true,
-            isDecimal = true
+            isDecimal = true,
+            classes = Some("govuk-input--width-20")
         )
 
         @button("site.saveAndContinue")

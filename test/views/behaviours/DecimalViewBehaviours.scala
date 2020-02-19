@@ -79,4 +79,36 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
       }
     }
   }
+
+  def currencyPage(createView: Form[BigDecimal] => HtmlFormat.Appendable) = {
+
+    val doc = asDocument(createView(form))
+
+    "behave like a currency page" which {
+
+      "has the currency input class on the input field" in {
+        doc.select("input").hasClass("govuk-currency-input__inner__input") mustBe true
+      }
+
+      "has a span for the currency unit with a pound sign" in {
+        doc.select("span.govuk-currency-input__inner__unit").text mustBe "£"
+      }
+    }
+  }
+
+  def percentagePage(createView: Form[BigDecimal] => HtmlFormat.Appendable) = {
+
+    val doc = asDocument(createView(form))
+
+    "behave like a percentage page" which {
+
+      "has the percentage input class on the input field" in {
+        doc.select("input").hasClass("govuk-percentage-input__inner__input") mustBe true
+      }
+
+      "has a span for the percentage unit with a percent sign" in {
+        doc.select("span.govuk-percentage-input__inner__unit").text mustBe "%"
+      }
+    }
+  }
 }

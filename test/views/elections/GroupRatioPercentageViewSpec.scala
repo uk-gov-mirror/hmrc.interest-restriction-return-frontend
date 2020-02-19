@@ -55,5 +55,7 @@ class GroupRatioPercentageViewSpec extends DecimalViewBehaviours  {
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like pageWithSaveForLater(applyView(form))
+
+      behave like percentagePage(applyView)
     }
   }

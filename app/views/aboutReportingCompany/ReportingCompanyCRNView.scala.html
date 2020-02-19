@@ -19,15 +19,15 @@
 @import config.FrontendAppConfig
 
 @this(
-    govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    button: components.button,
-    inputText: components.inputText,
-    h1: components.h1,
-    subheading: components.subheading,
-    fieldset: components.fieldset,
-    saveForLater: components.saveForLater
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        button: components.button,
+        inputText: components.inputText,
+        h1: components.h1,
+        subheading: components.subheading,
+        fieldset: components.fieldset,
+        saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -41,12 +41,13 @@
         @subheading("section.reportingCompany")
 
         @inputText(
-              form,
-              id = "value",
-              name = "value",
-              label = "reportingCompanyCRN.label",
-              isPageHeading = true
-            )
+            form,
+            id = "value",
+            name = "value",
+            label = "reportingCompanyCRN.label",
+            isPageHeading = true,
+            classes = Some("govuk-input--width-10")
+        )
 
         @button("site.saveAndContinue")
 
