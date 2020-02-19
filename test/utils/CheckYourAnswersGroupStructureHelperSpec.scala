@@ -33,8 +33,8 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
       .set(ParentCompanyNamePage, companyNameModel.name).get
       .set(PayTaxInUkPage, true).get
       .set(LimitedLiabilityPartnershipPage, true).get
-      .set(ParentCompanyCTUTRPage, ctutrModel.ctutr).get
-      .set(ParentCompanySAUTRPage, sautrModel.ctutr).get
+      .set(ParentCompanyCTUTRPage, ctutrModel.utr).get
+      .set(ParentCompanySAUTRPage, sautrModel.utr).get
       .set(RegisteredCompaniesHousePage, true).get
       .set(ParentCRNPage, crnModel.crn).get
       .set(RegisteredForTaxInAnotherCountryPage, true).get
@@ -110,7 +110,7 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
         helper.parentCompanyCTUTR mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.parentCompanyCTUTR,
-          ctutrModel.ctutr,
+          ctutrModel.utr,
           groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -122,7 +122,7 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
         helper.parentCompanySAUTR mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.parentCompanySAUTR,
-          sautrModel.ctutr,
+          sautrModel.utr,
           groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }

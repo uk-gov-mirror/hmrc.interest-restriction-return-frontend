@@ -36,7 +36,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
       .set(AgentNamePage, agentName).get
       .set(FullOrAbbreviatedReturnPage, Full).get
       .set(ReportingCompanyNamePage, companyNameModel.name).get
-      .set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get
+      .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
       .set(ReportingCompanyCRNPage, crnModel.crn).get
   )
 
@@ -108,7 +108,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
 
         helper.reportingCompanyCTUTR mustBe Some(summaryListRow(
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
-          ctutrModel.ctutr,
+          ctutrModel.utr,
           aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
