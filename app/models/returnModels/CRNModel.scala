@@ -22,5 +22,5 @@ case class CRNModel(crn: String)
 
 object CRNModel {
 
-  implicit val writes = Json.writes[CRNModel]
+  implicit val format = Json.format[CRNModel]
 }

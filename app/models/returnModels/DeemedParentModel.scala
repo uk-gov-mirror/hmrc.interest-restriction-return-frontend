@@ -31,7 +31,7 @@ case class DeemedParentModel(isUk: Boolean,
 
 object DeemedParentModel {
 
-  implicit val writes = Json.writes[DeemedParentModel]
+  implicit val format = Json.format[DeemedParentModel]
 
   def apply(userAnswers: UserAnswers): Either[ErrorModel, DeemedParentModel] = {
 

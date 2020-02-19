@@ -34,18 +34,29 @@ final case class UserAnswers(
   def get[A](page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] =
     Reads.optionNoError(Reads.at(page.path)).reads(data).getOrElse(None)
 
-  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Try[UserAnswers] = {
+  def addToList[A](path: JsPath, value: A)(implicit format: Format[A]): Try[UserAnswers] = {
 
-    val updatedData = data.setObject(page.path, Json.toJson(value)) match {
+    val updatedData = path.readNullable[Seq[A]].reads(data) match {
+      case JsSuccess(Some(models), _) => setData(path, models :+ value)
+      case JsSuccess(None, _) => setData(path, Seq(value))
+      case JsError(errors) => Failure(JsResultException(errors))
+    }
+
+    updatedData.map( d => copy(data = d))
+  }
+
+  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Try[UserAnswers] = {
+    setData(page.path, value).map {
+      d => copy (data = d, lastPageSaved = Some(page))
+    }
+  }
+
+  private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] = {
+    data.setObject(path, Json.toJson(value)) match {
       case JsSuccess(jsValue, _) =>
         Success(jsValue)
       case JsError(errors) =>
         Failure(JsResultException(errors))
-    }
-
-    updatedData.map {
-      d =>
-        copy (data = d, lastPageSaved = Some(page))
     }
   }
 
