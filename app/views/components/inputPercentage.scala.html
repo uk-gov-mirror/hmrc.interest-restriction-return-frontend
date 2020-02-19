@@ -68,10 +68,10 @@
 @defining {
     id="@id" name="@name" type="number"@form("value").value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
 } { attrs =>
-        <div class="govuk-currency-input govuk-body">
-            <div class="govuk-currency-input__inner">
-                <span class="govuk-currency-input__inner__unit">&pound;</span>
-                <input class="@toClasses("govuk-input", "govuk-currency-input__inner__input", classes.fold("")(x => x), if(form.hasErrors) "govuk-input--error" else "")" @attrs>
+        <div class="govuk-percentage-input govuk-body">
+            <div class="govuk-percentage-input__inner govuk-input--width-5">
+                <span class="govuk-percentage-input__inner__unit">&percnt;</span>
+                <input class="@toClasses("govuk-input", "govuk-percentage-input__inner__input", classes.fold("")(x => x), if(form.hasErrors) "govuk-input--error" else "")" @attrs>
             </div>
         </div>
     }

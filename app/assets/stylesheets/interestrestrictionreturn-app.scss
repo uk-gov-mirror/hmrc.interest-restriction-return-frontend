@@ -3,23 +3,5 @@ $govuk-assets-path: "/interest-restriction-return/assets/lib/govuk-frontend/govu
 @import "lib/govuk-frontend/govuk/all";
 @import "timeout-dialog";
 @import "autocomplete";
-
-.govuk-currency-input {
-
-  &__inner {
-    position: relative;
-
-    &__unit {
-      position: absolute;
-      bottom: 2px;
-      margin-left: 10px;
-      font-weight: bold;
-      color: #000;
-      font-size: 30px;
-    }
-
-    &__input {
-      padding-left: 30px;
-    }
-  }
-}
+@import "currency-input";
+@import "percentage-input";

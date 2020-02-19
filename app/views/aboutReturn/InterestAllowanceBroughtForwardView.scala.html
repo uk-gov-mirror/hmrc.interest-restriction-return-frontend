@@ -23,7 +23,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputNumber: components.inputNumber,
+        inputCurrency: components.inputCurrency,
     h1: components.h1,
     fieldset: components.fieldset,
     subheading: components.subheading,
@@ -40,13 +40,14 @@
 
         @subheading("section.aboutReturn")
 
-        @inputNumber(
+        @inputCurrency(
             form,
             id = "value",
             name = "value",
             label = "interestAllowanceBroughtForward.label",
             isPageHeading = true,
-            isDecimal = true
+            isDecimal = true,
+            classes = Some("govuk-input--width-20")
         )
 
         @button("site.saveAndContinue")

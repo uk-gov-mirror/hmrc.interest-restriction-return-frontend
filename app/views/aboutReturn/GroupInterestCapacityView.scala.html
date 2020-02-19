@@ -19,13 +19,13 @@
 @import config.FrontendAppConfig
 
 @this(
-    govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    button: components.button,
-    inputNumber: components.inputNumber,
-    subheading: components.subheading,
-    saveForLater: components.saveForLater
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        button: components.button,
+        inputCurrency: components.inputCurrency,
+        subheading: components.subheading,
+        saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
@@ -38,13 +38,14 @@
 
         @subheading("section.aboutReturn")
 
-        @inputNumber(
+        @inputCurrency(
             form,
             id = "value",
             name = "value",
             label = "groupInterestCapacity.label",
             isPageHeading = true,
-            isDecimal = true
+            isDecimal = true,
+            classes = Some("govuk-input--width-20")
         )
 
         @button("site.saveAndContinue")
