@@ -43,7 +43,7 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
     .set(AgentNamePage, agentName).get
     .set(FullOrAbbreviatedReturnPage, Full).get
     .set(ReportingCompanyNamePage, companyNameModel.name).get
-    .set(ReportingCompanyCTUTRPage, ctutrModel.ctutr).get
+    .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
     .set(ReportingCompanyCRNPage, crnModel.crn).get
 
   val checkYourAnswersHelper = new CheckYourAnswersAboutReportingCompanyHelper(userAnswers)
@@ -75,7 +75,7 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
       CheckAnswersReportingCompanyMessages.agentName -> agentName,
       CheckAnswersReportingCompanyMessages.fullOrAbbreviatedReturn -> "Full",
       CheckAnswersReportingCompanyMessages.name -> companyNameModel.name,
-      CheckAnswersReportingCompanyMessages.ctutr -> ctutrModel.ctutr,
+      CheckAnswersReportingCompanyMessages.ctutr -> ctutrModel.utr,
       CheckAnswersReportingCompanyMessages.crn -> crnModel.crn
     )
   }

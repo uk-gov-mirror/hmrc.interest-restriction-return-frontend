@@ -16,11 +16,12 @@
 
 package models.returnModels
 
-import play.api.libs.json.Json
+import play.api.libs.json.{JsPath, JsString, Json, Reads, Writes}
 
-case class UTRModel(ctutr: String)
+case class UTRModel(utr: String)
 
 object UTRModel {
 
-  implicit val writes = Json.writes[UTRModel]
+  implicit val reads: Reads[UTRModel] = JsPath.read[String] map UTRModel.apply
+  implicit val writes: Writes[UTRModel] = Writes { x => JsString(x) }
 }

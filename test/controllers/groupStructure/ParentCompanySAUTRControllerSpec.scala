@@ -64,7 +64,7 @@ class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching wi
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(ParentCompanySAUTRPage, sautrModel.ctutr).success.value
+      val userAnswers = emptyUserAnswers.set(ParentCompanySAUTRPage, sautrModel.utr).success.value
 
       mockGetAnswers(Some(userAnswers))
 

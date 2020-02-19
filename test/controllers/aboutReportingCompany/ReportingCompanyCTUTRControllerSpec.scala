@@ -76,7 +76,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ctutrModel.ctutr))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ctutrModel.utr))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
