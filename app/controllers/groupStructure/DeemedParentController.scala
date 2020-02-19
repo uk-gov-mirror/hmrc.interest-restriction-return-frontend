@@ -47,13 +47,13 @@ class DeemedParentController @Inject()(override val messagesApi: MessagesApi,
                                       )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(DeemedParentPage, formProvider()), mode))
+    Ok(view(fillForm(DeemedParentPage, formProvider()), mode, routes.DeemedParentController.onSubmit(mode)))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.DeemedParentController.onSubmit(mode)))),
       value =>
         saveAndRedirect(DeemedParentPage, value, mode)
     )

@@ -15,77 +15,80 @@ POST       /deemed-parent                                  controllers.groupStru
 GET        /deemed-parent/change                           controllers.groupStructure.DeemedParentController.onPageLoad(mode: Mode = CheckMode)
 POST       /deemed-parent/change                           controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = CheckMode)
 
+# Parent Companuy Section Routes
+# ==============================
+
 ### ParentCompanyName Controller
 ### ----------------------------------------
-GET        /parent-company-name                            controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = NormalMode)
-POST       /parent-company-name                            controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = NormalMode)
-GET        /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = CheckMode)
-POST       /parent-company-name/change                     controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/name                            controllers.groupStructure.ParentCompanyNameController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/name                            controllers.groupStructure.ParentCompanyNameController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/name/change                     controllers.groupStructure.ParentCompanyNameController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/name/change                     controllers.groupStructure.ParentCompanyNameController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### PayTaxInUk Controller
 ### ----------------------------------------
-GET        /pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = NormalMode)
-POST       /pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = NormalMode)
-GET        /pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = CheckMode)
-POST       /pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/pay-tax-in-uk                                  controllers.groupStructure.PayTaxInUkController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/pay-tax-in-uk/change                           controllers.groupStructure.PayTaxInUkController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### LimitedLiabilityPartnership Controller
 ### ----------------------------------------
-GET        /limited-liability-partnership                  controllers.groupStructure.LimitedLiabilityPartnershipController.onPageLoad(mode: Mode = NormalMode)
-POST       /limited-liability-partnership                  controllers.groupStructure.LimitedLiabilityPartnershipController.onSubmit(mode: Mode = NormalMode)
-GET        /limited-liability-partnership/change           controllers.groupStructure.LimitedLiabilityPartnershipController.onPageLoad(mode: Mode = CheckMode)
-POST       /limited-liability-partnership/change           controllers.groupStructure.LimitedLiabilityPartnershipController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/limited-liability-partnership                  controllers.groupStructure.LimitedLiabilityPartnershipController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/limited-liability-partnership                  controllers.groupStructure.LimitedLiabilityPartnershipController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/limited-liability-partnership/change           controllers.groupStructure.LimitedLiabilityPartnershipController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/limited-liability-partnership/change           controllers.groupStructure.LimitedLiabilityPartnershipController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### ParentCompanySAUTR Controller
 ### ----------------------------------------
-GET        /parent-company-sautr                           controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = NormalMode)
-POST       /parent-company-sautr                           controllers.groupStructure.ParentCompanySAUTRController.onSubmit(mode: Mode = NormalMode)
-GET        /parent-company-sautr/change                    controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = CheckMode)
-POST       /parent-company-sautr/change                    controllers.groupStructure.ParentCompanySAUTRController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/sautr                           controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/sautr                           controllers.groupStructure.ParentCompanySAUTRController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/sautr/change                    controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/sautr/change                    controllers.groupStructure.ParentCompanySAUTRController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### ParentCompanyCTUTR Controller
 ### ----------------------------------------
-GET        /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
-POST       /parent-company-ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
-GET        /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
-POST       /parent-company-ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/ctutr                           controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/ctutr/change                    controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### RegisteredCompaniesHouse Controller
 ### ----------------------------------------
-GET        /registered-companies-house                     controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = NormalMode)
-POST       /registered-companies-house                     controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = NormalMode)
-GET        /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = CheckMode)
-POST       /registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/registered-companies-house                     controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/registered-companies-house                     controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/registered-companies-house/change              controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### ParentCRN Controller
 ### ----------------------------------------
-GET        /parent-crn                                     controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = NormalMode)
-POST       /parent-crn                                     controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = NormalMode)
-GET        /parent-crn/change                              controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = CheckMode)
-POST       /parent-crn/change                              controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/crn                                     controllers.groupStructure.ParentCRNController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/crn                                     controllers.groupStructure.ParentCRNController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/crn/change                              controllers.groupStructure.ParentCRNController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/crn/change                              controllers.groupStructure.ParentCRNController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### RegisteredForTaxInAnotherCountry Controller
 ### ----------------------------------------
-GET        /registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = NormalMode)
-POST       /registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = NormalMode)
-GET        /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(mode: Mode = CheckMode)
-POST       /registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/registered-for-tax-in-another-country         controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/registered-for-tax-in-another-country/change  controllers.groupStructure.RegisteredForTaxInAnotherCountryController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### LocalRegistrationNumber Controller
 ### ----------------------------------------
-GET        /local-registration-number                   controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = NormalMode)
-POST       /local-registration-number                   controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = NormalMode)
-GET        /local-registration-number/change            controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)
-POST       /local-registration-number/change            controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/local-registration-number                     controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/local-registration-number                     controllers.groupStructure.LocalRegistrationNumberController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/local-registration-number/change              controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/local-registration-number/change              controllers.groupStructure.LocalRegistrationNumberController.onSubmit(id: Int, mode: Mode = CheckMode)
 
 ### CheckYourAnswersController
 ### -----------------------------
-GET        /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onPageLoad
-POST       /check-answers                               controllers.groupStructure.CheckAnswersGroupStructureController.onSubmit
+GET        /parent-company/:id/check-answers                                 controllers.groupStructure.CheckAnswersGroupStructureController.onPageLoad(id: Int)
+POST       /parent-company/:id/check-answers                                 controllers.groupStructure.CheckAnswersGroupStructureController.onSubmit(id: Int)
 
 ### CountryOfIncorporation Controller
 ### ----------------------------------------
-GET        /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = NormalMode)
-POST       /country-of-incorporation                          controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = NormalMode)
-GET        /country-of-incorporation/change                   controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = CheckMode)
-POST       /country-of-incorporation/change                   controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = CheckMode)
+GET        /parent-company/:id/country-of-incorporation                      controllers.groupStructure.CountryOfIncorporationController.onPageLoad(id: Int, mode: Mode = NormalMode)
+POST       /parent-company/:id/country-of-incorporation                      controllers.groupStructure.CountryOfIncorporationController.onSubmit(id: Int, mode: Mode = NormalMode)
+GET        /parent-company/:id/country-of-incorporation/change               controllers.groupStructure.CountryOfIncorporationController.onPageLoad(id: Int, mode: Mode = CheckMode)
+POST       /parent-company/:id/country-of-incorporation/change               controllers.groupStructure.CountryOfIncorporationController.onSubmit(id: Int, mode: Mode = CheckMode)

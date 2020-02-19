@@ -46,16 +46,16 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
                                             view: ParentCompanyNameView
                                            )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCompanyNamePage, formProvider()), mode))
+  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ParentCompanyNamePage, formProvider()), mode, routes.ParentCompanyNameController.onSubmit(id, mode)))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyNameController.onSubmit(id, mode)))),
       value =>
-        saveAndRedirect(ParentCompanyNamePage, value, mode)
+        saveAndRedirect(ParentCompanyNamePage, value, mode, Some(id))
     )
   }
 }

@@ -28,7 +28,6 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   val userAnswers: UserAnswers
   implicit val messages: Messages
-  val rows: Seq[SummaryListRow]
 
   def answer[A](page: QuestionPage[A],
                 changeLinkCall: Call,

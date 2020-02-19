@@ -117,7 +117,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     }
   }
 
-  override val rows = Seq(
+   val rows: Seq[SummaryListRow] = Seq(
     groupRatioElection,
     enterANGIE,
     enterQNGIE,

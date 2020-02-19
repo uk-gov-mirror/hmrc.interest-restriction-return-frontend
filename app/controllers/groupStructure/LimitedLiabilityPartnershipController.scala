@@ -46,20 +46,21 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
                                                       view: LimitedLiabilityPartnershipView
                                                      )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(ParentCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(LimitedLiabilityPartnershipPage, formProvider()), mode, name)))
+      Future.successful(Ok(view(
+        fillForm(LimitedLiabilityPartnershipPage, formProvider()), mode, name, routes.LimitedLiabilityPartnershipController.onSubmit(id, mode))))
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
         answerFor(ParentCompanyNamePage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name)))
+          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.LimitedLiabilityPartnershipController.onSubmit(id, mode))))
         },
       value =>
-        saveAndRedirect(LimitedLiabilityPartnershipPage, value, mode)
+        saveAndRedirect(LimitedLiabilityPartnershipPage, value, mode, Some(id))
     )
   }
 }

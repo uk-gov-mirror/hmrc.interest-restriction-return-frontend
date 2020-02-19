@@ -45,16 +45,16 @@ class ParentCRNController @Inject()(override val messagesApi: MessagesApi,
                                     view: ParentCRNView
                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCRNPage, formProvider()), mode))
+  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ParentCRNPage, formProvider()), mode, routes.ParentCRNController.onSubmit(id, mode)))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCRNController.onSubmit(id, mode)))),
       value =>
-        saveAndRedirect(ParentCRNPage, value, mode)
+        saveAndRedirect(ParentCRNPage, value, mode, Some(id))
     )
   }
 }

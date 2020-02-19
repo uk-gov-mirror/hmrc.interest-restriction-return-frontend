@@ -45,16 +45,16 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
                                              view: ParentCompanySAUTRView
                                             )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCompanySAUTRPage, formProvider()), mode))
+  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(ParentCompanySAUTRPage, formProvider()), mode, routes.ParentCompanySAUTRController.onSubmit(id, mode)))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanySAUTRController.onSubmit(id, mode)))),
       value =>
-        saveAndRedirect(ParentCompanySAUTRPage, value, mode)
+        saveAndRedirect(ParentCompanySAUTRPage, value, mode, Some(id))
     )
   }
 }

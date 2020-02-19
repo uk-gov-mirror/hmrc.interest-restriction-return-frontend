@@ -45,24 +45,24 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseController {
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad(id: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
       val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(request.userAnswers)
-      Ok(view(checkYourAnswersHelper, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
+      Ok(view(checkYourAnswersHelper.rows(id), GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit(id)))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onSubmit(id: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
       answerFor(DeemedParentPage) {
         case true =>
           deemedParentService.addDeemedParent(request.userAnswers).map {
             case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
-            case Right(_) => nextPage
+            case Right(_) => nextPage(id)
           }
-        case false => Future.successful(nextPage)
+        case false => Future.successful(nextPage(id))
       }
   }
 
-  private def nextPage(implicit request: DataRequest[_]): Result =
-    Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers))
+  private def nextPage(id: Int)(implicit request: DataRequest[_]): Result =
+    Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(id)))
 }

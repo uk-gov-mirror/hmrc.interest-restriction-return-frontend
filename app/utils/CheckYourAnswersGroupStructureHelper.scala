@@ -25,54 +25,54 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class CheckYourAnswersGroupStructureHelper(val userAnswers: UserAnswers)
                                           (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def localRegistrationNumber: Option[SummaryListRow] =
-    answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(CheckMode))
+  def localRegistrationNumber(id: Int): Option[SummaryListRow] =
+    answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(id, CheckMode))
 
-  def registeredForTaxInAnotherCountry: Option[SummaryListRow] =
-    answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(CheckMode))
+  def registeredForTaxInAnotherCountry(id: Int): Option[SummaryListRow] =
+    answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(id, CheckMode))
 
-  def countryOfIncorporation: Option[SummaryListRow] =
-    answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(CheckMode))
+  def countryOfIncorporation(id: Int): Option[SummaryListRow] =
+    answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(id, CheckMode))
 
-  def parentCRN: Option[SummaryListRow] =
-    answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(CheckMode))
+  def parentCRN(id: Int): Option[SummaryListRow] =
+    answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(id, CheckMode))
 
-  def parentCompanyCTUTR: Option[SummaryListRow] =
-    answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(CheckMode))
+  def parentCompanyCTUTR(id: Int): Option[SummaryListRow] =
+    answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(id, CheckMode))
 
-  def parentCompanySAUTR: Option[SummaryListRow] =
-    answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode))
+  def parentCompanySAUTR(id: Int): Option[SummaryListRow] =
+    answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(id, CheckMode))
 
-  def payTaxInUk: Option[SummaryListRow] =
-    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode))
+  def payTaxInUk(id: Int): Option[SummaryListRow] =
+    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(id, CheckMode))
 
   def reportingCompanySameAsParent: Option[SummaryListRow] =
     answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
-  def limitedLiabilityPartnership: Option[SummaryListRow] =
-    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(CheckMode))
+  def limitedLiabilityPartnership(id: Int): Option[SummaryListRow] =
+    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(id, CheckMode))
 
-  def registeredCompaniesHouse: Option[SummaryListRow] =
-    answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode))
+  def registeredCompaniesHouse(id: Int): Option[SummaryListRow] =
+    answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(id, CheckMode))
 
-  def parentCompanyName: Option[SummaryListRow] =
-    answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(CheckMode))
+  def parentCompanyName(id: Int): Option[SummaryListRow] =
+    answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(id, CheckMode))
 
   def deemedParent: Option[SummaryListRow] =
     answer(DeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
 
-  override val rows: Seq[SummaryListRow] = Seq(
+  def rows(id: Int): Seq[SummaryListRow] = Seq(
     reportingCompanySameAsParent,
     deemedParent,
-    parentCompanyName,
-    payTaxInUk,
-    limitedLiabilityPartnership,
-    parentCompanyCTUTR,
-    parentCompanySAUTR,
-    registeredCompaniesHouse,
-    parentCRN,
-    registeredForTaxInAnotherCountry,
-    countryOfIncorporation,
-    localRegistrationNumber
+    parentCompanyName(id),
+    payTaxInUk(id),
+    limitedLiabilityPartnership(id),
+    parentCompanyCTUTR(id),
+    parentCompanySAUTR(id),
+    registeredCompaniesHouse(id),
+    parentCRN(id),
+    registeredForTaxInAnotherCountry(id),
+    countryOfIncorporation(id),
+    localRegistrationNumber(id)
   ).flatten
 }

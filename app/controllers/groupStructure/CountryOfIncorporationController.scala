@@ -45,20 +45,20 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
                                                  view: CountryOfIncorporationView
                                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(ParentCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(CountryOfIncorporationPage, formProvider()), mode, name)))
+      Future.successful(Ok(view(fillForm(CountryOfIncorporationPage, formProvider()), mode, name, routes.CountryOfIncorporationController.onSubmit(id, mode))))
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
         answerFor(ParentCompanyNamePage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name)))
+          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.CountryOfIncorporationController.onSubmit(id, mode))))
         },
       value =>
-        saveAndRedirect(CountryOfIncorporationPage, value, mode)
+        saveAndRedirect(CountryOfIncorporationPage, value, mode, Some(id))
     )
   }
 }

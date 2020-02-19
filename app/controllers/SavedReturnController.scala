@@ -56,7 +56,6 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
     val allRoutesMap = startReturnNavigator.normalRoutes ++
       aboutReportingCompanyNavigator.normalRoutes ++
       aboutReturnNavigator.normalRoutes ++
-      groupStructureNavigator.normalRoutes ++
       electionsNavigator.normalRoutes
 
     Redirect(allRoutesMap(lastSavedPage)(request.userAnswers))
