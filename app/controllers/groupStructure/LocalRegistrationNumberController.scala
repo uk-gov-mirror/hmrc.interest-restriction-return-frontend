@@ -49,34 +49,36 @@ class LocalRegistrationNumberController @Inject()(
                                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val nonUkCrn = getAnswer(DeemedParentPage, idx).flatMap(_.nonUkCrn)
-    val form = formProvider()
-    answerFor(ParentCompanyNamePage, idx) { name =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
-        Ok(view(nonUkCrn.fold(form)(form.fill), mode, name, routes.LocalRegistrationNumberController.onSubmit(idx, mode)))
+        Ok(view(
+          form = deemedParentModel.nonUkCrn.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName.name,
+          postAction = routes.LocalRegistrationNumberController.onSubmit(idx, mode)
+        ))
       )
     }
   }
 
-  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          answerFor(ParentCompanyNamePage, idx) { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name, routes.LocalRegistrationNumberController.onSubmit(idx, mode))))
-          },
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.LocalRegistrationNumberController.onSubmit(idx, mode)
+          ))),
         value => {
-          getAnswer(DeemedParentPage, idx).map(_.copy(nonUkCrn = Some(value))) match {
-            case Some(deemedParentModel) =>
-              for {
-                updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-                _ <- sessionRepository.set(updatedAnswers)
-              } yield Redirect(navigator.nextPage(LocalRegistrationNumberPage, mode, updatedAnswers, Some(idx)))
-            case _ =>
-              Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-          }
+          val updatedModel = deemedParentModel.copy(nonUkCrn = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(LocalRegistrationNumberPage, mode, updatedAnswers, Some(idx)))
         }
       )
+    }
   }
 }
