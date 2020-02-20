@@ -47,11 +47,12 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
                                                      )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val limitedLiabilityPartnership = getAnswer(DeemedParentPage, idx).flatMap(_.limitedLiabilityPartnership)
     val form = formProvider()
-    answerFor(ParentCompanyNamePage, idx) { name =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
-        Ok(view(limitedLiabilityPartnership.fold(form)(form.fill), mode, name, routes.LocalRegistrationNumberController.onSubmit(idx, mode)))
+        Ok(
+          view(deemedParentModel.limitedLiabilityPartnership.fold(form)
+          (form.fill), mode, deemedParentModel.companyName.name, routes.LocalRegistrationNumberController.onSubmit(idx, mode)))
       )
     }
   }
@@ -59,18 +60,17 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        answerFor(ParentCompanyNamePage, idx) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode))))
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          Future.successful(BadRequest(view(
+            formWithErrors, mode, deemedParentModel.companyName.name, routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode))))
         },
       value => {
-        getAnswer(DeemedParentPage, idx).map(_.copy(limitedLiabilityPartnership = Some(value))) match {
-          case Some(deemedParentModel) =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, updatedAnswers, Some(idx)))
-          case _ =>
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, updatedAnswers, Some(idx)))
         }
       }
     )
