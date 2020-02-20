@@ -70,6 +70,7 @@ section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
+section.ukCompanies = The companies involved
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -601,3 +602,8 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated invest
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+
+# AboutAddingUKCompaniesPage Messages
+# ----------------------------------------------------------
+aboutAddingUKCompanies.title = In this section you will need to tell us about eligible UK companies in the group
+aboutAddingUKCompanies.heading = In this section you will need to tell us about eligible UK companies in the group

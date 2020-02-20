@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
   val partnershipSAUTR: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} Self Assessment Unique Taxpayer Reference"
   val isUkPartnership: String => String = name => s"Is $name a UK Partnership?"
   val partnershipName = "Enter the name of the partnership"

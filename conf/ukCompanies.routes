@@ -1,0 +1,7 @@
+# UK Companies Routes
+# ===================
+
+### AboutAddingUKCompanies Controller
+### ----------------------------------------
+GET        /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onPageLoad()
+POST       /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onSubmit()
