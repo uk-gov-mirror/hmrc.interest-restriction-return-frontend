@@ -50,7 +50,7 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val sautr = getAnswer(DeemedParentPage, idx).flatMap(_.sautr.map(_.utr))
     val form = formProvider()
-    Ok(view(sautr.fold(form)(form.fill), mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))
+    Ok(view(sautr.fold(form)(form.fill), mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

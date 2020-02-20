@@ -23,8 +23,9 @@ import forms.groupStructure.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.CountryCodeModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{CountryOfIncorporationPage, ParentCompanyNamePage}
+import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -46,10 +47,14 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
                                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage, idx) { name =>
-      Future.successful(Ok(view(
-        fillForm(CountryOfIncorporationPage, formProvider(), idx), mode, name, routes.CountryOfIncorporationController.onSubmit(idx, mode)
-      )))
+    val form = formProvider()
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(
+          view(deemedParentModel.countryOfIncorporation.map(_.country).fold(
+            form)(form.fill), mode, deemedParentModel.companyName, routes.CountryOfIncorporationController.onSubmit(idx, mode))
+        )
+      )
     }
   }
 
@@ -59,8 +64,15 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
         answerFor(ParentCompanyNamePage, idx) { name =>
           Future.successful(BadRequest(view(formWithErrors, mode, name, routes.CountryOfIncorporationController.onSubmit(idx, mode))))
         },
-      value =>
-        saveAndRedirect(CountryOfIncorporationPage, value, mode, idx)
+      value => {
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(countryOfIncorporation = Some(CountryCodeModel(value, appConfig.countryCodeMap(value))))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers, Some(idx)))
+        }
+      }
     )
   }
 }

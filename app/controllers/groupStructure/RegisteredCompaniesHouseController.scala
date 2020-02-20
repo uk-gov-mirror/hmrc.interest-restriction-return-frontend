@@ -21,10 +21,11 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.RegisteredCompaniesHouseFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.RegisteredCompaniesHousePage
+import pages.groupStructure.{DeemedParentPage, RegisteredCompaniesHousePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,18 +44,29 @@ class RegisteredCompaniesHouseController @Inject()(override val messagesApi: Mes
                                                    formProvider: RegisteredCompaniesHouseFormProvider,
                                                    val controllerComponents: MessagesControllerComponents,
                                                    view: RegisteredCompaniesHouseView
-                                                  )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(RegisteredCompaniesHousePage, formProvider(), idx), mode, routes.RegisteredCompaniesHouseController.onSubmit(idx, mode)))
+    val registeredCompaniesHouse = getAnswer(DeemedParentPage, idx).flatMap(_.registeredCompaniesHouse)
+    val form = formProvider()
+    Ok(view(registeredCompaniesHouse.fold(form)(form.fill), mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.RegisteredCompaniesHouseController.onSubmit(idx, mode)))),
-      value =>
-        saveAndRedirect(RegisteredCompaniesHousePage, value, mode, idx)
+      value => {
+        getAnswer(DeemedParentPage, idx).map(_.copy(registeredCompaniesHouse = Some(value))) match {
+          case Some(deemedParentModel) =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(RegisteredCompaniesHousePage, mode, updatedAnswers, Some(idx)))
+          case _ =>
+            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        }
+      }
     )
   }
 }

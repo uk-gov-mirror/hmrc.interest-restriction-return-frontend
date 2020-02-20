@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{ParentCompanyNamePage, PayTaxInUkPage}
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -47,8 +47,12 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage, idx) { name =>
-      Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider(), idx), mode, name, routes.PayTaxInUkController.onSubmit(idx, mode))))
+    val payTaxInUk = getAnswer(DeemedParentPage, idx).flatMap(_.payTaxInUk)
+    val form = formProvider()
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(payTaxInUk.fold(form)(form.fill), mode, deemedParentModel.companyName.name, routes.PayTaxInUkController.onSubmit(idx, mode)))
+      )
     }
   }
 
@@ -58,8 +62,17 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
         answerFor(ParentCompanyNamePage, idx) { name =>
           Future.successful(BadRequest(view(formWithErrors, mode, name, routes.PayTaxInUkController.onSubmit(idx, mode))))
         },
-      value =>
-        saveAndRedirect(PayTaxInUkPage, value, mode, idx)
+      value => {
+        getAnswer(DeemedParentPage, idx).map(_.copy(payTaxInUk = Some(value))) match {
+          case Some(deemedParentModel) =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers, Some(idx)))
+          case _ =>
+            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        }
+      }
     )
   }
 }

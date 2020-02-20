@@ -27,7 +27,13 @@ case class DeemedParentModel(isUk: Boolean,
                              sautr: Option[UTRModel] = None,
                              crn: Option[CRNModel] = None,
                              countryOfIncorporation: Option[CountryCodeModel] = None,
-                             nonUkCrn: Option[String] = None)
+                             nonUkCrn: Option[String] = None,
+                             limitedLiabilityPartnership: Option[Boolean] = None,
+                             payTaxInUk: Option[Boolean] = None,
+                             registeredCompaniesHouse: Option[Boolean] = None,
+                             registeredForTaxInAnotherCountry: Option[Boolean] = None,
+                             reportingCompanySameAsParent: Option[Boolean] = None
+                            )
 
 object DeemedParentModel {
 

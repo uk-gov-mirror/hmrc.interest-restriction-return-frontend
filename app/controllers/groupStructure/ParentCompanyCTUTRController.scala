@@ -21,10 +21,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.ParentCompanyCTUTRFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.UTRModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.ParentCompanyCTUTRPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyCTUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,18 +45,29 @@ class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesA
                                              formProvider: ParentCompanyCTUTRFormProvider,
                                              val controllerComponents: MessagesControllerComponents,
                                              view: ParentCompanyCTUTRView
-                                            )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                            )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCompanyCTUTRPage, formProvider(), idx), mode, routes.ParentCompanyCTUTRController.onSubmit(idx, mode)))
+    val ctutr = getAnswer(DeemedParentPage, idx).flatMap(_.ctutr.map(_.utr))
+    val form = formProvider()
+    Ok(view(ctutr.fold(form)(form.fill), mode, routes.ParentCompanyCTUTRController.onSubmit(idx, mode)))
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyCTUTRController.onSubmit(idx, mode)))),
-      value =>
-        saveAndRedirect(ParentCompanyCTUTRPage, value, mode, idx)
+      value => {
+        getAnswer(DeemedParentPage, idx).map(_.copy(ctutr = Some(UTRModel(value)))) match {
+          case Some(deemedParentModel) =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers, Some(idx)))
+          case _ =>
+            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        }
+      }
     )
   }
 }
