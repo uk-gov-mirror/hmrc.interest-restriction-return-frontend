@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, PayTaxInUkPage}
+import pages.groupStructure.{DeemedParentPage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -50,28 +50,33 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
     val form = formProvider()
     answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
-        Ok(
-          view(deemedParentModel.payTaxInUk.fold(form)
-          (form.fill), mode, deemedParentModel.companyName.name, routes.PayTaxInUkController.onSubmit(idx, mode)))
-      )
+        Ok(view(
+          form = deemedParentModel.payTaxInUk.fold(form)(form.fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName.name,
+          postAction = routes.PayTaxInUkController.onSubmit(idx, mode))
+        ))
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
-          Future.successful(BadRequest(view(formWithErrors, mode, deemedParentModel.companyName.name, routes.PayTaxInUkController.onSubmit(idx, mode))))
-        },
-      value => {
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.PayTaxInUkController.onSubmit(idx, mode)
+          ))),
+        value => {
           val updatedModel = deemedParentModel.copy(payTaxInUk = Some(value))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers, Some(idx)))
         }
-      }
-    )
+      )
+    }
   }
 }

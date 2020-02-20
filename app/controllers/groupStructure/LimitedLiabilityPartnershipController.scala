@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
+import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -47,32 +47,36 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
                                                      )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val form = formProvider()
     answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
-        Ok(
-          view(deemedParentModel.limitedLiabilityPartnership.fold(form)
-          (form.fill), mode, deemedParentModel.companyName.name, routes.LocalRegistrationNumberController.onSubmit(idx, mode)))
+        Ok(view(
+          form = deemedParentModel.limitedLiabilityPartnership.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName.name,
+          postAction = routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode)
+        ))
       )
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
           Future.successful(BadRequest(view(
-            formWithErrors, mode, deemedParentModel.companyName.name, routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode))))
-        },
-      value => {
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode)
+          ))),
+        value => {
           val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, updatedAnswers, Some(idx)))
         }
-      }
-    )
+      )
+    }
   }
 }
