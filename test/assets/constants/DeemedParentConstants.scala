@@ -45,36 +45,34 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentModelUkCompany = DeemedParentModel(
     isUk = true,
-    companyName = companyNameModel,
     knownAs = Some(knownAs),
+    companyName = companyNameModel,
+    payTaxInUk = Some(true),
+    limitedLiabilityPartnership = Some(false),
     ctutr = Some(ctutrModel),
-    sautr = None,
-    crn = Some(crnModel),
-    nonUkCrn = None,
-    countryOfIncorporation = None
-  )
-
-  val deemedParentModelNonUkCompany = DeemedParentModel(
-    isUk = false,
-    companyName = companyNameModel,
-    knownAs = Some(knownAs),
-    ctutr = None,
-    sautr = None,
-    crn = None,
-    nonUkCrn = Some(nonUkCrn),
-    countryOfIncorporation = Some(nonUkCountryCode)
+    registeredCompaniesHouse = Some(true),
+    crn = Some(crnModel)
   )
 
   val deemedParentModelUkPartnership = DeemedParentModel(
     isUk = true,
     companyName = companyNameModel,
     knownAs = Some(knownAs),
-    ctutr = None,
+    payTaxInUk = Some(true),
+    limitedLiabilityPartnership = Some(true),
     sautr = Some(sautrModel),
-    crn = Some(crnModel),
-    nonUkCrn = None,
-    countryOfIncorporation = None
+    crn = Some(crnModel)
   )
+
+  val deemedParentModelNonUkCompany = DeemedParentModel(
+    isUk = false,
+    companyName = companyNameModel,
+    knownAs = Some(knownAs),
+    payTaxInUk = Some(false),
+    countryOfIncorporation = Some(nonUkCountryCode),
+    nonUkCrn = Some(nonUkCrn)
+  )
+
 
   val deemedParentJsonMax = Json.obj(
     "isUk" -> true,
