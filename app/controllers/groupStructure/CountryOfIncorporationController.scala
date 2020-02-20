@@ -50,29 +50,34 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
     val form = formProvider()
     answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
-        Ok(
-          view(deemedParentModel.countryOfIncorporation.map(_.country).fold(
-            form)(form.fill), mode, deemedParentModel.companyName, routes.CountryOfIncorporationController.onSubmit(idx, mode))
-        )
+        Ok(view(
+          form = deemedParentModel.countryOfIncorporation.map(_.country).fold(form)(form.fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName,
+          postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
+        ))
       )
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(ParentCompanyNamePage, idx) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.CountryOfIncorporationController.onSubmit(idx, mode))))
-        },
-      value => {
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
+          ))),
+        value => {
           val updatedModel = deemedParentModel.copy(countryOfIncorporation = Some(CountryCodeModel(value, appConfig.countryCodeMap(value))))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers, Some(idx)))
         }
-      }
-    )
+      )
+    }
   }
 }

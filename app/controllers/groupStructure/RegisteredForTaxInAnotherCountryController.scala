@@ -46,32 +46,36 @@ class RegisteredForTaxInAnotherCountryController @Inject()(override val messages
                                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val registeredForTaxInAnotherCountry = getAnswer(DeemedParentPage, idx).flatMap(_.registeredForTaxInAnotherCountry)
-    val form = formProvider()
-    answerFor(ParentCompanyNamePage, idx) { name =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
-        Ok(view(registeredForTaxInAnotherCountry.fold(form)(form.fill), mode, name, routes.PayTaxInUkController.onSubmit(idx, mode)))
+        Ok(view(
+          form = deemedParentModel.registeredForTaxInAnotherCountry.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName.name,
+          postAction = routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode)
+        ))
       )
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(ParentCompanyNamePage, idx) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode))))
-        },
-      value => {
-        getAnswer(DeemedParentPage, idx).map(_.copy(registeredForTaxInAnotherCountry = Some(value))) match {
-          case Some(deemedParentModel) =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(RegisteredForTaxInAnotherCountryPage, mode, updatedAnswers, Some(idx)))
-          case _ =>
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode)
+          ))),
+        value => {
+          val updatedModel = deemedParentModel.copy(registeredForTaxInAnotherCountry = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(RegisteredForTaxInAnotherCountryPage, mode, updatedAnswers, Some(idx)))
         }
-      }
-    )
+      )
+    }
   }
 }
