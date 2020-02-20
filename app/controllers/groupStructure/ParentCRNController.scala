@@ -47,25 +47,29 @@ class ParentCRNController @Inject()(override val messagesApi: MessagesApi,
                                     view: ParentCRNView
                                    )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val crn = getAnswer(DeemedParentPage, idx).flatMap(_.crn.map(_.crn))
-    val form = formProvider()
-    Ok(view(crn.fold(form)(form.fill), mode, routes.ParentCRNController.onSubmit(idx, mode)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          form = deemedParentModel.crn.map(_.crn).fold(formProvider())(formProvider().fill),
+          mode = mode,
+          postAction = routes.ParentCRNController.onSubmit(idx, mode)
+        ))
+      )
+    }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCRNController.onSubmit(idx, mode)))),
       value => {
-        getAnswer(DeemedParentPage, idx).map(_.copy(crn = Some(CRNModel(value)))) match {
-          case Some(deemedParentModel) =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(ParentCRNPage, mode, updatedAnswers, Some(idx)))
-          case _ =>
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(crn = Some(CRNModel(value)))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCRNPage, mode, updatedAnswers, Some(idx)))
         }
       }
     )

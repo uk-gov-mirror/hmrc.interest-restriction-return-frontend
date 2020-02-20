@@ -46,10 +46,16 @@ class RegisteredCompaniesHouseController @Inject()(override val messagesApi: Mes
                                                    view: RegisteredCompaniesHouseView
                                                   )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val registeredCompaniesHouse = getAnswer(DeemedParentPage, idx).flatMap(_.registeredCompaniesHouse)
-    val form = formProvider()
-    Ok(view(registeredCompaniesHouse.fold(form)(form.fill), mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          form = deemedParentModel.registeredCompaniesHouse.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          postAction = routes.RegisteredCompaniesHouseController.onSubmit(idx, mode)
+        ))
+      )
+    }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -57,14 +63,12 @@ class RegisteredCompaniesHouseController @Inject()(override val messagesApi: Mes
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.RegisteredCompaniesHouseController.onSubmit(idx, mode)))),
       value => {
-        getAnswer(DeemedParentPage, idx).map(_.copy(registeredCompaniesHouse = Some(value))) match {
-          case Some(deemedParentModel) =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(RegisteredCompaniesHousePage, mode, updatedAnswers, Some(idx)))
-          case _ =>
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(registeredCompaniesHouse = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(RegisteredCompaniesHousePage, mode, updatedAnswers, Some(idx)))
         }
       }
     )

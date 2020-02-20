@@ -47,25 +47,32 @@ class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesA
                                              view: ParentCompanyCTUTRView
                                             )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val ctutr = getAnswer(DeemedParentPage, idx).flatMap(_.ctutr.map(_.utr))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()
-    Ok(view(ctutr.fold(form)(form.fill), mode, routes.ParentCompanyCTUTRController.onSubmit(idx, mode)))
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(Ok(view(
+        form = deemedParentModel.ctutr.map(_.utr).fold(form)(form.fill),
+        mode = mode,
+        postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode))
+      ))
+    }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyCTUTRController.onSubmit(idx, mode)))),
+        Future.successful(BadRequest(view(
+          form = formWithErrors,
+          mode = mode,
+          postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode)
+        ))),
       value => {
-        getAnswer(DeemedParentPage, idx).map(_.copy(ctutr = Some(UTRModel(value)))) match {
-          case Some(deemedParentModel) =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers, Some(idx)))
-          case _ =>
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(ctutr = Some(UTRModel(value)))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers, Some(idx)))
         }
       }
     )
