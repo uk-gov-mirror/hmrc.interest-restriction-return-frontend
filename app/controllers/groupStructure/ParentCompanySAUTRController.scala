@@ -24,9 +24,9 @@ import forms.groupStructure.ParentCompanySAUTRFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
-import models.returnModels.{CompanyNameModel, DeemedParentModel, UTRModel}
+import models.returnModels.UTRModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage}
+import pages.groupStructure.{DeemedParentPage, ParentCompanyCTUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -47,25 +47,32 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
                                              view: ParentCompanySAUTRView
                                             )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val sautr = getAnswer(DeemedParentPage, idx).flatMap(_.sautr.map(_.utr))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()
-    Ok(view(sautr.fold(form)(form.fill), mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(Ok(view(
+        form = deemedParentModel.sautr.map(_.utr).fold(form)(form.fill),
+        mode = mode,
+        postAction = routes.ParentCompanySAUTRController.onSubmit(idx, mode))
+      ))
+    }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))),
+        Future.successful(BadRequest(view(
+          form = formWithErrors,
+          mode = mode,
+          postAction = routes.ParentCompanySAUTRController.onSubmit(idx, mode)
+        ))),
       value => {
-        getAnswer(DeemedParentPage, idx).map(_.copy(sautr = Some(UTRModel(value)))) match {
-          case Some(deemedParentModel) =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, updatedAnswers, Some(idx)))
-          case _ =>
-            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(sautr = Some(UTRModel(value)))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers, Some(idx)))
         }
       }
     )
