@@ -116,8 +116,8 @@ trait PageGenerators {
   implicit lazy val arbitraryParentCompanyNamePage: Arbitrary[ParentCompanyNamePage.type] =
     Arbitrary(ParentCompanyNamePage)
 
-  implicit lazy val arbitraryDeemedParentPage: Arbitrary[DeemedParentPage.type] =
-    Arbitrary(DeemedParentPage)
+  implicit lazy val arbitraryDeemedParentPage: Arbitrary[HasDeemedParentPage.type] =
+    Arbitrary(HasDeemedParentPage)
 
   implicit lazy val arbitraryContinueSavedReturnPage: Arbitrary[ContinueSavedReturnPage.type] =
     Arbitrary(ContinueSavedReturnPage)

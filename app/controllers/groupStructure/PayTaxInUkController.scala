@@ -46,20 +46,20 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
                                      view: PayTaxInUkView
                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage, Some(id)) { name =>
-      Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider()), mode, name, routes.PayTaxInUkController.onSubmit(id, mode))))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage, idx) { name =>
+      Future.successful(Ok(view(fillForm(PayTaxInUkPage, formProvider(), idx), mode, name, routes.PayTaxInUkController.onSubmit(idx, mode))))
     }
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        answerFor(ParentCompanyNamePage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.PayTaxInUkController.onSubmit(id, mode))))
+        answerFor(ParentCompanyNamePage, idx) { name =>
+          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.PayTaxInUkController.onSubmit(idx, mode))))
         },
       value =>
-        saveAndRedirect(PayTaxInUkPage, value, mode, Some(id))
+        saveAndRedirect(PayTaxInUkPage, value, mode, idx)
     )
   }
 }

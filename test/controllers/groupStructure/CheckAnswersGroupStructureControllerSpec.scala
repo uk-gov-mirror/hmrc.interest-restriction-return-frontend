@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.{ErrorModel, NormalMode}
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
 import play.api.test.Helpers._
 import play.filters.csrf.CSRF.ErrorHandler
 import services.AddedDeemedParentSuccess
@@ -63,7 +63,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
       "given a deemed parent" when {
 
-        lazy val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+        lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
         "deeemd parent service is successful" must {
 
@@ -98,7 +98,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
         "redirect to the next page in the navigator" in {
 
-          val userAnswers = emptyUserAnswers.set(DeemedParentPage, false).success.value
+          val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
           mockGetAnswers(Some(userAnswers))
 
           val result = Controller.onSubmit()(fakeRequest)

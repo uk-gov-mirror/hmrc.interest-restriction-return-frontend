@@ -45,20 +45,22 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
                                                  view: CountryOfIncorporationView
                                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(CountryOfIncorporationPage, formProvider()), mode, name, routes.CountryOfIncorporationController.onSubmit(id, mode))))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage, idx) { name =>
+      Future.successful(Ok(view(
+        fillForm(CountryOfIncorporationPage, formProvider(), idx), mode, name, routes.CountryOfIncorporationController.onSubmit(idx, mode)
+      )))
     }
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        answerFor(ParentCompanyNamePage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.CountryOfIncorporationController.onSubmit(id, mode))))
+        answerFor(ParentCompanyNamePage, idx) { name =>
+          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.CountryOfIncorporationController.onSubmit(idx, mode))))
         },
       value =>
-        saveAndRedirect(CountryOfIncorporationPage, value, mode, Some(id))
+        saveAndRedirect(CountryOfIncorporationPage, value, mode, idx)
     )
   }
 }

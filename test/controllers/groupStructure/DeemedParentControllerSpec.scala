@@ -23,7 +23,7 @@ import controllers.errors
 import forms.groupStructure.DeemedParentFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.DeemedParentPage
+import pages.groupStructure.HasDeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentView
 
@@ -60,7 +60,7 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
       mockGetAnswers(Some(userAnswers))
 

@@ -25,7 +25,7 @@ import models.NormalMode
 import models.Section.GroupStructure
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import services.DeemedParentService
@@ -45,24 +45,24 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseController {
 
-  def onPageLoad(id: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
       val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(request.userAnswers)
-      Ok(view(checkYourAnswersHelper.rows(id), GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit(id)))
+      Ok(view(checkYourAnswersHelper.rows(idx), GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit(idx)))
   }
 
-  def onSubmit(id: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      answerFor(DeemedParentPage) {
+      answerFor(HasDeemedParentPage) {
         case true =>
           deemedParentService.addDeemedParent(request.userAnswers).map {
             case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
-            case Right(_) => nextPage(id)
+            case Right(_) => nextPage(idx)
           }
-        case false => Future.successful(nextPage(id))
+        case false => Future.successful(nextPage(idx))
       }
   }
 
-  private def nextPage(id: Int)(implicit request: DataRequest[_]): Result =
-    Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(id)))
+  private def nextPage(idx: Int)(implicit request: DataRequest[_]): Result =
+    Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(idx)))
 }

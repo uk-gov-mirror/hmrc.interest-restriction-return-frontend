@@ -21,10 +21,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.ParentCompanySAUTRFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.{CompanyNameModel, DeemedParentModel, UTRModel}
 import navigation.GroupStructureNavigator
-import pages.groupStructure.ParentCompanySAUTRPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, ParentCompanySAUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,18 +45,29 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
                                              formProvider: ParentCompanySAUTRFormProvider,
                                              val controllerComponents: MessagesControllerComponents,
                                              view: ParentCompanySAUTRView
-                                            )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                            )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCompanySAUTRPage, formProvider()), mode, routes.ParentCompanySAUTRController.onSubmit(id, mode)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    val sautr = getAnswer(DeemedParentPage, idx).flatMap(_.sautr.map(_.utr))
+    val form = formProvider()
+    Ok(view(sautr.fold(form)(form.fill), mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanySAUTRController.onSubmit(id, mode)))),
-      value =>
-        saveAndRedirect(ParentCompanySAUTRPage, value, mode, Some(id))
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanySAUTRController.onSubmit(idx, mode)))),
+      value => {
+        getAnswer(DeemedParentPage, idx).map(_.copy(sautr = Some(UTRModel(value)))) match {
+          case Some(deemedParentModel) =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, updatedAnswers, Some(idx)))
+          case _ =>
+            Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+        }
+      }
     )
   }
 }

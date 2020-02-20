@@ -33,6 +33,12 @@ trait BaseNavigationController extends BaseController {
   val navigator: Navigator
   val questionDeletionLookupService: QuestionDeletionLookupService
 
+  def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Int)
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = saveAndRedirect(page, answer, mode, Some(idx))
+
+  def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode)
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = saveAndRedirect(page, answer, mode, None)
+
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, id: Option[Int] = None)
                         (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] =
     for {

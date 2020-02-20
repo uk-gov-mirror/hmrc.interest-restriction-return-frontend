@@ -23,7 +23,7 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
 
   val userAnswersUKCompany = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
+    .set(HasDeemedParentPage, false).get
     .set(ParentCompanyNamePage, ultimateParentCompanyUK.companyName.toString).get
     .set(PayTaxInUkPage, true).get
     .set(LimitedLiabilityPartnershipPage, false).get
@@ -33,7 +33,7 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
 
   val userAnswersForeignRegisteredCompany = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
+    .set(HasDeemedParentPage, false).get
     .set(ParentCompanyNamePage, ultimateParentCompanyForeign.companyName.toString).get
     .set(PayTaxInUkPage, false).get
     .set(RegisteredForTaxInAnotherCountryPage, true).get
@@ -42,14 +42,14 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
 
   val userAnswersForeignNotRegisteredCompany = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
+    .set(HasDeemedParentPage, false).get
     .set(ParentCompanyNamePage, ultimateParentCompanyForeign.companyName.toString).get
     .set(PayTaxInUkPage, false).get
     .set(RegisteredForTaxInAnotherCountryPage, false).get
 
   val userAnswersUKLLP = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
+    .set(HasDeemedParentPage, false).get
     .set(ParentCompanyNamePage, ultimateParentUKLLP.companyName.toString).get
     .set(PayTaxInUkPage, true).get
     .set(LimitedLiabilityPartnershipPage, true).get
@@ -59,7 +59,7 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
 
   val userAnswersUKCompanyMin = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
+    .set(HasDeemedParentPage, false).get
     .set(ParentCompanyNamePage, ultimateParentCompanyUKMin.companyName.toString).get
     .set(PayTaxInUkPage, true).get
     .set(LimitedLiabilityPartnershipPage, false).get
@@ -69,7 +69,7 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
 
   val userAnswersUKLLPMin = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
+    .set(HasDeemedParentPage, false).get
     .set(ParentCompanyNamePage, ultimateParentUKLLPMin.companyName.toString).get
     .set(PayTaxInUkPage, true).get
     .set(LimitedLiabilityPartnershipPage, true).get

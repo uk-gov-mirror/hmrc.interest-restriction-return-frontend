@@ -62,7 +62,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(RegisteredCompaniesHousePage.type, JsValue)] ::
     arbitrary[(ParentCompanyCTUTRPage.type, JsValue)] ::
     arbitrary[(ParentCompanyNamePage.type, JsValue)] ::
-    arbitrary[(DeemedParentPage.type, JsValue)] ::
+    arbitrary[(HasDeemedParentPage.type, JsValue)] ::
     arbitrary[(ContinueSavedReturnPage.type, JsValue)] ::
     arbitrary[(CheckAnswersReportingCompanyPage.type, JsValue)] ::
     arbitrary[(ReturnContainEstimatesPage.type, JsValue)] ::

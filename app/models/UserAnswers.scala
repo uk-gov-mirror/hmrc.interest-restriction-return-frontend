@@ -31,9 +31,10 @@ final case class UserAnswers(
                               lastPageSaved: Option[Page] = None
                             ) {
 
+  private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
+
   def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] = {
-    val path = idx.fold(page.path)(idx => page.path \ idx)
-    Reads.optionNoError(Reads.at(path)).reads(data).getOrElse(None)
+    Reads.optionNoError(Reads.at(path(page, idx))).reads(data).getOrElse(None)
   }
 
   def addToList[A](path: JsPath, value: A)(implicit format: Format[A]): Try[UserAnswers] = {
@@ -48,8 +49,7 @@ final case class UserAnswers(
   }
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
-    val path = idx.fold(page.path)(idx => page.path \ idx)
-    setData(path, value).map {
+    setData(path(page, idx), value).map {
       d => copy (data = d, lastPageSaved = Some(page))
     }
   }
@@ -63,19 +63,16 @@ final case class UserAnswers(
     }
   }
 
-  def remove[A](page: QuestionPage[A]): Try[UserAnswers] = {
+  def remove[A](page: QuestionPage[A], idx: Option[Int] = None): Try[UserAnswers] = {
 
-    val updatedData = data.removeObject(page.path) match {
+    val updatedData = data.removeObject(path(page, idx)) match {
       case JsSuccess(jsValue, _) =>
         Success(jsValue)
       case JsError(_) =>
         Success(data)
     }
 
-    updatedData.map {
-      d =>
-        copy (data = d, lastPageSaved = Some(page))
-    }
+    updatedData.map { d => copy (data = d) }
   }
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)

@@ -23,10 +23,14 @@ import controllers.actions._
 import forms.groupStructure.ParentCompanyNameFormProvider
 import javax.inject.Inject
 import models.Mode
+import models.requests.DataRequest
+import models.returnModels.{CompanyNameModel, DeemedParentModel}
 import navigation.GroupStructureNavigator
-import pages.groupStructure.ParentCompanyNamePage
+import pages.QuestionPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.data.Form
 import play.api.i18n.MessagesApi
+import play.api.libs.json.Reads
 import play.api.mvc._
 import repositories.SessionRepository
 import services.QuestionDeletionLookupService
@@ -46,16 +50,24 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
                                             view: ParentCompanyNameView
                                            )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCompanyNamePage, formProvider()), mode, routes.ParentCompanyNameController.onSubmit(id, mode)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    val companyName = getAnswer(DeemedParentPage, idx).map(_.companyName.name)
+    val form = formProvider()
+    Ok(view(companyName.fold(form)(form.fill), mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyNameController.onSubmit(id, mode)))),
-      value =>
-        saveAndRedirect(ParentCompanyNamePage, value, mode, Some(id))
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))),
+      value => {
+        val companyName = CompanyNameModel(value)
+        val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(isUk = true, companyName))(_.copy(companyName = companyName))
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers, Some(idx)))
+      }
     )
   }
 }

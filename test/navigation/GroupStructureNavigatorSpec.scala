@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.groupStructure.{CheckAnswersGroupStructurePage, CountryOfIncorporationPage, DeemedParentPage, LimitedLiabilityPartnershipPage, LocalRegistrationNumberPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, RegisteredForTaxInAnotherCountryPage, ReportingCompanySameAsParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, CountryOfIncorporationPage, HasDeemedParentPage, LimitedLiabilityPartnershipPage, LocalRegistrationNumberPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, RegisteredForTaxInAnotherCountryPage, ReportingCompanySameAsParentPage}
 
 class GroupStructureNavigatorSpec extends SpecBase {
 
@@ -58,23 +58,23 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
         "go to the ParentCompanyNamePage when false is selected" in {
 
-          val userAnswers = emptyUserAnswers.set(DeemedParentPage, false).success.value
+          val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
 
-          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
+          navigator.nextPage(HasDeemedParentPage, NormalMode, userAnswers) mustBe
             groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
 
         "go to the ParentCompanyNamePage when given true" in {
 
-          val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+          val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
-          navigator.nextPage(DeemedParentPage, NormalMode, userAnswers) mustBe
+          navigator.nextPage(HasDeemedParentPage, NormalMode, userAnswers) mustBe
             groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
 
         "go to the ParentCompanyPage" in {
 
-          navigator.nextPage(DeemedParentPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(HasDeemedParentPage, NormalMode, emptyUserAnswers) mustBe
             groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode)
         }
       }
@@ -241,7 +241,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
       "go to group structure check your answers" in {
 
-        navigator.nextPage(DeemedParentPage, CheckMode, emptyUserAnswers) mustBe
+        navigator.nextPage(HasDeemedParentPage, CheckMode, emptyUserAnswers) mustBe
           groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad()
       }
     }

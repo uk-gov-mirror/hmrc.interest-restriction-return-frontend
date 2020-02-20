@@ -18,7 +18,7 @@ package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
+import pages.groupStructure.{HasDeemedParentPage, ParentCompanyNamePage}
 import play.api.http.Status._
 import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
@@ -77,7 +77,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
               AuthStub.authorised()
 
-              val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+              val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
                   .set(ParentCompanyNamePage, companyName).success.value
 
               setAnswers(userAnswers)
@@ -102,7 +102,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
               AuthStub.authorised()
 
-              setAnswers(DeemedParentPage, false)
+              setAnswers(HasDeemedParentPage, false)
 
               val res = postRequest("/group-structure/check-answers", JsString(""))()
 

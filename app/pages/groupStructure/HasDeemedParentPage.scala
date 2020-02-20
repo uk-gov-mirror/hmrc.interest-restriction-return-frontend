@@ -16,13 +16,12 @@
 
 package pages.groupStructure
 
-import models.returnModels.DeemedParentModel
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object DeemedParentPage extends QuestionPage[DeemedParentModel] {
+case object HasDeemedParentPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "deemedParent"
+  override def toString: String = "hasDeemedParent"
 }

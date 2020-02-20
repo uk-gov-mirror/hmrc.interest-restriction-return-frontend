@@ -22,12 +22,12 @@ import play.api.libs.json.Json
 
 case class DeemedParentModel(isUk: Boolean,
                              companyName: CompanyNameModel,
-                             knownAs: Option[String],
-                             ctutr: Option[UTRModel],
-                             sautr: Option[UTRModel],
-                             crn: Option[CRNModel],
-                             countryOfIncorporation: Option[CountryCodeModel],
-                             nonUkCrn: Option[String])
+                             knownAs: Option[String] = None,
+                             ctutr: Option[UTRModel] = None,
+                             sautr: Option[UTRModel] = None,
+                             crn: Option[CRNModel] = None,
+                             countryOfIncorporation: Option[CountryCodeModel] = None,
+                             nonUkCrn: Option[String] = None)
 
 object DeemedParentModel {
 

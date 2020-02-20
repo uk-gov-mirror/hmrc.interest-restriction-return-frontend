@@ -45,22 +45,22 @@ class RegisteredForTaxInAnotherCountryController @Inject()(override val messages
                                                             view: RegisteredForTaxInAnotherCountryView
                                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage) { name =>
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(ParentCompanyNamePage, idx) { name =>
       Future.successful(Ok(view(
-        fillForm(RegisteredForTaxInAnotherCountryPage, formProvider()), mode, name, routes.RegisteredForTaxInAnotherCountryController.onSubmit(id, mode))
+        fillForm(RegisteredForTaxInAnotherCountryPage, formProvider(), idx), mode, name, routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode))
       ))
     }
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          answerFor(ParentCompanyNamePage) { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name, routes.RegisteredForTaxInAnotherCountryController.onSubmit(id, mode))))
+          answerFor(ParentCompanyNamePage, idx) { name =>
+            Future.successful(BadRequest(view(formWithErrors, mode, name, routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode))))
           },
         value =>
-          saveAndRedirect(RegisteredForTaxInAnotherCountryPage, value, mode, Some(id))
+          saveAndRedirect(RegisteredForTaxInAnotherCountryPage, value, mode, idx)
       )
   }
 }

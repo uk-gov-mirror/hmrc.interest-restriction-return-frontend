@@ -47,21 +47,23 @@ class LocalRegistrationNumberController @Inject()(
                                       override val questionDeletionLookupService: QuestionDeletionLookupService
                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => answerFor(ParentCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(LocalRegistrationNumberPage, formProvider()), mode, name, routes.LocalRegistrationNumberController.onSubmit(id, mode))))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request => answerFor(ParentCompanyNamePage, idx) { name =>
+      Future.successful(Ok(
+        view(fillForm(LocalRegistrationNumberPage, formProvider(), idx), mode, name, routes.LocalRegistrationNumberController.onSubmit(idx, mode))
+      ))
     }
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
 
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          answerFor(ParentCompanyNamePage) { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name, routes.LocalRegistrationNumberController.onSubmit(id, mode))))
+          answerFor(ParentCompanyNamePage, idx) { name =>
+            Future.successful(BadRequest(view(formWithErrors, mode, name, routes.LocalRegistrationNumberController.onSubmit(idx, mode))))
           },
-        value => saveAndRedirect(LocalRegistrationNumberPage, value, mode, Some(id))
+        value => saveAndRedirect(LocalRegistrationNumberPage, value, mode, idx)
       )
   }
 }

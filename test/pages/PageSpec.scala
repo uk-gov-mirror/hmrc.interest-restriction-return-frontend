@@ -62,7 +62,7 @@ class PageSpec extends SpecBase {
         ParentCRNPage.toString -> ParentCRNPage,
         ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
         ParentCompanyNamePage.toString -> ParentCompanyNamePage,
-        DeemedParentPage.toString -> DeemedParentPage,
+        HasDeemedParentPage.toString -> HasDeemedParentPage,
         ConfirmationPage.toString -> ConfirmationPage,
         ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
         ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,

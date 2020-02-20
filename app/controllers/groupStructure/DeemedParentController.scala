@@ -24,7 +24,7 @@ import forms.groupStructure.DeemedParentFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.DeemedParentPage
+import pages.groupStructure.HasDeemedParentPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -47,7 +47,7 @@ class DeemedParentController @Inject()(override val messagesApi: MessagesApi,
                                       )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(DeemedParentPage, formProvider()), mode, routes.DeemedParentController.onSubmit(mode)))
+    Ok(view(fillForm(HasDeemedParentPage, formProvider()), mode, routes.DeemedParentController.onSubmit(mode)))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -55,7 +55,7 @@ class DeemedParentController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.DeemedParentController.onSubmit(mode)))),
       value =>
-        saveAndRedirect(DeemedParentPage, value, mode)
+        saveAndRedirect(HasDeemedParentPage, value, mode)
     )
   }
 }

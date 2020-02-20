@@ -29,7 +29,7 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
   val helper = new CheckYourAnswersGroupStructureHelper(
     UserAnswers("id")
       .set(ReportingCompanySameAsParentPage, false).get
-      .set(DeemedParentPage, false).get
+      .set(HasDeemedParentPage, false).get
       .set(ParentCompanyNamePage, companyNameModel.name).get
       .set(PayTaxInUkPage, true).get
       .set(LimitedLiabilityPartnershipPage, true).get

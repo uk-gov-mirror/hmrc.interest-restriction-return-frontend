@@ -25,54 +25,54 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class CheckYourAnswersGroupStructureHelper(val userAnswers: UserAnswers)
                                           (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def localRegistrationNumber(id: Int): Option[SummaryListRow] =
-    answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(id, CheckMode))
+  def localRegistrationNumber(idx: Int): Option[SummaryListRow] =
+    answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def registeredForTaxInAnotherCountry(id: Int): Option[SummaryListRow] =
-    answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(id, CheckMode))
+  def registeredForTaxInAnotherCountry(idx: Int): Option[SummaryListRow] =
+    answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def countryOfIncorporation(id: Int): Option[SummaryListRow] =
-    answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(id, CheckMode))
+  def countryOfIncorporation(idx: Int): Option[SummaryListRow] =
+    answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def parentCRN(id: Int): Option[SummaryListRow] =
-    answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(id, CheckMode))
+  def parentCRN(idx: Int): Option[SummaryListRow] =
+    answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def parentCompanyCTUTR(id: Int): Option[SummaryListRow] =
-    answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(id, CheckMode))
+  def parentCompanyCTUTR(idx: Int): Option[SummaryListRow] =
+    answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def parentCompanySAUTR(id: Int): Option[SummaryListRow] =
-    answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(id, CheckMode))
+  def parentCompanySAUTR(idx: Int): Option[SummaryListRow] =
+    answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def payTaxInUk(id: Int): Option[SummaryListRow] =
-    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(id, CheckMode))
+  def payTaxInUk(idx: Int): Option[SummaryListRow] =
+    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
   def reportingCompanySameAsParent: Option[SummaryListRow] =
     answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
-  def limitedLiabilityPartnership(id: Int): Option[SummaryListRow] =
-    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(id, CheckMode))
+  def limitedLiabilityPartnership(idx: Int): Option[SummaryListRow] =
+    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def registeredCompaniesHouse(id: Int): Option[SummaryListRow] =
-    answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(id, CheckMode))
+  def registeredCompaniesHouse(idx: Int): Option[SummaryListRow] =
+    answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
-  def parentCompanyName(id: Int): Option[SummaryListRow] =
-    answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(id, CheckMode))
+  def parentCompanyName(idx: Int): Option[SummaryListRow] =
+    answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(idx, CheckMode), idx = Some(idx))
 
   def deemedParent: Option[SummaryListRow] =
-    answer(DeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
+    answer(HasDeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
 
-  def rows(id: Int): Seq[SummaryListRow] = Seq(
+  def rows(idx: Int): Seq[SummaryListRow] = Seq(
     reportingCompanySameAsParent,
     deemedParent,
-    parentCompanyName(id),
-    payTaxInUk(id),
-    limitedLiabilityPartnership(id),
-    parentCompanyCTUTR(id),
-    parentCompanySAUTR(id),
-    registeredCompaniesHouse(id),
-    parentCRN(id),
-    registeredForTaxInAnotherCountry(id),
-    countryOfIncorporation(id),
-    localRegistrationNumber(id)
+    parentCompanyName(idx),
+    payTaxInUk(idx),
+    limitedLiabilityPartnership(idx),
+    parentCompanyCTUTR(idx),
+    parentCompanySAUTR(idx),
+    registeredCompaniesHouse(idx),
+    parentCRN(idx),
+    registeredForTaxInAnotherCountry(idx),
+    countryOfIncorporation(idx),
+    localRegistrationNumber(idx)
   ).flatten
 }

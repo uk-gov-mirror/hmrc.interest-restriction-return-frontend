@@ -45,16 +45,16 @@ class RegisteredCompaniesHouseController @Inject()(override val messagesApi: Mes
                                                    view: RegisteredCompaniesHouseView
                                                   )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(RegisteredCompaniesHousePage, formProvider()), mode, routes.RegisteredCompaniesHouseController.onSubmit(id, mode)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(fillForm(RegisteredCompaniesHousePage, formProvider(), idx), mode, routes.RegisteredCompaniesHouseController.onSubmit(idx, mode)))
   }
 
-  def onSubmit(id: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.RegisteredCompaniesHouseController.onSubmit(id, mode)))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.RegisteredCompaniesHouseController.onSubmit(idx, mode)))),
       value =>
-        saveAndRedirect(RegisteredCompaniesHousePage, value, mode, Some(id))
+        saveAndRedirect(RegisteredCompaniesHousePage, value, mode, idx)
     )
   }
 }
