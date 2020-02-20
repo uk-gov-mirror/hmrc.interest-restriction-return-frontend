@@ -17,49 +17,115 @@
 package utils
 
 import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.returnModels.DeemedParentModel
 import models.{CheckMode, UserAnswers}
+import pages.QuestionPage
 import pages.groupStructure._
 import play.api.i18n.Messages
+import play.api.libs.json.Reads
+import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class CheckYourAnswersGroupStructureHelper(val userAnswers: UserAnswers)
                                           (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def localRegistrationNumber(idx: Int): Option[SummaryListRow] =
-    answer(LocalRegistrationNumberPage, groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def registeredForTaxInAnotherCountry(idx: Int): Option[SummaryListRow] =
-    answer(RegisteredForTaxInAnotherCountryPage, groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def countryOfIncorporation(idx: Int): Option[SummaryListRow] =
-    answer(CountryOfIncorporationPage, groupStructureRoutes.CountryOfIncorporationController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def parentCRN(idx: Int): Option[SummaryListRow] =
-    answer(ParentCRNPage, groupStructureRoutes.ParentCRNController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def parentCompanyCTUTR(idx: Int): Option[SummaryListRow] =
-    answer(ParentCompanyCTUTRPage, groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def parentCompanySAUTR(idx: Int): Option[SummaryListRow] =
-    answer(ParentCompanySAUTRPage, groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def payTaxInUk(idx: Int): Option[SummaryListRow] =
-    answer(PayTaxInUkPage, groupStructureRoutes.PayTaxInUkController.onPageLoad(idx, CheckMode), idx = Some(idx))
+  private def deemedParentModel(idx: Int): Option[DeemedParentModel] = userAnswers.get(DeemedParentPage, Some(idx))
 
   def reportingCompanySameAsParent: Option[SummaryListRow] =
     answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
-  def limitedLiabilityPartnership(idx: Int): Option[SummaryListRow] =
-    answer(LimitedLiabilityPartnershipPage, groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def registeredCompaniesHouse(idx: Int): Option[SummaryListRow] =
-    answer(RegisteredCompaniesHousePage, groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
-  def parentCompanyName(idx: Int): Option[SummaryListRow] =
-    answer(ParentCompanyNamePage, groupStructureRoutes.ParentCompanyNameController.onPageLoad(idx, CheckMode), idx = Some(idx))
-
   def deemedParent: Option[SummaryListRow] =
     answer(HasDeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
+
+  def localRegistrationNumber(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.nonUkCrn.map(nonUkCrn =>
+      deemedParentAnswer(
+        page = LocalRegistrationNumberPage,
+        value = nonUkCrn,
+        changeLinkCall = groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def registeredForTaxInAnotherCountry(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.registeredForTaxInAnotherCountry.map(registeredForTaxInAnotherCountry =>
+      deemedParentAnswer(
+        page = RegisteredForTaxInAnotherCountryPage,
+        value = registeredForTaxInAnotherCountry,
+        changeLinkCall = groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def countryOfIncorporation(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.countryOfIncorporation.map(countryOfIncorporation =>
+      deemedParentAnswer(
+        page = CountryOfIncorporationPage,
+        value = countryOfIncorporation.country,
+        changeLinkCall = groupStructureRoutes.CountryOfIncorporationController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def parentCRN(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.crn.map(crn =>
+      deemedParentAnswer(
+        page = ParentCRNPage,
+        value = crn.crn,
+        changeLinkCall = groupStructureRoutes.ParentCRNController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def parentCompanyCTUTR(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.ctutr.map(ctutr =>
+      deemedParentAnswer(
+        page = ParentCompanyCTUTRPage,
+        value = ctutr.utr,
+        changeLinkCall = groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def parentCompanySAUTR(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.sautr.map(sautr =>
+      deemedParentAnswer(
+        page = ParentCompanySAUTRPage,
+        value = sautr.utr,
+        changeLinkCall = groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def payTaxInUk(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.payTaxInUk.map(payTaxInUk =>
+      deemedParentAnswer(
+        page = PayTaxInUkPage,
+        value = payTaxInUk,
+        changeLinkCall = groupStructureRoutes.PayTaxInUkController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def limitedLiabilityPartnership(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.limitedLiabilityPartnership.map(limitedLiabilityPartnership =>
+      deemedParentAnswer(
+        page = LimitedLiabilityPartnershipPage,
+        value = limitedLiabilityPartnership,
+        changeLinkCall = groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def registeredCompaniesHouse(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).flatMap(_.registeredCompaniesHouse.map(registeredCompaniesHouse =>
+      deemedParentAnswer(
+        page = RegisteredCompaniesHousePage,
+        value = registeredCompaniesHouse,
+        changeLinkCall = groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def parentCompanyName(idx: Int): Option[SummaryListRow] =
+    deemedParentModel(idx).map( deemedParentModel =>
+      deemedParentAnswer(
+        ParentCompanyNamePage,
+        deemedParentModel.companyName.name,
+        groupStructureRoutes.ParentCompanyNameController.onPageLoad(idx, CheckMode)
+      )
+    )
 
   def rows(idx: Int): Seq[SummaryListRow] = Seq(
     reportingCompanySameAsParent,
@@ -75,4 +141,16 @@ class CheckYourAnswersGroupStructureHelper(val userAnswers: UserAnswers)
     countryOfIncorporation(idx),
     localRegistrationNumber(idx)
   ).flatten
+
+  def deemedParentAnswer[A](page: QuestionPage[A],
+                            value: A,
+                            changeLinkCall: Call,
+                            answerIsMsgKey: Boolean = false,
+                            headingMessageArgs: Seq[String] = Seq())
+                           (implicit messages: Messages, reads: Reads[A], conversion: A => String): SummaryListRow =
+    summaryListRow(
+      label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+      value = if (answerIsMsgKey) messages(s"$page.$value") else value,
+      changeLinkCall -> messages("site.edit")
+    )
 }
