@@ -20,8 +20,7 @@ import models.{ErrorModel, UserAnswers}
 import pages.groupStructure.{ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage}
 import play.api.libs.json.Json
 
-case class DeemedParentModel(isUk: Boolean,
-                             companyName: CompanyNameModel,
+case class DeemedParentModel(companyName: CompanyNameModel,
                              knownAs: Option[String] = None,
                              ctutr: Option[UTRModel] = None,
                              sautr: Option[UTRModel] = None,
@@ -49,7 +48,6 @@ object DeemedParentModel {
     oName match {
       case Some(name) =>
         Right(DeemedParentModel(
-          isUk = true, //TODO: Will be removed from model
           companyName = CompanyNameModel(name),
           ctutr = ctutr.map(UTRModel.apply),
           sautr = sautr.map(UTRModel.apply),

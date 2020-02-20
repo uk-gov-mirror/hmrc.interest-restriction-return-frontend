@@ -17,29 +17,21 @@
 package utils
 
 import assets.constants.BaseConstants
+import assets.constants.DeemedParentConstants.deemedParentModelMax
 import assets.messages.{BaseMessages, CheckAnswersGroupStructureMessages}
 import base.SpecBase
 import controllers.groupStructure.{routes => groupStructureRoutes}
-import models.{CheckMode, UserAnswers}
+import models.CheckMode
 import pages.groupStructure._
 import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
 
   val helper = new CheckYourAnswersGroupStructureHelper(
-    UserAnswers("id")
-      .set(ReportingCompanySameAsParentPage, false).get
-      .set(HasDeemedParentPage, false).get
-      .set(ParentCompanyNamePage, companyNameModel.name).get
-      .set(PayTaxInUkPage, true).get
-      .set(LimitedLiabilityPartnershipPage, true).get
-      .set(ParentCompanyCTUTRPage, ctutrModel.utr).get
-      .set(ParentCompanySAUTRPage, sautrModel.utr).get
-      .set(RegisteredCompaniesHousePage, true).get
-      .set(ParentCRNPage, crnModel.crn).get
-      .set(RegisteredForTaxInAnotherCountryPage, true).get
-      .set(CountryOfIncorporationPage, nonUkCountryCode.country).get
-      .set(LocalRegistrationNumberPage, nonUkCrn).get
+    emptyUserAnswers
+      .set(ReportingCompanySameAsParentPage, false).success.value
+      .set(HasDeemedParentPage, false).success.value
+      .set(DeemedParentPage, deemedParentModelMax, Some(1)).success.value
   )
 
   "Check Your Answers Helper" must {
@@ -72,10 +64,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCompanyName mustBe Some(summaryListRow(
+        helper.parentCompanyName(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.parentCompanyName,
           companyNameModel.name,
-          groupStructureRoutes.ParentCompanyNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.ParentCompanyNameController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -84,10 +76,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.payTaxInUk mustBe Some(summaryListRow(
+        helper.payTaxInUk(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.payTaxInUk,
           BaseMessages.yes,
-          groupStructureRoutes.PayTaxInUkController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.PayTaxInUkController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -96,10 +88,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.limitedLiabilityPartnership mustBe Some(summaryListRow(
+        helper.limitedLiabilityPartnership(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership,
           BaseMessages.yes,
-          groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -108,10 +100,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCompanyCTUTR mustBe Some(summaryListRow(
+        helper.parentCompanyCTUTR(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.parentCompanyCTUTR,
           ctutrModel.utr,
-          groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -120,10 +112,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCompanySAUTR mustBe Some(summaryListRow(
+        helper.parentCompanySAUTR(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.parentCompanySAUTR,
           sautrModel.utr,
-          groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -132,10 +124,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.registeredCompaniesHouse mustBe Some(summaryListRow(
+        helper.registeredCompaniesHouse(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse,
           BaseMessages.yes,
-          groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -144,10 +136,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCRN mustBe Some(summaryListRow(
+        helper.parentCRN(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.parentCRN,
           crnModel.crn,
-          groupStructureRoutes.ParentCRNController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.ParentCRNController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -156,10 +148,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.registeredForTaxInAnotherCountry mustBe Some(summaryListRow(
+        helper.registeredForTaxInAnotherCountry(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry,
           BaseMessages.yes,
-          groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -168,10 +160,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.countryOfIncorporation mustBe Some(summaryListRow(
+        helper.countryOfIncorporation(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.registeredCountry,
           nonUkCountryCode.country,
-          groupStructureRoutes.CountryOfIncorporationController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.CountryOfIncorporationController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -180,10 +172,10 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
 
       "have a correctly formatted summary list row" in {
 
-        helper.localRegistrationNumber mustBe Some(summaryListRow(
+        helper.localRegistrationNumber(1) mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.localCRN,
           nonUkCrn,
-          groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

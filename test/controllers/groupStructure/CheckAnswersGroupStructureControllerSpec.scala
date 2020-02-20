@@ -52,7 +52,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
         mockGetAnswers(Some(emptyUserAnswers))
 
-        val result = Controller.onPageLoad()(fakeRequest)
+        val result = Controller.onPageLoad(1)(fakeRequest)
 
         status(result) mustEqual OK
         titleOf(contentAsString(result)) mustEqual title(CheckAnswersGroupStructureMessages.title, Some(SectionHeaderMessages.groupStructure))
@@ -72,10 +72,15 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
             mockGetAnswers(Some(userAnswers))
             mockAddDeemedParent(userAnswers)(Right(AddedDeemedParentSuccess))
 
-            val result = Controller.onSubmit()(fakeRequest)
+            val result = Controller.onSubmit(1)(fakeRequest)
 
             status(result) mustBe SEE_OTHER
-            redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers).url)
+            redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+              page = CheckAnswersGroupStructurePage,
+              mode = NormalMode,
+              userAnswers = emptyUserAnswers,
+              id = Some(1)
+            ).url)
           }
         }
 
@@ -86,7 +91,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
             mockGetAnswers(Some(userAnswers))
             mockAddDeemedParent(userAnswers)(Left(ErrorModel("wrong")))
 
-            val result = Controller.onSubmit()(fakeRequest)
+            val result = Controller.onSubmit(1)(fakeRequest)
 
             status(result) mustBe INTERNAL_SERVER_ERROR
             contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeRequest).toString
@@ -101,10 +106,15 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
           val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
           mockGetAnswers(Some(userAnswers))
 
-          val result = Controller.onSubmit()(fakeRequest)
+          val result = Controller.onSubmit(1)(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers).url)
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+            page = CheckAnswersGroupStructurePage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers,
+            id = Some(1)
+          ).url)
         }
       }
     }

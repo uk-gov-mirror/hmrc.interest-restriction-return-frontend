@@ -62,7 +62,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
         Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))),
       value => {
         val companyName = CompanyNameModel(value)
-        val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(isUk = true, companyName))(_.copy(companyName = companyName))
+        val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
           _              <- sessionRepository.set(updatedAnswers)

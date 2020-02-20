@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Mode
 import models.returnModels.CountryCodeModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage, ParentCompanyNamePage}
+import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -53,7 +53,7 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
         Ok(view(
           form = deemedParentModel.countryOfIncorporation.map(_.country).fold(form)(form.fill),
           mode = mode,
-          companyName = deemedParentModel.companyName,
+           companyName = deemedParentModel.companyName.name,
           postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
         ))
       )
@@ -71,7 +71,7 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
             postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
           ))),
         value => {
-          val updatedModel = deemedParentModel.copy(countryOfIncorporation = Some(CountryCodeModel(value, appConfig.countryCodeMap(value))))
+          val updatedModel = deemedParentModel.copy(countryOfIncorporation = Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value)))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)

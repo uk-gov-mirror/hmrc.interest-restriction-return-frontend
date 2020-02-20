@@ -55,7 +55,11 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        postAction = routes.DeemedParentController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {

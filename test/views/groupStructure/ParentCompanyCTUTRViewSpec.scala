@@ -39,7 +39,7 @@ class ParentCompanyCTUTRViewSpec extends StringViewBehaviours {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCompanyCTUTRView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
@@ -52,7 +52,7 @@ class ParentCompanyCTUTRViewSpec extends StringViewBehaviours {
 
     behave like pageWithSaveForLater(applyView(form))
 
-    behave like stringPage(form, applyView, messageKeyPrefix, routes.ParentCompanyCTUTRController.onSubmit(NormalMode).url, section = section)
+    behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
     lazy val document = asDocument(applyView(form))
 

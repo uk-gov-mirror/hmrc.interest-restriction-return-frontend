@@ -63,7 +63,12 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSw
           val result = Controller.onSubmit()(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeAboutReportingCompanyNavigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, emptyUserAnswers).url)
+          redirectLocation(result) mustBe Some(FakeAboutReportingCompanyNavigator.nextPage(
+            page = CheckAnswersReportingCompanyPage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers,
+            id = Some(1)
+          ).url)
         }
       }
     }

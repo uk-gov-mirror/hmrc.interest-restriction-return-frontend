@@ -17,6 +17,7 @@
 package controllers.groupStructure
 
 import assets.constants.BaseConstants
+import assets.constants.DeemedParentConstants.deemedParentModelMin
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -25,7 +26,7 @@ import forms.groupStructure.ReportingCompanySameAsParentFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.aboutReportingCompany.ReportingCompanyNamePage
-import pages.groupStructure.ReportingCompanySameAsParentPage
+import pages.groupStructure.{DeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.test.Helpers._
 import views.html.groupStructure.ReportingCompanySameAsParentView
 
@@ -60,20 +61,12 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers
-        .set(ReportingCompanyNamePage, companyNameModel.name).success.value
-        .set(ReportingCompanySameAsParentPage, true).success.value
-
-      mockGetAnswers(Some(userAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        companyName = companyNameModel.name,
+        postAction = routes.ReportingCompanySameAsParentController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {

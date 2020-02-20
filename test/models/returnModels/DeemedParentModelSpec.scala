@@ -45,69 +45,22 @@ class DeemedParentModelSpec extends SpecBase {
       }
     }
 
-    "when constructing from a User Answers model" when {
+    "correctly read from json" when {
 
-      "company name is missing" should {
+      "max values given" in {
 
-        "return a BadRequestException with the correct error message" in {
-          DeemedParentModel(emptyUserAnswers) mustBe Left(ErrorModel("Cannot Construct Deemed Parent Model from User Answers as Company Name is missing"))
-        }
+        val expectedValue = deemedParentModelMax
+        val actualValue = deemedParentJsonMax.as[DeemedParentModel]
+
+        actualValue mustBe expectedValue
       }
 
-      "Only company name is supplied" should {
+      "min values given" in {
 
-        "return a deemed parent model" in {
+        val expectedValue = deemedParentModelMin
+        val actualValue = deemedParentJsonMin.as[DeemedParentModel]
 
-          val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
-
-          DeemedParentModel(userAnswers) mustBe Right(deemedParentModelMin)
-        }
-      }
-
-      "UK Company with CT UTR with CRN" should {
-
-        "return a deemed parent model" in {
-
-          val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
-            .set(ParentCompanyCTUTRPage, ctutrModel.utr).success.value
-            .set(ParentCRNPage, crnModel.crn).success.value
-
-          DeemedParentModel(userAnswers) mustBe Right(deemedParentModelUkCompany.copy(knownAs = None))
-        }
-      }
-
-      "UK Company with CT UTR and no CRN" should {
-
-        "return a deemed parent model" in {
-
-          val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
-            .set(ParentCompanyCTUTRPage, ctutrModel.utr).success.value
-
-          DeemedParentModel(userAnswers) mustBe Right(deemedParentModelUkCompany.copy(knownAs = None, crn = None))
-        }
-      }
-
-      "UK Company with SA UTR with CRN" should {
-
-        "return a deemed parent model" in {
-
-          val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
-            .set(ParentCompanySAUTRPage, sautrModel.utr).success.value
-            .set(ParentCRNPage, crnModel.crn).success.value
-
-          DeemedParentModel(userAnswers) mustBe Right(deemedParentModelUkCompany.copy(knownAs = None, ctutr = None, sautr = Some(sautrModel)))
-        }
-      }
-
-      "UK Company with SA UTR and no CRN" should {
-
-        "return a deemed parent model" in {
-
-          val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
-            .set(ParentCompanySAUTRPage, sautrModel.utr).success.value
-
-          DeemedParentModel(userAnswers) mustBe Right(deemedParentModelUkCompany.copy(knownAs = None, crn = None, ctutr = None, sautr = Some(sautrModel)))
-        }
+        actualValue mustBe expectedValue
       }
     }
   }

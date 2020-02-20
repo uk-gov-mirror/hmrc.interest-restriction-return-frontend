@@ -30,16 +30,16 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
-    PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
-    IsUkPartnershipPage.toString -> IsUkPartnershipPage,
-    PartnershipNamePage.toString -> PartnershipNamePage,
-    InvestorRatioMethodPage.toString -> InvestorRatioMethodPage,
-    InvestorGroupNamePage.toString -> InvestorGroupNamePage,
-    AddInvestorGroupPage.toString -> AddInvestorGroupPage,
-    OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
-    GroupEBITDAPage.toString -> GroupEBITDAPage,
-    InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,
-    ElectedInterestAllowanceConsolidatedPshipBeforePage.toString -> ElectedInterestAllowanceConsolidatedPshipBeforePage,
+        PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
+        IsUkPartnershipPage.toString -> IsUkPartnershipPage,
+        PartnershipNamePage.toString -> PartnershipNamePage,
+        InvestorRatioMethodPage.toString -> InvestorRatioMethodPage,
+        InvestorGroupNamePage.toString -> InvestorGroupNamePage,
+        AddInvestorGroupPage.toString -> AddInvestorGroupPage,
+        OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
+        GroupEBITDAPage.toString -> GroupEBITDAPage,
+        InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,
+        ElectedInterestAllowanceConsolidatedPshipBeforePage.toString -> ElectedInterestAllowanceConsolidatedPshipBeforePage,
         InterestAllowanceNonConsolidatedInvestmentsElectionPage.toString -> InterestAllowanceNonConsolidatedInvestmentsElectionPage,
         GroupRatioPercentagePage.toString -> GroupRatioPercentagePage,
         InterestAllowanceAlternativeCalcElectionPage.toString -> InterestAllowanceAlternativeCalcElectionPage,
@@ -83,7 +83,8 @@ class PageSpec extends SpecBase {
         InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
         RevisingReturnPage.toString -> RevisingReturnPage,
         ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
-        IndexPage.toString -> IndexPage
+        IndexPage.toString -> IndexPage,
+        DeemedParentPage.toString -> DeemedParentPage
       )
 
       Page.pages mustBe expected

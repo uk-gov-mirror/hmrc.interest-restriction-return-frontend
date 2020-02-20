@@ -35,7 +35,7 @@ class ParentCompanyNameViewSpec extends StringViewBehaviours  {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCompanyNameView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix)
@@ -46,7 +46,7 @@ class ParentCompanyNameViewSpec extends StringViewBehaviours  {
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-    behave like stringPage(form, applyView, messageKeyPrefix, routes.ParentCompanyNameController.onSubmit(NormalMode).url)
+    behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url)
 
     behave like pageWithSaveForLater(applyView(form))
   }

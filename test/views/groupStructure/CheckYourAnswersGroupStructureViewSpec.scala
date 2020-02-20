@@ -64,12 +64,12 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupSt
         checkYourAnswersRowChecks(
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent -> "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkCompany.companyName.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkCompany.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> deemedParentModelUkCompany.ctutr.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> deemedParentModelUkCompany.ctutr.get.utr,
           CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkCompany.crn.toString
+          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkCompany.crn.get.crn
         )
       }
 
@@ -94,12 +94,11 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupSt
         checkYourAnswersRowChecks(
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent -> "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkPartnership.companyName.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkPartnership.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> deemedParentModelUkPartnership.sautr.toString,
-          CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkPartnership.crn.toString
+          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> deemedParentModelUkPartnership.sautr.get.utr,
+          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkPartnership.crn.get.crn
         )
       }
 
@@ -124,7 +123,7 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupSt
         checkYourAnswersRowChecks(
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent ->  "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelNonUkCompany.companyName.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelNonUkCompany.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "No",
           CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry -> "Yes",
           CheckAnswersGroupStructureMessages.registeredCountry -> deemedParentModelNonUkCompany.countryOfIncorporation.get.country,
