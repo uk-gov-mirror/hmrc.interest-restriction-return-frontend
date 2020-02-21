@@ -34,14 +34,14 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
+          setAnswers(PartnershipNamePage, companyName.name)
 
           val res = getRequest("/elections/partnership-sautr")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.partnershipSAUTR(companyName))
+              titleOf(PageTitles.partnershipSAUTR(companyName.name))
             )
           }
         }
@@ -75,7 +75,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> ctutr))()
+            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> utr))()
 
             whenReady(res) { result =>
               result should have(
@@ -115,14 +115,14 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
+          setAnswers(PartnershipNamePage, companyName.name)
 
           val res = getRequest("/elections/partnership-sautr/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.partnershipSAUTR(companyName))
+              titleOf(PageTitles.partnershipSAUTR(companyName.name))
             )
           }
         }

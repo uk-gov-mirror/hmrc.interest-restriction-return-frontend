@@ -27,7 +27,7 @@ import views.html.groupStructure.DeemedParentView
 
 class DeemedParentViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "deemedParent"
+  val messageKeyPrefix = "hasDeemedParent"
   val section = Some(messages("section.groupStructure"))
   val form = new DeemedParentFormProvider()()
 

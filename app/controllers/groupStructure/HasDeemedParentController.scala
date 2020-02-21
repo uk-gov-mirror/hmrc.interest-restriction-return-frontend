@@ -34,26 +34,26 @@ import views.html.groupStructure.DeemedParentView
 
 import scala.concurrent.Future
 
-class DeemedParentController @Inject()(override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: GroupStructureNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: DeemedParentFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: DeemedParentView
+class HasDeemedParentController @Inject()(override val messagesApi: MessagesApi,
+                                          val sessionRepository: SessionRepository,
+                                          val navigator: GroupStructureNavigator,
+                                          val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: DeemedParentFormProvider,
+                                          val controllerComponents: MessagesControllerComponents,
+                                          view: DeemedParentView
                                       )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(HasDeemedParentPage, formProvider()), mode, routes.DeemedParentController.onSubmit(mode)))
+    Ok(view(fillForm(HasDeemedParentPage, formProvider()), mode, routes.HasDeemedParentController.onSubmit(mode)))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.DeemedParentController.onSubmit(mode)))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.HasDeemedParentController.onSubmit(mode)))),
       value =>
         saveAndRedirect(HasDeemedParentPage, value, mode)
     )

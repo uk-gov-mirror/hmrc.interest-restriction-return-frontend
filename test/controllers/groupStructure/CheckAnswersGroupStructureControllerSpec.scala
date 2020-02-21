@@ -24,7 +24,6 @@ import models.{ErrorModel, NormalMode}
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
 import play.api.test.Helpers._
-import play.filters.csrf.CSRF.ErrorHandler
 import services.AddedDeemedParentSuccess
 import services.mocks.MockDeemedParentService
 import views.html.CheckYourAnswersView
@@ -63,39 +62,21 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
       "given a deemed parent" when {
 
-        lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+        "redirect to the next page in the navigator" in {
 
-        "deeemd parent service is successful" must {
+          lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
-          "redirect to the next page in the navigator" in {
+          mockGetAnswers(Some(userAnswers))
 
-            mockGetAnswers(Some(userAnswers))
-            mockAddDeemedParent(userAnswers)(Right(AddedDeemedParentSuccess))
+          val result = Controller.onSubmit(1)(fakeRequest)
 
-            val result = Controller.onSubmit(1)(fakeRequest)
-
-            status(result) mustBe SEE_OTHER
-            redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
-              page = CheckAnswersGroupStructurePage,
-              mode = NormalMode,
-              userAnswers = emptyUserAnswers,
-              id = Some(1)
-            ).url)
-          }
-        }
-
-        "deeemd parent service fails" must {
-
-          "show internal server error page" in {
-
-            mockGetAnswers(Some(userAnswers))
-            mockAddDeemedParent(userAnswers)(Left(ErrorModel("wrong")))
-
-            val result = Controller.onSubmit(1)(fakeRequest)
-
-            status(result) mustBe INTERNAL_SERVER_ERROR
-            contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(fakeRequest).toString
-          }
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+            page = CheckAnswersGroupStructurePage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers,
+            id = Some(1)
+          ).url)
         }
       }
 

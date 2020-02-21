@@ -55,7 +55,7 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
         helper.deemedParent mustBe Some(summaryListRow(
           CheckAnswersGroupStructureMessages.deemedParent,
           BaseMessages.no,
-          groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupStructureRoutes.HasDeemedParentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

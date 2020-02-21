@@ -16,13 +16,13 @@
 
 package navigation
 
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.groupStructure.routes
 import javax.inject.{Inject, Singleton}
 import models._
-import pages.{groupStructure, _}
+import pages._
 import pages.groupStructure._
 import play.api.mvc.Call
-import controllers.groupStructure.routes
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
 
 @Singleton
 class GroupStructureNavigator @Inject()() extends Navigator {
@@ -30,7 +30,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
   //TODO update with next page
   val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     ReportingCompanySameAsParentPage -> ((_, userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
-      case Some(false) => routes.DeemedParentController.onPageLoad(NormalMode)
+      case Some(false) => routes.HasDeemedParentController.onPageLoad(NormalMode)
       case Some(true) => nextSection(NormalMode)
       case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
     }),

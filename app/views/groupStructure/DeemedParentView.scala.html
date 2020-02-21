@@ -31,7 +31,7 @@
 
 @(form: Form[_], mode: Mode, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "deemedParent.title",  Some("section.groupStructure")))) {
+@govukLayout(pageTitle = Some(title(form, "hasDeemedParent.title",  Some("section.groupStructure")))) {
 
     @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
 
@@ -39,7 +39,7 @@
 
         @subheading("section.groupStructure")
 
-        @yesNoRadio(form, "deemedParent.heading")
+        @yesNoRadio(form, "hasDeemedParent.heading")
 
         @button("site.saveAndContinue")
 

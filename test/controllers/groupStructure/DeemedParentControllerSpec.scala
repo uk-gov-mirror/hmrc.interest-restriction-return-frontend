@@ -18,7 +18,7 @@ package controllers.groupStructure
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction, _}
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import controllers.errors
 import forms.groupStructure.DeemedParentFormProvider
 import models.NormalMode
@@ -33,7 +33,7 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
   val formProvider = injector.instanceOf[DeemedParentFormProvider]
   val form = formProvider()
 
-  object Controller extends DeemedParentController(
+  object Controller extends HasDeemedParentController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
@@ -58,7 +58,7 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
-        postAction = routes.DeemedParentController.onSubmit(NormalMode)
+        postAction = routes.HasDeemedParentController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
 

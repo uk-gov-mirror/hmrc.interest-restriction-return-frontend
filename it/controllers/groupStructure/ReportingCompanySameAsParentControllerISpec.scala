@@ -19,7 +19,6 @@ package controllers.groupStructure
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import pages.aboutReportingCompany.ReportingCompanyNamePage
-import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -38,14 +37,14 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ReportingCompanyNamePage, companyName)
+            setAnswers(ReportingCompanyNamePage, companyName.name)
 
             val res = getRequest("/group-structure/reporting-company-same-as-parent")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.reportingCompanySameAsParent(companyName))
+                titleOf(PageTitles.reportingCompanySameAsParent(companyName.name))
               )
             }
           }
@@ -114,7 +113,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ReportingCompanyNamePage, companyName)
+              setAnswers(ReportingCompanyNamePage, companyName.name)
 
               val res = postRequest("/group-structure/reporting-company-same-as-parent", Json.obj("value" -> ""))()
 
@@ -174,14 +173,14 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ReportingCompanyNamePage, companyName)
+            setAnswers(ReportingCompanyNamePage, companyName.name)
 
             val res = getRequest("/group-structure/reporting-company-same-as-parent/change")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.reportingCompanySameAsParent(companyName))
+                titleOf(PageTitles.reportingCompanySameAsParent(companyName.name))
               )
             }
           }
@@ -237,7 +236,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -250,7 +249,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ReportingCompanyNamePage, companyName)
+              setAnswers(ReportingCompanyNamePage, companyName.name)
 
               val res = postRequest("/group-structure/reporting-company-same-as-parent/change", Json.obj("value" -> ""))()
 

@@ -21,7 +21,7 @@ import play.api.data.FormError
 
 class DeemedParentFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "deemedParent.error.required"
+  val requiredKey = "hasDeemedParent.error.required"
   val invalidKey = "error.boolean"
 
   val form = new DeemedParentFormProvider()()

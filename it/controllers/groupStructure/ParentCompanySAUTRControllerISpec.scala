@@ -16,6 +16,7 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -23,26 +24,49 @@ import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.NormalMode
+import pages.groupStructure.DeemedParentPage
 
 class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-structure/parent-company-sautr" when {
+    "GET /group-structure/parent-company/1/sautr" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/group-structure/parent-company-sautr")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.parentCompanySAUTR)
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/sautr")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.parentCompanySAUTR)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500))" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/sautr")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -53,7 +77,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-company-sautr")()
+          val res = getRequest("/group-structure/parent-company/1/sautr")()
 
           whenReady(res) { result =>
             result should have(
@@ -65,7 +89,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /group-structure/parent-company-sautr" when {
+    "POST /group-structure/parent-company/1/sautr" when {
 
       "user is authorised" when {
 
@@ -74,13 +98,16 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
           "redirect to ParentCRN page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-sautr", Json.obj("value" -> "1111111111"))()
+            val res = postRequest("/group-structure/parent-company/1/sautr", Json.obj("value" -> "1111111111"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -91,8 +118,11 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
           "return a BAD_REQUEST (400)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-sautr", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company/1/sautr", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +139,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-sautr", Json.obj("value" -> "1111111111"))()
+          val res = postRequest("/group-structure/parent-company/1/sautr", Json.obj("value" -> "1111111111"))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,21 +154,43 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
   "in Change mode" when {
 
-    "GET /group-structure/parent-company-sautr/change" when {
+    "GET /group-structure/parent-company/1/sautr/change" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/group-structure/parent-company-sautr/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.parentCompanySAUTR)
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/sautr/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.parentCompanySAUTR)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/sautr/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -149,7 +201,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-company-sautr/change")()
+          val res = getRequest("/group-structure/parent-company/1/sautr/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -161,7 +213,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /group-structure/parent-company-sautr" when {
+    "POST /group-structure/parent-company/1/sautr" when {
 
       "user is authorised" when {
 
@@ -170,13 +222,16 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-sautr/change", Json.obj("value" -> "1111111111"))()
+            val res = postRequest("/group-structure/parent-company/1/sautr/change", Json.obj("value" -> "1111111111"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -187,8 +242,11 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
           "return a BAD_REQUEST (400)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-sautr/change", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company/1/sautr/change", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -205,7 +263,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-sautr/change", Json.obj("value" -> "1111111111"))()
+          val res = postRequest("/group-structure/parent-company/1/sautr/change", Json.obj("value" -> "1111111111"))()
 
           whenReady(res) { result =>
             result should have(

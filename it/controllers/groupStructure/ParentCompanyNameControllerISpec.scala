@@ -28,7 +28,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Normal mode" when {
 
-    "GET /group-structure/parent-company-name" when {
+    "GET /group-structure/parent-company/1/name" when {
 
       "user is authorised" should {
 
@@ -36,7 +36,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-structure/parent-company-name")()
+          val res = getRequest("/group-structure/parent-company/1/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -53,7 +53,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-company-name")()
+          val res = getRequest("/group-structure/parent-company/1/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -65,7 +65,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "POST /group-structure/parent-company-name" when {
+    "POST /group-structure/parent-company/1/name" when {
 
       "user is authorised" when {
 
@@ -75,12 +75,12 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/parent-company-name", Json.obj("value" -> companyName))()
+            val res = postRequest("/group-structure/parent-company/1/name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.PayTaxInUkController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.PayTaxInUkController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -93,7 +93,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-name", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company/1/name", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -108,7 +108,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Change mode" when {
 
-    "GET /group-structure/parent-company-name" when {
+    "GET /group-structure/parent-company/1/name" when {
 
       "user is authorised" should {
 
@@ -116,7 +116,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-structure/parent-company-name/change")()
+          val res = getRequest("/group-structure/parent-company/1/name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -133,7 +133,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-company-name/change")()
+          val res = getRequest("/group-structure/parent-company/1/name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -145,7 +145,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "POST /group-structure/parent-company-name" when {
+    "POST /group-structure/parent-company/1/name" when {
 
       "user is authorised" when {
 
@@ -155,12 +155,12 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-structure/parent-company-name/change", Json.obj("value" -> companyName))()
+            val res = postRequest("/group-structure/parent-company/1/name/change", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -173,7 +173,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-name/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company/1/name/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

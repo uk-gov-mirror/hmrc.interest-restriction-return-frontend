@@ -35,7 +35,7 @@ class CheckYourAnswersGroupStructureHelper(val userAnswers: UserAnswers)
     answer(ReportingCompanySameAsParentPage, groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
   def deemedParent: Option[SummaryListRow] =
-    answer(HasDeemedParentPage, groupStructureRoutes.DeemedParentController.onPageLoad(CheckMode))
+    answer(HasDeemedParentPage, groupStructureRoutes.HasDeemedParentController.onPageLoad(CheckMode))
 
   def localRegistrationNumber(idx: Int): Option[SummaryListRow] =
     deemedParentModel(idx).flatMap(_.nonUkCrn.map(nonUkCrn =>

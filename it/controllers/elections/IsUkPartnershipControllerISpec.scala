@@ -35,14 +35,14 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
+          setAnswers(PartnershipNamePage, companyName.name)
 
           val res = getRequest("/elections/is-uk-partnership")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.isUkPartnership(companyName))
+              titleOf(PageTitles.isUkPartnership(companyName.name))
             )
           }
         }
@@ -133,14 +133,14 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
+          setAnswers(PartnershipNamePage, companyName.name)
 
           val res = getRequest("/elections/is-uk-partnership/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.isUkPartnership(companyName))
+              titleOf(PageTitles.isUkPartnership(companyName.name))
             )
           }
         }

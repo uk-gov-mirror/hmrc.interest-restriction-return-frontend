@@ -51,18 +51,7 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
       Ok(view(checkYourAnswersHelper.rows(idx), GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit(idx)))
   }
 
-  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-      answerFor(HasDeemedParentPage) {
-        case true =>
-          deemedParentService.addDeemedParent(request.userAnswers).map {
-            case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
-            case Right(_) => nextPage(idx)
-          }
-        case false => Future.successful(nextPage(idx))
-      }
+  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request => Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(idx)))
   }
-
-  private def nextPage(idx: Int)(implicit request: DataRequest[_]): Result =
-    Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(idx)))
 }

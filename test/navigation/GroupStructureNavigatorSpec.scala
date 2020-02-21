@@ -39,7 +39,7 @@ class GroupStructureNavigatorSpec extends SpecBase {
             val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, false).success.value
 
             navigator.nextPage(ReportingCompanySameAsParentPage, NormalMode, userAnswers, Some(1)) mustBe
-              groupStructureRoutes.DeemedParentController.onPageLoad(NormalMode)
+              groupStructureRoutes.HasDeemedParentController.onPageLoad(NormalMode)
           }
 
           "go to the Revising Return page when given true" in {

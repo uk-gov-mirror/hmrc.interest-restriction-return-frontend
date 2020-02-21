@@ -23,7 +23,7 @@ import utils.WireMockMethods
 
 object CRNValidationStub extends WireMockMethods with BaseITConstants {
 
-  private val crnValidationUrl: String = s"/validate-crn/$crn"
+  private val crnValidationUrl: String = s"/validate-crn/${crn.crn}"
 
   def validateCrn(response: Int): StubMapping =
     when(method = GET, uri = crnValidationUrl).thenReturn(status = response)

@@ -16,8 +16,10 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.groupStructure.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,21 +29,43 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Normal mode" when {
 
-    "GET /group-structure/parent-crn" when {
+    "GET /group-structure/parent-company/1/crn" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/group-structure/parent-crn")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.parentCRN)
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/crn")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.parentCRN)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/crn")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -52,7 +76,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-crn")()
+          val res = getRequest("/group-structure/parent-company/1/crn")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +88,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "POST /group-structure/parent-crn" when {
+    "POST /group-structure/parent-company/1/crn" when {
 
       "user is authorised" when {
 
@@ -73,13 +97,16 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
           "redirect to under construction page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-crn", Json.obj("value" -> crn))()
+            val res = postRequest("/group-structure/parent-company/1/crn", Json.obj("value" -> crn.crn))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -90,13 +117,16 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
           "redirect to under construction page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-crn", Json.obj())()
+            val res = postRequest("/group-structure/parent-company/1/crn", Json.obj())()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -109,7 +139,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-crn", Json.obj("value" -> crn))()
+          val res = postRequest("/group-structure/parent-company/1/crn", Json.obj("value" -> crn.crn))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,59 +154,41 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
   "in Change mode" when {
 
-    "GET /group-structure/parent-crn" when {
+    "GET /group-structure/parent-company/1/crn" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
-
-          val res = getRequest("/group-structure/parent-crn/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.parentCRN)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/group-structure/parent-crn/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-
-    "POST /group-structure/parent-crn/change" when {
-
-      "user is authorised" when {
-
-        "enters a valid answer" when {
-
-          "redirect to CheckYourAnswers page" in {
+          "return OK (200)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-crn/change", Json.obj("value" -> crn))()
+            val res = getRequest("/group-structure/parent-company/1/crn/change")()
 
             whenReady(res) { result =>
               result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                httpStatus(OK),
+                titleOf(PageTitles.parentCRN)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/crn/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
               )
             }
           }
@@ -189,7 +201,50 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-crn/change", Json.obj("value" -> crn))()
+          val res = getRequest("/group-structure/parent-company/1/crn/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /group-structure/parent-company/1/crn/change" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckYourAnswers page" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/1/crn/change", Json.obj("value" -> crn.crn))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/group-structure/parent-company/1/crn/change", Json.obj("value" -> crn))()
 
           whenReady(res) { result =>
             result should have(

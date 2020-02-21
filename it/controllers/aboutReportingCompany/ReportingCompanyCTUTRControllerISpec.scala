@@ -74,7 +74,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company/ctutr", Json.obj("value" -> ctutr))()
+            val res = postRequest("/reporting-company/ctutr", Json.obj("value" -> utr))()
 
             whenReady(res) { result =>
               result should have(
@@ -92,7 +92,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/ctutr", Json.obj("value" -> ctutr))()
+          val res = postRequest("/reporting-company/ctutr", Json.obj("value" -> utr))()
 
           whenReady(res) { result =>
             result should have(
@@ -154,7 +154,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = postRequest("/reporting-company/ctutr/change", Json.obj("value" -> ctutr))()
+            val res = postRequest("/reporting-company/ctutr/change", Json.obj("value" -> utr))()
 
             whenReady(res) { result =>
               result should have(
@@ -172,7 +172,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/ctutr/change", Json.obj("value" -> ctutr))()
+          val res = postRequest("/reporting-company/ctutr/change", Json.obj("value" -> utr))()
 
           whenReady(res) { result =>
             result should have(
