@@ -16,11 +16,48 @@
 
 package views.groupStructure
 
+import assets.constants.DeemedParentConstants.{deemedParentModelNonUkCompany, deemedParentModelUkCompany, deemedParentModelUkPartnership}
 import assets.constants.GroupStructureCheckYourAnswersConstants
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import models.NormalMode
+import pages.groupStructure.DeemedParentPage
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
+import utils.DeemedParentReviewAnswersListHelper
+import viewmodels.SummaryListRowHelper
 import views.behaviours.ViewBehaviours
+import views.html.groupStructure.DeemedParentReviewAnswersListView
 
-class DeemedParentReviewAnswersListViewSpec extends ViewBehaviours with GroupStructureCheckYourAnswersConstants {
+class DeemedParentReviewAnswersListViewSpec extends ViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
 
+  val messageKeyPrefix = "deemedParentReviewAnswersList"
+  val section = Some(messages("section.groupStructure"))
 
+  s"DeemedParent view" must {
 
+    def applyView(summaryList: Seq[SummaryListRow]): HtmlFormat.Appendable = {
+      val view = viewFor[DeemedParentReviewAnswersListView](Some(emptyUserAnswers))
+      view.apply(
+        summaryList,
+        NormalMode,
+        onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    }
+
+    val summaryList = new DeemedParentReviewAnswersListHelper(
+      emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
+        .set(DeemedParentPage, deemedParentModelUkPartnership, Some(2)).get
+        .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(3)).get
+    ).rows
+
+    behave like normalPage(applyView(summaryList), messageKeyPrefix, section = section)
+
+    behave like pageWithBackLink(applyView(summaryList))
+
+    behave like pageWithSubmitButton(applyView(summaryList), BaseMessages.saveAndContinue)
+
+    behave like pageWithSubHeading(applyView(summaryList), SectionHeaderMessages.groupStructure)
+
+    behave like pageWithSaveForLater(applyView(summaryList))
+  }
 }

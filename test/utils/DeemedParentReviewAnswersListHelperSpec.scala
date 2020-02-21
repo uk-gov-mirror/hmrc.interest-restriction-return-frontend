@@ -56,7 +56,8 @@ class DeemedParentReviewAnswersListHelperSpec extends SpecBase with SummaryListR
             "",
             controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(3) -> BaseMessages.review,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
-          ))
+          )
+        )
       }
     }
   }

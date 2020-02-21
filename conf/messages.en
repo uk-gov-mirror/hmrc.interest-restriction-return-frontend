@@ -602,3 +602,6 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated invest
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+
+deemedParentReviewAnswersList.title = {0} deemed parent added
+deemedParentReviewAnswersList.addAnother = Do you need to add another deemed parent?
