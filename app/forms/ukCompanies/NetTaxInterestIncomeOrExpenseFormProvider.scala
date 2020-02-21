@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.ukCompanies
 
-object SectionHeaderMessages {
+import javax.inject.Inject
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.NetTaxInterestIncomeOrExpense
 
+class NetTaxInterestIncomeOrExpenseFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[NetTaxInterestIncomeOrExpense] =
+    Form(
+      "value" -> enumerable[NetTaxInterestIncomeOrExpense]("netTaxInterestIncomeOrExpense.error.required")
+    )
 }

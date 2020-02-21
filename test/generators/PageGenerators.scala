@@ -45,6 +45,9 @@ trait PageGenerators {
   implicit lazy val arbitraryDeletionConfirmationPage: Arbitrary[DeletionConfirmationPage.type] =
     Arbitrary(DeletionConfirmationPage)
 
+  implicit lazy val arbitraryNetTaxInterestIncomeOrExpensePage: Arbitrary[NetTaxInterestIncomeOrExpensePage.type] =
+    Arbitrary(NetTaxInterestIncomeOrExpensePage)
+
   implicit lazy val arbitraryPartnershipSAUTRPage: Arbitrary[PartnershipSAUTRPage.type] =
     Arbitrary(PartnershipSAUTRPage)
 

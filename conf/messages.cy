@@ -70,6 +70,8 @@ section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
+section.ukCompanies = The companies involved
+
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -663,3 +665,12 @@ investorGroupsDeletionConfirmation.title = Are you sure you want to delete inves
 investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investor group ‘{0}’
+
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.heading = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.error.required = Select netTaxInterestIncomeOrExpense

@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.ukCompanies
+import pages.QuestionPage
+import models.NetTaxInterestIncomeOrExpense
+import play.api.libs.json.JsPath
 
-object SectionHeaderMessages {
+case object NetTaxInterestIncomeOrExpensePage extends QuestionPage[NetTaxInterestIncomeOrExpense] {
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
+  override def path: JsPath = JsPath \ toString
 
+  override def toString: String = "netTaxInterestIncomeOrExpense"
 }

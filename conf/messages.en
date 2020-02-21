@@ -686,3 +686,12 @@ investorGroupsDeletionConfirmation.title = Are you sure you want to delete inves
 investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
+
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.heading = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.expenseRadio = Net Tax-Interest Expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net Tax-Interest Income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.error.required = Select a Net Tax-Interest Income Or Expense

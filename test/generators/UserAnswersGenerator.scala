@@ -38,6 +38,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(InvestmentNamePage.type, JsValue)] ::
     arbitrary[(ConsentingCompanyPage.type, JsValue)] ::
     arbitrary[(EnterCompanyTaxEBITDAPage.type, JsValue)] ::
+    arbitrary[(NetTaxInterestIncomeOrExpensePage.type, JsValue)] ::
     arbitrary[(DeletionConfirmationPage.type, JsValue)] ::
     arbitrary[(PartnershipSAUTRPage.type, JsValue)] ::
     arbitrary[(IsUkPartnershipPage.type, JsValue)] ::
