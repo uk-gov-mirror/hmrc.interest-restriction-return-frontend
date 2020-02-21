@@ -145,3 +145,10 @@ POST       /partnership-sautr/change                                            
 ### ----------------------------------------
 GET        /check-answers                               controllers.elections.CheckAnswersElectionsController.onPageLoad()
 POST       /check-answers                               controllers.elections.CheckAnswersElectionsController.onSubmit()
+
+### InvestmentName Controller
+### ----------------------------------------
+GET        /investment-name                          controllers.elections.InvestmentNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /investment-name                          controllers.elections.InvestmentNameController.onSubmit(mode: Mode = NormalMode)
+GET        /investment-name/change                   controllers.elections.InvestmentNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /investment-name/change                   controllers.elections.InvestmentNameController.onSubmit(mode: Mode = CheckMode)

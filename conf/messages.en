@@ -619,3 +619,12 @@ enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using 
 enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
 enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
 enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
+
+# InvestmentNamePage Messages
+# ----------------------------------------------------------
+investmentName.title = investmentName
+investmentName.heading = investmentName
+investmentName.checkYourAnswersLabel = investmentName
+investmentName.label= Enter the name of the investment
+investmentName.error.required = Enter investmentName
+investmentName.error.length = InvestmentName must be 160 characters or less
