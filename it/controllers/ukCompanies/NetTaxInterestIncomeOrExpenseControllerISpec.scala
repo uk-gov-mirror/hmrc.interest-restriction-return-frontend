@@ -19,6 +19,7 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
