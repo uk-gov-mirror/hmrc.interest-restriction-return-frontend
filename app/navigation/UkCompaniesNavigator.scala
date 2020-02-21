@@ -19,7 +19,7 @@ package navigation
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
-import pages.{ukCompanies, _}
+import pages._
 import pages.ukCompanies._
 import play.api.mvc.Call
 

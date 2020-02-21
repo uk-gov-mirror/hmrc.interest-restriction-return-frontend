@@ -627,6 +627,15 @@ investmentName.label= Enter the name of the investment
 investmentName.error.required = Enter investmentName
 investmentName.error.length = Investment name must be 160 characters or less
 
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.heading = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.error.required = Select netTaxInterestIncomeOrExpense
+
 # ConsentingCompanyPage Messages
 # ----------------------------------------------------------
 consentingCompany.title = consentingCompany
