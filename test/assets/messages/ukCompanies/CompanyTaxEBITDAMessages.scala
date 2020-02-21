@@ -14,14 +14,9 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package assets.messages.ukCompanies
 
-import play.api.libs.json.Json
+object CompanyTaxEBITDAMessages {
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
-
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  val subheading: String => String = x => x
 }
-

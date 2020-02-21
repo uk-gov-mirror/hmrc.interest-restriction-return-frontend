@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package assets
 
+import models.returnModels.fullReturn.AllocatedReactivationsModel
 import play.api.libs.json.Json
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+object AllocatedReactivationsITConstants {
 
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  val ap1NetDisallowances = 1.11
+  val currentPeriodReactivation = 2.22
+  val incorrectTotalReactivation = 10
+
+  val allocatedReactivationsModel = AllocatedReactivationsModel(
+    ap1NetDisallowances = ap1NetDisallowances,
+    currentPeriodReactivation = currentPeriodReactivation
+  )
+
+  val allocatedReactivationsJson = Json.obj(
+    "ap1NetDisallowances" -> ap1NetDisallowances,
+    "currentPeriodReactivation" -> currentPeriodReactivation
+  )
 }
-

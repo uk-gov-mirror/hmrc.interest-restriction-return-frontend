@@ -57,6 +57,7 @@ object PageTitles {
   val localRegistrationNumber: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} local Registration Number"
   val countryOfIncorporation: String => String = name => s"Where is $name registered for tax?"
   val checkAnswersElections = "Check your answers for this section"
+  val companyTaxEBITDA = "Enter company’s Tax-EBITDA"
 
 
 }

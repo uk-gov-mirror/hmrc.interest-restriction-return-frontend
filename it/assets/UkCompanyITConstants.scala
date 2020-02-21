@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package assets.constants.fullReturn
+package assets
 
-import assets.constants.BaseConstants
-import assets.constants.fullReturn.AllocatedReactivationsConstants._
-import assets.constants.fullReturn.AllocatedRestrictionsConstants._
+import AllocatedReactivationsITConstants._
+import AllocatedRestrictionsITConstants._
 import models.returnModels.fullReturn.UkCompanyModel
 import play.api.libs.json.Json
 
-object UkCompanyConstants extends BaseConstants {
+object UkCompanyITConstants extends BaseITConstants {
 
   val netTaxInterestExpense: BigDecimal = 1.11
   val netTaxInterestIncome: BigDecimal = 1.11

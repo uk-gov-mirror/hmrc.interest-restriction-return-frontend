@@ -14,14 +14,25 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package assets
 
+import java.time.LocalDate
+
+import models.returnModels.AccountingPeriodModel
 import play.api.libs.json.Json
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+object AccountingPeriodITConstants {
 
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  val startDate: LocalDate = LocalDate.now().minusMonths(18)
+  val endDate: LocalDate = startDate.plusMonths(18).minusDays(1)
+
+  val accountingPeriodModel = AccountingPeriodModel(
+    startDate = startDate,
+    endDate = endDate
+  )
+
+  val accountingPeriodJson = Json.obj(
+    "startDate" -> startDate,
+    "endDate" -> endDate
+  )
 }
-

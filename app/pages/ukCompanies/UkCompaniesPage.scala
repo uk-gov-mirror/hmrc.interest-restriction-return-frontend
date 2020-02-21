@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package pages.ukCompanies
 
-import play.api.libs.json.Json
+import models.returnModels.fullReturn.UkCompanyModel
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+case object UkCompaniesPage extends QuestionPage[UkCompanyModel] {
 
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "ukCompanies"
 }
-

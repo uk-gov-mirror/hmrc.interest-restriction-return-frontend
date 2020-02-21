@@ -604,3 +604,14 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
 # ----------------------------------------------------------
 aboutAddingUKCompanies.title = aboutAddingUKCompanies
 aboutAddingUKCompanies.heading = aboutAddingUKCompanies
+
+# EnterCompanyTaxEBITDAPage Messages
+# ----------------------------------------------------------
+enterCompanyTaxEBITDA.title = EnterCompanyTaxEBITDA
+enterCompanyTaxEBITDA.heading = EnterCompanyTaxEBITDA
+enterCompanyTaxEBITDA.label=Enter company's Tax-EBITDA
+enterCompanyTaxEBITDA.checkYourAnswersLabel = EnterCompanyTaxEBITDA
+enterCompanyTaxEBITDA.error.nonNumeric = Enter your enterCompanyTaxEBITDA using numbers
+enterCompanyTaxEBITDA.error.required = Enter your enterCompanyTaxEBITDA
+enterCompanyTaxEBITDA.error.invalidNumeric = The enterCompanyTaxEBITDA must be valid decimal or whole number
+enterCompanyTaxEBITDA.error.outOfRange = EnterCompanyTaxEBITDA must be between {0} and {1}

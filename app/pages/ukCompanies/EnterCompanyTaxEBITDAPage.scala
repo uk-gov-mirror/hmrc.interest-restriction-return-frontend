@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import play.api.libs.json.Json
+case object EnterCompanyTaxEBITDAPage extends QuestionPage[BigDecimal] {
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+  override def path: JsPath = JsPath \ toString
 
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  override def toString: String = "enterCompanyTaxEBITDA"
 }
-

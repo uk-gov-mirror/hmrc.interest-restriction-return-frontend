@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package pages.ukCompanies
 
-import play.api.libs.json.Json
+import pages.behaviours.PageBehaviours
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+class EnterCompanyTaxEBITDAPageSpec extends PageBehaviours {
 
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  "EnterCompanyTaxEBITDAPage" must {
+
+    beRetrievable[BigDecimal](EnterCompanyTaxEBITDAPage)
+
+    beSettable[BigDecimal](EnterCompanyTaxEBITDAPage)
+
+    beRemovable[BigDecimal](EnterCompanyTaxEBITDAPage)
+  }
 }
-

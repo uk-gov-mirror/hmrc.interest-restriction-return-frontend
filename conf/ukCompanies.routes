@@ -5,3 +5,10 @@
 ### ----------------------------------------
 GET        /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onPageLoad()
 POST       /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onSubmit()
+
+### EnterCompanyTaxEBITDA Controller
+### ----------------------------------------
+GET        /enter-company-tax-ebitda                          controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-company-tax-ebitda                          controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-company-tax-ebitda/change                   controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-company-tax-ebitda/change                   controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(mode: Mode = CheckMode)
