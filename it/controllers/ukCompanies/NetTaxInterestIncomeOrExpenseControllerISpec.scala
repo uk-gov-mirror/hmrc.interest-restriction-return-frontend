@@ -17,6 +17,7 @@
 package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
 import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -91,7 +92,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> NetTaxInterestExpense.toString))()
 
           whenReady(res) { result =>
             result should have(
@@ -142,5 +143,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
         }
       }
     }
+
+    //TODO: Add Check Your Answers tests
   }
 }
