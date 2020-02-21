@@ -30,15 +30,15 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "consentingCompany.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form, "consentingCompany.title", Some(messages("consentingCompany.subheading", companyName))))) {
 
-    @formHelper(action = ConsentingCompanyController.onSubmit(mode)) {
+    @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ukCompanies")
+        @subheading(messages("consentingCompany.subheading", companyName))
 
         @yesNoRadio(form, "consentingCompany.heading")
 

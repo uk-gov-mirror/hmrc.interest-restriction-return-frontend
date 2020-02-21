@@ -18,8 +18,10 @@ package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
+import assets.UkCompanyITConstants._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -34,6 +36,8 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(UkCompaniesPage, ukCompanyModelMax)
+
           val res = getRequest("/uk-companies/consenting-company")()
 
           whenReady(res) { result =>
@@ -113,6 +117,8 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
         "return OK (200)" in {
 
           AuthStub.authorised()
+
+          setAnswers(UkCompaniesPage, ukCompanyModelMax)
 
           val res = getRequest("/uk-companies/consenting-company/change")()
 

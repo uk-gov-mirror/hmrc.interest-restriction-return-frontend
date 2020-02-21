@@ -21,13 +21,15 @@ import controllers.actions._
 import forms.ukCompanies.ConsentingCompanyFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.ConsentingCompanyPage
-import config.featureSwitch.{FeatureSwitching}
+import pages.ukCompanies.{ConsentingCompanyPage, UkCompaniesPage}
+import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.ConsentingCompanyView
 import play.api.data.Form
+import handlers.ErrorHandler
+
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
 import services.QuestionDeletionLookupService
@@ -44,18 +46,39 @@ class ConsentingCompanyController @Inject()(
                                          formProvider: ConsentingCompanyFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: ConsentingCompanyView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ConsentingCompanyPage, formProvider()), mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage) { ukCompany =>
+      Future.successful(
+    Ok(view(fillForm(ConsentingCompanyPage, formProvider()), mode = mode,
+      companyName = ukCompany.companyName.name,
+      postAction = routes.ConsentingCompanyController.onSubmit(mode)
+    ))
+      )
+    }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(ConsentingCompanyPage, value, mode)
-    )
+    answerFor(UkCompaniesPage) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors,
+              mode = mode,
+              companyName = ukCompany.companyName.name,
+              postAction = routes.ConsentingCompanyController.onSubmit(mode)
+            ))
+          ),
+        value => {
+          val updatedModel = ukCompany.copy(consenting = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ConsentingCompanyPage, mode, updatedAnswers))
+        }
+      )
+    }
   }
 }

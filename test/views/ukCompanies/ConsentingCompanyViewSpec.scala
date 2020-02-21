@@ -16,9 +16,11 @@
 
 package views.ukCompanies
 
+import assets.messages.ukCompanies.ConsentingCompanyMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.ukCompanies.routes
 import forms.ukCompanies.ConsentingCompanyFormProvider
+import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -28,19 +30,19 @@ import views.html.ukCompanies.ConsentingCompanyView
 class ConsentingCompanyViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "consentingCompany"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some(ConsentingCompanyMessages.subheading(companyNameModel.name))
   val form = new ConsentingCompanyFormProvider()()
 
     "ConsentingCompanyView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[ConsentingCompanyView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), section.get)
 
       behave like pageWithBackLink(applyView(form))
 
