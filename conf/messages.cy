@@ -604,3 +604,12 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
 # ----------------------------------------------------------
 aboutAddingUKCompanies.title = aboutAddingUKCompanies
 aboutAddingUKCompanies.heading = aboutAddingUKCompanies
+
+# CompanyDetailsPage Messages
+# ----------------------------------------------------------
+companyDetails.title = companyDetails
+companyDetails.heading = companyDetails
+companyDetails.checkYourAnswersLabel = companyDetails
+companyDetails.label = Company name
+companyDetails.error.required = Enter companyDetails
+companyDetails.error.length = CompanyDetails must be 160 characters or less

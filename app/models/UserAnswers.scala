@@ -31,46 +31,57 @@ final case class UserAnswers(
                               lastPageSaved: Option[Page] = None
                             ) {
 
-  def get[A](page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] =
-    Reads.optionNoError(Reads.at(page.path)).reads(data).getOrElse(None)
+  private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
-  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Try[UserAnswers] = {
+  def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] = {
+    Reads.optionNoError(Reads.at(path(page, idx))).reads(data).getOrElse(None)
+  }
 
-    val updatedData = data.setObject(page.path, Json.toJson(value)) match {
+  def addToList[A](path: JsPath, value: A)(implicit format: Format[A]): Try[UserAnswers] = {
+
+    val updatedData = path.readNullable[Seq[A]].reads(data) match {
+      case JsSuccess(Some(models), _) => setData(path, models :+ value)
+      case JsSuccess(None, _) => setData(path, Seq(value))
+      case JsError(errors) => Failure(JsResultException(errors))
+    }
+
+    updatedData.map(d => copy(data = d))
+  }
+
+  def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
+    setData(path(page, idx), value).map {
+      d => copy(data = d, lastPageSaved = Some(page))
+    }
+  }
+
+  private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] = {
+    data.setObject(path, Json.toJson(value)) match {
       case JsSuccess(jsValue, _) =>
         Success(jsValue)
       case JsError(errors) =>
         Failure(JsResultException(errors))
     }
-
-    updatedData.map {
-      d =>
-        copy (data = d, lastPageSaved = Some(page))
-    }
   }
 
-  def remove[A](page: QuestionPage[A]): Try[UserAnswers] = {
+  def remove[A](page: QuestionPage[A], idx: Option[Int] = None): Try[UserAnswers] = {
 
-    val updatedData = data.setObject(page.path, JsNull) match {
+    val updatedData = data.removeObject(path(page, idx)) match {
       case JsSuccess(jsValue, _) =>
         Success(jsValue)
       case JsError(_) =>
         Success(data)
     }
 
-    updatedData.map {
-      d =>
-        copy (data = d, lastPageSaved = Some(page))
-    }
+    updatedData.map { d => copy(data = d) }
   }
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
 
   @tailrec
   private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] = {
-    if(pages.isEmpty) Success(userAnswers) else {
+    if (pages.isEmpty) Success(userAnswers) else {
       userAnswers.remove(pages.head) match {
-        case Success(answers) => recursivelyClearQuestions(pages.tail,answers)
+        case Success(answers) => recursivelyClearQuestions(pages.tail, answers)
         case failure@Failure(_) => failure
       }
     }
@@ -85,10 +96,10 @@ object UserAnswers {
 
     (
       (__ \ "_id").read[String] and
-      (__ \ "data").read[JsObject] and
-      (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
-      (__ \ "lastPageSaved").readNullable[Page]
-    ) (UserAnswers.apply _)
+        (__ \ "data").read[JsObject] and
+        (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
+        (__ \ "lastPageSaved").readNullable[Page]
+      ) (UserAnswers.apply _)
   }
 
   implicit lazy val writes: OWrites[UserAnswers] = {
@@ -97,9 +108,9 @@ object UserAnswers {
 
     (
       (__ \ "_id").write[String] and
-      (__ \ "data").write[JsObject] and
-      (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
-      (__ \ "lastPageSaved").writeNullable[Page]
-    ) (unlift(UserAnswers.unapply))
+        (__ \ "data").write[JsObject] and
+        (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
+        (__ \ "lastPageSaved").writeNullable[Page]
+      ) (unlift(UserAnswers.unapply))
   }
 }

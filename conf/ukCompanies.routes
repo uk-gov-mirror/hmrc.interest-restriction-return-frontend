@@ -1,3 +1,10 @@
+
+### CompanyDetails Controller
+### ----------------------------------------
+GET        /company-details                          controllers.ukCompanies.CompanyDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /company-details                          controllers.ukCompanies.CompanyDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /company-details/change                   controllers.ukCompanies.CompanyDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /company-details/change                   controllers.ukCompanies.CompanyDetailsController.onSubmit(mode: Mode = CheckMode)
 # UK Companies Routes
 # ===================
 

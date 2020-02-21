@@ -607,3 +607,17 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
 # ----------------------------------------------------------
 aboutAddingUKCompanies.title = In this section you will need to tell us about eligible UK companies in the group
 aboutAddingUKCompanies.heading = In this section you will need to tell us about eligible UK companies in the group
+
+# CompanyDetailsPage Messages
+# ----------------------------------------------------------
+companyDetails.title = Company details
+companyDetails.heading = Company details
+companyDetails.checkYourAnswersLabel = Company name
+companyDetails.companyName.label= Company name
+companyDetails.companyName.error.required = A company name must be entered
+companyDetails.companyName.error.length = Company name must be 160 characters or less
+companyDetails.ctutr.checkYourAnswersLabel = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
+companyDetails.ctutr.error.length = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
+companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid
