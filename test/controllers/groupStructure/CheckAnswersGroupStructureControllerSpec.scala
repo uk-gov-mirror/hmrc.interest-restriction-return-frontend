@@ -20,15 +20,13 @@ import assets.messages.{CheckAnswersGroupStructureMessages, SectionHeaderMessage
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import models.{ErrorModel, NormalMode}
+import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
 import play.api.test.Helpers._
-import services.AddedDeemedParentSuccess
-import services.mocks.MockDeemedParentService
 import views.html.CheckYourAnswersView
 
-class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with MockDeemedParentService {
+class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
@@ -39,8 +37,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    navigator = FakeGroupStructureNavigator,
-    deemedParentService = mockDeemedParentService
+    navigator = FakeGroupStructureNavigator
   )
 
   "Check Your Answers Controller" when {

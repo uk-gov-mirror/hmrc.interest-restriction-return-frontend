@@ -18,68 +18,55 @@ package models
 
 import assets.constants.DeemedParentConstants._
 import base.SpecBase
-import play.api.libs.json.{Json, __}
-
-import scala.util.Success
+import pages.groupStructure.DeemedParentPage
+import play.api.libs.json.Json
 
 class UserAnswersSpec extends SpecBase {
 
   "UserAnswers" when {
 
-    "calling addToList" when {
+    "calling getList" when {
 
       "key exists with a list of data" must {
 
-        "return the updated user answers" in {
-          val userAnswers = emptyUserAnswers.copy(data = Json.obj("deemedParents" -> Json.arr(
-            Json.toJson(deemedParentModelUkPartnership)
-          )))
+        "return Seq of DeemedParents" in {
 
-          val result = userAnswers.addToList(__ \ "deemedParents", deemedParentModelUkCompany)
+          val userAnswers = emptyUserAnswers
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
+            .set(DeemedParentPage, deemedParentModelUkPartnership, Some(2)).get
+            .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(3)).get
 
-          result mustBe Success(userAnswers.copy(data = Json.obj("deemedParents" -> Json.arr(
-            Json.toJson(deemedParentModelUkPartnership),
-            Json.toJson(deemedParentModelUkCompany)
-          ))))
+          val result = userAnswers.getList(DeemedParentPage)
+
+          result mustBe Seq(
+            deemedParentModelUkCompany,
+            deemedParentModelUkPartnership,
+            deemedParentModelNonUkCompany
+          )
         }
       }
 
-      "key exists with empty array" must {
+      "key exists with no data" must {
 
-        "return the updated user answers with first entry" in {
+        "return an empty sequence" in {
 
-          val userAnswers = emptyUserAnswers.copy(data = Json.obj("deemedParents" -> Json.arr()))
+          val userAnswers = emptyUserAnswers.copy(data = Json.obj(
+            DeemedParentPage.toString -> Json.arr()
+          ))
 
-          val result = userAnswers.addToList(__ \ "deemedParents", deemedParentModelUkCompany)
+          val result = userAnswers.getList(DeemedParentPage)
 
-          result mustBe Success(userAnswers.copy(data = Json.obj("deemedParents" -> Json.arr(
-            Json.toJson(deemedParentModelUkCompany)
-          ))))
+          result mustBe Seq.empty
         }
       }
 
-      "key does not exist" must {
+      "key doesn't exist" must {
 
-        "return the updated user answers with first entry" in {
-          val result = emptyUserAnswers.addToList(__ \ "deemedParents", deemedParentModelUkCompany)
+        "return an empty sequence" in {
 
-          result mustBe Success(emptyUserAnswers .copy(data = Json.obj("deemedParents" -> Json.arr(
-            Json.toJson(deemedParentModelUkCompany)
-          ))))
-        }
-      }
+          val result = emptyUserAnswers.getList(DeemedParentPage)
 
-      "key exists but with invalid data" must {
-
-        "return the updated user answers with first entry" in {
-
-          val userAnswers = emptyUserAnswers.copy(data = Json.obj("deemedParents" -> Json.arr(
-            Json.obj("foo" -> "bar")
-          )))
-
-          val result = userAnswers.addToList(__ \ "deemedParents", deemedParentModelUkCompany)
-
-          result.isFailure mustBe true
+          result mustBe Seq.empty
         }
       }
     }

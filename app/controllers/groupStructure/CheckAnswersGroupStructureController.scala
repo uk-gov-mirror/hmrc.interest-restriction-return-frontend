@@ -23,16 +23,14 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.GroupStructure
-import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
+import pages.groupStructure.CheckAnswersGroupStructurePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import services.DeemedParentService
 import utils.CheckYourAnswersGroupStructureHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
                                                      identify: IdentifierAction,
@@ -40,8 +38,7 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      navigator: GroupStructureNavigator,
-                                                     view: CheckYourAnswersView,
-                                                     deemedParentService: DeemedParentService
+                                                     view: CheckYourAnswersView
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseController {
 

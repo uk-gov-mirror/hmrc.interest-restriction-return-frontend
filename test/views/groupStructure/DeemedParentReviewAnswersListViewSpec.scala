@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages
+package views.groupStructure
 
-object BaseMessages {
+import assets.constants.GroupStructureCheckYourAnswersConstants
+import views.behaviours.ViewBehaviours
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
-  val changeLink = "Change"
-  val yes = "Yes"
-  val no = "No"
-  val review = "Review"
-  val delete = "Delete"
+class DeemedParentReviewAnswersListViewSpec extends ViewBehaviours with GroupStructureCheckYourAnswersConstants {
+
+
 
 }

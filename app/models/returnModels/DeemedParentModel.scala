@@ -32,7 +32,9 @@ case class DeemedParentModel(companyName: CompanyNameModel,
                              registeredCompaniesHouse: Option[Boolean] = None,
                              registeredForTaxInAnotherCountry: Option[Boolean] = None,
                              reportingCompanySameAsParent: Option[Boolean] = None
-                            )
+                            ) {
+  val utr: Option[UTRModel] = ctutr.fold(sautr){ utr => Some(utr)}
+}
 
 object DeemedParentModel {
 
