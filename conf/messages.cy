@@ -600,3 +600,7 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated invest
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+# AboutAddingUKCompaniesPage Messages
+# ----------------------------------------------------------
+aboutAddingUKCompanies.title = aboutAddingUKCompanies
+aboutAddingUKCompanies.heading = aboutAddingUKCompanies
