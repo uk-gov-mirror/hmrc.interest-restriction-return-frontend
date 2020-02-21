@@ -603,5 +603,9 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
 
-deemedParentReviewAnswersList.title = {0} deemed parent added
+# PartnershipSAUTRPage Messages
+# ----------------------------------------------------------
+deemedParentReviewAnswersList.heading.singular = {0} deemed parent added
+deemedParentReviewAnswersList.heading.plural = {0} deemed parents added
 deemedParentReviewAnswersList.addAnother = Do you need to add another deemed parent?
+deemedParentReviewAnswersList.error.required = Select yes if you need to add another deemed parent

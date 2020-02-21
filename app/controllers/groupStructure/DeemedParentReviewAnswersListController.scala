@@ -20,11 +20,13 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import handlers.ErrorHandler
 import models.NormalMode
-import models.Section.GroupStructure
+import models.requests.DataRequest
 import navigation.GroupStructureNavigator
 import pages.groupStructure.CheckAnswersGroupStructurePage
+import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import utils.DeemedParentReviewAnswersListHelper
@@ -38,17 +40,28 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
                                                         requireData: DataRequiredAction,
                                                         val controllerComponents: MessagesControllerComponents,
                                                         navigator: GroupStructureNavigator,
+                                                        formProvider: DeemedParentReviewAnswersListFormProvider,
                                                         view: DeemedParentReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseController {
+                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+
+  private def deemedParents(implicit request: DataRequest[_]) = new DeemedParentReviewAnswersListHelper(request.userAnswers).rows
+
+  private def renderView(form: Form[Boolean] = formProvider())(implicit request: DataRequest[_]) =
+    view(form, deemedParents, routes.DeemedParentReviewAnswersListController.onSubmit())
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-      val deemedParentReviewAnswersListHelper = new DeemedParentReviewAnswersListHelper(request.userAnswers)
-      Ok(view(deemedParentReviewAnswersListHelper.rows, GroupStructure, controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onSubmit))
+    implicit request => Ok(renderView())
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    formProvider().bindFromRequest().fold(
+      formWithErrors =>
+        BadRequest(renderView(formWithErrors))
+      ,
+      {
+        case true => Redirect(navigator.addParent(deemedParents.length))
+        case false => Redirect(navigator.nextSection(NormalMode))
+      }
+    )
   }
 }

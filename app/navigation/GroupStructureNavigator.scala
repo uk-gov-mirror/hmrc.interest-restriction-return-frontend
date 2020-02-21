@@ -34,45 +34,50 @@ class GroupStructureNavigator @Inject()() extends Navigator {
       case Some(true) => nextSection(NormalMode)
       case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
     }),
-    HasDeemedParentPage -> ((id, _) => routes.ParentCompanyNameController.onPageLoad(id, NormalMode)),
-    ParentCompanyNamePage -> ((id, _) => routes.PayTaxInUkController.onPageLoad(id, NormalMode)),
-    PayTaxInUkPage -> ((id, userAnswers) => userAnswers.get(DeemedParentPage, Some(id)).flatMap(_.payTaxInUk) match {
-      case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(id, NormalMode)
-      case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(id, NormalMode)
-      case _ => routes.PayTaxInUkController.onPageLoad(id, NormalMode)
+    HasDeemedParentPage -> ((idx, _) => routes.ParentCompanyNameController.onPageLoad(idx, NormalMode)),
+    ParentCompanyNamePage -> ((idx, _) => routes.PayTaxInUkController.onPageLoad(idx, NormalMode)),
+    PayTaxInUkPage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.payTaxInUk) match {
+      case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, NormalMode)
+      case _ => routes.PayTaxInUkController.onPageLoad(idx, NormalMode)
     }),
-    LimitedLiabilityPartnershipPage -> ((id, userAnswers) => userAnswers.get(DeemedParentPage, Some(id)).flatMap(_.limitedLiabilityPartnership) match {
-      case Some(true) => routes.ParentCompanySAUTRController.onPageLoad(id, NormalMode)
-      case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(id, NormalMode)
-      case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(id, NormalMode)
+    LimitedLiabilityPartnershipPage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.limitedLiabilityPartnership) match {
+      case Some(true) => routes.ParentCompanySAUTRController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx, NormalMode)
+      case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
     }),
-    ParentCompanyCTUTRPage -> ((id, _) => routes.RegisteredCompaniesHouseController.onPageLoad(id, NormalMode)),
-    RegisteredCompaniesHousePage -> ((id, userAnswers) => userAnswers.get(DeemedParentPage, Some(id)).flatMap(_.registeredCompaniesHouse) match {
-      case Some(true) => routes.ParentCRNController.onPageLoad(id, NormalMode)
-      case Some(false) => checkYourAnswers(id)
-      case _ => routes.RegisteredCompaniesHouseController.onPageLoad(id, NormalMode)
+    ParentCompanyCTUTRPage -> ((idx, _) => routes.RegisteredCompaniesHouseController.onPageLoad(idx, NormalMode)),
+    RegisteredCompaniesHousePage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.registeredCompaniesHouse) match {
+      case Some(true) => routes.ParentCRNController.onPageLoad(idx, NormalMode)
+      case Some(false) => checkYourAnswers(idx)
+      case _ => routes.RegisteredCompaniesHouseController.onPageLoad(idx, NormalMode)
     }),
-    ParentCompanySAUTRPage -> ((id, _) => routes.ParentCRNController.onPageLoad(id, NormalMode)),
-    ParentCRNPage -> ((id, _) => checkYourAnswers(id)),
+    ParentCompanySAUTRPage -> ((idx, _) => routes.ParentCRNController.onPageLoad(idx, NormalMode)),
+    ParentCRNPage -> ((idx, _) => checkYourAnswers(idx)),
     RegisteredForTaxInAnotherCountryPage ->
-      ((id, userAnswers) => userAnswers.get(DeemedParentPage, Some(id)).flatMap(_.registeredForTaxInAnotherCountry) match {
-        case Some(true) => routes.CountryOfIncorporationController.onPageLoad(id, NormalMode)
-        case Some(false) => checkYourAnswers(id)
-        case _ => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(id, NormalMode)
+      ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.registeredForTaxInAnotherCountry) match {
+        case Some(true) => routes.CountryOfIncorporationController.onPageLoad(idx, NormalMode)
+        case Some(false) => checkYourAnswers(idx)
+        case _ => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, NormalMode)
       }),
-    CountryOfIncorporationPage -> ((id, _) => routes.LocalRegistrationNumberController.onPageLoad(id, NormalMode)),
-    LocalRegistrationNumberPage -> ((id, _) => checkYourAnswers(id)),
-    CheckAnswersGroupStructurePage -> ((_, _) => nextSection(NormalMode))
+    CountryOfIncorporationPage -> ((idx, _) => routes.LocalRegistrationNumberController.onPageLoad(idx, NormalMode)),
+    LocalRegistrationNumberPage -> ((idx, _) => checkYourAnswers(idx)),
+    CheckAnswersGroupStructurePage -> ((_, userAnswers) => userAnswers.get(HasDeemedParentPage) match {
+      case Some(true) => routes.DeemedParentReviewAnswersListController.onPageLoad()
+      case Some(false) => nextSection(NormalMode)
+      case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
+    })
   )
 
-  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((id, _) => checkYourAnswers(id))
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
-  private def checkYourAnswers(id: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(id)
+  private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 
-  private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  def addParent(numberOfParents: Int): Call = routes.ParentCompanyNameController.onPageLoad(numberOfParents + 1, NormalMode)
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
-    case NormalMode => normalRoutes(page)(id.getOrElse(1), userAnswers) //TODO: Requires Refactor
-    case CheckMode => checkRouteMap(page)(id.getOrElse(1), userAnswers) //TODO: Requires Refactor
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
+    case NormalMode => normalRoutes(page)(idx.getOrElse(1), userAnswers) //TODO: Requires Refactor
+    case CheckMode => checkRouteMap(page)(idx.getOrElse(1), userAnswers) //TODO: Requires Refactor
   }
 }
