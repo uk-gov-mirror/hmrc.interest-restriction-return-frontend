@@ -22,5 +22,5 @@ case class CompanyNameModel(name: String)
 
 object CompanyNameModel {
 
-  implicit val writes = Json.writes[CompanyNameModel]
+  implicit val format = Json.format[CompanyNameModel]
 }

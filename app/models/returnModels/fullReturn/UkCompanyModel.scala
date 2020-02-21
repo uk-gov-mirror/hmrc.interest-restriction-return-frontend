@@ -21,16 +21,15 @@ import play.api.libs.json.Json
 
 case class UkCompanyModel(companyName: CompanyNameModel,
                           ctutr: UTRModel,
-                          consenting: Boolean,
-                          netTaxInterestExpense: BigDecimal,
-                          netTaxInterestIncome: BigDecimal,
-                          taxEBITDA: BigDecimal,
+                          consenting: Option[Boolean],
+                          netTaxInterestExpense: Option[BigDecimal],
+                          netTaxInterestIncome: Option[BigDecimal],
+                          taxEBITDA: Option[BigDecimal],
                           allocatedRestrictions: Option[AllocatedRestrictionsModel],
-                          allocatedReactivations: Option[AllocatedReactivationsModel]
-                         )
+                          allocatedReactivations: Option[AllocatedReactivationsModel])
 
 object UkCompanyModel {
 
-  implicit val writes = Json.writes[UkCompanyModel]
+  implicit val format = Json.format[UkCompanyModel]
 
 }

@@ -36,8 +36,8 @@ case class FullReturnModel(agentDetails: AgentDetailsModel,
                            groupLevelAmount: GroupLevelAmountModel,
                            adjustedGroupInterest: Option[AdjustedGroupInterestModel]) {
 
-  private val totalTaxInterestIncome: BigDecimal = ukCompanies.map(_.netTaxInterestIncome).sum
-  private val totalTaxInterestExpense: BigDecimal = ukCompanies.map(_.netTaxInterestExpense).sum
+  private val totalTaxInterestIncome: BigDecimal = ukCompanies.flatMap(_.netTaxInterestIncome).sum
+  private val totalTaxInterestExpense: BigDecimal = ukCompanies.flatMap(_.netTaxInterestExpense).sum
 
   private val oSum: Seq[BigDecimal] => Option[BigDecimal] = {
     case x if x.isEmpty => None
@@ -46,7 +46,7 @@ case class FullReturnModel(agentDetails: AgentDetailsModel,
 
   val numberOfUkCompanies: Int = ukCompanies.length
   val aggregateNetTaxInterest: BigDecimal = totalTaxInterestIncome - totalTaxInterestExpense
-  val aggregateTaxEBITDA: BigDecimal = ukCompanies.map(_.taxEBITDA).sum
+  val aggregateTaxEBITDA: BigDecimal = ukCompanies.flatMap(_.taxEBITDA).sum
   val aggregateAllocatedRestrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
   val aggregateAllocatedReactivations: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.currentPeriodReactivation)))
 }

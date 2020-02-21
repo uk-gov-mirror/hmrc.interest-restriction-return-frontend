@@ -22,6 +22,7 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
+import pages.ukCompanies._
 import play.api.libs.json.{JsString, Json}
 
 class PageSpec extends SpecBase {
@@ -30,16 +31,18 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
-    PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
-    IsUkPartnershipPage.toString -> IsUkPartnershipPage,
-    PartnershipNamePage.toString -> PartnershipNamePage,
-    InvestorRatioMethodPage.toString -> InvestorRatioMethodPage,
-    InvestorGroupNamePage.toString -> InvestorGroupNamePage,
-    AddInvestorGroupPage.toString -> AddInvestorGroupPage,
-    OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
-    GroupEBITDAPage.toString -> GroupEBITDAPage,
-    InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,
-    ElectedInterestAllowanceConsolidatedPshipBeforePage.toString -> ElectedInterestAllowanceConsolidatedPshipBeforePage,
+        UkCompaniesPage.toString -> UkCompaniesPage,
+        EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
+        PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
+        IsUkPartnershipPage.toString -> IsUkPartnershipPage,
+        PartnershipNamePage.toString -> PartnershipNamePage,
+        InvestorRatioMethodPage.toString -> InvestorRatioMethodPage,
+        InvestorGroupNamePage.toString -> InvestorGroupNamePage,
+        AddInvestorGroupPage.toString -> AddInvestorGroupPage,
+        OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
+        GroupEBITDAPage.toString -> GroupEBITDAPage,
+        InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,
+        ElectedInterestAllowanceConsolidatedPshipBeforePage.toString -> ElectedInterestAllowanceConsolidatedPshipBeforePage,
         InterestAllowanceNonConsolidatedInvestmentsElectionPage.toString -> InterestAllowanceNonConsolidatedInvestmentsElectionPage,
         GroupRatioPercentagePage.toString -> GroupRatioPercentagePage,
         InterestAllowanceAlternativeCalcElectionPage.toString -> InterestAllowanceAlternativeCalcElectionPage,

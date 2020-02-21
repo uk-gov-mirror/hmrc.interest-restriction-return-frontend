@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package models.returnModels.fullReturn
+package forms.ukCompanies
 
-import play.api.libs.json.Json
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+class EnterCompanyTaxEBITDAFormProvider @Inject() extends Mappings {
 
-object AllocatedReactivationsModel {
-  implicit val format = Json.format[AllocatedReactivationsModel]
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "enterCompanyTaxEBITDA.error.required",
+        "enterCompanyTaxEBITDA.error.invalidNumeric",
+        "enterCompanyTaxEBITDA.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "enterCompanyTaxEBITDA.error.outOfRange"))
+    )
 }
-
