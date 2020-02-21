@@ -16,8 +16,9 @@
 
 package controllers.ukCompanies
 
+import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,20 +28,41 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
   "in Normal mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /uk-companies/enter-company-tax-ebitda" when {
 
-      "user is authorised" should {
+      "user is authorised" when {
 
-        "return OK (200)" in {
+        "data is retrieved for the uk companies model" should {
 
-          AuthStub.authorised()
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          "return OK (200)" in {
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.enterCompanyTaxEBITDA)
-            )
+            AuthStub.authorised()
+            setAnswers(UkCompaniesPage, ukCompanyModelMax)
+
+            val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.companyTaxEBITDA)
+              )
+            }
+          }
+        }
+
+        "no data is retrieved for the uk companies model" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -51,7 +73,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +85,43 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
       }
     }
 
-    "POST /ROUTING_PLACEHOLDER" when {
+    "POST /uk-companies/enter-company-tax-ebitda" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "data is retrieved for the uk companies model" should {
 
-          "redirect to EnterCompanyTaxEBITDA page" in {
+          "enters a valid answer" when {
+
+            //TODO: Will be updated as part of routing
+            "redirect to Under Construction page" in {
+
+              AuthStub.authorised()
+              setAnswers(UkCompaniesPage, ukCompanyModelMax)
+
+              val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                )
+              }
+            }
+          }
+        }
+
+        "NO data is retrieved for the uk companies model" should {
+
+          "Return ISE (500)" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -91,7 +132,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,21 +147,41 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
   "in Change mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /uk-companies/enter-company-tax-ebitda/change" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "data is retrieved for the uk companies model" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+            AuthStub.authorised()
+            setAnswers(UkCompaniesPage, ukCompanyModelMax)
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.enterCompanyTaxEBITDA)
-            )
+            val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.companyTaxEBITDA)
+              )
+            }
+          }
+        }
+
+        "no data is retrieved for the uk companies model" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -131,7 +192,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
 
           whenReady(res) { result =>
             result should have(
