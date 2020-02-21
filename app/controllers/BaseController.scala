@@ -67,4 +67,3 @@ trait BaseController extends FrontendBaseController with I18nSupport with Enumer
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
 }
-}

@@ -16,23 +16,24 @@
 
 package navigation
 
-import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.ukCompanies.{routes, routes => ukCompanyRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
+import pages.ukCompanies._
 import play.api.mvc.Call
 
 @Singleton
 class UkCompaniesNavigator @Inject()() extends Navigator {
 
-  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    ReportingCompanyNamePage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
-    CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
+  val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
+    CompanyDetailsPage -> (_ => routes.CompanyDetailsController.onPageLoad(id, NormalMode)),
+    CompanyDetailsPage -> ((id,_) => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((id,_) => ???
   )
 
   private def nextSection(mode: Mode): Call = groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)

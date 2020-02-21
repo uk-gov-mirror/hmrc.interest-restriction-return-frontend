@@ -53,7 +53,7 @@ class CompanyDetailsController @Inject()(
     val form = formProvider()
     answerFor(UkCompaniesPage, idx) { ukCompanyModel =>
       Future.successful(Ok(view(
-        form = ukCompanyModel.companyName.map(_.name).fold(form)(form.fill),
+        form = (ukCompanyModel.companyName.map(_.name), ukCompanyModel.ctutr.map(_.utr)).fold(form)(form.fill),
         mode = mode,
         postAction = routes.CompanyDetailsController.onSubmit(idx, mode))
       ))
