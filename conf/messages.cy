@@ -693,3 +693,14 @@ companyDetails.checkYourAnswersLabel = companyDetails
 companyDetails.label = Company name
 companyDetails.error.required = Enter companyDetails
 companyDetails.error.length = CompanyDetails must be 160 characters or less
+
+# NetTaxInterestAmountPage Messages
+# ----------------------------------------------------------
+netTaxInterestAmount.title = NetTaxInterestAmount
+netTaxInterestAmount.heading = NetTaxInterestAmount
+netTaxInterestAmount.label=Enter the company's total net-tax interest income
+netTaxInterestAmount.checkYourAnswersLabel = NetTaxInterestAmount
+netTaxInterestAmount.error.nonNumeric = Enter your netTaxInterestAmount using numbers
+netTaxInterestAmount.error.required = Enter your netTaxInterestAmount
+netTaxInterestAmount.error.invalidNumeric = The netTaxInterestAmount must be valid decimal or whole number
+netTaxInterestAmount.error.outOfRange = NetTaxInterestAmount must be between {0} and {1}

@@ -94,6 +94,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryNetTaxInterestAmountUserAnswersEntry: Arbitrary[(NetTaxInterestAmountPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[NetTaxInterestAmountPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryPartnershipSAUTRUserAnswersEntry: Arbitrary[(PartnershipSAUTRPage.type, JsValue)] =
     Arbitrary {
       for {

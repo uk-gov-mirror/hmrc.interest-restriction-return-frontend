@@ -720,3 +720,14 @@ ukCompaniesReviewAnswersList.singular.heading = {0} company added
 ukCompaniesReviewAnswersList.plural.heading = {0} companies added
 ukCompaniesReviewAnswersList.addAnother = Do you need to add another company?
 ukCompaniesReviewAnswersList.error.required = Select yes if you need to add another company
+
+# NetTaxInterestAmountPage Messages
+# ----------------------------------------------------------
+netTaxInterestAmount.title = NetTaxInterestAmount
+netTaxInterestAmount.heading = NetTaxInterestAmount
+netTaxInterestAmount.label = NetTaxInterestAmount
+netTaxInterestAmount.checkYourAnswersLabel = NetTaxInterestAmount
+netTaxInterestAmount.error.nonNumeric = Enter your netTaxInterestAmount using numbers
+netTaxInterestAmount.error.required = Enter your netTaxInterestAmount
+netTaxInterestAmount.error.invalidNumeric = The netTaxInterestAmount must be valid decimal or whole number
+netTaxInterestAmount.error.outOfRange = NetTaxInterestAmount must be between {0} and {1}

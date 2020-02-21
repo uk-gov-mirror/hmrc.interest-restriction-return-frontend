@@ -43,6 +43,7 @@ object Page {
     EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
     DeletionConfirmationPage.toString -> DeletionConfirmationPage,
     NetTaxInterestIncomeOrExpensePage.toString -> NetTaxInterestIncomeOrExpensePage,
+    NetTaxInterestAmountPage.toString -> NetTaxInterestAmountPage,
     PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
     IsUkPartnershipPage.toString -> IsUkPartnershipPage,
     PartnershipNamePage.toString -> PartnershipNamePage,
