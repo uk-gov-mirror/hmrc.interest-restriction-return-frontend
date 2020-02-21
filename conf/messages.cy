@@ -618,9 +618,9 @@ enterCompanyTaxEBITDA.error.outOfRange = EnterCompanyTaxEBITDA must be between {
 
 # InvestmentNamePage Messages
 # ----------------------------------------------------------
-investmentName.title = investmentName
-investmentName.heading = investmentName
-investmentName.checkYourAnswersLabel = investmentName
-investmentName.label = Enter the name of the investment
+investmentName.title = Enter the name of the investment
+investmentName.heading = Enter the name of the investment
+investmentName.checkYourAnswersLabel = Investment name
+investmentName.label= Enter the name of the investment
 investmentName.error.required = Enter investmentName
-investmentName.error.length = InvestmentName must be 160 characters or less
+investmentName.error.length = Investment name must be 160 characters or less

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,10 +53,10 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, routes.InvestmentNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
 
@@ -66,7 +66,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -77,7 +77,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -89,7 +89,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -98,7 +98,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -110,7 +110,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

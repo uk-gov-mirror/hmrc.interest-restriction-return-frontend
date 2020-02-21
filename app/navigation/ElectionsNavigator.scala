@@ -80,7 +80,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.IsUkPartnershipController.onPageLoad(NormalMode)
     }),
     PartnershipSAUTRPage -> (_ => checkYourAnswers),
-    CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    InvestmentNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>

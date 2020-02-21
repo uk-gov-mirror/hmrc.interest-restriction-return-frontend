@@ -366,10 +366,19 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the PartnershipSAUTR page" should {
 
-        "go to the Under construction page page" in {
+        "go to the CheckAnswersElections page" in {
 
           navigator.nextPage(PartnershipSAUTRPage, NormalMode, emptyUserAnswers) mustBe
             routes.CheckAnswersElectionsController.onPageLoad()
+        }
+      }
+
+      "from the Investment Name page" should {
+
+        "go to the Under construction page page" in {
+
+          navigator.nextPage(InvestmentNamePage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
     }

@@ -27,14 +27,14 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Normal mode" when {
 
-    "GET /elections/investment-name" when {
+    "GET /elections/investment-name/1" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/elections/investment-name")()
+          val res = getRequest("/elections/investment-name/1")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investment-name")()
+          val res = getRequest("/elections/investment-name/1")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +63,25 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /elections/investment-name" when {
+    "POST /elections/investment-name/1" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to InvestmentName page" in {
+          //TODO: Update routing as part of navigation sub-task
+          "redirect to Under Construction page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/investment-name", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.elections.routes.InvestmentNameController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/elections/investment-name/1", Json.obj("value" -> "name"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -91,7 +92,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/investment-name", Json.obj("value" -> 1))()
+          val res = postRequest("/elections/investment-name/1", Json.obj("value" -> "name"))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +107,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /elections/investment-name" when {
+    "GET /elections/investment-name/1" when {
 
       "user is authorised" should {
 
@@ -114,7 +115,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/elections/investment-name/change")()
+          val res = getRequest("/elections/investment-name/1/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +132,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investment-name/change")()
+          val res = getRequest("/elections/investment-name/1/change")()
 
           whenReady(res) { result =>
             result should have(
