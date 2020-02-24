@@ -19,7 +19,6 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
-import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -52,13 +51,13 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
     }
   }
 
-      "user not authorised" should {
+  "user not authorised" should {
 
-        "return SEE_OTHER (303)" in {
+    "return SEE_OTHER (303)" in {
 
-          AuthStub.unauthorised()
+      AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+      val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
 
       whenReady(res) { result =>
         result should have(
