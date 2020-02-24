@@ -78,7 +78,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
   def addParent(numberOfParents: Int): Call = routes.ParentCompanyNameController.onPageLoad(numberOfParents + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
-    case NormalMode => normalRoutes(page)(idx.getOrElse(1), userAnswers) //TODO: Requires Refactor
-    case CheckMode => checkRouteMap(page)(idx.getOrElse(1), userAnswers) //TODO: Requires Refactor
+    case NormalMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
+    case CheckMode => checkRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
   }
 }

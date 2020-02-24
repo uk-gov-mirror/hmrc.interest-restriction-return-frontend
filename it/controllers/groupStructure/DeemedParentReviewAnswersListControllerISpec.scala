@@ -31,26 +31,48 @@ class DeemedParentReviewAnswersListControllerISpec extends IntegrationSpecBase w
 
     "GET /group-structure/deemed-parent-list" when {
 
-      "user is authorised" should {
+      "user is authorised" when {
 
-        "return OK (200)" in {
+        "there are deemed parents in the list" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          setAnswers(
-            emptyUserAnswers.set(HasDeemedParentPage, true).success.value
-              .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
-              .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
-              .set(DeemedParentPage, deemedParentModelUkCompany, Some(3)).success.value
-          )
+            AuthStub.authorised()
 
-          val res = getRequest("/group-structure/deemed-parent-list")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.deemedParentReviewAnswersList(3))
+            setAnswers(
+              emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+                .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+                .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
+                .set(DeemedParentPage, deemedParentModelUkCompany, Some(3)).success.value
             )
+
+            val res = getRequest("/group-structure/deemed-parent-list")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.deemedParentReviewAnswersList(3))
+              )
+            }
+          }
+        }
+
+        "there are NO deemed parents in the list" should {
+
+          "return SEE_OTHER (303)" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).success.value)
+
+            val res = getRequest("/group-structure/deemed-parent-list")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.ParentCompanyNameController.onPageLoad(1, NormalMode).url)
+              )
+            }
           }
         }
       }

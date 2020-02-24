@@ -49,8 +49,12 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
   private def renderView(form: Form[Boolean] = formProvider())(implicit request: DataRequest[_]) =
     view(form, deemedParents, routes.DeemedParentReviewAnswersListController.onSubmit())
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Ok(renderView())
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    if(deemedParents.length > 0) {
+      Ok(renderView())
+    } else {
+      Redirect(navigator.addParent(0))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

@@ -23,7 +23,9 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import models.NormalMode
+import assets.constants.DeemedParentConstants._
 import navigation.FakeNavigators.FakeGroupStructureNavigator
+import pages.groupStructure.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentReviewAnswersListView
 
@@ -46,16 +48,32 @@ class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureS
 
   "Check Your Answers Controller" when {
 
-    "calling the onPageLoad() method" must {
+    "calling the onPageLoad() method" when {
 
-      "return a OK (200) when given empty answers" in {
+      "there are no deemed parents in the list" must {
 
-        mockGetAnswers(Some(emptyUserAnswers))
+        "return a SEE_OTHER (303)" in {
 
-        val result = Controller.onPageLoad()(fakeRequest)
+          mockGetAnswers(Some(emptyUserAnswers))
 
-        status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(DeemedParentReviewAnswersListMessages.title(0), Some(SectionHeaderMessages.groupStructure))
+          val result = Controller.onPageLoad()(fakeRequest)
+
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.addParent(0).url)
+        }
+      }
+
+      "there are deemed parents in the list" must {
+
+        "return a OK (200)" in {
+
+          mockGetAnswers(Some(emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get))
+
+          val result = Controller.onPageLoad()(fakeRequest)
+
+          status(result) mustEqual OK
+          titleOf(contentAsString(result)) mustEqual title(DeemedParentReviewAnswersListMessages.title(1), Some(SectionHeaderMessages.groupStructure))
+        }
       }
     }
 
