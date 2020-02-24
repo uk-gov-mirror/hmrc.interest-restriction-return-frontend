@@ -38,11 +38,27 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryConsentingCompanyUserAnswersEntry: Arbitrary[(ConsentingCompanyPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ConsentingCompanyPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryEnterCompanyTaxEBITDAUserAnswersEntry: Arbitrary[(EnterCompanyTaxEBITDAPage.type, JsValue)] =
     Arbitrary {
       for {
         page  <- arbitrary[EnterCompanyTaxEBITDAPage.type]
         value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryDeletionConfirmationUserAnswersEntry: Arbitrary[(DeletionConfirmationPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DeletionConfirmationPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }
 
@@ -287,10 +303,10 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryDeemedParentUserAnswersEntry: Arbitrary[(DeemedParentPage.type, JsValue)] =
+  implicit lazy val arbitraryDeemedParentUserAnswersEntry: Arbitrary[(HasDeemedParentPage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[DeemedParentPage.type]
+        page  <- arbitrary[HasDeemedParentPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }

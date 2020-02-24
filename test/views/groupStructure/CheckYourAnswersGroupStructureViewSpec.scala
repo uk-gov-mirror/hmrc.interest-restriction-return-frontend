@@ -16,7 +16,7 @@
 
 package views.groupStructure
 
-import assets.constants.{BaseConstants, GroupStructureCheckYourAnswersConstants}
+import assets.constants.GroupStructureCheckYourAnswersConstants
 import assets.messages.BaseMessages.saveAndContinue
 import assets.messages.{CheckAnswersGroupStructureMessages, SectionHeaderMessages}
 import models.Section.GroupStructure
@@ -25,8 +25,9 @@ import utils.CheckYourAnswersGroupStructureHelper
 import views.BaseSelectors
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
+import assets.constants.DeemedParentConstants._
 
-class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with BaseConstants with GroupStructureCheckYourAnswersConstants {
+class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupStructureCheckYourAnswersConstants {
 
   object Selectors extends BaseSelectors
 
@@ -37,14 +38,12 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with BaseCon
   val view = injector.instanceOf[CheckYourAnswersView]
 
   def applyView(checkYourAnswersHelper: CheckYourAnswersGroupStructureHelper)(): HtmlFormat.Appendable = {
-    view.apply(checkYourAnswersHelper, GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    view.apply(checkYourAnswersHelper.rows(1), GroupStructure, onwardRoute)(fakeRequest, messages, frontendAppConfig)
   }
 
   "CheckYourAnswer view" when {
 
     "ultimate parent is uk company" must {
-
-      "maximum values are provided" must {
 
         val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKCompany)
 
@@ -65,49 +64,16 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with BaseCon
         checkYourAnswersRowChecks(
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent -> "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> ultimateParentCompanyUK.companyName.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkCompany.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> ultimateParentCompanyUK.ctutr.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> deemedParentModelUkCompany.ctutr.get.utr,
           CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCRN -> ultimateParentCompanyUK.crn.toString
+          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkCompany.crn.get.crn
         )
       }
-
-      "minimum values are provided" must {
-
-        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKCompanyMin)
-
-        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
-
-        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
-
-        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
-
-        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
-
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
-
-        implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
-
-        checkYourAnswersRowChecks(
-          CheckAnswersGroupStructureMessages.reportingCompanySameAsParent -> "No",
-          CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> ultimateParentCompanyUKMin.companyName.toString,
-          CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
-          CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> ultimateParentCompanyUKMin.ctutr.toString,
-          CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "No",
-          CheckAnswersGroupStructureMessages.parentCRN -> "None"
-        )
-      }
-    }
 
     "ultimate parent is UK LLP" must {
-
-      "maximum values are provided" must {
 
         val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKLLP)
 
@@ -128,49 +94,15 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with BaseCon
         checkYourAnswersRowChecks(
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent -> "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> ultimateParentUKLLP.companyName.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkPartnership.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> ultimateParentUKLLP.sautr.toString,
-          CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCRN -> ultimateParentUKLLP.crn.toString
+          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> deemedParentModelUkPartnership.sautr.get.utr,
+          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkPartnership.crn.get.crn
         )
       }
-
-      "minimum values are provided" must {
-
-        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersUKLLPMin)
-
-        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
-
-        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
-
-        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
-
-        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
-
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
-
-        implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
-
-        checkYourAnswersRowChecks(
-          CheckAnswersGroupStructureMessages.reportingCompanySameAsParent -> "No",
-          CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> ultimateParentUKLLPMin.companyName.toString,
-          CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
-          CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> ultimateParentUKLLPMin.sautr.toString,
-          CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "No",
-          CheckAnswersGroupStructureMessages.parentCRN -> "None"
-        )
-      }
-    }
 
     "ultimate parent is foreign company" must {
-
-      "maximum values are provided" must {
 
         val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersForeignRegisteredCompany)
 
@@ -191,40 +123,12 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with BaseCon
         checkYourAnswersRowChecks(
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent ->  "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> ultimateParentCompanyUK.companyName.toString,
+          CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelNonUkCompany.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "No",
           CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry -> "Yes",
-          CheckAnswersGroupStructureMessages.registeredCountry -> ultimateParentCompanyForeign.countryOfIncorporation.get.country,
-          CheckAnswersGroupStructureMessages.localCRN -> ultimateParentCompanyForeign.nonUkCrn.get
+          CheckAnswersGroupStructureMessages.registeredCountry -> deemedParentModelNonUkCompany.countryOfIncorporation.get.country,
+          CheckAnswersGroupStructureMessages.localCRN -> deemedParentModelNonUkCompany.nonUkCrn.get
         )
       }
-
-      "minimum values are provided" must {
-
-        val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(userAnswersForeignNotRegisteredCompany)
-
-        behave like normalPage(applyView(checkYourAnswersHelper)(), messageKeyPrefix, section = Some(SectionHeaderMessages.groupStructure))
-
-        behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
-
-        behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
-
-        behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
-
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
-
-        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
-
-        implicit lazy val document = asDocument(applyView(checkYourAnswersHelper)())
-
-        checkYourAnswersRowChecks(
-          CheckAnswersGroupStructureMessages.reportingCompanySameAsParent ->  "No",
-          CheckAnswersGroupStructureMessages.deemedParent -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyName -> ultimateParentCompanyUKMin.companyName.toString,
-          CheckAnswersGroupStructureMessages.payTaxInUk -> "No",
-          CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry -> "No"
-        )
-      }
-    }
   }
 }

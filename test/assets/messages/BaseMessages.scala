@@ -25,5 +25,7 @@ object BaseMessages {
   val changeLink = "Change"
   val yes = "Yes"
   val no = "No"
+  val review = "Review"
+  val delete = "Delete"
 
 }

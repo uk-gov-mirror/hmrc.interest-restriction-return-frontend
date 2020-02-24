@@ -16,6 +16,7 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -23,20 +24,24 @@ import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.NormalMode
+import pages.groupStructure.DeemedParentPage
 
 class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-structure/parent-company-ctutr" when {
+    "GET /group-structure/parent-company/1/ctutr" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(
+            emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+          )
 
-          val res = getRequest("/group-structure/parent-company-ctutr")()
+          val res = getRequest("/group-structure/parent-company/1/ctutr")()
 
           whenReady(res) { result =>
             result should have(
@@ -53,7 +58,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-company-ctutr")()
+          val res = getRequest("/group-structure/parent-company/1/ctutr")()
 
           whenReady(res) { result =>
             result should have(
@@ -65,7 +70,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /group-structure/parent-company-ctutr" when {
+    "POST /group-structure/parent-company/1/ctutr" when {
 
       "user is authorised" when {
 
@@ -74,13 +79,16 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
           "redirect to RegisteredCompaniesHouse page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-ctutr", Json.obj("value" -> "1111111111"))()
+            val res = postRequest("/group-structure/parent-company/1/ctutr", Json.obj("value" -> "1111111111"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -91,8 +99,11 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
           "return a BAD_REQUEST (400)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-ctutr", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company/1/ctutr", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +120,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-ctutr", Json.obj("value" -> "1111111111"))()
+          val res = postRequest("/group-structure/parent-company/1/ctutr", Json.obj("value" -> "1111111111"))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,21 +135,43 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
   "in Change mode" when {
 
-    "GET /group-structure/parent-company-ctutr/change" when {
+    "GET /group-structure/parent-company/1/ctutr/change" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          val res = getRequest("/group-structure/parent-company-ctutr/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.parentCompanyCTUTR)
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/ctutr/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.parentCompanyCTUTR)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/ctutr/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -149,7 +182,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/parent-company-ctutr/change")()
+          val res = getRequest("/group-structure/parent-company/1/ctutr/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -161,7 +194,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /group-structure/parent-company-ctutr" when {
+    "POST /group-structure/parent-company/1/ctutr" when {
 
       "user is authorised" when {
 
@@ -170,13 +203,16 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-ctutr/change", Json.obj("value" -> "1111111111"))()
+            val res = postRequest("/group-structure/parent-company/1/ctutr/change", Json.obj("value" -> "1111111111"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -187,8 +223,11 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
           "return a BAD_REQUEST (400)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/parent-company-ctutr/change", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company/1/ctutr/change", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -205,7 +244,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-ctutr/change", Json.obj("value" -> "1111111111"))()
+          val res = postRequest("/group-structure/parent-company/1/ctutr/change", Json.obj("value" -> "1111111111"))()
 
           whenReady(res) { result =>
             result should have(

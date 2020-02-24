@@ -16,20 +16,20 @@
 
 package controllers.groupStructure
 
-import assets.{BaseITConstants, PageTitles}
-import controllers.groupStructure.{routes => groupStructureRoutes}
+import assets.DeemedParentITConstants._
+import assets.PageTitles
 import models.NormalMode
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers {
 
   "in Normal mode" when {
 
-    "GET /group-structure/country-of-incorporation" when {
+    "GET /group-structure/parent-company/1/country-of-incorporation" when {
 
       "user is authorised" should {
 
@@ -38,14 +38,16 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+            )
 
-            val res = getRequest("/group-structure/country-of-incorporation")()
+            val res = getRequest("/group-structure/parent-company/1/country-of-incorporation")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.countryOfIncorporation(companyName))
+                titleOf(PageTitles.countryOfIncorporation(parentCompanyName.name))
               )
             }
           }
@@ -57,7 +59,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
             AuthStub.authorised()
 
-            val res = getRequest("/group-structure/country-of-incorporation")()
+            val res = getRequest("/group-structure/parent-company/1/country-of-incorporation")()
 
             whenReady(res) { result =>
               result should have(
@@ -74,7 +76,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/country-of-incorporation")()
+          val res = getRequest("/group-structure/parent-company/1/country-of-incorporation")()
 
           whenReady(res) { result =>
             result should have(
@@ -86,7 +88,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
       }
     }
 
-    "POST /group-structure/country-of-incorporation" when {
+    "POST /group-structure/parent-company/1/country-of-incorporation" when {
 
       "user is authorised" when {
 
@@ -95,13 +97,19 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
           "redirect to Local CRN page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/country-of-incorporation", Json.obj("value" -> "United Kingdom"))()
+            val res = postRequest(
+              "/group-structure/parent-company/1/country-of-incorporation",
+              Json.obj("value" -> countryOfIncorporation.country)
+            )()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.LocalRegistrationNumberController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.LocalRegistrationNumberController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -112,9 +120,12 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
           "return a BadRequest" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
 
-            val res = postRequest("/group-structure/country-of-incorporation", Json.obj("value" -> "Invalid Country"))()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/1/country-of-incorporation", Json.obj("value" -> "Invalid Country"))()
 
             whenReady(res) { result =>
               result should have(
@@ -131,7 +142,10 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/country-of-incorporation", Json.obj("value" -> "United Kingdom"))()
+          val res = postRequest(
+            "/group-structure/parent-company/1/country-of-incorporation",
+            Json.obj("value" -> countryOfIncorporation.country)
+          )()
 
           whenReady(res) { result =>
             result should have(
@@ -146,7 +160,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
   "in Change mode" when {
 
-    "GET /group-structure/country-of-incorporation" when {
+    "GET /group-structure/parent-company/1/country-of-incorporation" when {
 
       "user is authorised" when {
 
@@ -155,14 +169,17 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
 
-            val res = getRequest("/group-structure/country-of-incorporation/change")()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = getRequest("/group-structure/parent-company/1/country-of-incorporation/change")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.countryOfIncorporation(companyName))
+                titleOf(PageTitles.countryOfIncorporation(parentCompanyName.name))
               )
             }
           }
@@ -174,7 +191,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
             AuthStub.authorised()
 
-            val res = getRequest("/group-structure/country-of-incorporation/change")()
+            val res = getRequest("/group-structure/parent-company/1/country-of-incorporation/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -191,7 +208,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/country-of-incorporation/change")()
+          val res = getRequest("/group-structure/parent-company/1/country-of-incorporation/change")()
 
           whenReady(res) { result =>
             result should have(

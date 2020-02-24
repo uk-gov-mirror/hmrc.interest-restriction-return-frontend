@@ -39,7 +39,7 @@ class LocalRegistrationNumberViewSpec extends StringViewBehaviours with BaseCons
 
   def applyView(companyName: String = companyNameModel.name)(form: Form[_]): HtmlFormat.Appendable = {
     val view = viewFor[LocalRegistrationNumberView](Some(emptyUserAnswers))
-    view.apply(form, NormalMode, companyName)(fakeRequest, messages, frontendAppConfig)
+    view.apply(form, NormalMode, companyName, onwardRoute)(fakeRequest, messages, frontendAppConfig)
   }
 
   "LocalRegistrationNumberView" must {
@@ -61,7 +61,7 @@ class LocalRegistrationNumberViewSpec extends StringViewBehaviours with BaseCons
       form = form,
       createView = applyView(),
       messageKeyPrefix = messageKeyPrefix,
-      expectedFormAction = routes.LocalRegistrationNumberController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       section = section,
       headingArgs = Seq(addPossessive(companyNameModel.name)))
 

@@ -290,11 +290,10 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 
 # DeemedParentPage Messages
 # ----------------------------------------------------------
-deemedParent.title = Does the group have a ’deemed’ parent company?
-deemedParent.heading = Does the group have a ’deemed’ parent company?
-deemedParent.checkYourAnswersLabel = Deemed Parent
-deemedParent.error.required = Select yes if the group has a ’deemed’ parent company
-
+hasDeemedParent.title = Does the group have a ‘deemed’ parent company?
+hasDeemedParent.heading = Does the group have a ‘deemed’ parent company?
+hasDeemedParent.checkYourAnswersLabel = Deemed Parent
+hasDeemedParent.error.required = Select yes if the group has a ‘deemed’ parent company
 
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
@@ -600,6 +599,7 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated invest
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+
 # AboutAddingUKCompaniesPage Messages
 # ----------------------------------------------------------
 aboutAddingUKCompanies.title = aboutAddingUKCompanies
@@ -624,3 +624,28 @@ investmentName.checkYourAnswersLabel = Investment name
 investmentName.label= Enter the name of the investment
 investmentName.error.required = Enter investmentName
 investmentName.error.length = Investment name must be 160 characters or less
+
+# ConsentingCompanyPage Messages
+# ----------------------------------------------------------
+consentingCompany.title = consentingCompany
+consentingCompany.heading = Is this a consenting company?
+consentingCompany.checkYourAnswersLabel = Is this a consenting company?
+consentingCompany.error.required = Select yes if Is this a consenting company?
+
+
+# DeemedParentReviewAnswersListPage Messages
+# ----------------------------------------------------------
+deemedParentReviewAnswersList.singular.title = {0} deemed parent added
+deemedParentReviewAnswersList.plural.title = {0} deemed parents added
+deemedParentReviewAnswersList.singular.heading = {0} deemed parent added
+deemedParentReviewAnswersList.plural.heading = {0} deemed parents added
+deemedParentReviewAnswersList.addAnother = Do you need to add another deemed parent?
+deemedParentReviewAnswersList.error.required = Select yes if you need to add another deemed parent
+deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 3 deemed parents
+
+# DeletionConfirmationPage Messages
+# ----------------------------------------------------------
+deletionConfirmation.title = Are you sure you want to delete deemed parent '{0}'?
+deletionConfirmation.heading = Are you sure you want to delete deemed parent '{0}'?
+deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent '{0}'?
+deletionConfirmation.error.required = Select yes if you want to delete deemed parent '{0}'

@@ -21,7 +21,7 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
+import pages.ukCompanies._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
 import scala.language.implicitConversions
@@ -34,8 +34,10 @@ object Page {
 
   val pages: Map[String, Page] = Map(
     InvestmentNamePage.toString -> InvestmentNamePage,
+    ConsentingCompanyPage.toString -> ConsentingCompanyPage,
     UkCompaniesPage.toString -> UkCompaniesPage,
     EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
+    DeletionConfirmationPage.toString -> DeletionConfirmationPage,
     PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
     IsUkPartnershipPage.toString -> IsUkPartnershipPage,
     PartnershipNamePage.toString -> PartnershipNamePage,
@@ -66,7 +68,7 @@ object Page {
     ParentCRNPage.toString -> ParentCRNPage,
     ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
     ParentCompanyNamePage.toString -> ParentCompanyNamePage,
-    DeemedParentPage.toString -> DeemedParentPage,
+    HasDeemedParentPage.toString -> HasDeemedParentPage,
     ConfirmationPage.toString -> ConfirmationPage,
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
     ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
@@ -87,7 +89,8 @@ object Page {
     InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
     RevisingReturnPage.toString -> RevisingReturnPage,
     ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
-    IndexPage.toString -> IndexPage
+    IndexPage.toString -> IndexPage,
+    DeemedParentPage.toString -> DeemedParentPage
   )
 
   val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList

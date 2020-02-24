@@ -16,71 +16,55 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.NormalMode
+import pages.groupStructure.DeemedParentPage
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-structure/registered-companies-house" when {
+    "GET /group-structure/parent-company/1/registered-companies-house" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
-
-          val res = getRequest("/group-structure/registered-companies-house")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.registeredCompaniesHouse)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/group-structure/registered-companies-house")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-
-    "POST /group-structure/registered-companies-house" when {
-
-      "user is authorised" when {
-
-        "enters a valid answer" when {
-
-          "redirect to ParentCRN page" in {
+          "return OK (200)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/registered-companies-house", Json.obj("value" -> true))()
+            val res = getRequest("/group-structure/parent-company/1/registered-companies-house")()
 
             whenReady(res) { result =>
               result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(NormalMode).url)
+                httpStatus(OK),
+                titleOf(PageTitles.registeredCompaniesHouse)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/registered-companies-house")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
               )
             }
           }
@@ -93,7 +77,50 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/registered-companies-house", Json.obj("value" -> true))()
+          val res = getRequest("/group-structure/parent-company/1/registered-companies-house")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /group-structure/parent-company/1/registered-companies-house" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to ParentCRN page" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/1/registered-companies-house", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/group-structure/parent-company/1/registered-companies-house", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -108,59 +135,41 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
   "in Change mode" when {
 
-    "GET /group-structure/registered-companies-house" when {
+    "GET /group-structure/parent-company/1/registered-companies-house" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
-
-          val res = getRequest("/group-structure/registered-companies-house/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.registeredCompaniesHouse)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/group-structure/registered-companies-house/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-
-    "POST /group-structure/registered-companies-house" when {
-
-      "user is authorised" when {
-
-        "enters a valid answer" when {
-
-          "redirect to CRN page" in {
+          "return OK (200)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/registered-companies-house/change", Json.obj("value" -> true))()
+            val res = getRequest("/group-structure/parent-company/1/registered-companies-house/change")()
 
             whenReady(res) { result =>
               result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                httpStatus(OK),
+                titleOf(PageTitles.registeredCompaniesHouse)
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/registered-companies-house/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
               )
             }
           }
@@ -173,7 +182,50 @@ class RegisteredCompaniesHouseControllerISpec extends IntegrationSpecBase with C
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/registered-companies-house/change", Json.obj("value" -> true))()
+          val res = getRequest("/group-structure/parent-company/1/registered-companies-house/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /group-structure/parent-company/1/registered-companies-house" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CRN page" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/1/registered-companies-house/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/group-structure/parent-company/1/registered-companies-house/change", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(

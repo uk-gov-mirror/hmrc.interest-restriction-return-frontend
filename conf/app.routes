@@ -21,6 +21,7 @@ GET        /                                            controllers.IndexControl
 GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 GET        /under-construction                          controllers.UnderConstructionController.onPageLoad()
+GET        /internal-server-error                       controllers.errors.ErrorController.ise
 
 ### SignOut Controller
 ### ------------------

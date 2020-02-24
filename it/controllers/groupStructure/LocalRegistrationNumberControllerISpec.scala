@@ -16,10 +16,9 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
-import controllers.groupStructure.{routes => groupStructureRoutes}
-import models.NormalMode
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -29,23 +28,43 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
   "in Normal mode" when {
 
-    "GET /group-structure/local-registration-number" when {
+    "GET /group-structure/parent-company/1/local-registration-number" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          setAnswers(ParentCompanyNamePage, companyName)
-
-          val res = getRequest("/group-structure/local-registration-number")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.localRegistrationNumber(companyName))
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/local-registration-number")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.localRegistrationNumber(parentCompanyName.name))
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/local-registration-number")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -56,7 +75,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/local-registration-number")()
+          val res = getRequest("/group-structure/parent-company/1/local-registration-number")()
 
           whenReady(res) { result =>
             result should have(
@@ -68,7 +87,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
       }
     }
 
-    "POST /group-structure/local-registration-number" when {
+    "POST /group-structure/parent-company/1/local-registration-number" when {
 
       "user is authorised" when {
 
@@ -77,13 +96,16 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
           "redirect to Check Your Answers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> "CRN"))()
+            val res = postRequest("/group-structure/parent-company/1/local-registration-number", Json.obj("value" -> "CRN"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -92,14 +114,18 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
         "a value is NOT entered" should {
 
           "redirect to Check Your Answers page" in {
-            AuthStub.authorised()
 
-            val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> ""))()
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/1/local-registration-number", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -112,7 +138,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/local-registration-number", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/parent-company/1/local-registration-number", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -127,23 +153,43 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
   "in Change mode" when {
 
-    "GET /group-structure/local-registration-number" when {
+    "GET /group-structure/parent-company/1/local-registration-number" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          setAnswers(ParentCompanyNamePage, companyName)
-
-          val res = getRequest("/group-structure/local-registration-number/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.localRegistrationNumber(companyName))
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/local-registration-number/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.localRegistrationNumber(parentCompanyName.name))
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/local-registration-number/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -154,7 +200,7 @@ class LocalRegistrationNumberControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/local-registration-number/change")()
+          val res = getRequest("/group-structure/parent-company/1/local-registration-number/change")()
 
           whenReady(res) { result =>
             result should have(

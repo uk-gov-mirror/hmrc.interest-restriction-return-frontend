@@ -18,61 +18,67 @@ package controllers.groupStructure
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
+import forms.groupStructure.LocalRegistrationNumberFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-
-import forms.groupStructure.LocalRegistrationNumberFormProvider
 import models.Mode
-import models.requests.DataRequest
+import models.returnModels.UTRModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{ParentCompanyNamePage, LocalRegistrationNumberPage}
+import pages.groupStructure.{DeemedParentPage, LocalRegistrationNumberPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.groupStructure.LocalRegistrationNumberView
 
 import scala.concurrent.Future
 
 class LocalRegistrationNumberController @Inject()(
-                                      override val messagesApi: MessagesApi,
-                                      sessionRepository: SessionRepository,
-                                      navigator: GroupStructureNavigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: LocalRegistrationNumberFormProvider,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: LocalRegistrationNumberView,
-                                      errorHandler: ErrorHandler
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseController  with FeatureSwitching {
+                                                   override val messagesApi: MessagesApi,
+                                                   val sessionRepository: SessionRepository,
+                                                   val navigator: GroupStructureNavigator,
+                                                   identify: IdentifierAction,
+                                                   getData: DataRetrievalAction,
+                                                   requireData: DataRequiredAction,
+                                                   formProvider: LocalRegistrationNumberFormProvider,
+                                                   val controllerComponents: MessagesControllerComponents,
+                                                   view: LocalRegistrationNumberView,
+                                                   override val questionDeletionLookupService: QuestionDeletionLookupService
+                                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  private def companyNamePredicate(f: String => Future[Result])(implicit request: DataRequest[_]) =
-    request.userAnswers.get(ParentCompanyNamePage) match {
-      case Some(companyName) => f(companyName)
-      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-    }
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => companyNamePredicate { name =>
-      Future.successful(Ok(view(fillForm(LocalRegistrationNumberPage, formProvider()), mode, name)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          form = deemedParentModel.nonUkCrn.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName.name,
+          postAction = routes.LocalRegistrationNumberController.onSubmit(idx, mode)
+        ))
+      )
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
-
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          companyNamePredicate { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name)))
-          },
-        value =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.LocalRegistrationNumberController.onSubmit(idx, mode)
+          ))),
+        value => {
+          val updatedModel = deemedParentModel.copy(nonUkCrn = Some(value))
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(LocalRegistrationNumberPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(LocalRegistrationNumberPage, mode, updatedAnswers))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(LocalRegistrationNumberPage, mode, updatedAnswers, Some(idx)))
+        }
       )
+    }
   }
 }

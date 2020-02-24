@@ -19,7 +19,6 @@ package controllers.groupStructure
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import pages.aboutReportingCompany.ReportingCompanyNamePage
-import pages.groupStructure.ParentCompanyNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -237,7 +236,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }

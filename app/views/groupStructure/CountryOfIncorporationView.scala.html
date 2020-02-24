@@ -32,11 +32,11 @@
     autocomplete: components.autocomplete
 )
 
-@(form: Form[_], mode: Mode, companyName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "countryOfIncorporation.title", Some("section.groupStructure"), Seq(companyName))), js = Some(autocompleteJs)) {
 
-    @formHelper(action = CountryOfIncorporationController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 

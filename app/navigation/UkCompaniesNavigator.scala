@@ -19,7 +19,7 @@ package navigation
 import controllers.groupStructure.routes
 import javax.inject.{Inject, Singleton}
 import models._
-import pages._
+import pages.{ukCompanies, _}
 import pages.ukCompanies._
 import play.api.mvc.Call
 
@@ -28,7 +28,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    EnterCompanyTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    EnterCompanyTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ConsentingCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => checkYourAnswers)
@@ -39,7 +40,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   //TODO update with Next Section call
   private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
   }

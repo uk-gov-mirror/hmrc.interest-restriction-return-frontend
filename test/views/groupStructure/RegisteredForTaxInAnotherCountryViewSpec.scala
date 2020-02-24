@@ -41,7 +41,7 @@ class RegisteredForTaxInAnotherCountryViewSpec extends YesNoViewBehaviours  {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[RegisteredForTaxInAnotherCountryView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, companyName)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyName, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(
@@ -56,7 +56,7 @@ class RegisteredForTaxInAnotherCountryViewSpec extends YesNoViewBehaviours  {
       form,
       applyView,
       messageKeyPrefix,
-      expectedFormAction = routes.RegisteredForTaxInAnotherCountryController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       headingArgs = Seq(companyName),
       section = section
     )

@@ -56,7 +56,7 @@ class StartReturnNavigator @Inject()() extends Navigator {
   private def checkYourAnswers: Call = aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
   private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(mode)
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap.getOrElse[UserAnswers => Call](page, _ => checkYourAnswers)(userAnswers)
   }

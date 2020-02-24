@@ -21,10 +21,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.ParentCompanyCTUTRFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.UTRModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.ParentCompanyCTUTRPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyCTUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,18 +45,36 @@ class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesA
                                              formProvider: ParentCompanyCTUTRFormProvider,
                                              val controllerComponents: MessagesControllerComponents,
                                              view: ParentCompanyCTUTRView
-                                            )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                            )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCompanyCTUTRPage, formProvider()), mode))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    val form = formProvider()
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(Ok(view(
+        form = deemedParentModel.ctutr.map(_.utr).fold(form)(form.fill),
+        mode = mode,
+        postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode))
+      ))
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(ParentCompanyCTUTRPage, value, mode)
+        Future.successful(BadRequest(view(
+          form = formWithErrors,
+          mode = mode,
+          postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode)
+        ))),
+      value => {
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(ctutr = Some(UTRModel(value)))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers, Some(idx)))
+        }
+      }
     )
   }
 }

@@ -24,6 +24,6 @@ class DeemedParentFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Boolean] =
     Form(
-      "value" -> boolean("deemedParent.error.required")
+      "value" -> boolean("hasDeemedParent.error.required")
     )
 }

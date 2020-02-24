@@ -41,7 +41,7 @@ class ReportingCompanySameAsParentViewSpec extends YesNoViewBehaviours with Base
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ReportingCompanySameAsParentView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(
@@ -56,7 +56,7 @@ class ReportingCompanySameAsParentViewSpec extends YesNoViewBehaviours with Base
       form = form,
       createView = applyView,
       messageKeyPrefix = messageKeyPrefix,
-      expectedFormAction = routes.ReportingCompanySameAsParentController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       headingArgs = Seq(companyNameModel.name),
       section = section
     )

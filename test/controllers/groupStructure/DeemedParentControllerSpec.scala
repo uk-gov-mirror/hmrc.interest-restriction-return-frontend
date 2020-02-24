@@ -18,12 +18,12 @@ package controllers.groupStructure
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction, _}
+import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import controllers.errors
 import forms.groupStructure.DeemedParentFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.DeemedParentPage
+import pages.groupStructure.HasDeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentView
 
@@ -33,7 +33,7 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
   val formProvider = injector.instanceOf[DeemedParentFormProvider]
   val form = formProvider()
 
-  object Controller extends DeemedParentController(
+  object Controller extends HasDeemedParentController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
@@ -55,12 +55,16 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        postAction = routes.HasDeemedParentController.onSubmit(NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(DeemedParentPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
       mockGetAnswers(Some(userAnswers))
 

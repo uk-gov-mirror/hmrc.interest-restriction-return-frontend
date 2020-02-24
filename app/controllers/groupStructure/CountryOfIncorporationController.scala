@@ -23,8 +23,9 @@ import forms.groupStructure.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.CountryCodeModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{CountryOfIncorporationPage, ParentCompanyNamePage}
+import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -45,20 +46,38 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
                                                  view: CountryOfIncorporationView
                                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(CountryOfIncorporationPage, formProvider()), mode, name)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    val form = formProvider()
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          form = deemedParentModel.countryOfIncorporation.map(_.country).fold(form)(form.fill),
+          mode = mode,
+           companyName = deemedParentModel.companyName.name,
+          postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
+        ))
+      )
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(ParentCompanyNamePage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name)))
-        },
-      value =>
-        saveAndRedirect(CountryOfIncorporationPage, value, mode)
-    )
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
+          ))),
+        value => {
+          val updatedModel = deemedParentModel.copy(countryOfIncorporation = Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value)))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers, Some(idx)))
+        }
+      )
+    }
   }
 }

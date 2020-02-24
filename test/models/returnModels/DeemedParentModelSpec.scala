@@ -16,11 +16,13 @@
 
 package models.returnModels
 
-import org.scalatest.{MustMatchers, WordSpec}
-import play.api.libs.json.Json
 import assets.constants.DeemedParentConstants._
+import base.SpecBase
+import models.ErrorModel
+import pages.groupStructure.{ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage}
+import play.api.libs.json.Json
 
-class DeemedParentModelSpec extends WordSpec with MustMatchers {
+class DeemedParentModelSpec extends SpecBase {
 
   "DeemedParentModel" must {
 
@@ -38,6 +40,25 @@ class DeemedParentModelSpec extends WordSpec with MustMatchers {
 
         val expectedValue = deemedParentJsonMin
         val actualValue = Json.toJson(deemedParentModelMin)
+
+        actualValue mustBe expectedValue
+      }
+    }
+
+    "correctly read from json" when {
+
+      "max values given" in {
+
+        val expectedValue = deemedParentModelMax
+        val actualValue = deemedParentJsonMax.as[DeemedParentModel]
+
+        actualValue mustBe expectedValue
+      }
+
+      "min values given" in {
+
+        val expectedValue = deemedParentModelMin
+        val actualValue = deemedParentJsonMin.as[DeemedParentModel]
 
         actualValue mustBe expectedValue
       }

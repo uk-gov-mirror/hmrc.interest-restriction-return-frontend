@@ -48,7 +48,7 @@ class CheckYourAnswersAboutReportingCompanyHelper(val userAnswers: UserAnswers)
   def reportingCompanyCRN: Option[SummaryListRow] =
     answer(ReportingCompanyCRNPage, aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode))
 
-  override val rows = Seq(
+  val rows: Seq[SummaryListRow] = Seq(
     reportingCompanyAppointed,
     agentActingOnBehalfOfCompany,
     agentName,

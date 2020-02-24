@@ -18,7 +18,14 @@
 
 @this(govukRadios: GovukRadios)
 
-@(form: Form[_], headingKey: String, hintKey: Option[String] = None, headingMessageArgs: Seq[String] = Seq())(implicit messages: Messages)
+@(
+        form: Form[_],
+        headingKey: String,
+        hintKey: Option[String] = None,
+        headingMessageArgs: Seq[String] = Seq(),
+        isPageHeading: Boolean = true,
+        classes: String = "govuk-fieldset__legend--xl"
+)(implicit messages: Messages)
 
 @govukRadios(Radios(
     classes = "govuk-radios--inline",
@@ -27,8 +34,8 @@
     fieldset = Some(Fieldset(
         legend = Some(Legend(
             content = Text(messages(headingKey, headingMessageArgs:_*)),
-            isPageHeading = true,
-            classes = "govuk-fieldset__legend--xl"
+            isPageHeading = isPageHeading,
+            classes = classes
         ))
     )),
     hint = hintKey.map { hint => Hint(

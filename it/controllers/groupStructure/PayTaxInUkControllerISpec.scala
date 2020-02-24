@@ -16,20 +16,21 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
-import pages.groupStructure.ParentCompanyNamePage
+import controllers.groupStructure.{routes => groupStructureRoutes}
+import models.NormalMode
+import pages.groupStructure.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
-import controllers.groupStructure.{routes => groupStructureRoutes}
-import models.NormalMode
 
 class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-structure/pay-tax-in-uk" when {
+    "GET /group-structure/parent-company/1/pay-tax-in-uk" when {
 
       "user is authorised" should {
 
@@ -38,14 +39,16 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = getRequest("/group-structure/pay-tax-in-uk")()
+            val res = getRequest("/group-structure/parent-company/1/pay-tax-in-uk")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.payTaxInUk(companyName))
+                titleOf(PageTitles.payTaxInUk(parentCompanyName.name))
               )
             }
           }
@@ -57,7 +60,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = getRequest("/group-structure/pay-tax-in-uk")()
+            val res = getRequest("/group-structure/parent-company/1/pay-tax-in-uk")()
 
             whenReady(res) { result =>
               result should have(
@@ -74,7 +77,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/pay-tax-in-uk")()
+          val res = getRequest("/group-structure/parent-company/1/pay-tax-in-uk")()
 
           whenReady(res) { result =>
             result should have(
@@ -86,7 +89,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "POST /group-structure/pay-tax-in-uk" when {
+    "POST /group-structure/parent-company/1/pay-tax-in-uk" when {
 
       "user is authorised" when {
 
@@ -95,13 +98,16 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
           "redirect to under Limited Liability Partnership page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -112,13 +118,16 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
           "redirect to Registered For Tax in Another Country page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> "false"))()
+            val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk", Json.obj("value" -> "false"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -131,9 +140,11 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ParentCompanyNamePage, companyName)
+              setAnswers(
+                emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+              )
 
-              val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -149,7 +160,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
               AuthStub.authorised()
 
-              val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -167,7 +178,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/pay-tax-in-uk", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -182,7 +193,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Change mode" when {
 
-    "GET /group-structure/pay-tax-in-uk/change" when {
+    "GET /group-structure/parent-company/1/pay-tax-in-uk/change" when {
 
       "user is authorised" should {
 
@@ -191,14 +202,16 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = getRequest("/group-structure/pay-tax-in-uk/change")()
+            val res = getRequest("/group-structure/parent-company/1/pay-tax-in-uk/change")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.payTaxInUk(companyName))
+                titleOf(PageTitles.payTaxInUk(parentCompanyName.name))
               )
             }
           }
@@ -210,7 +223,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
             AuthStub.authorised()
 
-            val res = getRequest("/group-structure/pay-tax-in-uk/change")()
+            val res = getRequest("/group-structure/parent-company/1/pay-tax-in-uk/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -227,7 +240,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/pay-tax-in-uk/change")()
+          val res = getRequest("/group-structure/parent-company/1/pay-tax-in-uk/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -239,7 +252,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "POST /group-structure/pay-tax-in-uk" when {
+    "POST /group-structure/parent-company/1/pay-tax-in-uk" when {
 
       "user is authorised" when {
 
@@ -248,13 +261,16 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -267,9 +283,11 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ParentCompanyNamePage, companyName)
+              setAnswers(
+                emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+              )
 
-              val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -285,7 +303,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
               AuthStub.authorised()
 
-              val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -304,7 +322,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/pay-tax-in-uk/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(

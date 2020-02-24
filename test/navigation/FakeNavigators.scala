@@ -24,13 +24,15 @@ import play.api.mvc.Call
 object FakeNavigators extends SpecBase {
 
   trait FakeNavigator extends Navigator {
-    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
+    override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int]): Call = onwardRoute
   }
 
   object FakeStartReturnNavigator extends StartReturnNavigator() with FakeNavigator
   object FakeAboutReportingCompanyNavigator extends AboutReportingCompanyNavigator() with FakeNavigator
   object FakeAboutReturnNavigator extends AboutReturnNavigator() with FakeNavigator
-  object FakeGroupStructureNavigator extends GroupStructureNavigator() with FakeNavigator
+  object FakeGroupStructureNavigator extends GroupStructureNavigator() with FakeNavigator {
+    override def addParent(numberOfParents: Int): Call = Call("GET", s"/addParent/$numberOfParents")
+  }
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
   object FakeUkCompaniesNavigator extends UkCompaniesNavigator() with FakeNavigator
 }

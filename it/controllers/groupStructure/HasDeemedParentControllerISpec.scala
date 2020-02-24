@@ -24,7 +24,7 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.NormalMode
 
-class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class HasDeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
@@ -80,7 +80,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -97,7 +97,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.ParentCompanyNameController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -176,7 +176,7 @@ class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequest
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }

@@ -16,9 +16,10 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -28,7 +29,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
   "in Normal mode" when {
 
-    "GET /group-structure/registered-for-tax-in-another-country" when {
+    "GET /group-structure/parent-company/1/registered-for-tax-in-another-country" when {
 
       "user is authorised" should {
 
@@ -37,14 +38,16 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = getRequest("/group-structure/registered-for-tax-in-another-country")()
+            val res = getRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.registeredForTaxInAnotherCountry(companyName))
+                titleOf(PageTitles.registeredForTaxInAnotherCountry(parentCompanyName.name))
               )
             }
           }
@@ -56,7 +59,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
             AuthStub.authorised()
 
-            val res = getRequest("/group-structure/registered-for-tax-in-another-country")()
+            val res = getRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country")()
 
             whenReady(res) { result =>
               result should have(
@@ -73,7 +76,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/registered-for-tax-in-another-country")()
+          val res = getRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country")()
 
           whenReady(res) { result =>
             result should have(
@@ -85,7 +88,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
       }
     }
 
-    "POST /group-structure/registered-for-tax-in-another-country" when {
+    "POST /group-structure/parent-company/1/registered-for-tax-in-another-country" when {
 
       "user is authorised" when {
 
@@ -94,13 +97,16 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
           "redirect to Country Of Incorporation page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.CountryOfIncorporationController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.CountryOfIncorporationController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -111,13 +117,16 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
           "redirect to Check Your Answers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> "false"))()
+            val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country", Json.obj("value" -> "false"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -130,9 +139,11 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ParentCompanyNamePage, companyName)
+              setAnswers(
+                emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+              )
 
-              val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -148,7 +159,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
               AuthStub.authorised()
 
-              val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -166,7 +177,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/registered-for-tax-in-another-country", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -181,7 +192,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
   "in Change mode" when {
 
-    "GET /group-structure/registered-for-tax-in-another-country/change" when {
+    "GET /group-structure/parent-company/1/registered-for-tax-in-another-country/change" when {
 
       "user is authorised" should {
 
@@ -190,14 +201,16 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ParentCompanyNamePage, companyName)
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = getRequest("/group-structure/registered-for-tax-in-another-country/change")()
+            val res = getRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.registeredForTaxInAnotherCountry(companyName))
+                titleOf(PageTitles.registeredForTaxInAnotherCountry(parentCompanyName.name))
               )
             }
           }
@@ -209,7 +222,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
             AuthStub.authorised()
 
-            val res = getRequest("/group-structure/registered-for-tax-in-another-country/change")()
+            val res = getRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -226,7 +239,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/registered-for-tax-in-another-country/change")()
+          val res = getRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -238,7 +251,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
       }
     }
 
-    "POST /group-structure/registered-for-tax-in-another-country" when {
+    "POST /group-structure/parent-company/1/registered-for-tax-in-another-country" when {
 
       "user is authorised" when {
 
@@ -247,13 +260,16 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -266,9 +282,11 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ParentCompanyNamePage, companyName)
+              setAnswers(
+                emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+              )
 
-              val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -284,7 +302,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
               AuthStub.authorised()
 
-              val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> ""))()
+              val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change", Json.obj("value" -> ""))()
 
               whenReady(res) { result =>
                 result should have(
@@ -303,7 +321,7 @@ class RegisteredForTaxInAnotherCountryControllerISpec extends IntegrationSpecBas
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/registered-for-tax-in-another-country/change", Json.obj("value" -> companyName))()
+          val res = postRequest("/group-structure/parent-company/1/registered-for-tax-in-another-country/change", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
