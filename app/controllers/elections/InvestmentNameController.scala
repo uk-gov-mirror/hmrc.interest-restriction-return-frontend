@@ -46,8 +46,7 @@ class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
                                         )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    //TODO: Will need to retrieve based on the IDX
-    Ok(view(fillForm(InvestmentNamePage, formProvider()), mode, routes.InvestmentNameController.onSubmit(idx, mode)))
+    Ok(view(fillForm(InvestmentNamePage, formProvider(), idx), mode, routes.InvestmentNameController.onSubmit(idx, mode)))
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -55,8 +54,7 @@ class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.InvestmentNameController.onSubmit(idx, mode)))),
       value =>
-        //TODO: Will need to store based on the IDX
-        saveAndRedirect(InvestmentNamePage, value, mode)
+        saveAndRedirect(InvestmentNamePage, value, mode, Some(idx))
     )
   }
 }

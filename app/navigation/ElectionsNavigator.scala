@@ -81,16 +81,20 @@ class ElectionsNavigator @Inject()() extends Navigator {
     }),
     PartnershipSAUTRPage -> (_ => checkYourAnswers),
     CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    InvestmentNamePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
+    InvestmentsReviewAnswersListPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
+    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad())
+  ).withDefaultValue(_ =>
     routes.CheckAnswersElectionsController.onPageLoad()
   )
 
   //TODO update with CYA and Next Section calls
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
-  private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
+  def addInvestment(idx: Int): Call = routes.InvestmentNameController.onPageLoad(idx + 1, NormalMode)
+  def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

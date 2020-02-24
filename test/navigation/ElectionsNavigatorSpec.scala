@@ -375,15 +375,24 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the Investment Name page" should {
 
-        "go to the Under construction page page" in {
+        "go to the Investments Review Answers List page" in {
 
           navigator.nextPage(InvestmentNamePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
         }
       }
     }
 
     "in Check mode" must {
+
+      "from the Investment Name page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestmentNamePage, CheckMode, emptyUserAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
+        }
+      }
 
       "go to the Check Answers Elections page" in {
 

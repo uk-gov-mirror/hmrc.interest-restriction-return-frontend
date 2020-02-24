@@ -152,3 +152,8 @@ GET        /investment-name/:idx                                                
 POST       /investment-name/:idx                                                controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /investment-name/:idx/change                                         controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /investment-name/:idx/change                                         controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### Investments Controller
+### ----------------------------------------
+GET        /investments                                                         controllers.elections.InvestmentsReviewAnswersListController.onPageLoad()
+POST       /investments                                                         controllers.elections.InvestmentsReviewAnswersListController.onSubmit()
