@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package navigation
+package models
 
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+import play.api.libs.json.{Json, OFormat}
 
-abstract class Navigator {
+case class CompanyDetailsModel(companyName: String, ctutr: String)
+object CompanyDetailsModel {
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call
-
+  implicit val format: OFormat[CompanyDetailsModel] = Json.format[CompanyDetailsModel]
 }

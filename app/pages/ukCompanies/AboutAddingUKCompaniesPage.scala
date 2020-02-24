@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package navigation
+package pages.ukCompanies
 
-import models.{Mode, UserAnswers}
 import pages.Page
-import play.api.mvc.Call
+import play.api.libs.json.JsPath
 
-abstract class Navigator {
+case object AboutAddingUKCompaniesPage extends Page{
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call
-
+  override def toString: String = "aboutAddingUKDetails"
 }

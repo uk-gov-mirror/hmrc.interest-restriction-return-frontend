@@ -69,7 +69,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
         "enters a valid answer" when {
 
-          "redirect to CompanyDetails page" in {
+          "redirect to CompanyDetailsModel page" in {
 
             AuthStub.authorised()
 

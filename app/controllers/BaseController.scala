@@ -37,13 +37,14 @@ trait BaseController extends FrontendBaseController with I18nSupport with Enumer
     request.userAnswers.get(page).fold(form)(form.fill)
 
   def getAnswer[A](page: QuestionPage[A], idx: Int)(implicit request: DataRequest[_], reads: Reads[A]): Option[A] = getAnswer(page, Some(idx))
+
   def getAnswer[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit request: DataRequest[_], reads: Reads[A]): Option[A] = request.userAnswers.get(page, idx)
 
   def fillForm[A](page: QuestionPage[A], form: Form[A], idx: Int)(implicit request: DataRequest[_], format: Format[A]): Form[A] =
     fillForm(page, form, Some(idx))
 
-  def fillForm[A](page: QuestionPage[A], form: Form[A])(implicit request: DataRequest[_], format: Format[A]): Form[A] =
-    fillForm(page, form, None)
+//  def fillForm[A](page: QuestionPage[A], form: Form[A])(implicit request: DataRequest[_], format: Format[A]): Form[A] =
+//    fillForm(page, form, None)
 
   private def fillForm[A](page: QuestionPage[A], form: Form[A], idx: Option[Int] = None)(implicit request: DataRequest[_], format: Format[A]): Form[A] =
     request.userAnswers.get(page, idx).fold(form)(form.fill)

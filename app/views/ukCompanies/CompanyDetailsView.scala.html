@@ -35,7 +35,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "companyDetails.title", Some("section.ukCompanies")))) {
 
-    @formHelper(action = CompanyDetailsController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 

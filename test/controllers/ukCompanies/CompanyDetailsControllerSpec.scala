@@ -47,7 +47,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
     view = view
   )
 
-  "CompanyDetails Controller" must {
+  "CompanyDetailsModel Controller" must {
 
     "return OK and the correct view for a GET" in {
 

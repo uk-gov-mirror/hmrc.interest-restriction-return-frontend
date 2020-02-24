@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-package models.ukCompanies
+package models
 
-case class CompanyDetails(companyName: String, ctutr: String)
+case class ErrorModel(msg: String)

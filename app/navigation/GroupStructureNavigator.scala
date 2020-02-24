@@ -69,7 +69,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
   private def checkYourAnswers: Call = routes.CheckAnswersGroupStructureController.onPageLoad()
   private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
   }

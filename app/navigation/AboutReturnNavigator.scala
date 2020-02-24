@@ -61,7 +61,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
 
   private def nextSection(mode: Mode): Call = electionRoutes.GroupRatioElectionController.onPageLoad(NormalMode)
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
   }

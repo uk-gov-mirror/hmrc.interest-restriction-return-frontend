@@ -16,21 +16,19 @@
 
 package models.returnModels.fullReturn
 
-import models.returnModels._
+import models.CompanyDetailsModel
 import play.api.libs.json.Json
 
-case class UkCompanyModel(companyName: CompanyNameModel,
-                          ctutr: UTRModel,
-                          consenting: Boolean,
-                          netTaxInterestExpense: BigDecimal,
-                          netTaxInterestIncome: BigDecimal,
-                          taxEBITDA: BigDecimal,
-                          allocatedRestrictions: Option[AllocatedRestrictionsModel],
-                          allocatedReactivations: Option[AllocatedReactivationsModel]
+case class UkCompanyModel(companyDetails: CompanyDetailsModel,
+                          consenting: Option[Boolean] = None,
+                          netTaxInterestExpense: Option[BigDecimal] = None,
+                          netTaxInterestIncome: Option[BigDecimal] = None,
+                          taxEBITDA: Option[BigDecimal] = None,
+                          allocatedRestrictions: Option[AllocatedRestrictionsModel] = None,
+                          allocatedReactivations: Option[AllocatedReactivationsModel] = None
                          )
-
 object UkCompanyModel {
 
-  implicit val writes = Json.writes[UkCompanyModel]
+  implicit val format = Json.format[UkCompanyModel]
 
 }
