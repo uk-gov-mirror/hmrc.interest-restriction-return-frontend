@@ -29,7 +29,7 @@ class InvestmentsReviewAnswersListHelper(val userAnswers: UserAnswers)
       name,
       "",
       controllers.elections.routes.InvestmentNameController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit"),
-      controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.delete")
+      controllers.elections.routes.InvestmentsDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )
   }
 }

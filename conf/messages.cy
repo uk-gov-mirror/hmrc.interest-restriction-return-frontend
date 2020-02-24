@@ -649,3 +649,10 @@ deletionConfirmation.title = Are you sure you want to delete deemed parent '{0}'
 deletionConfirmation.heading = Are you sure you want to delete deemed parent '{0}'?
 deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent '{0}'?
 deletionConfirmation.error.required = Select yes if you want to delete deemed parent '{0}'
+
+# InvestmentsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investment ‘{0}’
