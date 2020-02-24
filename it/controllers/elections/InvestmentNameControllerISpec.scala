@@ -69,7 +69,6 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
         "enters a valid answer" when {
 
-          //TODO: Update routing as part of navigation sub-task
           "redirect to Under Construction page" in {
 
             AuthStub.authorised()
@@ -79,7 +78,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.InvestmentsReviewAnswersListController.onPageLoad().url)
               )
             }
           }
