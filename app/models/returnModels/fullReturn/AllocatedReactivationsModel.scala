@@ -22,6 +22,6 @@ case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
                                        currentPeriodReactivation: BigDecimal)
 
 object AllocatedReactivationsModel {
-  implicit val writes = Json.writes[AllocatedReactivationsModel]
+  implicit val format = Json.format[AllocatedReactivationsModel]
 }
 

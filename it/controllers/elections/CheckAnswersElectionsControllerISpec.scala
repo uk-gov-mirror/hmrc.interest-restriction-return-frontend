@@ -93,7 +93,7 @@ class CheckAnswersElectionsControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/check-answers", Json.obj("value" -> utr))()
+          val res = postRequest("/elections/check-answers", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

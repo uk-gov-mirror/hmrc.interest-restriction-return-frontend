@@ -76,7 +76,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               AuthStub.authorised()
               CRNValidationStub.validateCrn(NO_CONTENT)
 
-              val res = postRequest("/reporting-company/crn", Json.obj("value" -> crn.crn))()
+              val res = postRequest("/reporting-company/crn", Json.obj("value" -> crnModel.crn))()
 
               whenReady(res) { result =>
                 result should have(
@@ -94,7 +94,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               AuthStub.authorised()
               CRNValidationStub.validateCrn(BAD_REQUEST)
 
-              val res = postRequest("/reporting-company/crn", Json.obj("value" -> crn.crn))()
+              val res = postRequest("/reporting-company/crn", Json.obj("value" -> crnModel.crn))()
 
               whenReady(res) { result =>
                 result should have(
@@ -112,7 +112,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               AuthStub.authorised()
               CRNValidationStub.validateCrn(INTERNAL_SERVER_ERROR)
 
-              val res = postRequest("/reporting-company/crn", Json.obj("value" -> crn.crn))()
+              val res = postRequest("/reporting-company/crn", Json.obj("value" -> crnModel.crn))()
 
               whenReady(res) { result =>
                 result should have(
@@ -129,7 +129,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/crn", Json.obj("value" -> crn.crn))()
+          val res = postRequest("/reporting-company/crn", Json.obj("value" -> crnModel.crn))()
 
           whenReady(res) { result =>
             result should have(
@@ -194,7 +194,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               AuthStub.authorised()
               CRNValidationStub.validateCrn(NO_CONTENT)
 
-              val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crn.crn))()
+              val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crnModel.crn))()
 
               whenReady(res) { result =>
                 result should have(
@@ -212,7 +212,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               AuthStub.authorised()
               CRNValidationStub.validateCrn(BAD_REQUEST)
 
-              val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crn.crn))()
+              val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crnModel.crn))()
 
               whenReady(res) { result =>
                 result should have(
@@ -230,7 +230,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
               AuthStub.authorised()
               CRNValidationStub.validateCrn(INTERNAL_SERVER_ERROR)
 
-              val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crn.crn))()
+              val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crnModel.crn))()
 
               whenReady(res) { result =>
                 result should have(
@@ -247,7 +247,7 @@ class ReportingCompanyCRNControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crn.crn))()
+          val res = postRequest("/reporting-company/crn/change", Json.obj("value" -> crnModel.crn))()
 
           whenReady(res) { result =>
             result should have(

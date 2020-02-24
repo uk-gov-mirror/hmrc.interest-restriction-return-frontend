@@ -37,14 +37,14 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ReportingCompanyNamePage, companyName.name)
+            setAnswers(ReportingCompanyNamePage, companyName)
 
             val res = getRequest("/group-structure/reporting-company-same-as-parent")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.reportingCompanySameAsParent(companyName.name))
+                titleOf(PageTitles.reportingCompanySameAsParent(companyName))
               )
             }
           }
@@ -113,7 +113,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ReportingCompanyNamePage, companyName.name)
+              setAnswers(ReportingCompanyNamePage, companyName)
 
               val res = postRequest("/group-structure/reporting-company-same-as-parent", Json.obj("value" -> ""))()
 
@@ -173,14 +173,14 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(ReportingCompanyNamePage, companyName.name)
+            setAnswers(ReportingCompanyNamePage, companyName)
 
             val res = getRequest("/group-structure/reporting-company-same-as-parent/change")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.reportingCompanySameAsParent(companyName.name))
+                titleOf(PageTitles.reportingCompanySameAsParent(companyName))
               )
             }
           }
@@ -249,7 +249,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             "return a BAD_REQUEST (400)" in {
 
               AuthStub.authorised()
-              setAnswers(ReportingCompanyNamePage, companyName.name)
+              setAnswers(ReportingCompanyNamePage, companyName)
 
               val res = postRequest("/group-structure/reporting-company-same-as-parent/change", Json.obj("value" -> ""))()
 

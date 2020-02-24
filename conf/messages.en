@@ -71,6 +71,7 @@ section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
+section.ukCompanies = The companies involved
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -602,6 +603,31 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated invest
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+
+# AboutAddingUKCompaniesPage Messages
+# ----------------------------------------------------------
+aboutAddingUKCompanies.title = In this section you will need to tell us about eligible UK companies in the group
+aboutAddingUKCompanies.heading = In this section you will need to tell us about eligible UK companies in the group
+
+# EnterCompanyTaxEBITDAPage Messages
+# ----------------------------------------------------------
+enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.subheading = {0}
+enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.checkYourAnswersLabel = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
+enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
+enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
+enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
+
+# ConsentingCompanyPage Messages
+# ----------------------------------------------------------
+consentingCompany.title = Is this a consenting company?
+consentingCompany.heading = Is this a consenting company?
+consentingCompany.subheading = {0}
+consentingCompany.checkYourAnswersLabel = Is this a consenting company?
+consentingCompany.error.required = Select yes if this is a consenting company?
 
 # DeemedParentReviewAnswersListPage Messages
 # ----------------------------------------------------------

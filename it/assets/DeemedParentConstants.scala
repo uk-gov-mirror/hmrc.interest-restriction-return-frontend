@@ -9,19 +9,10 @@ object DeemedParentITConstants extends BaseITConstants {
     knownAs = Some(knownAs),
     payTaxInUk = Some(true),
     limitedLiabilityPartnership = Some(false),
-    ctutr = Some(utr),
+    ctutr = Some(ctutrModel),
     registeredCompaniesHouse = Some(true),
-    crn = Some(crn),
+    crn = Some(crnModel),
     registeredForTaxInAnotherCountry = Some(false)
-  )
-
-  val deemedParentModelUkPartnership = DeemedParentModel(
-    companyName = parentCompanyName,
-    knownAs = Some(knownAs),
-    payTaxInUk = Some(true),
-    limitedLiabilityPartnership = Some(true),
-    sautr = Some(utr),
-    crn = Some(crn)
   )
 
   val deemedParentModelNonUkCompany = DeemedParentModel(

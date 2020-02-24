@@ -26,12 +26,15 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
+import pages.ukCompanies._
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersGenerator extends TryValues {
   self: Generators =>
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
+    arbitrary[(ConsentingCompanyPage.type, JsValue)] ::
+    arbitrary[(EnterCompanyTaxEBITDAPage.type, JsValue)] ::
     arbitrary[(DeletionConfirmationPage.type, JsValue)] ::
     arbitrary[(PartnershipSAUTRPage.type, JsValue)] ::
     arbitrary[(IsUkPartnershipPage.type, JsValue)] ::

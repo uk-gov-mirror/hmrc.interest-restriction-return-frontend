@@ -92,7 +92,7 @@ class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/reporting-company/check-answers", Json.obj("value" -> utr))()
+          val res = postRequest("/reporting-company/check-answers", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

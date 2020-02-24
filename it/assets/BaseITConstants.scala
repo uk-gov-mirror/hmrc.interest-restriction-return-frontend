@@ -4,11 +4,16 @@ import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRMod
 
 trait BaseITConstants {
 
-  val crn = CRNModel("AA111111")
-  val utr = UTRModel("1123456789")
-  val companyName = CompanyNameModel("A Company Name Ltd")
+  val crn = "AA111111"
+  val crnModel = CRNModel(crn)
   val knownAs = "AKA"
   val parentCompanyName = CompanyNameModel("Parent Company Ltd")
   val reportingCompanyName = CompanyNameModel("Reporting Company Ltd")
   val countryOfIncorporation = CountryCodeModel("AF", "Afghanistan")
+  val ctutr = "1123456789"
+  val ctutrModel = UTRModel(ctutr)
+  val sautr = "5555555555"
+  val sautrModel = UTRModel(sautr)
+  val companyName = "A Company Name Ltd"
+  val companyNameModel = CompanyNameModel(companyName)
 }

@@ -101,7 +101,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
               emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
 
-            val res = postRequest("/group-structure/parent-company/1/crn", Json.obj("value" -> crn.crn))()
+            val res = postRequest("/group-structure/parent-company/1/crn", Json.obj("value" -> crnModel.crn))()
 
             whenReady(res) { result =>
               result should have(
@@ -139,7 +139,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company/1/crn", Json.obj("value" -> crn.crn))()
+          val res = postRequest("/group-structure/parent-company/1/crn", Json.obj("value" -> crnModel.crn))()
 
           whenReady(res) { result =>
             result should have(
@@ -226,7 +226,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
               emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
 
-            val res = postRequest("/group-structure/parent-company/1/crn/change", Json.obj("value" -> crn.crn))()
+            val res = postRequest("/group-structure/parent-company/1/crn/change", Json.obj("value" -> crnModel.crn))()
 
             whenReady(res) { result =>
               result should have(
@@ -244,7 +244,7 @@ class ParentCRNControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company/1/crn/change", Json.obj("value" -> crn))()
+          val res = postRequest("/group-structure/parent-company/1/crn/change", Json.obj("value" -> crnModel))()
 
           whenReady(res) { result =>
             result should have(

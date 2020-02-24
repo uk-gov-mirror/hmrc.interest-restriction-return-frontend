@@ -30,5 +30,5 @@ case class AllocatedRestrictionsModel(ap1End: Option[LocalDate],
                                      )
 
 object AllocatedRestrictionsModel {
-  implicit val writes = Json.writes[AllocatedRestrictionsModel]
+  implicit val format = Json.format[AllocatedRestrictionsModel]
 }

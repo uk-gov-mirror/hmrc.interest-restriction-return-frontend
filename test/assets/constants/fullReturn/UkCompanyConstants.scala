@@ -31,10 +31,10 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelMax = UkCompanyModel(
     companyName = companyNameModel,
     ctutr = ctutrModel,
-    consenting = true,
-    netTaxInterestExpense = netTaxInterestExpense,
-    netTaxInterestIncome = 0,
-    taxEBITDA = taxEBITDA,
+    consenting = Some(true),
+    netTaxInterestExpense = Some(netTaxInterestExpense),
+    netTaxInterestIncome = Some(0),
+    taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
@@ -53,10 +53,10 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelReactivationMax = UkCompanyModel(
     companyName = companyNameModel,
     ctutr = ctutrModel,
-    consenting = true,
-    netTaxInterestExpense = netTaxInterestExpense,
-    netTaxInterestIncome = 0,
-    taxEBITDA = taxEBITDA,
+    consenting = Some(true),
+    netTaxInterestExpense = Some(netTaxInterestExpense),
+    netTaxInterestIncome = Some(0),
+    taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
@@ -74,10 +74,10 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelRestrictionMax = UkCompanyModel(
     companyName = companyNameModel,
     ctutr = ctutrModel,
-    consenting = true,
-    netTaxInterestExpense = netTaxInterestExpense,
-    netTaxInterestIncome = 0,
-    taxEBITDA = taxEBITDA,
+    consenting = Some(true),
+    netTaxInterestExpense = Some(netTaxInterestExpense),
+    netTaxInterestIncome = Some(0),
+    taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None
   )
@@ -95,10 +95,10 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelMin = UkCompanyModel(
     companyName = companyNameModel,
     ctutr = ctutrModel,
-    consenting = true,
-    netTaxInterestExpense = 0,
-    netTaxInterestIncome = netTaxInterestIncome,
-    taxEBITDA = taxEBITDA,
+    consenting = Some(true),
+    netTaxInterestExpense = Some(0),
+    netTaxInterestIncome = Some(netTaxInterestIncome),
+    taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = None
   )

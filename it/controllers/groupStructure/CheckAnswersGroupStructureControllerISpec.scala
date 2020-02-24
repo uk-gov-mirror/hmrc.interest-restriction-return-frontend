@@ -124,7 +124,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company/1/check-answers", Json.obj("value" -> utr))()
+          val res = postRequest("/group-structure/parent-company/1/check-answers", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

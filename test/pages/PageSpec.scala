@@ -22,6 +22,7 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
+import pages.ukCompanies._
 import play.api.libs.json.{JsString, Json}
 
 class PageSpec extends SpecBase {
@@ -30,6 +31,9 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
+        ConsentingCompanyPage.toString -> ConsentingCompanyPage,
+        UkCompaniesPage.toString -> UkCompaniesPage,
+        EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
     DeletionConfirmationPage.toString -> DeletionConfirmationPage,
         PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
         IsUkPartnershipPage.toString -> IsUkPartnershipPage,

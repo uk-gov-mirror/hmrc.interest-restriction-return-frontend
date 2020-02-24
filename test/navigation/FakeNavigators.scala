@@ -34,4 +34,5 @@ object FakeNavigators extends SpecBase {
     override def addParent(numberOfParents: Int): Call = Call("GET", s"/addParent/$numberOfParents")
   }
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
+  object FakeUkCompaniesNavigator extends UkCompaniesNavigator() with FakeNavigator
 }

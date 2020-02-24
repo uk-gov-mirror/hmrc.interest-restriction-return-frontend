@@ -14,6 +14,7 @@ GET        /                                            controllers.IndexControl
 ->     	   /group-structure                             groupStructure.Routes
 ->         /about-return                                aboutReturn.Routes
 ->         /elections                                   elections.Routes
+->         /uk-companies                                ukCompanies.Routes
 
 ### Error Pages
 ### -----------
