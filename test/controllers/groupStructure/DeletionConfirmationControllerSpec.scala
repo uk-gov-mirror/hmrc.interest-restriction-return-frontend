@@ -36,7 +36,7 @@ class DeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching 
 
   object Controller extends DeletionConfirmationController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
@@ -91,18 +91,45 @@ class DeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching 
       }
     }
 
-    "onSubmit" must {
+    "onSubmit" when {
 
-      "redirect to the next page when valid data is submitted" in {
+      "user confirms deletion by choosing Yes" should {
 
-        val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        "delete the selected deemed parent and redirect to the next page" in {
 
-        mockGetAnswers(Some(emptyUserAnswers))
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val result = Controller.onSubmit(idx = 1)(request)
+          val userAnswersBefore = emptyUserAnswers
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).get
 
-        status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
+          mockGetAnswers(Some(userAnswersBefore))
+          mockSetAnswers(true)
+
+          val result = Controller.onSubmit(idx = 2)(request)
+
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
+      }
+
+      "user declines deletion by choosing No" should {
+
+        "redirect to the next page when valid data is submitted" in {
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+          val userAnswersBefore = emptyUserAnswers
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).get
+
+          mockGetAnswers(Some(userAnswersBefore))
+
+          val result = Controller.onSubmit(idx = 2)(request)
+
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {

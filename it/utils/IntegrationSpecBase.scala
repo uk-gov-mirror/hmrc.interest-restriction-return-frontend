@@ -45,6 +45,7 @@ trait IntegrationSpecBase extends WordSpec
   val emptyUserAnswers = UserAnswers("id", Json.obj())
 
   def setAnswers(userAnswers: UserAnswers)(implicit timeout: Duration): Unit = Await.result(mongo.set(userAnswers), timeout)
+  def getAnswers(id: String)(implicit timeout: Duration): Option[UserAnswers] = Await.result(mongo.get(id), timeout)
 
   def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit =
     setAnswers(emptyUserAnswers.set(page, value).success.value)

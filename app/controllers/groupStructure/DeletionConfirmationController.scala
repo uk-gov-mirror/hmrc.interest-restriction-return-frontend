@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.groupStructure.DeletionConfirmationFormProvider
 import javax.inject.Inject
 import models.{Mode, NormalMode}
-import pages.groupStructure.{DeemedParentPage, DeletionConfirmationPage}
+import pages.groupStructure.{DeemedParentPage, DeletionConfirmationPage, ParentCompanyCTUTRPage}
 import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -59,13 +59,24 @@ class DeletionConfirmationController @Inject()(
   }
 
   def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(DeemedParentPage, idx) { deemedParent =>
+    println("WACKY")
+    answerFor(DeemedParentPage, idx) { deemedParent =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors, routes.DeletionConfirmationController.onSubmit(idx), deemedParent.companyName.name)))
-        },
-      value =>
-        saveAndRedirect(DeletionConfirmationPage, value, NormalMode)
-    )
+        ,
+        {
+          case true =>
+            println("HELLO")
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(DeemedParentPage, Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, updatedAnswers, Some(idx)))
+          case false =>
+            println("BANANA")
+            Future.successful(Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, request.userAnswers, Some(idx))))
+        }
+      )
+    }
   }
 }

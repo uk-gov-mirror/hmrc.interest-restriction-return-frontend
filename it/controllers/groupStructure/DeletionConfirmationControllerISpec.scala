@@ -17,7 +17,9 @@
 package controllers.groupStructure
 
 import assets.{BaseITConstants, PageTitles}
+import assets.DeemedParentITConstants._
 import models.NormalMode
+import pages.groupStructure.{DeemedParentPage, HasDeemedParentPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,19 +29,26 @@ class DeletionConfirmationControllerISpec extends IntegrationSpecBase with Creat
 
   "in Normal mode" when {
 
-    "GET /groupStructure/deletion-confirmation" when {
+    "GET /group-structure/parent-company/2/deletion-confirmation" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/groupStructure/deletion-confirmation")()
+
+          setAnswers(emptyUserAnswers
+            .set(HasDeemedParentPage, true).success.value
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
+          )
+
+          val res = getRequest("/group-structure/parent-company/2/deletion-confirmation")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.deletionConfirmation)
+              titleOf(PageTitles.deletionConfirmation(deemedParentModelUkCompany.companyName.name))
             )
           }
         }
@@ -51,7 +60,7 @@ class DeletionConfirmationControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupStructure/deletion-confirmation")()
+          val res = getRequest("/group-structure/parent-company/2/deletion-confirmation")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +72,59 @@ class DeletionConfirmationControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /groupStructure/deletion-confirmation" when {
+    "POST /group-structure/parent-company/2/deletion-confirmation" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a valid answer of 'Yes'" when {
+
+          "delete the selected deemed parent and redirect to the list view" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(HasDeemedParentPage, true).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/2/deletion-confirmation", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad().url)
+              )
+
+              val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
+              updatedAnswers.getList(DeemedParentPage) shouldBe Seq(deemedParentModelUkCompany)
+            }
+          }
+        }
+
+        "enters a valid answer of 'No'" when {
 
           "redirect to DeletionConfirmation page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/groupStructure/deletion-confirmation", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.groupStructure.routes.DeletionConfirmationController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(emptyUserAnswers
+              .set(HasDeemedParentPage, true).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
+            )
+
+            val res = postRequest("/group-structure/parent-company/2/deletion-confirmation", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad().url)
+              )
+
+              val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
+              updatedAnswers.getList(DeemedParentPage) shouldBe Seq(deemedParentModelUkCompany, deemedParentModelUkCompany)
+            }
           }
         }
       }
@@ -91,47 +135,7 @@ class DeletionConfirmationControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/groupStructure/deletion-confirmation", Json.obj("value" -> 1))()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-  }
-
-  "in Change mode" when {
-
-    "GET /groupStructure/deletion-confirmation" when {
-
-      "user is authorised" should {
-
-        "return OK (200)" in {
-
-          AuthStub.authorised()
-
-          val res = getRequest("/groupStructure/deletion-confirmation/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.deletionConfirmation)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/groupStructure/deletion-confirmation/change")()
+          val res = postRequest("/group-structure/parent-company/2/deletion-confirmation", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(

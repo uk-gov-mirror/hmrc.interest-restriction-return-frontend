@@ -66,7 +66,8 @@ class GroupStructureNavigator @Inject()() extends Navigator {
       case Some(true) => routes.DeemedParentReviewAnswersListController.onPageLoad()
       case Some(false) => nextSection(NormalMode)
       case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
-    })
+    }),
+    DeletionConfirmationPage -> ((_,_) => routes.DeemedParentReviewAnswersListController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))

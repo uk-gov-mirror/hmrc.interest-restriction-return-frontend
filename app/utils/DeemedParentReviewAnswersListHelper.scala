@@ -29,7 +29,7 @@ class DeemedParentReviewAnswersListHelper(val userAnswers: UserAnswers)
       model.companyName.name,
       model.utr.fold("")(_.utr),
       controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(idx + 1) -> messages("site.review"),
-      controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.delete")
+      controllers.groupStructure.routes.DeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )
   }
 }
