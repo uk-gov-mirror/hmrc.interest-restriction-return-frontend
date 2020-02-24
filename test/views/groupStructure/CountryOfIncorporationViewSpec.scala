@@ -38,7 +38,7 @@ class CountryOfIncorporationViewSpec extends AutocompleteViewBehaviours with Bas
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[CountryOfIncorporationView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form),
@@ -54,7 +54,7 @@ class CountryOfIncorporationViewSpec extends AutocompleteViewBehaviours with Bas
     behave like selectPage(form,
                            applyView,
                            messageKeyPrefix,
-                           routes.CountryOfIncorporationController.onSubmit(NormalMode).url,
+                           onwardRoute.url,
                            section = section,
                            headingArgs = Seq(companyNameModel.name)
                           )

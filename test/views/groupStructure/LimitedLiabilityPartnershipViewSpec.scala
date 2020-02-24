@@ -36,7 +36,7 @@ class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours with BaseC
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[LimitedLiabilityPartnershipView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(
@@ -54,7 +54,7 @@ class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours with BaseC
       form = form,
       createView = applyView,
       messageKeyPrefix = messageKeyPrefix,
-      expectedFormAction = LimitedLiabilityPartnershipController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       section = section,
       headingArgs = Seq(companyNameModel.name)
     )

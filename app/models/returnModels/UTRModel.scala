@@ -16,7 +16,7 @@
 
 package models.returnModels
 
-import play.api.libs.json.{JsPath, JsString, Json, Reads, Writes}
+import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
 case class UTRModel(utr: String)
 

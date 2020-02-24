@@ -40,14 +40,14 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCompanySAUTRView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like stringPage(form, applyView, messageKeyPrefix, routes.ParentCompanySAUTRController.onSubmit(NormalMode).url, section = section)
+    behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
     behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.groupStructure)
 

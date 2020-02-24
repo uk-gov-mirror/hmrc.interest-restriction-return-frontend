@@ -41,7 +41,7 @@ class ParentCRNViewSpec extends StringViewBehaviours {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCRNView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
@@ -52,7 +52,7 @@ class ParentCRNViewSpec extends StringViewBehaviours {
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-    behave like stringPage(form, applyView, messageKeyPrefix, groupStructureRoutes.ParentCRNController.onSubmit(NormalMode).url, section = section)
+    behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
     behave like pageWithSaveForLater(applyView(form))
 

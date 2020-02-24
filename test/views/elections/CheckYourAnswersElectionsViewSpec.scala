@@ -34,7 +34,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
   val view = injector.instanceOf[CheckYourAnswersView]
 
   def applyView(checkYourAnswersHelper: CheckYourAnswersElectionsHelper)(): HtmlFormat.Appendable = {
-    view.apply(checkYourAnswersHelper, Elections, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    view.apply(checkYourAnswersHelper.rows, Elections, onwardRoute)(fakeRequest, messages, frontendAppConfig)
   }
 
   "CheckYourAnswer view" when {

@@ -52,7 +52,7 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
 
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[CheckYourAnswersView](Some(userAnswers))
-      view.apply(checkYourAnswersHelper, ReportingCompany, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(checkYourAnswersHelper.rows, ReportingCompany, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.reportingCompany))

@@ -35,6 +35,7 @@ trait UserAnswersGenerator extends TryValues {
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
     arbitrary[(ConsentingCompanyPage.type, JsValue)] ::
     arbitrary[(EnterCompanyTaxEBITDAPage.type, JsValue)] ::
+    arbitrary[(DeletionConfirmationPage.type, JsValue)] ::
     arbitrary[(PartnershipSAUTRPage.type, JsValue)] ::
     arbitrary[(IsUkPartnershipPage.type, JsValue)] ::
     arbitrary[(PartnershipNamePage.type, JsValue)] ::
@@ -65,7 +66,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(RegisteredCompaniesHousePage.type, JsValue)] ::
     arbitrary[(ParentCompanyCTUTRPage.type, JsValue)] ::
     arbitrary[(ParentCompanyNamePage.type, JsValue)] ::
-    arbitrary[(DeemedParentPage.type, JsValue)] ::
+    arbitrary[(HasDeemedParentPage.type, JsValue)] ::
     arbitrary[(ContinueSavedReturnPage.type, JsValue)] ::
     arbitrary[(CheckAnswersReportingCompanyPage.type, JsValue)] ::
     arbitrary[(ReturnContainEstimatesPage.type, JsValue)] ::

@@ -49,7 +49,7 @@ class CheckYourAnswersAboutReturnHelper(val userAnswers: UserAnswers)
   def interestAllowanceBroughtForward: Option[SummaryListRow] =
     monetaryAnswer(InterestAllowanceBroughtForwardPage, routes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
 
-  override val rows: Seq[SummaryListRow] = Seq(
+  val rows: Seq[SummaryListRow] = Seq(
     returnContainEstimates,
     groupInterestAllowance,
     groupInterestCapacity,

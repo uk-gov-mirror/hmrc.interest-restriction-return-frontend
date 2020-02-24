@@ -24,7 +24,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.{ParentCompanyNamePage, RegisteredForTaxInAnotherCountryPage}
+import pages.groupStructure.{DeemedParentPage, ParentCompanyNamePage, RegisteredForTaxInAnotherCountryPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -34,31 +34,48 @@ import views.html.groupStructure.RegisteredForTaxInAnotherCountryView
 import scala.concurrent.Future
 
 class RegisteredForTaxInAnotherCountryController @Inject()(override val messagesApi: MessagesApi,
-                                                            val sessionRepository: SessionRepository,
-                                                            val navigator: GroupStructureNavigator,
-                                                            val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                            identify: IdentifierAction,
-                                                            getData: DataRetrievalAction,
-                                                            requireData: DataRequiredAction,
-                                                            formProvider: RegisteredForTaxInAnotherCountryFormProvider,
-                                                            val controllerComponents: MessagesControllerComponents,
-                                                            view: RegisteredForTaxInAnotherCountryView
+                                                           val sessionRepository: SessionRepository,
+                                                           val navigator: GroupStructureNavigator,
+                                                           val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                           identify: IdentifierAction,
+                                                           getData: DataRetrievalAction,
+                                                           requireData: DataRequiredAction,
+                                                           formProvider: RegisteredForTaxInAnotherCountryFormProvider,
+                                                           val controllerComponents: MessagesControllerComponents,
+                                                           view: RegisteredForTaxInAnotherCountryView
                                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ParentCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(RegisteredForTaxInAnotherCountryPage, formProvider()), mode, name)))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          form = deemedParentModel.registeredForTaxInAnotherCountry.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          companyName = deemedParentModel.companyName.name,
+          postAction = routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode)
+        ))
+      )
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          answerFor(ParentCompanyNamePage) { name =>
-            Future.successful(BadRequest(view(formWithErrors, mode, name)))
-          },
-        value =>
-          saveAndRedirect(RegisteredForTaxInAnotherCountryPage, value, mode)
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.RegisteredForTaxInAnotherCountryController.onSubmit(idx, mode)
+          ))),
+        value => {
+          val updatedModel = deemedParentModel.copy(registeredForTaxInAnotherCountry = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(RegisteredForTaxInAnotherCountryPage, mode, updatedAnswers, Some(idx)))
+        }
       )
+    }
   }
 }

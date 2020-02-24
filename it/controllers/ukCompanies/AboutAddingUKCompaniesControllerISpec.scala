@@ -91,7 +91,7 @@ class AboutAddingUKCompaniesControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/parent-company-name", Json.obj("value" -> companyName))()
+          val res = postRequest("/uk-companies/about-adding-uk-companies", Json.obj())()
 
           whenReady(res) { result =>
             result should have(

@@ -1,10 +1,12 @@
 package assets
 
 object PageTitles {
+  val deletionConfirmation: String => String = name => s"Are you sure you want to delete deemed parent ‘$name’?"
   val consentingCompany = "Is this a consenting company?"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
   val partnershipSAUTR: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} Self Assessment Unique Taxpayer Reference"
   val isUkPartnership: String => String = name => s"Is $name a UK Partnership?"
+  val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if(i > 1)'s'} added"
   val partnershipName = "Enter the name of the partnership"
   val investorRatioMethod = "Which ratio do you want to elect for this investor group?"
   val investorGroupName = "Enter the name of the investor group"
@@ -44,7 +46,7 @@ object PageTitles {
   val reportingCompanyRequired = "A reporting company is required"
   val confirmation = "Return submitted"
   val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
-  val deemedParent = "Does the group have a ’deemed’ parent company?"
+  val deemedParent = "Does the group have a ‘deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
   val parentCRN = "Parent Company Registration Number"
   val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"

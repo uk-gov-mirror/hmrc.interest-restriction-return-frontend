@@ -16,11 +16,14 @@
 
 package models.returnModels
 
-import play.api.libs.json.Json
+import play.api.libs.json.{JsPath, JsString, Writes}
 
 case class CompanyNameModel(name: String)
 
 object CompanyNameModel {
 
-  implicit val format = Json.format[CompanyNameModel]
+  implicit val reads = JsPath.read[String] map CompanyNameModel.apply
+  implicit val writes: Writes[CompanyNameModel] = Writes { model =>
+    JsString(model.name)
+  }
 }

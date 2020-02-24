@@ -75,7 +75,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> ctutr))()
+            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> sautr))()
 
             whenReady(res) { result =>
               result should have(
@@ -93,7 +93,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> 1))()
+          val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> sautr))()
 
           whenReady(res) { result =>
             result should have(

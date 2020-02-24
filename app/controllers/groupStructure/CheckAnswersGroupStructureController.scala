@@ -42,14 +42,13 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseController {
 
-  def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
       val checkYourAnswersHelper = new CheckYourAnswersGroupStructureHelper(request.userAnswers)
-      Ok(view(checkYourAnswersHelper, GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit()))
+      Ok(view(checkYourAnswersHelper.rows(idx), GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit(idx)))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-      Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers))
+  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request => Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(idx)))
   }
 }

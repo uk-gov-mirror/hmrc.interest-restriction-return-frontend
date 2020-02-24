@@ -21,10 +21,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupStructure.ParentCRNFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.CRNModel
 import navigation.GroupStructureNavigator
-import pages.groupStructure.ParentCRNPage
+import pages.groupStructure.{DeemedParentPage, ParentCRNPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,18 +45,33 @@ class ParentCRNController @Inject()(override val messagesApi: MessagesApi,
                                     formProvider: ParentCRNFormProvider,
                                     val controllerComponents: MessagesControllerComponents,
                                     view: ParentCRNView
-                                   )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                   )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ParentCRNPage, formProvider()), mode))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          form = deemedParentModel.crn.map(_.crn).fold(formProvider())(formProvider().fill),
+          mode = mode,
+          postAction = routes.ParentCRNController.onSubmit(idx, mode)
+        ))
+      )
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(ParentCRNPage, value, mode)
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCRNController.onSubmit(idx, mode)))),
+      value => {
+        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+          val updatedModel = deemedParentModel.copy(crn = Some(CRNModel(value)))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCRNPage, mode, updatedAnswers, Some(idx)))
+        }
+      }
     )
   }
 }

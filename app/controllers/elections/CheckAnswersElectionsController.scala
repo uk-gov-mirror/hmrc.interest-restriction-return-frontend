@@ -45,7 +45,7 @@ class CheckAnswersElectionsController @Inject()(override val messagesApi: Messag
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request => {
       val checkAnswersHelper = new CheckYourAnswersElectionsHelper(request.userAnswers)
-      Ok(view(checkAnswersHelper, Elections, controllers.elections.routes.CheckAnswersElectionsController.onSubmit()))
+      Ok(view(checkAnswersHelper.rows, Elections, controllers.elections.routes.CheckAnswersElectionsController.onSubmit()))
     }
   }
 

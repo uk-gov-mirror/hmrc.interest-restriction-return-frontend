@@ -40,7 +40,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   //TODO update with Next Section call
   private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
   }
