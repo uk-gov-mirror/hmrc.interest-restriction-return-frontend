@@ -20,4 +20,5 @@ object DeemedParentReviewAnswersListMessages {
 
   val title: Int => String = amount => s"$amount deemed parent added"
   val addParent = "Do you need to add another deemed parent?"
+  val maxParents = "You can only add a maximum of 3 deemed parents"
 }

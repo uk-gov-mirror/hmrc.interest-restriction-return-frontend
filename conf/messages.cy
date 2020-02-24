@@ -599,3 +599,13 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated invest
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+
+# DeemedParentReviewAnswersListPage Messages
+# ----------------------------------------------------------
+deemedParentReviewAnswersList.singular.title = {0} deemed parent added
+deemedParentReviewAnswersList.plural.title = {0} deemed parents added
+deemedParentReviewAnswersList.singular.heading = {0} deemed parent added
+deemedParentReviewAnswersList.plural.heading = {0} deemed parents added
+deemedParentReviewAnswersList.addAnother = Do you need to add another deemed parent?
+deemedParentReviewAnswersList.error.required = Select yes if you need to add another deemed parent
+deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 3 deemed parents

@@ -44,13 +44,19 @@
         @govukSummaryList(SummaryList(answers))
 
         @formHelper(action = postAction) {
-
-            @yesNoRadio(form, "deemedParentReviewAnswersList.addAnother", isPageHeading = false, classes = "govuk-fieldset__legend--l")
-
-            @button("site.submitAndContinue")
-
+            @formSection
+            @button("site.continue")
         }
 
         @saveForLater()
+    }
+}
+
+@formSection = {
+
+    @if(answers.length >= 3) {
+        <p class="govuk-body" id="max-parents-reached">@messages("deemedParentReviewAnswersList.maxParentsReached")</p>
+    } else {
+        @yesNoRadio(form, "deemedParentReviewAnswersList.addAnother", isPageHeading = false, classes = "govuk-fieldset__legend--l")
     }
 }

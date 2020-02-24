@@ -53,15 +53,17 @@ class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with Gro
           .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
       ).rows
 
-      behave like normalPage(applyView(summaryList)(form), messageKeyPrefix("singular"), section = section, headingArgs = Seq(summaryList.length.toString))
+      val view = applyView(summaryList)(form)
 
-      behave like pageWithBackLink(applyView(summaryList)(form))
+      behave like normalPage(view, messageKeyPrefix("singular"), section = section, headingArgs = Seq(summaryList.length.toString))
 
-      behave like pageWithSubmitButton(applyView(summaryList)(form), BaseMessages.saveAndContinue)
+      behave like pageWithBackLink(view)
 
-      behave like pageWithSubHeading(applyView(summaryList)(form), SectionHeaderMessages.groupStructure)
+      behave like pageWithSubmitButton(view, BaseMessages.continue)
 
-      behave like pageWithSaveForLater(applyView(summaryList)(form))
+      behave like pageWithSubHeading(view, SectionHeaderMessages.groupStructure)
+
+      behave like pageWithSaveForLater(view)
 
       "behave like a page with a Yes/No question" when {
 
@@ -125,15 +127,23 @@ class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with Gro
           .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(3)).get
       ).rows
 
-      behave like normalPage(applyView(summaryList)(form), messageKeyPrefix("plural"), section = section, headingArgs = Seq(summaryList.length.toString))
+      val view = applyView(summaryList)(form)
 
-      behave like pageWithBackLink(applyView(summaryList)(form))
+      behave like normalPage(view, messageKeyPrefix("plural"), section = section, headingArgs = Seq(summaryList.length.toString))
 
-      behave like pageWithSubmitButton(applyView(summaryList)(form), BaseMessages.saveAndContinue)
+      behave like pageWithBackLink(view)
 
-      behave like pageWithSubHeading(applyView(summaryList)(form), SectionHeaderMessages.groupStructure)
+      behave like pageWithSubmitButton(view, BaseMessages.continue)
 
-      behave like pageWithSaveForLater(applyView(summaryList)(form))
+      behave like pageWithSubHeading(view, SectionHeaderMessages.groupStructure)
+
+      behave like pageWithSaveForLater(view)
+
+      "display the correct message" in {
+
+        val element = asDocument(view).getElementById("max-parents-reached")
+        element.text mustBe DeemedParentReviewAnswersListMessages.maxParents
+      }
     }
   }
 }
