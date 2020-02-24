@@ -19,6 +19,8 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import pages.ukCompanies.UkCompaniesPage
+import controllers.ukCompanies.{routes => ukCompanies}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -93,8 +95,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           "enters a valid answer" when {
 
-            //TODO: Will be updated as part of routing
-            "redirect to Under Construction page" in {
+            "redirect to NetTaxInterestIncomeOrExpense page" in {
 
               AuthStub.authorised()
               setAnswers(UkCompaniesPage, ukCompanyModelMax)
@@ -103,7 +104,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                  redirectLocation(ukCompanies.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode).url)
                 )
               }
             }

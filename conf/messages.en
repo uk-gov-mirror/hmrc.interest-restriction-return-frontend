@@ -691,6 +691,7 @@ investorGroupsDeletionConfirmation.error.required = Select yes if you want to de
 # ----------------------------------------------------------
 netTaxInterestIncomeOrExpense.title = Which net tax-interest does this company have?
 netTaxInterestIncomeOrExpense.heading = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.subheading = {0}
 netTaxInterestIncomeOrExpense.expenseRadio = Net Tax-Interest Expense
 netTaxInterestIncomeOrExpense.incomeRadio = Net Tax-Interest Income
 netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does this company have?

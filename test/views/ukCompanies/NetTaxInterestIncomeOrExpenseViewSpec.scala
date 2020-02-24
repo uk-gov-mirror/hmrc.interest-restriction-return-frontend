@@ -16,15 +16,16 @@
 
 package views.ukCompanies
 
+import assets.constants.BaseConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
-import models.{NetTaxInterestIncomeOrExpense, ContinueSavedReturn, NormalMode}
+import models.{NetTaxInterestIncomeOrExpense, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
 
-class NetTaxInterestIncomeOrExpenseViewSpec extends ViewBehaviours {
+class NetTaxInterestIncomeOrExpenseViewSpec extends ViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "netTaxInterestIncomeOrExpense"
   val section = Some(messages("section.ukCompanies"))

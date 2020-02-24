@@ -17,22 +17,21 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import javax.inject.Inject
-import models.{NetTaxInterestIncomeOrExpense, Mode}
+import models.Mode
+import navigation.UkCompaniesNavigator
 import pages.ukCompanies.NetTaxInterestIncomeOrExpensePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
-import play.api.data.Form
 
 import scala.concurrent.Future
-import navigation.UkCompaniesNavigator
-import services.QuestionDeletionLookupService
-import controllers.BaseNavigationController
 
 class NetTaxInterestIncomeOrExpenseController @Inject()(
                                   override val messagesApi: MessagesApi,

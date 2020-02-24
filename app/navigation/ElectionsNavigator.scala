@@ -26,6 +26,7 @@ import play.api.mvc.Call
 @Singleton
 class ElectionsNavigator @Inject()() extends Navigator {
 
+  //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     GroupRatioElectionPage -> (_ => routes.EnterANGIEController.onPageLoad(NormalMode)),
     EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {

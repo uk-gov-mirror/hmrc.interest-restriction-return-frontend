@@ -16,24 +16,19 @@
 
 package controllers.ukCompanies
 
-import controllers.errors
+import assets.constants.BaseConstants
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import controllers.errors
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
-import models.{NetTaxInterestIncomeOrExpense, NormalMode, UserAnswers}
+import models.{NetTaxInterestIncomeOrExpense, NormalMode}
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import org.scalatestplus.mockito.MockitoSugar
 import pages.ukCompanies.NetTaxInterestIncomeOrExpensePage
-import play.api.data.Form
-
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.Html
-
 import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
 
-class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants{
 
   val view = injector.instanceOf[NetTaxInterestIncomeOrExpenseView]
   val formProvider = injector.instanceOf[NetTaxInterestIncomeOrExpenseFormProvider]
