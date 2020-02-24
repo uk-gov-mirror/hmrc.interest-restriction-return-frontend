@@ -21,10 +21,11 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
-import pages.ukCompanies.NetTaxInterestIncomeOrExpensePage
+import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -44,16 +45,25 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
                                   formProvider: NetTaxInterestIncomeOrExpenseFormProvider,
                                   val controllerComponents: MessagesControllerComponents,
                                   view: NetTaxInterestIncomeOrExpenseView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(NetTaxInterestIncomeOrExpensePage, formProvider()), mode))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage) { ukCompany =>
+      Future.successful(
+        Ok(view(fillForm(NetTaxInterestIncomeOrExpensePage, formProvider()), mode = mode,
+          companyName = ukCompany.companyName.name,
+          postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(mode)
+        ))
+      )
+    }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        answerFor(UkCompaniesPage) { name =>
+          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.EnterCompanyTaxEBITDAController.onSubmit(mode))))
+        },
       value =>
         saveAndRedirect(NetTaxInterestIncomeOrExpensePage, value, mode)
     )

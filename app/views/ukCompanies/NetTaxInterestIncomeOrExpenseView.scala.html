@@ -30,15 +30,15 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "netTaxInterestIncomeOrExpense.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form, "netTaxInterestIncomeOrExpense.title", Some(messages("netTaxInterestIncomeOrExpense.subheading", companyName))))) {
 
     @formHelper(action = NetTaxInterestIncomeOrExpenseController.onSubmit(mode), 'autoComplete -> "off") {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ukCompanies")
+        @subheading(messages("netTaxInterestIncomeOrExpense.subheading", companyName))
 
         @inputRadio(
             form = form,

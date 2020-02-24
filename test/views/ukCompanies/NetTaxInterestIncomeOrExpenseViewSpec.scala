@@ -17,6 +17,8 @@
 package views.ukCompanies
 
 import assets.constants.BaseConstants
+import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.ukCompanies.NetTaxInterestIncomeOrExpenseMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import models.{NetTaxInterestIncomeOrExpense, NormalMode}
@@ -28,19 +30,19 @@ import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
 class NetTaxInterestIncomeOrExpenseViewSpec extends ViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "netTaxInterestIncomeOrExpense"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some(NetTaxInterestIncomeOrExpenseMessages.subheading(companyNameModel.name))
   val form = new NetTaxInterestIncomeOrExpenseFormProvider()()
 
   "NetTaxInterestIncomeOrExpenseView" must {
 
     def applyView(form: Form[NetTaxInterestIncomeOrExpense]): HtmlFormat.Appendable = {
       val view = viewFor[NetTaxInterestIncomeOrExpenseView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode,companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+    behave like pageWithSubHeading(applyView(form), section.get)
 
     behave like pageWithBackLink(applyView(form))
 

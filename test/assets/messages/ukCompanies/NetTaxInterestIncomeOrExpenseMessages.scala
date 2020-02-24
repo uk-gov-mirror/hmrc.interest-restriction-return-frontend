@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package pages.ukCompanies
+package assets.messages.ukCompanies
 
-import models.NetTaxInterestIncomeOrExpense
-import pages.behaviours.PageBehaviours
+object NetTaxInterestIncomeOrExpenseMessages {
 
-class NetTaxInterestIncomeOrExpensePageSpec extends PageBehaviours {
-
-  "NetTaxInterestIncomeOrExpensePage" must {
-
-    beRetrievable[NetTaxInterestIncomeOrExpense](NetTaxInterestIncomeOrExpensePage)
-
-    beSettable[NetTaxInterestIncomeOrExpense](NetTaxInterestIncomeOrExpensePage)
-
-    beRemovable[NetTaxInterestIncomeOrExpense](NetTaxInterestIncomeOrExpensePage)
-  }
+  val subheading: String => String = x => x
 }
