@@ -619,3 +619,11 @@ enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using 
 enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
 enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
 enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
+
+# ConsentingCompanyPage Messages
+# ----------------------------------------------------------
+consentingCompany.title = Is this a consenting company?
+consentingCompany.heading = Is this a consenting company?
+consentingCompany.subheading = {0}
+consentingCompany.checkYourAnswersLabel = Is this a consenting company?
+consentingCompany.error.required = Select yes if this is a consenting company?

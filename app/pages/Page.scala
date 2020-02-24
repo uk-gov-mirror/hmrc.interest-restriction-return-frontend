@@ -21,7 +21,7 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
+import pages.ukCompanies.{ConsentingCompanyPage, EnterCompanyTaxEBITDAPage, UkCompaniesPage}
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
 import scala.language.implicitConversions
@@ -33,6 +33,7 @@ object Page {
   implicit def toString(page: Page): String = page.toString
 
   val pages: Map[String, Page] = Map(
+    ConsentingCompanyPage.toString -> ConsentingCompanyPage,
     UkCompaniesPage.toString -> UkCompaniesPage,
     EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
     PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
