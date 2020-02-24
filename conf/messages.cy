@@ -609,3 +609,10 @@ deemedParentReviewAnswersList.plural.heading = {0} deemed parents added
 deemedParentReviewAnswersList.addAnother = Do you need to add another deemed parent?
 deemedParentReviewAnswersList.error.required = Select yes if you need to add another deemed parent
 deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 3 deemed parents
+
+# DeletionConfirmationPage Messages
+# ----------------------------------------------------------
+deletionConfirmation.title = Are you sure you want to delete deemed parent '{0}'?
+deletionConfirmation.heading = Are you sure you want to delete deemed parent '{0}'?
+deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent '{0}'?
+deletionConfirmation.error.required = Select yes if you want to delete deemed parent '{0}'

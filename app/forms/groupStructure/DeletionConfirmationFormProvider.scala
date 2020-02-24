@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package assets.messages.groupStructure
+package forms.groupStructure
 
-object DeemedParentReviewAnswersListMessages {
+import javax.inject.Inject
 
-  val title: Int => String = amount => s"$amount deemed parent added"
-  val addParent = "Do you need to add another deemed parent?"
-  val maxParents = "You can only add a maximum of 3 deemed parents"
+import forms.mappings.Mappings
+import play.api.data.Form
+
+class DeletionConfirmationFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("deletionConfirmation.error.required")
+    )
 }

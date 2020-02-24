@@ -26,6 +26,9 @@ import pages.startReturn._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryDeletionConfirmationPage: Arbitrary[DeletionConfirmationPage.type] =
+    Arbitrary(DeletionConfirmationPage)
+
   implicit lazy val arbitraryPartnershipSAUTRPage: Arbitrary[PartnershipSAUTRPage.type] =
     Arbitrary(PartnershipSAUTRPage)
 

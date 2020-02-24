@@ -16,7 +16,8 @@
 
 package controllers.groupStructure
 
-import assets.messages.{DeemedParentReviewAnswersListMessages, SectionHeaderMessages}
+import assets.messages.SectionHeaderMessages
+import assets.messages.groupStructure.DeemedParentReviewAnswersListMessages
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._

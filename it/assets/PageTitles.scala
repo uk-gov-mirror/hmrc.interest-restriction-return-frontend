@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val deletionConfirmation = "Are you sure you want to delete this deemed company?"
   val partnershipSAUTR: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} Self Assessment Unique Taxpayer Reference"
   val isUkPartnership: String => String = name => s"Is $name a UK Partnership?"
   val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if(i > 1)'s'} added"

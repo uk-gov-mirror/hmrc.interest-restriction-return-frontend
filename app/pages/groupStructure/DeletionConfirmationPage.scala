@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages.groupStructure
+package pages.groupStructure
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-object DeemedParentReviewAnswersListMessages {
+case object DeletionConfirmationPage extends QuestionPage[Boolean] {
 
-  val title: Int => String = amount => s"$amount deemed parent added"
-  val addParent = "Do you need to add another deemed parent?"
-  val maxParents = "You can only add a maximum of 3 deemed parents"
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "deletionConfirmation"
 }

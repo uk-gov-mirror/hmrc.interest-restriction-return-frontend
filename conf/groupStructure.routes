@@ -99,3 +99,8 @@ POST       /parent-company/:idx/country-of-incorporation                      co
 GET        /parent-company/:idx/country-of-incorporation/change               controllers.groupStructure.CountryOfIncorporationController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /parent-company/:idx/country-of-incorporation/change               controllers.groupStructure.CountryOfIncorporationController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
+
+### DeletionConfirmation Controller
+### ----------------------------------------
+GET        /parent-company/:idx/deletion-confirmation                         controllers.groupStructure.DeletionConfirmationController.onPageLoad(idx: Int)
+POST       /parent-company/:idx/deletion-confirmation                         controllers.groupStructure.DeletionConfirmationController.onSubmit(idx: Int)

@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages.groupStructure
+package pages.groupStructure
 
-object DeemedParentReviewAnswersListMessages {
+import pages.behaviours.PageBehaviours
 
-  val title: Int => String = amount => s"$amount deemed parent added"
-  val addParent = "Do you need to add another deemed parent?"
-  val maxParents = "You can only add a maximum of 3 deemed parents"
+class DeletionConfirmationPageSpec extends PageBehaviours {
+
+  "DeletionConfirmationPage" must {
+
+    beRetrievable[Boolean](DeletionConfirmationPage)
+
+    beSettable[Boolean](DeletionConfirmationPage)
+
+    beRemovable[Boolean](DeletionConfirmationPage)
+  }
 }

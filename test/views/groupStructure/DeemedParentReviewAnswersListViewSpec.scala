@@ -18,7 +18,8 @@ package views.groupStructure
 
 import assets.constants.DeemedParentConstants.{deemedParentModelNonUkCompany, deemedParentModelUkCompany, deemedParentModelUkPartnership}
 import assets.constants.GroupStructureCheckYourAnswersConstants
-import assets.messages.{BaseMessages, DeemedParentReviewAnswersListMessages, SectionHeaderMessages}
+import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.messages.groupStructure.DeemedParentReviewAnswersListMessages
 import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import pages.groupStructure.DeemedParentPage
 import play.api.data.Form
