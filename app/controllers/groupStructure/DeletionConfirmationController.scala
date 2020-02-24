@@ -59,7 +59,6 @@ class DeletionConfirmationController @Inject()(
   }
 
   def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    println("WACKY")
     answerFor(DeemedParentPage, idx) { deemedParent =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
@@ -67,13 +66,11 @@ class DeletionConfirmationController @Inject()(
         ,
         {
           case true =>
-            println("HELLO")
             for {
               updatedAnswers <- Future.fromTry(request.userAnswers.remove(DeemedParentPage, Some(idx)))
               _ <- sessionRepository.set(updatedAnswers)
             } yield Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, updatedAnswers, Some(idx)))
           case false =>
-            println("BANANA")
             Future.successful(Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, request.userAnswers, Some(idx))))
         }
       )
