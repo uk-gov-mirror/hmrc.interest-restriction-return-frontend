@@ -30,6 +30,8 @@ object FakeNavigators extends SpecBase {
   object FakeStartReturnNavigator extends StartReturnNavigator() with FakeNavigator
   object FakeAboutReportingCompanyNavigator extends AboutReportingCompanyNavigator() with FakeNavigator
   object FakeAboutReturnNavigator extends AboutReturnNavigator() with FakeNavigator
-  object FakeGroupStructureNavigator extends GroupStructureNavigator() with FakeNavigator
+  object FakeGroupStructureNavigator extends GroupStructureNavigator() with FakeNavigator {
+    override def addParent(numberOfParents: Int): Call = Call("GET", s"/addParent/$numberOfParents")
+  }
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
 }

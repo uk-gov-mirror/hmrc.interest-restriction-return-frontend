@@ -20,6 +20,7 @@ import assets.messages.{CheckAnswersGroupStructureMessages, SectionHeaderMessage
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import forms.groupStructure.{DeemedParentReviewAnswersListFormProvider, LocalRegistrationNumberFormProvider}
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
 import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
@@ -29,6 +30,8 @@ import views.html.groupStructure.DeemedParentReviewAnswersListView
 class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[DeemedParentReviewAnswersListView]
+  val formProvider = injector.instanceOf[DeemedParentReviewAnswersListFormProvider]
+  val form = formProvider()
 
   object Controller extends DeemedParentReviewAnswersListController(
     messagesApi = messagesApi,
@@ -37,7 +40,8 @@ class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureS
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    navigator = FakeGroupStructureNavigator
+    navigator = FakeGroupStructureNavigator,
+    formProvider = formProvider
   )
 
   "Check Your Answers Controller" when {
@@ -57,23 +61,33 @@ class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureS
 
     "calling the onSubmit() method" when {
 
-      "given a deemed parent" when {
+      "add another parent answer is yes" should {
 
-        "redirect to the next page in the navigator" in {
+        "redirect to the Add Parent route" in {
 
-          lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+          mockGetAnswers(Some(emptyUserAnswers))
 
-          mockGetAnswers(Some(userAnswers))
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-          val result = Controller.onSubmit()(fakeRequest)
+          val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
-            page = CheckAnswersGroupStructurePage,
-            mode = NormalMode,
-            userAnswers = emptyUserAnswers,
-            id = Some(1)
-          ).url)
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.addParent(0).url)
+        }
+      }
+
+      "add another parent answer is false" should {
+
+        "redirect to the Next Section route" in {
+
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+          val result = Controller.onSubmit()(request)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextSection(NormalMode).url)
         }
       }
     }

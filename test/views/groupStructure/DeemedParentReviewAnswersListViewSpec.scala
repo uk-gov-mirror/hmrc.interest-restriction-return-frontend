@@ -19,29 +19,31 @@ package views.groupStructure
 import assets.constants.DeemedParentConstants.{deemedParentModelNonUkCompany, deemedParentModelUkCompany, deemedParentModelUkPartnership}
 import assets.constants.GroupStructureCheckYourAnswersConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import models.NormalMode
+import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import pages.groupStructure.DeemedParentPage
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.DeemedParentReviewAnswersListHelper
 import viewmodels.SummaryListRowHelper
-import views.behaviours.ViewBehaviours
+import views.behaviours.YesNoViewBehaviours
 import views.html.groupStructure.DeemedParentReviewAnswersListView
 
-class DeemedParentReviewAnswersListViewSpec extends ViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
+class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
 
+  val view = viewFor[DeemedParentReviewAnswersListView]()
   val messageKeyPrefix = "deemedParentReviewAnswersList"
   val section = Some(messages("section.groupStructure"))
+  val form = new DeemedParentReviewAnswersListFormProvider()()
 
   s"DeemedParent view" must {
 
-    def applyView(summaryList: Seq[SummaryListRow]): HtmlFormat.Appendable = {
-      val view = viewFor[DeemedParentReviewAnswersListView](Some(emptyUserAnswers))
+    def applyView(summaryList: Seq[SummaryListRow])(form: Form[_]): HtmlFormat.Appendable =
       view.apply(
+        form,
         summaryList,
-        NormalMode,
-        onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
+        onwardRoute
+      )(fakeRequest, messages, frontendAppConfig)
 
     val summaryList = new DeemedParentReviewAnswersListHelper(
       emptyUserAnswers
@@ -50,14 +52,22 @@ class DeemedParentReviewAnswersListViewSpec extends ViewBehaviours with GroupStr
         .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(3)).get
     ).rows
 
-    behave like normalPage(applyView(summaryList), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(summaryList)(form), messageKeyPrefix, section = section)
 
-    behave like pageWithBackLink(applyView(summaryList))
+    behave like yesNoPage(
+      form,
+      applyView(summaryList),
+      messageKeyPrefix,
+      expectedFormAction = onwardRoute.url,
+      section = section
+    )
 
-    behave like pageWithSubmitButton(applyView(summaryList), BaseMessages.saveAndContinue)
+    behave like pageWithBackLink(applyView(summaryList)(form))
 
-    behave like pageWithSubHeading(applyView(summaryList), SectionHeaderMessages.groupStructure)
+    behave like pageWithSubmitButton(applyView(summaryList)(form), BaseMessages.saveAndContinue)
 
-    behave like pageWithSaveForLater(applyView(summaryList))
+    behave like pageWithSubHeading(applyView(summaryList)(form), SectionHeaderMessages.groupStructure)
+
+    behave like pageWithSaveForLater(applyView(summaryList)(form))
   }
 }
