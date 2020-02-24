@@ -31,7 +31,7 @@
 
 @(form: Form[_], answers: Seq[SummaryListRow], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@defining(messages(s"deemedParentReviewAnswersList.heading.${if(answers.length > 1) "plural" else "singular"}", answers.length)) { heading =>
+@defining(messages(s"deemedParentReviewAnswersList.${if(answers.length > 1) "plural" else "singular"}.title", answers.length)) { heading =>
 
     @govukLayout(pageTitle = Some(title(form, heading, section = Some("section.groupStructure")))) {
 

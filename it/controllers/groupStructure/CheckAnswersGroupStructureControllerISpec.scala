@@ -88,7 +88,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                  redirectLocation(routes.DeemedParentReviewAnswersListController.onPageLoad().url)
                 )
               }
             }

@@ -243,10 +243,26 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
         "from the check answers page" should {
 
-          "go to the revisingReturn page" in {
+          "go to the DeemedParentReviewAnswersList page when given true" in {
+
+            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+
+            navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
+              groupStructureRoutes.DeemedParentReviewAnswersListController.onPageLoad()
+          }
+
+          "go to the revisingReturn page when given false" in {
+
+            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+
+            navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
+              controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+          }
+
+          "go to the HasDeemedParent page no given answers for HasDeemedParentPage" in {
 
             navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers) mustBe
-              controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+              groupStructureRoutes.HasDeemedParentController.onPageLoad(NormalMode)
           }
         }
       }

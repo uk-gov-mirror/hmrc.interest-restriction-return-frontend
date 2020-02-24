@@ -16,14 +16,13 @@
 
 package controllers.groupStructure
 
-import assets.messages.{CheckAnswersGroupStructureMessages, SectionHeaderMessages}
+import assets.messages.{DeemedParentReviewAnswersListMessages, SectionHeaderMessages}
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.groupStructure.{DeemedParentReviewAnswersListFormProvider, LocalRegistrationNumberFormProvider}
+import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentReviewAnswersListView
 
@@ -55,7 +54,7 @@ class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureS
         val result = Controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(CheckAnswersGroupStructureMessages.title, Some(SectionHeaderMessages.groupStructure))
+        titleOf(contentAsString(result)) mustEqual title(DeemedParentReviewAnswersListMessages.title(0), Some(SectionHeaderMessages.groupStructure))
       }
     }
 

@@ -24,7 +24,7 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.NormalMode
 
-class DeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class HasDeemedParentControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 

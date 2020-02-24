@@ -3,6 +3,7 @@ package assets
 object PageTitles {
   val partnershipSAUTR: String => String = name => s"Enter $name’${if(name.last.toLower != 's')'s'} Self Assessment Unique Taxpayer Reference"
   val isUkPartnership: String => String = name => s"Is $name a UK Partnership?"
+  val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if(i > 1)'s'} added"
   val partnershipName = "Enter the name of the partnership"
   val investorRatioMethod = "Which ratio do you want to elect for this investor group?"
   val investorGroupName = "Enter the name of the investor group"

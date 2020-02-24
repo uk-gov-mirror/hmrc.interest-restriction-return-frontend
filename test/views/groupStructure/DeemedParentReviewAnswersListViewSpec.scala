@@ -18,7 +18,7 @@ package views.groupStructure
 
 import assets.constants.DeemedParentConstants.{deemedParentModelNonUkCompany, deemedParentModelUkCompany, deemedParentModelUkPartnership}
 import assets.constants.GroupStructureCheckYourAnswersConstants
-import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.messages.{BaseMessages, DeemedParentReviewAnswersListMessages, SectionHeaderMessages}
 import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import pages.groupStructure.DeemedParentPage
 import play.api.data.Form
@@ -32,11 +32,11 @@ import views.html.groupStructure.DeemedParentReviewAnswersListView
 class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
 
   val view = viewFor[DeemedParentReviewAnswersListView]()
-  val messageKeyPrefix = "deemedParentReviewAnswersList"
+  val messageKeyPrefix: String => String = addition => s"deemedParentReviewAnswersList.$addition"
   val section = Some(messages("section.groupStructure"))
   val form = new DeemedParentReviewAnswersListFormProvider()()
 
-  s"DeemedParent view" must {
+  s"DeemedParent view" when {
 
     def applyView(summaryList: Seq[SummaryListRow])(form: Form[_]): HtmlFormat.Appendable =
       view.apply(
@@ -45,29 +45,95 @@ class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with Gro
         onwardRoute
       )(fakeRequest, messages, frontendAppConfig)
 
-    val summaryList = new DeemedParentReviewAnswersListHelper(
-      emptyUserAnswers
-        .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
-        .set(DeemedParentPage, deemedParentModelUkPartnership, Some(2)).get
-        .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(3)).get
-    ).rows
 
-    behave like normalPage(applyView(summaryList)(form), messageKeyPrefix, section = section)
+    "given 1 deemed parent" must {
 
-    behave like yesNoPage(
-      form,
-      applyView(summaryList),
-      messageKeyPrefix,
-      expectedFormAction = onwardRoute.url,
-      section = section
-    )
+      val summaryList = new DeemedParentReviewAnswersListHelper(
+        emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
+      ).rows
 
-    behave like pageWithBackLink(applyView(summaryList)(form))
+      behave like normalPage(applyView(summaryList)(form), messageKeyPrefix("singular"), section = section, headingArgs = Seq(summaryList.length.toString))
 
-    behave like pageWithSubmitButton(applyView(summaryList)(form), BaseMessages.saveAndContinue)
+      behave like pageWithBackLink(applyView(summaryList)(form))
 
-    behave like pageWithSubHeading(applyView(summaryList)(form), SectionHeaderMessages.groupStructure)
+      behave like pageWithSubmitButton(applyView(summaryList)(form), BaseMessages.saveAndContinue)
 
-    behave like pageWithSaveForLater(applyView(summaryList)(form))
+      behave like pageWithSubHeading(applyView(summaryList)(form), SectionHeaderMessages.groupStructure)
+
+      behave like pageWithSaveForLater(applyView(summaryList)(form))
+
+      "behave like a page with a Yes/No question" when {
+
+        "rendered with no errors" must {
+
+          lazy val doc = asDocument(applyView(summaryList)(form))
+
+          "contain a legend for the question" in {
+
+            val legends = doc.getElementsByTag("legend")
+            legends.size mustBe 1
+            legends.first.text mustBe DeemedParentReviewAnswersListMessages.addParent
+          }
+
+          "contain an input for the value" in {
+
+            assertRenderedByCssSelector(doc, "input[value='true']")
+            assertRenderedByCssSelector(doc, "input[value='false']")
+          }
+
+          "have no values checked when rendered with no form" in {
+
+            assert(!doc.select("input[value='true']").hasAttr("checked"))
+            assert(!doc.select("input[value='false']").hasAttr("checked"))
+          }
+
+          "not render an error summary" in {
+            assertNotRenderedById(doc, "error-summary_header")
+          }
+        }
+
+        "rendered with an error" must {
+
+          lazy val doc = asDocument(applyView(summaryList)(form.withError(error)))
+
+          "show an error summary" in {
+            assertRenderedById(doc, "error-summary-title")
+          }
+
+          "show an error associated with the value field" in {
+
+            val errorSpan = doc.getElementsByClass("govuk-error-message").first
+
+            errorSpan.text mustBe messages("error.browser.title.prefix") + " " + messages(errorMessage)
+            doc.getElementsByTag("fieldset").first.attr("aria-describedby") contains errorSpan.attr("id")
+          }
+
+          "show an error prefix in the browser title" in {
+            assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(DeemedParentReviewAnswersListMessages.title(1), section)}""")
+          }
+        }
+      }
+    }
+
+    "given 3 deemed parents" must {
+
+      val summaryList = new DeemedParentReviewAnswersListHelper(
+        emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).get
+          .set(DeemedParentPage, deemedParentModelUkPartnership, Some(2)).get
+          .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(3)).get
+      ).rows
+
+      behave like normalPage(applyView(summaryList)(form), messageKeyPrefix("plural"), section = section, headingArgs = Seq(summaryList.length.toString))
+
+      behave like pageWithBackLink(applyView(summaryList)(form))
+
+      behave like pageWithSubmitButton(applyView(summaryList)(form), BaseMessages.saveAndContinue)
+
+      behave like pageWithSubHeading(applyView(summaryList)(form), SectionHeaderMessages.groupStructure)
+
+      behave like pageWithSaveForLater(applyView(summaryList)(form))
+    }
   }
 }
