@@ -46,19 +46,19 @@ class InvestorGroupsReviewAnswersListHelperSpec extends SpecBase with SummaryLis
             investorGroupsGroupRatioModel.investorName,
             InvestorGroupsReviewAnswersListMessages.groupRatio,
             routes.InvestorGroupNameController.onPageLoad(1, NormalMode) -> BaseMessages.changeLink,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            routes.InvestorGroupsDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             investorGroupsFixedRatioModel.investorName,
             InvestorGroupsReviewAnswersListMessages.fixedRatio,
             routes.InvestorGroupNameController.onPageLoad(2, NormalMode) -> BaseMessages.changeLink,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            routes.InvestorGroupsDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             investorGroupsFixedRatioModel.investorName,
             InvestorGroupsReviewAnswersListMessages.fixedRatio,
             routes.InvestorGroupNameController.onPageLoad(3, NormalMode) -> BaseMessages.changeLink,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            routes.InvestorGroupsDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )
         )
       }

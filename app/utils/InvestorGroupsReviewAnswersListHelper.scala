@@ -29,7 +29,7 @@ class InvestorGroupsReviewAnswersListHelper(val userAnswers: UserAnswers)
       model.investorName,
       model.ratioMethod.fold("")(x => messages(s"investorRatioMethod.$x")),
       controllers.elections.routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode) -> messages("site.edit"),
-      controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.delete")
+      controllers.elections.routes.InvestorGroupsDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )
   }
 }

@@ -409,10 +409,19 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the Investments Review Answers List page" should {
 
-        "go to the Investments Review Answers List page" in {
+        "go to the Elected Interest Allowance Consolidated Pship Before page" in {
 
           navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, emptyUserAnswers) mustBe
             routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Investor Groups Deletion Confirmation page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestorGroupsReviewAnswersListController.onPageLoad()
         }
       }
     }

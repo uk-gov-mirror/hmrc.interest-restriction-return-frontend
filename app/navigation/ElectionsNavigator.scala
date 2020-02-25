@@ -21,7 +21,7 @@ import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.elections._
-import play.api.mvc.{Call, NoHeaderRangeSet}
+import play.api.mvc.Call
 
 @Singleton
 class ElectionsNavigator @Inject()() extends Navigator {
@@ -85,7 +85,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
     CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     InvestmentsReviewAnswersListPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
-    InvestmentsDeletionConfirmationPage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad())
+    InvestmentsDeletionConfirmationPage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
+    InvestorGroupsDeletionConfirmationPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad())
   )
 
   val idxRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(

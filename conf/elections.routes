@@ -167,3 +167,8 @@ POST       /investments                                                         
 ### ----------------------------------------
 GET        /investment/:idx/deletion-confirmation                               controllers.elections.InvestmentsDeletionConfirmationController.onPageLoad(idx: Int)
 POST       /investment/:idx/deletion-confirmation                               controllers.elections.InvestmentsDeletionConfirmationController.onSubmit(idx: Int)
+
+### InvestorGroupsDeletionConfirmation Controller
+### ----------------------------------------
+GET        /investor-groups/:idx/deletion-confirmation                          controllers.elections.InvestorGroupsDeletionConfirmationController.onPageLoad(idx: Int)
+POST       /investor-groups/:idx/deletion-confirmation                          controllers.elections.InvestorGroupsDeletionConfirmationController.onSubmit(idx: Int)

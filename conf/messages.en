@@ -679,3 +679,10 @@ investorGroupsReviewAnswersList.plural.heading = {0} Investor groups added for G
 investorGroupsReviewAnswersList.singular.heading = {0} Investor group added for Group ratio (blended) election
 investorGroupsReviewAnswersList.addAnother = Do you need to add another investor group?
 investorGroupsReviewAnswersList.error.required = Select yes if you need to add another investor group
+
+# InvestorGroupsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
