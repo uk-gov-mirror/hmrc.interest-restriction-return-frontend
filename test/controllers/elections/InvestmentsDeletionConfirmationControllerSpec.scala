@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,16 @@
 
 package controllers.elections
 
-import controllers.errors
+import assets.constants.NonConsolidatedInvestmentConstants.investmentName
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import controllers.errors
 import forms.elections.InvestmentsDeletionConfirmationFormProvider
-import models.NormalMode
-import pages.elections.InvestmentsDeletionConfirmationPage
+import navigation.FakeNavigators.FakeElectionsNavigator
+import pages.elections.InvestmentNamePage
 import play.api.test.Helpers._
 import views.html.elections.InvestmentsDeletionConfirmationView
-import navigation.FakeNavigators.FakeElectionsNavigator
 
 class InvestmentsDeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -35,7 +35,7 @@ class InvestmentsDeletionConfirmationControllerSpec extends SpecBase with Featur
 
   object Controller extends InvestmentsDeletionConfirmationController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
@@ -46,74 +46,116 @@ class InvestmentsDeletionConfirmationControllerSpec extends SpecBase with Featur
     view = view
   )
 
-  "InvestmentsDeletionConfirmation Controller" must {
+  "InvestmentsDeletionConfirmation Controller" when {
 
-    "return OK and the correct view for a GET" in {
+    "calling .onPageLoad(idx: Int)" when {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "there is an investment name the user answers" should {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        "return OK and the correct view" in {
 
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+          mockGetAnswers(Some(
+            emptyUserAnswers
+              .set(InvestmentNamePage, investmentName, Some(1)).get
+          ))
+
+          val result = Controller.onPageLoad(idx = 1)(fakeRequest)
+
+          status(result) mustEqual OK
+          contentAsString(result) mustEqual view(
+            form, routes.InvestmentsDeletionConfirmationController.onSubmit(idx = 1), investmentName
+          )(fakeRequest, messages, frontendAppConfig).toString
+        }
+      }
+
+      "there is no investments in the user answers" should {
+
+        "return ISE (500)" in {
+
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onPageLoad(idx = 1)(fakeRequest)
+
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+        }
+      }
+
+      "redirect to Session Expired for a GET if no existing data is found" in {
+
+        mockGetAnswers(None)
+
+        val result = Controller.onPageLoad(idx = 1)(fakeRequest)
+
+        status(result) mustEqual SEE_OTHER
+
+        redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
+    "calling .onSubmit(idx: Int)" when {
 
-      val userAnswers = emptyUserAnswers.set(InvestmentsDeletionConfirmationPage, true).success.value
+      "user confirms deletion by choosing Yes" should {
 
-      mockGetAnswers(Some(userAnswers))
+        "delete the selected investment and redirect to the next page" in {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      status(result) mustEqual OK
-    }
+          val userAnswers = emptyUserAnswers
+            .set(InvestmentNamePage, investmentName, Some(1)).get
+            .set(InvestmentNamePage, investmentName, Some(2)).get
 
-    "redirect to the next page when valid data is submitted" in {
+          mockGetAnswers(Some(userAnswers))
+          mockSetAnswers(true)
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+          val result = Controller.onSubmit(idx = 2)(request)
 
-      mockGetAnswers(Some(emptyUserAnswers))
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
+      }
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      "user declines deletion by choosing No" should {
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
+        "redirect to the next page when valid data is submitted" in {
 
-    "return a Bad Request and errors when invalid data is submitted" in {
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+          val userAnswers = emptyUserAnswers
+            .set(InvestmentNamePage, investmentName, Some(1)).get
+            .set(InvestmentNamePage, investmentName, Some(2)).get
 
-      mockGetAnswers(Some(emptyUserAnswers))
+          mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+          val result = Controller.onSubmit(idx = 2)(request)
 
-      status(result) mustEqual BAD_REQUEST
-    }
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
+      }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+      "return a Bad Request and errors when invalid data is submitted" in {
 
-      mockGetAnswers(None)
+        mockGetAnswers(Some(emptyUserAnswers.set(InvestmentNamePage, investmentName, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      status(result) mustEqual SEE_OTHER
+        val result = Controller.onSubmit(idx = 1)(request)
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-    }
+        status(result) mustEqual BAD_REQUEST
+      }
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+      "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(None)
+        mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+        val result = Controller.onSubmit(idx = 1)(request)
 
-      status(result) mustEqual SEE_OTHER
+        status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+        redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      }
     }
   }
 }

@@ -27,14 +27,14 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Normal mode" when {
 
-    "GET /elections/investment-name/1" when {
+    "GET /elections/investment/1/name" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/elections/investment-name/1")()
+          val res = getRequest("/elections/investment/1/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investment-name/1")()
+          val res = getRequest("/elections/investment/1/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /elections/investment-name/1" when {
+    "POST /elections/investment/1/name" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/investment-name/1", Json.obj("value" -> "name"))()
+            val res = postRequest("/elections/investment/1/name", Json.obj("value" -> "name"))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/investment-name/1", Json.obj("value" -> "name"))()
+          val res = postRequest("/elections/investment/1/name", Json.obj("value" -> "name"))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /elections/investment-name/1" when {
+    "GET /elections/investment/1/name" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/elections/investment-name/1/change")()
+          val res = getRequest("/elections/investment/1/name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class InvestmentNameControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investment-name/1/change")()
+          val res = getRequest("/elections/investment/1/name/change")()
 
           whenReady(res) { result =>
             result should have(

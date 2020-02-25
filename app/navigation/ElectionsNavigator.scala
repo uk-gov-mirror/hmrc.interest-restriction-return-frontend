@@ -26,7 +26,6 @@ import play.api.mvc.{Call, NoHeaderRangeSet}
 @Singleton
 class ElectionsNavigator @Inject()() extends Navigator {
 
-  //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     GroupRatioElectionPage -> (_ => routes.EnterANGIEController.onPageLoad(NormalMode)),
     EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
@@ -54,7 +53,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
     }),
     InterestAllowanceAlternativeCalcElectionPage -> (_ => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)),
-    InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
+    InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (_.get(InterestAllowanceNonConsolidatedInvestmentsElectionPage) match {
+      case Some(true) => routes.InvestmentsReviewAnswersListController.onPageLoad()
+      case Some(false) => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+      case _ => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
+    }),
     ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_.get(ElectedInterestAllowanceConsolidatedPshipBeforePage) match {
       case Some(true) => routes.PartnershipNameController.onPageLoad(NormalMode)
       case Some(false) => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
@@ -92,9 +95,10 @@ class ElectionsNavigator @Inject()() extends Navigator {
     routes.CheckAnswersElectionsController.onPageLoad()
   )
 
-  //TODO update with CYA and Next Section calls
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
   def addInvestment(idx: Int): Call = routes.InvestmentNameController.onPageLoad(idx + 1, NormalMode)
+
+  //TODO: Add next Section call as part of future story
   def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {

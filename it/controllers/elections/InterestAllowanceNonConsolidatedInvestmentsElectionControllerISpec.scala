@@ -68,13 +68,30 @@ class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "user answers yes" should {
 
-          "redirect to Elected Interest Allowance Consolidated Partnerships Before page" in {
+          "redirect to Investmens List page" in {
 
             AuthStub.authorised()
 
             val res = postRequest("/elections/interest-allowance-non-consolidated-investments-election", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.InvestmentsReviewAnswersListController.onPageLoad().url)
+              )
+            }
+          }
+        }
+
+        "user answers no" should {
+
+          "redirect to Elected Consolidated Pship Election Before page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/interest-allowance-non-consolidated-investments-election", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(

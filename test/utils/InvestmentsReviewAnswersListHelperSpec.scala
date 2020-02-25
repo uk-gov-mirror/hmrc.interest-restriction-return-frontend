@@ -18,6 +18,7 @@ package utils
 
 import assets.constants.NonConsolidatedInvestmentConstants._
 import assets.messages.BaseMessages
+import controllers.elections.routes
 import base.SpecBase
 import models.CheckMode
 import pages.elections.InvestmentNamePage
@@ -43,20 +44,20 @@ class InvestmentsReviewAnswersListHelperSpec extends SpecBase with SummaryListRo
           summaryListRow(
             investmentName,
             "",
-            controllers.elections.routes.InvestmentNameController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            routes.InvestmentNameController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink,
+            routes.InvestmentsDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             investmentName,
             "",
-            controllers.elections.routes.InvestmentNameController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            routes.InvestmentNameController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink,
+            routes.InvestmentsDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             investmentName,
             "",
-            controllers.elections.routes.InvestmentNameController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            routes.InvestmentNameController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink,
+            routes.InvestmentsDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )
         )
       }

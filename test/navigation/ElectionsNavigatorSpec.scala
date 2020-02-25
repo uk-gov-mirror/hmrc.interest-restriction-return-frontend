@@ -194,10 +194,26 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the InterestAllowanceNonConsolidatedInvestmentsElection page" should {
 
-        "go to the Elected Interest Allowance Consolidated Partnership Before page" in {
+        "go to the Investments page when answer is yes" in {
+
+          val userAnswers = emptyUserAnswers.set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true).success.value
+
+          navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, userAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
+        }
+
+        "go to the Elected Interest Allowance Consolidated Partnership Before page when answer is no" in {
+
+          val userAnswers = emptyUserAnswers.set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, false).success.value
+
+          navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, userAnswers) mustBe
+            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+
+        "go to InterestAllowanceNonConsolidatedInvestmentsElection when there is no answer" in {
 
           navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, emptyUserAnswers) mustBe
-            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+            routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
         }
       }
 

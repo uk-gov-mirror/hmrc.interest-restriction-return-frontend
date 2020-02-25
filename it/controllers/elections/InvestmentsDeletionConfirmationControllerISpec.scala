@@ -16,8 +16,9 @@
 
 package controllers.elections
 
+import assets.NonConsolidatedInvestmentsITConstants._
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import pages.elections.InvestmentNamePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,19 +28,25 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
 
   "in Normal mode" when {
 
-    "GET /elections/investments-deletion-confirmation" when {
+    "GET /elections/investment/2/deletion-confirmation" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/elections/investments-deletion-confirmation")()
+
+          setAnswers(emptyUserAnswers
+            .set(InvestmentNamePage, investmentName, Some(1)).success.value
+            .set(InvestmentNamePage, investmentName, Some(2)).success.value
+          )
+
+          val res = getRequest("/elections/investment/2/deletion-confirmation")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.investmentsDeletionConfirmation)
+              titleOf(PageTitles.investmentsDeletionConfirmation(investmentName))
             )
           }
         }
@@ -51,7 +58,7 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investments-deletion-confirmation")()
+          val res = getRequest("/elections/investment/2/deletion-confirmation")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +70,57 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
       }
     }
 
-    "POST /elections/investments-deletion-confirmation" when {
+    "POST /elections/investment/2/deletion-confirmation" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a valid answer of 'Yes'" when {
 
-          "redirect to InvestmentsDeletionConfirmation page" in {
+          "delete the selected deemed parent and redirect to the list view" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/investments-deletion-confirmation", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.elections.routes.InvestmentsDeletionConfirmationController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(emptyUserAnswers
+              .set(InvestmentNamePage, investmentName, Some(1)).success.value
+              .set(InvestmentNamePage, investmentName, Some(2)).success.value
+            )
+
+            val res = postRequest("/elections/investment/2/deletion-confirmation", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.InvestmentsReviewAnswersListController.onPageLoad().url)
+              )
+
+              val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
+              updatedAnswers.getList(InvestmentNamePage) shouldBe Seq(investmentName)
+            }
+          }
+        }
+
+        "enters a valid answer of 'No'" when {
+
+          "redirect to DeletionConfirmation page" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(InvestmentNamePage, investmentName, Some(1)).success.value
+              .set(InvestmentNamePage, investmentName, Some(2)).success.value
+            )
+
+            val res = postRequest("/elections/investment/2/deletion-confirmation", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.InvestmentsReviewAnswersListController.onPageLoad().url)
+              )
+
+              val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
+              updatedAnswers.getList(InvestmentNamePage) shouldBe Seq(investmentName, investmentName)
+            }
           }
         }
       }
@@ -91,47 +131,7 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/investments-deletion-confirmation", Json.obj("value" -> 1))()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-  }
-
-  "in Change mode" when {
-
-    "GET /elections/investments-deletion-confirmation" when {
-
-      "user is authorised" should {
-
-        "return OK (200)" in {
-
-          AuthStub.authorised()
-
-          val res = getRequest("/elections/investments-deletion-confirmation/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.investmentsDeletionConfirmation)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/elections/investments-deletion-confirmation/change")()
+          val res = postRequest("/elections/investment/2/deletion-confirmation", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
