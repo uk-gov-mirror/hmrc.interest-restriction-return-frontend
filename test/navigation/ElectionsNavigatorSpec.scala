@@ -397,6 +397,15 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.InvestmentsReviewAnswersListController.onPageLoad()
         }
       }
+
+      "from the Investments Review Answers List page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, emptyUserAnswers) mustBe
+            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+      }
     }
 
     "in Check mode" must {
