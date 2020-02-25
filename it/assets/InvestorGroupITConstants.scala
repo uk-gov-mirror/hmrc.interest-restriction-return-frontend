@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package assets.constants
+package assets
 
 import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
 import models.OtherInvestorGroupElections
 import models.returnModels.InvestorGroupModel
 
-object InvestorGroupConstants {
+object InvestorGroupITConstants {
 
   val investorName = "some Investor"
 

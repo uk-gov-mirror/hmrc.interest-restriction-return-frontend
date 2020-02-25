@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package assets.constants
+package pages.elections
 
-import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
-import models.OtherInvestorGroupElections
 import models.returnModels.InvestorGroupModel
+import pages.behaviours.PageBehaviours
 
-object InvestorGroupConstants {
+class InvestorGroupsPageSpec extends PageBehaviours {
 
-  val investorName = "some Investor"
+  "InvestorGroupsPage" must {
 
-  val investorGroupsGroupRatioModel = InvestorGroupModel(
-    investorName = investorName,
-    ratioMethod = Some(GroupRatioMethod),
-    otherInvestorGroupElections = Some(OtherInvestorGroupElections.allValues.toSet)
-  )
+    beRetrievable[InvestorGroupModel](InvestorGroupsPage)
 
-  val investorGroupsFixedRatioModel = InvestorGroupModel(
-    investorName = investorName,
-    ratioMethod = Some(FixedRatioMethod),
-    otherInvestorGroupElections = Some(OtherInvestorGroupElections.fixedRatioValues.toSet)
-  )
+    beSettable[InvestorGroupModel](InvestorGroupsPage)
+
+    beRemovable[InvestorGroupModel](InvestorGroupsPage)
+  }
 }

@@ -30,13 +30,11 @@ class InvestorGroupNameViewSpec extends StringViewBehaviours  {
   val messageKeyPrefix = "investorGroupName"
   val section = Some(messages("section.elections"))
   val form = new InvestorGroupNameFormProvider()()
+  val view = viewFor[InvestorGroupNameView]()
 
     "InvestorGroupNameView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[InvestorGroupNameView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+      def applyView(form: Form[_]): HtmlFormat.Appendable = view.apply(form, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
@@ -44,7 +42,7 @@ class InvestorGroupNameViewSpec extends StringViewBehaviours  {
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.elections)
 
-      behave like stringPage(form, applyView, messageKeyPrefix, routes.InvestorGroupNameController.onSubmit(NormalMode).url, section = section)
+      behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

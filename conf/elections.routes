@@ -101,24 +101,29 @@ POST       /add-investor-group/change                                           
 
 ### InvestorGroupName Controller
 ### ----------------------------------------
-GET        /investor-group-name                                                 controllers.elections.InvestorGroupNameController.onPageLoad(mode: Mode = NormalMode)
-POST       /investor-group-name                                                 controllers.elections.InvestorGroupNameController.onSubmit(mode: Mode = NormalMode)
-GET        /investor-group-name/change                                          controllers.elections.InvestorGroupNameController.onPageLoad(mode: Mode = CheckMode)
-POST       /investor-group-name/change                                          controllers.elections.InvestorGroupNameController.onSubmit(mode: Mode = CheckMode)
+GET        /investor-group/:idx/name                                            controllers.elections.InvestorGroupNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /investor-group/:idx/name                                            controllers.elections.InvestorGroupNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /investor-group/:idx/name/change                                     controllers.elections.InvestorGroupNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /investor-group/:idx/name/change                                     controllers.elections.InvestorGroupNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### InvestorRatioMethod Controller
 ### ----------------------------------------
-GET        /investor-ratio-method                                               controllers.elections.InvestorRatioMethodController.onPageLoad(mode: Mode = NormalMode)
-POST       /investor-ratio-method                                               controllers.elections.InvestorRatioMethodController.onSubmit(mode: Mode = NormalMode)
-GET        /investor-ratio-method/change                                        controllers.elections.InvestorRatioMethodController.onPageLoad(mode: Mode = CheckMode)
-POST       /investor-ratio-method/change                                        controllers.elections.InvestorRatioMethodController.onSubmit(mode: Mode = CheckMode)
+GET        /investor-group/:idx/ratio-method                                    controllers.elections.InvestorRatioMethodController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /investor-group/:idx/ratio-method                                    controllers.elections.InvestorRatioMethodController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /investor-group/:idx/ratio-method/change                             controllers.elections.InvestorRatioMethodController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /investor-group/:idx/ratio-method/change                             controllers.elections.InvestorRatioMethodController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### OtherInvestorGroupElections Controller
 ### ----------------------------------------
-GET        /other-investor-group-elections                                      controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(mode: Mode = NormalMode)
-POST       /other-investor-group-elections                                      controllers.elections.OtherInvestorGroupElectionsController.onSubmit(mode: Mode = NormalMode)
-GET        /other-investor-group-elections/change                               controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(mode: Mode = CheckMode)
-POST       /other-investor-group-elections/change                               controllers.elections.OtherInvestorGroupElectionsController.onSubmit(mode: Mode = CheckMode)
+GET        /investor-group/:idx/other-elections                                 controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /investor-group/:idx/other-elections                                 controllers.elections.OtherInvestorGroupElectionsController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /investor-group/:idx/other-elections/change                          controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /investor-group/:idx/other-elections/change                          controllers.elections.OtherInvestorGroupElectionsController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### InvestmentorGroups Controller
+### ----------------------------------------
+GET        /investor-groups                                                     controllers.elections.InvestorGroupsReviewAnswersListController.onPageLoad()
+POST       /investor-groups                                                     controllers.elections.InvestorGroupsReviewAnswersListController.onSubmit()
 
 ### PartnershipName Controller
 ### ----------------------------------------

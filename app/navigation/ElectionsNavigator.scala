@@ -69,13 +69,12 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
-      case Some(true) => routes.InvestorGroupNameController.onPageLoad(NormalMode)
+      case Some(true) => routes.InvestorGroupsReviewAnswersListController.onPageLoad()
       case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
       case _ => routes.AddInvestorGroupController.onPageLoad(NormalMode)
     }),
-    InvestorGroupNamePage -> (_ => routes.InvestorRatioMethodController.onPageLoad(NormalMode)),
-    InvestorRatioMethodPage -> (_ => routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)),
-    OtherInvestorGroupElectionsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
+    OtherInvestorGroupElectionsPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad()),
+    InvestorGroupsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
     PartnershipNamePage -> (_ => routes.IsUkPartnershipController.onPageLoad(NormalMode)),
     IsUkPartnershipPage -> (_.get(IsUkPartnershipPage) match {
       case Some(true) => routes.PartnershipSAUTRController.onPageLoad(NormalMode)
@@ -89,6 +88,12 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestmentsDeletionConfirmationPage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad())
   )
 
+  val idxRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
+    InvestorGroupNamePage -> ((idx, _) => routes.InvestorRatioMethodController.onPageLoad(idx, NormalMode)),
+    InvestorRatioMethodPage -> ((idx, _) => routes.OtherInvestorGroupElectionsController.onPageLoad(idx, NormalMode))
+  )
+
+
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad())
   ).withDefaultValue(_ =>
@@ -97,12 +102,13 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
   def addInvestment(idx: Int): Call = routes.InvestmentNameController.onPageLoad(idx + 1, NormalMode)
+  def addInvestorGroup(idx: Int): Call = routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode)
 
   //TODO: Add next Section call as part of future story
   def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
-    case NormalMode => normalRoutes(page)(userAnswers)
+    case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))
     case CheckMode => checkRouteMap(page)(userAnswers)
   }
 }
