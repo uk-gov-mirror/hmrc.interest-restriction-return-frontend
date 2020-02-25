@@ -1,10 +1,8 @@
 package pages.$section;format="decap"$
-import pages.QuestionPage
+import pages.Page
 import play.api.libs.json.JsPath
 
-case object $className;format="cap"$Page {
-  
-  override def path: JsPath = JsPath \ toString
-  
+case object $className;format="cap"$Page extends Page{
+
   override def toString: String = "$className;format="decap"$"
 }

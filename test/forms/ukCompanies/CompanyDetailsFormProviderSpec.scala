@@ -17,37 +17,47 @@
 package forms.ukCompanies
 
 import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.UTRFieldBehaviours
 import play.api.data.FormError
 
-class CompanyDetailsFormProviderSpec extends StringFieldBehaviours {
+class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with UTRFieldBehaviours {
 
-  val requiredKey = "companyDetails.error.required"
-  val lengthKey = "companyDetails.error.length"
-  val maxLength = 160
+  val companyNameRequiredKey = "companyDetails.companyName.error.required"
+  val companyNameLengthKey = "companyDetails.companyName.error.length"
+  val companyNameMaxLength = 160
+  val ctutrRequiredKey = "companyDetails.ctutr.error.required"
+  val ctutrRegexpKey = "companyDetails.ctutr.error.regexp"
+  val ctutrChecksumKey = "companyDetails.ctutr.error.checksum"
 
   val form = new CompanyDetailsFormProvider()()
 
-  ".value" must {
+  ".companyName" must {
 
-    val fieldName = "value"
+    val companyNameField = "companyName"
 
     behave like fieldThatBindsValidData(
       form,
-      fieldName,
-      stringsWithMaxLength(maxLength)
+      companyNameField,
+      stringsWithMaxLength(companyNameMaxLength)
     )
 
     behave like fieldWithMaxLength(
       form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      companyNameField,
+      maxLength = companyNameMaxLength,
+      lengthError = FormError(companyNameField, companyNameLengthKey, Seq(companyNameMaxLength))
     )
 
     behave like mandatoryField(
       form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      companyNameField,
+      requiredError = FormError(companyNameField, companyNameRequiredKey)
     )
   }
+  behave like validUTR(
+    form = form,
+    utrFieldName = "ctutr",
+    utrChecksumErrorKey = ctutrChecksumKey,
+    utrRegexpKey = ctutrRegexpKey
+  )
 }

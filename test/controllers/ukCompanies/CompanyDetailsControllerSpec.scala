@@ -21,18 +21,20 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.CompanyDetailsFormProvider
-import models.NormalMode
+import models.{CompanyDetailsModel, NormalMode}
 import pages.ukCompanies.CompanyDetailsPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.CompanyDetailsView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import assets.constants.fullReturn.UkCompanyConstants.companyDetailsModel
+import play.api.data.Form
 
 
 class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[CompanyDetailsView]
-  val formProvider = injector.instanceOf[CompanyDetailsFormProvider]
-  val form = formProvider()
+  val view: CompanyDetailsView = injector.instanceOf[CompanyDetailsView]
+  val formProvider: CompanyDetailsFormProvider = injector.instanceOf[CompanyDetailsFormProvider]
+  val form: Form[CompanyDetailsModel] = formProvider()
 
   object Controller extends CompanyDetailsController(
     messagesApi = messagesApi,
@@ -53,20 +55,25 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        postAction = routes.CompanyDetailsController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(CompanyDetailsPage, "answer").success.value
+      val userAnswers = emptyUserAnswers
+        .set(CompanyDetailsPage, companyDetailsModel, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -77,7 +84,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -89,7 +96,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -98,7 +105,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -110,7 +117,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

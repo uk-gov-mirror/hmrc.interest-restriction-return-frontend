@@ -26,7 +26,7 @@ class ReportingCompanyCTUTRFormProvider @Inject() extends Mappings with UTRFormV
   def apply(): Form[String] =
     Form(
       "value" -> text("reportingCompanyCTUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "reportingCompanyCTUTR.error.length"))
+        .verifying(regexp("^[0-9]{10}$", "reportingCompanyCTUTR.error.regexp"))
         .verifying(checksum("reportingCompanyCTUTR.error.checksum"))
     )
 

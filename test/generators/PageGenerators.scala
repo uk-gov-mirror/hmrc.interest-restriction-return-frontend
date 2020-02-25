@@ -23,6 +23,7 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
+import pages.ukCompanies._
 
 trait PageGenerators {
 

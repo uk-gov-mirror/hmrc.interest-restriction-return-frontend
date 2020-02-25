@@ -16,16 +16,17 @@
 
 package pages.ukCompanies
 
+import models.CompanyDetailsModel
 import pages.behaviours.PageBehaviours
 
 class CompanyDetailsPageSpec extends PageBehaviours {
 
   "CompanyDetailsPage" must {
 
-    beRetrievable[String](CompanyDetailsPage)
+    beRetrievable[CompanyDetailsModel](CompanyDetailsPage)
 
-    beSettable[String](CompanyDetailsPage)
+    beSettable[CompanyDetailsModel](CompanyDetailsPage)
 
-    beRemovable[String](CompanyDetailsPage)
+    beRemovable[CompanyDetailsModel](CompanyDetailsPage)
   }
 }

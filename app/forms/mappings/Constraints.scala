@@ -117,4 +117,10 @@ trait Constraints {
       case _ =>
         Invalid(errorKey)
     }
+
+  protected def mandatory(errorKey: String): Constraint[Option[_]] =
+    Constraint {
+      case Some(_) => Valid
+      case _ => Invalid(errorKey)
+    }
 }

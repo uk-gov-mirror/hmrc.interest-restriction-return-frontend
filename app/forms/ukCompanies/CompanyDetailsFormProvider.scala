@@ -16,23 +16,22 @@
 
 package forms.ukCompanies
 import forms.UTRFormValidation
-import forms.mappings.Constraints
+import forms.mappings.Mappings
 import javax.inject.Inject
 import models.CompanyDetailsModel
-import models.returnModels.{CompanyNameModel, UTRModel}
 import play.api.data.Form
 import play.api.data.Forms._
 
 
-class CompanyDetailsFormProvider @Inject() extends Constraints with UTRFormValidation {
+class CompanyDetailsFormProvider @Inject() extends Mappings with UTRFormValidation {
 
   def apply(): Form[CompanyDetailsModel] =
     Form(mapping(
-      "companyName" -> nonEmptyText,
-      "ctutr" -> nonEmptyText
-      .verifying(maxLength(160, "companyDetails.companyName.error.length"))
-      .verifying(regexp("^[0-9]{10}$", "companyDetails.ctutr.error.length"))
-      .verifying(checksum("companyDetails.ctutr.error.checksum"))
-      )(CompanyDetailsModel.apply)(CompanyDetailsModel.unapply)
+      "companyName" -> text("companyDetails.companyName.error.required")
+        .verifying(maxLength(160, "companyDetails.companyName.error.length")),
+      "ctutr" -> text("companyDetails.ctutr.error.required")
+        .verifying(regexp("^[0-9]{10}$", "companyDetails.ctutr.error.regexp"))
+        .verifying(checksum("companyDetails.ctutr.error.checksum"))
+    )(CompanyDetailsModel.apply)(CompanyDetailsModel.unapply)
     )
 }

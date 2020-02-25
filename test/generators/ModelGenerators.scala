@@ -18,6 +18,8 @@ package generators
 
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
+import models.returnModels.{CompanyNameModel, UTRModel}
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
@@ -42,4 +44,11 @@ trait ModelGenerators {
       Gen.oneOf(FullOrAbbreviatedReturn.values)
     }
 
+  implicit lazy val arbitraryCompanyDetailsModel: Arbitrary[CompanyDetailsModel] =
+    Arbitrary {
+      for {
+        name <- arbitrary[String]
+        utr <- arbitrary[String]
+      } yield  CompanyDetailsModel(CompanyNameModel(name), UTRModel(utr))
+    }
 }

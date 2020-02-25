@@ -26,6 +26,7 @@ import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
+import pages.ukCompanies._
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersGenerator extends TryValues {
