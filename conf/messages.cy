@@ -616,6 +616,15 @@ enterCompanyTaxEBITDA.error.required = Enter your enterCompanyTaxEBITDA
 enterCompanyTaxEBITDA.error.invalidNumeric = The enterCompanyTaxEBITDA must be valid decimal or whole number
 enterCompanyTaxEBITDA.error.outOfRange = EnterCompanyTaxEBITDA must be between {0} and {1}
 
+# InvestmentNamePage Messages
+# ----------------------------------------------------------
+investmentName.title = Enter the name of the investment
+investmentName.heading = Enter the name of the investment
+investmentName.checkYourAnswersLabel = Investment name
+investmentName.label= Enter the name of the investment
+investmentName.error.required = Enter investmentName
+investmentName.error.length = Investment name must be 160 characters or less
+
 # ConsentingCompanyPage Messages
 # ----------------------------------------------------------
 consentingCompany.title = consentingCompany
@@ -640,3 +649,10 @@ deletionConfirmation.title = Are you sure you want to delete deemed parent '{0}'
 deletionConfirmation.heading = Are you sure you want to delete deemed parent '{0}'?
 deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent '{0}'?
 deletionConfirmation.error.required = Select yes if you want to delete deemed parent '{0}'
+
+# InvestmentsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investment ‘{0}’

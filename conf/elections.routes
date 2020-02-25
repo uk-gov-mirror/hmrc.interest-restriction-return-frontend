@@ -143,5 +143,22 @@ POST       /partnership-sautr/change                                            
 
 ### Check Answers Controller
 ### ----------------------------------------
-GET        /check-answers                               controllers.elections.CheckAnswersElectionsController.onPageLoad()
-POST       /check-answers                               controllers.elections.CheckAnswersElectionsController.onSubmit()
+GET        /check-answers                                                       controllers.elections.CheckAnswersElectionsController.onPageLoad()
+POST       /check-answers                                                       controllers.elections.CheckAnswersElectionsController.onSubmit()
+
+### InvestmentName Controller
+### ----------------------------------------
+GET        /investment/:idx/name                                                controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /investment/:idx/name                                                controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /investment/:idx/name/change                                         controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /investment/:idx/name/change                                         controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### Investments Controller
+### ----------------------------------------
+GET        /investments                                                         controllers.elections.InvestmentsReviewAnswersListController.onPageLoad()
+POST       /investments                                                         controllers.elections.InvestmentsReviewAnswersListController.onSubmit()
+
+### InvestmentsDeletionConfirmation Controller
+### ----------------------------------------
+GET        /investment/:idx/deletion-confirmation                               controllers.elections.InvestmentsDeletionConfirmationController.onPageLoad(idx: Int)
+POST       /investment/:idx/deletion-confirmation                               controllers.elections.InvestmentsDeletionConfirmationController.onSubmit(idx: Int)

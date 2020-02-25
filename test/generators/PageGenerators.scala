@@ -27,8 +27,14 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryInvestmentsDeletionConfirmationPage: Arbitrary[InvestmentsDeletionConfirmationPage.type] =
+    Arbitrary(InvestmentsDeletionConfirmationPage)
+
   implicit lazy val arbitraryConsentingCompanyPage: Arbitrary[ConsentingCompanyPage.type] =
     Arbitrary(ConsentingCompanyPage)
+
+  implicit lazy val arbitraryInvestmentNamePage: Arbitrary[InvestmentNamePage.type] =
+    Arbitrary(InvestmentNamePage)
 
   implicit lazy val arbitraryEnterCompanyTaxEBITDAPage: Arbitrary[EnterCompanyTaxEBITDAPage.type] =
     Arbitrary(EnterCompanyTaxEBITDAPage)

@@ -621,6 +621,24 @@ enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
 enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
 enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
 
+# InvestmentNamePage Messages
+# ----------------------------------------------------------
+investmentName.title = Enter the name of the investment
+investmentName.heading = Enter the name of the investment
+investmentName.checkYourAnswersLabel = Investment name
+investmentName.label= Enter the name of the investment
+investmentName.error.required = Enter the name of the investment
+investmentName.error.length = Investment name must be 160 characters or less
+
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+investmentsReviewAnswersList.plural.title = {0} investsments added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.singular.title = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.plural.heading = {0} investsments added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.singular.heading = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.addAnother = Do you need to add another investment?
+investmentsReviewAnswersList.error.required = Select yes if you need to add another investment
+
 # ConsentingCompanyPage Messages
 # ----------------------------------------------------------
 consentingCompany.title = Is this a consenting company?
@@ -645,3 +663,10 @@ deletionConfirmation.title = Are you sure you want to delete deemed parent ‘{0
 deletionConfirmation.heading = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.error.required = Select yes if you want to delete deemed parent ‘{0}’
+
+# InvestmentsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
