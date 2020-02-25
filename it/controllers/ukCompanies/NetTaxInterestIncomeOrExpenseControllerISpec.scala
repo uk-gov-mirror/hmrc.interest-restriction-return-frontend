@@ -31,61 +31,95 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
     "GET /uk-companies/net-tax-interest-income-or-expense" when {
 
-      "user is authorised" should {
+      "user is authorised" when {
 
-        "return OK (200)" in {
+        "data is retrieved for the uk companies model" should {
 
-          AuthStub.authorised()
-          setAnswers(UkCompaniesPage, ukCompanyModelMax)
+          "return OK (200)" in {
+
+            AuthStub.authorised()
+            setAnswers(UkCompaniesPage, ukCompanyModelMax)
+
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.netTaxInterestIncomeOrExpense)
+              )
+            }
+          }
+        }
+
+        "no data is retrieved for the uk companies model" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
 
           val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
 
           whenReady(res) { result =>
             result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestIncomeOrExpense)
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
             )
           }
         }
       }
     }
-  }
 
-  "user not authorised" should {
+    "POST /uk-companies/net-tax-interest-income-or-expense" when {
 
-    "return SEE_OTHER (303)" in {
+      "user is authorised" when {
 
-      AuthStub.unauthorised()
+        "enters a valid answer" when {
 
-      val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+          "redirect to NetTaxInterestIncomeOrExpense page" in {
 
-      whenReady(res) { result =>
-        result should have(
-          httpStatus(SEE_OTHER),
-          redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-        )
+            AuthStub.authorised()
+
+            val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
+            //TODO: Implement
+            //            whenReady(res) { result =>
+            //              result should have(
+            //                httpStatus(SEE_OTHER),
+            //                redirectLocation(controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode).url)
+            //              )
+            //            }
+          }
+        }
       }
-    }
-  }
 
-  "POST /uk-companies/net-tax-interest-income-or-expense" when {
+      "NO data is retrieved for the uk companies model" should {
 
-    "user is authorised" when {
-
-      "enters a valid answer" when {
-
-        "redirect to NetTaxInterestIncomeOrExpense page" in {
+        "Return ISE (500)" in {
 
           AuthStub.authorised()
 
           val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
-          //TODO: Implement
-          //            whenReady(res) { result =>
-          //              result should have(
-          //                httpStatus(SEE_OTHER),
-          //                redirectLocation(controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode).url)
-          //              )
-          //            }
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(INTERNAL_SERVER_ERROR)
+            )
+          }
         }
       }
     }
@@ -98,11 +132,12 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
         val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> NetTaxInterestExpense.toString))()
 
-        whenReady(res) { result =>
-          result should have(
-            httpStatus(SEE_OTHER),
-            redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-          )
+        whenReady(res) {
+          result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
         }
       }
     }
@@ -115,19 +150,37 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "data is retrieved for the uk companies model" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          setAnswers(UkCompaniesPage, ukCompanyModelMax)
+            AuthStub.authorised()
+            setAnswers(UkCompaniesPage, ukCompanyModelMax)
 
-          val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestIncomeOrExpense)
-            )
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.netTaxInterestIncomeOrExpense)
+              )
+            }
+          }
+        }
+
+        "no data is retrieved for the uk companies model" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -140,11 +193,12 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
           val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
+          whenReady(res) {
+            result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+              )
           }
         }
       }
