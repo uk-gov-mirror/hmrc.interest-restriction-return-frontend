@@ -28,7 +28,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryNetTaxInterestIncomeOrExpense: Arbitrary[NetTaxInterestIncomeOrExpense] =
     Arbitrary {
-      Gen.oneOf(NetTaxInterestIncomeOrExpense.values.toSeq)
+      Gen.oneOf(NetTaxInterestIncomeOrExpense.values)
     }
 
   implicit lazy val arbitraryInvestorRatioMethod: Arbitrary[InvestorRatioMethod] =
