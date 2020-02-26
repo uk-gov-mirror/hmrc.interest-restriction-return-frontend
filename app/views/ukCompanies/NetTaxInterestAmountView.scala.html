@@ -23,7 +23,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputNumber: components.inputNumber,
+    inputCurrency: components.inputCurrency,
     h1: components.h1,
     fieldset: components.fieldset,
     subheading: components.subheading,
@@ -31,17 +31,21 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName:String, interestType:Boolean, postAction:Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "netTaxInterestAmount.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form,
+                                    "netTaxInterestAmount.title",
+                                    Some(messages("netTaxInterestAmount.subheading", companyName)),
+                                    Seq(companyName)
+            ))){
 
     @formHelper(action = NetTaxInterestAmountController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ukCompanies")
+        @subheading(messages("netTaxInterestAmount.subheading", companyName))
 
-        @inputNumber(
+        @inputCurrency(
             form,
             id = "value",
             name = "value",

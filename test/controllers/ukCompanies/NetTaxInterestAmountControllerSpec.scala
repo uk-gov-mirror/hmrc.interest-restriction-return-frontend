@@ -22,10 +22,11 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.NetTaxInterestAmountFormProvider
 import models.NormalMode
-import pages.ukCompanies.NetTaxInterestAmountPage
+import pages.ukCompanies.{ConsentingCompanyPage, NetTaxInterestAmountPage, UkCompaniesPage}
 import play.api.test.Helpers._
 import views.html.ukCompanies.NetTaxInterestAmountView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import assets.constants.fullReturn.UkCompanyConstants._
 
 class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -52,12 +53,14 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
 
     "return OK and the correct view for a GET" in {
 
+      val userAnswers = emptyUserAnswers
+        .set(UkCompaniesPage, ukCompanyModelMax).success.value
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name, ukCompanyModelMax.consenting.get, onwardRoute)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {

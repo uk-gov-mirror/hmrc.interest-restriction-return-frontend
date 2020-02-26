@@ -16,14 +16,14 @@
 
 package views.ukCompanies
 
-import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.BaseMessages
+import assets.messages.ukCompanies.CompanyTaxEBITDAMessages
 import controllers.ukCompanies.routes
 import forms.ukCompanies.EnterCompanyTaxEBITDAFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
-import assets.messages.ukCompanies.CompanyTaxEBITDAMessages
 import views.behaviours.DecimalViewBehaviours
 import views.html.ukCompanies.EnterCompanyTaxEBITDAView
 

@@ -16,6 +16,8 @@
 
 package views.ukCompanies
 
+import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.ukCompanies.NetTaxInterestAmountMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.ukCompanies.routes
 import forms.ukCompanies.NetTaxInterestAmountFormProvider
@@ -28,21 +30,21 @@ import views.html.ukCompanies.NetTaxInterestAmountView
 class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
 
   val messageKeyPrefix = "netTaxInterestAmount"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some(NetTaxInterestAmountMessages.subheading(companyNameModel.name))
+  val view = viewFor[NetTaxInterestAmountView]()
   val form = new NetTaxInterestAmountFormProvider()()
 
     "NetTaxInterestAmountView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[NetTaxInterestAmountView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-        }
+        view.apply(form, NormalMode, companyNameModel.name, true, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), section.get)
 
       behave like decimalPage(form, applyView, messageKeyPrefix, routes.NetTaxInterestAmountController.onSubmit(NormalMode).url, section = section)
 
