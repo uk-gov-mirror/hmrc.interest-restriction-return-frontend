@@ -16,7 +16,6 @@
 
 package navigation
 
-import controllers.groupStructure.{routes => groupStructureRoutes}
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
@@ -31,6 +30,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     EnterCompanyTaxEBITDAPage -> (_ => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    NetTaxInterestAmountPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ConsentingCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     UkCompaniesPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )

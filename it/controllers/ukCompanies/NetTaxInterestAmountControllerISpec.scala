@@ -16,8 +16,10 @@
 
 package controllers.ukCompanies
 
+import assets.UkCompanyITConstants.ukCompanyModelMin
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
+import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -34,12 +36,19 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
         "return OK (200)" in {
 
           AuthStub.authorised()
+
+          val userAnswers = emptyUserAnswers
+            .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
+            .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+
+          setAnswers(userAnswers)
+
           val res = getRequest("/uk-companies/net-tax-interest-amount")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount)
+              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyName.name))
             )
           }
         }
@@ -112,6 +121,12 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
         "return OK (200)" in {
 
+          val userAnswers = emptyUserAnswers
+            .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
+            .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+
+          setAnswers(userAnswers)
+
           AuthStub.authorised()
 
           val res = getRequest("/uk-companies/net-tax-interest-amount/change")()
@@ -119,7 +134,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount)
+              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyName.name))
             )
           }
         }

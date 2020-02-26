@@ -24,6 +24,7 @@ import forms.ukCompanies.NetTaxInterestAmountFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{NetTaxInterestAmountPage, NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
@@ -66,26 +67,31 @@ class NetTaxInterestAmountController @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
       answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
-      formProvider().bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(
-            BadRequest(view(
-              form = formWithErrors,
-              mode = mode,
-              companyName = ukCompany.companyName.name,
-              incomeOrExpense = taxInterest,
-              postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
-            ))
-          ),
-        value => {
-          val updatedModel = ukCompany.copy(netTaxInterestExpense = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers))
-        }
-      )
-    }}
-
+        formProvider().bindFromRequest().fold(
+          formWithErrors =>
+            Future.successful(
+              BadRequest(view(
+                form = formWithErrors,
+                mode = mode,
+                companyName = ukCompany.companyName.name,
+                incomeOrExpense = taxInterest,
+                postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
+              ))
+            ),
+          value => {
+            answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
+              val updatedModel = taxInterest match {
+                case NetTaxInterestExpense => ukCompany.copy(netTaxInterestIncome = None, netTaxInterestExpense = Some(value))
+                case NetTaxInterestIncome => ukCompany.copy(netTaxInterestExpense = None, netTaxInterestIncome = Some(value))
+              }
+              for {
+                updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
+                _ <- sessionRepository.set(updatedAnswers)
+              } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers))
+            }
+          }
+        )
+      }
+    }
   }
 }

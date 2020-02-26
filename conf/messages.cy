@@ -680,8 +680,8 @@ investorGroupsDeletionConfirmation.error.required = Select yes if Are you sure y
 netTaxInterestIncomeOrExpense.title = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.heading = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.subheading = {0}
-netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
-netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
+netTaxInterestIncomeOrExpense.expense = Net tax-interest expense
+netTaxInterestIncomeOrExpense.income = Net tax-interest income
 netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
 
@@ -696,11 +696,19 @@ companyDetails.error.length = CompanyDetails must be 160 characters or less
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
-netTaxInterestAmount.title = NetTaxInterestAmount
-netTaxInterestAmount.heading = NetTaxInterestAmount
-netTaxInterestAmount.label=Enter the company's total net-tax interest income
-netTaxInterestAmount.checkYourAnswersLabel = NetTaxInterestAmount
-netTaxInterestAmount.error.nonNumeric = Enter your netTaxInterestAmount using numbers
-netTaxInterestAmount.error.required = Enter your netTaxInterestAmount
-netTaxInterestAmount.error.invalidNumeric = The netTaxInterestAmount must be valid decimal or whole number
-netTaxInterestAmount.error.outOfRange = NetTaxInterestAmount must be between {0} and {1}
+netTaxInterestAmount.expense.title = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.heading = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.label = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.subheading = {0}
+netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
+
+netTaxInterestAmount.income.title = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.heading = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.label = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.subheading = {0}
+netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
+
+netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
+netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
+netTaxInterestAmount.error.invalidNumeric = The total net-tax interest must be valid decimal or whole number
+netTaxInterestAmount.error.outOfRange = The total net-tax interest must be between {0} and {1}

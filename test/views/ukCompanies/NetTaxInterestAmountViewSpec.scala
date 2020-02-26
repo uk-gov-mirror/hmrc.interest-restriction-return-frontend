@@ -21,7 +21,7 @@ import assets.messages.BaseMessages
 import assets.messages.ukCompanies.NetTaxInterestAmountMessages
 import controllers.ukCompanies.routes
 import forms.ukCompanies.NetTaxInterestAmountFormProvider
-import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
@@ -31,33 +31,53 @@ import views.ViewUtils.addPossessive
 
 class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
 
-  val messageKeyPrefix = "netTaxInterestAmount"
   val section = Some(NetTaxInterestAmountMessages.subheading(companyNameModel.name))
   val view = viewFor[NetTaxInterestAmountView]()
   val form = new NetTaxInterestAmountFormProvider()()
 
-    "NetTaxInterestAmountView" must {
+  "NetTaxInterestAmountView for an income" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        view.apply(form, NormalMode, companyNameModel.name, NetTaxInterestIncome, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-      }
+    val messageKeyPrefix = "netTaxInterestAmount.income"
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(addPossessive(companyNameModel.name)))
-
-      behave like pageWithBackLink(applyView(form))
-
-      behave like pageWithSubHeading(applyView(form), section.get)
-
-      behave like decimalPage(
-        form = form,
-        createView = applyView,
-        messageKeyPrefix = messageKeyPrefix,
-        expectedFormAction = routes.NetTaxInterestAmountController.onSubmit(NormalMode).url,
-        section = section,
-        headingArgs = Seq(addPossessive(companyNameModel.name)))
-
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
-
-      behave like pageWithSaveForLater(applyView(form))
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      view.apply(form, NormalMode, companyNameModel.name, NetTaxInterestIncome, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(addPossessive(companyNameModel.name)))
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubHeading(applyView(form), section.get)
+
+    behave like decimalPage(
+      form = form,
+      createView = applyView,
+      messageKeyPrefix = messageKeyPrefix,
+      expectedFormAction = routes.NetTaxInterestAmountController.onSubmit(NormalMode).url,
+      section = section,
+      headingArgs = Seq(addPossessive(companyNameModel.name)))
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+    behave like pageWithSaveForLater(applyView(form))
   }
+
+  "NetTaxInterestAmountView for an expense" must {
+
+    val messageKeyPrefix = "netTaxInterestAmount.expense"
+
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      view.apply(form, NormalMode, companyNameModel.name, NetTaxInterestExpense, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    }
+
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(addPossessive(companyNameModel.name)))
+
+    behave like decimalPage(
+      form = form,
+      createView = applyView,
+      messageKeyPrefix = messageKeyPrefix,
+      expectedFormAction = routes.NetTaxInterestAmountController.onSubmit(NormalMode).url,
+      section = section,
+      headingArgs = Seq(addPossessive(companyNameModel.name)))
+  }
+}
