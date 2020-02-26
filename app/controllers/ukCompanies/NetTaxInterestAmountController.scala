@@ -50,13 +50,12 @@ class NetTaxInterestAmountController @Inject()(
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
       answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
-        println("COMPANY NAME IS " + ukCompany.companyName)
         Future.successful(
           Ok(view(
             form = ukCompany.netTaxInterestIncome.fold(formProvider())(formProvider().fill),
             mode = mode,
             companyName = ukCompany.companyName.name,
-            netTaxInterestIncomeOrExpense = taxInterest,
+            incomeOrExpense = taxInterest,
             postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
           ))
         )
@@ -74,7 +73,7 @@ class NetTaxInterestAmountController @Inject()(
               form = formWithErrors,
               mode = mode,
               companyName = ukCompany.companyName.name,
-              netTaxInterestIncomeOrExpense = taxInterest,
+              incomeOrExpense = taxInterest,
               postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
             ))
           ),

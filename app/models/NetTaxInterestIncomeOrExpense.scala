@@ -24,8 +24,8 @@ sealed trait NetTaxInterestIncomeOrExpense
 
 object NetTaxInterestIncomeOrExpense extends Enumerable.Implicits {
 
-  case object NetTaxInterestExpense extends WithName("expenseRadio") with NetTaxInterestIncomeOrExpense
-  case object NetTaxInterestIncome extends WithName("incomeRadio") with NetTaxInterestIncomeOrExpense
+  case object NetTaxInterestExpense extends WithName("expense") with NetTaxInterestIncomeOrExpense
+  case object NetTaxInterestIncome extends WithName("income") with NetTaxInterestIncomeOrExpense
 
   val values: Seq[NetTaxInterestIncomeOrExpense] = Seq(
     NetTaxInterestExpense, NetTaxInterestIncome

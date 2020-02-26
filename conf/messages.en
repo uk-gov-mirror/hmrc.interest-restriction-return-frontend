@@ -723,12 +723,18 @@ ukCompaniesReviewAnswersList.error.required = Select yes if you need to add anot
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
-netTaxInterestAmount.title = What is the {0} total net-tax interest amount?
-netTaxInterestAmount.heading = What is the {0} total net-tax interest amount?
-netTaxInterestAmount.label = What is the {0} total net-tax interest amount?
-netTaxInterestAmount.subheading = {0}
-netTaxInterestAmount.checkYourAnswersLabel = What is the {0} total net-tax interest amount?
+netTaxInterestAmount.expense.title = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.heading = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.label = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.subheading = {0}
+netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
 netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.error.required = Enter {0} total net-tax interest amount?
+netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
 netTaxInterestAmount.error.invalidNumeric = The netTaxInterestAmount must be valid decimal or whole number
 netTaxInterestAmount.error.outOfRange = NetTaxInterestAmount must be between {0} and {1}
+
+netTaxInterestAmount.income.title = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.heading = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.label = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.subheading = {0}
+netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?

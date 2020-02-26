@@ -66,7 +66,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
         form = form,
         mode = NormalMode,
         companyName = ukCompanyModelMin.companyName.name,
-        netTaxInterestIncomeOrExpense = NetTaxInterestIncome,
+        incomeOrExpense = NetTaxInterestIncome,
         postAction = onwardRoute
       )(fakeRequest, messages, frontendAppConfig).toString
     }
