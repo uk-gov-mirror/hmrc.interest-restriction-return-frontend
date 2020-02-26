@@ -60,7 +60,7 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
-        companyName = ukCompanyModelMax.companyName.name,
+        companyName = ukCompanyModelMax.companyDetails.companyName,
         postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }

@@ -51,7 +51,7 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
     answerFor(UkCompaniesPage) { ukCompany =>
       Future.successful(
         Ok(view(fillForm(NetTaxInterestIncomeOrExpensePage, formProvider()), mode = mode,
-          companyName = ukCompany.companyName.name,
+          companyName = ukCompany.companyDetails.companyName,
           postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(mode)
         ))
       )

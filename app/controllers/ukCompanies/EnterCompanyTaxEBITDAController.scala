@@ -52,7 +52,7 @@ class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: Messag
         Ok(view(
           form = ukCompany.taxEBITDA.fold(formProvider())(formProvider().fill),
           mode = mode,
-          companyName = ukCompany.companyName.name,
+          companyName = ukCompany.companyDetails.companyName,
           postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(mode)
         ))
       )
@@ -67,7 +67,7 @@ class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: Messag
             BadRequest(view(
               form = formWithErrors,
               mode = mode,
-              companyName = ukCompany.companyName.name,
+              companyName = ukCompany.companyDetails.companyName,
               postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(mode)
             ))
           ),

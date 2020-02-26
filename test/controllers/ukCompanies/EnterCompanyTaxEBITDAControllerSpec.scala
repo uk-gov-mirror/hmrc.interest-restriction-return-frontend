@@ -61,7 +61,7 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
-        companyName = ukCompanyModelMax.companyName.name,
+        companyName = ukCompanyModelMax.companyDetails.companyName,
         postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
