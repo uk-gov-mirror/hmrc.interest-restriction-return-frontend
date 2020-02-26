@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val investorGroupsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investor group ‘$name’"
   val investmentsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investment ‘$name’"
   val investmentName = "Enter the name of the investment"
   val deletionConfirmation: String => String = name => s"Are you sure you want to delete deemed parent ‘$name’?"

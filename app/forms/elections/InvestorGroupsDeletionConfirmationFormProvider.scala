@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package pages.elections
+package forms.elections
 
-import models.InvestorRatioMethod
-import pages.behaviours.PageBehaviours
+import javax.inject.Inject
 
-class InvestorRatioMethodPageSpec extends PageBehaviours {
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  "InvestorRatioMethodPage" must {
+class InvestorGroupsDeletionConfirmationFormProvider @Inject() extends Mappings {
 
-    beRetrievable[InvestorRatioMethod](InvestorRatioMethodPage)
-
-    beSettable[InvestorRatioMethod](InvestorRatioMethodPage)
-
-    beRemovable[InvestorRatioMethod](InvestorRatioMethodPage)
-  }
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("investorGroupsDeletionConfirmation.error.required")
+    )
 }

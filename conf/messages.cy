@@ -656,3 +656,10 @@ investmentsDeletionConfirmation.title = Are you sure you want to delete investme
 investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investment ‘{0}’
+
+# InvestorGroupsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investor group ‘{0}’

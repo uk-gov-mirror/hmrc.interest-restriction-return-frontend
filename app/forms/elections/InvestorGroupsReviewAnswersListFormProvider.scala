@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package pages.elections
+package forms.elections
 
-import models.InvestorRatioMethod
-import pages.behaviours.PageBehaviours
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-class InvestorRatioMethodPageSpec extends PageBehaviours {
+class InvestorGroupsReviewAnswersListFormProvider @Inject() extends Mappings {
 
-  "InvestorRatioMethodPage" must {
-
-    beRetrievable[InvestorRatioMethod](InvestorRatioMethodPage)
-
-    beSettable[InvestorRatioMethod](InvestorRatioMethodPage)
-
-    beRemovable[InvestorRatioMethod](InvestorRatioMethodPage)
-  }
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("investorGroupsReviewAnswersList.error.required")
+    )
 }

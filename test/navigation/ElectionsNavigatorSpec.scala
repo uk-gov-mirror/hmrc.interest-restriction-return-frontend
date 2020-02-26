@@ -285,7 +285,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             val userAnswers = emptyUserAnswers.set(AddInvestorGroupPage, true).success.value
 
             navigator.nextPage(AddInvestorGroupPage, NormalMode, userAnswers) mustBe
-              routes.InvestorGroupNameController.onPageLoad(NormalMode)
+              routes.InvestorGroupsReviewAnswersListController.onPageLoad()
           }
         }
 
@@ -314,8 +314,8 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the Investor Ratio Method page" in {
 
-          navigator.nextPage(InvestorGroupNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.InvestorRatioMethodController.onPageLoad(NormalMode)
+          navigator.nextPage(InvestorGroupNamePage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.InvestorRatioMethodController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -323,16 +323,25 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the Other Investor Group Elections page" in {
 
-          navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers) mustBe
-            routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)
+          navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
         }
       }
 
       "from the Other Investor Group Elections page" should {
 
-        "go to the Elected Group EBITDA Before page" in {
+        "go to the Investor Groups Review Answers List page" in {
 
           navigator.nextPage(OtherInvestorGroupElectionsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestorGroupsReviewAnswersListController.onPageLoad()
+        }
+      }
+
+      "from the Investor Groups Review Answers List page" should {
+
+        "go to the Elected Group EBITDA Before page" in {
+
+          navigator.nextPage(InvestorGroupsPage, NormalMode, emptyUserAnswers) mustBe
             routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
         }
       }
@@ -400,10 +409,19 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the Investments Review Answers List page" should {
 
-        "go to the Investments Review Answers List page" in {
+        "go to the Elected Interest Allowance Consolidated Pship Before page" in {
 
           navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, emptyUserAnswers) mustBe
             routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Investor Groups Deletion Confirmation page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestorGroupsReviewAnswersListController.onPageLoad()
         }
       }
     }

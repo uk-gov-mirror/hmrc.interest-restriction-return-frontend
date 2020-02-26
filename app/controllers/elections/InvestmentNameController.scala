@@ -54,7 +54,7 @@ class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.InvestmentNameController.onSubmit(idx, mode)))),
       value =>
-        saveAndRedirect(InvestmentNamePage, value, mode, Some(idx))
+        saveAndRedirect(InvestmentNamePage, value, mode)
     )
   }
 }

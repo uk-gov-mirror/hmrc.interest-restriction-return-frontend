@@ -18,7 +18,11 @@ package generators
 
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
+import models.returnModels.InvestorGroupModel
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
+import pages.elections.IsUkPartnershipPage
+import play.api.libs.json.Json
 
 trait ModelGenerators {
 
@@ -41,5 +45,13 @@ trait ModelGenerators {
     Arbitrary {
       Gen.oneOf(FullOrAbbreviatedReturn.values)
     }
+
+  implicit lazy val arbitraryInvestorGroups: Arbitrary[InvestorGroupModel] = Arbitrary {
+    for {
+      name  <- arbitrary[String]
+      ratioMethod <- arbitrary[InvestorRatioMethod]
+      otherElections <- arbitrary[OtherInvestorGroupElections]
+    } yield InvestorGroupModel(name, Some(ratioMethod), Some(Set(otherElections)))
+  }
 
 }

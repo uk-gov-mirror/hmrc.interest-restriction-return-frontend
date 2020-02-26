@@ -53,22 +53,12 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers.set(InvestorGroupNamePage, "answer").success.value
-
-      mockGetAnswers(Some(userAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(
+        form, routes.InvestorGroupNameController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -77,7 +67,7 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -89,7 +79,7 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -98,7 +88,7 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -110,7 +100,7 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

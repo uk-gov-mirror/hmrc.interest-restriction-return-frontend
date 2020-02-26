@@ -15,18 +15,12 @@
  */
 
 package pages.elections
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import models.InvestorRatioMethod
-import pages.behaviours.PageBehaviours
+case object InvestorGroupsDeletionConfirmationPage extends QuestionPage[Boolean] {
 
-class InvestorRatioMethodPageSpec extends PageBehaviours {
+  override def path: JsPath = JsPath \ toString
 
-  "InvestorRatioMethodPage" must {
-
-    beRetrievable[InvestorRatioMethod](InvestorRatioMethodPage)
-
-    beSettable[InvestorRatioMethod](InvestorRatioMethodPage)
-
-    beRemovable[InvestorRatioMethod](InvestorRatioMethodPage)
-  }
+  override def toString: String = "investorGroupsDeletionConfirmation"
 }

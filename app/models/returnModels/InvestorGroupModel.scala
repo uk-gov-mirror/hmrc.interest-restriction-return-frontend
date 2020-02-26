@@ -16,11 +16,14 @@
 
 package models.returnModels
 
+import models.{InvestorRatioMethod, OtherInvestorGroupElections}
 import play.api.libs.json.Json
 
-case class InvestorGroupModel(investorName: String)
+case class InvestorGroupModel(investorName: String,
+                              ratioMethod: Option[InvestorRatioMethod] = None,
+                              otherInvestorGroupElections: Option[Set[OtherInvestorGroupElections]] = None)
 
 object InvestorGroupModel {
 
-  implicit val writes = Json.writes[InvestorGroupModel]
+  implicit val format = Json.format[InvestorGroupModel]
 }

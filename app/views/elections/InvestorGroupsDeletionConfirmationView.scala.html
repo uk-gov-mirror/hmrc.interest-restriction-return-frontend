@@ -14,25 +14,23 @@
  * limitations under the License.
  *@
 
-@import controllers.elections.routes._
-@import models.Mode
 @import config.FrontendAppConfig
-@import models.OtherInvestorGroupElections
+@import views.ViewUtils._
 
 @this(
         govukLayout: templates.GovukLayoutWrapper,
         formHelper: FormWithCSRF,
         errorSummary: components.errorSummary,
+        yesNoRadio: components.yesNoRadio,
         button: components.button,
-        checkboxes: components.inputCheckboxes,
-        link: components.link,
         subheading: components.subheading,
+        link: components.link,
         saveForLater: components.saveForLater
 )
 
-@(form: Form[Set[OtherInvestorGroupElections]], postAction: Call, investorRatioMethod: InvestorRatioMethod)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], postAction: Call, investorGroupName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "otherInvestorGroupElections.title", Some("section.elections")))) {
+@govukLayout(pageTitle = Some(title(form, "investorGroupsDeletionConfirmation.title", Some("section.elections"), Seq(investorGroupName)))) {
 
     @formHelper(action = postAction) {
 
@@ -40,19 +38,10 @@
 
         @subheading("section.elections")
 
-        @checkboxes(
-            form = form,
-            legend = messages("otherInvestorGroupElections.heading"),
-            items = OtherInvestorGroupElections.options(form, investorRatioMethod),
-            hint = Some(hint)
-        )
+        @yesNoRadio(form, "investorGroupsDeletionConfirmation.heading", headingMessageArgs = Seq(investorGroupName))
 
-        @button("site.saveAndContinue")
+        @button("site.continue")
 
         @saveForLater()
     }
-}
-
-@hint = {
-    @messages("otherInvestorGroupElections.hint")
 }

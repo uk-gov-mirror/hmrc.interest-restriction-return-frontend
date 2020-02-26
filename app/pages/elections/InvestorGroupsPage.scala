@@ -14,25 +14,15 @@
  * limitations under the License.
  */
 
-package assets.constants
+package pages.elections
 
-import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
-import models.OtherInvestorGroupElections
 import models.returnModels.InvestorGroupModel
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-object InvestorGroupConstants {
+case object InvestorGroupsPage extends QuestionPage[InvestorGroupModel] {
 
-  val investorName = "some Investor"
+  override def path: JsPath = JsPath \ toString
 
-  val investorGroupsGroupRatioModel = InvestorGroupModel(
-    investorName = investorName,
-    ratioMethod = Some(GroupRatioMethod),
-    otherInvestorGroupElections = Some(OtherInvestorGroupElections.allValues.toSet)
-  )
-
-  val investorGroupsFixedRatioModel = InvestorGroupModel(
-    investorName = investorName,
-    ratioMethod = Some(FixedRatioMethod),
-    otherInvestorGroupElections = Some(OtherInvestorGroupElections.fixedRatioValues.toSet)
-  )
+  override def toString: String = "investorGroups"
 }

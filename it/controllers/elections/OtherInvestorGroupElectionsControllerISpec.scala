@@ -16,11 +16,12 @@
 
 package controllers.elections
 
+import assets.InvestorGroupITConstants.{investorGroupsFixedRatioModel, investorGroupsGroupRatioModel}
 import assets.{BaseITConstants, PageTitles}
 import models.InvestorRatioMethod.FixedRatioMethod
 import models.NormalMode
 import models.OtherInvestorGroupElections.GroupEBITDA
-import pages.elections.InvestorRatioMethodPage
+import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -30,19 +31,22 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
   "in Normal mode" when {
 
-    "GET /elections/other-investor-group-elections" when {
+    "GET /elections/investor-group/1/other-elections" when {
 
       "user is authorised" when {
 
-        "answer for Investor Ratio Method page exists" should {
+        "answer for Investor Groups exists" should {
 
           "return OK (200)" in {
 
             AuthStub.authorised()
 
-            setAnswers(InvestorRatioMethodPage, FixedRatioMethod)
+            setAnswers(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
+            )
 
-            val res = getRequest("/elections/other-investor-group-elections")()
+            val res = getRequest("/elections/investor-group/1/other-elections")()
 
             whenReady(res) { result =>
               result should have(
@@ -59,7 +63,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
             AuthStub.authorised()
 
-            val res = getRequest("/elections/other-investor-group-elections")()
+            val res = getRequest("/elections/investor-group/1/other-elections")()
 
             whenReady(res) { result =>
               result should have(
@@ -76,7 +80,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/other-investor-group-elections")()
+          val res = getRequest("/elections/investor-group/1/other-elections")()
 
           whenReady(res) { result =>
             result should have(
@@ -88,7 +92,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    "POST /elections/other-investor-group-elections" when {
+    "POST /elections/investor-group/1/other-elections" when {
 
       "user is authorised" should {
 
@@ -97,12 +101,18 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
           "return SEE_OTHER (303) and redirect to the Elected Group EBITDA Before page" in {
 
             AuthStub.authorised()
-            val res = postRequest("/elections/other-investor-group-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
+
+            setAnswers(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
+            )
+
+            val res = postRequest("/elections/investor-group/1/other-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.InvestorGroupsReviewAnswersListController.onPageLoad().url)
               )
             }
           }
@@ -115,7 +125,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/other-investor-group-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
+          val res = postRequest("/elections/investor-group/1/other-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
 
           whenReady(res) { result =>
             result should have(
@@ -130,9 +140,9 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
   "in Change mode" when {
 
-    "GET /elections/other-investor-group-elections" when {
+    "GET /elections/investor-group/1/other-elections" when {
 
-      "answer for Investor Ratio Method page exists" should {
+      "answer for Investor Groups exists" should {
 
         "user is authorised" should {
 
@@ -140,9 +150,12 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
             AuthStub.authorised()
 
-            setAnswers(InvestorRatioMethodPage, FixedRatioMethod)
+            setAnswers(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
+            )
 
-            val res = getRequest("/elections/other-investor-group-elections/change")()
+            val res = getRequest("/elections/investor-group/1/other-elections/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -160,7 +173,7 @@ class OtherInvestorGroupElectionsControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/other-investor-group-elections/change")()
+          val res = getRequest("/elections/investor-group/1/other-elections/change")()
 
           whenReady(res) { result =>
             result should have(

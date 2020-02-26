@@ -30,11 +30,10 @@ class OtherInvestorGroupElectionsViewSpec extends CheckboxViewBehaviours[OtherIn
   val messageKeyPrefix = "otherInvestorGroupElections"
   val section = Some(messages("section.elections"))
   val form = new OtherInvestorGroupElectionsFormProvider()()
+    val view = viewFor[OtherInvestorGroupElectionsView]()
 
-  def applyView(ratioMethod: InvestorRatioMethod)(form: Form[Set[OtherInvestorGroupElections]]): HtmlFormat.Appendable = {
-    val view = viewFor[OtherInvestorGroupElectionsView](Some(emptyUserAnswers))
-    view.apply(form, NormalMode, ratioMethod)(fakeRequest, messages, frontendAppConfig)
-  }
+  def applyView(ratioMethod: InvestorRatioMethod)(form: Form[Set[OtherInvestorGroupElections]]): HtmlFormat.Appendable =
+    view.apply(form, onwardRoute, ratioMethod)(fakeRequest, messages, frontendAppConfig)
 
   for (ratioMethod <- Seq(FixedRatioMethod, GroupRatioMethod)) {
 

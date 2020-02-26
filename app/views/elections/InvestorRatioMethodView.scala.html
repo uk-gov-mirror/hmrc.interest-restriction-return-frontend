@@ -30,11 +30,11 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "investorRatioMethod.title", Some("section.elections")))) {
 
-    @formHelper(action = InvestorRatioMethodController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = postAction, 'autoComplete -> "off") {
 
         @errorSummary(form.errors)
 
