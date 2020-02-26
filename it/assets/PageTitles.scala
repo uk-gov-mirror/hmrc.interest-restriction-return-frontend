@@ -66,6 +66,10 @@ object PageTitles {
   val countryOfIncorporation: String => String = name => s"Where is $name registered for tax?"
   val checkAnswersElections = "Check your answers for this section"
   val companyTaxEBITDA = "Enter company’s Tax-EBITDA"
+  val ukCompaniesReviewAnswersList: Int => String = {
+    case x if x > 1 => s"$x companies added"
+    case _ => "1 company added"
+  }
 
 
 }
