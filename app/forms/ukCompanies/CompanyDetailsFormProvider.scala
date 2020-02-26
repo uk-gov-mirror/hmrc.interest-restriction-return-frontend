@@ -27,9 +27,9 @@ class CompanyDetailsFormProvider @Inject() extends Mappings with UTRFormValidati
 
   def apply(): Form[CompanyDetailsModel] =
     Form(mapping(
-      "companyName" -> text("companyDetails.companyName.error.required")
+      "companyNameValue" -> text("companyDetails.companyName.error.required")
         .verifying(maxLength(160, "companyDetails.companyName.error.length")),
-      "ctutr" -> text("companyDetails.ctutr.error.required")
+      "ctutrValue" -> text("companyDetails.ctutr.error.required")
         .verifying(regexp("^[0-9]{10}$", "companyDetails.ctutr.error.regexp"))
         .verifying(checksum("companyDetails.ctutr.error.checksum"))
     )(CompanyDetailsModel.apply)(CompanyDetailsModel.unapply)

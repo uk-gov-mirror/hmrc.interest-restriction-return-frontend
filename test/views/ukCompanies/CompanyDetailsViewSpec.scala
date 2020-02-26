@@ -16,59 +16,112 @@
 
 package views.ukCompanies
 
+import assets.constants.fullReturn.UkCompanyConstants.companyDetailsModel
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.ukCompanies.routes
 import forms.ukCompanies.CompanyDetailsFormProvider
 import models.{CompanyDetailsModel, NormalMode}
-import play.api.data.Form
+import play.api.data.{Form, FormError}
 import play.twirl.api.HtmlFormat
-import views.behaviours.{QuestionViewBehaviours, StringViewBehaviours}
+import views.behaviours.QuestionViewBehaviours
 import views.html.ukCompanies.CompanyDetailsView
-import assets.constants.fullReturn.UkCompanyConstants.companyDetailsModel
 
-class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel]{
+class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel] {
 
+  val companyDetailsMessageKeyPrefix = "companyDetails"
+  val companyNameMessageKeyPrefix = "companyDetails.companyName"
+  val ctutrMessageKeyPrefix = "companyDetails.ctutr"
+  val section: Option[String] = Some(messages("section.ukCompanies"))
+  val form: Form[CompanyDetailsModel] = new CompanyDetailsFormProvider()()
+  val companyNameField = "companyNameValue"
+  val ctutrField = "ctutrValue"
 
+  "CompanyDetailsView" must {
 
-  val answer = companyDetailsModel
+    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+      val view = viewFor[CompanyDetailsView](Some(emptyUserAnswers))
+      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    }
 
+    behave like normalPage(applyView(form), companyDetailsMessageKeyPrefix, section = section)
+
+    behave like pageWithBackLink(applyView(form))
+
+    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+
+    behave like pageWithSaveForLater(applyView(form))
+
+    "company name" when {
+
+      behave like companyDetailsPage(
+        form, applyView, value = companyNameField, companyNameMessageKeyPrefix, routes.CompanyDetailsController.onSubmit(1, NormalMode).url, section = section, answer = companyDetailsModel.companyName
+      )
+
+      behave like companyDetailsPageWithTextFields(
+        form, applyView, companyNameMessageKeyPrefix, routes.CompanyDetailsController.onSubmit(1, NormalMode).url, fields = companyNameField
+      )
+    }
+
+    "ctutr" when {
+
+      behave like companyDetailsPage(
+        form, applyView, value = ctutrField, ctutrMessageKeyPrefix, routes.CompanyDetailsController.onSubmit(1, NormalMode).url, section = section, answer = companyDetailsModel.ctutr
+      )
+
+      behave like companyDetailsPageWithTextFields(
+        form, applyView, companyNameMessageKeyPrefix, routes.CompanyDetailsController.onSubmit(1, NormalMode).url, fields = ctutrField
+      )
+    }
+  }
+
+  //noinspection ScalaStyle
   def companyDetailsPage(form: Form[CompanyDetailsModel],
-                 createView: Form[CompanyDetailsModel] => HtmlFormat.Appendable,
-                 messageKeyPrefix: String,
-                 expectedFormAction: String,
-                 expectedHintKey: Option[String] = None,
-                 section: Option[String] = None,
-                 headingArgs: Seq[String] = Seq()
-                ) = {
+                         createView: Form[CompanyDetailsModel] => HtmlFormat.Appendable,
+                         value: String,
+                         messageKeyPrefix: String,
+                         expectedFormAction: String,
+                         expectedHintKey: Option[String] = None,
+                         section: Option[String] = None,
+                         headingArgs: Seq[String] = Seq(),
+                         answer: String = companyDetailsModel
+                        ): Unit = {
 
     "behave like a page with a string value field" when {
 
       "rendered" must {
 
-        "contain a label for the value" in {
+        s"contain a label for the $value" in {
+
+          println(value)
+          println(messageKeyPrefix)
 
           val doc = asDocument(createView(form))
           val expectedHintText = expectedHintKey map (k => messages(k))
-          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.heading", headingArgs:_*), expectedHintText)
+          assertContainsLabel(doc, forElement = value, expectedText = messages(s"$messageKeyPrefix.label", headingArgs: _*), expectedHintText = expectedHintText)
         }
 
-        "contain an input for the value" in {
+        s"contain an input for the $value" in {
 
           val doc = asDocument(createView(form))
-          assertRenderedById(doc, "value")
+          assertRenderedById(doc, value)
         }
       }
 
       "rendered with a valid form" must {
 
-        "include the form's value in the value input" in {
+        s"include the form's $value in the value input" in {
 
-          val doc = asDocument(createView(form.fill(answer)))
-          doc.getElementById("value").attr("value") mustBe answer
+          val doc = asDocument(createView(form.fill(companyDetailsModel)))
+          doc.getElementById(value).attr("value") mustBe answer
         }
       }
 
       "rendered with an error" must {
+        val errorKey = value
+        val errorMessage = "error.number"
+        val error = FormError(errorKey, errorMessage)
 
         "show an error summary" in {
 
@@ -76,7 +129,7 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel]
           assertRenderedById(doc, "error-summary-title")
         }
 
-        "show an error associated to the value field" in {
+        s"show an error associated to the $value field" in {
 
           val doc = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("govuk-error-message").first
@@ -86,33 +139,65 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel]
         "show an error prefix in the browser title" in {
 
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
+          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$companyDetailsMessageKeyPrefix.title", headingArgs:_*), section)}""")
         }
       }
     }
   }
 
-  val messageKeyPrefix = "companyDetails"
-  val section = Some(messages("section.ukCompanies"))
-  val form = new CompanyDetailsFormProvider()()
+  //noinspection ScalaStyle
+  def companyDetailsPageWithTextFields(form: Form[CompanyDetailsModel],
+                                       createView: Form[CompanyDetailsModel] => HtmlFormat.Appendable,
+                                       messageKeyPrefix: String,
+                                       expectedFormAction: String,
+                                       fields: String*): Unit = {
 
-    "CompanyDetailsView" must {
+    "behave like a question page" when {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-          val view = viewFor[CompanyDetailsView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      "rendered" must {
+
+        for (field <- fields) {
+
+          s"contain an input for $field" in {
+            val doc = asDocument(createView(form))
+            assertRenderedById(doc, field)
+          }
         }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+        s"not render an error summary for $fields" in {
 
-      behave like pageWithBackLink(applyView(form))
+          val doc = asDocument(createView(form))
+          assertNotRenderedById(doc, "error-summary-heading")
+        }
+      }
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      "rendered with any error" must {
 
-      behave like companyDetailsPage(form, applyView, messageKeyPrefix, routes.CompanyDetailsController.onSubmit(1, NormalMode).url, section = section)
+        s"show an error prefix in the browser title for $fields" in {
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+          val doc = asDocument(createView(form.withError(error)))
+          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$companyDetailsMessageKeyPrefix.title"), section)}""")
+        }
+      }
 
-      behave like pageWithSaveForLater(applyView(form))
+      for (field <- fields) {
+
+        s"rendered with an error with field '$field'" must {
+
+          "show an error summary" in {
+
+            val doc = asDocument(createView(form.withError(FormError(field, "error"))))
+            assertRenderedById(doc, "error-summary-title")
+          }
+
+          s"show an error associated with the field '$field'" in {
+
+            val doc = asDocument(createView(form.withError(FormError(field, "error"))))
+
+            assertRenderedById(doc, s"$field-error")
+          }
+        }
+      }
     }
   }
+}

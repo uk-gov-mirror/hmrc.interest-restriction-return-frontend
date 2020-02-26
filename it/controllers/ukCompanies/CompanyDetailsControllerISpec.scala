@@ -27,14 +27,14 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Normal mode" when {
 
-    "GET /ukCompanies/company-details" when {
+    "GET /uk-companies/1/company-details" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ukCompanies/company-details")()
+          val res = getRequest("/uk-companies/1/company-details")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/company-details")()
+          val res = getRequest("/uk-companies/1/company-details")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /ukCompanies/company-details" when {
+    "POST /uk-companies/1/company-details" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/ukCompanies/company-details", Json.obj("value" -> 1))()
+            val res = postRequest("/uk-companies/1/company-details", Json.obj("value" -> 1))()
 //TODO: Implement
 //            whenReady(res) { result =>
 //              result should have(
@@ -91,7 +91,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ukCompanies/company-details", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/company-details", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /ukCompanies/company-details" when {
+    "GET /uk-companies/1/company-details" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/ukCompanies/company-details/change")()
+          val res = getRequest("/uk-companies/1/company-details/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/company-details/change")()
+          val res = getRequest("/uk-companies/1/company-details/change")()
 
           whenReady(res) { result =>
             result should have(

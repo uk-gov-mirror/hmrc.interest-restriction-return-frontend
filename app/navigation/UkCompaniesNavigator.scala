@@ -16,12 +16,11 @@
 
 package navigation
 
-import controllers.ukCompanies.routes
 import controllers.groupStructure.{routes => groupStructureRoutes}
+import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import pages.ukCompanies._
 import play.api.mvc.Call
 
@@ -30,8 +29,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     AboutAddingUKCompaniesPage -> ((_, _) => routes.AboutAddingUKCompaniesController.onPageLoad()),
-    CompanyDetailsPage -> ((id, _) => routes.CompanyDetailsController.onPageLoad(id, NormalMode)),
-    CompanyDetailsPage -> ((id, _) => nextSection(NormalMode))
+    CompanyDetailsPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad())
+    //CompanyDetailsPage -> ((id, _) => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((id, _) => ???

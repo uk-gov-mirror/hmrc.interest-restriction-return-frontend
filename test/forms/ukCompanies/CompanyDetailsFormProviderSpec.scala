@@ -33,7 +33,7 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with UTRField
 
   ".companyName" must {
 
-    val companyNameField = "companyName"
+    val companyNameField = "companyNameValue"
 
     behave like fieldThatBindsValidData(
       form,
@@ -56,7 +56,7 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with UTRField
   }
   behave like validUTR(
     form = form,
-    utrFieldName = "ctutr",
+    utrFieldName = "ctutrValue",
     utrChecksumErrorKey = ctutrChecksumKey,
     utrRegexpKey = ctutrRegexpKey
   )

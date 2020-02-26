@@ -85,6 +85,9 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(1, NormalMode)(request)
+      println(request)
+      println(result)
+      println(redirectLocation(result))
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
