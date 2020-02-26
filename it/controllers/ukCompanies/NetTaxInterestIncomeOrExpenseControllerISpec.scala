@@ -18,19 +18,18 @@ package controllers.ukCompanies
 
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
 import pages.ukCompanies.UkCompaniesPage
-import controllers.ukCompanies.{routes => ukCompanies}
-import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /uk-companies/enter-company-tax-ebitda" when {
+    "GET /uk-companies/net-tax-interest-income-or-expense" when {
 
       "user is authorised" when {
 
@@ -41,12 +40,12 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
             AuthStub.authorised()
             setAnswers(UkCompaniesPage, ukCompanyModelMax)
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.companyTaxEBITDA)
+                titleOf(PageTitles.netTaxInterestIncomeOrExpense(ukCompanyModelMax.companyName.name))
               )
             }
           }
@@ -58,7 +57,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
 
             whenReady(res) { result =>
               result should have(
@@ -75,7 +74,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+          val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
 
           whenReady(res) { result =>
             result should have(
@@ -87,68 +86,67 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
       }
     }
 
-    "POST /uk-companies/enter-company-tax-ebitda" when {
+    "POST /uk-companies/net-tax-interest-income-or-expense" when {
 
       "user is authorised" when {
 
-        "data is retrieved for the uk companies model" should {
+        "enters a valid answer" when {
 
-          "enters a valid answer" when {
-
-            "redirect to NetTaxInterestIncomeOrExpense page" in {
-
-              AuthStub.authorised()
-              setAnswers(UkCompaniesPage, ukCompanyModelMax)
-
-              val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
-              whenReady(res) { result =>
-                result should have(
-                  httpStatus(SEE_OTHER),
-                  redirectLocation(ukCompanies.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode).url)
-                )
-              }
-            }
-          }
-        }
-
-        "NO data is retrieved for the uk companies model" should {
-
-          "Return ISE (500)" in {
+          "redirect to NetTaxInterestIncomeOrExpense page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(INTERNAL_SERVER_ERROR)
-              )
-            }
+            val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
+            //TODO: Implement
+            //            whenReady(res) { result =>
+            //              result should have(
+            //                httpStatus(SEE_OTHER),
+            //                redirectLocation(controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode).url)
+            //              )
+            //            }
           }
         }
       }
 
-      "user not authorised" should {
+      "NO data is retrieved for the uk companies model" should {
 
-        "return SEE_OTHER (303)" in {
+        "Return ISE (500)" in {
 
-          AuthStub.unauthorised()
+          AuthStub.authorised()
 
-          val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
-
+          val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
           whenReady(res) { result =>
+            result should have(
+              httpStatus(INTERNAL_SERVER_ERROR)
+            )
+          }
+        }
+      }
+    }
+
+    "user not authorised" should {
+
+      "return SEE_OTHER (303)" in {
+
+        AuthStub.unauthorised()
+
+        val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> NetTaxInterestExpense.toString))()
+
+        whenReady(res) {
+          result =>
             result should have(
               httpStatus(SEE_OTHER),
               redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
             )
-          }
         }
       }
     }
   }
 
+
   "in Change mode" when {
 
-    "GET /uk-companies/enter-company-tax-ebitda/change" when {
+    "GET /uk-companies/net-tax-interest-income-or-expense" when {
 
       "user is authorised" should {
 
@@ -159,12 +157,12 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
             AuthStub.authorised()
             setAnswers(UkCompaniesPage, ukCompanyModelMax)
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.companyTaxEBITDA)
+                titleOf(PageTitles.netTaxInterestIncomeOrExpense(ukCompanyModelMax.companyName.name))
               )
             }
           }
@@ -176,7 +174,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -193,16 +191,19 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+          val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
+          whenReady(res) {
+            result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+              )
           }
         }
       }
     }
+
+    //TODO: Add Check Your Answers tests
   }
 }

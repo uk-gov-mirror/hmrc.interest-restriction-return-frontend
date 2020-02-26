@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-package assets.messages
+package assets.messages.ukCompanies
 
-object SectionHeaderMessages {
+object NetTaxInterestIncomeOrExpenseMessages {
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
-
+  val subheading: String => String = x => x
 }

@@ -16,10 +16,10 @@
 
 package navigation
 
-import controllers.groupStructure.routes
+import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
-import pages.{ukCompanies, _}
+import pages._
 import pages.ukCompanies._
 import play.api.mvc.Call
 
@@ -28,7 +28,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    EnterCompanyTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    EnterCompanyTaxEBITDAPage -> (_ => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode)),
+    NetTaxInterestIncomeOrExpensePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ConsentingCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 

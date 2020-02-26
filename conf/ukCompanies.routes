@@ -13,6 +13,13 @@ POST       /enter-company-tax-ebitda                          controllers.ukComp
 GET        /enter-company-tax-ebitda/change                   controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(mode: Mode = CheckMode)
 POST       /enter-company-tax-ebitda/change                   controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(mode: Mode = CheckMode)
 
+### NetTaxInterestIncomeOrExpense Controller
+### ----------------------------------------
+GET        /net-tax-interest-income-or-expense                          controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onPageLoad(mode: Mode = NormalMode)
+POST       /net-tax-interest-income-or-expense                          controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onSubmit(mode: Mode = NormalMode)
+GET        /net-tax-interest-income-or-expense/change                   controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onPageLoad(mode: Mode = CheckMode)
+POST       /net-tax-interest-income-or-expense/change                   controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onSubmit(mode: Mode = CheckMode)
+
 ### ConsentingCompany Controller
 ### ----------------------------------------
 GET        /consenting-company                          controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = NormalMode)

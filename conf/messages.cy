@@ -70,6 +70,8 @@ section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
+section.ukCompanies = The companies involved
+
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -625,6 +627,15 @@ investmentName.label= Enter the name of the investment
 investmentName.error.required = Enter investmentName
 investmentName.error.length = Investment name must be 160 characters or less
 
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.heading = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.error.required = Select netTaxInterestIncomeOrExpense
+
 # ConsentingCompanyPage Messages
 # ----------------------------------------------------------
 consentingCompany.title = consentingCompany
@@ -663,3 +674,13 @@ investorGroupsDeletionConfirmation.title = Are you sure you want to delete inves
 investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investor group ‘{0}’
+
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.heading = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.subheading = {0}
+netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense

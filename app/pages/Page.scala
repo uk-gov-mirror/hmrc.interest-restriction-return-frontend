@@ -41,6 +41,7 @@ object Page {
     UkCompaniesPage.toString -> UkCompaniesPage,
     EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
     DeletionConfirmationPage.toString -> DeletionConfirmationPage,
+    NetTaxInterestIncomeOrExpensePage.toString -> NetTaxInterestIncomeOrExpensePage,
     PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
     IsUkPartnershipPage.toString -> IsUkPartnershipPage,
     PartnershipNamePage.toString -> PartnershipNamePage,

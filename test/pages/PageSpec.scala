@@ -23,6 +23,7 @@ import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
 import pages.ukCompanies._
+
 import play.api.libs.json.{JsString, Json}
 
 class PageSpec extends SpecBase {
@@ -39,6 +40,7 @@ class PageSpec extends SpecBase {
         UkCompaniesPage.toString -> UkCompaniesPage,
         EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
         DeletionConfirmationPage.toString -> DeletionConfirmationPage,
+        NetTaxInterestIncomeOrExpensePage.toString -> NetTaxInterestIncomeOrExpensePage,
         PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
         IsUkPartnershipPage.toString -> IsUkPartnershipPage,
         PartnershipNamePage.toString -> PartnershipNamePage,

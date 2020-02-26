@@ -26,6 +26,11 @@ import play.api.libs.json.Json
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryNetTaxInterestIncomeOrExpense: Arbitrary[NetTaxInterestIncomeOrExpense] =
+    Arbitrary {
+      Gen.oneOf(NetTaxInterestIncomeOrExpense.values)
+    }
+
   implicit lazy val arbitraryInvestorRatioMethod: Arbitrary[InvestorRatioMethod] =
     Arbitrary {
       Gen.oneOf(InvestorRatioMethod.values)

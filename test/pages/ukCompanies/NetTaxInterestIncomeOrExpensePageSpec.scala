@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.ukCompanies
 
-object SectionHeaderMessages {
+import models.NetTaxInterestIncomeOrExpense
+import pages.behaviours.PageBehaviours
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
+class NetTaxInterestIncomeOrExpensePageSpec extends PageBehaviours {
 
+  "NetTaxInterestIncomeOrExpensePage" must {
+
+    beRetrievable[NetTaxInterestIncomeOrExpense](NetTaxInterestIncomeOrExpensePage)
+
+    beSettable[NetTaxInterestIncomeOrExpense](NetTaxInterestIncomeOrExpensePage)
+
+    beRemovable[NetTaxInterestIncomeOrExpense](NetTaxInterestIncomeOrExpensePage)
+  }
 }
