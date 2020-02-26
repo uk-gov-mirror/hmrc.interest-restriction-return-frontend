@@ -17,6 +17,7 @@
 @import controllers.ukCompanies.routes._
 @import models.Mode
 @import config.FrontendAppConfig
+@import models.NetTaxInterestIncomeOrExpense._
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -31,12 +32,12 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode, companyName:String, interestType:Boolean, postAction:Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, netTaxInterestIncomeOrExpense: NetTaxInterestIncomeOrExpense, postAction:Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form,
                                     "netTaxInterestAmount.title",
                                     Some(messages("netTaxInterestAmount.subheading", companyName)),
-                                    Seq(companyName)
+                                    Seq(addPossessive(companyName))
             ))){
 
     @formHelper(action = NetTaxInterestAmountController.onSubmit(mode), args = 'novalidate -> "novalidate") {
@@ -49,7 +50,7 @@
             form,
             id = "value",
             name = "value",
-            label = "netTaxInterestAmount.label",
+            label = messages("netTaxInterestAmount.label", addPossessive(companyName)),
             isPageHeading = true,
             isDecimal = true,
             classes = Some("govuk-input--width-20")

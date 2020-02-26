@@ -17,15 +17,17 @@
 package views.ukCompanies
 
 import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.BaseMessages
 import assets.messages.ukCompanies.NetTaxInterestAmountMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.ukCompanies.routes
 import forms.ukCompanies.NetTaxInterestAmountFormProvider
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.DecimalViewBehaviours
 import views.html.ukCompanies.NetTaxInterestAmountView
+import views.ViewUtils.addPossessive
 
 class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
 
@@ -37,16 +39,22 @@ class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
     "NetTaxInterestAmountView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        view.apply(form, NormalMode, companyNameModel.name, true, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, NormalMode, companyNameModel.name, NetTaxInterestIncome, onwardRoute)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(addPossessive(companyNameModel.name)))
 
       behave like pageWithBackLink(applyView(form))
 
       behave like pageWithSubHeading(applyView(form), section.get)
 
-      behave like decimalPage(form, applyView, messageKeyPrefix, routes.NetTaxInterestAmountController.onSubmit(NormalMode).url, section = section)
+      behave like decimalPage(
+        form = form,
+        createView = applyView,
+        messageKeyPrefix = messageKeyPrefix,
+        expectedFormAction = routes.NetTaxInterestAmountController.onSubmit(NormalMode).url,
+        section = section,
+        headingArgs = Seq(addPossessive(companyNameModel.name)))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

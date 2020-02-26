@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
-import pages.ukCompanies.{ConsentingCompanyPage, NetTaxInterestAmountPage, UkCompaniesPage}
+import pages.ukCompanies.{NetTaxInterestAmountPage, NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -49,13 +49,14 @@ class NetTaxInterestAmountController @Inject()(
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
-      answerFor(ConsentingCompanyPage) { taxInterest =>
+      answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
+        println("COMPANY NAME IS " + ukCompany.companyName)
         Future.successful(
           Ok(view(
             form = ukCompany.netTaxInterestIncome.fold(formProvider())(formProvider().fill),
             mode = mode,
             companyName = ukCompany.companyName.name,
-            interestType = taxInterest,
+            netTaxInterestIncomeOrExpense = taxInterest,
             postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
           ))
         )
@@ -65,7 +66,7 @@ class NetTaxInterestAmountController @Inject()(
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
-      answerFor(ConsentingCompanyPage) { taxInterest =>
+      answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
           Future.successful(
@@ -73,7 +74,7 @@ class NetTaxInterestAmountController @Inject()(
               form = formWithErrors,
               mode = mode,
               companyName = ukCompany.companyName.name,
-              interestType = taxInterest,
+              netTaxInterestIncomeOrExpense = taxInterest,
               postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
             ))
           ),

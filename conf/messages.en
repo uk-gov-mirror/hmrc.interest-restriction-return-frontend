@@ -726,6 +726,7 @@ ukCompaniesReviewAnswersList.error.required = Select yes if you need to add anot
 netTaxInterestAmount.title = What is the {0} total net-tax interest amount?
 netTaxInterestAmount.heading = What is the {0} total net-tax interest amount?
 netTaxInterestAmount.label = What is the {0} total net-tax interest amount?
+netTaxInterestAmount.subheading = {0}
 netTaxInterestAmount.checkYourAnswersLabel = What is the {0} total net-tax interest amount?
 netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.error.required = Enter {0} total net-tax interest amount?
