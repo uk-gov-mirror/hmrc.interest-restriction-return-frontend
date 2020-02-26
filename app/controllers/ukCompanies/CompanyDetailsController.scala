@@ -25,6 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.{CompanyDetailsModel, Mode}
 import models.returnModels.CompanyNameModel
+import models.returnModels.fullReturn.UkCompanyModel
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{CompanyDetailsPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
@@ -66,13 +67,12 @@ class CompanyDetailsController @Inject()(
           postAction = routes.CompanyDetailsController.onSubmit(idx, mode)
         ))),
       value => {
-        answerFor(UkCompaniesPage, idx) { ukCompanyModel =>
-          val updatedModel = ukCompanyModel.copy(companyDetails = CompanyDetailsModel(value.companyName, value.ctutr))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CompanyDetailsPage, mode, updatedAnswers, Some(idx)))
-        }
+        val companyDetails = CompanyDetailsModel(value.companyName, value.ctutr)
+        val ukCompanyModel = getAnswer(UkCompaniesPage, idx).fold(UkCompanyModel(companyDetails))(_.copy(companyDetails = companyDetails))
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, ukCompanyModel, Some(idx)))
+          _ <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(CompanyDetailsPage, mode, updatedAnswers, Some(idx)))
       }
     )
   }
