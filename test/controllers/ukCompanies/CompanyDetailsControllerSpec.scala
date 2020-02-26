@@ -16,6 +16,7 @@
 
 package controllers.ukCompanies
 
+import assets.constants.BaseConstants
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
@@ -30,7 +31,7 @@ import assets.constants.fullReturn.UkCompanyConstants.companyDetailsModel
 import play.api.data.Form
 
 
-class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants {
 
   val view: CompanyDetailsView = injector.instanceOf[CompanyDetailsView]
   val formProvider: CompanyDetailsFormProvider = injector.instanceOf[CompanyDetailsFormProvider]
@@ -83,16 +84,13 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
       mockGetAnswers(Some(emptyUserAnswers))
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "companyNameValue" -> companyDetailsModel.companyName,
-        "ctutrValue" -> companyDetailsModel.ctutr
+        "companyNameValue" -> companyNameModel.name,
+        "ctutrValue" -> ctutrModel.utr
       )
       println(companyDetailsModel)
 
 
       val result = Controller.onSubmit(1, NormalMode)(request)
-      println(request)
-      println(result)
-      println(redirectLocation(result))
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
