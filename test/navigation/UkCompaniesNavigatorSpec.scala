@@ -18,6 +18,7 @@ package navigation
 
 import base.SpecBase
 import models._
+
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
@@ -33,6 +34,15 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         //TODO: Update a part of routing sub-task
         "go to the NetTaxInterestIncomeOrExpense page" in {
           navigator.nextPage(EnterCompanyTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the UkCompanies List View Page" should {
+
+        //TODO: Update a part of routing sub-task
+        "go to the Under Construction page" in {
+          navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
