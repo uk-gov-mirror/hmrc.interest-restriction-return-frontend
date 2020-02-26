@@ -17,15 +17,15 @@
 package views.ukCompanies
 
 import assets.constants.BaseConstants
-import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.BaseMessages
 import assets.messages.ukCompanies.NetTaxInterestIncomeOrExpenseMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import models.{NetTaxInterestIncomeOrExpense, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
+
 
 class NetTaxInterestIncomeOrExpenseViewSpec extends ViewBehaviours with BaseConstants {
 
@@ -40,7 +40,7 @@ class NetTaxInterestIncomeOrExpenseViewSpec extends ViewBehaviours with BaseCons
       view.apply(form, NormalMode,companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(companyNameModel.name))
 
     behave like pageWithSubHeading(applyView(form), section.get)
 

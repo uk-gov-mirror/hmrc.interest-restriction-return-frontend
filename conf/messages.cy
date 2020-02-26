@@ -677,9 +677,10 @@ investorGroupsDeletionConfirmation.error.required = Select yes if Are you sure y
 
 # NetTaxInterestIncomeOrExpensePage Messages
 # ----------------------------------------------------------
-netTaxInterestIncomeOrExpense.title = NetTaxInterestIncomeOrExpense
-netTaxInterestIncomeOrExpense.heading = NetTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.title = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.heading = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.subheading = {0}
 netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
 netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
-netTaxInterestIncomeOrExpense.checkYourAnswersLabel = NetTaxInterestIncomeOrExpense
-netTaxInterestIncomeOrExpense.error.required = Select netTaxInterestIncomeOrExpense
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
