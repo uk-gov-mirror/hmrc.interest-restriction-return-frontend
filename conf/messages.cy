@@ -70,6 +70,7 @@ section.aboutReturn = About the return
 section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
+section.checkTotals = Check totals
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -656,3 +657,8 @@ investmentsDeletionConfirmation.title = Are you sure you want to delete investme
 investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investment ‘{0}’
+
+# DerivedCompanyPage Messages
+# ----------------------------------------------------------
+derivedCompany.title = derivedCompany
+derivedCompany.heading = derivedCompany

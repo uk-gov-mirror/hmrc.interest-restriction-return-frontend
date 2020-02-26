@@ -72,6 +72,7 @@ section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
 section.ukCompanies = The companies involved
+section.checkTotals = Check totals
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -670,3 +671,8 @@ investmentsDeletionConfirmation.title = Are you sure you want to delete investme
 investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
+
+# DerivedCompanyPage Messages
+# ----------------------------------------------------------
+derivedCompany.title = Check the totals for this return
+derivedCompany.heading = Check the totals for this return

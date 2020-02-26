@@ -1,0 +1,6 @@
+# Check totals Routes
+# ===================
+
+### DerivedCompany Controller
+### ----------------------------------------
+GET        /derived-company                                   controllers.checkTotals.DerivedCompanyController.onPageLoad()
