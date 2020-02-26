@@ -16,6 +16,7 @@
 
 package controllers.groupStructure
 
+import assets.constants.DeemedParentConstants.deemedParentModelMin
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -23,7 +24,7 @@ import controllers.errors
 import forms.groupStructure.ParentCompanyCTUTRFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.ParentCompanyCTUTRPage
+import pages.groupStructure.{DeemedParentPage, ParentCompanyCTUTRPage}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.groupStructure.ParentCompanyCTUTRView
@@ -51,33 +52,31 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers.set(ParentCompanyCTUTRPage, "answer").success.value
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        postAction = routes.ParentCompanyCTUTRController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -85,11 +84,14 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -98,7 +100,7 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -110,7 +112,7 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

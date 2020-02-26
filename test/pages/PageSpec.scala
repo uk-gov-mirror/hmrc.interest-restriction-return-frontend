@@ -31,8 +31,16 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
-        UkCompaniesPage.toString -> UkCompaniesPage,
         CompanyDetailsPage.toString -> CompanyDetailsPage,
+        InvestorGroupsDeletionConfirmationPage.toString -> InvestorGroupsDeletionConfirmationPage,
+        InvestorGroupsPage.toString -> InvestorGroupsPage,
+        InvestmentsDeletionConfirmationPage.toString -> InvestmentsDeletionConfirmationPage,
+        ConsentingCompanyPage.toString -> ConsentingCompanyPage,
+        InvestmentNamePage.toString -> InvestmentNamePage,
+        UkCompaniesPage.toString -> UkCompaniesPage,
+        EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
+        DeletionConfirmationPage.toString -> DeletionConfirmationPage,
+        NetTaxInterestIncomeOrExpensePage.toString -> NetTaxInterestIncomeOrExpensePage,
         PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
         IsUkPartnershipPage.toString -> IsUkPartnershipPage,
         PartnershipNamePage.toString -> PartnershipNamePage,
@@ -65,7 +73,7 @@ class PageSpec extends SpecBase {
         ParentCRNPage.toString -> ParentCRNPage,
         ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
         ParentCompanyNamePage.toString -> ParentCompanyNamePage,
-        DeemedParentPage.toString -> DeemedParentPage,
+        HasDeemedParentPage.toString -> HasDeemedParentPage,
         ConfirmationPage.toString -> ConfirmationPage,
         ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
         ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
@@ -86,7 +94,8 @@ class PageSpec extends SpecBase {
         InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
         RevisingReturnPage.toString -> RevisingReturnPage,
         ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
-        IndexPage.toString -> IndexPage
+        IndexPage.toString -> IndexPage,
+        DeemedParentPage.toString -> DeemedParentPage
       )
 
       Page.pages mustBe expected

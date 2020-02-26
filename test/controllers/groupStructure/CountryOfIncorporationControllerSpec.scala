@@ -17,6 +17,7 @@
 package controllers.groupStructure
 
 import assets.constants.BaseConstants
+import assets.constants.DeemedParentConstants.deemedParentModelMin
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -24,7 +25,7 @@ import controllers.errors
 import forms.groupStructure.CountryOfIncorporationFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.{CountryOfIncorporationPage, ParentCompanyNamePage}
+import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage, ParentCompanyNamePage}
 import play.api.test.Helpers._
 import views.html.groupStructure.CountryOfIncorporationView
 
@@ -51,36 +52,32 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
 
     "return OK and the correct view for a GET" in {
 
-      val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
-
-      mockGetAnswers(Some(userAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
       val userAnswers = emptyUserAnswers
-        .set(CountryOfIncorporationPage, "US").success.value
-        .set(ParentCompanyNamePage, companyNameModel.name).success.value
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        companyName = companyNameModel.name,
+        postAction = routes.CountryOfIncorporationController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", frontendAppConfig.countryCodeMap("US")))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -89,13 +86,13 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val userAnswers = emptyUserAnswers
-        .set(ParentCompanyNamePage, companyNameModel.name).success.value
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "Invalid Country Name"))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -104,7 +101,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -116,7 +113,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

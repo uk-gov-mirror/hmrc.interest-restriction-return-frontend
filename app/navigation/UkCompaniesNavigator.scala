@@ -27,19 +27,23 @@ import play.api.mvc.Call
 @Singleton
 class UkCompaniesNavigator @Inject()() extends Navigator {
 
-  val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
-    AboutAddingUKCompaniesPage -> ((_, _) => routes.AboutAddingUKCompaniesController.onPageLoad()),
-    CompanyDetailsPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad())
-    //CompanyDetailsPage -> ((id, _) => nextSection(NormalMode))
+  //TODO update with next page
+  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+    EnterCompanyTaxEBITDAPage -> (_ => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode)),
+    NetTaxInterestIncomeOrExpensePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ConsentingCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
-  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((id, _) => ???
-  )
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => checkYourAnswers)
 
-  private def nextSection(mode: Mode): Call = groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
+  //TODO update with CYA call
+  private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
-    case NormalMode => normalRoutes(page)(id.getOrElse[Int](1), userAnswers) //TODO: Requires Refactor
-    case CheckMode => checkRouteMap(page)(id.getOrElse[Int](1), userAnswers) //TODO: Requires Refactor
+  //TODO update with Next Section call
+  private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
+
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
+    case NormalMode => normalRoutes(page)(userAnswers)
+    case CheckMode => checkRouteMap(page)(userAnswers)
   }
 }

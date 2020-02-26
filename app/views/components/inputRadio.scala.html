@@ -18,11 +18,11 @@
 
 @this(govukRadios: GovukRadios)
 
-@(
-        form: Form[_],
+@(      form: Form[_],
         legend: String,
         items: Seq[RadioItem],
         legendAsHeading: Boolean = true,
+        hintKey: Option[String] = None,
         classes: String = "govuk-fieldset__legend--xl",
         inline: Boolean = false
 )(implicit messages: Messages)
@@ -37,7 +37,9 @@
             classes = classes
         ))
     )),
-    hint = None,
+    hint = hintKey.map { hint => Hint(
+            content = Text(messages(hint))
+    )},
     items = items,
     errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
 ))

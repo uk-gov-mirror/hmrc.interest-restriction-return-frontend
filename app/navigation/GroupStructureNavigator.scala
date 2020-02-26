@@ -16,61 +16,69 @@
 
 package navigation
 
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.groupStructure.routes
 import javax.inject.{Inject, Singleton}
 import models._
-import pages.{groupStructure, _}
+import pages._
 import pages.groupStructure._
 import play.api.mvc.Call
-import controllers.groupStructure.routes
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
 
 @Singleton
 class GroupStructureNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
-  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    ReportingCompanySameAsParentPage -> (_.get(ReportingCompanySameAsParentPage) match {
-      case Some(false) => routes.DeemedParentController.onPageLoad(NormalMode)
+  val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
+    ReportingCompanySameAsParentPage -> ((_, userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
+      case Some(false) => routes.HasDeemedParentController.onPageLoad(NormalMode)
       case Some(true) => nextSection(NormalMode)
       case _ => routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
     }),
-    DeemedParentPage -> (_ => routes.ParentCompanyNameController.onPageLoad(NormalMode)),
-    ParentCompanyNamePage -> (_ => routes.PayTaxInUkController.onPageLoad(NormalMode)),
-    PayTaxInUkPage -> (_.get(PayTaxInUkPage) match {
-      case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
-      case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode)
-      case _ => routes.PayTaxInUkController.onPageLoad(NormalMode)
+    HasDeemedParentPage -> ((idx, _) => routes.ParentCompanyNameController.onPageLoad(idx, NormalMode)),
+    ParentCompanyNamePage -> ((idx, _) => routes.PayTaxInUkController.onPageLoad(idx, NormalMode)),
+    PayTaxInUkPage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.payTaxInUk) match {
+      case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, NormalMode)
+      case _ => routes.PayTaxInUkController.onPageLoad(idx, NormalMode)
     }),
-    LimitedLiabilityPartnershipPage -> (_.get(LimitedLiabilityPartnershipPage) match {
-      case Some(true) => routes.ParentCompanySAUTRController.onPageLoad(NormalMode)
-      case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(NormalMode)
-      case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(NormalMode)
+    LimitedLiabilityPartnershipPage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.limitedLiabilityPartnership) match {
+      case Some(true) => routes.ParentCompanySAUTRController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx, NormalMode)
+      case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
     }),
-    ParentCompanyCTUTRPage -> (_ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)),
-    RegisteredCompaniesHousePage -> (_.get(RegisteredCompaniesHousePage) match {
-      case Some(true) => routes.ParentCRNController.onPageLoad(NormalMode)
-      case Some(false) => checkYourAnswers
-      case _ => routes.RegisteredCompaniesHouseController.onPageLoad(NormalMode)
+    ParentCompanyCTUTRPage -> ((idx, _) => routes.RegisteredCompaniesHouseController.onPageLoad(idx, NormalMode)),
+    RegisteredCompaniesHousePage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.registeredCompaniesHouse) match {
+      case Some(true) => routes.ParentCRNController.onPageLoad(idx, NormalMode)
+      case Some(false) => checkYourAnswers(idx)
+      case _ => routes.RegisteredCompaniesHouseController.onPageLoad(idx, NormalMode)
     }),
-    ParentCompanySAUTRPage -> (_ => routes.ParentCRNController.onPageLoad(NormalMode)),
-    ParentCRNPage -> (_ => checkYourAnswers),
-    RegisteredForTaxInAnotherCountryPage -> (_.get(RegisteredForTaxInAnotherCountryPage) match {
-      case Some(true) => routes.CountryOfIncorporationController.onPageLoad(NormalMode)
-      case Some(false) => checkYourAnswers
-      case _ => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(NormalMode)
+    ParentCompanySAUTRPage -> ((idx, _) => routes.ParentCRNController.onPageLoad(idx, NormalMode)),
+    ParentCRNPage -> ((idx, _) => checkYourAnswers(idx)),
+    RegisteredForTaxInAnotherCountryPage ->
+      ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.registeredForTaxInAnotherCountry) match {
+        case Some(true) => routes.CountryOfIncorporationController.onPageLoad(idx, NormalMode)
+        case Some(false) => checkYourAnswers(idx)
+        case _ => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, NormalMode)
+      }),
+    CountryOfIncorporationPage -> ((idx, _) => routes.LocalRegistrationNumberController.onPageLoad(idx, NormalMode)),
+    LocalRegistrationNumberPage -> ((idx, _) => checkYourAnswers(idx)),
+    CheckAnswersGroupStructurePage -> ((_, userAnswers) => userAnswers.get(HasDeemedParentPage) match {
+      case Some(true) => routes.DeemedParentReviewAnswersListController.onPageLoad()
+      case Some(false) => nextSection(NormalMode)
+      case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
     }),
-    CountryOfIncorporationPage -> (_ => routes.LocalRegistrationNumberController.onPageLoad(NormalMode)),
-    LocalRegistrationNumberPage -> (_ => checkYourAnswers),
-    CheckAnswersGroupStructurePage -> (_ => nextSection(NormalMode))
+    DeletionConfirmationPage -> ((_,_) => routes.DeemedParentReviewAnswersListController.onPageLoad())
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => checkYourAnswers)
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
-  private def checkYourAnswers: Call = routes.CheckAnswersGroupStructureController.onPageLoad()
-  private def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
-    case NormalMode => normalRoutes(page)(userAnswers)
-    case CheckMode => checkRouteMap(page)(userAnswers)
+  def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  def addParent(numberOfParents: Int): Call = routes.ParentCompanyNameController.onPageLoad(numberOfParents + 1, NormalMode)
+
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
+    case NormalMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
+    case CheckMode => checkRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
   }
 }

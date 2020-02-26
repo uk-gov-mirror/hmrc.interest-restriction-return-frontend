@@ -42,7 +42,7 @@ class CheckAnswersReportingCompanyController @Inject()(override val messagesApi:
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val checkAnswersHelper = new CheckYourAnswersAboutReportingCompanyHelper(request.userAnswers)
-    Ok(view(checkAnswersHelper, ReportingCompany, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()))
+    Ok(view(checkAnswersHelper.rows, ReportingCompany, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

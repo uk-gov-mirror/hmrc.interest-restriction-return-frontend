@@ -16,10 +16,11 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models.NormalMode
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -29,23 +30,43 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
   "in Normal mode" when {
 
-    "GET /group-structure/limited-liability-partnership" when {
+    "GET /group-structure/parent-company/1/limited-liability-partnership" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          setAnswers(ParentCompanyNamePage, companyName)
-
-          val res = getRequest("/group-structure/limited-liability-partnership")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.limitedLiabilityPartnership(companyName))
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/limited-liability-partnership")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.limitedLiabilityPartnership(parentCompanyName.name))
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/limited-liability-partnership")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -56,7 +77,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/limited-liability-partnership")()
+          val res = getRequest("/group-structure/parent-company/1/limited-liability-partnership")()
 
           whenReady(res) { result =>
             result should have(
@@ -68,7 +89,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    "POST /group-structure/limited-liability-partnership" when {
+    "POST /group-structure/parent-company/1/limited-liability-partnership" when {
 
       "user is authorised" when {
 
@@ -77,13 +98,16 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
           "redirect to ParentCompanySAUTR page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> true))()
+            val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.ParentCompanySAUTRController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -94,13 +118,16 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
           "redirect to ParentCompanyCTUTR page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> false))()
+            val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(NormalMode).url)
+                redirectLocation(groupStructureRoutes.ParentCompanyCTUTRController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -113,7 +140,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,15 +150,17 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
           }
         }
       }
+
       "enters an invalid answer" when {
 
         "return a BAD_REQUEST (400)" in {
 
           AuthStub.authorised()
+          setAnswers(
+            emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+          )
 
-          setAnswers(ParentCompanyNamePage, companyName)
-
-          val res = postRequest("/group-structure/limited-liability-partnership", Json.obj("value" -> ""))()
+          val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership", Json.obj("value" -> ""))()
 
           whenReady(res) { result =>
             result should have(
@@ -145,23 +174,43 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
   "in Change mode" when {
 
-    "GET /group-structure/limited-liability-partnership" when {
+    "GET /group-structure/parent-company/1/limited-liability-partnership" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "user answer for parent company name exists" should {
 
-          AuthStub.authorised()
+          "return OK (200)" in {
 
-          setAnswers(ParentCompanyNamePage, companyName)
-
-          val res = getRequest("/group-structure/limited-liability-partnership/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.limitedLiabilityPartnership(companyName))
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
+
+            val res = getRequest("/group-structure/parent-company/1/limited-liability-partnership/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.limitedLiabilityPartnership(parentCompanyName.name))
+              )
+            }
+          }
+        }
+
+        "user answer for parent company name doesn't exist" should {
+
+          "return INTERNAL_SERVER_ERROR (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/group-structure/parent-company/1/limited-liability-partnership/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
           }
         }
       }
@@ -172,7 +221,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/limited-liability-partnership/change")()
+          val res = getRequest("/group-structure/parent-company/1/limited-liability-partnership/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -184,7 +233,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    "POST /group-structure/limited-liability-partnership" when {
+    "POST /group-structure/parent-company/1/limited-liability-partnership" when {
 
       "user is authorised" when {
 
@@ -193,13 +242,16 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            val res = postRequest("/group-structure/limited-liability-partnership/change", Json.obj("value" -> false))()
+            val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership/change", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad().url)
+                redirectLocation(controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
@@ -210,10 +262,11 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
           "return a BAD_REQUEST (400)" in {
 
             AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
 
-            setAnswers(ParentCompanyNamePage, companyName)
-
-            val res = postRequest("/group-structure/limited-liability-partnership/change", Json.obj("value" -> ""))()
+            val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership/change", Json.obj("value" -> ""))()
 
             whenReady(res) { result =>
               result should have(
@@ -230,7 +283,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/limited-liability-partnership/change", Json.obj("value" -> true))()
+          val res = postRequest("/group-structure/parent-company/1/limited-liability-partnership/change", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(

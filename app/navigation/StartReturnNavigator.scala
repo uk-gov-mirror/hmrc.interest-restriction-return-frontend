@@ -17,12 +17,11 @@
 package navigation
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.routes
 import controllers.startReturn.{routes => startReturnRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
+import pages.startReturn._
 import play.api.mvc.Call
 
 @Singleton

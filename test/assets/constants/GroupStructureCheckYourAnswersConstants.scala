@@ -16,6 +16,7 @@
 
 package assets.constants
 
+import assets.constants.DeemedParentConstants._
 import pages.groupStructure._
 import views.behaviours.ViewBehaviours
 
@@ -23,57 +24,17 @@ trait GroupStructureCheckYourAnswersConstants extends ViewBehaviours with BaseCo
 
   val userAnswersUKCompany = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
-    .set(ParentCompanyNamePage, ultimateParentCompanyUK.companyName.toString).get
-    .set(PayTaxInUkPage, true).get
-    .set(LimitedLiabilityPartnershipPage, false).get
-    .set(ParentCompanyCTUTRPage, ultimateParentCompanyUK.ctutr.toString).get
-    .set(RegisteredCompaniesHousePage, true).get
-    .set(ParentCRNPage, ultimateParentCompanyUK.crn.toString).get
+    .set(HasDeemedParentPage, false).get
+    .set(DeemedParentPage, deemedParentModelUkCompany, idx = Some(1)).get
 
   val userAnswersForeignRegisteredCompany = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
-    .set(ParentCompanyNamePage, ultimateParentCompanyForeign.companyName.toString).get
-    .set(PayTaxInUkPage, false).get
-    .set(RegisteredForTaxInAnotherCountryPage, true).get
-    .set(CountryOfIncorporationPage, ultimateParentCompanyForeign.countryOfIncorporation.get.country).get
-    .set(LocalRegistrationNumberPage, ultimateParentCompanyForeign.nonUkCrn.get).get
-
-  val userAnswersForeignNotRegisteredCompany = emptyUserAnswers
-    .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
-    .set(ParentCompanyNamePage, ultimateParentCompanyForeign.companyName.toString).get
-    .set(PayTaxInUkPage, false).get
-    .set(RegisteredForTaxInAnotherCountryPage, false).get
+    .set(HasDeemedParentPage, false).get
+    .set(DeemedParentPage, deemedParentModelNonUkCompany, idx = Some(1)).get
 
   val userAnswersUKLLP = emptyUserAnswers
     .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
-    .set(ParentCompanyNamePage, ultimateParentUKLLP.companyName.toString).get
-    .set(PayTaxInUkPage, true).get
-    .set(LimitedLiabilityPartnershipPage, true).get
-    .set(ParentCompanySAUTRPage, ultimateParentUKLLP.sautr.toString).get
-    .set(RegisteredCompaniesHousePage, true).get
-    .set(ParentCRNPage, ultimateParentUKLLP.crn.toString).get
+    .set(HasDeemedParentPage, false).get
+    .set(DeemedParentPage, deemedParentModelUkPartnership, idx = Some(1)).get
 
-  val userAnswersUKCompanyMin = emptyUserAnswers
-    .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
-    .set(ParentCompanyNamePage, ultimateParentCompanyUKMin.companyName.toString).get
-    .set(PayTaxInUkPage, true).get
-    .set(LimitedLiabilityPartnershipPage, false).get
-    .set(ParentCompanyCTUTRPage, ultimateParentCompanyUKMin.ctutr.toString).get
-    .set(RegisteredCompaniesHousePage, false).get
-    .set(ParentCRNPage, ultimateParentCompanyUKMin.crn.toString).get
-
-  val userAnswersUKLLPMin = emptyUserAnswers
-    .set(ReportingCompanySameAsParentPage, false).get
-    .set(DeemedParentPage, false).get
-    .set(ParentCompanyNamePage, ultimateParentUKLLPMin.companyName.toString).get
-    .set(PayTaxInUkPage, true).get
-    .set(LimitedLiabilityPartnershipPage, true).get
-    .set(ParentCompanySAUTRPage, ultimateParentUKLLPMin.sautr.toString).get
-    .set(RegisteredCompaniesHousePage, false).get
-    .set(ParentCRNPage, ultimateParentUKLLPMin.crn.toString).get
 }

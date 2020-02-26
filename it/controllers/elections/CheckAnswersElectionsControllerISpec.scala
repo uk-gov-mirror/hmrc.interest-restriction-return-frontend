@@ -17,9 +17,8 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.JsString
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -93,7 +92,7 @@ class CheckAnswersElectionsControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/check-answers", Json.obj("value" -> ctutr))()
+          val res = postRequest("/elections/check-answers", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

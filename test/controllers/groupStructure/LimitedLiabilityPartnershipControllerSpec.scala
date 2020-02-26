@@ -23,11 +23,11 @@ import controllers.actions._
 import controllers.errors
 import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
-import pages.groupStructure.LimitedLiabilityPartnershipPage
+import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
 import play.api.test.Helpers._
 import views.html.groupStructure.LimitedLiabilityPartnershipView
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.ParentCompanyNamePage
+import assets.constants.DeemedParentConstants._
 
 class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
@@ -52,36 +52,44 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
     "return OK and the correct view for a GET" in {
 
-      val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, companyNameModel.name).success.value
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        companyName = companyNameModel.name,
+        postAction = routes.LimitedLiabilityPartnershipController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(LimitedLiabilityPartnershipPage, true).success.value
-        .set(ParentCompanyNamePage, companyNameModel.name).success.value
+        .set(DeemedParentPage, deemedParentModelUkPartnership, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
+
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -90,13 +98,13 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val userAnswers = emptyUserAnswers
-        .set(ParentCompanyNamePage, companyNameModel.name).success.value
+        .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -105,7 +113,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -118,7 +126,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

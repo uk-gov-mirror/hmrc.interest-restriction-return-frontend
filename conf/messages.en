@@ -39,7 +39,8 @@ underConstruction.heading = This page is under construction
 # ----------------------------------------------------------
 site.back = Back
 site.saveForLater = Save and come back later
-site.delete = Remove
+site.review = Review
+site.delete = Delete
 site.edit = Change
 site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
@@ -291,10 +292,10 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 
 # DeemedParentPage Messages
 # ----------------------------------------------------------
-deemedParent.title = Does the group have a ’deemed’ parent company?
-deemedParent.heading = Does the group have a ’deemed’ parent company?
-deemedParent.checkYourAnswersLabel = Deemed Parent
-deemedParent.error.required = Select yes if the group has a ’deemed’ parent company
+hasDeemedParent.title = Does the group have a ‘deemed’ parent company?
+hasDeemedParent.heading = Does the group have a ‘deemed’ parent company?
+hasDeemedParent.checkYourAnswersLabel = Deemed Parent
+hasDeemedParent.error.required = Select yes if the group has a ‘deemed’ parent company
 
 
 # PayTaxInUkPage Messages
@@ -607,6 +608,104 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
 # ----------------------------------------------------------
 aboutAddingUKCompanies.title = In this section you will need to tell us about eligible UK companies in the group
 aboutAddingUKCompanies.heading = In this section you will need to tell us about eligible UK companies in the group
+
+# EnterCompanyTaxEBITDAPage Messages
+# ----------------------------------------------------------
+enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.subheading = {0}
+enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.checkYourAnswersLabel = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
+enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
+enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
+enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
+
+# InvestmentNamePage Messages
+# ----------------------------------------------------------
+investmentName.title = Enter the name of the investment
+investmentName.heading = Enter the name of the investment
+investmentName.checkYourAnswersLabel = Investment name
+investmentName.label= Enter the name of the investment
+investmentName.error.required = Enter the name of the investment
+investmentName.error.length = Investment name must be 160 characters or less
+
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+investmentsReviewAnswersList.plural.title = {0} investsments added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.singular.title = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.plural.heading = {0} investsments added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.singular.heading = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.addAnother = Do you need to add another investment?
+investmentsReviewAnswersList.error.required = Select yes if you need to add another investment
+
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.heading = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.subheading = {0}
+netTaxInterestIncomeOrExpense.expenseRadio = Net Tax-Interest Expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net Tax-Interest Income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does this company have?
+netTaxInterestIncomeOrExpense.error.required = Select a Net Tax-Interest Income Or Expense
+
+# ConsentingCompanyPage Messages
+# ----------------------------------------------------------
+consentingCompany.title = Is this a consenting company?
+consentingCompany.heading = Is this a consenting company?
+consentingCompany.subheading = {0}
+consentingCompany.checkYourAnswersLabel = Is this a consenting company?
+consentingCompany.error.required = Select yes if this is a consenting company?
+
+# DeemedParentReviewAnswersListPage Messages
+# ----------------------------------------------------------
+deemedParentReviewAnswersList.singular.title = {0} deemed parent added
+deemedParentReviewAnswersList.plural.title = {0} deemed parents added
+deemedParentReviewAnswersList.singular.heading = {0} deemed parent added
+deemedParentReviewAnswersList.plural.heading = {0} deemed parents added
+deemedParentReviewAnswersList.addAnother = Do you need to add another deemed parent?
+deemedParentReviewAnswersList.error.required = Select yes if you need to add another deemed parent
+deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 3 deemed parents
+
+# DeletionConfirmationPage Messages
+# ----------------------------------------------------------
+deletionConfirmation.title = Are you sure you want to delete deemed parent ‘{0}’?
+deletionConfirmation.heading = Are you sure you want to delete deemed parent ‘{0}’?
+deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent ‘{0}’?
+deletionConfirmation.error.required = Select yes if you want to delete deemed parent ‘{0}’
+
+# InvestmentsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
+
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+investorGroupsReviewAnswersList.plural.title = {0} Investor groups added for Group ratio (blended) election
+investorGroupsReviewAnswersList.singular.title = {0} Investor group added for Group ratio (blended) election
+investorGroupsReviewAnswersList.plural.heading = {0} Investor groups added for Group ratio (blended) election
+investorGroupsReviewAnswersList.singular.heading = {0} Investor group added for Group ratio (blended) election
+investorGroupsReviewAnswersList.addAnother = Do you need to add another investor group?
+investorGroupsReviewAnswersList.error.required = Select yes if you need to add another investor group
+
+# InvestorGroupsDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
+
+# NetTaxInterestIncomeOrExpensePage Messages
+# ----------------------------------------------------------
+netTaxInterestIncomeOrExpense.title = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.heading = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.subheading = {0}
+netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
+netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
 
 # CompanyDetailsPage Messages
 # ----------------------------------------------------------

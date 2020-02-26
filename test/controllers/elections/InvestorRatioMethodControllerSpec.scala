@@ -16,21 +16,16 @@
 
 package controllers.elections
 
-import controllers.errors
+import assets.constants.InvestorGroupConstants._
 import base.SpecBase
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import controllers.errors
 import forms.elections.InvestorRatioMethodFormProvider
-import models.{InvestorRatioMethod, NormalMode, UserAnswers}
+import models.{InvestorRatioMethod, NormalMode}
 import navigation.FakeNavigators.FakeElectionsNavigator
-import org.scalatestplus.mockito.MockitoSugar
-import pages.elections.InvestorRatioMethodPage
-import play.api.data.Form
-
-import play.api.mvc.Call
+import pages.elections.InvestorGroupsPage
 import play.api.test.Helpers._
-import play.twirl.api.Html
-
 import views.html.elections.InvestorRatioMethodView
 
 class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
@@ -52,72 +47,115 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
     view = view
   )
 
-  "InvestorRatioMethod Controller" must {
+  "InvestorRatioMethod Controller" when {
 
-    "return OK and the correct view for a GET" in {
+    "calling the onPageLoad(idx: Int, mode: Mode) method" when {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "answer exists for the model at the requested idx" must {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        "return OK and the correct view for a GET" in {
 
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+          val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = None), Some(1)).success.value
+
+          mockGetAnswers(Some(userAnswers))
+
+          val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
+
+          status(result) mustEqual OK
+          contentAsString(result) mustEqual view(
+            form, routes.InvestorRatioMethodController.onSubmit(1, NormalMode)
+          )(fakeRequest, messages, frontendAppConfig).toString
+        }
+      }
+
+      "answer DOES NOT exist for the model at the requested idx" must {
+
+        "return ISE (500)" in {
+
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
+
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+          contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
+        }
+      }
+
+      "redirect to Session Expired for a GET if no existing data is found" in {
+
+        mockGetAnswers(None)
+
+        val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
+    "calling the onSubmit(idx: Int, mode: Mode) method" when {
 
-      val userAnswers = emptyUserAnswers.set(InvestorRatioMethodPage, InvestorRatioMethod.values.head).success.value
+      "answer exists for the model at the requested idx" when {
 
-      mockGetAnswers(Some(userAnswers))
+        "valid data is submitted" must {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+          "redirect to the next page" in {
 
-      status(result) mustBe OK
-    }
+            val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
 
-    "redirect to the next page when valid data is submitted" in {
+            mockGetAnswers(Some(userAnswers))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
+            val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+            val result = Controller.onSubmit(1, NormalMode)(request)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+            status(result) mustEqual SEE_OTHER
+            redirectLocation(result) mustBe Some(onwardRoute.url)
+          }
+        }
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
+        "invalid data is submitted" must {
 
-    "return a Bad Request and errors when invalid data is submitted" in {
+          "return a Bad Request" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+            val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
 
-      mockGetAnswers(Some(emptyUserAnswers))
+            mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+            val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      status(result) mustEqual BAD_REQUEST
-    }
+            val result = Controller.onSubmit(1, NormalMode)(request)
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+            status(result) mustEqual BAD_REQUEST
+          }
+        }
+      }
 
-      mockGetAnswers(None)
+      "answer DOES NOT exist for the model at the requested idx" must {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        "return ISE (500)" in {
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-    }
+          val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+          mockGetAnswers(Some(emptyUserAnswers))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
+          val result = Controller.onSubmit(1, NormalMode)(request)
 
-      mockGetAnswers(None)
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+          contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
+        }
+      }
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      "redirect to Session Expired for a POST if no existing data is found" in {
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+        val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
+
+        mockGetAnswers(None)
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
+
+        status(result) mustEqual SEE_OTHER
+        redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      }
     }
   }
 }

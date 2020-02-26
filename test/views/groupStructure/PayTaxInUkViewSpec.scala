@@ -42,7 +42,7 @@ class PayTaxInUkViewSpec extends YesNoViewBehaviours  {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[PayTaxInUkView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, companyName)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyName, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(
@@ -57,7 +57,7 @@ class PayTaxInUkViewSpec extends YesNoViewBehaviours  {
       form,
       applyView,
       messageKeyPrefix,
-      expectedFormAction = routes.PayTaxInUkController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       headingArgs = Seq(companyName),
       section = section
     )

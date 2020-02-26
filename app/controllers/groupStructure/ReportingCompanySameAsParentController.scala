@@ -50,7 +50,9 @@ class ReportingCompanySameAsParentController @Inject()(override val messagesApi:
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(ReportingCompanyNamePage) { name =>
-      Future.successful(Ok(view(fillForm(ReportingCompanySameAsParentPage, formProvider()), mode, name)))
+      Future.successful(Ok(view(
+        fillForm(ReportingCompanySameAsParentPage, formProvider()), mode, name, routes.ReportingCompanySameAsParentController.onSubmit(mode)
+      )))
     }
   }
 
@@ -58,7 +60,7 @@ class ReportingCompanySameAsParentController @Inject()(override val messagesApi:
     formProvider().bindFromRequest().fold(
       formWithErrors =>
         answerFor(ReportingCompanyNamePage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name)))
+          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.ReportingCompanySameAsParentController.onSubmit(mode))))
         },
       value =>
         saveAndRedirect(ReportingCompanySameAsParentPage, value, mode)

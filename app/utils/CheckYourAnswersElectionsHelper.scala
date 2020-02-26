@@ -25,18 +25,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
                                      (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def investorRatioMethod: Option[SummaryListRow] =
-    answer(InvestorRatioMethodPage, electionsRoutes.InvestorRatioMethodController.onPageLoad(CheckMode))
-
-  def investorGroupName: Option[SummaryListRow] =
-    answer(InvestorGroupNamePage, electionsRoutes.InvestorGroupNameController.onPageLoad(CheckMode))
-
-  def addInvestorGroup: Option[SummaryListRow] =
-    answer(AddInvestorGroupPage, electionsRoutes.AddInvestorGroupController.onPageLoad(CheckMode))
-
-  def otherInvestorGroupElections: Option[SummaryListRow] =
-    answer(OtherInvestorGroupElectionsPage, electionsRoutes.OtherInvestorGroupElectionsController.onPageLoad(CheckMode))
-
   def groupEBITDA: Option[SummaryListRow] =
     monetaryAnswer(GroupEBITDAPage, electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode))
 
@@ -117,7 +105,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     }
   }
 
-  override val rows = Seq(
+   val rows: Seq[SummaryListRow] = Seq(
     groupRatioElection,
     enterANGIE,
     enterQNGIE,

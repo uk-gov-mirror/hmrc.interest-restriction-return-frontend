@@ -19,7 +19,7 @@ package pages.elections
 import models.InvestorRatioMethod
 import pages.behaviours.PageBehaviours
 
-class InvestorRatioMethodSpec extends PageBehaviours {
+class InvestorRatioMethodPageSpec extends PageBehaviours {
 
   "InvestorRatioMethodPage" must {
 

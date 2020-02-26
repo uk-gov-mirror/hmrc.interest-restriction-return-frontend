@@ -78,7 +78,7 @@ class AddInvestorGroupControllerISpec extends IntegrationSpecBase with CreateReq
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.InvestorGroupNameController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.InvestorGroupsReviewAnswersListController.onPageLoad().url)
               )
             }
           }

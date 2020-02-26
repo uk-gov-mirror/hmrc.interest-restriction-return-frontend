@@ -24,7 +24,7 @@ import forms.groupStructure.DeemedParentFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupStructureNavigator
-import pages.groupStructure.DeemedParentPage
+import pages.groupStructure.HasDeemedParentPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -34,28 +34,28 @@ import views.html.groupStructure.DeemedParentView
 
 import scala.concurrent.Future
 
-class DeemedParentController @Inject()(override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: GroupStructureNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: DeemedParentFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: DeemedParentView
+class HasDeemedParentController @Inject()(override val messagesApi: MessagesApi,
+                                          val sessionRepository: SessionRepository,
+                                          val navigator: GroupStructureNavigator,
+                                          val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: DeemedParentFormProvider,
+                                          val controllerComponents: MessagesControllerComponents,
+                                          view: DeemedParentView
                                       )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(DeemedParentPage, formProvider()), mode))
+    Ok(view(fillForm(HasDeemedParentPage, formProvider()), mode, routes.HasDeemedParentController.onSubmit(mode)))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode, routes.HasDeemedParentController.onSubmit(mode)))),
       value =>
-        saveAndRedirect(DeemedParentPage, value, mode)
+        saveAndRedirect(HasDeemedParentPage, value, mode)
     )
   }
 }

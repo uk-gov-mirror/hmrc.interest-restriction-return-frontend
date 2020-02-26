@@ -28,15 +28,15 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   val userAnswers: UserAnswers
   implicit val messages: Messages
-  val rows: Seq[SummaryListRow]
 
   def answer[A](page: QuestionPage[A],
                 changeLinkCall: Call,
                 answerIsMsgKey: Boolean = false,
                 headingMessageArgs: Seq[String] = Seq(),
-                answerIsMonetary: Boolean = false)
+                answerIsMonetary: Boolean = false,
+                idx: Option[Int] = None)
                (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
-    userAnswers.get(page) map { ans =>
+    userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = if (answerIsMsgKey) messages(s"$page.$ans") else ans,
@@ -46,9 +46,10 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   def monetaryAnswer(page: QuestionPage[BigDecimal],
                      changeLinkCall: Call,
-                     headingMessageArgs: Seq[String] = Seq())
+                     headingMessageArgs: Seq[String] = Seq(),
+                     idx: Option[Int] = None)
                     (implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page) map { ans =>
+    userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = currencyFormat(ans),
@@ -58,9 +59,10 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
 
   def percentageAnswer(page: QuestionPage[BigDecimal],
                        changeLinkCall: Call,
-                       headingMessageArgs: Seq[String] = Seq())
+                       headingMessageArgs: Seq[String] = Seq(),
+                       idx: Option[Int] = None)
                       (implicit messages: Messages): Option[SummaryListRow] =
-    userAnswers.get(page) map { ans =>
+    userAnswers.get(page, idx) map { ans =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = s"$ans%",

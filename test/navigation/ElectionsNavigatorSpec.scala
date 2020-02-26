@@ -194,10 +194,26 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the InterestAllowanceNonConsolidatedInvestmentsElection page" should {
 
-        "go to the Elected Interest Allowance Consolidated Partnership Before page" in {
+        "go to the Investments page when answer is yes" in {
+
+          val userAnswers = emptyUserAnswers.set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true).success.value
+
+          navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, userAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
+        }
+
+        "go to the Elected Interest Allowance Consolidated Partnership Before page when answer is no" in {
+
+          val userAnswers = emptyUserAnswers.set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, false).success.value
+
+          navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, userAnswers) mustBe
+            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+
+        "go to InterestAllowanceNonConsolidatedInvestmentsElection when there is no answer" in {
 
           navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, NormalMode, emptyUserAnswers) mustBe
-            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+            routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
         }
       }
 
@@ -269,7 +285,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             val userAnswers = emptyUserAnswers.set(AddInvestorGroupPage, true).success.value
 
             navigator.nextPage(AddInvestorGroupPage, NormalMode, userAnswers) mustBe
-              routes.InvestorGroupNameController.onPageLoad(NormalMode)
+              routes.InvestorGroupsReviewAnswersListController.onPageLoad()
           }
         }
 
@@ -298,8 +314,8 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the Investor Ratio Method page" in {
 
-          navigator.nextPage(InvestorGroupNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.InvestorRatioMethodController.onPageLoad(NormalMode)
+          navigator.nextPage(InvestorGroupNamePage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.InvestorRatioMethodController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -307,16 +323,25 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the Other Investor Group Elections page" in {
 
-          navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers) mustBe
-            routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode)
+          navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
         }
       }
 
       "from the Other Investor Group Elections page" should {
 
-        "go to the Elected Group EBITDA Before page" in {
+        "go to the Investor Groups Review Answers List page" in {
 
           navigator.nextPage(OtherInvestorGroupElectionsPage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestorGroupsReviewAnswersListController.onPageLoad()
+        }
+      }
+
+      "from the Investor Groups Review Answers List page" should {
+
+        "go to the Elected Group EBITDA Before page" in {
+
+          navigator.nextPage(InvestorGroupsPage, NormalMode, emptyUserAnswers) mustBe
             routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
         }
       }
@@ -366,15 +391,51 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the PartnershipSAUTR page" should {
 
-        "go to the Under construction page page" in {
+        "go to the CheckAnswersElections page" in {
 
           navigator.nextPage(PartnershipSAUTRPage, NormalMode, emptyUserAnswers) mustBe
             routes.CheckAnswersElectionsController.onPageLoad()
         }
       }
+
+      "from the Investment Name page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestmentNamePage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
+        }
+      }
+
+      "from the Investments Review Answers List page" should {
+
+        "go to the Elected Interest Allowance Consolidated Pship Before page" in {
+
+          navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, emptyUserAnswers) mustBe
+            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Investor Groups Deletion Confirmation page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestorGroupsReviewAnswersListController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {
+
+      "from the Investment Name page" should {
+
+        "go to the Investments Review Answers List page" in {
+
+          navigator.nextPage(InvestmentNamePage, CheckMode, emptyUserAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
+        }
+      }
 
       "go to the Check Answers Elections page" in {
 

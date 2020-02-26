@@ -22,10 +22,10 @@ class DeemedParentPageSpec extends PageBehaviours {
 
   "DeemedParentPage" must {
 
-    beRetrievable[Boolean](DeemedParentPage)
+    beRetrievable[Boolean](HasDeemedParentPage)
 
-    beSettable[Boolean](DeemedParentPage)
+    beSettable[Boolean](HasDeemedParentPage)
 
-    beRemovable[Boolean](DeemedParentPage)
+    beRemovable[Boolean](HasDeemedParentPage)
   }
 }

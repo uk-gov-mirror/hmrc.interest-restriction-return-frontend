@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
 import navigation.FakeNavigators.FakeGroupStructureNavigator
-import pages.groupStructure.CheckAnswersGroupStructurePage
+import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
@@ -48,22 +48,51 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
         mockGetAnswers(Some(emptyUserAnswers))
 
-        val result = Controller.onPageLoad()(fakeRequest)
+        val result = Controller.onPageLoad(1)(fakeRequest)
 
         status(result) mustEqual OK
         titleOf(contentAsString(result)) mustEqual title(CheckAnswersGroupStructureMessages.title, Some(SectionHeaderMessages.groupStructure))
       }
+    }
 
-      "calling the onSubmit() method" must {
+    "calling the onSubmit() method" when {
+
+      "given a deemed parent" when {
 
         "redirect to the next page in the navigator" in {
 
-          mockGetAnswers(Some(emptyUserAnswers))
+          lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
-          val result = Controller.onSubmit()(fakeRequest)
+          mockGetAnswers(Some(userAnswers))
+
+          val result = Controller.onSubmit(1)(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, emptyUserAnswers).url)
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+            page = CheckAnswersGroupStructurePage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers,
+            id = Some(1)
+          ).url)
+        }
+      }
+
+      "given a ultimate parent" when {
+
+        "redirect to the next page in the navigator" in {
+
+          val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+          mockGetAnswers(Some(userAnswers))
+
+          val result = Controller.onSubmit(1)(fakeRequest)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+            page = CheckAnswersGroupStructurePage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers,
+            id = Some(1)
+          ).url)
         }
       }
     }

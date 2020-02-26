@@ -16,7 +16,7 @@
 
 package assets.constants
 
-import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRModel, UltimateParentModel}
+import models.returnModels.{CRNModel, CompanyNameModel, CountryCodeModel, UTRModel}
 
 trait BaseConstants {
 
@@ -44,57 +44,4 @@ trait BaseConstants {
   val groupInterestCapacity = BigDecimal(34567)
   val interestReactivationCap = BigDecimal(8765)
   val interestAllowanceBroughtForward = BigDecimal(76969)
-
-  val ultimateParentCompanyUK = UltimateParentModel(
-    isUk = true,
-    companyName = companyNameModel,
-    ctutr = Some(ctutrModel),
-    sautr = None,
-    crn = Some(crnModel),
-    knownAs = None,
-    countryOfIncorporation = None,
-    nonUkCrn = None
-  )
-
-  val ultimateParentCompanyForeign = UltimateParentModel(
-    isUk = false,
-    companyName = companyNameModel,
-    ctutr = None,
-    sautr = None,
-    crn = None,
-    knownAs = None,
-    countryOfIncorporation = Some(nonUkCountryCode),
-    nonUkCrn = Some(nonUkCrn)
-  )
-
-  val ultimateParentUKLLP = UltimateParentModel(
-    isUk = true,
-    companyName = companyNameModel,
-    ctutr = None,
-    sautr = Some(sautrModel),
-    crn = Some(crnModel),
-    knownAs = None,
-    countryOfIncorporation = None,
-    nonUkCrn = None
-  )
-  val ultimateParentCompanyUKMin = UltimateParentModel(
-    isUk = true,
-    companyName = companyNameModel,
-    ctutr = Some(ctutrModel),
-    sautr = None,
-    crn = None,
-    knownAs = None,
-    countryOfIncorporation = None,
-    nonUkCrn = None
-  )
-  val ultimateParentUKLLPMin = UltimateParentModel(
-    isUk = true,
-    companyName = companyNameModel,
-    ctutr = None,
-    sautr = Some(sautrModel),
-    crn = None,
-    knownAs = None,
-    countryOfIncorporation = None,
-    nonUkCrn = None
-  )
 }

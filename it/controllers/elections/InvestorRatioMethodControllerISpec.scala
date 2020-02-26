@@ -16,8 +16,10 @@
 
 package controllers.elections
 
+import assets.InvestorGroupITConstants.{investorGroupsFixedRatioModel, investorGroupsGroupRatioModel}
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.elections.InvestorGroupsPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,58 +29,43 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
 
   "in Normal mode" when {
 
-    "GET /elections/investor-ratio-method" when {
-
-      "user is authorised" should {
-
-        "return OK (200)" in {
-
-          AuthStub.authorised()
-          val res = getRequest("/elections/investor-ratio-method")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.investorRatioMethod)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/elections/investor-ratio-method")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-
-    "POST /elections/investor-ratio-method" when {
+    "GET /elections/investor-group/1/ratio-method" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "answers are retrieved for investor groups" must {
 
-          "redirect to Other Investor Group Elections page" in {
+          "return OK (200)" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/investor-ratio-method", Json.obj("value" -> "groupRatioMethod"))()
+            setAnswers(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
+            )
+
+            val res = getRequest("/elections/investor-group/1/ratio-method")()
 
             whenReady(res) { result =>
               result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(routes.OtherInvestorGroupElectionsController.onPageLoad(NormalMode).url)
+                httpStatus(OK),
+                titleOf(PageTitles.investorRatioMethod)
+              )
+            }
+          }
+        }
+
+        "answers are NOT retrieved for investor groups" must {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/elections/investor-group/1/ratio-method")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
               )
             }
           }
@@ -91,7 +78,52 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/investor-ratio-method", Json.obj("value" -> 1))()
+          val res = getRequest("/elections/investor-group/1/ratio-method")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /elections/investor-group/1/ratio-method" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to Other Investor Group Elections page" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
+            )
+
+            val res = postRequest("/elections/investor-group/1/ratio-method", Json.obj("value" -> "groupRatioMethod"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/elections/investor-group/1/ratio-method", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +138,7 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
 
   "in Change mode" when {
 
-    "GET /elections/investor-ratio-method" when {
+    "GET /elections/investor-group/1/ratio-method" when {
 
       "user is authorised" should {
 
@@ -114,7 +146,12 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.authorised()
 
-          val res = getRequest("/elections/investor-ratio-method/change")()
+          setAnswers(emptyUserAnswers
+            .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+            .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
+          )
+
+          val res = getRequest("/elections/investor-group/1/ratio-method/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +168,7 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investor-ratio-method/change")()
+          val res = getRequest("/elections/investor-group/1/ratio-method/change")()
 
           whenReady(res) { result =>
             result should have(

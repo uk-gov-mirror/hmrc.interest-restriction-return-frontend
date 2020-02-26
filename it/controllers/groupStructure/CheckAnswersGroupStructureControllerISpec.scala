@@ -16,10 +16,10 @@
 
 package controllers.groupStructure
 
+import assets.DeemedParentITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.aboutReportingCompany.ReportingCompanyNamePage
-import pages.groupStructure.ParentCompanyNamePage
+import pages.groupStructure.{DeemedParentPage, HasDeemedParentPage}
 import play.api.http.Status._
 import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
@@ -29,7 +29,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
   "in Normal mode" when {
     
-    "GET /group-structure/check-answers" when {
+    "GET /group-structure/parent-company/1/check-answers" when {
 
       "user is authorised" should {
 
@@ -37,7 +37,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-structure/check-answers")()
+          val res = getRequest("/group-structure/parent-company/1/check-answers")()
 
           whenReady(res) { result =>
             result should have(
@@ -54,7 +54,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-structure/check-answers")()
+          val res = getRequest("/group-structure/parent-company/1/check-answers")()
 
           whenReady(res) { result =>
             result should have(
@@ -66,23 +66,53 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
       }
     }
 
-    "POST /group-structure/check-answers" when {
+    "POST /group-structure/parent-company/1/check-answers" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "deemed parent answer is true" must {
 
-          "redirect to Revising Return page" in {
+          "enters a valid answer" when {
 
-            AuthStub.authorised()
+            "redirect to Revising Return page" in {
 
-            val res = postRequest("/group-structure/check-answers", JsString(""))()
+              AuthStub.authorised()
 
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
-              )
+              val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+                  .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+
+              setAnswers(userAnswers)
+
+              val res = postRequest("/group-structure/parent-company/1/check-answers", JsString(""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.DeemedParentReviewAnswersListController.onPageLoad().url)
+                )
+              }
+            }
+          }
+        }
+
+        "deemed parent answer is false" must {
+
+          "enters a valid answer" when {
+
+            "redirect to Revising Return page" in {
+
+              AuthStub.authorised()
+
+              setAnswers(HasDeemedParentPage, false)
+
+              val res = postRequest("/group-structure/parent-company/1/check-answers", JsString(""))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                )
+              }
             }
           }
         }
@@ -94,7 +124,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-structure/check-answers", Json.obj("value" -> ctutr))()
+          val res = postRequest("/group-structure/parent-company/1/check-answers", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

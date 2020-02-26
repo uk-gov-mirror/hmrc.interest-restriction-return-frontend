@@ -34,18 +34,11 @@ final case class UserAnswers(
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
   def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] = {
-    Reads.optionNoError(Reads.at(path(page, idx))).reads(data).getOrElse(None)
+    path(page, idx).readNullable[A].reads(data).getOrElse(None)
   }
 
-  def addToList[A](path: JsPath, value: A)(implicit format: Format[A]): Try[UserAnswers] = {
-
-    val updatedData = path.readNullable[Seq[A]].reads(data) match {
-      case JsSuccess(Some(models), _) => setData(path, models :+ value)
-      case JsSuccess(None, _) => setData(path, Seq(value))
-      case JsError(errors) => Failure(JsResultException(errors))
-    }
-
-    updatedData.map(d => copy(data = d))
+  def getList[A](page: QuestionPage[A])(implicit rds: Reads[A]): Seq[A] = {
+    page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
   }
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {

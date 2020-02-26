@@ -35,14 +35,14 @@ class RegisteredCompaniesHouseViewSpec extends YesNoViewBehaviours  {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[RegisteredCompaniesHouseView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RegisteredCompaniesHouseController.onSubmit(NormalMode).url, section = section)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

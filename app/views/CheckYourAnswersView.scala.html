@@ -15,7 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import _root_.utils.CheckYourAnswersHelper
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -27,7 +27,7 @@
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@(answers: CheckYourAnswersHelper, section: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow], section: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(s"section.$section")))) {
 
@@ -35,7 +35,7 @@
 
     @h1(s"$section.checkYourAnswers.heading")
 
-    @govukSummaryList(SummaryList(answers.rows))
+    @govukSummaryList(SummaryList(answers))
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 
