@@ -29,7 +29,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
   "in Normal mode" when {
 
-    "GET /uk-companies/net-tax-interest-amount" when {
+    "GET /uk-companies/1/net-tax-interest-amount" when {
 
       "user is authorised" should {
 
@@ -41,11 +41,11 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
             .set(UkCompaniesPage, ukCompanyModelMin.copy(
               netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
               netTaxInterest = None
-            )).success.value
+            ), Some(1)).success.value
 
           setAnswers(userAnswers)
 
-          val res = getRequest("/uk-companies/net-tax-interest-amount")()
+          val res = getRequest("/uk-companies/1/net-tax-interest-amount")()
 
           whenReady(res) { result =>
             result should have(
@@ -62,7 +62,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/net-tax-interest-amount")()
+          val res = getRequest("/uk-companies/1/net-tax-interest-amount")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +74,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /uk-companies/net-tax-interest-amount" when {
+    "POST /uk-companies/1/net-tax-interest-amount" when {
 
       "user is authorised" when {
 
@@ -84,7 +84,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/net-tax-interest-amount", Json.obj("value" -> 1))()
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
 //TODO: Implement
 //            whenReady(res) { result =>
 //              result should have(
@@ -102,7 +102,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/net-tax-interest-amount", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -117,7 +117,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
   "in Change mode" when {
 
-    "GET /uk-companies/net-tax-interest-amount" when {
+    "GET /uk-companies/1/net-tax-interest-amount" when {
 
       "user is authorised" should {
 
@@ -127,13 +127,13 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
             .set(UkCompaniesPage, ukCompanyModelMin.copy(
               netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
               netTaxInterest = None
-            )).success.value
+            ), Some(1)).success.value
 
           setAnswers(userAnswers)
 
           AuthStub.authorised()
 
-          val res = getRequest("/uk-companies/net-tax-interest-amount/change")()
+          val res = getRequest("/uk-companies/1/net-tax-interest-amount/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -150,7 +150,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/net-tax-interest-amount/change")()
+          val res = getRequest("/uk-companies/1/net-tax-interest-amount/change")()
 
           whenReady(res) { result =>
             result should have(

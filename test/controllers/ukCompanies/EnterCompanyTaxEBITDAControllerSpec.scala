@@ -53,24 +53,24 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(taxEBITDA = None)).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(taxEBITDA = None), Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
         companyName = ukCompanyModelMax.companyDetails.companyName,
-        postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(NormalMode)
+        postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -79,9 +79,9 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
 
@@ -92,9 +92,9 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -103,7 +103,7 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
@@ -115,7 +115,7 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

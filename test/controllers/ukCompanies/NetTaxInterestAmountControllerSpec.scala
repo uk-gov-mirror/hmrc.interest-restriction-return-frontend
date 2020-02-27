@@ -55,11 +55,11 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
     "return OK and the correct view for a GET" in {
 
       val userAnswers = emptyUserAnswers
-        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None), Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
@@ -67,7 +67,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
         mode = NormalMode,
         companyName = ukCompanyModelMin.companyDetails.companyName,
         incomeOrExpense = NetTaxInterestIncome,
-        postAction = onwardRoute
+        postAction = routes.NetTaxInterestAmountController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
 
@@ -76,10 +76,10 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "1"))
 
       val userAnswers = emptyUserAnswers
-        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None), Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
 
@@ -91,11 +91,11 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
       val userAnswers = emptyUserAnswers
-        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None), Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -104,7 +104,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
@@ -116,7 +116,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

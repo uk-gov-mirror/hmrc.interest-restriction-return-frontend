@@ -18,7 +18,6 @@ package navigation
 
 import base.SpecBase
 import models._
-import controllers.ukCompanies.{routes => ukCompaniesRoutes}
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
@@ -34,7 +33,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         //TODO: Update a part of routing sub-task
         "go to the NetTaxInterestIncomeOrExpense page" in {
           navigator.nextPage(EnterCompanyTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
-            ukCompaniesRoutes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode)
+            controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
 

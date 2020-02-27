@@ -32,24 +32,23 @@ class ConsentingCompanyViewSpec extends YesNoViewBehaviours  {
   val messageKeyPrefix = "consentingCompany"
   val section = Some(ConsentingCompanyMessages.subheading(companyNameModel.name))
   val form = new ConsentingCompanyFormProvider()()
+  val view = viewFor[ConsentingCompanyView]()
 
-    "ConsentingCompanyView" must {
+  "ConsentingCompanyView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[ConsentingCompanyView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-      }
+    def applyView(form: Form[_]): HtmlFormat.Appendable =
+      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), section.get)
+    behave like pageWithSubHeading(applyView(form), section.get)
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.ConsentingCompanyController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSaveForLater(applyView(form))
-    }
+    behave like pageWithSaveForLater(applyView(form))
   }
+}

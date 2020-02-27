@@ -34,7 +34,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "netTaxInterestIncomeOrExpense.title", Some(messages("netTaxInterestIncomeOrExpense.subheading", companyName)), Seq(companyName)))) {
 
-    @formHelper(action = NetTaxInterestIncomeOrExpenseController.onSubmit(mode), 'autoComplete -> "off") {
+    @formHelper(action = postAction, 'autoComplete -> "off") {
 
         @errorSummary(form.errors)
 

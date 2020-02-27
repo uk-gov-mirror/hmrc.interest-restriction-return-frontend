@@ -40,7 +40,7 @@
                                     Seq(addPossessive(companyName))
             ))){
 
-    @formHelper(action = NetTaxInterestAmountController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 

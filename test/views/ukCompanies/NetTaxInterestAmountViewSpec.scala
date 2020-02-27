@@ -39,9 +39,8 @@ class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
 
     val messageKeyPrefix = "netTaxInterestAmount.income"
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+    def applyView(form: Form[_]): HtmlFormat.Appendable =
       view.apply(form, NormalMode, companyNameModel.name, NetTaxInterestIncome, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(addPossessive(companyNameModel.name)))
 
@@ -53,7 +52,7 @@ class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
       form = form,
       createView = applyView,
       messageKeyPrefix = messageKeyPrefix,
-      expectedFormAction = routes.NetTaxInterestAmountController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       section = section,
       headingArgs = Seq(addPossessive(companyNameModel.name)))
 
@@ -78,7 +77,7 @@ class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
       form = form,
       createView = applyView,
       messageKeyPrefix = messageKeyPrefix,
-      expectedFormAction = routes.NetTaxInterestAmountController.onSubmit(NormalMode).url,
+      expectedFormAction = onwardRoute.url,
       section = section,
       headingArgs = Seq(addPossessive(companyNameModel.name)))
   }

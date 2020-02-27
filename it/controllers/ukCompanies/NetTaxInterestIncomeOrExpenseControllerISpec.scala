@@ -29,7 +29,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
   "in Normal mode" when {
 
-    "GET /uk-companies/net-tax-interest-income-or-expense" when {
+    "GET /uk-companies/1/net-tax-interest-income-or-expense" when {
 
       "user is authorised" when {
 
@@ -38,9 +38,9 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(UkCompaniesPage, ukCompanyModelMax)
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+            val res = getRequest("/uk-companies/1/net-tax-interest-income-or-expense")()
 
             whenReady(res) { result =>
               result should have(
@@ -57,7 +57,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
             AuthStub.authorised()
 
-            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+            val res = getRequest("/uk-companies/1/net-tax-interest-income-or-expense")()
 
             whenReady(res) { result =>
               result should have(
@@ -74,7 +74,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/net-tax-interest-income-or-expense")()
+          val res = getRequest("/uk-companies/1/net-tax-interest-income-or-expense")()
 
           whenReady(res) { result =>
             result should have(
@@ -86,7 +86,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
       }
     }
 
-    "POST /uk-companies/net-tax-interest-income-or-expense" when {
+    "POST /uk-companies/1/net-tax-interest-income-or-expense" when {
 
       "user is authorised" when {
 
@@ -96,7 +96,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
+            val res = postRequest("/uk-companies/1/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
             //TODO: Implement
             //            whenReady(res) { result =>
             //              result should have(
@@ -114,7 +114,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
           AuthStub.authorised()
 
-          val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
           whenReady(res) { result =>
             result should have(
               httpStatus(INTERNAL_SERVER_ERROR)
@@ -130,7 +130,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
         AuthStub.unauthorised()
 
-        val res = postRequest("/uk-companies/net-tax-interest-income-or-expense", Json.obj("value" -> NetTaxInterestExpense.toString))()
+        val res = postRequest("/uk-companies/1/net-tax-interest-income-or-expense", Json.obj("value" -> NetTaxInterestExpense.toString))()
 
         whenReady(res) {
           result =>
@@ -146,7 +146,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
   "in Change mode" when {
 
-    "GET /uk-companies/net-tax-interest-income-or-expense" when {
+    "GET /uk-companies/1/net-tax-interest-income-or-expense" when {
 
       "user is authorised" should {
 
@@ -155,9 +155,9 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(UkCompaniesPage, ukCompanyModelMax)
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
+            val res = getRequest("/uk-companies/1/net-tax-interest-income-or-expense/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -174,7 +174,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
             AuthStub.authorised()
 
-            val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
+            val res = getRequest("/uk-companies/1/net-tax-interest-income-or-expense/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -191,7 +191,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/net-tax-interest-income-or-expense/change")()
+          val res = getRequest("/uk-companies/1/net-tax-interest-income-or-expense/change")()
 
           whenReady(res) {
             result =>

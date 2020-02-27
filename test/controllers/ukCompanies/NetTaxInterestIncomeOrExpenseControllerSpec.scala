@@ -55,24 +55,24 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(
         netTaxInterestIncomeOrExpense = None,
         netTaxInterest = None
-      )).get))
+      ), Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
         companyName = ukCompanyModelMax.companyDetails.companyName,
-        postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(NormalMode)
+        postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe OK
     }
@@ -81,9 +81,9 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", NetTaxInterestIncomeOrExpense.values.head.toString))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -93,9 +93,9 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -104,7 +104,7 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
@@ -116,7 +116,7 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
