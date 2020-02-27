@@ -13,6 +13,13 @@ POST       /:idx/company-details/change                   controllers.ukCompanie
 GET        /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onPageLoad()
 POST       /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onSubmit()
 
+### NetTaxInterestAmount Controller
+### ----------------------------------------
+GET        /net-tax-interest-amount                          controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(mode: Mode = NormalMode)
+POST       /net-tax-interest-amount                          controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(mode: Mode = NormalMode)
+GET        /net-tax-interest-amount/change                   controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(mode: Mode = CheckMode)
+POST       /net-tax-interest-amount/change                   controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(mode: Mode = CheckMode)
+
 ### EnterCompanyTaxEBITDA Controller
 ### ----------------------------------------
 GET        /enter-company-tax-ebitda                          controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(mode: Mode = NormalMode)

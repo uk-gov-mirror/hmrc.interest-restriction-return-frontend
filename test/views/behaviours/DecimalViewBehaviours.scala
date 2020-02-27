@@ -37,7 +37,7 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
         "contain a label for the value" in {
 
           val doc = asDocument(createView(form))
-          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label"))
+          assertContainsLabel(doc, "value", messages(s"$messageKeyPrefix.label", headingArgs:_*))
         }
 
         "contain an input for the value" in {

@@ -16,26 +16,28 @@
 
 package controllers.ukCompanies
 
-import assets.constants.BaseConstants
-import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
+import assets.constants.fullReturn.UkCompanyConstants._
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
-import models.{NetTaxInterestIncomeOrExpense, NormalMode}
+import forms.ukCompanies.NetTaxInterestAmountFormProvider
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
+import models.NormalMode
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import pages.ukCompanies.UkCompaniesPage
-import play.api.test.Helpers.{status, _}
-import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
+import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
+import play.api.test.Helpers._
+import views.html.ukCompanies.NetTaxInterestAmountView
 
-class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants {
+class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[NetTaxInterestIncomeOrExpenseView]
-  val formProvider = injector.instanceOf[NetTaxInterestIncomeOrExpenseFormProvider]
-  val form = formProvider()
+  val view = injector.instanceOf[NetTaxInterestAmountView]
+  val formProvider = injector.instanceOf[NetTaxInterestAmountFormProvider]
+  val form = formProvider(NetTaxInterestIncome)
 
-  object Controller extends NetTaxInterestIncomeOrExpenseController(
+  val validAnswer = 0
+
+  object Controller extends NetTaxInterestAmountController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeUkCompaniesNavigator,
@@ -48,14 +50,14 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
     view = view
   )
 
-  "NetTaxInterestIncomeOrExpense Controller" must {
+  "NetTaxInterestAmount Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(
-        netTaxInterestIncomeOrExpense = None,
-        netTaxInterest = None
-      )).get))
+      val userAnswers = emptyUserAnswers
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
+
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -63,41 +65,39 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
-        companyName = ukCompanyModelMax.companyDetails.companyName,
-        postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(NormalMode)
+        companyName = ukCompanyModelMin.companyDetails.companyName,
+        incomeOrExpense = NetTaxInterestIncome,
+        postAction = onwardRoute
       )(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustBe OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", NetTaxInterestIncomeOrExpense.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "1"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      val userAnswers = emptyUserAnswers
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
 
+      mockGetAnswers(Some(userAnswers))
       val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
+
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      val userAnswers = emptyUserAnswers
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
+
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -106,20 +106,21 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", NetTaxInterestIncomeOrExpense.values.head.toString))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
 
       mockGetAnswers(None)
 
       val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }
