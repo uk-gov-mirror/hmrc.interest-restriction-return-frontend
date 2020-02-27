@@ -26,7 +26,8 @@
         isPageHeading: Boolean,
         headingMessageArgs: Seq[String] = Seq(),
         hint: Option[Html] = None,
-        classes: Option[String] = None
+        classes: Option[String] = None,
+        value: String = "value"
 )(implicit messages: Messages)
 
 @govukInput(Input(
@@ -41,7 +42,7 @@
   hint = hint.map(hintHtml => Hint(
       content = HtmlContent(hintHtml)
   )),
-  value = form("value").value,
-  errorMessage = form("value").error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+  value = form(value).value,
+  errorMessage = form(value).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
 ))
 

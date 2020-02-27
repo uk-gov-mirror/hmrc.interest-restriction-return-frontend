@@ -16,12 +16,10 @@
 
 package pages.ukCompanies
 
-import models.returnModels.fullReturn.UkCompanyModel
-import pages.QuestionPage
+import pages.Page
 import play.api.libs.json.JsPath
 
-case object UkCompaniesPage extends QuestionPage[UkCompanyModel] {
-  override def path: JsPath = JsPath \ toString
+case object AboutAddingUKCompaniesPage extends Page{
 
-  override def toString: String = "ukCompanies"
+  override def toString: String = "aboutAddingUKDetails"
 }

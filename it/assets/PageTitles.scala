@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val companyDetails = "Company details"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
   val investorGroupsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investor group ‘$name’"
   val investmentsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investment ‘$name’"

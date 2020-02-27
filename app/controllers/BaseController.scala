@@ -62,5 +62,5 @@ trait BaseController extends FrontendBaseController with I18nSupport with Enumer
     request.session.get(key) match {
       case Some(data) => f(data)
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-  }
+    }
 }

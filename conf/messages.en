@@ -104,7 +104,7 @@ reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
 reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
 reportingCompanyCTUTR.label = UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
-reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 numbers
+reportingCompanyCTUTR.error.regexp = UK Tax reference - CT UTR must be 10 numbers
 reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid check sum
 
 
@@ -335,7 +335,7 @@ parentCompanyCTUTR.heading = Parent Company Corporation Unique Taxpayer Referenc
 parentCompanyCTUTR.checkYourAnswersLabel = UTR
 parentCompanyCTUTR.label = Parent Company Corporation Unique Taxpayer Reference
 parentCompanyCTUTR.error.required = Enter the Corporation Unique Taxpayer Reference for the Parent Company
-parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
+parentCompanyCTUTR.error.regexp = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
 parentCompanyCTUTR.error.checksum = Corporation Unique Taxpayer Reference for the Parent Company entered is invalid
 parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanyCTUTR.findUtr = find a lost UTR number
@@ -351,7 +351,7 @@ parentCompanySAUTR.checkYourAnswersLabel = UTR
 parentCompanySAUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanySAUTR.findUtr = find a lost UTR number
 parentCompanySAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference
-parentCompanySAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 numbers
+parentCompanySAUTR.error.regexp = Self Assessment Unique Taxpayer Reference must be 10 numbers
 parentCompanySAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 
@@ -706,3 +706,17 @@ netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
 netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
 netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
+
+# CompanyDetailsPage Messages
+# ----------------------------------------------------------
+companyDetails.title = Company details
+companyDetails.heading = Company details
+companyDetails.checkYourAnswersLabel = Company name
+companyDetails.companyName.label= Company name
+companyDetails.companyName.error.required = A company name must be entered
+companyDetails.companyName.error.length = Company name must be 160 characters or less
+companyDetails.ctutr.checkYourAnswersLabel = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
+companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
+companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid

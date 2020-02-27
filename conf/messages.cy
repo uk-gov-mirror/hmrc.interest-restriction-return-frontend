@@ -684,3 +684,12 @@ netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
 netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
 netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
+
+# CompanyDetailsPage Messages
+# ----------------------------------------------------------
+companyDetails.title = companyDetails
+companyDetails.heading = companyDetails
+companyDetails.checkYourAnswersLabel = companyDetails
+companyDetails.label = Company name
+companyDetails.error.required = Enter companyDetails
+companyDetails.error.length = CompanyDetails must be 160 characters or less
