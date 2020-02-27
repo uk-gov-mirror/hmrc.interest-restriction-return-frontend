@@ -54,10 +54,14 @@ class CompanyDetailsFormProviderSpec extends StringFieldBehaviours with UTRField
       requiredError = FormError(companyNameField, companyNameRequiredKey)
     )
   }
-  behave like validUTR(
-    form = form,
-    utrFieldName = "ctutrValue",
-    utrChecksumErrorKey = ctutrChecksumKey,
-    utrRegexpKey = ctutrRegexpKey
-  )
+
+  ".ctutr" must {
+
+    behave like validUTR(
+      form = form,
+      utrFieldName = "ctutrValue",
+      utrChecksumErrorKey = ctutrChecksumKey,
+      utrRegexpKey = ctutrRegexpKey
+    )
+  }
 }

@@ -76,7 +76,6 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel]
     }
   }
 
-  //noinspection ScalaStyle
   def companyDetailsPage(form: Form[CompanyDetailsModel],
                          createView: Form[CompanyDetailsModel] => HtmlFormat.Appendable,
                          value: String,
@@ -93,9 +92,6 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel]
       "rendered" must {
 
         s"contain a label for the $value" in {
-
-          println(value)
-          println(messageKeyPrefix)
 
           val doc = asDocument(createView(form))
           val expectedHintText = expectedHintKey map (k => messages(k))
@@ -145,7 +141,6 @@ class CompanyDetailsViewSpec extends QuestionViewBehaviours[CompanyDetailsModel]
     }
   }
 
-  //noinspection ScalaStyle
   def companyDetailsPageWithTextFields(form: Form[CompanyDetailsModel],
                                        createView: Form[CompanyDetailsModel] => HtmlFormat.Appendable,
                                        messageKeyPrefix: String,

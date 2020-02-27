@@ -23,14 +23,15 @@ trait UTRFieldBehaviours extends FieldBehaviours {
   def validUTR(
                 form: Form[_],
                 utrFieldName: String = "value",
-                validUTR: String = "1111111111",
-                invalidUTR: String = "1234567899",
-                validRegexp: String = "^[0-9]{10}$",
-                invalidRegexp: String = "1234",
                 utrChecksumErrorKey: String,
                 utrRegexpKey: String
               ): Unit = {
     s"$utrFieldName" must {
+
+      val validUTR: String = "1111111111"
+      val invalidUTR: String = "1234567899"
+      val validRegexp: String = "^[0-9]{10}$"
+      val invalidRegexp: String = "1234"
 
       "when binding a value which does match the regexp" when {
 
