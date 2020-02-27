@@ -661,14 +661,12 @@ deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 
 # ----------------------------------------------------------
 deletionConfirmation.title = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.heading = Are you sure you want to delete deemed parent ‘{0}’?
-deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.error.required = Select yes if you want to delete deemed parent ‘{0}’
 
 # InvestmentsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
-investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
-investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
-investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’?
+investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’?
 investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
 
 # InvestmentsReviewAnswersListPage Messages
@@ -682,9 +680,8 @@ investorGroupsReviewAnswersList.error.required = Select yes if you need to add a
 
 # InvestorGroupsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
-investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
-investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
-investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’?
+investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’?
 investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
 
 # CompanyDetailsPage Messages
@@ -741,3 +738,9 @@ netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
+
+# UkCompaniesDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+ukCompaniesDeletionConfirmation.title = Are you sure you want to delete company ‘{0}’?
+ukCompaniesDeletionConfirmation.heading = Are you sure you want to delete company ‘{0}’?
+ukCompaniesDeletionConfirmation.error.required = Select yes if you want to delete company ‘{0}’
