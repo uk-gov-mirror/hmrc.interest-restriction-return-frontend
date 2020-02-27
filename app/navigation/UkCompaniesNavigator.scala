@@ -16,6 +16,7 @@
 
 package navigation
 
+import controllers.groupStructure.{routes => groupStructureRoutes}
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._

@@ -14,19 +14,24 @@
  * limitations under the License.
  */
 
-package forms.groupStructure
-
+package forms.ukCompanies
 import forms.UTRFormValidation
 import forms.mappings.Mappings
 import javax.inject.Inject
+import models.CompanyDetailsModel
 import play.api.data.Form
+import play.api.data.Forms._
 
-class ParentCompanyCTUTRFormProvider @Inject() extends Mappings with UTRFormValidation {
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("parentCompanyCTUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "parentCompanyCTUTR.error.regexp"))
-        .verifying(checksum("parentCompanyCTUTR.error.checksum"))
+class CompanyDetailsFormProvider @Inject() extends Mappings with UTRFormValidation {
+
+  def apply(): Form[CompanyDetailsModel] =
+    Form(mapping(
+      "companyNameValue" -> text("companyDetails.companyName.error.required")
+        .verifying(maxLength(160, "companyDetails.companyName.error.length")),
+      "ctutrValue" -> text("companyDetails.ctutr.error.required")
+        .verifying(regexp("^[0-9]{10}$", "companyDetails.ctutr.error.regexp"))
+        .verifying(checksum("companyDetails.ctutr.error.checksum"))
+    )(CompanyDetailsModel.apply)(CompanyDetailsModel.unapply)
     )
 }

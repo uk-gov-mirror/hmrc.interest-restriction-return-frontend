@@ -1,3 +1,10 @@
+
+### CompanyDetailsModel Controller
+### ----------------------------------------
+GET        /:idx/company-details                          controllers.ukCompanies.CompanyDetailsController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/company-details                          controllers.ukCompanies.CompanyDetailsController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/company-details/change                   controllers.ukCompanies.CompanyDetailsController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/company-details/change                   controllers.ukCompanies.CompanyDetailsController.onSubmit(idx: Int, mode: Mode = CheckMode)
 # UK Companies Routes
 # ===================
 

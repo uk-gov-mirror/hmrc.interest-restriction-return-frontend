@@ -16,13 +16,14 @@
 
 package forms.groupStructure
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.{StringFieldBehaviours, UTRFieldBehaviours}
 import play.api.data.FormError
 
-class ParentCompanySAUTRFormProviderSpec extends StringFieldBehaviours {
+class ParentCompanySAUTRFormProviderSpec extends StringFieldBehaviours with UTRFieldBehaviours{
 
   val requiredKey = "parentCompanySAUTR.error.required"
-  val lengthKey = "parentCompanySAUTR.error.length"
+  val regexpKey = "parentCompanySAUTR.error.regexp"
+  val checksumKey = "parentCompanySAUTR.error.checksum"
   val maxLength = 10
 
   val form = new ParentCompanySAUTRFormProvider()()
@@ -42,5 +43,12 @@ class ParentCompanySAUTRFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
+    behave like validUTR(
+      form = form,
+      utrChecksumErrorKey = checksumKey,
+      utrRegexpKey = regexpKey
+    )
+
   }
 }

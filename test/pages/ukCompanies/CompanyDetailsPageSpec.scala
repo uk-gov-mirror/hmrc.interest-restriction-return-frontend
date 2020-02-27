@@ -16,12 +16,17 @@
 
 package pages.ukCompanies
 
-import models.returnModels.fullReturn.UkCompanyModel
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import models.CompanyDetailsModel
+import pages.behaviours.PageBehaviours
 
-case object UkCompaniesPage extends QuestionPage[UkCompanyModel] {
-  override def path: JsPath = JsPath \ toString
+class CompanyDetailsPageSpec extends PageBehaviours {
 
-  override def toString: String = "ukCompanies"
+  "CompanyDetailsPage" must {
+
+    beRetrievable[CompanyDetailsModel](CompanyDetailsPage)
+
+    beSettable[CompanyDetailsModel](CompanyDetailsPage)
+
+    beRemovable[CompanyDetailsModel](CompanyDetailsPage)
+  }
 }

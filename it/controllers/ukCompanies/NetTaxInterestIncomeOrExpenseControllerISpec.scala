@@ -45,7 +45,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.netTaxInterestIncomeOrExpense(ukCompanyModelMax.companyName.name))
+                titleOf(PageTitles.netTaxInterestIncomeOrExpense(ukCompanyModelMax.companyDetails.companyName))
               )
             }
           }
@@ -162,7 +162,7 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.netTaxInterestIncomeOrExpense(ukCompanyModelMax.companyName.name))
+                titleOf(PageTitles.netTaxInterestIncomeOrExpense(ukCompanyModelMax.companyDetails.companyName))
               )
             }
           }

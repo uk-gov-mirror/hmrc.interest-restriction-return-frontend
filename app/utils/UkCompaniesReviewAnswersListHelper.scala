@@ -26,8 +26,8 @@ class UkCompaniesReviewAnswersListHelper(val userAnswers: UserAnswers)
 
   def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).zipWithIndex.map {
     case (model, idx) => summaryListRow(
-      model.companyName.name,
-      model.ctutr.utr,
+      model.companyDetails.companyName,
+      model.companyDetails.ctutr,
       controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.review"),
       controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.delete")
     )

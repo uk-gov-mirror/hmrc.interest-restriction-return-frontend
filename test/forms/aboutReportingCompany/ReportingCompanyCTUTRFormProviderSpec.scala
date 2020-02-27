@@ -16,13 +16,14 @@
 
 package forms.aboutReportingCompany
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.{StringFieldBehaviours, UTRFieldBehaviours}
 import play.api.data.FormError
 
-class ReportingCompanyCTUTRFormProviderSpec extends StringFieldBehaviours {
+class ReportingCompanyCTUTRFormProviderSpec extends StringFieldBehaviours with UTRFieldBehaviours {
 
   val requiredKey = "reportingCompanyCTUTR.error.required"
-  val lengthKey = "reportingCompanyCTUTR.error.length"
+  val regexpKey = "reportingCompanyCTUTR.error.regexp"
+  val checksumKey = "reportingCompanyCTUTR.error.checksum"
   val maxLength = 10
 
   val form = new ReportingCompanyCTUTRFormProvider()()
@@ -41,6 +42,12 @@ class ReportingCompanyCTUTRFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
+    )
+
+    behave like validUTR(
+      form = form,
+      utrChecksumErrorKey = checksumKey,
+      utrRegexpKey = regexpKey
     )
   }
 }

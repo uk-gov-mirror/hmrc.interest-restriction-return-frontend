@@ -16,27 +16,28 @@
 
 package controllers.ukCompanies
 
+import assets.constants.BaseConstants
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.ukCompanies.EnterCompanyTaxEBITDAFormProvider
-import models.NormalMode
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
+import forms.ukCompanies.CompanyDetailsFormProvider
+import models.{CompanyDetailsModel, NormalMode}
+import pages.ukCompanies.CompanyDetailsPage
 import play.api.test.Helpers._
-import views.html.ukCompanies.EnterCompanyTaxEBITDAView
+import views.html.ukCompanies.CompanyDetailsView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import assets.constants.fullReturn.UkCompanyConstants._
+import assets.constants.fullReturn.UkCompanyConstants.companyDetailsModel
+import play.api.data.Form
 
-class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[EnterCompanyTaxEBITDAView]
-  val formProvider = injector.instanceOf[EnterCompanyTaxEBITDAFormProvider]
-  val form = formProvider()
+class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants {
 
-  val validAnswer = 0
+  val view: CompanyDetailsView = injector.instanceOf[CompanyDetailsView]
+  val formProvider: CompanyDetailsFormProvider = injector.instanceOf[CompanyDetailsFormProvider]
+  val form: Form[CompanyDetailsModel] = formProvider()
 
-  object Controller extends EnterCompanyTaxEBITDAController(
+  object Controller extends CompanyDetailsController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeUkCompaniesNavigator,
@@ -49,52 +50,59 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
     view = view
   )
 
-  "EnterCompanyTaxEBITDA Controller" must {
+  "CompanyDetailsModel Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(taxEBITDA = None)).get))
+      mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
-        companyName = ukCompanyModelMax.companyDetails.companyName,
-        postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(NormalMode)
+        postAction = routes.CompanyDetailsController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
 
+
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      val userAnswers = emptyUserAnswers
+        .set(CompanyDetailsPage, companyDetailsModel, Some(1)).success.value
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      mockGetAnswers(Some(userAnswers))
 
-      status(result) mustBe OK
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
+
+      status(result) mustEqual OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
+      mockGetAnswers(Some(emptyUserAnswers))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      val request = fakeRequest.withFormUrlEncodedBody(
+        "companyNameValue" -> companyNameModel.name,
+        "ctutrValue" -> ctutrModel.utr
+      )
+      println(companyDetailsModel)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
-
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -103,23 +111,23 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
   }
 }

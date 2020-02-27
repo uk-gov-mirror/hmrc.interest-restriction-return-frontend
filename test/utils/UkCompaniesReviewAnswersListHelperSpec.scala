@@ -40,20 +40,20 @@ class UkCompaniesReviewAnswersListHelperSpec extends SpecBase with SummaryListRo
 
         helper.rows mustBe Seq(
           summaryListRow(
-            ukCompanyModelMax.companyName.name,
-            ukCompanyModelMax.ctutr.utr,
+            ukCompanyModelMax.companyDetails.companyName,
+            ukCompanyModelMax.companyDetails.ctutr,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
           ),
           summaryListRow(
-            ukCompanyModelMax.companyName.name,
-            ukCompanyModelMax.ctutr.utr,
+            ukCompanyModelMax.companyDetails.companyName,
+            ukCompanyModelMax.companyDetails.ctutr,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
           ),
           summaryListRow(
-            ukCompanyModelMax.companyName.name,
-            ukCompanyModelMax.ctutr.utr,
+            ukCompanyModelMax.companyDetails.companyName,
+            ukCompanyModelMax.companyDetails.ctutr,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
           )
