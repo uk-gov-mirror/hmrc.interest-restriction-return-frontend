@@ -33,7 +33,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
 
   val view = injector.instanceOf[NetTaxInterestAmountView]
   val formProvider = injector.instanceOf[NetTaxInterestAmountFormProvider]
-  val form = formProvider()
+  val form = formProvider(NetTaxInterestIncome)
 
   val validAnswer = 0
 
@@ -55,8 +55,8 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
     "return OK and the correct view for a GET" in {
 
       val userAnswers = emptyUserAnswers
-        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
-        .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
+
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
@@ -65,7 +65,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
-        companyName = ukCompanyModelMin.companyName.name,
+        companyName = ukCompanyModelMin.companyDetails.companyName,
         incomeOrExpense = NetTaxInterestIncome,
         postAction = onwardRoute
       )(fakeRequest, messages, frontendAppConfig).toString
@@ -76,8 +76,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "1"))
 
       val userAnswers = emptyUserAnswers
-        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
-        .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
 
       mockGetAnswers(Some(userAnswers))
       val result = Controller.onSubmit(NormalMode)(request)
@@ -92,8 +91,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
       val userAnswers = emptyUserAnswers
-        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
-        .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+        .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None)).success.value
 
       mockGetAnswers(Some(userAnswers))
 

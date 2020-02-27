@@ -728,14 +728,17 @@ netTaxInterestAmount.expense.heading = What is the {0} total net-tax interest ex
 netTaxInterestAmount.expense.label = What is the {0} total net-tax interest expense?
 netTaxInterestAmount.expense.subheading = {0}
 netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.error.nonNumeric = Value entered must be numeric
+netTaxInterestAmount.expense.error.required = Enter {0} total net-tax interest expense?
+netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be valid decimal or whole number
+netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
 netTaxInterestAmount.income.title = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.heading = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.label = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.subheading = {0}
 netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
-
-netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
-netTaxInterestAmount.error.invalidNumeric = The total net-tax interest must be valid decimal or whole number
-netTaxInterestAmount.error.outOfRange = The total net-tax interest must be between {0} and {1}
+netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
+netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
+netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
+netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}

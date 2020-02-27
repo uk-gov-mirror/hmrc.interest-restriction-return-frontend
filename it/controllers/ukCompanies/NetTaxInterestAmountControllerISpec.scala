@@ -19,7 +19,7 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants.ukCompanyModelMin
 import assets.{BaseITConstants, PageTitles}
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
-import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -38,8 +38,10 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           AuthStub.authorised()
 
           val userAnswers = emptyUserAnswers
-            .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
-            .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+            .set(UkCompaniesPage, ukCompanyModelMin.copy(
+              netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+              netTaxInterest = None
+            )).success.value
 
           setAnswers(userAnswers)
 
@@ -48,7 +50,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyName.name))
+              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyDetails.companyName))
             )
           }
         }
@@ -122,8 +124,10 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
         "return OK (200)" in {
 
           val userAnswers = emptyUserAnswers
-            .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterestIncome = None, netTaxInterestExpense = None)).success.value
-            .set(NetTaxInterestIncomeOrExpensePage, NetTaxInterestIncome).success.value
+            .set(UkCompaniesPage, ukCompanyModelMin.copy(
+              netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+              netTaxInterest = None
+            )).success.value
 
           setAnswers(userAnswers)
 
@@ -134,7 +138,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyName.name))
+              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyDetails.companyName))
             )
           }
         }

@@ -18,16 +18,17 @@ package forms.ukCompanies
 
 import forms.mappings.Mappings
 import javax.inject.Inject
+import models.NetTaxInterestIncomeOrExpense
 import play.api.data.Form
 
 class NetTaxInterestAmountFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[BigDecimal] =
+  def apply(incomeOrExpense: NetTaxInterestIncomeOrExpense): Form[BigDecimal] =
     Form(
       "value" -> numeric(
-        "netTaxInterestAmount.error.required",
-        "netTaxInterestAmount.error.invalidNumeric",
-        "netTaxInterestAmount.error.nonNumeric")
-        .verifying(inRange[BigDecimal](0, 999999999999999.99, "netTaxInterestAmount.error.outOfRange"))
+        s"netTaxInterestAmount.$incomeOrExpense.error.required",
+        s"netTaxInterestAmount.$incomeOrExpense.error.invalidNumeric",
+        s"netTaxInterestAmount.$incomeOrExpense.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, s"netTaxInterestAmount.$incomeOrExpense.error.outOfRange"))
     )
 }

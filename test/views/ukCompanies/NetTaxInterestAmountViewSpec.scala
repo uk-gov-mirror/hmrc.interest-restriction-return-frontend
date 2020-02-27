@@ -33,7 +33,7 @@ class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
 
   val section = Some(NetTaxInterestAmountMessages.subheading(companyNameModel.name))
   val view = viewFor[NetTaxInterestAmountView]()
-  val form = new NetTaxInterestAmountFormProvider()()
+  val form = new NetTaxInterestAmountFormProvider()(NetTaxInterestIncome)
 
   "NetTaxInterestAmountView for an income" must {
 
@@ -63,6 +63,8 @@ class NetTaxInterestAmountViewSpec extends DecimalViewBehaviours  {
   }
 
   "NetTaxInterestAmountView for an expense" must {
+
+    val form = new NetTaxInterestAmountFormProvider()(NetTaxInterestExpense)
 
     val messageKeyPrefix = "netTaxInterestAmount.expense"
 

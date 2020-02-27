@@ -51,7 +51,7 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
     answerFor(UkCompaniesPage) { ukCompany =>
       Future.successful(
         Ok(view(
-          form = ukCompany.netTaxInterestOrExpense.fold(formProvider())(formProvider().fill),
+          form = ukCompany.netTaxInterestIncomeOrExpense.fold(formProvider())(formProvider().fill),
           mode = mode,
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(mode)
@@ -61,20 +61,25 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(UkCompaniesPage) { ukCompany =>
+    answerFor(UkCompaniesPage) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
           Future.successful(
             BadRequest(view(
               form = formWithErrors,
               mode = mode,
-              companyName = ukCompany.companyName.name,
+              companyName = ukCompany.companyDetails.companyName,
               postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(mode)
             ))
-          )
-        },
-      value =>
-        saveAndRedirect(NetTaxInterestIncomeOrExpensePage, value, mode)
-    )
+          ),
+        value => {
+          val updatedModel = ukCompany.copy(netTaxInterestIncomeOrExpense = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, updatedAnswers))
+        }
+      )
+    }
   }
 }

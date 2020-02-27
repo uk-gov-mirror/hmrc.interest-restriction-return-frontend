@@ -17,11 +17,12 @@
 package forms.ukCompanies
 
 import forms.behaviours.DecimalFieldBehaviours
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
 import play.api.data.FormError
 
 class NetTaxInterestAmountFormProviderSpec extends DecimalFieldBehaviours {
 
-  val form = new NetTaxInterestAmountFormProvider()()
+  val form = new NetTaxInterestAmountFormProvider()(NetTaxInterestIncome)
 
   ".value" must {
 
@@ -41,8 +42,8 @@ class NetTaxInterestAmountFormProviderSpec extends DecimalFieldBehaviours {
     behave like decimalField(
       form,
       fieldName,
-      nonNumericError  = FormError(fieldName, "netTaxInterestAmount.error.nonNumeric"),
-      invalidNumericError = FormError(fieldName, "netTaxInterestAmount.error.invalidNumeric")
+      nonNumericError  = FormError(fieldName, s"netTaxInterestAmount.$NetTaxInterestIncome.error.nonNumeric"),
+      invalidNumericError = FormError(fieldName, s"netTaxInterestAmount.$NetTaxInterestIncome.error.invalidNumeric")
     )
 
     behave like decimalFieldWithRange(
@@ -50,13 +51,13 @@ class NetTaxInterestAmountFormProviderSpec extends DecimalFieldBehaviours {
       fieldName,
       minimum       = minimum,
       maximum       = maximum,
-      expectedError = FormError(fieldName, "netTaxInterestAmount.error.outOfRange", Seq(minimum, maximum))
+      expectedError = FormError(fieldName, s"netTaxInterestAmount.$NetTaxInterestIncome.error.outOfRange", Seq(minimum, maximum))
     )
 
     behave like mandatoryField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, "netTaxInterestAmount.error.required")
+      requiredError = FormError(fieldName, s"netTaxInterestAmount.$NetTaxInterestIncome.error.required")
     )
   }
 }

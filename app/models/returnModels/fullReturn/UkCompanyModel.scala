@@ -22,9 +22,8 @@ import play.api.libs.json.Json
 
 case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           consenting: Option[Boolean] = None,
-                          netTaxInterestOrExpense: Option[NetTaxInterestIncomeOrExpense],
-                          netTaxInterestExpense: Option[BigDecimal] = None,
-                          netTaxInterestIncome: Option[BigDecimal] = None,
+                          netTaxInterestIncomeOrExpense: Option[NetTaxInterestIncomeOrExpense] = None,
+                          netTaxInterest: Option[BigDecimal] = None,
                           taxEBITDA: Option[BigDecimal] = None,
                           allocatedRestrictions: Option[AllocatedRestrictionsModel] = None,
                           allocatedReactivations: Option[AllocatedReactivationsModel] = None
