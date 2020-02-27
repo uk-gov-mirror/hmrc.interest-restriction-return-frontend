@@ -16,11 +16,13 @@
 
 package models.returnModels.fullReturn
 
+import models.NetTaxInterestIncomeOrExpense
 import models.CompanyDetailsModel
 import play.api.libs.json.Json
 
 case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           consenting: Option[Boolean] = None,
+                          netTaxInterestOrExpense: Option[NetTaxInterestIncomeOrExpense],
                           netTaxInterestExpense: Option[BigDecimal] = None,
                           netTaxInterestIncome: Option[BigDecimal] = None,
                           taxEBITDA: Option[BigDecimal] = None,

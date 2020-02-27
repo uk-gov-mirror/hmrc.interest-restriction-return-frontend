@@ -21,6 +21,7 @@ import assets.constants.fullReturn.AllocatedReactivationsConstants._
 import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 import models.CompanyDetailsModel
 import models.returnModels.UTRModel
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import models.returnModels.fullReturn.UkCompanyModel
 import play.api.libs.json.Json
 
@@ -37,6 +38,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelMax = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    netTaxInterestOrExpense = Some(NetTaxInterestExpense),
     netTaxInterestExpense = Some(netTaxInterestExpense),
     netTaxInterestIncome = Some(0),
     taxEBITDA = Some(taxEBITDA),
@@ -47,6 +49,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyJsonMax = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "netTaxInterestOrExpense" -> NetTaxInterestExpense.toString,
     "netTaxInterestExpense" -> netTaxInterestExpense,
     "netTaxInterestIncome" -> 0,
     "taxEBITDA" -> taxEBITDA,
@@ -57,6 +60,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelReactivationMax = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    netTaxInterestOrExpense = Some(NetTaxInterestExpense),
     netTaxInterestExpense = Some(netTaxInterestExpense),
     netTaxInterestIncome = Some(0),
     taxEBITDA = Some(taxEBITDA),
@@ -67,6 +71,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyReactivationJsonMax = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "netTaxInterestOrExpense" -> NetTaxInterestExpense.toString,
     "netTaxInterestExpense" -> netTaxInterestExpense,
     "netTaxInterestIncome" -> 0,
     "taxEBITDA" -> taxEBITDA,
@@ -76,6 +81,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelRestrictionMax = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    netTaxInterestOrExpense = Some(NetTaxInterestExpense),
     netTaxInterestExpense = Some(netTaxInterestExpense),
     netTaxInterestIncome = Some(0),
     taxEBITDA = Some(taxEBITDA),
@@ -86,6 +92,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyRestrictionJsonMax = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "netTaxInterestOrExpense" -> NetTaxInterestExpense.toString,
     "netTaxInterestExpense" -> netTaxInterestExpense,
     "netTaxInterestIncome" -> 0,
     "taxEBITDA" -> taxEBITDA,
@@ -95,6 +102,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelMin = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    netTaxInterestOrExpense = Some(NetTaxInterestIncome),
     netTaxInterestExpense = Some(0),
     netTaxInterestIncome = Some(netTaxInterestIncome),
     taxEBITDA = Some(taxEBITDA),
@@ -105,6 +113,7 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyJsonMin = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "netTaxInterestOrExpense" -> NetTaxInterestIncome.toString,
     "netTaxInterestExpense" -> 0,
     "netTaxInterestIncome" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA

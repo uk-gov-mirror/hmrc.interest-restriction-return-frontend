@@ -51,10 +51,10 @@ class ConsentingCompanyController @Inject()(
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
       Future.successful(
-    Ok(view(fillForm(ConsentingCompanyPage, formProvider()), mode = mode,
-      companyName = ukCompany.companyDetails.companyName,
-      postAction = routes.ConsentingCompanyController.onSubmit(mode)
-    ))
+        Ok(view(fillForm(ConsentingCompanyPage, formProvider()), mode = mode,
+          companyName = ukCompany.companyDetails.companyName,
+          postAction = routes.ConsentingCompanyController.onSubmit(mode)
+        ))
       )
     }
   }

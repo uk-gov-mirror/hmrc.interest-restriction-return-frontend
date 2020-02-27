@@ -50,7 +50,9 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
       Future.successful(
-        Ok(view(fillForm(NetTaxInterestIncomeOrExpensePage, formProvider()), mode = mode,
+        Ok(view(
+          form = ukCompany.netTaxInterestOrExpense.fold(formProvider())(formProvider().fill),
+          mode = mode,
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(mode)
         ))
@@ -61,8 +63,15 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        answerFor(UkCompaniesPage) { name =>
-          Future.successful(BadRequest(view(formWithErrors, mode, name, routes.EnterCompanyTaxEBITDAController.onSubmit(mode))))
+        answerFor(UkCompaniesPage) { ukCompany =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors,
+              mode = mode,
+              companyName = ukCompany.companyName.name,
+              postAction = routes.NetTaxInterestIncomeOrExpenseController.onSubmit(mode)
+            ))
+          )
         },
       value =>
         saveAndRedirect(NetTaxInterestIncomeOrExpensePage, value, mode)

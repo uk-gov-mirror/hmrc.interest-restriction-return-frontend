@@ -50,47 +50,51 @@ class NetTaxInterestAmountController @Inject()(
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
-      answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
-        Future.successful(
-          Ok(view(
-            form = ukCompany.netTaxInterestIncome.fold(formProvider())(formProvider().fill),
-            mode = mode,
-            companyName = ukCompany.companyName.name,
-            incomeOrExpense = taxInterest,
-            postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
-          ))
-        )
+      ukCompany.netTaxInterestOrExpense match {
+        case Some(model) =>
+          Future.successful(
+            Ok(view(
+              form = ukCompany.netTaxInterestIncome.fold(formProvider())(formProvider().fill),
+              mode = mode,
+              companyName = ukCompany.companyName.name,
+              incomeOrExpense = model,
+              postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
+            ))
+          )
+        case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
       }
     }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage) { ukCompany =>
-      answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
-        formProvider().bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(
-              BadRequest(view(
-                form = formWithErrors,
-                mode = mode,
-                companyName = ukCompany.companyName.name,
-                incomeOrExpense = taxInterest,
-                postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
-              ))
-            ),
-          value => {
-            answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
-              val updatedModel = taxInterest match {
-                case NetTaxInterestExpense => ukCompany.copy(netTaxInterestIncome = None, netTaxInterestExpense = Some(value))
-                case NetTaxInterestIncome => ukCompany.copy(netTaxInterestExpense = None, netTaxInterestIncome = Some(value))
+      ukCompany.netTaxInterestOrExpense match {
+        case Some(model) =>
+          formProvider().bindFromRequest().fold(
+            formWithErrors =>
+              Future.successful(
+                BadRequest(view(
+                  form = formWithErrors,
+                  mode = mode,
+                  companyName = ukCompany.companyName.name,
+                  incomeOrExpense = model,
+                  postAction = routes.NetTaxInterestAmountController.onSubmit(mode)
+                ))
+              ),
+            value => {
+              answerFor(NetTaxInterestIncomeOrExpensePage) { taxInterest =>
+                val updatedModel = taxInterest match {
+                  case NetTaxInterestExpense => ukCompany.copy(netTaxInterestIncome = None, netTaxInterestExpense = Some(value))
+                  case NetTaxInterestIncome => ukCompany.copy(netTaxInterestExpense = None, netTaxInterestIncome = Some(value))
+                }
+                for {
+                  updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
+                  _ <- sessionRepository.set(updatedAnswers)
+                } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers))
               }
-              for {
-                updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
-                _ <- sessionRepository.set(updatedAnswers)
-              } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers))
             }
-          }
-        )
+          )
+        case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
       }
     }
   }

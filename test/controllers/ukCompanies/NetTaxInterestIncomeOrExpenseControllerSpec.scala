@@ -52,7 +52,11 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(netTaxInterestExpense = None, netTaxInterestIncome = None)).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(
+        netTaxInterestOrExpense = None,
+        netTaxInterestExpense = None,
+        netTaxInterestIncome = None
+      )).get))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
