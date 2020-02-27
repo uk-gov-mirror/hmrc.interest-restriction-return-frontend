@@ -32,13 +32,12 @@ class NetTaxInterestIncomeOrExpenseViewSpec extends ViewBehaviours with BaseCons
   val messageKeyPrefix = "netTaxInterestIncomeOrExpense"
   val section = Some(NetTaxInterestIncomeOrExpenseMessages.subheading(companyNameModel.name))
   val form = new NetTaxInterestIncomeOrExpenseFormProvider()()
+  val view = viewFor[NetTaxInterestIncomeOrExpenseView]()
 
   "NetTaxInterestIncomeOrExpenseView" must {
 
-    def applyView(form: Form[NetTaxInterestIncomeOrExpense]): HtmlFormat.Appendable = {
-      val view = viewFor[NetTaxInterestIncomeOrExpenseView](Some(emptyUserAnswers))
+    def applyView(form: Form[NetTaxInterestIncomeOrExpense]): HtmlFormat.Appendable =
       view.apply(form, NormalMode,companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(companyNameModel.name))
 

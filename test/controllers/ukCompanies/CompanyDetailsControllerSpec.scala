@@ -87,8 +87,6 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
         "companyNameValue" -> companyNameModel.name,
         "ctutrValue" -> ctutrModel.utr
       )
-      println(companyDetailsModel)
-
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

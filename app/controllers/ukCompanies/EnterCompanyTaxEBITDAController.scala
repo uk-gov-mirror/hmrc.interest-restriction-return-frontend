@@ -46,21 +46,21 @@ class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: Messag
                                                 view: EnterCompanyTaxEBITDAView
                                                )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage) { ukCompany =>
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx: Int) { ukCompany =>
       Future.successful(
         Ok(view(
           form = ukCompany.taxEBITDA.fold(formProvider())(formProvider().fill),
           mode = mode,
           companyName = ukCompany.companyDetails.companyName,
-          postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(mode)
+          postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(idx, mode)
         ))
       )
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage) { ukCompany =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
           Future.successful(
@@ -68,15 +68,15 @@ class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: Messag
               form = formWithErrors,
               mode = mode,
               companyName = ukCompany.companyDetails.companyName,
-              postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(mode)
+              postAction = routes.EnterCompanyTaxEBITDAController.onSubmit(idx, mode)
             ))
           ),
         value => {
           val updatedModel = ukCompany.copy(taxEBITDA = Some(value))
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(EnterCompanyTaxEBITDAPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(EnterCompanyTaxEBITDAPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

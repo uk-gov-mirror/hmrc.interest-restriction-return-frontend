@@ -29,7 +29,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     CompanyDetailsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    EnterCompanyTaxEBITDAPage -> (_ => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode)),
+    EnterCompanyTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     NetTaxInterestIncomeOrExpensePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     NetTaxInterestAmountPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
     ConsentingCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),

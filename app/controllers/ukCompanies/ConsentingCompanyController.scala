@@ -48,19 +48,19 @@ class ConsentingCompanyController @Inject()(
                                          view: ConsentingCompanyView
                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage) { ukCompany =>
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(
         Ok(view(fillForm(ConsentingCompanyPage, formProvider()), mode = mode,
           companyName = ukCompany.companyDetails.companyName,
-          postAction = routes.ConsentingCompanyController.onSubmit(mode)
+          postAction = routes.ConsentingCompanyController.onSubmit(idx, mode)
         ))
       )
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage) { ukCompany =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
           Future.successful(
@@ -68,15 +68,15 @@ class ConsentingCompanyController @Inject()(
               form = formWithErrors,
               mode = mode,
               companyName = ukCompany.companyDetails.companyName,
-              postAction = routes.ConsentingCompanyController.onSubmit(mode)
+              postAction = routes.ConsentingCompanyController.onSubmit(idx, mode)
             ))
           ),
         value => {
           val updatedModel = ukCompany.copy(consenting = Some(value))
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ConsentingCompanyPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ConsentingCompanyPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

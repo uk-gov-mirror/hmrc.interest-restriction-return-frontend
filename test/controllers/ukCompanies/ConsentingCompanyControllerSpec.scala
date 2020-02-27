@@ -51,22 +51,22 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(consenting = None)).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(consenting = None), Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form = form,
         mode = NormalMode,
         companyName = ukCompanyModelMax.companyDetails.companyName,
-        postAction = routes.ConsentingCompanyController.onSubmit(NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+        postAction = routes.ConsentingCompanyController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -75,9 +75,9 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -87,9 +87,9 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -98,7 +98,7 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -111,7 +111,7 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

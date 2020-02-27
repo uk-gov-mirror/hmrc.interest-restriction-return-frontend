@@ -36,9 +36,8 @@ class EnterCompanyTaxEBITDAViewSpec extends DecimalViewBehaviours  {
 
   "EnterCompanyTaxEBITDAView" must {
 
-    def applyView(form: Form[_]): HtmlFormat.Appendable = {
+    def applyView(form: Form[_]): HtmlFormat.Appendable =
       view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
-    }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
@@ -46,7 +45,7 @@ class EnterCompanyTaxEBITDAViewSpec extends DecimalViewBehaviours  {
 
     behave like pageWithSubHeading(applyView(form), section.get)
 
-    behave like decimalPage(form, applyView, messageKeyPrefix, routes.EnterCompanyTaxEBITDAController.onSubmit(NormalMode).url, section = section)
+    behave like decimalPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
