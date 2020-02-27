@@ -46,15 +46,6 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
-
-      "from the UkCompanies List View Page" should {
-
-        //TODO: Update a part of routing sub-task
-        "go to the Under Construction page" in {
-          navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
-        }
-      }
     }
 
     "in Check mode" must {
