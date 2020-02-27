@@ -28,8 +28,9 @@ object UkCompanyITConstants extends BaseITConstants {
   val netTaxInterestIncome: BigDecimal = 1.11
   val taxEBITDA: BigDecimal = 3.33
   val companyDetailsModel = CompanyDetailsModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel)
+    companyName = companyNameModel.name,
+    ctutr = ctutrModel.utr
+  )
   val companyDetailsJson = Json.toJson(companyDetailsModel)
 
   val ukCompanyModelMax = UkCompanyModel(

@@ -639,16 +639,6 @@ investmentsReviewAnswersList.singular.heading = {0} investsment added for Intere
 investmentsReviewAnswersList.addAnother = Do you need to add another investment?
 investmentsReviewAnswersList.error.required = Select yes if you need to add another investment
 
-# NetTaxInterestIncomeOrExpensePage Messages
-# ----------------------------------------------------------
-netTaxInterestIncomeOrExpense.title = Which net tax-interest does this company have?
-netTaxInterestIncomeOrExpense.heading = Which net tax-interest does this company have?
-netTaxInterestIncomeOrExpense.subheading = {0}
-netTaxInterestIncomeOrExpense.expenseRadio = Net Tax-Interest Expense
-netTaxInterestIncomeOrExpense.incomeRadio = Net Tax-Interest Income
-netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does this company have?
-netTaxInterestIncomeOrExpense.error.required = Select a Net Tax-Interest Income Or Expense
-
 # ConsentingCompanyPage Messages
 # ----------------------------------------------------------
 consentingCompany.title = Is this a consenting company?
@@ -720,3 +710,13 @@ companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
 companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
 companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
 companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid
+
+
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+ukCompaniesReviewAnswersList.singular.title = {0} company added
+ukCompaniesReviewAnswersList.plural.title = {0} companies added
+ukCompaniesReviewAnswersList.singular.heading = {0} company added
+ukCompaniesReviewAnswersList.plural.heading = {0} companies added
+ukCompaniesReviewAnswersList.addAnother = Do you need to add another company?
+ukCompaniesReviewAnswersList.error.required = Select yes if you need to add another company
