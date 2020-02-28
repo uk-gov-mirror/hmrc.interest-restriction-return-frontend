@@ -44,7 +44,7 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     request.userAnswers.getList(UkCompaniesPage) match {
       case seq if seq.isEmpty => Logger.debug(s"[DerivedCompanyController][onPageLoad] GET attempt to check totals page without data")
-        Redirect(controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad())
+        Redirect(controllers.routes.UnderConstructionController.onPageLoad())
       case ukCompanies => Ok(view(checkTotalsHelper.constructTotalsTable(ukCompanies)))
     }
   }

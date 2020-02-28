@@ -42,11 +42,6 @@ POST       /:idx/net-tax-interest-income-or-expense/change      controllers.ukCo
 
 ### ConsentingCompany Controller
 ### ----------------------------------------
-GET        /consenting-company                                  controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = NormalMode)
-POST       /consenting-company                                  controllers.ukCompanies.ConsentingCompanyController.onSubmit(mode: Mode = NormalMode)
-GET        /consenting-company/change                           controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = CheckMode)
-POST       /consenting-company/change                           controllers.ukCompanies.ConsentingCompanyController.onSubmit(mode: Mode = CheckMode)
-
 GET        /:idx/consenting-company                             controllers.ukCompanies.ConsentingCompanyController.onPageLoad(idx: Int, mode: Mode = NormalMode)
 POST       /:idx/consenting-company                             controllers.ukCompanies.ConsentingCompanyController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/consenting-company/change                      controllers.ukCompanies.ConsentingCompanyController.onPageLoad(idx: Int, mode: Mode = CheckMode)

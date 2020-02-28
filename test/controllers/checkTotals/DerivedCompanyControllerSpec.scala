@@ -51,8 +51,10 @@ class DerivedCompanyControllerSpec extends SpecBase with FeatureSwitching with M
       val json = Json.obj(
         "ukCompanies" -> Json.arr(
           Json.obj(
-            "companyName" -> "chaz limited",
-            "ctutr" -> "12345",
+            "companyDetails" -> Json.obj(
+              "companyName" -> "chaz limited",
+              "ctutr" -> "12345"
+            ),
             "netTaxInterestExpense" -> "1.0",
             "netTaxInterestIncome" -> "1.0",
             "taxEBITDA" -> "1.0"
