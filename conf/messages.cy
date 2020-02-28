@@ -268,7 +268,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = Reporting company details
+reportingCompany.checkYourAnswers.subheading = About the reporting company
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -594,16 +594,19 @@ investorGroupsAdded.checkYourAnswers.label = Group ratio (blended) investor grou
 investorGroupsAdded.checkYourAnswers.value.singular = {0} investor group added
 investorGroupsAdded.checkYourAnswers.value.plural = {0} investor groups added
 investorGroupsAdded.checkYourAnswers.review = Review investor groups
+investorGroupsAdded.checkYourAnswers.subheading = Elections
 
 consolidatedPartnershipsAdded.checkYourAnswers.label = Consolidated partnerships
 consolidatedPartnershipsAdded.checkYourAnswers.value.singular = {0} partnership added
 consolidatedPartnershipsAdded.checkYourAnswers.value.plural = {0} partnerships added
 consolidatedPartnershipsAdded.checkYourAnswers.review = Review partnerships
+consolidatedPartnershipsAdded.checkYourAnswers.subheading = Elections
 
 nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated investments
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+nonConsolidatedInvestmentsAdded.checkYourAnswers.subheading = Elections
 
 # AboutAddingUKCompaniesPage Messages
 # ----------------------------------------------------------
@@ -694,6 +697,15 @@ investorGroupsReviewAnswersList.singular.heading = {0} Investor group added for 
 investorGroupsReviewAnswersList.addAnother = Do you need to add another investor group?
 investorGroupsReviewAnswersList.error.required = Select yes if you need to add another investor group
 
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+investorGroupsReviewAnswersList.plural.title = {0} Investor groups added for Group ratio (blended) election
+investorGroupsReviewAnswersList.singular.title = {0} Investor group added for Group ratio (blended) election
+investorGroupsReviewAnswersList.plural.heading = {0} Investor groups added for Group ratio (blended) election
+investorGroupsReviewAnswersList.singular.heading = {0} Investor group added for Group ratio (blended) election
+investorGroupsReviewAnswersList.addAnother = Do you need to add another investor group?
+investorGroupsReviewAnswersList.error.required = Select yes if you need to add another investor group
+
 # InvestorGroupsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
 investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
@@ -761,7 +773,22 @@ netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
 netTaxInterestAmount.error.invalidNumeric = The total net-tax interest must be valid decimal or whole number
 netTaxInterestAmount.error.outOfRange = The total net-tax interest must be between {0} and {1}
+
 # CheckAnswersUkCompanyPage Messages
 # ----------------------------------------------------------
 checkAnswersUkCompany.title = checkAnswersUkCompany
 checkAnswersUkCompany.heading = checkAnswersUkCompany
+
+
+# ReviewTaxEBITDA Messages
+# ----------------------------------------------------------
+reviewTaxEBITDA.checkYourAnswers.title = Review the Tax-EBITDA for companies in the group
+reviewTaxEBITDA.checkYourAnswers.heading = Review the Tax-EBITDA for companies in the group
+reviewTaxEBITDA.checkYourAnswers.subheading = Check totals
+
+
+# Derived Net Tax Interest Review Answers List Page Messages
+# ----------------------------------------------------------
+reviewNetTaxInterest.checkYourAnswers.title = Review the net tax-interest for companies in the group
+reviewNetTaxInterest.checkYourAnswers.heading = Review the net tax-interest for companies in the group
+reviewNetTaxInterest.checkYourAnswers.subheading = Check totals
