@@ -20,6 +20,7 @@ object BaseMessages {
 
   val saveAndContinue = "Save and continue"
   val continue = "Continue"
+  val confirm = "Confirm"
   val saveForLater = "Save and come back later"
   val submitReturn = "Submit a Corporate Interest Restriction return"
   val changeLink = "Change"

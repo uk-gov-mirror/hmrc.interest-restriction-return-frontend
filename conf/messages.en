@@ -47,6 +47,7 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
+site.confirm = Confirm
 site.saveAndContinue = Save and continue
 site.submitAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
@@ -685,8 +686,6 @@ derivedCompany.t2 = Aggregate Tax-EBITDA
 derivedCompany.t3 = Aggregate net tax-interest
 derivedCompany.t4 = Total disallowed amount
 derivedCompany.t5 = Total reactivations
-derivedCompany.review = Review
-derivedCompany.confirm = Confirm
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------

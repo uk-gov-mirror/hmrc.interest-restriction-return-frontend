@@ -15,25 +15,29 @@
  */
 
 package views.checkTotals
+import assets.messages.{BaseMessages, SectionHeaderMessages}
 import views.behaviours.ViewBehaviours
 import views.html.checkTotals.DerivedCompanyView
 
 class DerivedCompanyViewSpec extends ViewBehaviours {
 
-  lazy val twirlViewTemplate = viewFor[DerivedCompanyView](Some(emptyUserAnswers))
+  lazy val view = viewFor[DerivedCompanyView](Some(emptyUserAnswers))
   val call = controllers.checkTotals.routes.DerivedCompanyController.onSubmit()
-  lazy val twirlView = twirlViewTemplate.apply(postAction = call)(fakeRequest, frontendAppConfig, messages)
+  lazy val applyView = view.apply(postAction = call)(fakeRequest, frontendAppConfig, messages)
 
   val messageKeyPrefix = "derivedCompany"
-  val section = Some(messages("section.checkTotals"))
-  val confirm = messages("section.confirm")
+  val section = Some(SectionHeaderMessages.checkTotals)
 
-      "DerivedCompanyView" must {
+  "DerivedCompanyView" must {
 
-        behave like normalPage(twirlView, messageKeyPrefix, section = section)
-        behave like pageWithBackLink(twirlView)
-        behave like pageWithBackLink(twirlView)
-        behave like pageWithSubHeading(twirlView,section.get)
-        behave like pageWithSubmitButton(twirlView,confirm)
-      }
+    behave like normalPage(applyView, messageKeyPrefix, section = section)
+
+    behave like pageWithBackLink(applyView)
+
+    behave like pageWithSubHeading(applyView, section.get)
+
+    behave like pageWithSubmitButton(applyView, BaseMessages.confirm)
+
+    behave like pageWithSaveForLater(applyView)
   }
+}

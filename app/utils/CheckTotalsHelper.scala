@@ -27,20 +27,20 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
   def constructTotalsTable(ukCompanies: Seq[UkCompanyModel])(implicit messages: Messages): Seq[SummaryListRow] = {
     val derivedData = calculateSums(ukCompanies)
     val numberOfUkCompanies = Some(summaryListRow(messages("derivedCompany.t1"),
-      derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+      derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
     val aggregateTaxEBITDA = Some(summaryListRow(messages("derivedCompany.t2"),
-      currencyFormat(derivedData.aggregateEbitda),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+      currencyFormat(derivedData.aggregateEbitda),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
     val aggregateNetTaxInterest = Some(summaryListRow(messages("derivedCompany.t3"),
-      currencyFormat(derivedData.aggregateInterest),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+      currencyFormat(derivedData.aggregateInterest),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
 
     val aggregateAllocatedRestrictions = derivedData.restrictions match {
       case Some(r) => Some(summaryListRow(messages("derivedCompany.t4"),
-        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
       case None => None
     }
     val aggregateAllocatedReactivations = derivedData.reactivations match {
       case Some(r) => Some(summaryListRow(messages("derivedCompany.t5"),
-        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
       case None => None
     }
     Seq(numberOfUkCompanies,aggregateTaxEBITDA,aggregateNetTaxInterest,aggregateAllocatedRestrictions,aggregateAllocatedReactivations).flatten
