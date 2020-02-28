@@ -20,6 +20,9 @@ import config.FrontendAppConfig
 import controllers.BaseController
 import controllers.actions._
 import javax.inject.Inject
+import models.NormalMode
+import navigation.UkCompaniesNavigator
+import pages.ukCompanies.AboutAddingUKCompaniesPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import views.html.ukCompanies.AboutAddingUKCompaniesView
@@ -31,14 +34,14 @@ class AboutAddingUKCompaniesController @Inject()(override val messagesApi: Messa
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
                                       val controllerComponents: MessagesControllerComponents,
-                                      view: AboutAddingUKCompaniesView
-                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                      view: AboutAddingUKCompaniesView,
+                                      val navigator: UkCompaniesNavigator)(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.AboutAddingUKCompaniesController.onSubmit()))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(controllers.routes.UnderConstructionController.onPageLoad())
+    Redirect(navigator.nextPage(AboutAddingUKCompaniesPage, NormalMode, request.userAnswers))
   }
 }

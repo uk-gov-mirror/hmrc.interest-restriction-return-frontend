@@ -16,6 +16,7 @@
 
 package controllers.ukCompanies
 
+import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
@@ -73,14 +74,17 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/1/company-details", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.CompanyDetailsController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/uk-companies/1/company-details", Json.obj(
+              "companyNameValue" -> ukCompanyModelMin.companyDetails.companyName,
+              "ctutrValue" -> ukCompanyModelMin.companyDetails.ctutr
+            ))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode).url)
+              )
+            }
           }
         }
       }

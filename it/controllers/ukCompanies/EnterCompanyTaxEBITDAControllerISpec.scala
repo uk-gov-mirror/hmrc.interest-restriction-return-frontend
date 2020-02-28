@@ -95,7 +95,6 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           "enters a valid answer" when {
 
-            //TODO: Update as part of routing sub-task
             "redirect to Under Construction page" in {
 
               AuthStub.authorised()

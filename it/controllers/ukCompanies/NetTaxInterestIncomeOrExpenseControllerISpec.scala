@@ -19,6 +19,7 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestExpense
+import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -96,14 +97,16 @@ class NetTaxInterestIncomeOrExpenseControllerISpec extends IntegrationSpecBase w
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/1/net-tax-interest-income-or-expense", Json.obj("value" -> 1))()
-            //TODO: Implement
-            //            whenReady(res) { result =>
-            //              result should have(
-            //                httpStatus(SEE_OTHER),
-            //                redirectLocation(controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(NormalMode).url)
-            //              )
-            //            }
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-income-or-expense", Json.obj("value" -> NetTaxInterestExpense.toString))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.NetTaxInterestAmountController.onPageLoad(1, NormalMode).url)
+              )
+            }
           }
         }
       }
