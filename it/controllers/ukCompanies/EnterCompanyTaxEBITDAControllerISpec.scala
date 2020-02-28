@@ -105,7 +105,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                  redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode).url)
                 )
               }
             }

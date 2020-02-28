@@ -27,26 +27,26 @@ import play.api.mvc.Call
 class UkCompaniesNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
-  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    CompanyDetailsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    EnterCompanyTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    NetTaxInterestIncomeOrExpensePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    NetTaxInterestAmountPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ConsentingCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    UkCompaniesPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+  val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
+    AboutAddingUKCompaniesPage -> ((idx, _) => routes.CompanyDetailsController.onPageLoad(idx, NormalMode)),
+    CompanyDetailsPage -> ((idx, _) => routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)),
+    EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
+    NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
+    NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
+    ConsentingCompanyPage -> ((idx, _) => checkYourAnswers(idx))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => checkYourAnswers)
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   //TODO update with CYA call
-  private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
+  private def checkYourAnswers(idx: String): Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   //TODO update with Next Section call
   def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
   def addCompany(numberOfCompanies: Int): Call = controllers.routes.UnderConstructionController.onPageLoad() //TODO: Update with Company Name & UTR Call
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
-    case NormalMode => normalRoutes(page)(userAnswers)
-    case CheckMode => checkRouteMap(page)(userAnswers)
+    case NormalMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
+    case CheckMode => checkRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
   }
 }
