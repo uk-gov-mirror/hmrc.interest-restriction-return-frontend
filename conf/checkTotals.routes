@@ -1,0 +1,7 @@
+# Check Totals Section Routes
+# ===========================
+
+### FullOrAbbreviatedReturn Controller
+### ----------------------------------------
+GET        /review-tax-ebitda                  controllers.checkTotals.ReviewTaxEBITDAController.onPageLoad
+POST       /review-tax-ebitda                  controllers.checkTotals.ReviewTaxEBITDAController.onSubmit

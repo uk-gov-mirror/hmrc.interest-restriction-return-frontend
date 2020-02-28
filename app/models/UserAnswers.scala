@@ -38,7 +38,11 @@ final case class UserAnswers(
   }
 
   def getList[A](page: QuestionPage[A])(implicit rds: Reads[A]): Seq[A] = {
-    page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
+    println(page.path)
+    println(data)
+    val x = page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
+    println(x)
+    x
   }
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {

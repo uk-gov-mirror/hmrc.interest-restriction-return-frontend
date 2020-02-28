@@ -14,31 +14,14 @@
  * limitations under the License.
  */
 
-package models
+package pages.checkTotals
 
-import play.api.libs.json.{JsValue, Json, Writes}
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-sealed trait Section
+case object ReviewTaxEBITDAPage extends QuestionPage[String] {
 
-object Section {
+  override def path: JsPath = JsPath \ toString
 
-  object ReportingCompany extends Section {
-    override val toString = "reportingCompany"
-  }
-
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
-  }
-
-  object Elections extends Section {
-    override val toString = "elections"
-  }
-
-  object ReviewTaxEBITDA extends Section {
-    override val toString = "reviewTaxEBITDA"
-  }
-
-  implicit object SectionWrites extends Writes[Section]{
-    def writes(section: Section): JsValue = Json.toJson(section.toString)
-  }
+  override def toString: String = "reviewTaxEBITDA"
 }
