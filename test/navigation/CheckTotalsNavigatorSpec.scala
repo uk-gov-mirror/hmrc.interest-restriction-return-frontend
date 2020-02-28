@@ -19,6 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
+import pages.checkTotals.ReviewTaxEBITDAPage
 import pages.ukCompanies._
 
 class CheckTotalsNavigatorSpec extends SpecBase {
@@ -37,6 +38,15 @@ class CheckTotalsNavigatorSpec extends SpecBase {
             routes.UnderConstructionController.onPageLoad()
         }
 
+      }
+
+      "from the EnterCompanyTaxEBITDAPage" should {
+
+        //TODO: Update a part of routing sub-task
+        "go to the ReviewTaxEBITDAPage page" in {
+          navigator.nextPage(ReviewTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
       }
     }
   }
