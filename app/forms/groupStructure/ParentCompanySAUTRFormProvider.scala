@@ -26,7 +26,7 @@ class ParentCompanySAUTRFormProvider @Inject() extends Mappings with UTRFormVali
   def apply(): Form[String] =
     Form(
       "value" -> text("parentCompanySAUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "parentCompanySAUTR.error.length"))
+        .verifying(regexp("^[0-9]{10}$", "parentCompanySAUTR.error.regexp"))
         .verifying(checksum("parentCompanySAUTR.error.checksum"))
     )
 }

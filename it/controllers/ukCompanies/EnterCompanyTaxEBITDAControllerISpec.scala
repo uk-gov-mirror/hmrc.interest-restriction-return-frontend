@@ -19,6 +19,8 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import pages.ukCompanies.UkCompaniesPage
+import controllers.ukCompanies.{routes => ukCompanies}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -28,7 +30,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
   "in Normal mode" when {
 
-    "GET /uk-companies/enter-company-tax-ebitda" when {
+    "GET /uk-companies/1/enter-company-tax-ebitda" when {
 
       "user is authorised" when {
 
@@ -37,9 +39,9 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(UkCompaniesPage, ukCompanyModelMax)
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+            val res = getRequest("/uk-companies/1/enter-company-tax-ebitda")()
 
             whenReady(res) { result =>
               result should have(
@@ -56,7 +58,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+            val res = getRequest("/uk-companies/1/enter-company-tax-ebitda")()
 
             whenReady(res) { result =>
               result should have(
@@ -73,7 +75,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/enter-company-tax-ebitda")()
+          val res = getRequest("/uk-companies/1/enter-company-tax-ebitda")()
 
           whenReady(res) { result =>
             result should have(
@@ -85,7 +87,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
       }
     }
 
-    "POST /uk-companies/enter-company-tax-ebitda" when {
+    "POST /uk-companies/1/enter-company-tax-ebitda" when {
 
       "user is authorised" when {
 
@@ -93,17 +95,16 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           "enters a valid answer" when {
 
-            //TODO: Will be updated as part of routing
             "redirect to Under Construction page" in {
 
               AuthStub.authorised()
-              setAnswers(UkCompaniesPage, ukCompanyModelMax)
+              setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-              val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
+              val res = postRequest("/uk-companies/1/enter-company-tax-ebitda", Json.obj("value" -> 1))()
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                  redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode).url)
                 )
               }
             }
@@ -116,7 +117,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
+            val res = postRequest("/uk-companies/1/enter-company-tax-ebitda", Json.obj("value" -> 1))()
             whenReady(res) { result =>
               result should have(
                 httpStatus(INTERNAL_SERVER_ERROR)
@@ -132,7 +133,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/enter-company-tax-ebitda", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/enter-company-tax-ebitda", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -147,7 +148,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
   "in Change mode" when {
 
-    "GET /uk-companies/enter-company-tax-ebitda/change" when {
+    "GET /uk-companies/1/enter-company-tax-ebitda/change" when {
 
       "user is authorised" should {
 
@@ -156,9 +157,9 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
           "return OK (200)" in {
 
             AuthStub.authorised()
-            setAnswers(UkCompaniesPage, ukCompanyModelMax)
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+            val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -175,7 +176,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
             AuthStub.authorised()
 
-            val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+            val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/change")()
 
             whenReady(res) { result =>
               result should have(
@@ -192,7 +193,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/enter-company-tax-ebitda/change")()
+          val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/change")()
 
           whenReady(res) { result =>
             result should have(

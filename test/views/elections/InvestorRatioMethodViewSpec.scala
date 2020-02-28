@@ -29,13 +29,11 @@ class InvestorRatioMethodViewSpec extends ViewBehaviours {
   val messageKeyPrefix = "investorRatioMethod"
   val section = Some(messages("section.elections"))
   val form = new InvestorRatioMethodFormProvider()()
+  val view = viewFor[InvestorRatioMethodView]()
 
   "InvestorRatioMethodView" must {
 
-    def applyView(form: Form[InvestorRatioMethod]): HtmlFormat.Appendable = {
-      val view = viewFor[InvestorRatioMethodView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-    }
+    def applyView(form: Form[InvestorRatioMethod]): HtmlFormat.Appendable = view.apply(form, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 

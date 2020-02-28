@@ -23,11 +23,31 @@ echo "# ----------------------------------------------------------" >> ../conf/m
 echo "$className;format="decap"$.title = $className;format="decap"$" >> ../conf/messages.cy
 echo "$className;format="decap"$.heading = $className;format="decap"$" >> ../conf/messages.cy
 
+echo "Adding to PageGenerators"
+awk '/trait PageGenerators/ {\
+    print;\
+    print "";\
+    print "  implicit lazy val arbitrary$className;format="cap"$Page: Arbitrary[$className;format="cap"$Page.type] =";\
+    print "    Arbitrary($className;format="cap"$Page)";\
+    next }1' ../test/generators/PageGenerators.scala > tmp && mv tmp ../test/generators/PageGenerators.scala
+
 echo "adding to PageTitles"
 awk '/object PageTitles/ {\
     print;\
     print "  val $className;format="decap"$ = \"$title$\"";\
     next }1' ../it/assets/PageTitles.scala > tmp && mv tmp ../it/assets/PageTitles.scala
+
+echo "Adding to Pages map"
+awk '/val pages/ {\
+    print;\
+    print "    $className;format="cap"$Page.toString -> $className;format="cap"$Page,";\
+    next }1' ../app/pages/Page.scala > tmp && mv tmp ../app/pages/Page.scala
+
+echo "adding to Pages map spec"
+awk '/val expected/ {\
+    print;\
+    print "    $className;format="cap"$Page.toString -> $className;format="cap"$Page,";\
+    next }1' ../test/pages/PageSpec.scala > tmp && mv tmp ../test/pages/PageSpec.scala
 
 echo "adding route to integration test"
 

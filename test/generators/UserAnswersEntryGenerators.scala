@@ -30,6 +30,14 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryInvestorGroupsDeletionConfirmationUserAnswersEntry: Arbitrary[(InvestorGroupsDeletionConfirmationPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[InvestorGroupsDeletionConfirmationPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryInvestmentsDeletionConfirmationUserAnswersEntry: Arbitrary[(InvestmentsDeletionConfirmationPage.type, JsValue)] =
     Arbitrary {
       for {
@@ -67,6 +75,30 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       for {
         page  <- arbitrary[DeletionConfirmationPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryNetTaxInterestIncomeOrExpenseUserAnswersEntry: Arbitrary[(NetTaxInterestIncomeOrExpensePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[NetTaxInterestIncomeOrExpensePage.type]
+        value <- arbitrary[NetTaxInterestIncomeOrExpense].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryCompanyDetailsUserAnswersEntry: Arbitrary[(CompanyDetailsPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[CompanyDetailsPage.type]
+        value <- arbitrary[CompanyDetailsModel].flatMap(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryNetTaxInterestAmountUserAnswersEntry: Arbitrary[(NetTaxInterestAmountPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[NetTaxInterestAmountPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
       } yield (page, value)
     }
 

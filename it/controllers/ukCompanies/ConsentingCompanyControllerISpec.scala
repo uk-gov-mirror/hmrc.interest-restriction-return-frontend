@@ -29,16 +29,16 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Normal mode" when {
 
-    "GET /uk-companies/consenting-company" when {
+    "GET /uk-companies/1/consenting-company" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(UkCompaniesPage, ukCompanyModelMax)
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/consenting-company")()
+          val res = getRequest("/uk-companies/1/consenting-company")()
 
           whenReady(res) { result =>
             result should have(
@@ -55,7 +55,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/consenting-company")()
+          val res = getRequest("/uk-companies/1/consenting-company")()
 
           whenReady(res) { result =>
             result should have(
@@ -77,14 +77,15 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/consenting-company", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.ConsentingCompanyController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> true))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -95,7 +96,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/consenting-company", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -110,7 +111,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Change mode" when {
 
-    "GET /uk-companies/consenting-company" when {
+    "GET /uk-companies/1/consenting-company" when {
 
       "user is authorised" should {
 
@@ -118,9 +119,9 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.authorised()
 
-          setAnswers(UkCompaniesPage, ukCompanyModelMax)
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/consenting-company/change")()
+          val res = getRequest("/uk-companies/1/consenting-company/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -137,7 +138,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/consenting-company/change")()
+          val res = getRequest("/uk-companies/1/consenting-company/change")()
 
           whenReady(res) { result =>
             result should have(

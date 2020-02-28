@@ -17,12 +17,12 @@
 package controllers.elections
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.elections.InvestorRatioMethodFormProvider
 import javax.inject.Inject
 import models.{InvestorRatioMethod, Mode}
-import pages.elections.InvestorRatioMethodPage
+import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -33,6 +33,7 @@ import scala.concurrent.Future
 import navigation.ElectionsNavigator
 import services.QuestionDeletionLookupService
 import controllers.BaseNavigationController
+import handlers.ErrorHandler
 
 class InvestorRatioMethodController @Inject()(
                                   override val messagesApi: MessagesApi,
@@ -45,18 +46,35 @@ class InvestorRatioMethodController @Inject()(
                                   formProvider: InvestorRatioMethodFormProvider,
                                   val controllerComponents: MessagesControllerComponents,
                                   view: InvestorRatioMethodView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(InvestorRatioMethodPage, formProvider()), mode))
+  private val form = formProvider()
+
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(InvestorGroupsPage, idx) { investorGroups =>
+      Future.successful(Ok(view(
+        form = investorGroups.ratioMethod.fold(form)(form.fill),
+        postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
+      )))
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(InvestorRatioMethodPage, value, mode)
+        Future.successful(BadRequest(view(
+          form = formWithErrors,
+          postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
+        ))),
+      value => {
+        answerFor(InvestorGroupsPage, idx) { investorGroups =>
+          val updatedModel = investorGroups.copy(ratioMethod = Some(value))
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, updatedAnswers, Some(idx)))
+        }
+      }
     )
   }
 }

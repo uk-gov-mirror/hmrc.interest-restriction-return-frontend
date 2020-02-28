@@ -18,6 +18,7 @@ package assets
 
 import AllocatedReactivationsITConstants._
 import AllocatedRestrictionsITConstants._
+import models.CompanyDetailsModel
 import models.returnModels.fullReturn.UkCompanyModel
 import play.api.libs.json.Json
 
@@ -26,88 +27,77 @@ object UkCompanyITConstants extends BaseITConstants {
   val netTaxInterestExpense: BigDecimal = 1.11
   val netTaxInterestIncome: BigDecimal = 1.11
   val taxEBITDA: BigDecimal = 3.33
+  val companyDetailsModel = CompanyDetailsModel(
+    companyName = companyNameModel.name,
+    ctutr = ctutrModel.utr
+  )
+  val companyDetailsJson = Json.toJson(companyDetailsModel)
 
   val ukCompanyModelMax = UkCompanyModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel,
+    companyDetails = companyDetailsModel,
     consenting = Some(true),
-    netTaxInterestExpense = Some(netTaxInterestExpense),
-    netTaxInterestIncome = Some(0),
+    netTaxInterest = Some(netTaxInterestExpense),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
 
   val ukCompanyJsonMax = Json.obj(
-    "companyName" -> companyNameModel,
-    "ctutr" -> ctutrModel,
+    "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
-    "netTaxInterestExpense" -> netTaxInterestExpense,
-    "netTaxInterestIncome" -> 0,
+    "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
     "allocatedReactivations" -> allocatedReactivationsJson
   )
 
   val ukCompanyModelReactivationMax = UkCompanyModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel,
+    companyDetails = companyDetailsModel,
     consenting = Some(true),
-    netTaxInterestExpense = Some(netTaxInterestExpense),
-    netTaxInterestIncome = Some(0),
+    netTaxInterest = Some(netTaxInterestExpense),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
 
   val ukCompanyReactivationJsonMax = Json.obj(
-    "companyName" -> companyNameModel,
-    "ctutr" -> ctutrModel,
+    "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
-    "netTaxInterestExpense" -> netTaxInterestExpense,
-    "netTaxInterestIncome" -> 0,
+    "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedReactivations" -> allocatedReactivationsJson
   )
 
   val ukCompanyModelRestrictionMax = UkCompanyModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel,
+    companyDetails = companyDetailsModel,
     consenting = Some(true),
-    netTaxInterestExpense = Some(netTaxInterestExpense),
-    netTaxInterestIncome = Some(0),
+    netTaxInterest = Some(netTaxInterestExpense),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None
   )
 
   val ukCompanyRestrictionJsonMax = Json.obj(
-    "companyName" -> companyNameModel,
-    "ctutr" -> ctutrModel,
+    "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
-    "netTaxInterestExpense" -> netTaxInterestExpense,
-    "netTaxInterestIncome" -> 0,
+    "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson
   )
 
   val ukCompanyModelMin = UkCompanyModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel,
+    companyDetails = companyDetailsModel,
     consenting = Some(true),
-    netTaxInterestExpense = Some(0),
-    netTaxInterestIncome = Some(netTaxInterestIncome),
+    netTaxInterest = Some(netTaxInterestIncome),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = None
   )
 
   val ukCompanyJsonMin = Json.obj(
-    "companyName" -> companyNameModel,
-    "ctutr" -> ctutrModel,
+    "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
-    "netTaxInterestExpense" -> 0,
-    "netTaxInterestIncome" -> netTaxInterestIncome,
+    "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA
   )
 }

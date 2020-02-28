@@ -43,7 +43,7 @@ final case class UserAnswers(
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
     setData(path(page, idx), value).map {
-      d => copy (data = d, lastPageSaved = Some(page))
+      d => copy(data = d, lastPageSaved = Some(page))
     }
   }
 
@@ -71,16 +71,16 @@ final case class UserAnswers(
         Success(data)
     }
 
-    updatedData.map { d => copy (data = d) }
+    updatedData.map { d => copy(data = d) }
   }
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
 
   @tailrec
   private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] = {
-    if(pages.isEmpty) Success(userAnswers) else {
+    if (pages.isEmpty) Success(userAnswers) else {
       userAnswers.remove(pages.head) match {
-        case Success(answers) => recursivelyClearQuestions(pages.tail,answers)
+        case Success(answers) => recursivelyClearQuestions(pages.tail, answers)
         case failure@Failure(_) => failure
       }
     }
@@ -95,10 +95,10 @@ object UserAnswers {
 
     (
       (__ \ "_id").read[String] and
-      (__ \ "data").read[JsObject] and
-      (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
-      (__ \ "lastPageSaved").readNullable[Page]
-    ) (UserAnswers.apply _)
+        (__ \ "data").read[JsObject] and
+        (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
+        (__ \ "lastPageSaved").readNullable[Page]
+      ) (UserAnswers.apply _)
   }
 
   implicit lazy val writes: OWrites[UserAnswers] = {
@@ -107,9 +107,9 @@ object UserAnswers {
 
     (
       (__ \ "_id").write[String] and
-      (__ \ "data").write[JsObject] and
-      (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
-      (__ \ "lastPageSaved").writeNullable[Page]
-    ) (unlift(UserAnswers.unapply))
+        (__ \ "data").write[JsObject] and
+        (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
+        (__ \ "lastPageSaved").writeNullable[Page]
+      ) (unlift(UserAnswers.unapply))
   }
 }

@@ -22,9 +22,9 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.InvestmentNameFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import navigation.ElectionsNavigator
-import pages.elections.InvestmentNamePage
+import pages.elections.{InvestmentNamePage, InvestmentsDeletionConfirmationPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -54,7 +54,10 @@ class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.InvestmentNameController.onSubmit(idx, mode)))),
       value =>
-        saveAndRedirect(InvestmentNamePage, value, mode, Some(idx))
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestmentNamePage, value, Some(idx)))
+          _ <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InvestmentNamePage, mode, updatedAnswers))
     )
   }
 }

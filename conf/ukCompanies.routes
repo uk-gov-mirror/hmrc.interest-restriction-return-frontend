@@ -1,21 +1,53 @@
 # UK Companies Routes
 # ===================
 
-### AboutAddingUKCompanies Controller
-### ----------------------------------------
-GET        /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onPageLoad()
-POST       /about-adding-uk-companies                         controllers.ukCompanies.AboutAddingUKCompaniesController.onSubmit()
-
-### EnterCompanyTaxEBITDA Controller
-### ----------------------------------------
-GET        /enter-company-tax-ebitda                          controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-company-tax-ebitda                          controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-company-tax-ebitda/change                   controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-company-tax-ebitda/change                   controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(mode: Mode = CheckMode)
 
 ### ConsentingCompany Controller
 ### ----------------------------------------
-GET        /consenting-company                                controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = NormalMode)
-POST       /consenting-company                                controllers.ukCompanies.ConsentingCompanyController.onSubmit(mode: Mode = NormalMode)
-GET        /consenting-company/change                         controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = CheckMode)
-POST       /consenting-company/change                         controllers.ukCompanies.ConsentingCompanyController.onSubmit(mode: Mode = CheckMode)
+GET        /                                                    controllers.ukCompanies.UkCompaniesReviewAnswersListController.onPageLoad()
+POST       /                                                    controllers.ukCompanies.UkCompaniesReviewAnswersListController.onSubmit()
+
+### AboutAddingUKCompanies Controller
+### ----------------------------------------
+GET        /about-adding-uk-companies                           controllers.ukCompanies.AboutAddingUKCompaniesController.onPageLoad()
+POST       /about-adding-uk-companies                           controllers.ukCompanies.AboutAddingUKCompaniesController.onSubmit()
+
+### CompanyDetailsModel Controller
+### ----------------------------------------
+GET        /:idx/company-details                                controllers.ukCompanies.CompanyDetailsController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/company-details                                controllers.ukCompanies.CompanyDetailsController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/company-details/change                         controllers.ukCompanies.CompanyDetailsController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/company-details/change                         controllers.ukCompanies.CompanyDetailsController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### NetTaxInterestAmount Controller
+### ----------------------------------------
+GET        /:idx/net-tax-interest-amount                        controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/net-tax-interest-amount                        controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/net-tax-interest-amount/change                 controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/net-tax-interest-amount/change                 controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### EnterCompanyTaxEBITDA Controller
+### ----------------------------------------
+GET        /:idx/enter-company-tax-ebitda                       controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/enter-company-tax-ebitda                       controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/enter-company-tax-ebitda/change                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/enter-company-tax-ebitda/change                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### NetTaxInterestIncomeOrExpense Controller
+### ----------------------------------------
+GET        /:idx/net-tax-interest-income-or-expense             controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/net-tax-interest-income-or-expense             controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/net-tax-interest-income-or-expense/change      controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/net-tax-interest-income-or-expense/change      controllers.ukCompanies.NetTaxInterestIncomeOrExpenseController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### ConsentingCompany Controller
+### ----------------------------------------
+GET        /consenting-company                                  controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = NormalMode)
+POST       /consenting-company                                  controllers.ukCompanies.ConsentingCompanyController.onSubmit(mode: Mode = NormalMode)
+GET        /consenting-company/change                           controllers.ukCompanies.ConsentingCompanyController.onPageLoad(mode: Mode = CheckMode)
+POST       /consenting-company/change                           controllers.ukCompanies.ConsentingCompanyController.onSubmit(mode: Mode = CheckMode)
+
+GET        /:idx/consenting-company                             controllers.ukCompanies.ConsentingCompanyController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/consenting-company                             controllers.ukCompanies.ConsentingCompanyController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/consenting-company/change                      controllers.ukCompanies.ConsentingCompanyController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/consenting-company/change                      controllers.ukCompanies.ConsentingCompanyController.onSubmit(idx: Int, mode: Mode = CheckMode)

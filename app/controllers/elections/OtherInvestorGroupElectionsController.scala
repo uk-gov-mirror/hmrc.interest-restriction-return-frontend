@@ -17,15 +17,15 @@
 package controllers.elections
 
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.OtherInvestorGroupElectionsFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.returnModels.InvestorGroupModel
+import models.{InvestorRatioMethod, Mode}
 import navigation.ElectionsNavigator
-import pages.elections.{InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
+import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -44,27 +44,47 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
                                                       formProvider: OtherInvestorGroupElectionsFormProvider,
                                                       val controllerComponents: MessagesControllerComponents,
                                                       view: OtherInvestorGroupElectionsView
-                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController with FeatureSwitching {
+                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(InvestorRatioMethodPage) { investorRatioMethod =>
-      Future.successful(Ok(view(
-        fillForm(OtherInvestorGroupElectionsPage, formProvider()),
-        mode,
-        investorRatioMethod
-      )))
+  private val form = formProvider()
+
+  private def getRatioMethod(investorGroups: InvestorGroupModel, idx: Int, mode: Mode)(f: InvestorRatioMethod => Future[Result]) =
+    investorGroups.ratioMethod match {
+      case Some(ratioMethod) => f(ratioMethod)
+      case _ => Future.successful(Redirect(routes.InvestorRatioMethodController.onPageLoad(idx, mode)))
+    }
+
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(InvestorGroupsPage, idx) { investorGroups =>
+      getRatioMethod(investorGroups, idx, mode) { ratioMethod =>
+        Future.successful(Ok(view(
+          form = investorGroups.otherInvestorGroupElections.fold(form)(form.fill),
+          postAction = routes.OtherInvestorGroupElectionsController.onSubmit(idx, mode),
+          ratioMethod
+        )))
+      }
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        answerFor(InvestorRatioMethodPage) { investorRatioMethod =>
-          Future.successful(BadRequest(view(formWithErrors, mode, investorRatioMethod)))
-        },
-      value =>
-        saveAndRedirect(OtherInvestorGroupElectionsPage, value, mode)
-    )
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(InvestorGroupsPage, idx) { investorGroups =>
+      getRatioMethod(investorGroups, idx, mode) { ratioMethod =>
+        form.bindFromRequest().fold(
+          formWithErrors =>
+            Future.successful(BadRequest(view(
+              form = formWithErrors,
+              postAction = routes.OtherInvestorGroupElectionsController.onSubmit(idx, mode),
+              ratioMethod
+            ))),
+          value => {
+            val updatedModel = investorGroups.copy(otherInvestorGroupElections = Some(value))
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, updatedAnswers))
+          }
+        )
+      }
+    }
   }
 }

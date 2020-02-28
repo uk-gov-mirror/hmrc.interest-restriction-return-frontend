@@ -16,6 +16,7 @@
 
 package utils
 
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
 import models.NormalMode
 import models.returnModels.fullReturn.UkCompanyModel
 import play.api.mvc.Call
@@ -47,17 +48,21 @@ class CheckTotalsHelper extends SummaryListRowHelper {
   }
 
   def calculateSums(ukCompanies: Seq[UkCompanyModel]): UKCompanyDerivedData = {
-    val totalTaxInterestIncome: BigDecimal = ukCompanies.flatMap(_.netTaxInterestIncome).sum
-    val totalTaxInterestExpense: BigDecimal = ukCompanies.flatMap(_.netTaxInterestExpense).sum
+    val companyLength: Int = ukCompanies.length
     val oSum: Seq[BigDecimal] => Option[BigDecimal] = {
       case sum if sum.isEmpty => None
       case sum => Some(sum.sum)
     }
-    val companyLength = ukCompanies.length
-    val aggregateEbitda = ukCompanies.flatMap(_.taxEBITDA).sum
-    val aggregateInterest = totalTaxInterestIncome - totalTaxInterestExpense
-    val restrictions = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
-    val reactivations = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.currentPeriodReactivation)))
+    val aggregateInterest: BigDecimal = (for {
+      ukCompany <- ukCompanies
+      incomeOrExpense <- ukCompany.netTaxInterestIncomeOrExpense
+      netTaxInterest <- ukCompany.netTaxInterest
+      amount = if(incomeOrExpense == NetTaxInterestIncome) netTaxInterest else netTaxInterest * -1
+    } yield amount).sum
+    val aggregateEbitda: BigDecimal = ukCompanies.flatMap(_.taxEBITDA).sum
+    val restrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
+    val reactivations: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.currentPeriodReactivation)))
+
     UKCompanyDerivedData(companyLength,aggregateEbitda,aggregateInterest,restrictions,reactivations)
   }
 

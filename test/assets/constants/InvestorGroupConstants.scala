@@ -16,13 +16,23 @@
 
 package assets.constants
 
+import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
+import models.OtherInvestorGroupElections
 import models.returnModels.InvestorGroupModel
 
 object InvestorGroupConstants {
 
   val investorName = "some Investor"
 
-  val investorGroupsModel = InvestorGroupModel(
-    investorName = investorName
+  val investorGroupsGroupRatioModel = InvestorGroupModel(
+    investorName = investorName,
+    ratioMethod = Some(GroupRatioMethod),
+    otherInvestorGroupElections = Some(OtherInvestorGroupElections.allValues.toSet)
+  )
+
+  val investorGroupsFixedRatioModel = InvestorGroupModel(
+    investorName = investorName,
+    ratioMethod = Some(FixedRatioMethod),
+    otherInvestorGroupElections = Some(OtherInvestorGroupElections.fixedRatioValues.toSet)
   )
 }
