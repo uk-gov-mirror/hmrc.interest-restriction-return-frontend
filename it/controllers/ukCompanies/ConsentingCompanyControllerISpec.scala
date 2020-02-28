@@ -77,14 +77,15 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.ConsentingCompanyController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> true))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }

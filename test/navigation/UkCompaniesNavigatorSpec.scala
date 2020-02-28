@@ -18,7 +18,8 @@ package navigation
 
 import base.SpecBase
 import models._
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
+import controllers.ukCompanies.routes
+import pages.ukCompanies._
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -28,20 +29,56 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "from the EnterCompanyTaxEBITDAPage" should {
+      "go from the AboutAddingUKCompaniesPage" should {
 
-        //TODO: Update a part of routing sub-task
-        "go to the NetTaxInterestIncomeOrExpense page" in {
-          navigator.nextPage(EnterCompanyTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+        "to the CompanyDetailsPage" in {
+
+          navigator.nextPage(AboutAddingUKCompaniesPage, NormalMode, emptyUserAnswers) mustBe
+            routes.CompanyDetailsController.onPageLoad(1, NormalMode)
         }
       }
 
-      "from the UkCompanies List View Page" should {
+      "go from the CompanyDetailsPage" should {
 
-        //TODO: Update a part of routing sub-task
-        "go to the Under Construction page" in {
-          navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
+        "to the EnterCompanyTaxEBITDAPage" in {
+
+          navigator.nextPage(CompanyDetailsPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "go from the EnterCompanyTaxEBITDAPage" should {
+
+        "to the NetTaxInterestIncomeOrExpensePage" in {
+
+          navigator.nextPage(EnterCompanyTaxEBITDAPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "go from the NetTaxInterestIncomeOrExpensePage" should {
+
+        "to the NetTaxInterestAmountPage" in {
+
+          navigator.nextPage(NetTaxInterestIncomeOrExpensePage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.NetTaxInterestAmountController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "go from the NetTaxInterestAmountPage" should {
+
+        "to the ConsentingCompanyPage" in {
+
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.ConsentingCompanyController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "go from the ConsentingCompanyPage to the" should {
+
+        "Under Construction page" in {
+
+          navigator.nextPage(ConsentingCompanyPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }

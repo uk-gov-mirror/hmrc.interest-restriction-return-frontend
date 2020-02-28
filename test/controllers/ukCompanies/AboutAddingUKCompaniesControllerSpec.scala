@@ -16,10 +16,10 @@
 
 package controllers.ukCompanies
 
-import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
 import play.api.test.Helpers._
 import views.html.ukCompanies.AboutAddingUKCompaniesView
 
@@ -33,7 +33,8 @@ class AboutAddingUKCompaniesControllerSpec extends SpecBase with FeatureSwitchin
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    navigator = FakeUkCompaniesNavigator
   )
 
   "AboutAddingUKCompanies Controller" must {
