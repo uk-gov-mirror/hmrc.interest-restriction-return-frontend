@@ -26,10 +26,14 @@ class DerivedCompanyViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "derivedCompany"
   val section = Some(messages("section.checkTotals"))
+  val confirm = messages("section.confirm")
 
       "DerivedCompanyView" must {
 
         behave like normalPage(twirlView, messageKeyPrefix, section = section)
         behave like pageWithBackLink(twirlView)
+        behave like pageWithBackLink(twirlView)
+        behave like pageWithSubHeading(twirlView,section.get)
+        behave like pageWithSubmitButton(twirlView,confirm)
       }
   }
