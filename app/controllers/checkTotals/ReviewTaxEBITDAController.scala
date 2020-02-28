@@ -20,11 +20,10 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import controllers.checkTotals.routes
 import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.ReviewTaxEBITDA
-import navigation.GroupStructureNavigator
+import navigation.CheckTotalsNavigator
 import pages.checkTotals.ReviewTaxEBITDAPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -38,14 +37,14 @@ class ReviewTaxEBITDAController @Inject()(override val messagesApi: MessagesApi,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           val controllerComponents: MessagesControllerComponents,
-                                          navigator: GroupStructureNavigator,
+                                          navigator: CheckTotalsNavigator,
                                           view: CheckYourAnswersView
                                          )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
       val checkYourAnswersHelper = new ReviewTaxEBITDARowsHelper(request.userAnswers)
-      Ok(view(checkYourAnswersHelper.rows, ReviewTaxEBITDA, routes.ReviewTaxEBITDAController.onSubmit))
+      Ok(view(checkYourAnswersHelper.rows, ReviewTaxEBITDA, routes.ReviewTaxEBITDAController.onSubmit()))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {

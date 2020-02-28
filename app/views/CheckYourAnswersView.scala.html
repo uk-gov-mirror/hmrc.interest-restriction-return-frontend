@@ -29,7 +29,7 @@
 
 @(answers: Seq[SummaryListRow], section: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(s"section.$section")))) {
+@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(s"$section.checkYourAnswers.subheading")))) {
 
     @subheading(s"$section.checkYourAnswers.subheading")
 

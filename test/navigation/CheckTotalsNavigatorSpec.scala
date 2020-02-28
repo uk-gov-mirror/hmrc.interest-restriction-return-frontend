@@ -14,16 +14,25 @@
  * limitations under the License.
  */
 
-package assets.messages
+package navigation
 
-object SectionHeaderMessages {
+import base.SpecBase
+import models._
+import pages.checkTotals.ReviewTaxEBITDAPage
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
+class CheckTotalsNavigatorSpec extends SpecBase {
 
+  val navigator = new CheckTotalsNavigator
+
+  "CheckTotalsNavigator" should {
+
+    "from the EnterCompanyTaxEBITDAPage" should {
+
+      //TODO: Update a part of routing sub-task
+      "go to the ReviewTaxEBITDAPage page" in {
+        navigator.nextPage(ReviewTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+          controllers.routes.UnderConstructionController.onPageLoad()
+      }
+    }
+  }
 }
