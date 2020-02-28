@@ -95,7 +95,6 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           "enters a valid answer" when {
 
-            //TODO: Update as part of routing sub-task
             "redirect to Under Construction page" in {
 
               AuthStub.authorised()
@@ -105,7 +104,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                  redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode).url)
                 )
               }
             }

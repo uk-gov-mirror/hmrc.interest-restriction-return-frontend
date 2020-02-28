@@ -16,9 +16,10 @@
 
 package controllers.ukCompanies
 
-import assets.UkCompanyITConstants.ukCompanyModelMin
+import assets.UkCompanyITConstants.{ukCompanyModelMax, ukCompanyModelMin}
 import assets.{BaseITConstants, PageTitles}
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
+import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -84,14 +85,22 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
             AuthStub.authorised()
 
+            val userAnswers = emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
             val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(NormalMode).url)
-//              )
-//            }
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.ConsentingCompanyController.onPageLoad(1, NormalMode).url)
+              )
+            }
           }
         }
       }

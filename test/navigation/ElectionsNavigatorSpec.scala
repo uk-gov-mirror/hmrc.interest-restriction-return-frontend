@@ -72,7 +72,7 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the EnterQNGIEPage" should {
+      "from the GroupEBITDAPage" should {
 
         "go to the GroupRatioPercentage page" in {
 
@@ -398,6 +398,15 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the CheckAnswersElections page" should {
+
+        "go to the CheckAnswersElections page" in {
+
+          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
+        }
+      }
+
       "from the Investment Name page" should {
 
         "go to the Investments Review Answers List page" in {
@@ -413,6 +422,16 @@ class ElectionsNavigatorSpec extends SpecBase {
 
           navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, emptyUserAnswers) mustBe
             routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+        }
+      }
+
+
+      "from the InvestmentsDeletionConfirmation page" should {
+
+        "go to the InvestmentsReviewAnswersList page" in {
+
+          navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
         }
       }
 

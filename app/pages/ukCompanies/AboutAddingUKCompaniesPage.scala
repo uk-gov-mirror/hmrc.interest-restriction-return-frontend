@@ -19,7 +19,7 @@ package pages.ukCompanies
 import pages.Page
 import play.api.libs.json.JsPath
 
-case object AboutAddingUKCompaniesPage extends Page{
+case object AboutAddingUKCompaniesPage extends Page {
 
   override def toString: String = "aboutAddingUKDetails"
 }

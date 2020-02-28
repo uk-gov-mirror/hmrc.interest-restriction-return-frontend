@@ -78,7 +78,7 @@ class AboutAddingUKCompaniesControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CompanyDetailsController.onPageLoad(1, NormalMode).url)
               )
             }
           }

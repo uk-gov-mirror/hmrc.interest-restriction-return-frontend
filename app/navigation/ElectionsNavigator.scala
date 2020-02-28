@@ -21,6 +21,7 @@ import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.elections._
+import pages.ukCompanies.UkCompaniesPage
 import play.api.mvc.Call
 
 @Singleton
@@ -83,7 +84,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.IsUkPartnershipController.onPageLoad(NormalMode)
     }),
     PartnershipSAUTRPage -> (_ => checkYourAnswers),
-    CheckAnswersElectionsPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    CheckAnswersElectionsPage -> (_ => nextSection(NormalMode)),
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     InvestmentsReviewAnswersListPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
     InvestmentsDeletionConfirmationPage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
@@ -106,8 +107,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   def addInvestment(idx: Int): Call = routes.InvestmentNameController.onPageLoad(idx + 1, NormalMode)
   def addInvestorGroup(idx: Int): Call = routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode)
 
-  //TODO: Add next Section call as part of future story
-  def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
+  def nextSection(mode: Mode): Call = controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))
