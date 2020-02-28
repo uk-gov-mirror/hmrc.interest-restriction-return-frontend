@@ -16,12 +16,9 @@
 
 package models.returnModels.fullReturn
 
-import assets.constants.fullReturn.AllocatedRestrictionsConstants._
-import assets.constants.fullReturn.AllocatedReactivationsConstants._
 import assets.constants.fullReturn.FullReturnConstants._
 import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
-import assets.constants.fullReturn.UkCompanyConstants._
 
 class FullReturnModelSpec extends WordSpec with MustMatchers {
 
@@ -45,72 +42,6 @@ class FullReturnModelSpec extends WordSpec with MustMatchers {
       }
     }
 
-    "derive the correct derived values" when {
-
-      "deriving the numberOfUkCompanies when given one or multiple companies" in {
-        fullReturnModelMin.numberOfUkCompanies mustBe 1
-        fullReturnNetTaxExpenseModelMax.numberOfUkCompanies mustBe 4
-      }
-
-      "deriving the aggregateNetTaxInterest" when {
-
-        "income is bigger" in {
-          fullReturnNetTaxIncomeModelMax.aggregateNetTaxInterest mustBe ((3 * netTaxInterestIncome) - netTaxInterestExpense)
-        }
-
-        "expense is bigger" in {
-          fullReturnNetTaxExpenseModelMax.aggregateNetTaxInterest mustBe (netTaxInterestIncome - (3 * netTaxInterestExpense))
-        }
-
-        "income and expense are equal" in {
-          fullReturnModelMax.aggregateNetTaxInterest mustBe 0
-        }
-      }
-
-      "deriving the aggregateTaxEBITDA" when {
-
-        "one company has a taxEBITDA" in {
-          fullReturnModelMin.aggregateTaxEBITDA mustBe taxEBITDA
-        }
-
-        "multiple companies have a taxEBITDA" in {
-          fullReturnModelMax.aggregateTaxEBITDA mustBe (2 * taxEBITDA)
-        }
-      }
-
-      "deriving the aggregateAllocatedRestrictions" when {
-
-        "no companies have a allocatedRestrictions" in {
-          fullReturnModelMin.aggregateAllocatedRestrictions mustBe None
-        }
-
-        "one company has a allocatedRestrictions" in {
-          fullReturnModelMax.aggregateAllocatedRestrictions mustBe Some(totalDisallowances)
-
-        }
-
-        "multiple companies have a allocatedRestrictions" in {
-          fullReturnNetTaxExpenseModelMax.aggregateAllocatedRestrictions mustBe Some(3 * totalDisallowances)
-        }
-      }
-
-      "deriving the aggregateAllocatedReactivations" when {
-
-        "no companies have a allocatedRestrictions" in {
-          fullReturnModelMin.aggregateAllocatedReactivations mustBe None
-        }
-
-        "one company has a allocatedRestrictions" in {
-          fullReturnModelMax.aggregateAllocatedReactivations mustBe Some(currentPeriodReactivation)
-
-        }
-
-        "multiple companies have a allocatedRestrictions" in {
-          fullReturnNetTaxExpenseModelMax.aggregateAllocatedReactivations mustBe Some(3 * currentPeriodReactivation)
-        }
-
-      }
-    }
   }
 }
 

@@ -16,7 +16,9 @@
 
 package pages.ukCompanies
 
-case object DerivedCompanyPage {
+import pages.Page
+
+case object DerivedCompanyPage extends Page {
 
   override def toString: String = "derivedCompany"
 }

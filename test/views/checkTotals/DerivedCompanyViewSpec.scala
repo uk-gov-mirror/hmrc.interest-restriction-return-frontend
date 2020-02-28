@@ -25,7 +25,7 @@ class DerivedCompanyViewSpec extends ViewBehaviours {
   lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
 
   val messageKeyPrefix = "derivedCompany"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some(messages("section.checkTotals"))
 
       "DerivedCompanyView" must {
 

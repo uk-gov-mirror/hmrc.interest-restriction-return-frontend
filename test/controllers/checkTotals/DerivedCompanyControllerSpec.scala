@@ -19,12 +19,19 @@ package controllers.checkTotals
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import models.UserAnswers
+import models.requests.DataRequest
+import navigation.CheckTotalsNavigator
+import play.api.libs.json.Json
 import play.api.test.Helpers._
+import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
 
 class DerivedCompanyControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[DerivedCompanyView]
+  val checkTotalsNavigator = injector.instanceOf[CheckTotalsNavigator]
+  val checkTotalsHelper = injector.instanceOf[CheckTotalsHelper]
 
   object Controller extends DerivedCompanyController(
     messagesApi = messagesApi,
@@ -32,18 +39,47 @@ class DerivedCompanyControllerSpec extends SpecBase with FeatureSwitching with M
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    checkTotalsNavigator = checkTotalsNavigator,
+    checkTotalsHelper = checkTotalsHelper
   )
 
   "DerivedCompany Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val json = Json.obj(
+        "ukCompanies" -> Json.arr(
+          Json.obj(
+            "companyName" -> "chaz limited",
+            "ctutr" -> "12345",
+            "netTaxInterestExpense" -> "1.0",
+            "netTaxInterestIncome" -> "1.0",
+            "taxEBITDA" -> "1.0"
+          )
+        ))
 
-      val result = Controller.onPageLoad(fakeRequest)
+      val data = UserAnswers(userAnswersId, json)
 
+      mockGetAnswers(Some(data))
+
+      val request = DataRequest(fakeRequest,"id", data)
+
+      val result = Controller.onPageLoad(request)
       status(result) mustBe OK
     }
+
+    "redirect to ukcompanies given no data" in {
+
+      val data = emptyUserAnswers
+
+      mockGetAnswers(Some(data))
+
+      val request = DataRequest(fakeRequest,"id", data)
+
+      val result = Controller.onPageLoad(request)
+      status(result) mustBe SEE_OTHER
+    }
   }
+
 }

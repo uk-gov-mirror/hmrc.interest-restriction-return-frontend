@@ -16,8 +16,12 @@
 
 @import views.ViewUtils._
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
+@import viewmodels.SummaryListRowHelper
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(
+        govukSummaryList: GovukSummaryList,
         govukLayout: templates.GovukLayoutWrapper,
         h1: components.h1,
         button: components.button,
@@ -26,13 +30,17 @@
         formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@()(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+@(derivedData: Seq[SummaryListRow] = Seq.empty)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(pageTitle = Some(titleNoForm("derivedCompany.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(titleNoForm("derivedCompany.title", Some("section.checkTotals")))) {
 
-    @subheading("section.ukCompanies")
+   @subheading("section.ukCompanies")
 
-    @h1("derivedCompany.heading")
+   @h1("derivedCompany.heading")
 
-    @saveForLater()
+   <p class="govuk-hint" style="color: black">@messages("derivedCompany.p1")</p>
+
+   @govukSummaryList(SummaryList(derivedData))
+
+   @saveForLater()
 }
