@@ -677,6 +677,12 @@ investmentsDeletionConfirmation.error.required = Select yes if you want to delet
 derivedCompany.title = Check the totals for this return
 derivedCompany.heading = Check the totals for this return
 derivedCompany.p1 = We calculated these figures from the information you told us.
+derivedCompany.t1 = Companies added
+derivedCompany.t2 = Aggregate Tax-EBITDA
+derivedCompany.t3 = Aggregate net tax-interest
+derivedCompany.t4 = Total disallowed amount
+derivedCompany.t5 = Total reactivations
+derivedCompany.review = Review
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
