@@ -30,16 +30,16 @@ class CheckTotalsHelper extends SummaryListRowHelper {
     val numberOfUkCompanies = Some(summaryListRow("Companies added",
       derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
     val aggregateTaxEBITDA = Some(summaryListRow("Aggregate Tax-EBITDA",
-      derivedData.aggregateEbitda.toString(),(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+      s"£${derivedData.aggregateEbitda.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
     val aggregateNetTaxInterest = Some(summaryListRow("Aggregate net tax-interest",
-      derivedData.aggregateInterest.toString(),(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+      s"£${derivedData.aggregateInterest.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
 
     val aggregateAllocatedRestrictions = derivedData.restrictions match {
-      case Some(r) => Some(summaryListRow("Total disallowed amount",r.toString,(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+      case Some(r) => Some(summaryListRow("Total disallowed amount",s"£${r.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
       case None => None
     }
     val aggregateAllocatedReactivations = derivedData.reactivations match {
-      case Some(r) => Some(summaryListRow("Total reactivations",r.toString,(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+      case Some(r) => Some(summaryListRow("Total reactivations",s"£${r.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
       case None => None
     }
     Seq(numberOfUkCompanies,aggregateTaxEBITDA,aggregateNetTaxInterest,aggregateAllocatedRestrictions,aggregateAllocatedReactivations).flatten
