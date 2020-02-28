@@ -33,13 +33,11 @@ final case class UserAnswers(
 
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
-  def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] = {
+  def get[A](page: QuestionPage[A], idx: Option[Int] = None)(implicit rds: Reads[A]): Option[A] =
     path(page, idx).readNullable[A].reads(data).getOrElse(None)
-  }
 
-  def getList[A](page: QuestionPage[A])(implicit rds: Reads[A]): Seq[A] = {
+  def getList[A](page: QuestionPage[A])(implicit rds: Reads[A]): Seq[A] =
     page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
-  }
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
     setData(path(page, idx), value).map {

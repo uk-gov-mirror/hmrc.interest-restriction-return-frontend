@@ -34,9 +34,8 @@ object Section {
     override val toString = "elections"
   }
 
-  object HelloWorld extends Section {
-
-    override val toString = "helloWorld"
+  object ReviewTaxEBITDA extends Section {
+    override val toString = "reviewTaxEBITDA"
   }
 
   implicit object SectionWrites extends Writes[Section]{

@@ -17,9 +17,9 @@
 package navigation
 
 import base.SpecBase
+import controllers.routes
 import models._
 import pages.ukCompanies._
-import controllers.routes
 
 class CheckTotalsNavigatorSpec extends SpecBase {
 
@@ -36,6 +36,7 @@ class CheckTotalsNavigatorSpec extends SpecBase {
           navigator.nextPage(DerivedCompanyPage, NormalMode, emptyUserAnswers) mustBe
             routes.UnderConstructionController.onPageLoad()
         }
+
       }
     }
   }
