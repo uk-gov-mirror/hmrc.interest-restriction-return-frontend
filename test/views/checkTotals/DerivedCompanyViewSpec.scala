@@ -15,14 +15,14 @@
  */
 
 package views.checkTotals
-
 import views.behaviours.ViewBehaviours
 import views.html.checkTotals.DerivedCompanyView
 
 class DerivedCompanyViewSpec extends ViewBehaviours {
 
   lazy val twirlViewTemplate = viewFor[DerivedCompanyView](Some(emptyUserAnswers))
-  lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
+  val call = controllers.checkTotals.routes.DerivedCompanyController.onSubmit()
+  lazy val twirlView = twirlViewTemplate.apply(postAction = call)(fakeRequest, frontendAppConfig, messages)
 
   val messageKeyPrefix = "derivedCompany"
   val section = Some(messages("section.checkTotals"))

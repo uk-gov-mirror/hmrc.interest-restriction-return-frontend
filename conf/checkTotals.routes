@@ -4,3 +4,4 @@
 ### DerivedCompany Controller
 ### ----------------------------------------
 GET        /derived-company                                   controllers.checkTotals.DerivedCompanyController.onPageLoad()
+POST       /derived-company                                   controllers.checkTotals.DerivedCompanyController.onSubmit()

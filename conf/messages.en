@@ -683,6 +683,7 @@ derivedCompany.t3 = Aggregate net tax-interest
 derivedCompany.t4 = Total disallowed amount
 derivedCompany.t5 = Total reactivations
 derivedCompany.review = Review
+derivedCompany.confirm = Confirm
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------

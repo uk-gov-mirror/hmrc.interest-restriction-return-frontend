@@ -30,17 +30,23 @@
         formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@(derivedData: Seq[SummaryListRow] = Seq.empty)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+@(derivedData: Seq[SummaryListRow] = Seq.empty, postAction: Call)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
 @govukLayout(pageTitle = Some(titleNoForm("derivedCompany.title", Some("section.checkTotals")))) {
 
-   @subheading("section.ukCompanies")
+    @formHelper(action = postAction) {
 
-   @h1("derivedCompany.heading")
+        @subheading("section.checkTotals")
 
-   <p class="govuk-hint" style="color: black">@messages("derivedCompany.p1")</p>
+        @h1("derivedCompany.heading")
 
-   @govukSummaryList(SummaryList(derivedData))
+        <p class="govuk-hint" style="color: black">@messages("derivedCompany.p1")</p>
 
-   @saveForLater()
+        @govukSummaryList(SummaryList(derivedData))
+
+        @button("derivedCompany.confirm")
+
+        @saveForLater()
+
+    }
 }

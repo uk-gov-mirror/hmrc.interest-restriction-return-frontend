@@ -22,13 +22,17 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
+import models.{CompanyDetailsModel, Mode}
+import models.returnModels.fullReturn.UkCompanyModel
 import navigation.CheckTotalsNavigator
-import pages.ukCompanies.UkCompaniesPage
+import pages.ukCompanies.{CompanyDetailsPage, UkCompaniesPage}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
+
+import scala.concurrent.Future
 
 class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
                                          val checkTotalsNavigator: CheckTotalsNavigator,
@@ -45,7 +49,11 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
     request.userAnswers.getList(UkCompaniesPage) match {
       case seq if seq.isEmpty => Logger.debug(s"[DerivedCompanyController][onPageLoad] GET attempt to check totals page without data")
         Redirect(controllers.routes.UnderConstructionController.onPageLoad())
-      case ukCompanies => Ok(view(checkTotalsHelper.constructTotalsTable(ukCompanies)))
+      case ukCompanies => Ok(view(checkTotalsHelper.constructTotalsTable(ukCompanies),controllers.checkTotals.routes.DerivedCompanyController.onSubmit))
     }
+  }
+
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    Future.successful(Redirect(controllers.routes.UnderConstructionController.onPageLoad()))
   }
 }
