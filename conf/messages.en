@@ -755,6 +755,13 @@ netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest in
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
 
+# CheckAnswersUkCompanyPage Messages
+# ----------------------------------------------------------
+checkAnswersUkCompany.title = Check {0}\'s details
+checkAnswersUkCompany.heading = Check {0}\'s details
+checkAnswersUkCompany.subheading = The companies involved
+
+
 # UkCompaniesDeletionConfirmationPage Messages
 # ----------------------------------------------------------
 ukCompaniesDeletionConfirmation.title = Are you sure you want to delete company ‘{0}’?

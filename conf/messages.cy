@@ -756,3 +756,12 @@ netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
+
+netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
+netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
+netTaxInterestAmount.error.invalidNumeric = The total net-tax interest must be valid decimal or whole number
+netTaxInterestAmount.error.outOfRange = The total net-tax interest must be between {0} and {1}
+# CheckAnswersUkCompanyPage Messages
+# ----------------------------------------------------------
+checkAnswersUkCompany.title = checkAnswersUkCompany
+checkAnswersUkCompany.heading = checkAnswersUkCompany
