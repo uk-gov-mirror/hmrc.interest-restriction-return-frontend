@@ -24,6 +24,7 @@ import controllers.BaseController
 import controllers.actions._
 import navigation.CheckTotalsNavigator
 import pages.ukCompanies.UkCompaniesPage
+import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import utils.CheckTotalsHelper
@@ -42,7 +43,8 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     request.userAnswers.getList(UkCompaniesPage) match {
-      case seq if seq.isEmpty => Redirect(controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad())
+      case seq if seq.isEmpty => Logger.debug(s"[DerivedCompanyController][onPageLoad] GET attempt to check totals page without data")
+        Redirect(controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad())
       case ukCompanies => Ok(view(checkTotalsHelper.constructTotalsTable(ukCompanies)))
     }
   }

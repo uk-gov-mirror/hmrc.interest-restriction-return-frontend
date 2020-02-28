@@ -16,7 +16,9 @@
 
 package controllers.checkTotals
 
+import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
@@ -32,6 +34,8 @@ class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateReque
         "return OK (200)" in {
 
           AuthStub.authorised()
+          appendList(UkCompaniesPage, ukCompanyModelMax)
+
           val res = getRequest("/check-totals/derived-company")()
 
           whenReady(res) { result =>
