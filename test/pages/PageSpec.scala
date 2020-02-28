@@ -19,6 +19,7 @@ package pages
 import base.SpecBase
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
+import pages.checkTotals.ReviewTaxEBITDAPage
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
@@ -31,6 +32,7 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
+        ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
         CompanyDetailsPage.toString -> CompanyDetailsPage,
         InvestorGroupsDeletionConfirmationPage.toString -> InvestorGroupsDeletionConfirmationPage,
         InvestorGroupsPage.toString -> InvestorGroupsPage,

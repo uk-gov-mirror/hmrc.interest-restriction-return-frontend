@@ -18,6 +18,7 @@ package pages
 
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
+import pages.checkTotals.ReviewTaxEBITDAPage
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
@@ -33,6 +34,7 @@ object Page {
   implicit def toString(page: Page): String = page.toString
 
   val pages: Map[String, Page] = Map(
+    ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
     UkCompaniesPage.toString -> UkCompaniesPage,
     CompanyDetailsPage.toString -> CompanyDetailsPage,
     InvestorGroupsDeletionConfirmationPage.toString -> InvestorGroupsDeletionConfirmationPage,
