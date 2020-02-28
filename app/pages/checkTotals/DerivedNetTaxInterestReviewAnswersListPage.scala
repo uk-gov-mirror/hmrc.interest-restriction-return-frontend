@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.checkTotals
 
-object SectionHeaderMessages {
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
+case object DerivedNetTaxInterestReviewAnswersListPage extends QuestionPage[String] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "derivedNetTaxInterestReviewAnswersList"
 }
