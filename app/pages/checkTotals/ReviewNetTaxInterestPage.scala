@@ -19,9 +19,9 @@ package pages.checkTotals
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object DerivedNetTaxInterestReviewAnswersListPage extends QuestionPage[String] {
+case object ReviewNetTaxInterestPage extends QuestionPage[String] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "derivedNetTaxInterestReviewAnswersList"
+  override def toString: String = "reviewNetTaxInterest"
 }

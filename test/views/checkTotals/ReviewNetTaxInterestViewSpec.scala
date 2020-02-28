@@ -21,21 +21,21 @@ import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages._
 import assets.messages.SectionHeaderMessages
 import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
-import pages.checkTotals.DerivedNetTaxInterestReviewAnswersListPage
+import pages.checkTotals.ReviewNetTaxInterestPage
 import pages.ukCompanies.UkCompaniesPage
 import play.twirl.api.HtmlFormat
-import utils.DerivedNetTaxInterestReviewAnswersListHelper
+import utils.ReviewNetTaxInterestHelper
 import views.BaseSelectors
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
-class DerivedNetTaxInterestReviewAnswersListViewSpec extends ViewBehaviours with BaseConstants {
+class ReviewNetTaxInterestViewSpec extends ViewBehaviours with BaseConstants {
 
   object Selectors extends BaseSelectors
 
-  val messageKeyPrefix = s"$DerivedNetTaxInterestReviewAnswersListPage.checkYourAnswers"
-  val derivedNetTaxInterestSubheading = s"$DerivedNetTaxInterestReviewAnswersListPage.checkYourAnswers.subheading"
-  val derivedNetTaxInterestHeading = s"$DerivedNetTaxInterestReviewAnswersListPage.checkYourAnswers.heading"
+  val messageKeyPrefix = s"$ReviewNetTaxInterestPage.checkYourAnswers"
+  val derivedNetTaxInterestSubheading = s"$ReviewNetTaxInterestPage.checkYourAnswers.subheading"
+  val derivedNetTaxInterestHeading = s"$ReviewNetTaxInterestPage.checkYourAnswers.heading"
 
   val userAnswers = emptyUserAnswers
     .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
@@ -43,13 +43,13 @@ class DerivedNetTaxInterestReviewAnswersListViewSpec extends ViewBehaviours with
     .set(UkCompaniesPage, ukCompanyModelMin, Some(3)).get
 
 
-  val checkYourAnswersHelper = new DerivedNetTaxInterestReviewAnswersListHelper(userAnswers)
+  val checkYourAnswersHelper = new ReviewNetTaxInterestHelper(userAnswers)
 
   s"CheckYourAnswer view" must {
 
     def applyView(): HtmlFormat.Appendable = {
       val view = viewFor[CheckYourAnswersView](Some(userAnswers))
-      view.apply(checkYourAnswersHelper.rows, DerivedNetTaxInterestReviewAnswersListPage, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(checkYourAnswersHelper.rows, ReviewNetTaxInterestPage, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.checkTotals))

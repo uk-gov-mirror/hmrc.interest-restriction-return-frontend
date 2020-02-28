@@ -16,28 +16,29 @@
 
 package controllers.checkTotals
 
+import assets.messages.checkTotals.ReviewNetTaxInterestMessages
 import assets.messages.{CheckAnswersReportingCompanyMessages, SectionHeaderMessages}
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
-import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
-import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
+import navigation.FakeNavigators.FakeCheckTotalsNavigator
+import pages.checkTotals.ReviewNetTaxInterestPage
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
-class DerivedNetTaxInterestReviewAnswersListControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class ReviewNetTaxInterestControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  object Controller extends DerivedNetTaxInterestReviewAnswersListController(
+  object Controller extends ReviewNetTaxInterestController(
     messagesApi = messagesApi,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    navigator = FakeAboutReportingCompanyNavigator
+    navigator = FakeCheckTotalsNavigator
   )
 
   "Check Your Answers Controller" when {
@@ -51,7 +52,7 @@ class DerivedNetTaxInterestReviewAnswersListControllerSpec extends SpecBase with
         val result = Controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title, Some(SectionHeaderMessages.reportingCompany))
+        titleOf(contentAsString(result)) mustEqual title(ReviewNetTaxInterestMessages.title, Some(SectionHeaderMessages.checkTotals))
       }
 
       "calling the onSubmit() method" must {
@@ -63,8 +64,8 @@ class DerivedNetTaxInterestReviewAnswersListControllerSpec extends SpecBase with
           val result = Controller.onSubmit()(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeAboutReportingCompanyNavigator.nextPage(
-            page = CheckAnswersReportingCompanyPage,
+          redirectLocation(result) mustBe Some(FakeCheckTotalsNavigator.nextPage(
+            page = ReviewNetTaxInterestPage,
             mode = NormalMode,
             userAnswers = emptyUserAnswers,
             id = Some(1)

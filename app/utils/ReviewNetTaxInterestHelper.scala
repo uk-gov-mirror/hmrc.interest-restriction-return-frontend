@@ -21,8 +21,8 @@ import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class DerivedNetTaxInterestReviewAnswersListHelper(val userAnswers: UserAnswers)
-                                                  (implicit val messages: Messages) extends CheckYourAnswersHelper {
+class ReviewNetTaxInterestHelper(val userAnswers: UserAnswers)
+                                (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
   def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).flatMap {
     case model =>

@@ -779,6 +779,9 @@ reviewTaxEBITDA.checkYourAnswers.title = Review the Tax-EBITDA for companies in 
 reviewTaxEBITDA.checkYourAnswers.heading = Review the Tax-EBITDA for companies in the group
 reviewTaxEBITDA.checkYourAnswers.subheading = Check totals
 
+
 # Derived Net Tax Interest Review Answers List Page Messages
 # ----------------------------------------------------------
-derivedNetTaxInterestReviewAnswersList.title = Review the net tax-interest for companies in the group
+reviewNetTaxInterest.checkYourAnswers.title = Review the net tax-interest for companies in the group
+reviewNetTaxInterest.checkYourAnswers.heading = Review the net tax-interest for companies in the group
+reviewNetTaxInterest.checkYourAnswers.subheading = Check totals

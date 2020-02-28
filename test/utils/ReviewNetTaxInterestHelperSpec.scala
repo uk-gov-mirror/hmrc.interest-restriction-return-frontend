@@ -24,15 +24,15 @@ import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
 
 
-class DerivedNetTaxInterestReviewAnswersListHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class ReviewNetTaxInterestHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  "DerivedNetTaxInterestReviewAnswersListHelper.rows" when {
+  "ReviewNetTaxInterestHelper.rows" when {
 
     "given a list of uk companies" should {
 
       "return the correct summary list row models" in {
 
-        val helper = new DerivedNetTaxInterestReviewAnswersListHelper(
+        val helper = new ReviewNetTaxInterestHelper(
           emptyUserAnswers
             .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
             .set(UkCompaniesPage, ukCompanyModelReactivationMax, Some(2)).get

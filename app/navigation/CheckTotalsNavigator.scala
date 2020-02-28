@@ -20,7 +20,7 @@ import javax.inject.{Inject, Singleton}
 
 import models._
 import pages._
-import pages.checkTotals.ReviewTaxEBITDAPage
+import pages.checkTotals._
 import pages.ukCompanies._
 import play.api.mvc.Call
 
@@ -30,7 +30,8 @@ class CheckTotalsNavigator @Inject()() extends Navigator {
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     DerivedCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ReviewTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    ReviewTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    ReviewNetTaxInterestPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   //TODO update with CYA call
