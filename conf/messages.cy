@@ -39,7 +39,8 @@ underConstruction.heading = This page is under construction
 # ----------------------------------------------------------
 site.back = Back
 site.saveForLater = Save and come back later
-site.delete = Remove
+site.review = Review
+site.delete = Delete
 site.edit = Change
 site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
@@ -71,7 +72,7 @@ section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
 section.ukCompanies = The companies involved
-
+section.checkTotals = Check totals
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -104,7 +105,7 @@ reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
 reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
 reportingCompanyCTUTR.label = UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
-reportingCompanyCTUTR.error.length = UK Tax reference - CT UTR must be 10 numbers
+reportingCompanyCTUTR.error.regexp = UK Tax reference - CT UTR must be 10 numbers
 reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid check sum
 
 
@@ -297,6 +298,7 @@ hasDeemedParent.heading = Does the group have a ‘deemed’ parent company?
 hasDeemedParent.checkYourAnswersLabel = Deemed Parent
 hasDeemedParent.error.required = Select yes if the group has a ‘deemed’ parent company
 
+
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
 payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
@@ -334,7 +336,7 @@ parentCompanyCTUTR.heading = Parent Company Corporation Unique Taxpayer Referenc
 parentCompanyCTUTR.checkYourAnswersLabel = UTR
 parentCompanyCTUTR.label = Parent Company Corporation Unique Taxpayer Reference
 parentCompanyCTUTR.error.required = Enter the Corporation Unique Taxpayer Reference for the Parent Company
-parentCompanyCTUTR.error.length = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
+parentCompanyCTUTR.error.regexp = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
 parentCompanyCTUTR.error.checksum = Corporation Unique Taxpayer Reference for the Parent Company entered is invalid
 parentCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanyCTUTR.findUtr = find a lost UTR number
@@ -350,7 +352,7 @@ parentCompanySAUTR.checkYourAnswersLabel = UTR
 parentCompanySAUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
 parentCompanySAUTR.findUtr = find a lost UTR number
 parentCompanySAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference
-parentCompanySAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 numbers
+parentCompanySAUTR.error.regexp = Self Assessment Unique Taxpayer Reference must be 10 numbers
 parentCompanySAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 
@@ -420,7 +422,7 @@ groupRatioElection.error.required = Select yes if you are making a group ratio e
 
 # EnterANGIEPage Messages
 # ----------------------------------------------------------
-enterANGIE.title = Enter the adjusted net group-interest expense (ANGIE)
+    enterANGIE.title = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.heading = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.label = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.checkYourAnswersLabel = ANGIE
@@ -580,6 +582,7 @@ partnershipSAUTR.checkYourAnswersLabel = Enter {0} Self Assessment Unique Taxpay
 partnershipSAUTR.label= Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.error.required = Enter Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 characters or less
+partnershipSAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 # CheckAnswersElectionsPage Messages
 # ----------------------------------------------------------
@@ -604,19 +607,20 @@ nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
 
 # AboutAddingUKCompaniesPage Messages
 # ----------------------------------------------------------
-aboutAddingUKCompanies.title = aboutAddingUKCompanies
-aboutAddingUKCompanies.heading = aboutAddingUKCompanies
+aboutAddingUKCompanies.title = In this section you will need to tell us about eligible UK companies in the group
+aboutAddingUKCompanies.heading = In this section you will need to tell us about eligible UK companies in the group
 
 # EnterCompanyTaxEBITDAPage Messages
 # ----------------------------------------------------------
-enterCompanyTaxEBITDA.title = EnterCompanyTaxEBITDA
-enterCompanyTaxEBITDA.heading = EnterCompanyTaxEBITDA
-enterCompanyTaxEBITDA.label=Enter company's Tax-EBITDA
-enterCompanyTaxEBITDA.checkYourAnswersLabel = EnterCompanyTaxEBITDA
-enterCompanyTaxEBITDA.error.nonNumeric = Enter your enterCompanyTaxEBITDA using numbers
-enterCompanyTaxEBITDA.error.required = Enter your enterCompanyTaxEBITDA
-enterCompanyTaxEBITDA.error.invalidNumeric = The enterCompanyTaxEBITDA must be valid decimal or whole number
-enterCompanyTaxEBITDA.error.outOfRange = EnterCompanyTaxEBITDA must be between {0} and {1}
+enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.subheading = {0}
+enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.checkYourAnswersLabel = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
+enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
+enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
+enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
 
 # InvestmentNamePage Messages
 # ----------------------------------------------------------
@@ -624,25 +628,25 @@ investmentName.title = Enter the name of the investment
 investmentName.heading = Enter the name of the investment
 investmentName.checkYourAnswersLabel = Investment name
 investmentName.label= Enter the name of the investment
-investmentName.error.required = Enter investmentName
+investmentName.error.required = Enter the name of the investment
 investmentName.error.length = Investment name must be 160 characters or less
 
-# NetTaxInterestIncomeOrExpensePage Messages
+# InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
-netTaxInterestIncomeOrExpense.title = NetTaxInterestIncomeOrExpense
-netTaxInterestIncomeOrExpense.heading = NetTaxInterestIncomeOrExpense
-netTaxInterestIncomeOrExpense.expenseRadio = Net tax-interest expense
-netTaxInterestIncomeOrExpense.incomeRadio = Net tax-interest income
-netTaxInterestIncomeOrExpense.checkYourAnswersLabel = NetTaxInterestIncomeOrExpense
-netTaxInterestIncomeOrExpense.error.required = Select netTaxInterestIncomeOrExpense
+investmentsReviewAnswersList.plural.title = {0} investsments added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.singular.title = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.plural.heading = {0} investsments added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.singular.heading = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.addAnother = Do you need to add another investment?
+investmentsReviewAnswersList.error.required = Select yes if you need to add another investment
 
 # ConsentingCompanyPage Messages
 # ----------------------------------------------------------
-consentingCompany.title = consentingCompany
+consentingCompany.title = Is this a consenting company?
 consentingCompany.heading = Is this a consenting company?
+consentingCompany.subheading = {0}
 consentingCompany.checkYourAnswersLabel = Is this a consenting company?
-consentingCompany.error.required = Select yes if Is this a consenting company?
-
+consentingCompany.error.required = Select yes if this is a consenting company?
 
 # DeemedParentReviewAnswersListPage Messages
 # ----------------------------------------------------------
@@ -656,24 +660,46 @@ deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 
 
 # DeletionConfirmationPage Messages
 # ----------------------------------------------------------
-deletionConfirmation.title = Are you sure you want to delete deemed parent '{0}'?
-deletionConfirmation.heading = Are you sure you want to delete deemed parent '{0}'?
-deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent '{0}'?
-deletionConfirmation.error.required = Select yes if you want to delete deemed parent '{0}'
+deletionConfirmation.title = Are you sure you want to delete deemed parent ‘{0}’?
+deletionConfirmation.heading = Are you sure you want to delete deemed parent ‘{0}’?
+deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent ‘{0}’?
+deletionConfirmation.error.required = Select yes if you want to delete deemed parent ‘{0}’
 
 # InvestmentsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
 investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
-investmentsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
+
+# DerivedCompanyPage Messages
+# ----------------------------------------------------------
+derivedCompany.title = Check the totals for this return
+derivedCompany.heading = Check the totals for this return
+derivedCompany.p1 = We calculated these figures from the information you told us.
+derivedCompany.t1 = Companies added
+derivedCompany.t2 = Aggregate Tax-EBITDA
+derivedCompany.t3 = Aggregate net tax-interest
+derivedCompany.t4 = Total disallowed amount
+derivedCompany.t5 = Total reactivations
+derivedCompany.review = Review
+derivedCompany.confirm = Confirm
+
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+investorGroupsReviewAnswersList.plural.title = {0} Investor groups added for Group ratio (blended) election
+investorGroupsReviewAnswersList.singular.title = {0} Investor group added for Group ratio (blended) election
+investorGroupsReviewAnswersList.plural.heading = {0} Investor groups added for Group ratio (blended) election
+investorGroupsReviewAnswersList.singular.heading = {0} Investor group added for Group ratio (blended) election
+investorGroupsReviewAnswersList.addAnother = Do you need to add another investor group?
+investorGroupsReviewAnswersList.error.required = Select yes if you need to add another investor group
 
 # InvestorGroupsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
 investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
 investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
-investorGroupsDeletionConfirmation.error.required = Select yes if Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
 
 # NetTaxInterestIncomeOrExpensePage Messages
 # ----------------------------------------------------------
@@ -687,12 +713,27 @@ netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income 
 
 # CompanyDetailsPage Messages
 # ----------------------------------------------------------
-companyDetails.title = companyDetails
-companyDetails.heading = companyDetails
-companyDetails.checkYourAnswersLabel = companyDetails
-companyDetails.label = Company name
-companyDetails.error.required = Enter companyDetails
-companyDetails.error.length = CompanyDetails must be 160 characters or less
+companyDetails.title = Company details
+companyDetails.heading = Company details
+companyDetails.checkYourAnswersLabel = Company name
+companyDetails.companyName.label= Company name
+companyDetails.companyName.error.required = A company name must be entered
+companyDetails.companyName.error.length = Company name must be 160 characters or less
+companyDetails.ctutr.checkYourAnswersLabel = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
+companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
+companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid
+
+
+# InvestmentsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+ukCompaniesReviewAnswersList.singular.title = {0} company added
+ukCompaniesReviewAnswersList.plural.title = {0} companies added
+ukCompaniesReviewAnswersList.singular.heading = {0} company added
+ukCompaniesReviewAnswersList.plural.heading = {0} companies added
+ukCompaniesReviewAnswersList.addAnother = Do you need to add another company?
+ukCompaniesReviewAnswersList.error.required = Select yes if you need to add another company
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
@@ -701,14 +742,17 @@ netTaxInterestAmount.expense.heading = What is the {0} total net-tax interest ex
 netTaxInterestAmount.expense.label = What is the {0} total net-tax interest expense?
 netTaxInterestAmount.expense.subheading = {0}
 netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.error.nonNumeric = Value entered must be numeric
+netTaxInterestAmount.expense.error.required = Enter {0} total net-tax interest expense?
+netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be valid decimal or whole number
+netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
 netTaxInterestAmount.income.title = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.heading = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.label = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.subheading = {0}
 netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
-
-netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
-netTaxInterestAmount.error.invalidNumeric = The total net-tax interest must be valid decimal or whole number
-netTaxInterestAmount.error.outOfRange = The total net-tax interest must be between {0} and {1}
+netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
+netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
+netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
+netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}

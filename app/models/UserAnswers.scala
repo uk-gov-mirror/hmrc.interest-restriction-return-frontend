@@ -45,6 +45,12 @@ final case class UserAnswers(
     }
   }
 
+  def appendList[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], rds: Reads[A]): Try[UserAnswers] = {
+    setData(page.path, getList(page).+:(value)).map {
+      d => copy (data = d, lastPageSaved = Some(page))
+    }
+  }
+
   private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] = {
     data.setObject(path, Json.toJson(value)) match {
       case JsSuccess(jsValue, _) =>

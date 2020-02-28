@@ -17,21 +17,36 @@
 package navigation
 
 import base.SpecBase
+import controllers.routes
 import models._
 import pages.checkTotals.ReviewTaxEBITDAPage
+import pages.ukCompanies._
 
 class CheckTotalsNavigatorSpec extends SpecBase {
 
   val navigator = new CheckTotalsNavigator
 
-  "CheckTotalsNavigator" should {
+  "CheckTotalsNavigator" when {
 
-    "from the EnterCompanyTaxEBITDAPage" should {
+    "in Normal mode" must {
 
-      //TODO: Update a part of routing sub-task
-      "go to the ReviewTaxEBITDAPage page" in {
-        navigator.nextPage(ReviewTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
-          controllers.routes.UnderConstructionController.onPageLoad()
+      "go from the DerivedCompanyPage" should {
+
+        "to the UnderConstructionController" in {
+
+          navigator.nextPage(DerivedCompanyPage, NormalMode, emptyUserAnswers) mustBe
+            routes.UnderConstructionController.onPageLoad()
+        }
+
+      }
+
+      "from the EnterCompanyTaxEBITDAPage" should {
+
+        //TODO: Update a part of routing sub-task
+        "go to the ReviewTaxEBITDAPage page" in {
+          navigator.nextPage(ReviewTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
       }
     }
   }

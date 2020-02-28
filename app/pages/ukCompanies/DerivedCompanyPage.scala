@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.ukCompanies
 
-object BaseMessages {
+import pages.Page
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val confirm = "Confirm"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
-  val changeLink = "Change"
-  val yes = "Yes"
-  val no = "No"
-  val review = "Review"
-  val delete = "Delete"
+case object DerivedCompanyPage extends Page {
 
+  override def toString: String = "derivedCompany"
 }

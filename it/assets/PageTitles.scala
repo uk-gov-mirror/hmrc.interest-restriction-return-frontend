@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val derivedCompany = "Check the totals for this return"
   val companyDetails = "Company details"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
   val netTaxInterestAmount: String => String = name => s"What is the $name’${if (name.last.toLower != 's') 's'} total net-tax interest income?"

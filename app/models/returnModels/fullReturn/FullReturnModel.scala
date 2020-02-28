@@ -16,7 +16,6 @@
 
 package models.returnModels.fullReturn
 
-import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
 import models.returnModels._
 import play.api.libs.json.Json
 
@@ -35,26 +34,7 @@ case class FullReturnModel(agentDetails: AgentDetailsModel,
                            groupSubjectToInterestReactivation: Boolean,
                            totalReactivation: BigDecimal,
                            groupLevelAmount: GroupLevelAmountModel,
-                           adjustedGroupInterest: Option[AdjustedGroupInterestModel]) {
-
-  private val oSum: Seq[BigDecimal] => Option[BigDecimal] = {
-    case x if x.isEmpty => None
-    case x => Some(x.sum)
-  }
-
-  val numberOfUkCompanies: Int = ukCompanies.length
-
-  val aggregateNetTaxInterest: BigDecimal = (for {
-      ukCompany <- ukCompanies
-      incomeOrExpense <- ukCompany.netTaxInterestIncomeOrExpense
-      netTaxInterest <- ukCompany.netTaxInterest
-      amount = if(incomeOrExpense == NetTaxInterestIncome) netTaxInterest else netTaxInterest * -1
-    } yield amount).sum
-
-  val aggregateTaxEBITDA: BigDecimal = ukCompanies.flatMap(_.taxEBITDA).sum
-  val aggregateAllocatedRestrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
-  val aggregateAllocatedReactivations: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.currentPeriodReactivation)))
-}
+                           adjustedGroupInterest: Option[AdjustedGroupInterestModel])
 
 object FullReturnModel {
 

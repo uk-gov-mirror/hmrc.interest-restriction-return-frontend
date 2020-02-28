@@ -47,6 +47,7 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
+site.confirm = Confirm
 site.saveAndContinue = Save and continue
 site.submitAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
@@ -72,6 +73,7 @@ section.reportingCompany = About the reporting company
 section.groupStructure = Group structure
 section.elections = Elections
 section.ukCompanies = The companies involved
+section.checkTotals = Check totals
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -673,6 +675,17 @@ investmentsDeletionConfirmation.title = Are you sure you want to delete investme
 investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
 investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
+
+# DerivedCompanyPage Messages
+# ----------------------------------------------------------
+derivedCompany.title = Check the totals for this return
+derivedCompany.heading = Check the totals for this return
+derivedCompany.p1 = We calculated these figures from the information you told us.
+derivedCompany.t1 = Companies added
+derivedCompany.t2 = Aggregate Tax-EBITDA
+derivedCompany.t3 = Aggregate net tax-interest
+derivedCompany.t4 = Total disallowed amount
+derivedCompany.t5 = Total reactivations
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
