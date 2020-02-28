@@ -17,29 +17,30 @@
 package utils
 
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
-import models.NormalMode
 import models.returnModels.fullReturn.UkCompanyModel
-import play.api.mvc.Call
+import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import viewmodels.SummaryListRowHelper
 
-class CheckTotalsHelper extends SummaryListRowHelper {
+class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
 
-  def constructTotalsTable(ukCompanies: Seq[UkCompanyModel]): Seq[SummaryListRow] = {
+  def constructTotalsTable(ukCompanies: Seq[UkCompanyModel])(implicit messages: Messages): Seq[SummaryListRow] = {
     val derivedData = calculateSums(ukCompanies)
-    val numberOfUkCompanies = Some(summaryListRow("Companies added",
-      derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
-    val aggregateTaxEBITDA = Some(summaryListRow("Aggregate Tax-EBITDA",
-      s"£${derivedData.aggregateEbitda.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
-    val aggregateNetTaxInterest = Some(summaryListRow("Aggregate net tax-interest",
-      s"£${derivedData.aggregateInterest.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+    val numberOfUkCompanies = Some(summaryListRow(messages("derivedCompany.t1"),
+      derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+    val aggregateTaxEBITDA = Some(summaryListRow(messages("derivedCompany.t2"),
+      currencyFormat(derivedData.aggregateEbitda),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
+    val aggregateNetTaxInterest = Some(summaryListRow(messages("derivedCompany.t3"),
+      currencyFormat(derivedData.aggregateInterest),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
 
     val aggregateAllocatedRestrictions = derivedData.restrictions match {
-      case Some(r) => Some(summaryListRow("Total disallowed amount",s"£${r.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+      case Some(r) => Some(summaryListRow(messages("derivedCompany.t4"),
+        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
       case None => None
     }
     val aggregateAllocatedReactivations = derivedData.reactivations match {
-      case Some(r) => Some(summaryListRow("Total reactivations",s"£${r.toString}",(controllers.routes.UnderConstructionController.onPageLoad(),"Review")))
+      case Some(r) => Some(summaryListRow(messages("derivedCompany.t5"),
+        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("derivedCompany.review"))))
       case None => None
     }
     Seq(numberOfUkCompanies,aggregateTaxEBITDA,aggregateNetTaxInterest,aggregateAllocatedRestrictions,aggregateAllocatedReactivations).flatten
