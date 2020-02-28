@@ -267,7 +267,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = Reporting company details
+reportingCompany.checkYourAnswers.subheading = About the reporting company
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -593,16 +593,19 @@ investorGroupsAdded.checkYourAnswers.label = Group ratio (blended) investor grou
 investorGroupsAdded.checkYourAnswers.value.singular = {0} investor group added
 investorGroupsAdded.checkYourAnswers.value.plural = {0} investor groups added
 investorGroupsAdded.checkYourAnswers.review = Review investor groups
+investorGroupsAdded.checkYourAnswers.subheading = Elections
 
 consolidatedPartnershipsAdded.checkYourAnswers.label = Consolidated partnerships
 consolidatedPartnershipsAdded.checkYourAnswers.value.singular = {0} partnership added
 consolidatedPartnershipsAdded.checkYourAnswers.value.plural = {0} partnerships added
 consolidatedPartnershipsAdded.checkYourAnswers.review = Review partnerships
+consolidatedPartnershipsAdded.checkYourAnswers.subheading = Elections
 
 nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated investments
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+nonConsolidatedInvestmentsAdded.checkYourAnswers.subheading = Elections
 
 # AboutAddingUKCompaniesPage Messages
 # ----------------------------------------------------------
@@ -744,3 +747,9 @@ netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income
 ukCompaniesDeletionConfirmation.title = Are you sure you want to delete company ‘{0}’?
 ukCompaniesDeletionConfirmation.heading = Are you sure you want to delete company ‘{0}’?
 ukCompaniesDeletionConfirmation.error.required = Select yes if you want to delete company ‘{0}’
+
+# ReviewTaxEBITDA Messages
+# ----------------------------------------------------------
+reviewTaxEBITDA.checkYourAnswers.title = Review the Tax-EBITDA for companies in the group
+reviewTaxEBITDA.checkYourAnswers.heading = Review the Tax-EBITDA for companies in the group
+reviewTaxEBITDA.checkYourAnswers.subheading = Check totals

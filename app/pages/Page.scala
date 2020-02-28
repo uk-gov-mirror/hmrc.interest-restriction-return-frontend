@@ -18,6 +18,7 @@ package pages
 
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
+import pages.checkTotals.ReviewTaxEBITDAPage
 import pages.elections._
 import pages.groupStructure._
 import pages.startReturn._
@@ -34,6 +35,7 @@ object Page {
 
   val pages: Map[String, Page] = Map(
     UkCompaniesDeletionConfirmationPage.toString -> UkCompaniesDeletionConfirmationPage,
+    ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
     UkCompaniesPage.toString -> UkCompaniesPage,
     CompanyDetailsPage.toString -> CompanyDetailsPage,
     InvestorGroupsDeletionConfirmationPage.toString -> InvestorGroupsDeletionConfirmationPage,
