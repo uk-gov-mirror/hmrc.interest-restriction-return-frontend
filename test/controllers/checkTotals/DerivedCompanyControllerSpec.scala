@@ -40,7 +40,7 @@ class DerivedCompanyControllerSpec extends SpecBase with FeatureSwitching with M
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    checkTotalsNavigator = checkTotalsNavigator,
+    navigator = checkTotalsNavigator,
     checkTotalsHelper = checkTotalsHelper
   )
 

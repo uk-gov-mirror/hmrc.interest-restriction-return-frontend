@@ -22,20 +22,17 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
-import models.{CompanyDetailsModel, Mode}
-import models.returnModels.fullReturn.UkCompanyModel
+import models.NormalMode
 import navigation.CheckTotalsNavigator
-import pages.ukCompanies.{CompanyDetailsPage, UkCompaniesPage}
+import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
 
-import scala.concurrent.Future
-
 class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
-                                         val checkTotalsNavigator: CheckTotalsNavigator,
+                                         val navigator: CheckTotalsNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -53,7 +50,7 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    Future.successful(Redirect(controllers.routes.UnderConstructionController.onPageLoad()))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request => Redirect(navigator.nextPage(DerivedCompanyPage, NormalMode, request.userAnswers))
   }
 }
