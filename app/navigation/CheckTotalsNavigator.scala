@@ -30,8 +30,8 @@ class CheckTotalsNavigator @Inject()() extends Navigator {
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     DerivedCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ReviewTaxEBITDAPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
-    ReviewNetTaxInterestPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    ReviewTaxEBITDAPage -> (_ => controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()),
+    ReviewNetTaxInterestPage -> (_ => controllers.checkTotals.routes.DerivedCompanyController.onPageLoad())
   )
 
   //TODO update with CYA call

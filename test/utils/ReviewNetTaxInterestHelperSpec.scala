@@ -19,6 +19,7 @@ package utils
 import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages
 import base.SpecBase
+import models.CheckMode
 import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
@@ -42,18 +43,18 @@ class ReviewNetTaxInterestHelperSpec extends SpecBase with SummaryListRowHelper 
         helper.rows mustBe Seq(
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
-            s"$netTaxInterestExpense $NetTaxInterestExpense",
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.changeLink
+            s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
+            controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelReactivationMax.companyDetails.companyName,
-            s"$netTaxInterestExpense $NetTaxInterestExpense",
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.changeLink
+            s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
+            controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMin.companyDetails.companyName,
-            s"$netTaxInterestIncome $NetTaxInterestIncome",
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.changeLink
+            s"${currencyFormat(netTaxInterestIncome)} $NetTaxInterestIncome",
+            controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink
           )
         )
       }

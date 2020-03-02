@@ -16,7 +16,7 @@
 
 package utils
 
-import models.UserAnswers
+import models.{CheckMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
@@ -24,16 +24,16 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class ReviewNetTaxInterestHelper(val userAnswers: UserAnswers)
                                 (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).flatMap {
-    case model =>
+  def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).zipWithIndex.flatMap {
+    case (model, idx) =>
       for {
         amount <- model.netTaxInterest
         incomeOrExpense <- model.netTaxInterestIncomeOrExpense
       } yield {
         summaryListRow(
           label = model.companyDetails.companyName,
-          value = s"$amount $incomeOrExpense",
-          actions = controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.edit")
+          value = s"${currencyFormat(amount)} $incomeOrExpense",
+          actions = controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
         )
       }
   }

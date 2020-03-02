@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
-import pages.checkTotals.ReviewTaxEBITDAPage
+import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.ukCompanies._
 
 class CheckTotalsNavigatorSpec extends SpecBase {
@@ -37,15 +37,23 @@ class CheckTotalsNavigatorSpec extends SpecBase {
           navigator.nextPage(DerivedCompanyPage, NormalMode, emptyUserAnswers) mustBe
             routes.UnderConstructionController.onPageLoad()
         }
-
       }
 
-      "from the EnterCompanyTaxEBITDAPage" should {
+      "from the ReviewTaxEBITDAPage" should {
 
-        //TODO: Update a part of routing sub-task
-        "go to the ReviewTaxEBITDAPage page" in {
+        "go to the DerivedCompanyPage page" in {
+
           navigator.nextPage(ReviewTaxEBITDAPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
+        }
+      }
+
+      "from the ReviewNetTaxInterestPage" should {
+
+        "go to the DerivedCompanyPage page" in {
+
+          navigator.nextPage(ReviewNetTaxInterestPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
         }
       }
     }

@@ -67,9 +67,9 @@ class ReviewNetTaxInterestViewSpec extends ViewBehaviours with BaseConstants {
     implicit lazy val document = asDocument(applyView())
 
     checkYourAnswersRowChecks(
-      ukCompanyModelMax.companyDetails.companyName -> s"$netTaxInterestExpense $NetTaxInterestExpense",
-      ukCompanyModelReactivationMax.companyDetails.companyName -> s"$netTaxInterestExpense $NetTaxInterestExpense",
-      ukCompanyModelMin.companyDetails.companyName -> s"$netTaxInterestIncome $NetTaxInterestIncome"
+      ukCompanyModelMax.companyDetails.companyName -> s"${currency(netTaxInterestExpense)} $NetTaxInterestExpense",
+      ukCompanyModelReactivationMax.companyDetails.companyName -> s"${currency(netTaxInterestExpense)} $NetTaxInterestExpense",
+      ukCompanyModelMin.companyDetails.companyName -> s"${currency(netTaxInterestIncome)} $NetTaxInterestIncome"
     )
   }
 }
