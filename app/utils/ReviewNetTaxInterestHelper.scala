@@ -33,7 +33,7 @@ class ReviewNetTaxInterestHelper(val userAnswers: UserAnswers)
         summaryListRow(
           label = model.companyDetails.companyName,
           value = s"${currencyFormat(amount)} $incomeOrExpense",
-          actions = controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
+          actions = controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
         )
       }
   }
