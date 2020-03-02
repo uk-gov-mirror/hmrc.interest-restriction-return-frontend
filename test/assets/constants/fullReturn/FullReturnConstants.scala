@@ -33,7 +33,7 @@ object FullReturnConstants {
   val ackRef = "ackRef"
   val revisedReturnDetails = "some details"
   val angie: BigDecimal = 1.11
-  val totalReactivations: BigDecimal = ukCompanyModelReactivationMax.allocatedReactivations.foldLeft[BigDecimal](0) {
+  val totalReactivations: BigDecimal = ukCompanyModelReactivationMaxIncome.allocatedReactivations.foldLeft[BigDecimal](0) {
     (total, company) => total + company.currentPeriodReactivation
   }
 

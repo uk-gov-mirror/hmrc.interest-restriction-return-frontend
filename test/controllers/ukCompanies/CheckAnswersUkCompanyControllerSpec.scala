@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +16,28 @@
 
 package controllers.ukCompanies
 
+import assets.messages.{CheckAnswersUkCompanyMessages, CheckAnswersUkParentCompanyMessages, SectionHeaderMessages}
+import assets.constants.fullReturn.UkCompanyConstants._
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import models.NormalMode
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
 import play.api.test.Helpers._
-import views.html.ukCompanies.CheckAnswersUkCompanyView
+import views.ViewUtils.addPossessive
+import views.html.CheckYourAnswersView
 
 class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[CheckAnswersUkCompanyView]
+  val view = injector.instanceOf[CheckYourAnswersView]
 
   object Controller extends CheckAnswersUkCompanyController(
     messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    questionDeletionLookupService = questionDeletionLookupService,
+    navigator = FakeUkCompaniesNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -36,15 +45,44 @@ class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching
     view = view
   )
 
-  "CheckAnswersUkCompany Controller" must {
+  "Check Your Answers Controller" when {
 
-    "return OK and the correct view for a GET" in {
+    "calling the onPageLoad() method" must {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "return a OK (200) when given empty answers" in {
 
-      val result = Controller.onPageLoad(fakeRequest)
+        lazy val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1)).success.value
 
-      status(result) mustBe OK
+        mockGetAnswers(Some(userAnswers))
+
+        val result = Controller.onPageLoad(1)(fakeRequest)
+
+        status(result) mustEqual OK
+        titleOf(contentAsString(result)) mustEqual title(CheckAnswersUkCompanyMessages.title(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)), Some(SectionHeaderMessages.ukCompanies))
+      }
+    }
+
+    "calling the onSubmit() method" when {
+
+      "given a uk company" when {
+
+        "redirect to the next page in the navigator" in {
+
+          lazy val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1)).success.value
+
+          mockGetAnswers(Some(userAnswers))
+
+          val result = Controller.onSubmit(1)(fakeRequest)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeUkCompaniesNavigator.nextPage(
+            page = CheckAnswersUkCompanyPage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers,
+            id = Some(1)
+          ).url)
+        }
+      }
     }
   }
 }

@@ -16,16 +16,15 @@
 
 package utils
 
-import models.{CheckMode, CompanyDetailsModel, UserAnswers}
-import models.returnModels.fullReturn.UkCompanyModel
-import pages.ukCompanies.UkCompaniesPage
-import play.api.i18n.Messages
-import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
-import pages.ukCompanies._
 import controllers.ukCompanies.{routes => ukCompanyRoutes}
+import models.returnModels.fullReturn.UkCompanyModel
+import models.{CheckMode, CompanyDetailsModel, UserAnswers}
 import pages.QuestionPage
+import pages.ukCompanies.{UkCompaniesPage, _}
+import play.api.i18n.Messages
 import play.api.libs.json.Reads
 import play.api.mvc.Call
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 
 
 class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
@@ -35,12 +34,25 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
 
   private def companyDetailsModel(idx: Int): Option[CompanyDetailsModel] = ukCompanyModel(idx).map(_.companyDetails)
 
-  def companyDetails(idx: Int): Option[SummaryListRow] =
-    companyDetailsModel(idx).map(companyDetails =>
-      ukCompanyAnswer(
-        page = CompanyDetailsPage,
-        value = companyDetails,
-        changeLinkCall = ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode)
+  private def incomeOrExpense(idx: Int)(implicit messages: Messages) = {
+    val incomeOrExpense = ukCompanyModel(idx).flatMap(_.netTaxInterestIncomeOrExpense).getOrElse("None")
+      messages(s"netTaxInterestAmount.$incomeOrExpense")
+  }
+
+  def companyName(idx: Int): Option[SummaryListRow] =
+  companyDetailsModel(idx).map(_.companyName).map(companyName =>
+    summaryListRow(
+      label = messages("companyDetails.companyName.checkYourAnswersLabel", Seq()),
+      value = companyName,
+      (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
+    )
+  )
+  def ctutr(idx: Int): Option[SummaryListRow] =
+    companyDetailsModel(idx).map(_.ctutr).map(ctutr =>
+      summaryListRow(
+        label = messages("companyDetails.ctutr.checkYourAnswersLabel", Seq()),
+        value = ctutr,
+        (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     )
 
@@ -55,36 +67,27 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
 
   def enterCompanyTaxEBITDA(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.taxEBITDA.map(taxEBITDA =>
-      ukCompanyAnswer(
-        page = EnterCompanyTaxEBITDAPage,
-        value = taxEBITDA,
-        changeLinkCall = ukCompanyRoutes.EnterCompanyTaxEBITDAController.onPageLoad(idx, CheckMode)
-      )
-    ))
-
-  def netTaxInterestIncomeOrExpense(idx: Int): Option[SummaryListRow] =
-    ukCompanyModel(idx).flatMap(_.netTaxInterestIncomeOrExpense.map(netTaxInterestIncomeOrExpense =>
-      ukCompanyAnswer(
-        page = NetTaxInterestIncomeOrExpensePage,
-        value = netTaxInterestIncomeOrExpense,
-        changeLinkCall = ukCompanyRoutes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, CheckMode)
+      summaryListRow(
+        label = messages("enterCompanyTaxEBITDA.checkYourAnswersLabel", Seq()),
+        value = currencyFormat(taxEBITDA),
+        (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
 
   def netTaxInterestAmount(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.netTaxInterest.map(netTaxInterest =>
-      ukCompanyAnswer(
-        page = NetTaxInterestAmountPage,
-        value = netTaxInterest,
-        changeLinkCall = ukCompanyRoutes.NetTaxInterestAmountController.onPageLoad(idx, CheckMode)
+      summaryListRow(
+        label = messages("netTaxInterestAmount.checkYourAnswersLabel", Seq()),
+        value = s"${currencyFormat(netTaxInterest)} ${incomeOrExpense(idx)}",
+        (ukCompanyRoutes.NetTaxInterestAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
 
   def rows(idx: Int): Seq[SummaryListRow] = Seq(
-    companyDetails(idx),
+    companyName(idx),
+    ctutr(idx),
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
-    netTaxInterestIncomeOrExpense(idx),
     netTaxInterestAmount(idx)
   ).flatten
 

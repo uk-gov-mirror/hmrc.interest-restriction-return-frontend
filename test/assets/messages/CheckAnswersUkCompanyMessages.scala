@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package pages.ukCompanies
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+package assets.messages
 
-case object CheckAnswersUkCompanyPage extends QuestionPage[String] {
+object CheckAnswersUkCompanyMessages {
 
-  override def path: JsPath = JsPath \ toString
+  val title: String => String = name => s"Check $name details"
 
-  override def toString: String = "checkAnswersUkCompany"
+  val companyName= "Name"
+  val companyCTUTR = "CTUTR"
+  val consenting = "Consenting"
+  val taxEBITDA = "Tax-EBITDA"
+  val netTaxInterest = "Net tax-interest"
+  val income = "Income"
+  val expense = "Expense"
 }

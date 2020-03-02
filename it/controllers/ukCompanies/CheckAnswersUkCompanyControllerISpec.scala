@@ -17,29 +17,34 @@
 package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import assets.UkCompanyITConstants._
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
-import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import views.ViewUtils.addPossessive
 
 class CheckAnswersUkCompanyControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /ukCompanies/check-answers-uk-company" when {
+    "GET /uk-companies/1/check-answers-uk-company" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
+          lazy val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1)).success.value
+
+          setAnswers(userAnswers)
+
           AuthStub.authorised()
-          val res = getRequest("/ukCompanies/check-answers-uk-company")()
+          val res = getRequest("/uk-companies/1/check-answers-uk-company")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.checkAnswersUkCompany)
+              titleOf(PageTitles.checkAnswersUkCompany(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)))
             )
           }
         }
@@ -51,47 +56,7 @@ class CheckAnswersUkCompanyControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/check-answers-uk-company")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-  }
-
-  "in Change mode" when {
-
-    "GET /ukCompanies/check-answers-uk-company" when {
-
-      "user is authorised" should {
-
-        "return OK (200)" in {
-
-          AuthStub.authorised()
-
-          val res = getRequest("/ukCompanies/check-answers-uk-company/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.checkAnswersUkCompany)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/ukCompanies/check-answers-uk-company/change")()
+          val res = getRequest("/uk-companies/1/check-answers-uk-company")()
 
           whenReady(res) { result =>
             result should have(

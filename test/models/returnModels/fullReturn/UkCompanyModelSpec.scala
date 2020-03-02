@@ -28,8 +28,8 @@ class UkCompanyModelSpec extends WordSpec with MustMatchers {
 
       "max values given" in {
 
-        val expectedValue = ukCompanyReactivationJsonMax
-        val actualValue = Json.toJson(ukCompanyModelReactivationMax)
+        val expectedValue = ukCompanyReactivationJsonMaxIncome
+        val actualValue = Json.toJson(ukCompanyModelReactivationMaxIncome)
 
         actualValue mustBe expectedValue
       }

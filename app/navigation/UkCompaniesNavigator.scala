@@ -35,7 +35,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
     ConsentingCompanyPage -> ((idx, _) => checkYourAnswers(idx)),
     UkCompaniesPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()),
-    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad())
+    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
+    CheckAnswersUkCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
