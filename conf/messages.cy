@@ -47,6 +47,7 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.continue = Continue
+site.confirm = Confirm
 site.saveAndContinue = Save and continue
 site.submitAndContinue = Save and continue
 site.textarea.char_limit = (Limit is {0} characters)
@@ -619,7 +620,7 @@ enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
 enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
 enterCompanyTaxEBITDA.subheading = {0}
 enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
-enterCompanyTaxEBITDA.checkYourAnswersLabel = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.checkYourAnswersLabel = Tax-EBITDA
 enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
 enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
 enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
@@ -648,7 +649,7 @@ investmentsReviewAnswersList.error.required = Select yes if you need to add anot
 consentingCompany.title = Is this a consenting company?
 consentingCompany.heading = Is this a consenting company?
 consentingCompany.subheading = {0}
-consentingCompany.checkYourAnswersLabel = Is this a consenting company?
+consentingCompany.checkYourAnswersLabel = Consenting
 consentingCompany.error.required = Select yes if this is a consenting company?
 
 # DeemedParentReviewAnswersListPage Messages
@@ -665,14 +666,12 @@ deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 
 # ----------------------------------------------------------
 deletionConfirmation.title = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.heading = Are you sure you want to delete deemed parent ‘{0}’?
-deletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.error.required = Select yes if you want to delete deemed parent ‘{0}’
 
 # InvestmentsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
-investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’
-investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’
-investmentsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’?
+investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’?
 investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
 
 # DerivedCompanyPage Messages
@@ -682,20 +681,10 @@ derivedCompany.heading = Check the totals for this return
 derivedCompany.p1 = We calculated these figures from the information you told us.
 derivedCompany.t1 = Companies added
 derivedCompany.t2 = Aggregate Tax-EBITDA
-derivedCompany.t3 = Aggregate net tax-interest
+derivedCompany.t3-expense = Aggregate net tax-interest expense
+derivedCompany.t3-income = Aggregate net tax-interest income
 derivedCompany.t4 = Total disallowed amount
 derivedCompany.t5 = Total reactivations
-derivedCompany.review = Review
-derivedCompany.confirm = Confirm
-
-# InvestmentsReviewAnswersListPage Messages
-# ----------------------------------------------------------
-investorGroupsReviewAnswersList.plural.title = {0} Investor groups added for Group ratio (blended) election
-investorGroupsReviewAnswersList.singular.title = {0} Investor group added for Group ratio (blended) election
-investorGroupsReviewAnswersList.plural.heading = {0} Investor groups added for Group ratio (blended) election
-investorGroupsReviewAnswersList.singular.heading = {0} Investor group added for Group ratio (blended) election
-investorGroupsReviewAnswersList.addAnother = Do you need to add another investor group?
-investorGroupsReviewAnswersList.error.required = Select yes if you need to add another investor group
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
@@ -708,12 +697,11 @@ investorGroupsReviewAnswersList.error.required = Select yes if you need to add a
 
 # InvestorGroupsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
-investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’
-investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’
-investorGroupsDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’?
+investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’?
 investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
 
-# NetTaxInterestIncomeOrExpensePage Messages
+# CompanyDetailsPage Messages
 # ----------------------------------------------------------
 netTaxInterestIncomeOrExpense.title = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.heading = Which net tax-interest does {0} have?
@@ -727,16 +715,15 @@ netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income 
 # ----------------------------------------------------------
 companyDetails.title = Company details
 companyDetails.heading = Company details
-companyDetails.checkYourAnswersLabel = Company name
+companyDetails.companyName.checkYourAnswersLabel = Name
 companyDetails.companyName.label= Company name
 companyDetails.companyName.error.required = A company name must be entered
 companyDetails.companyName.error.length = Company name must be 160 characters or less
-companyDetails.ctutr.checkYourAnswersLabel = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.checkYourAnswersLabel = CTUTR
 companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
 companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
 companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
 companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid
-
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
@@ -769,16 +756,23 @@ netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest in
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
 
-netTaxInterestAmount.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.error.required = Enter {0} total net-tax interest?
-netTaxInterestAmount.error.invalidNumeric = The total net-tax interest must be valid decimal or whole number
-netTaxInterestAmount.error.outOfRange = The total net-tax interest must be between {0} and {1}
+netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest
+netTaxInterestAmount.income = Income
+netTaxInterestAmount.expense = Expense
 
 # CheckAnswersUkCompanyPage Messages
 # ----------------------------------------------------------
-checkAnswersUkCompany.title = checkAnswersUkCompany
-checkAnswersUkCompany.heading = checkAnswersUkCompany
+ukCompanies.checkYourAnswers.title = Check {0} details
+ukCompanies.checkYourAnswers.heading = Check {0} details
+ukCompanies.checkYourAnswers.subheading = The companies involved
+ukCompanies.checkYourAnswers.button = Confirm company
 
+
+# UkCompaniesDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+ukCompaniesDeletionConfirmation.title = Are you sure you want to delete company ‘{0}’?
+ukCompaniesDeletionConfirmation.heading = Are you sure you want to delete company ‘{0}’?
+ukCompaniesDeletionConfirmation.error.required = Select yes if you want to delete company ‘{0}’
 
 # ReviewTaxEBITDA Messages
 # ----------------------------------------------------------

@@ -30,9 +30,13 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
       derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
     val aggregateTaxEBITDA = Some(summaryListRow(messages("derivedCompany.t2"),
       currencyFormat(derivedData.aggregateEbitda),(controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad(),messages("site.review"))))
-    val aggregateNetTaxInterest = Some(summaryListRow(messages("derivedCompany.t3"),
-      currencyFormat(derivedData.aggregateInterest),(controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
-
+    val aggregateNetTaxInterest = if(derivedData.aggregateInterest>=0){
+      Some(summaryListRow(messages("derivedCompany.t3-income"),currencyFormat(derivedData.aggregateInterest),
+        (controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
+    } else {
+      Some(summaryListRow(messages("derivedCompany.t3-expense"),currencyFormat(derivedData.aggregateInterest.abs),
+        (controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
+    }
     val aggregateAllocatedRestrictions = derivedData.restrictions match {
       case Some(r) => Some(summaryListRow(messages("derivedCompany.t4"),
         currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
@@ -58,7 +62,10 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
       netTaxInterest <- ukCompany.netTaxInterest
       amount = if(incomeOrExpense == NetTaxInterestIncome) netTaxInterest else netTaxInterest * -1
     } yield amount).sum
-    val aggregateEbitda: BigDecimal = ukCompanies.flatMap(_.taxEBITDA).sum
+    val aggregateEbitda: BigDecimal = ukCompanies.flatMap(_.taxEBITDA).sum match {
+      case sum if sum > 0.0 => sum
+      case _ => 0.0
+    }
     val restrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
     val reactivations: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.currentPeriodReactivation)))
 

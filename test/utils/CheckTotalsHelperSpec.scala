@@ -23,6 +23,7 @@ import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 import assets.constants.fullReturn.FullReturnConstants.{fullReturnModelMax, fullReturnModelMin, fullReturnNetTaxExpenseModelMax, fullReturnNetTaxIncomeModelMax}
 import assets.constants.fullReturn.UkCompanyConstants.{netTaxInterestIncome, _}
 import base.SpecBase
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
 
   val helper = new CheckTotalsHelper
@@ -164,6 +165,24 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
         allocatedReactivations = Some(allocatedReactivationsModel))))
 
       result.length mustBe 5
+    }
+
+    "say net tax interest income if it is income" in {
+
+      val result = helper.constructTotalsTable(Seq(model.copy(netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+        netTaxInterest = Some(100.0))))
+
+      result(2).key.content.asHtml.toString() mustBe "Aggregate net tax-interest income"
+      result(2).value.content.asHtml.toString() mustBe "&pound;100"
+    }
+
+    "say net tax interest expense if it is expense" in {
+
+      val result = helper.constructTotalsTable(Seq(model.copy(netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
+        netTaxInterest = Some(100.0))))
+
+      result(2).key.content.asHtml.toString() mustBe "Aggregate net tax-interest expense"
+      result(2).value.content.asHtml.toString() mustBe "&pound;100"
     }
   }
 
