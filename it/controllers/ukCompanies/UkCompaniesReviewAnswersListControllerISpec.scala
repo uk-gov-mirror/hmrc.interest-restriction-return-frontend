@@ -122,7 +122,6 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
         "Add another company is false" must {
 
-          //TODO: Update as part of future routing sub-task
           "redirect to Under Construction page" in {
 
             AuthStub.authorised()
@@ -137,7 +136,7 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.checkTotals.routes.DerivedCompanyController.onPageLoad().url)
               )
             }
           }

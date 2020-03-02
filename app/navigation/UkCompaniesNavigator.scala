@@ -35,7 +35,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
     ConsentingCompanyPage -> ((idx, _) => checkYourAnswers(idx)),
     CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
-    UkCompaniesPage -> ((_,_) => controllers.routes.UnderConstructionController.onPageLoad()),
+    UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad())
   )
 
@@ -45,7 +45,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
 
   //TODO update with Next Section call
-  def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
+  def nextSection(mode: Mode): Call = controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
   def addCompany(numberOfCompanies: Int): Call = routes.CompanyDetailsController.onPageLoad(numberOfCompanies + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {

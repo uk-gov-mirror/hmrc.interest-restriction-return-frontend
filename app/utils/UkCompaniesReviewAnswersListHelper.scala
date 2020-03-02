@@ -28,7 +28,7 @@ class UkCompaniesReviewAnswersListHelper(val userAnswers: UserAnswers)
     case (model, idx) => summaryListRow(
       model.companyDetails.companyName,
       model.companyDetails.ctutr,
-      controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.review"),
+      controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(idx + 1) -> messages("site.review"),
       controllers.ukCompanies.routes.UkCompaniesDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )
   }

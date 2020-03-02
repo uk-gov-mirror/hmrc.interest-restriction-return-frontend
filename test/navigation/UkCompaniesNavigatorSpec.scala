@@ -90,6 +90,14 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.UkCompaniesReviewAnswersListController.onPageLoad()
         }
       }
+
+      "from the UkCompaniesPage" should {
+
+        "go to the DerivedCompany page" in {
+          navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {
