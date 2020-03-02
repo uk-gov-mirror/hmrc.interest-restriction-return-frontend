@@ -29,7 +29,7 @@ class UkCompaniesReviewAnswersListHelper(val userAnswers: UserAnswers)
       model.companyDetails.companyName,
       model.companyDetails.ctutr,
       controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.review"),
-      controllers.routes.UnderConstructionController.onPageLoad() -> messages("site.delete")
+      controllers.ukCompanies.routes.UkCompaniesDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )
   }
 }

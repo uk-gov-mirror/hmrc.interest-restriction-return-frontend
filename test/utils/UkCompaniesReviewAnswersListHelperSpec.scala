@@ -43,19 +43,19 @@ class UkCompaniesReviewAnswersListHelperSpec extends SpecBase with SummaryListRo
             ukCompanyModelMax.companyDetails.companyName,
             ukCompanyModelMax.companyDetails.ctutr,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            controllers.ukCompanies.routes.UkCompaniesDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             ukCompanyModelMax.companyDetails.ctutr,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            controllers.ukCompanies.routes.UkCompaniesDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             ukCompanyModelMax.companyDetails.ctutr,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review,
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.delete
+            controllers.ukCompanies.routes.UkCompaniesDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )
         )
       }

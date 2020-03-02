@@ -12,6 +12,11 @@ POST       /                                                    controllers.ukCo
 GET        /about-adding-uk-companies                           controllers.ukCompanies.AboutAddingUKCompaniesController.onPageLoad()
 POST       /about-adding-uk-companies                           controllers.ukCompanies.AboutAddingUKCompaniesController.onSubmit()
 
+### UkCompaniesDeletionConfirmation Controller
+### ----------------------------------------
+GET        /:idx/deletion-confirmation                          controllers.ukCompanies.UkCompaniesDeletionConfirmationController.onPageLoad(idx: Int)
+POST       /:idx/deletion-confirmation                          controllers.ukCompanies.UkCompaniesDeletionConfirmationController.onSubmit(idx: Int)
+
 ### CompanyDetailsModel Controller
 ### ----------------------------------------
 GET        /:idx/company-details                                controllers.ukCompanies.CompanyDetailsController.onPageLoad(idx: Int, mode: Mode = NormalMode)

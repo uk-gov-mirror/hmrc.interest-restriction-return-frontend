@@ -17,9 +17,9 @@
 package navigation
 
 import base.SpecBase
-import models._
 import controllers.ukCompanies.routes
-import pages.ukCompanies._
+import models._
+import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -82,6 +82,14 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
+
+      "from the UkCompanies Deletion Confirmation Page" should {
+
+        "go to the UkCompanies List View page" in {
+          navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
+            routes.UkCompaniesReviewAnswersListController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {
@@ -90,6 +98,13 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       "go to Under Construction" in {
         navigator.nextPage(EnterCompanyTaxEBITDAPage, CheckMode, emptyUserAnswers) mustBe
           controllers.routes.UnderConstructionController.onPageLoad()
+      }
+    }
+
+    ".addCompany(numOfCompanies: Int)" must {
+
+      "return a call to add the next UK Company by going to the Company Details page for the next IDX" in {
+        navigator.addCompany(1) mustBe routes.CompanyDetailsController.onPageLoad(2, NormalMode)
       }
     }
   }

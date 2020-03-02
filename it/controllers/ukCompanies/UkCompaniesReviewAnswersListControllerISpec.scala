@@ -18,6 +18,7 @@ package controllers.ukCompanies
 
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import pages.groupStructure.HasDeemedParentPage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
@@ -59,7 +60,7 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
         "there are NO companies in the list" should {
 
-          "return SEE_OTHER (303)" in {
+          "return SEE_OTHER (303) and redirect to the add Company Details (Name & UTR) page" in {
 
             AuthStub.authorised()
 
@@ -68,7 +69,7 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url) //TODO: Update to route to Name & UTR page when merged into master
+                redirectLocation(routes.CompanyDetailsController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -113,7 +114,7 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url) //TODO: Update to route to Name & UTR page when merged into master
+                redirectLocation(routes.CompanyDetailsController.onPageLoad(2, NormalMode).url)
               )
             }
           }

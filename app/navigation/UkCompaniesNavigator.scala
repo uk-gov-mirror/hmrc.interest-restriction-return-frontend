@@ -34,7 +34,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
     ConsentingCompanyPage -> ((idx, _) => checkYourAnswers(idx)),
-    UkCompaniesPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad())
+    UkCompaniesPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()),
+    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
@@ -44,7 +45,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   //TODO update with Next Section call
   def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
-  def addCompany(numberOfCompanies: Int): Call = controllers.routes.UnderConstructionController.onPageLoad() //TODO: Update with Company Name & UTR Call
+  def addCompany(numberOfCompanies: Int): Call = routes.CompanyDetailsController.onPageLoad(numberOfCompanies + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
