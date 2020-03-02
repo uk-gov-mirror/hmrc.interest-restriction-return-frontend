@@ -31,9 +31,11 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
     val aggregateTaxEBITDA = Some(summaryListRow(messages("derivedCompany.t2"),
       currencyFormat(derivedData.aggregateEbitda),(controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad(),messages("site.review"))))
     val aggregateNetTaxInterest = if(derivedData.aggregateInterest>=0){
-      Some(summaryListRow(messages("derivedCompany.t3-income"),currencyFormat(derivedData.aggregateInterest),(controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
+      Some(summaryListRow(messages("derivedCompany.t3-income"),currencyFormat(derivedData.aggregateInterest),
+        (controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
     } else {
-      Some(summaryListRow(messages("derivedCompany.t3-expense"),currencyFormat(derivedData.aggregateInterest.abs),(controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
+      Some(summaryListRow(messages("derivedCompany.t3-expense"),currencyFormat(derivedData.aggregateInterest.abs),
+        (controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
     }
     val aggregateAllocatedRestrictions = derivedData.restrictions match {
       case Some(r) => Some(summaryListRow(messages("derivedCompany.t4"),
