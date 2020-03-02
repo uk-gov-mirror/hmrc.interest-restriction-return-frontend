@@ -173,16 +173,16 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
         netTaxInterest = Some(100.0))))
 
       result(2).key.content.asHtml.toString() mustBe "Aggregate net tax-interest income"
-      result(2).value.content.asHtml.toString() mustBe "100.0"
+      result(2).value.content.asHtml.toString() mustBe "£100"
     }
 
     "say net tax interest expense if it is expense" in {
 
       val result = helper.constructTotalsTable(Seq(model.copy(netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
-        netTaxInterest = Some(-100.0))))
+        netTaxInterest = Some(100.0))))
 
       result(2).key.content.asHtml.toString() mustBe "Aggregate net tax-interest expense"
-      result(2).value.content.asHtml.toString() mustBe "100.0"
+      result(2).value.content.asHtml.toString() mustBe "£100.0"
     }
   }
 
