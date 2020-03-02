@@ -34,6 +34,7 @@ object PageTitles {
   val groupRatioBlendedElection = "Are you making a blended group ratio election?"
   val enterQNGIE = "Enter the qualifying net group-interest expense (QNGIE)"
   val checkAnswersGroupStructure = "Check parent company details"
+  val reviewNetTaxInterest = "Review the net tax-interest for companies in the group"
   val reviewTaxEBITDA = "Review the Tax-EBITDA for companies in the group"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
   val groupRatioElection = "Are you making a group ratio election?"

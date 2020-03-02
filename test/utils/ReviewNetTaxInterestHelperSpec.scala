@@ -19,41 +19,42 @@ package utils
 import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages
 import base.SpecBase
-import models.NormalMode
+import models.CheckMode
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
 
 
-class ReviewTaxEBITDARowsHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class ReviewNetTaxInterestHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
-  "ReviewTaxEBITDARowsHelper.rows" when {
+  "ReviewNetTaxInterestHelper.rows" when {
 
     "given a list of uk companies" should {
 
       "return the correct summary list row models" in {
 
-        val helper = new ReviewTaxEBITDARowsHelper(
+        val helper = new ReviewNetTaxInterestHelper(
           emptyUserAnswers
             .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-            .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get
-            .set(UkCompaniesPage, ukCompanyModelMax, Some(3)).get
+            .set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(2)).get
+            .set(UkCompaniesPage, ukCompanyModelMin, Some(3)).get
         )
 
         helper.rows mustBe Seq(
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
-            currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
-            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode) -> BaseMessages.changeLink
+            s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
+            controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
-            ukCompanyModelMax.companyDetails.companyName,
-            currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
-            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(2, NormalMode) -> BaseMessages.changeLink
+            ukCompanyModelReactivationMaxExpense.companyDetails.companyName,
+            s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
+            controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
-            ukCompanyModelMax.companyDetails.companyName,
-            currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
-            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(3, NormalMode) -> BaseMessages.changeLink
+            ukCompanyModelMin.companyDetails.companyName,
+            s"${currencyFormat(netTaxInterestIncome)} $NetTaxInterestIncome",
+            controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink
           )
         )
       }

@@ -22,11 +22,11 @@ import play.api.libs.json.JsString
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ReviewTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class ReviewNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /check-totals/review-tax-ebitda" when {
+    "GET /check-totals/review-net-tax-interest" when {
 
       "user is authorised" should {
 
@@ -34,12 +34,12 @@ class ReviewTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.authorised()
 
-          val res = getRequest("/check-totals/review-tax-ebitda")()
+          val res = getRequest("/check-totals/review-net-tax-interest")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.reviewTaxEBITDA)
+              titleOf(PageTitles.reviewNetTaxInterest)
             )
           }
         }
@@ -51,7 +51,7 @@ class ReviewTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/check-totals/review-tax-ebitda")()
+          val res = getRequest("/check-totals/review-net-tax-interest")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class ReviewTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequ
       }
     }
 
-    "POST /check-totals/review-tax-ebitda" when {
+    "POST /check-totals/review-net-tax-interest" when {
 
       "user is authorised" when {
 
@@ -71,7 +71,7 @@ class ReviewTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.authorised()
 
-          val res = postRequest("/check-totals/review-tax-ebitda", JsString(""))()
+          val res = postRequest("/check-totals/review-net-tax-interest", JsString(""))()
 
           whenReady(res) { result =>
             result should have(
@@ -88,7 +88,7 @@ class ReviewTaxEBITDAControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/check-totals/review-tax-ebitda", JsString(""))()
+          val res = postRequest("/check-totals/review-net-tax-interest", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

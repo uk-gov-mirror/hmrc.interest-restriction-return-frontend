@@ -16,21 +16,25 @@
 
 package utils
 
-import models.{NormalMode, UserAnswers}
+import models.{CheckMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class ReviewTaxEBITDARowsHelper(val userAnswers: UserAnswers)
-                               (implicit val messages: Messages) extends CheckYourAnswersHelper {
+class ReviewNetTaxInterestHelper(val userAnswers: UserAnswers)
+                                (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
   def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).zipWithIndex.flatMap {
-    case (model, idx) => model.taxEBITDA.map { ebitda =>
+    case (model, idx) =>
+      for {
+        amount <- model.netTaxInterest
+        incomeOrExpense <- model.netTaxInterestIncomeOrExpense
+      } yield {
         summaryListRow(
-          model.companyDetails.companyName,
-          currencyFormat(ebitda),
-          controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx + 1, NormalMode) -> messages("site.edit")
-      )
-    }
+          label = model.companyDetails.companyName,
+          value = s"${currencyFormat(amount)} $incomeOrExpense",
+          actions = controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
+        )
+      }
   }
 }

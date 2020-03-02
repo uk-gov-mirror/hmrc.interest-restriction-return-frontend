@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package assets.messages
+package assets.messages.checkTotals
 
-object SectionHeaderMessages {
+object ReviewNetTaxInterestMessages {
 
-  val aboutReturn = "About the return"
-  val reportingCompany = "About the reporting company"
-  val agents = "Agents"
-  val groupStructure = "Group structure"
-  val elections = "Elections"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
+  val title = "Review the net tax-interest for companies in the group"
+
 }

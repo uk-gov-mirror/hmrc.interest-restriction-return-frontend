@@ -13,3 +13,8 @@ POST       /derived-company                                   controllers.checkT
 ### ----------------------------------------
 GET        /review-tax-ebitda                  controllers.checkTotals.ReviewTaxEBITDAController.onPageLoad
 POST       /review-tax-ebitda                  controllers.checkTotals.ReviewTaxEBITDAController.onSubmit
+
+### ReviewNetTaxInterest Controller
+### ----------------------------------------
+GET        /review-net-tax-interest            controllers.checkTotals.ReviewNetTaxInterestController.onPageLoad()
+POST       /review-net-tax-interest            controllers.checkTotals.ReviewNetTaxInterestController.onSubmit()
