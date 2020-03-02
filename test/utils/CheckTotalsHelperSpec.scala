@@ -167,14 +167,6 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
       result.length mustBe 5
     }
 
-    "given the first 3 mandatory fields, 'restrictions' and 'reactivations', should hide nothing" in {
-
-      val result = helper.constructTotalsTable(Seq(model.copy(allocatedRestrictions = Some(allocatedRestrictionsModel),
-        allocatedReactivations = Some(allocatedReactivationsModel))))
-
-      result.length mustBe 5
-    }
-
     "say net tax interest income if it is income" in {
 
       val result = helper.constructTotalsTable(Seq(model.copy(netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
