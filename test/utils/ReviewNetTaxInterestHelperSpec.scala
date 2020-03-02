@@ -36,7 +36,7 @@ class ReviewNetTaxInterestHelperSpec extends SpecBase with SummaryListRowHelper 
         val helper = new ReviewNetTaxInterestHelper(
           emptyUserAnswers
             .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-            .set(UkCompaniesPage, ukCompanyModelReactivationMax, Some(2)).get
+            .set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(2)).get
             .set(UkCompaniesPage, ukCompanyModelMin, Some(3)).get
         )
 
@@ -47,7 +47,7 @@ class ReviewNetTaxInterestHelperSpec extends SpecBase with SummaryListRowHelper 
             controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
-            ukCompanyModelReactivationMax.companyDetails.companyName,
+            ukCompanyModelReactivationMaxExpense.companyDetails.companyName,
             s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
             controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink
           ),

@@ -39,7 +39,7 @@ class ReviewNetTaxInterestViewSpec extends ViewBehaviours with BaseConstants {
 
   val userAnswers = emptyUserAnswers
     .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-    .set(UkCompaniesPage, ukCompanyModelReactivationMax, Some(2)).get
+    .set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(2)).get
     .set(UkCompaniesPage, ukCompanyModelMin, Some(3)).get
 
 
@@ -68,7 +68,7 @@ class ReviewNetTaxInterestViewSpec extends ViewBehaviours with BaseConstants {
 
     checkYourAnswersRowChecks(
       ukCompanyModelMax.companyDetails.companyName -> s"${currency(netTaxInterestExpense)} $NetTaxInterestExpense",
-      ukCompanyModelReactivationMax.companyDetails.companyName -> s"${currency(netTaxInterestExpense)} $NetTaxInterestExpense",
+      ukCompanyModelReactivationMaxExpense.companyDetails.companyName -> s"${currency(netTaxInterestExpense)} $NetTaxInterestExpense",
       ukCompanyModelMin.companyDetails.companyName -> s"${currency(netTaxInterestIncome)} $NetTaxInterestIncome"
     )
   }
