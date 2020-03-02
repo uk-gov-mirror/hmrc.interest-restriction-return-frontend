@@ -173,7 +173,7 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
         netTaxInterest = Some(100.0))))
 
       result(2).key.content.asHtml.toString() mustBe "Aggregate net tax-interest income"
-      result(2).value.content.asHtml.toString() mustBe "£100"
+      result(2).value.content.asHtml.toString() mustBe "&pound;100"
     }
 
     "say net tax interest expense if it is expense" in {
@@ -182,7 +182,7 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
         netTaxInterest = Some(100.0))))
 
       result(2).key.content.asHtml.toString() mustBe "Aggregate net tax-interest expense"
-      result(2).value.content.asHtml.toString() mustBe "£100.0"
+      result(2).value.content.asHtml.toString() mustBe "&pound;100.0"
     }
   }
 
