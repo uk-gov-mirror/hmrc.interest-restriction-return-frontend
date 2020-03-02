@@ -70,7 +70,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("enterCompanyTaxEBITDA.checkYourAnswersLabel", Seq()),
         value = currencyFormat(taxEBITDA),
-        (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
+        (ukCompanyRoutes.EnterCompanyTaxEBITDAController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
 
