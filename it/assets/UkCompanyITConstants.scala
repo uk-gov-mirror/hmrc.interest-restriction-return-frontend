@@ -19,6 +19,7 @@ package assets
 import AllocatedReactivationsITConstants._
 import AllocatedRestrictionsITConstants._
 import models.CompanyDetailsModel
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import models.returnModels.fullReturn.UkCompanyModel
 import play.api.libs.json.Json
 
@@ -51,39 +52,82 @@ object UkCompanyITConstants extends BaseITConstants {
     "allocatedReactivations" -> allocatedReactivationsJson
   )
 
-  val ukCompanyModelReactivationMax = UkCompanyModel(
+  val ukCompanyModelReactivationMaxIncome = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+    netTaxInterest = Some(netTaxInterestIncome),
+    taxEBITDA = Some(taxEBITDA),
+    allocatedRestrictions = None,
+    allocatedReactivations = Some(allocatedReactivationsModel)
+  )
+
+  val ukCompanyReactivationJsonMaxIncome = Json.obj(
+    "companyDetails" -> companyDetailsJson,
+    "consenting" -> true,
+    "netTaxInterestIncomeOrExpense" -> NetTaxInterestIncome.toString,
+    "netTaxInterest" -> netTaxInterestIncome,
+    "taxEBITDA" -> taxEBITDA,
+    "allocatedReactivations" -> allocatedReactivationsJson
+  )
+
+  val ukCompanyModelRestrictionMaxIncome = UkCompanyModel(
+    companyDetails = companyDetailsModel,
+    consenting = Some(true),
+    netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+    netTaxInterest = Some(netTaxInterestIncome),
+    taxEBITDA = Some(taxEBITDA),
+    allocatedRestrictions = Some(allocatedRestrictionsModel),
+    allocatedReactivations = None
+  )
+
+  val ukCompanyRestrictionJsonMaxIncome = Json.obj(
+    "companyDetails" -> companyDetailsJson,
+    "consenting" -> true,
+    "netTaxInterestIncomeOrExpense" -> NetTaxInterestIncome.toString,
+    "netTaxInterest" -> netTaxInterestIncome,
+    "taxEBITDA" -> taxEBITDA,
+    "allocatedRestrictions" -> allocatedRestrictionsJson
+  )
+
+  val ukCompanyModelReactivationMaxExpense = UkCompanyModel(
+    companyDetails = companyDetailsModel,
+    consenting = Some(true),
+    netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
     netTaxInterest = Some(netTaxInterestExpense),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
 
-  val ukCompanyReactivationJsonMax = Json.obj(
+  val ukCompanyReactivationJsonMaxExpense = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "netTaxInterestIncomeOrExpense" -> NetTaxInterestExpense.toString,
     "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedReactivations" -> allocatedReactivationsJson
   )
 
-  val ukCompanyModelRestrictionMax = UkCompanyModel(
+  val ukCompanyModelRestrictionMaxExpense = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
     netTaxInterest = Some(netTaxInterestExpense),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None
   )
 
-  val ukCompanyRestrictionJsonMax = Json.obj(
+  val ukCompanyRestrictionJsonMaxExpense = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "netTaxInterestIncomeOrExpense" -> NetTaxInterestExpense.toString,
     "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson
   )
+
 
   val ukCompanyModelMin = UkCompanyModel(
     companyDetails = companyDetailsModel,

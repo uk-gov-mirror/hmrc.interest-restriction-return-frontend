@@ -620,7 +620,7 @@ enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
 enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
 enterCompanyTaxEBITDA.subheading = {0}
 enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
-enterCompanyTaxEBITDA.checkYourAnswersLabel = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.checkYourAnswersLabel = Tax-EBITDA
 enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
 enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
 enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
@@ -649,7 +649,7 @@ investmentsReviewAnswersList.error.required = Select yes if you need to add anot
 consentingCompany.title = Is this a consenting company?
 consentingCompany.heading = Is this a consenting company?
 consentingCompany.subheading = {0}
-consentingCompany.checkYourAnswersLabel = Is this a consenting company?
+consentingCompany.checkYourAnswersLabel = Consenting
 consentingCompany.error.required = Select yes if this is a consenting company?
 
 # DeemedParentReviewAnswersListPage Messages
@@ -714,11 +714,11 @@ netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income 
 # ----------------------------------------------------------
 companyDetails.title = Company details
 companyDetails.heading = Company details
-companyDetails.checkYourAnswersLabel = Company name
+companyDetails.companyName.checkYourAnswersLabel = Name
 companyDetails.companyName.label= Company name
 companyDetails.companyName.error.required = A company name must be entered
 companyDetails.companyName.error.length = Company name must be 160 characters or less
-companyDetails.ctutr.checkYourAnswersLabel = Corporation Tax Unique Taxpayer Reference
+companyDetails.ctutr.checkYourAnswersLabel = CTUTR
 companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
 companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
 companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
@@ -754,6 +754,18 @@ netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
+
+netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest
+netTaxInterestAmount.income = Income
+netTaxInterestAmount.expense = Expense
+
+# CheckAnswersUkCompanyPage Messages
+# ----------------------------------------------------------
+ukCompanies.checkYourAnswers.title = Check {0} details
+ukCompanies.checkYourAnswers.heading = Check {0} details
+ukCompanies.checkYourAnswers.subheading = The companies involved
+ukCompanies.checkYourAnswers.button = Confirm company
+
 
 # UkCompaniesDeletionConfirmationPage Messages
 # ----------------------------------------------------------

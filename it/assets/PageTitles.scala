@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val checkAnswersUkCompany: String => String = name => s"Check $name details"
   val derivedCompany = "Check the totals for this return"
   val companyDetails = "Company details"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"

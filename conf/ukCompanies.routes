@@ -51,3 +51,8 @@ GET        /:idx/consenting-company                             controllers.ukCo
 POST       /:idx/consenting-company                             controllers.ukCompanies.ConsentingCompanyController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/consenting-company/change                      controllers.ukCompanies.ConsentingCompanyController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/consenting-company/change                      controllers.ukCompanies.ConsentingCompanyController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### CheckAnswersUkCompany Controller
+### ----------------------------------------
+GET        /:idx/check-answers-uk-company                         controllers.ukCompanies.CheckAnswersUkCompanyController.onPageLoad(idx: Int)
+POST       /:idx/check-answers-uk-company                         controllers.ukCompanies.CheckAnswersUkCompanyController.onSubmit(idx: Int)

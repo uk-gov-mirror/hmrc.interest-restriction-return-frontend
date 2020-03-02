@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package models
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import play.api.libs.json.Json
+case object CheckAnswersUkCompanyPage extends QuestionPage[String] {
 
-case class CompanyDetailsModel(companyName: String, ctutr: String)
-object CompanyDetailsModel {
+  override def path: JsPath = JsPath \ toString
 
-  implicit val format = Json.format[CompanyDetailsModel]
+  override def toString: String = "checkAnswersUkCompany"
 }

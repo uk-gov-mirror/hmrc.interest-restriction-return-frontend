@@ -34,6 +34,10 @@ object Section {
     override val toString = "elections"
   }
 
+  object UkCompanies extends Section {
+    override val toString = "ukCompanies"
+  }
+
   object ReviewTaxEBITDA extends Section {
     override val toString = "reviewTaxEBITDA"
   }
