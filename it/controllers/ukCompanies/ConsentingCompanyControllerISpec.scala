@@ -83,7 +83,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
               )
             }
           }

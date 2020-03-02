@@ -76,10 +76,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the ConsentingCompanyPage to the" should {
 
-        "Under Construction page" in {
+        "Check your answers page" in {
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
 
@@ -94,10 +94,9 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      //TODO: Update as part of future CYA story
       "go to Under Construction" in {
-        navigator.nextPage(EnterCompanyTaxEBITDAPage, CheckMode, emptyUserAnswers) mustBe
-          controllers.routes.UnderConstructionController.onPageLoad()
+        navigator.nextPage(CheckAnswersUkCompanyPage, CheckMode, emptyUserAnswers) mustBe
+          routes.CheckAnswersUkCompanyController.onPageLoad(1)
       }
     }
 

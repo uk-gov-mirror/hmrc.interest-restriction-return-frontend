@@ -34,15 +34,15 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
     ConsentingCompanyPage -> ((idx, _) => checkYourAnswers(idx)),
-    UkCompaniesPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()),
-    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
-    CheckAnswersUkCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
+    CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
+    UkCompaniesPage -> ((_,_) => controllers.routes.UnderConstructionController.onPageLoad()),
+    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   //TODO update with CYA call
-  private def checkYourAnswers(idx: String): Call = controllers.routes.UnderConstructionController.onPageLoad()
+  private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
 
   //TODO update with Next Section call
   def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
