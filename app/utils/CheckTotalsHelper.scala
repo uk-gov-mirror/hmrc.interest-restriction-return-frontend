@@ -27,7 +27,7 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
   def constructTotalsTable(ukCompanies: Seq[UkCompanyModel])(implicit messages: Messages): Seq[SummaryListRow] = {
     val derivedData = calculateSums(ukCompanies)
     val numberOfUkCompanies = Some(summaryListRow(messages("derivedCompany.t1"),
-      derivedData.ukCompaniesLength.toString,(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
+      derivedData.ukCompaniesLength.toString,(controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),messages("site.review"))))
     val aggregateTaxEBITDA = Some(summaryListRow(messages("derivedCompany.t2"),
       currencyFormat(derivedData.aggregateEbitda),(controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad(),messages("site.review"))))
     val aggregateNetTaxInterest = if(derivedData.aggregateInterest>=0){

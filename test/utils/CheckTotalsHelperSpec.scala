@@ -17,14 +17,17 @@
 package utils
 
 import assets.constants.BaseConstants
-import assets.constants.fullReturn.AllocatedReactivationsConstants._
-import assets.constants.fullReturn.AllocatedReactivationsConstants.currentPeriodReactivation
+import assets.constants.fullReturn.AllocatedReactivationsConstants.{currentPeriodReactivation, _}
 import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 import assets.constants.fullReturn.FullReturnConstants.{fullReturnModelMax, fullReturnModelMin, fullReturnNetTaxExpenseModelMax, fullReturnNetTaxIncomeModelMax}
 import assets.constants.fullReturn.UkCompanyConstants.{netTaxInterestIncome, _}
+import assets.messages.BaseMessages
 import base.SpecBase
 import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
-class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
+import viewmodels.SummaryListRowHelper
+import assets.messages.checkTotals.CheckTotalsMessages
+
+class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
 
   val helper = new CheckTotalsHelper
 
@@ -134,6 +137,40 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
 
   "constructTotalsTable" when {
 
+    "must contain the correct summary list rows with the correct links" in {
+
+      val result = helper.constructTotalsTable(Seq(ukCompanyModelMax))
+
+      result mustBe
+        Seq(
+          summaryListRow(
+            CheckTotalsMessages.t1,
+            "1",
+            controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad() -> BaseMessages.review
+          ),
+          summaryListRow(
+            CheckTotalsMessages.t2,
+            currencyFormat(taxEBITDA),
+            controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad() -> BaseMessages.review
+          ),
+          summaryListRow(
+            CheckTotalsMessages.t3Expense,
+            currencyFormat(netTaxInterestExpense),
+            controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad() -> BaseMessages.review
+          ),
+          summaryListRow(
+            CheckTotalsMessages.t4,
+            currencyFormat(totalDisallowances),
+            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review
+          ),
+          summaryListRow(
+            CheckTotalsMessages.t5,
+            currencyFormat(currentPeriodReactivation),
+            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review
+          )
+        )
+    }
+
     val model = fullReturnModelMin.ukCompanies.head
 
     "given the first 3 mandatory fields, should not display the last 2 optional fields" in {
@@ -185,5 +222,4 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants{
       result(2).value.content.asHtml.toString() mustBe "&pound;100"
     }
   }
-
 }
