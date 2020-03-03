@@ -16,7 +16,7 @@
 
 package utils
 
-import models.{NormalMode, UserAnswers}
+import models.{CheckMode, NormalMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
@@ -29,7 +29,7 @@ class ReviewTaxEBITDARowsHelper(val userAnswers: UserAnswers)
         summaryListRow(
           model.companyDetails.companyName,
           currencyFormat(ebitda),
-          controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx + 1, NormalMode) -> messages("site.edit")
+          controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
       )
     }
   }
