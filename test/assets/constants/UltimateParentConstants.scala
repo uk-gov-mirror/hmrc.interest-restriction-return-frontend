@@ -26,66 +26,48 @@ object UltimateParentConstants extends BaseConstants {
   val ultimateParentModelMax = UltimateParentModel(
     isUk = true,
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     ctutr = Some(ctutrModel),
     sautr = Some(sautrModel),
-    crn = Some(crnLetters),
-    nonUkCrn = Some(nonUkCrn),
     countryOfIncorporation = Some(nonUkCountryCode)
   )
 
   val ultimateParentModelMin = UltimateParentModel(
     isUk = true,
     companyName = companyNameModel,
-    knownAs = None,
     ctutr = None,
     sautr = None,
-    crn = None,
-    nonUkCrn = None,
     countryOfIncorporation = None
   )
 
   val ultimateParentModelUkCompany = UltimateParentModel(
     isUk = true,
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     ctutr = Some(ctutrModel),
     sautr = None,
-    crn = Some(crnLetters),
-    nonUkCrn = None,
     countryOfIncorporation = None
   )
 
   val ultimateParentModelNonUkCompany = UltimateParentModel(
     isUk = false,
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     ctutr = None,
     sautr = None,
-    crn = None,
-    nonUkCrn = Some(nonUkCrn),
     countryOfIncorporation = Some(nonUkCountryCode)
   )
 
   val ultimateParentModelUkPartnership = UltimateParentModel(
     isUk = true,
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     ctutr = None,
     sautr = Some(sautrModel),
-    crn = Some(crnLetters),
-    nonUkCrn = None,
     countryOfIncorporation = None
   )
 
   val ultimateParentJsonMax = Json.obj(
     "isUk" -> true,
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
     "ctutr" -> ctutrModel,
     "sautr" -> sautrModel,
-    "crn" -> crnLetters,
-    "nonUkCrn" -> nonUkCrn,
     "countryOfIncorporation" -> nonUkCountryCode
   )
 
@@ -97,24 +79,18 @@ object UltimateParentConstants extends BaseConstants {
   val ultimateParentJsonUkCompany = Json.obj(
     "isUk" -> true,
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
-    "ctutr" -> ctutrModel,
-    "crn" -> crnLetters
+    "ctutr" -> ctutrModel
   )
 
   val ultimateParentJsonNonUkCompany = Json.obj(
     "isUk" -> false,
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
-    "nonUkCrn" -> nonUkCrn,
     "countryOfIncorporation" -> nonUkCountryCode
   )
 
   val ultimateParentJsonUkPartnership = Json.obj(
     "isUk" -> true,
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
-    "sautr" -> ctutrModel,
-    "crn" -> crnLetters
+    "sautr" -> ctutrModel
   )
 }

@@ -20,7 +20,7 @@ import assets.constants.DeemedParentConstants._
 import base.SpecBase
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.groupStructure.{CheckAnswersGroupStructurePage, CountryOfIncorporationPage, DeemedParentPage, HasDeemedParentPage, LimitedLiabilityPartnershipPage, LocalRegistrationNumberPage, ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, RegisteredCompaniesHousePage, RegisteredForTaxInAnotherCountryPage, ReportingCompanySameAsParentPage}
+import pages.groupStructure._
 
 class GroupStructureNavigatorSpec extends SpecBase {
 
@@ -42,12 +42,12 @@ class GroupStructureNavigatorSpec extends SpecBase {
               groupStructureRoutes.HasDeemedParentController.onPageLoad(NormalMode)
           }
 
-          "go to the Revising Return page when given true" in {
+          "go to the Group Ratio Election page when given true" in {
 
             val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, true).success.value
 
             navigator.nextPage(ReportingCompanySameAsParentPage, NormalMode, userAnswers, Some(1)) mustBe
-              controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+              controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode)
           }
 
           "go to the ReportingCompanySameAsParentPage if not answered" in {
@@ -105,13 +105,13 @@ class GroupStructureNavigatorSpec extends SpecBase {
               groupStructureRoutes.LimitedLiabilityPartnershipController.onPageLoad(1, NormalMode)
           }
 
-          "go to the Registered For Tax in Another country page when given false" in {
+          "go to the Country of Incorporation Page when given false" in {
 
             val userAnswers = emptyUserAnswers
               .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
 
             navigator.nextPage(PayTaxInUkPage, NormalMode, userAnswers, Some(1)) mustBe
-              groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(1, NormalMode)
+              groupStructureRoutes.CountryOfIncorporationController.onPageLoad(1, NormalMode)
           }
 
           "go to the PayTaxInUkPage if not answered" in {
@@ -150,113 +150,54 @@ class GroupStructureNavigatorSpec extends SpecBase {
 
         "from the ParentCompanyCTUTRPage" should {
 
-          "go to the RegisteredCompaniesHousePage" in {
+          "go to the Check Answers page" in {
 
             navigator.nextPage(ParentCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-              groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(1, NormalMode)
-          }
-        }
-
-        "from the RegisteredCompaniesHousePage" should {
-
-          "go to the ParentCRNController when given true" in {
-
-            val userAnswers = emptyUserAnswers
-              .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
-
-            navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers, Some(1)) mustBe
-              groupStructureRoutes.ParentCRNController.onPageLoad(1, NormalMode)
-          }
-
-          "go to the RevisingReturnController when given false" in {
-
-            val userAnswers = emptyUserAnswers
-              .set(DeemedParentPage, deemedParentModelUkCompany.copy(registeredCompaniesHouse = Some(false)), Some(1)).success.value
-
-            navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, userAnswers, Some(1)) mustBe
               groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
           }
-
-          "go to the RegisteredCompaniesHousePage when no answer" in {
-
-            navigator.nextPage(RegisteredCompaniesHousePage, NormalMode, emptyUserAnswers) mustBe
-              groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(1, NormalMode)
-          }
         }
+
 
         "from the ParentCompanySAUTRPage" should {
 
-          "go to the ParentCRNPage" in {
+          "go to the Check Answers page" in {
 
             navigator.nextPage(ParentCompanySAUTRPage, NormalMode, emptyUserAnswers) mustBe
-              groupStructureRoutes.ParentCRNController.onPageLoad(1, NormalMode)
-          }
-        }
-
-        "from the ParentCRNPage" should {
-
-          "go to the RevisingReturnPage" in {
-
-            navigator.nextPage(ParentCRNPage, NormalMode, emptyUserAnswers) mustBe
-              groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
-          }
-        }
-
-        "from the Registered For Tax In Another country page" should {
-
-          "go to the Country of Incorporation page when true" in {
-
-            val userAnswers = emptyUserAnswers
-              .set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
-
-            navigator.nextPage(RegisteredForTaxInAnotherCountryPage, NormalMode, userAnswers, Some(1)) mustBe
-              groupStructureRoutes.CountryOfIncorporationController.onPageLoad(1, NormalMode)
-          }
-
-          "go to the Check Your Answers page when false" in {
-
-            val userAnswers = emptyUserAnswers
-              .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
-
-            navigator.nextPage(RegisteredForTaxInAnotherCountryPage, NormalMode, userAnswers, Some(1)) mustBe
               groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
           }
         }
 
         "from the Country of Incorporation page" should {
 
-          "go to the Local CRN page" in {
+          "go to the Check Answers page" in {
 
             navigator.nextPage(CountryOfIncorporationPage, NormalMode, emptyUserAnswers) mustBe
-              groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(1, NormalMode)
-          }
-        }
-
-        "from the Local CRN page" should {
-
-          "go to the Check Your Answers page" in {
-
-            navigator.nextPage(LocalRegistrationNumberPage, NormalMode, emptyUserAnswers) mustBe
               groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
           }
         }
 
         "from the check answers page" should {
 
-          "go to the DeemedParentReviewAnswersList page when given true" in {
+          "when parent company is deemed" should {
 
-            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+            "go to the DeemedParentReviewAnswersList page" in {
 
-            navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
-              groupStructureRoutes.DeemedParentReviewAnswersListController.onPageLoad()
+              val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+
+              navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
+                groupStructureRoutes.DeemedParentReviewAnswersListController.onPageLoad()
+            }
           }
 
-          "go to the revisingReturn page when given false" in {
+          "when parent company is ultimate" should {
 
-            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+            "go to the group ratio election page when given false" in {
 
-            navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
-              controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode)
+              val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+
+              navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
+                controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode)
+            }
           }
 
           "go to the HasDeemedParent page no given answers for HasDeemedParentPage" in {

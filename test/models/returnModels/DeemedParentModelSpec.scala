@@ -18,8 +18,6 @@ package models.returnModels
 
 import assets.constants.DeemedParentConstants._
 import base.SpecBase
-import models.ErrorModel
-import pages.groupStructure.{ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage}
 import play.api.libs.json.Json
 
 class DeemedParentModelSpec extends SpecBase {

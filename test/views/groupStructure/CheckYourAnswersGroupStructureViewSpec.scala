@@ -67,9 +67,7 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupSt
           CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkCompany.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "No",
-          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> deemedParentModelUkCompany.ctutr.get.utr,
-          CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkCompany.crn.get.crn
+          CheckAnswersGroupStructureMessages.parentCompanyCTUTR -> deemedParentModelUkCompany.ctutr.get.utr
         )
       }
 
@@ -97,8 +95,7 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupSt
           CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelUkPartnership.companyName.name,
           CheckAnswersGroupStructureMessages.payTaxInUk -> "Yes",
           CheckAnswersGroupStructureMessages.limitedLiabilityPartnership -> "Yes",
-          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> deemedParentModelUkPartnership.sautr.get.utr,
-          CheckAnswersGroupStructureMessages.parentCRN -> deemedParentModelUkPartnership.crn.get.crn
+          CheckAnswersGroupStructureMessages.parentCompanySAUTR -> deemedParentModelUkPartnership.sautr.get.utr
         )
       }
 
@@ -124,10 +121,8 @@ class CheckYourAnswersGroupStructureViewSpec extends ViewBehaviours with GroupSt
           CheckAnswersGroupStructureMessages.reportingCompanySameAsParent ->  "No",
           CheckAnswersGroupStructureMessages.deemedParent -> "No",
           CheckAnswersGroupStructureMessages.parentCompanyName -> deemedParentModelNonUkCompany.companyName.name,
-          CheckAnswersGroupStructureMessages.payTaxInUk -> "No",
-          CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry -> "Yes",
-          CheckAnswersGroupStructureMessages.registeredCountry -> deemedParentModelNonUkCompany.countryOfIncorporation.get.country,
-          CheckAnswersGroupStructureMessages.localCRN -> deemedParentModelNonUkCompany.nonUkCrn.get
+          CheckAnswersGroupStructureMessages.payTaxInUk -> "No" ,
+          CheckAnswersGroupStructureMessages.registeredCountry -> deemedParentModelNonUkCompany.countryOfIncorporation.get.country
         )
       }
   }

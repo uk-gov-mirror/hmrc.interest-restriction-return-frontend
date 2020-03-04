@@ -95,7 +95,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" should {
 
-          "redirect to ParentCRN page" in {
+          "redirect to check answers page" in {
 
             AuthStub.authorised()
             setAnswers(
@@ -107,7 +107,7 @@ class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.ParentCRNController.onPageLoad(1, NormalMode).url)
+                redirectLocation(groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }
