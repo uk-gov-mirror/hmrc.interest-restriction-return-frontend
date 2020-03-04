@@ -69,8 +69,8 @@ timeout.signOut = Sign out
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutReturn = About the return
-section.reportingCompany = Ultimate parent company
-section.groupStructure = Group structure
+section.reportingCompany = About the reporting company
+section.groupStructure = Ultimate parent company
 section.elections = Elections
 section.ukCompanies = The companies involved
 section.checkTotals = Check totals
@@ -269,7 +269,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = Ultimate parent company
+reportingCompany.checkYourAnswers.subheading = About the reporting company
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -412,7 +412,7 @@ countryOfIncorporation.hint = (Optional)
 # ----------------------------------------------------------
 groupStructure.checkYourAnswers.title = Check parent company details
 groupStructure.checkYourAnswers.heading = Check parent company details
-groupStructure.checkYourAnswers.subheading = Group structure
+groupStructure.checkYourAnswers.subheading = Ultimate parent company
 
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------
