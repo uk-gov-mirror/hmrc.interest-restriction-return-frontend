@@ -69,7 +69,7 @@ timeout.signOut = Sign out
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutReturn = About the return
-section.reportingCompany = About the reporting company
+section.reportingCompany = Ultimate Parent Company
 section.groupStructure = Group structure
 section.elections = Elections
 section.ukCompanies = The companies involved
@@ -269,7 +269,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = About the reporting company
+reportingCompany.checkYourAnswers.subheading = Ultimate Parent Company
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
