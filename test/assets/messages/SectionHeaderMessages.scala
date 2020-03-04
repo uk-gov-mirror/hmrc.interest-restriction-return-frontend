@@ -19,7 +19,7 @@ package assets.messages
 object SectionHeaderMessages {
 
   val aboutReturn = "About the return"
-  val reportingCompany = "Ultimate Parent Company"
+  val reportingCompany = "Ultimate parent company"
   val agents = "Agents"
   val groupStructure = "Group structure"
   val elections = "Elections"
