@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package controllers.accountingPeriodEnd
+package controllers.aboutReturn
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -27,14 +25,14 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
   "in Normal mode" when {
 
-    "GET /accountingPeriodEnd/accounting-period-end" when {
+    "GET /about-return/accounting-period-end" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/accountingPeriodEnd/accounting-period-end")()
+          val res = getRequest("/about-return/accounting-period-end")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +49,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/accountingPeriodEnd/accounting-period-end")()
+          val res = getRequest("/about-return/accounting-period-end")()
 
           whenReady(res) { result =>
             result should have(
@@ -74,7 +72,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.authorised()
 
-          val res = getRequest("/accountingPeriodEnd/accounting-period-end/change")()
+          val res = getRequest("/about-return/accounting-period-end/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -91,7 +89,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/accountingPeriodEnd/accounting-period-end/change")()
+          val res = getRequest("/about-return/accounting-period-end/change")()
 
           whenReady(res) { result =>
             result should have(

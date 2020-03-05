@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package controllers.accountingPeriodStart
+package controllers.aboutReturn
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -27,14 +25,14 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
   "in Normal mode" when {
 
-    "GET /accountingPeriodStart/accounting-period-start" when {
+    "GET /about-return/accounting-period-start" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/accountingPeriodStart/accounting-period-start")()
+          val res = getRequest("/about-return/accounting-period-start")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +49,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/accountingPeriodStart/accounting-period-start")()
+          val res = getRequest("/about-return/accounting-period-start")()
 
           whenReady(res) { result =>
             result should have(
@@ -66,7 +64,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
   "in Change mode" when {
 
-    "GET /accountingPeriodStart/accounting-period-start" when {
+    "GET /about-return/accounting-period-start" when {
 
       "user is authorised" should {
 
@@ -74,7 +72,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.authorised()
 
-          val res = getRequest("/accountingPeriodStart/accounting-period-start/change")()
+          val res = getRequest("/about-return/accounting-period-start/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -91,7 +89,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/accountingPeriodStart/accounting-period-start/change")()
+          val res = getRequest("/about-return/accounting-period-start/change")()
 
           whenReady(res) { result =>
             result should have(

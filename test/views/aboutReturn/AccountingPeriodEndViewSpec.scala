@@ -29,7 +29,7 @@ import views.html.aboutReturn.AccountingPeriodEndView
 class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "accountingPeriodEnd"
-  val section = Some(messages("section.accountingPeriodEnd"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new AccountingPeriodEndFormProvider()()
 
     "AccountingPeriodEndView" must {

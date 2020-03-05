@@ -34,13 +34,13 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "accountingPeriodStart.title", Some("section.accountingPeriodStart")))) {
+@govukLayout(pageTitle = Some(title(form, "accountingPeriodStart.title", Some("section.aboutReturn")))) {
 
     @formHelper(action = AccountingPeriodStartController.onSubmit(mode), 'autoComplete -> "on") {
 
         @errorSummary(form.errors, Some("date-value.day"))
 
-        @subheading("section.accountingPeriodStart")
+        @subheading("section.aboutReturn")
 
         @inputDate(form, "accountingPeriodStart.heading")
 
