@@ -71,7 +71,8 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
             postAction = routes.CountryOfIncorporationController.onSubmit(idx, mode)
           ))),
         value => {
-          val updatedModel = deemedParentModel.copy(countryOfIncorporation = Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value)))
+          val countryModel = if(value.isEmpty) None else Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value))
+          val updatedModel = deemedParentModel.copy(countryOfIncorporation = countryModel)
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
