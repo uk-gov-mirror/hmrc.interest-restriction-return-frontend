@@ -25,7 +25,8 @@ import controllers.actions._
 import forms.aboutReturn.AccountingPeriodEndFormProvider
 import models.Mode
 import navigation.AboutReturnNavigator
-import pages.aboutReturn.AccountingPeriodEndPage
+import pages.aboutReturn.{AccountingPeriodEndPage, AccountingPeriodStartPage}
+import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -45,18 +46,24 @@ class AccountingPeriodEndController @Inject()(
                                                formProvider: AccountingPeriodEndFormProvider,
                                                val controllerComponents: MessagesControllerComponents,
                                                view: AccountingPeriodEndView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                             )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(AccountingPeriodEndPage, formProvider()), mode))
+    request.userAnswers.get(AccountingPeriodStartPage) match {
+      case None => Logger.debug(s"[AccountingPeriodEndController][onPageLoad] GET attempt to submit invalid AP end date")
+        Redirect(controllers.routes.UnderConstructionController.onPageLoad())
+      case Some(startDate) => Ok(view(fillForm(AccountingPeriodEndPage, formProvider(startDate)), mode))
+    }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(AccountingPeriodEndPage, value, mode)
-    )
+    request.userAnswers.get(AccountingPeriodStartPage) match {
+      case None=> Logger.debug(s"[AccountingPeriodEndController][onSubmit] POST attempt to submit invalid AP end date")
+        Future.successful(Redirect(controllers.routes.UnderConstructionController.onPageLoad()))
+      case Some(startDate) => formProvider(startDate).bindFromRequest ().fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+        value => saveAndRedirect(AccountingPeriodEndPage, value, mode)
+      )
+    }
   }
 }

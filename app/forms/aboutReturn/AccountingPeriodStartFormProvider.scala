@@ -16,7 +16,7 @@
 
 package forms.aboutReturn
 
-import java.time.LocalDate
+import java.time.{Instant, LocalDate, ZoneOffset}
 import javax.inject.Inject
 
 import forms.mappings.Mappings
@@ -24,13 +24,16 @@ import play.api.data.Form
 
 class AccountingPeriodStartFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[LocalDate] =
+  def apply(): Form[LocalDate] = {
+    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
     Form(
       "value" -> localDate(
-        invalidKey     = "accountingPeriodStart.error.invalid",
+        invalidKey = "accountingPeriodStart.error.invalid",
         allRequiredKey = "accountingPeriodStart.error.required.all",
         twoRequiredKey = "accountingPeriodStart.error.required.two",
-        requiredKey    = "accountingPeriodStart.error.required"
+        requiredKey = "accountingPeriodStart.error.required"
       )
+        .verifying("accountingPeriodStart.error.invalid", period => !period.isAfter(now))
     )
+  }
 }

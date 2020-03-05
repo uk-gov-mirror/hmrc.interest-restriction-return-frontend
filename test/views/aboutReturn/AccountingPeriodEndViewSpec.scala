@@ -16,7 +16,7 @@
 
 package views.aboutReturn
 
-import java.time.LocalDate
+import java.time.{Instant, LocalDate, ZoneOffset}
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.aboutReturn.AccountingPeriodEndFormProvider
@@ -30,7 +30,8 @@ class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "accountingPeriodEnd"
   val section = Some(messages("section.aboutReturn"))
-  val form = new AccountingPeriodEndFormProvider()()
+  val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+  val form = new AccountingPeriodEndFormProvider().apply(now)
 
     "AccountingPeriodEndView" must {
 

@@ -33,9 +33,9 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
 
   val view = injector.instanceOf[AccountingPeriodEndView]
   val formProvider = injector.instanceOf[AccountingPeriodEndFormProvider]
-  val form = formProvider()
 
   val validAnswer = LocalDate.now(ZoneOffset.UTC)
+  val form = formProvider(validAnswer)
 
   object Controller extends AccountingPeriodEndController(
     messagesApi = messagesApi,

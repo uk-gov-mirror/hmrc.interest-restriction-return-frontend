@@ -16,13 +16,14 @@
 
 package forms.aboutReturn
 
-import java.time.{LocalDate, ZoneOffset}
+import java.time.{Instant, LocalDate, ZoneOffset}
 
 import forms.behaviours.DateBehaviours
 
 class AccountingPeriodEndFormProviderSpec extends DateBehaviours {
 
-  val form = new AccountingPeriodEndFormProvider()()
+  val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+  def form(startDate: LocalDate) = new AccountingPeriodEndFormProvider().apply(startDate)
 
   ".value" should {
 
@@ -31,8 +32,38 @@ class AccountingPeriodEndFormProviderSpec extends DateBehaviours {
       max = LocalDate.now(ZoneOffset.UTC)
     )
 
-    behave like dateField(form, "value", validData)
+    behave like dateField(form(now), "value", validData)
 
-    behave like mandatoryDateField(form, "value", "accountingPeriodEnd.error.required.all")
+    behave like mandatoryDateField(form(now), "value", "accountingPeriodEnd.error.required.all")
+  }
+
+  "end date" should {
+
+    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+
+    "pass validation if 1 day after the start date" in {
+      form(startDate = now).fillAndValidate(now.plusDays(1)).errors.length mustBe 0
+    }
+
+    "pass validation if 18 months after the start date" in {
+      form(startDate = now).fillAndValidate(now.plusMonths(18)).errors.length mustBe 0
+    }
+
+    "pass validation if 17 months and 27 days after the start date" in {
+      form(startDate = now).fillAndValidate(now.plusMonths(17).plusDays(27)).errors.length mustBe 0
+    }
+
+    "fail validation if 18 months and 1 day after the start date" in {
+      form(startDate = now).fillAndValidate(now.plusMonths(18).plusDays(1)).errors.length mustBe 1
+    }
+
+    "fail validation if both are the same date in"  in {
+      form(startDate = now).fillAndValidate(now).errors.length mustBe 1
+    }
+
+    "fail validation if after start date"  in {
+      form(startDate = now).fillAndValidate(now.minusDays(1)).errors.length mustBe 1
+    }
+
   }
 }

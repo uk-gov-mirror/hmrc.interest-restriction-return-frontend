@@ -24,7 +24,7 @@ import play.api.data.Form
 
 class AccountingPeriodEndFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[LocalDate] =
+  def apply(startDate: LocalDate): Form[LocalDate] =
     Form(
       "value" -> localDate(
         invalidKey     = "accountingPeriodEnd.error.invalid",
@@ -32,5 +32,8 @@ class AccountingPeriodEndFormProvider @Inject() extends Mappings {
         twoRequiredKey = "accountingPeriodEnd.error.required.two",
         requiredKey    = "accountingPeriodEnd.error.required"
       )
+        .verifying("accountingPeriodEnd.error.invalid", endDate =>
+          endDate.isAfter(startDate) && !endDate.minusMonths(18).isAfter(startDate))
+
     )
 }
