@@ -1,6 +1,8 @@
 package assets
 
 object PageTitles {
+  val accountingPeriodStart = "AccountingPeriodStart"
+  val accountingPeriodEnd = "AccountingPeriodEnd"
   val checkAnswersUkCompany: String => String = name => s"Check $name details"
   val derivedCompany = "Check the totals for this return"
   val companyDetails = "Company details"
