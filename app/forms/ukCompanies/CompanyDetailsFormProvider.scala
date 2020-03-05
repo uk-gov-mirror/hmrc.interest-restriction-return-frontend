@@ -15,21 +15,27 @@
  */
 
 package forms.ukCompanies
+
 import forms.UTRFormValidation
 import forms.mappings.Mappings
 import javax.inject.Inject
 import models.CompanyDetailsModel
 import play.api.data.Form
 import play.api.data.Forms._
+import utils.RemoveWhitespace
 
 
-class CompanyDetailsFormProvider @Inject() extends Mappings with UTRFormValidation {
+class CompanyDetailsFormProvider @Inject() extends Mappings with UTRFormValidation with RemoveWhitespace{
 
   def apply(): Form[CompanyDetailsModel] =
     Form(mapping(
       "companyNameValue" -> text("companyDetails.companyName.error.required")
         .verifying(maxLength(160, "companyDetails.companyName.error.length")),
       "ctutrValue" -> text("companyDetails.ctutr.error.required")
+        .transform(
+          (value: String) => removeWhitespace(value): String,
+          (x: String) => x
+        )
         .verifying(regexp("^[0-9]{10}$", "companyDetails.ctutr.error.regexp"))
         .verifying(checksum("companyDetails.ctutr.error.checksum"))
     )(CompanyDetailsModel.apply)(CompanyDetailsModel.unapply)

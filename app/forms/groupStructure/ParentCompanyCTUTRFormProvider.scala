@@ -16,17 +16,13 @@
 
 package forms.groupStructure
 
-import forms.UTRFormValidation
-import forms.mappings.Mappings
+import forms.UTRForm
 import javax.inject.Inject
+import pages.groupStructure.ParentCompanyCTUTRPage
 import play.api.data.Form
 
-class ParentCompanyCTUTRFormProvider @Inject() extends Mappings with UTRFormValidation {
+class ParentCompanyCTUTRFormProvider @Inject() extends UTRForm {
 
   def apply(): Form[String] =
-    Form(
-      "value" -> text("parentCompanyCTUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "parentCompanyCTUTR.error.regexp"))
-        .verifying(checksum("parentCompanyCTUTR.error.checksum"))
-    )
+    utrForm(ParentCompanyCTUTRPage)
 }

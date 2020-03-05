@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package utils
 
-import forms.UTRForm
-import javax.inject.Inject
-import pages.aboutReportingCompany.ReportingCompanyCTUTRPage
-import play.api.data.Form
+import scala.language.implicitConversions
 
-class ReportingCompanyCTUTRFormProvider @Inject() extends UTRForm{
-
-  def apply(): Form[String] =
-    utrForm(ReportingCompanyCTUTRPage)
+trait RemoveWhitespace {
+  def removeWhitespace(string: String): String = {
+    string.split("\\s+").mkString
+  }
 }
