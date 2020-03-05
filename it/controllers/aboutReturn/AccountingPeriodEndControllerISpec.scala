@@ -16,12 +16,18 @@
 
 package controllers.aboutReturn
 
+import java.time.{Instant, ZoneOffset}
+
 import assets.{BaseITConstants, PageTitles}
+import pages.aboutReturn.AccountingPeriodStartPage
 import play.api.http.Status._
+import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+
+  val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
 
   "in Normal mode" when {
 
@@ -30,6 +36,8 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
       "user is authorised" should {
 
         "return OK (200)" in {
+
+          setAnswers(AccountingPeriodStartPage,now)
 
           AuthStub.authorised()
           val res = getRequest("/about-return/accounting-period-end")()
@@ -60,6 +68,51 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
         }
       }
     }
+
+    "POST /about-return/accounting-period-end" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to Under Construction Page" in {
+
+            setAnswers(AccountingPeriodStartPage,now)
+
+            AuthStub.authorised()
+
+            val res = postRequest("/about-return/accounting-period-end",
+              Json.obj("value.day" -> now.plusDays(1).getDayOfMonth,
+                "value.month" -> now.plusDays(1).getMonthValue,
+                "value.year" -> now.plusDays(1).getYear))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/about-return/accounting-period-end", Json.obj("value" -> now.plusMonths(1)))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
   }
 
   "in Change mode" when {
@@ -69,6 +122,8 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
       "user is authorised" should {
 
         "return OK (200)" in {
+
+          setAnswers(AccountingPeriodStartPage,now)
 
           AuthStub.authorised()
 
