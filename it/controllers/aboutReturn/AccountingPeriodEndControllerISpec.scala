@@ -102,7 +102,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-return/accounting-period-end", Json.obj("value" -> now.plusMonths(1)))()
+          val res = postRequest("/about-return/accounting-period-end", Json.obj("value" -> ""))()
 
           whenReady(res) { result =>
             result should have(
