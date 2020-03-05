@@ -27,10 +27,7 @@ class AccountingPeriodEndFormProviderSpec extends DateBehaviours {
 
   ".value" should {
 
-    val validData = datesBetween(
-      min = LocalDate.of(2000, 1, 1),
-      max = LocalDate.now(ZoneOffset.UTC)
-    )
+    val validData = now.plusMonths(3)
 
     behave like dateField(form(now), "value", validData)
 

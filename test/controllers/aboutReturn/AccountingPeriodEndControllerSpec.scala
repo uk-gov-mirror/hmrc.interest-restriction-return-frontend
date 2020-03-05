@@ -16,7 +16,7 @@
 
 package controllers.aboutReturn
 
-import java.time.{LocalDate, ZoneOffset}
+import java.time.{Instant, LocalDate, ZoneOffset}
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
@@ -25,7 +25,7 @@ import controllers.errors
 import forms.aboutReturn.AccountingPeriodEndFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.AccountingPeriodEndPage
+import pages.aboutReturn.{AccountingPeriodEndPage, AccountingPeriodStartPage}
 import play.api.test.Helpers._
 import views.html.aboutReturn.AccountingPeriodEndView
 
@@ -34,8 +34,10 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
   val view = injector.instanceOf[AccountingPeriodEndView]
   val formProvider = injector.instanceOf[AccountingPeriodEndFormProvider]
 
-  val validAnswer = LocalDate.now(ZoneOffset.UTC)
-  val form = formProvider(validAnswer)
+  val startDate = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+  val endDate = LocalDate.now(ZoneOffset.UTC).plusDays(1)
+  val form = formProvider(endDate)
+  val userAnswers = emptyUserAnswers.set[LocalDate](AccountingPeriodStartPage, startDate).success.value
 
   object Controller extends AccountingPeriodEndController(
     messagesApi = messagesApi,
@@ -54,7 +56,7 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -65,9 +67,9 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AccountingPeriodEndPage, validAnswer).success.value
+      val userAnswersEdit = userAnswers.set(AccountingPeriodEndPage, endDate).success.value
 
-      mockGetAnswers(Some(userAnswers))
+      mockGetAnswers(Some(userAnswersEdit))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
@@ -77,12 +79,12 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
+        "value.day" -> endDate.getDayOfMonth.toString,
+        "value.month" -> endDate.getMonthValue.toString,
+        "value.year" -> endDate.getYear.toString
       )
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
@@ -94,7 +96,7 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
@@ -111,12 +113,22 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
 
+    "redirect to Under Construction for a GET if no start date is found" in {
+
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.UnderConstructionController.onPageLoad().url)
+    }
+
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
+        "value.day" -> endDate.getDayOfMonth.toString,
+        "value.month" -> endDate.getMonthValue.toString,
+        "value.year" -> endDate.getYear.toString
       )
 
       mockGetAnswers(None)
