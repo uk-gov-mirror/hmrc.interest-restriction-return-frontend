@@ -18,11 +18,10 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.groupStructure.{routes => groupStructureRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.aboutReturn.{AccountingPeriodEndPage, AccountingPeriodStartPage}
+import pages.aboutReportingCompany._
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -44,7 +43,7 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
         "go to the AccountingPeriodStartPage" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)
+            aboutReportingCompanyRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)
         }
       }
 
@@ -52,7 +51,7 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
         "go to the AccountingPeriodEndPage" in {
           navigator.nextPage(AccountingPeriodStartPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)
+            aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)
         }
       }
 

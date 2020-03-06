@@ -15,6 +15,20 @@ POST       /ctutr                                       controllers.aboutReporti
 GET        /ctutr/change                                controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
 POST       /ctutr/change                                controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
 
+### AccountingPeriodStart Controller
+### ----------------------------------------
+GET        /accounting-period-start                     controllers.aboutReportingCompany.AccountingPeriodStartController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period-start                     controllers.aboutReportingCompany.AccountingPeriodStartController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period-start/change              controllers.aboutReportingCompany.AccountingPeriodStartController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period-start/change              controllers.aboutReportingCompany.AccountingPeriodStartController.onSubmit(mode: Mode = CheckMode)
+
+### AccountingPeriodEnd Controller
+### ----------------------------------------
+GET        /accounting-period-end                       controllers.aboutReportingCompany.AccountingPeriodEndController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period-end                       controllers.aboutReportingCompany.AccountingPeriodEndController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period-end/change                controllers.aboutReportingCompany.AccountingPeriodEndController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period-end/change                controllers.aboutReportingCompany.AccountingPeriodEndController.onSubmit(mode: Mode = CheckMode)
+
 ### CheckYourAnswersController
 ### -----------------------------
 GET        /check-answers                               controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad

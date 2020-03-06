@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import javax.inject.Inject
 
@@ -22,22 +22,22 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.aboutReturn.AccountingPeriodStartFormProvider
+import forms.aboutReportingCompany.AccountingPeriodStartFormProvider
 import models.Mode
-import navigation.AboutReturnNavigator
-import pages.aboutReturn.AccountingPeriodStartPage
+import navigation.AboutReportingCompanyNavigator
+import pages.aboutReportingCompany.AccountingPeriodStartPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.QuestionDeletionLookupService
-import views.html.aboutReturn.AccountingPeriodStartView
+import views.html.aboutReportingCompany.AccountingPeriodStartView
 
 import scala.concurrent.Future
 
 class AccountingPeriodStartController @Inject()(
                                                  override val messagesApi: MessagesApi,
                                                  val sessionRepository: SessionRepository,
-                                                 val navigator: AboutReturnNavigator,
+                                                 val navigator: AboutReportingCompanyNavigator,
                                                  val questionDeletionLookupService: QuestionDeletionLookupService,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,

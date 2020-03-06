@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import javax.inject.Inject
 
@@ -22,23 +22,23 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.aboutReturn.AccountingPeriodEndFormProvider
+import forms.aboutReportingCompany.AccountingPeriodEndFormProvider
 import models.Mode
-import navigation.AboutReturnNavigator
-import pages.aboutReturn.{AccountingPeriodEndPage, AccountingPeriodStartPage}
+import navigation.AboutReportingCompanyNavigator
+import pages.aboutReportingCompany.{AccountingPeriodEndPage, AccountingPeriodStartPage}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.QuestionDeletionLookupService
-import views.html.aboutReturn.AccountingPeriodEndView
+import views.html.aboutReportingCompany.AccountingPeriodEndView
 
 import scala.concurrent.Future
 
 class AccountingPeriodEndController @Inject()(
                                                override val messagesApi: MessagesApi,
                                                val sessionRepository: SessionRepository,
-                                               val navigator: AboutReturnNavigator,
+                                               val navigator: AboutReportingCompanyNavigator,
                                                val questionDeletionLookupService: QuestionDeletionLookupService,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
@@ -58,7 +58,7 @@ class AccountingPeriodEndController @Inject()(
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     request.userAnswers.get(AccountingPeriodStartPage) match {
-      case None=> Logger.debug(s"[AccountingPeriodEndController][onSubmit] POST attempt to submit invalid AP end date")
+      case None => Logger.debug(s"[AccountingPeriodEndController][onSubmit] POST attempt to submit invalid AP end date")
         Future.successful(Redirect(controllers.routes.UnderConstructionController.onPageLoad()))
       case Some(startDate) => formProvider(startDate).bindFromRequest ().fold(
         formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),

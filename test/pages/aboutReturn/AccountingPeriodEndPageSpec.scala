@@ -19,6 +19,7 @@ package pages.aboutReturn
 import java.time.LocalDate
 
 import org.scalacheck.Arbitrary
+import pages.aboutReportingCompany.AccountingPeriodEndPage
 import pages.behaviours.PageBehaviours
 
 class AccountingPeriodEndPageSpec extends PageBehaviours {

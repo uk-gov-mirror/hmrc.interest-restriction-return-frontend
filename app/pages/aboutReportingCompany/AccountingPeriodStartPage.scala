@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package pages.aboutReturn
+package pages.aboutReportingCompany
 
 import java.time.LocalDate
 
