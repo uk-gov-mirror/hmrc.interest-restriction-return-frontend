@@ -19,6 +19,7 @@ package controllers.aboutReturn
 import java.time.{Instant, ZoneOffset}
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -85,7 +86,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.AccountingPeriodEndController.onPageLoad(NormalMode).url)
               )
             }
           }

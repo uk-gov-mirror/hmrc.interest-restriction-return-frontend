@@ -89,7 +89,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
               )
             }
           }
