@@ -786,3 +786,25 @@ reviewTaxEBITDA.checkYourAnswers.subheading = Check totals
 reviewNetTaxInterest.checkYourAnswers.title = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.heading = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.subheading = Check totals
+
+# AccountingPeriodStartPage Messages
+# ----------------------------------------------------------
+accountingPeriodStart.title = When does the worldwide period of account start?
+accountingPeriodStart.heading = When does the worldwide period of account start?
+accountingPeriodStart.checkYourAnswersLabel = When does the worldwide period of account start?
+accountingPeriodStart.error.required = You must enter a valid date
+accountingPeriodStart.error.invalid = You must enter a valid date
+accountingPeriodStart.error.required.two = You must enter a valid date
+accountingPeriodStart.error.required.all = You must enter a valid date
+accountingPeriodStart.hint = For example, 27 3 2007
+
+# AccountingPeriodEndPage Messages
+# ----------------------------------------------------------
+accountingPeriodEnd.title = When does the worldwide period of account end?
+accountingPeriodEnd.heading = When does the worldwide period of account end?
+accountingPeriodEnd.checkYourAnswersLabel = When does the worldwide period of account end?
+accountingPeriodEnd.error.required = You must enter a valid date
+accountingPeriodEnd.error.invalid = You must enter a valid date
+accountingPeriodEnd.error.required.two = You must enter a valid date
+accountingPeriodEnd.error.required.all = You must enter a valid date
+accountingPeriodEnd.hint = For example, 27 3 2007
