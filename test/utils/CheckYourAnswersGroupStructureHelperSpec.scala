@@ -120,42 +120,6 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
       }
     }
 
-    "For the RegisteredCompaniesHouse answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.registeredCompaniesHouse(1) mustBe Some(summaryListRow(
-          CheckAnswersGroupStructureMessages.registeredWithCompaniesHouse,
-          BaseMessages.yes,
-          groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the ParentCRN answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.parentCRN(1) mustBe Some(summaryListRow(
-          CheckAnswersGroupStructureMessages.parentCRN,
-          crnModel.crn,
-          groupStructureRoutes.ParentCRNController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the RegisteredForTaxInAnotherCountry answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.registeredForTaxInAnotherCountry(1) mustBe Some(summaryListRow(
-          CheckAnswersGroupStructureMessages.registeredForTaxInAnotherCountry,
-          BaseMessages.yes,
-          groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
     "For the CountryOfIncorporation answer" must {
 
       "have a correctly formatted summary list row" in {
@@ -164,18 +128,6 @@ class CheckYourAnswersGroupStructureHelperSpec extends SpecBase with BaseConstan
           CheckAnswersGroupStructureMessages.registeredCountry,
           nonUkCountryCode.country,
           groupStructureRoutes.CountryOfIncorporationController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the LocalRegistrationNumber answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.localRegistrationNumber(1) mustBe Some(summaryListRow(
-          CheckAnswersGroupStructureMessages.localCRN,
-          nonUkCrn,
-          groupStructureRoutes.LocalRegistrationNumberController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

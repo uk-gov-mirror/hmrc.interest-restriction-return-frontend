@@ -76,7 +76,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" should {
 
-          "redirect to RegisteredCompaniesHouse page" in {
+          "redirect to check answers page" in {
 
             AuthStub.authorised()
             setAnswers(
@@ -88,7 +88,7 @@ class ParentCompanyCTUTRControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.RegisteredCompaniesHouseController.onPageLoad(1, NormalMode).url)
+                redirectLocation(groupStructureRoutes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }

@@ -111,9 +111,6 @@ trait PageGenerators {
   implicit lazy val arbitraryEnterQNGIEPage: Arbitrary[EnterQNGIEPage.type] =
     Arbitrary(EnterQNGIEPage)
 
-  implicit lazy val arbitraryLocalRegistrationNumberPage: Arbitrary[LocalRegistrationNumberPage.type] =
-    Arbitrary(LocalRegistrationNumberPage)
-
   implicit lazy val arbitraryCountryOfIncorporationPage: Arbitrary[CountryOfIncorporationPage.type] =
     Arbitrary(CountryOfIncorporationPage)
 
@@ -122,12 +119,6 @@ trait PageGenerators {
 
   implicit lazy val arbitraryGroupRatioElectionPage: Arbitrary[GroupRatioElectionPage.type] =
     Arbitrary(GroupRatioElectionPage)
-
-  implicit lazy val arbitraryRegisteredForTaxInAnotherCountryPage: Arbitrary[RegisteredForTaxInAnotherCountryPage.type] =
-    Arbitrary(RegisteredForTaxInAnotherCountryPage)
-
-  implicit lazy val arbitraryParentCRNPage: Arbitrary[ParentCRNPage.type] =
-    Arbitrary(ParentCRNPage)
 
   implicit lazy val arbitraryParentCompanyCTUTRPage: Arbitrary[ParentCompanyCTUTRPage.type] =
     Arbitrary(ParentCompanyCTUTRPage)
@@ -140,9 +131,6 @@ trait PageGenerators {
 
   implicit lazy val arbitraryLimitedLiabilityPartnershipPage: Arbitrary[LimitedLiabilityPartnershipPage.type] =
     Arbitrary(LimitedLiabilityPartnershipPage)
-
-  implicit lazy val arbitraryRegisteredCompaniesHousePage: Arbitrary[RegisteredCompaniesHousePage.type] =
-    Arbitrary(RegisteredCompaniesHousePage)
 
   implicit lazy val arbitraryParentCompanyNamePage: Arbitrary[ParentCompanyNamePage.type] =
     Arbitrary(ParentCompanyNamePage)

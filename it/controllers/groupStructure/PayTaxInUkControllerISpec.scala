@@ -115,7 +115,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
         "enters false" should {
 
-          "redirect to Registered For Tax in Another Country page" in {
+          "redirect to Country of Incorporation page" in {
 
             AuthStub.authorised()
             setAnswers(
@@ -127,7 +127,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(groupStructureRoutes.RegisteredForTaxInAnotherCountryController.onPageLoad(1, NormalMode).url)
+                redirectLocation(groupStructureRoutes.CountryOfIncorporationController.onPageLoad(1, NormalMode).url)
               )
             }
           }
