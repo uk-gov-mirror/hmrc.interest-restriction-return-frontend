@@ -16,6 +16,7 @@ GET        /                                            controllers.IndexControl
 ->         /elections                                   elections.Routes
 ->         /uk-companies                                ukCompanies.Routes
 ->         /check-totals                                checkTotals.Routes
+->         /review-and-complete                         reviewAndComplete.Routes
 
 ### Error Pages
 ### -----------

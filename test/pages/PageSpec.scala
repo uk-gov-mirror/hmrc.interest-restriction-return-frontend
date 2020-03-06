@@ -22,6 +22,7 @@ import pages.aboutReturn._
 import pages.checkTotals.ReviewTaxEBITDAPage
 import pages.elections._
 import pages.groupStructure._
+import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.startReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsString, Json}
@@ -32,10 +33,15 @@ class PageSpec extends SpecBase {
 
     "Have a mapping between all possible pages (as String) to pages" in {
       val expected = Map(
-    ReactivationAmountPage.toString -> ReactivationAmountPage,
-    AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
-    AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
-    CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
+        ReactivationAmountPage.toString -> ReactivationAmountPage,
+        AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
+        AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
+        CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
+        AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
+        AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
+        CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
+        ReviewAndCompletePage.toString -> ReviewAndCompletePage,
+        CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
         UkCompaniesDeletionConfirmationPage.toString -> UkCompaniesDeletionConfirmationPage,
         ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
         CompanyDetailsPage.toString -> CompanyDetailsPage,

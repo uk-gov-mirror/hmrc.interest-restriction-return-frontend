@@ -18,23 +18,22 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.actions._
-import javax.inject.Inject
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.CheckYourAnswersView
 import controllers.BaseNavigationController
+import controllers.actions._
 import handlers.ErrorHandler
+import javax.inject.Inject
 import models.NormalMode
 import models.Section.UkCompanies
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc._
 import repositories.SessionRepository
 import services.QuestionDeletionLookupService
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersUkCompanyHelper
-import views.html.CheckYourAnswersView
 import views.ViewUtils._
+import views.html.CheckYourAnswersView
 
 import scala.concurrent.{ExecutionContext, Future}
 

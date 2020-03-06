@@ -809,3 +809,8 @@ reactivationAmount.error.nonNumeric = Enter your reactivationAmount using number
 reactivationAmount.error.required = Enter your reactivationAmount
 reactivationAmount.error.invalidNumeric = The reactivationAmount must be valid decimal or whole number
 reactivationAmount.error.outOfRange = ReactivationAmount must be between {0} and {1}
+
+# ReviewAndCompletePage Messages
+# ----------------------------------------------------------
+reviewAndComplete.title = reviewAndComplete
+reviewAndComplete.heading = reviewAndComplete
