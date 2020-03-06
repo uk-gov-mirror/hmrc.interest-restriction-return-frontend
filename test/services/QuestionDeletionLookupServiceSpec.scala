@@ -16,12 +16,15 @@
 
 package services
 
+import java.time.LocalDate
+
 import assets.constants.BaseConstants
 import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
 import pages.Page
-import pages.aboutReportingCompany.ReportingCompanyCRNPage
+import pages.aboutReturn.AccountingPeriodStartPage
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, ReportingCompanyAppointedPage}
+import pages.ukCompanies.DerivedCompanyPage
 
 
 class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationConnector with BaseConstants {
@@ -86,9 +89,9 @@ class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationC
 
         "return no pages to delete" in {
 
-          val userAnswers = emptyUserAnswers.set(ReportingCompanyCRNPage, crnModel.crn).get
+          val userAnswers = emptyUserAnswers.set(AccountingPeriodStartPage, LocalDate.now()).get
 
-          val result = TestQuestionDeletionLookupService.getPagesToRemove(ReportingCompanyCRNPage)(userAnswers)
+          val result = TestQuestionDeletionLookupService.getPagesToRemove(AccountingPeriodStartPage)(userAnswers)
           result mustBe List()
         }
       }

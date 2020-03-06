@@ -29,7 +29,7 @@ import views.html.aboutReportingCompany.ReportingCompanyNameView
 class ReportingCompanyNameViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyName"
-  val section = Some(messages("section.aboutReportingCompany"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new ReportingCompanyNameFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -45,7 +45,7 @@ class ReportingCompanyNameViewSpec extends StringViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

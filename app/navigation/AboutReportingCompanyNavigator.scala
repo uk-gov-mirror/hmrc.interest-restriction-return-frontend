@@ -16,12 +16,13 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
-import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import play.api.mvc.Call
 
 @Singleton
@@ -29,8 +30,7 @@ class AboutReportingCompanyNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     ReportingCompanyNamePage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
-    ReportingCompanyCTUTRPage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)),
-    ReportingCompanyCRNPage -> (_ => aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()),
+    ReportingCompanyCTUTRPage -> (_ => aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()),
     CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
   )
 

@@ -29,7 +29,7 @@ import views.html.aboutReportingCompany.ReportingCompanyCTUTRView
 class ReportingCompanyCTUTRViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyCTUTR"
-  val section = Some(messages("section.aboutReportingCompany"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new ReportingCompanyCTUTRFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -45,7 +45,7 @@ class ReportingCompanyCTUTRViewSpec extends StringViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

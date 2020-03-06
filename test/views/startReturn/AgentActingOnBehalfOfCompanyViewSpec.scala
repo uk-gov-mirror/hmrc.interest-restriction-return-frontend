@@ -29,7 +29,7 @@ import views.html.startReturn.AgentActingOnBehalfOfCompanyView
 class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "agentActingOnBehalfOfCompany"
-  val section = Some(messages("section.startReturn"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new AgentActingOnBehalfOfCompanyFormProvider()()
 
 
@@ -44,7 +44,7 @@ class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.agents)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

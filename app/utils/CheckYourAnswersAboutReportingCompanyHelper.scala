@@ -45,17 +45,13 @@ class CheckYourAnswersAboutReportingCompanyHelper(val userAnswers: UserAnswers)
   def reportingCompanyCTUTR: Option[SummaryListRow] =
     answer(ReportingCompanyCTUTRPage, aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
 
-  def reportingCompanyCRN: Option[SummaryListRow] =
-    answer(ReportingCompanyCRNPage, aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode))
-
   val rows: Seq[SummaryListRow] = Seq(
     reportingCompanyAppointed,
     agentActingOnBehalfOfCompany,
     agentName,
     fullOrAbbreviatedReturn,
     reportingCompanyName,
-    reportingCompanyCTUTR,
-    reportingCompanyCRN
+    reportingCompanyCTUTR
   ).flatten
 
 }

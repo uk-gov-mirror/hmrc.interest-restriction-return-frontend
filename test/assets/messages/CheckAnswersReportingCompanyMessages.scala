@@ -26,6 +26,4 @@ object CheckAnswersReportingCompanyMessages {
   val fullOrAbbreviatedReturn = "Type of return"
   val name = "Name"
   val ctutr = "CTUTR"
-  val crn = "Reporting Company CRN"
-
 }

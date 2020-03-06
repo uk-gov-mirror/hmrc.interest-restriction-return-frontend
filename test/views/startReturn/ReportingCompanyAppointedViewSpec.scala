@@ -29,7 +29,7 @@ import views.html.startReturn.ReportingCompanyAppointedView
 class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "reportingCompanyAppointed"
-  val section = Some(messages("section.startReturn"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new ReportingCompanyAppointedFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -45,7 +45,7 @@ class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

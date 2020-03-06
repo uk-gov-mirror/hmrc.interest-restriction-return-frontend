@@ -28,7 +28,7 @@ import views.html.startReturn.FullOrAbbreviatedReturnView
 class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "fullOrAbbreviatedReturn"
-  val section = Some(messages("section.startReturn"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new FullOrAbbreviatedReturnFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>

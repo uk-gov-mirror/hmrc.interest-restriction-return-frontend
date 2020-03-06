@@ -86,7 +86,6 @@ object Page {
     ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
     ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
     ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
-    ReportingCompanyCRNPage.toString -> ReportingCompanyCRNPage,
     AgentActingOnBehalfOfCompanyPage.toString -> AgentActingOnBehalfOfCompanyPage,
     AgentNamePage.toString -> AgentNamePage,
     FullOrAbbreviatedReturnPage.toString -> FullOrAbbreviatedReturnPage,

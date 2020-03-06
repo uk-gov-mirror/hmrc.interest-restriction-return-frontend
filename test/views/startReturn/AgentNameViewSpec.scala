@@ -29,7 +29,7 @@ import views.html.startReturn.AgentNameView
 class AgentNameViewSpec extends StringViewBehaviours {
 
   val messageKeyPrefix = "agentName"
-  val section = Some(messages("section.startReturn"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new AgentNameFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -45,7 +45,7 @@ class AgentNameViewSpec extends StringViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.agents)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

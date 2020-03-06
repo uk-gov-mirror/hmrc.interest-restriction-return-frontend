@@ -87,18 +87,6 @@ helloWorldYesNo.heading = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.error.required = Select yes if you want to say Hello World
 
-
-# ReportingCompanyCRNPage Messages
-# ----------------------------------------------------------
-reportingCompanyCRN.title = Company Registration Number (CRN)
-reportingCompanyCRN.heading = Company Registration Number (CRN)
-reportingCompanyCRN.checkYourAnswersLabel = Reporting Company CRN
-reportingCompanyCRN.label = Company Registration Number (CRN)
-reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
-reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
-reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not found on Companies House
-
-
 # ReportingCompanyCTUTRPage Messages
 # ----------------------------------------------------------
 reportingCompanyCTUTR.title = UK Tax reference - CT UTR

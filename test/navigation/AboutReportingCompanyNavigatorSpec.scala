@@ -20,8 +20,7 @@ import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.startReturn.ReportingCompanyAppointedPage
+import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -41,16 +40,8 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyCTUTRPage" should {
 
-        "go to the ReportingCompanyCRNPage" in {
+        "go to the Check answers reporting company" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the ReportingCompanyCRNPage" should {
-
-        "go to the Check Your Answers for the Reporting Company page" in {
-          navigator.nextPage(ReportingCompanyCRNPage, NormalMode, emptyUserAnswers) mustBe
             aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
         }
       }
