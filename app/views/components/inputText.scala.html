@@ -27,7 +27,8 @@
         headingMessageArgs: Seq[String] = Seq(),
         hint: Option[Html] = None,
         classes: Option[String] = None,
-        value: String = "value"
+        value: String = "value",
+        stripWhitespace: Boolean = false
 )(implicit messages: Messages)
 
 @govukInput(Input(

@@ -16,17 +16,13 @@
 
 package forms.elections
 
-import forms.UTRFormValidation
+import forms.UTRForm
 import javax.inject.Inject
-import forms.mappings.Mappings
+import pages.elections.PartnershipSAUTRPage
 import play.api.data.Form
 
-class PartnershipSAUTRFormProvider @Inject() extends Mappings with UTRFormValidation {
+class PartnershipSAUTRFormProvider @Inject() extends UTRForm {
 
   def apply(): Form[String] =
-    Form(
-      "value" -> text("partnershipSAUTR.error.required")
-        .verifying(regexp("^[0-9]{10}$", "partnershipSAUTR.error.length"))
-        .verifying(checksum("partnershipSAUTR.error.checksum"))
-    )
+    utrForm(PartnershipSAUTRPage)
 }

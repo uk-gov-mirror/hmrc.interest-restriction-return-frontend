@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package forms
 
-import forms.UTRForm
-import javax.inject.Inject
-import pages.aboutReportingCompany.ReportingCompanyCTUTRPage
+import forms.mappings.Mappings
+import pages.Page
 import play.api.data.Form
+import utils.RemoveWhitespace
 
-class ReportingCompanyCTUTRFormProvider @Inject() extends UTRForm{
+trait UTRForm extends Mappings with UTRFormValidation with RemoveWhitespace {
 
-  def apply(): Form[String] =
-    utrForm(ReportingCompanyCTUTRPage)
+  def utrForm(page: Page, value: String = "value"): Form[String] =
+    Form(
+      s"$value" -> text(s"${page.toString}.error.required")
+        .transform(
+          (value: String) => removeWhitespace(value): String,
+          (x: String) => x
+        )
+        .verifying(regexp("^[0-9]{10}$", s"${page.toString}.error.regexp"))
+        .verifying(checksum(s"${page.toString}.error.checksum"))
+    )
 }

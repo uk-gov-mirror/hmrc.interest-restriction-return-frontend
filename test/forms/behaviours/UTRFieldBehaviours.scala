@@ -17,8 +17,9 @@
 package forms.behaviours
 
 import play.api.data.{Form, FormError}
+import utils.RemoveWhitespace
 
-trait UTRFieldBehaviours extends FieldBehaviours {
+trait UTRFieldBehaviours extends FieldBehaviours with RemoveWhitespace{
 
   def validUTR(
                 form: Form[_],
@@ -32,29 +33,39 @@ trait UTRFieldBehaviours extends FieldBehaviours {
       val invalidUTR: String = "1234567899"
       val validRegexp: String = "^[0-9]{10}$"
       val invalidRegexp: String = "1234"
+      val whitespaceUTR: String = "     1    1     1   111    1   1  1  1        "
 
       "when binding a value which does match the regexp" when {
 
         "checksum fails" should {
 
           s"return the checksum error for $utrFieldName" in {
-            val result = form.bind(Map(utrFieldName -> invalidUTR)).apply(utrFieldName)
+            val result = form.bind(Map(utrFieldName -> invalidUTR))
             result.errors.headOption mustEqual Some(FormError(utrFieldName, utrChecksumErrorKey))
+          }
+        }
+
+        "whitespace is removed before binding" when {
+
+          "entered value contains whitespace" in {
+
+            val result = form.bind(Map(utrFieldName -> whitespaceUTR))
+            result.value mustBe Some(validUTR)
           }
         }
 
         "checksum is successful" should {
 
           "return the field value" in {
-            val result = form.bind(Map(utrFieldName -> validRegexp)).apply(utrFieldName)
-            result.value mustBe Some(validRegexp)
+            val result = form.bind(Map(utrFieldName -> validUTR))
+            result.value mustBe Some(validUTR)
           }
         }
 
         "when binding a value which does not match the regexp" should {
 
           "return the regexp error" in {
-            val result = form.bind(Map(utrFieldName -> invalidRegexp)).apply(utrFieldName)
+            val result = form.bind(Map(utrFieldName -> invalidRegexp))
             result.errors.headOption mustEqual Some(FormError(utrFieldName, utrRegexpKey, Seq(validRegexp)))
           }
         }

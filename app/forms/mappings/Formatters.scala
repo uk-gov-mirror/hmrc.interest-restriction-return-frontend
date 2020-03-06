@@ -30,7 +30,7 @@ trait Formatters {
       data.get(key) match {
         case None => Left(Seq(FormError(key, errorKey)))
         case Some(x) if x.trim.length == 0 => Left(Seq(FormError(key, errorKey)))
-        case Some(s) => Right(s)
+        case Some(s) => Right(s.trim)
       }
 
     override def unbind(key: String, value: String): Map[String, String] =
