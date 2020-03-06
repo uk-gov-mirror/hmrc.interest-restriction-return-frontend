@@ -16,7 +16,7 @@
 
 package navigation
 
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
+import controllers.elections.{routes => electionsRoutes}
 import controllers.groupStructure.routes
 import javax.inject.{Inject, Singleton}
 import models._
@@ -38,7 +38,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
     ParentCompanyNamePage -> ((idx, _) => routes.PayTaxInUkController.onPageLoad(idx, NormalMode)),
     PayTaxInUkPage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.payTaxInUk) match {
       case Some(true) => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
-      case Some(false) => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.CountryOfIncorporationController.onPageLoad(idx, NormalMode)
       case _ => routes.PayTaxInUkController.onPageLoad(idx, NormalMode)
     }),
     LimitedLiabilityPartnershipPage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.limitedLiabilityPartnership) match {
@@ -46,35 +46,23 @@ class GroupStructureNavigator @Inject()() extends Navigator {
       case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx, NormalMode)
       case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
     }),
-    ParentCompanyCTUTRPage -> ((idx, _) => routes.RegisteredCompaniesHouseController.onPageLoad(idx, NormalMode)),
-    RegisteredCompaniesHousePage -> ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.registeredCompaniesHouse) match {
-      case Some(true) => routes.ParentCRNController.onPageLoad(idx, NormalMode)
-      case Some(false) => checkYourAnswers(idx)
-      case _ => routes.RegisteredCompaniesHouseController.onPageLoad(idx, NormalMode)
-    }),
-    ParentCompanySAUTRPage -> ((idx, _) => routes.ParentCRNController.onPageLoad(idx, NormalMode)),
-    ParentCRNPage -> ((idx, _) => checkYourAnswers(idx)),
-    RegisteredForTaxInAnotherCountryPage ->
-      ((idx, userAnswers) => userAnswers.get(DeemedParentPage, Some(idx)).flatMap(_.registeredForTaxInAnotherCountry) match {
-        case Some(true) => routes.CountryOfIncorporationController.onPageLoad(idx, NormalMode)
-        case Some(false) => checkYourAnswers(idx)
-        case _ => routes.RegisteredForTaxInAnotherCountryController.onPageLoad(idx, NormalMode)
-      }),
-    CountryOfIncorporationPage -> ((idx, _) => routes.LocalRegistrationNumberController.onPageLoad(idx, NormalMode)),
-    LocalRegistrationNumberPage -> ((idx, _) => checkYourAnswers(idx)),
+    ParentCompanyCTUTRPage -> ((idx,_) => checkYourAnswers(idx)),
+    ParentCompanySAUTRPage -> ((idx,_) => checkYourAnswers(idx)),
+    CountryOfIncorporationPage -> ((idx,_) => checkYourAnswers(idx)),
     CheckAnswersGroupStructurePage -> ((_, userAnswers) => userAnswers.get(HasDeemedParentPage) match {
       case Some(true) => routes.DeemedParentReviewAnswersListController.onPageLoad()
       case Some(false) => nextSection(NormalMode)
       case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
     }),
-    DeletionConfirmationPage -> ((_,_) => routes.DeemedParentReviewAnswersListController.onPageLoad())
+    DeletionConfirmationPage -> ((_, _) => routes.DeemedParentReviewAnswersListController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 
-  def nextSection(mode: Mode): Call = aboutReturnRoutes.RevisingReturnController.onPageLoad(mode)
+  def nextSection(mode: Mode): Call = electionsRoutes.GroupRatioElectionController.onPageLoad(mode)
+
   def addParent(numberOfParents: Int): Call = routes.ParentCompanyNameController.onPageLoad(numberOfParents + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {

@@ -60,16 +60,12 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(ElectedGroupEBITDABeforePage.type, JsValue)] ::
     arbitrary[(GroupRatioBlendedElectionPage.type, JsValue)] ::
     arbitrary[(EnterQNGIEPage.type, JsValue)] ::
-    arbitrary[(LocalRegistrationNumberPage.type, JsValue)] ::
     arbitrary[(CountryOfIncorporationPage.type, JsValue)] ::
     arbitrary[(EnterANGIEPage.type, JsValue)] ::
     arbitrary[(GroupRatioElectionPage.type, JsValue)] ::
-    arbitrary[(RegisteredForTaxInAnotherCountryPage.type, JsValue)] ::
-    arbitrary[(ParentCRNPage.type, JsValue)] ::
     arbitrary[(ParentCompanySAUTRPage.type, JsValue)] ::
     arbitrary[(PayTaxInUkPage.type, JsValue)] ::
     arbitrary[(LimitedLiabilityPartnershipPage.type, JsValue)] ::
-    arbitrary[(RegisteredCompaniesHousePage.type, JsValue)] ::
     arbitrary[(ParentCompanyCTUTRPage.type, JsValue)] ::
     arbitrary[(ParentCompanyNamePage.type, JsValue)] ::
     arbitrary[(HasDeemedParentPage.type, JsValue)] ::

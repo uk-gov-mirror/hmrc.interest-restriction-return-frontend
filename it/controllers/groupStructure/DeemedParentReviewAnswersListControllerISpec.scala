@@ -123,7 +123,7 @@ class DeemedParentReviewAnswersListControllerISpec extends IntegrationSpecBase w
 
         "deemed parent answer is false" must {
 
-          "redirect to Revising Return page" in {
+          "redirect to GroupRatioElection page" in {
 
             AuthStub.authorised()
 
@@ -137,7 +137,7 @@ class DeemedParentReviewAnswersListControllerISpec extends IntegrationSpecBase w
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode).url)
               )
             }
           }

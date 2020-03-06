@@ -23,16 +23,11 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentModelMax = DeemedParentModel(
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     ctutr = Some(ctutrModel),
     sautr = Some(sautrModel),
-    crn = Some(crnModel),
-    nonUkCrn = Some(nonUkCrn),
     countryOfIncorporation = Some(nonUkCountryCode),
     limitedLiabilityPartnership = Some(true),
     payTaxInUk = Some(true),
-    registeredCompaniesHouse = Some(true),
-    registeredForTaxInAnotherCountry = Some(true),
     reportingCompanySameAsParent = Some(true)
   )
 
@@ -41,46 +36,32 @@ object DeemedParentConstants extends BaseConstants {
   )
 
   val deemedParentModelUkCompany = DeemedParentModel(
-    knownAs = Some(knownAs),
     companyName = companyNameModel,
     payTaxInUk = Some(true),
     limitedLiabilityPartnership = Some(false),
-    ctutr = Some(ctutrModel),
-    registeredCompaniesHouse = Some(true),
-    crn = Some(crnModel),
-    registeredForTaxInAnotherCountry = Some(false)
+    ctutr = Some(ctutrModel)
   )
 
   val deemedParentModelUkPartnership = DeemedParentModel(
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     payTaxInUk = Some(true),
     limitedLiabilityPartnership = Some(true),
-    sautr = Some(sautrModel),
-    crn = Some(crnModel)
+    sautr = Some(sautrModel)
   )
 
   val deemedParentModelNonUkCompany = DeemedParentModel(
     companyName = companyNameModel,
-    knownAs = Some(knownAs),
     payTaxInUk = Some(false),
-    countryOfIncorporation = Some(nonUkCountryCode),
-    nonUkCrn = Some(nonUkCrn),
-    registeredForTaxInAnotherCountry = Some(true)
+    countryOfIncorporation = Some(nonUkCountryCode)
   )
 
   val deemedParentJsonMax = Json.obj(
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
     "ctutr" -> ctutrModel,
     "sautr" -> sautrModel,
-    "crn" -> crnModel,
-    "nonUkCrn" -> nonUkCrn,
     "countryOfIncorporation" -> nonUkCountryCode,
     "limitedLiabilityPartnership" -> true,
     "payTaxInUk" -> true,
-    "registeredCompaniesHouse" -> true,
-    "registeredForTaxInAnotherCountry" -> true,
     "reportingCompanySameAsParent" -> true
   )
 
@@ -90,9 +71,7 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentJsonUkCompany = Json.obj(
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
-    "ctutr" -> ctutrModel,
-    "crn" -> crnModel
+    "ctutr" -> ctutrModel
   )
 
   val deemedParentJsonNonUkCompany= Json.obj(
@@ -104,8 +83,6 @@ object DeemedParentConstants extends BaseConstants {
 
   val deemedParentJsonUkPartnership = Json.obj(
     "companyName" -> companyNameModel,
-    "knownAs" -> knownAs,
-    "sautr" -> sautrModel,
-    "crn" -> crnModel
+    "sautr" -> sautrModel
   )
 }

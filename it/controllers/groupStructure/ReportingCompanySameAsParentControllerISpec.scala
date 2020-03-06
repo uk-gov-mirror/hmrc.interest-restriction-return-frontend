@@ -91,7 +91,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
         "enters a valid answer" should {
 
-          "redirect to under construction page" in {
+          "redirect to GroupRatioElection page" in {
 
             AuthStub.authorised()
 
@@ -100,7 +100,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode).url)
               )
             }
           }

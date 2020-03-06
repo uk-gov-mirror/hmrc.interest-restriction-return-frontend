@@ -6,7 +6,6 @@ trait BaseITConstants {
 
   val crn = "AA111111"
   val crnModel = CRNModel(crn)
-  val knownAs = "AKA"
   val parentCompanyName = CompanyNameModel("Parent Company Ltd")
   val reportingCompanyName = CompanyNameModel("Reporting Company Ltd")
   val countryOfIncorporation = CountryCodeModel("AF", "Afghanistan")

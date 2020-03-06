@@ -94,7 +94,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
 
         "enters a valid country " should {
 
-          "redirect to Local CRN page" in {
+          "redirect to check answers page" in {
 
             AuthStub.authorised()
             setAnswers(
@@ -109,7 +109,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.LocalRegistrationNumberController.onPageLoad(1, NormalMode).url)
+                redirectLocation(routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
               )
             }
           }

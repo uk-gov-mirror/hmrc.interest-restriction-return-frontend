@@ -99,7 +99,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
 
           "enters a valid answer" when {
 
-            "redirect to Revising Return page" in {
+            "redirect to GroupRatioElection page" in {
 
               AuthStub.authorised()
 
@@ -110,7 +110,7 @@ class CheckAnswersGroupStructureControllerISpec extends IntegrationSpecBase with
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
+                  redirectLocation(controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode).url)
                 )
               }
             }

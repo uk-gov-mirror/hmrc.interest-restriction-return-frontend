@@ -16,21 +16,17 @@
 
 package models.returnModels
 
+import config.FrontendAppConfig
 import models.{ErrorModel, UserAnswers}
-import pages.groupStructure.{ParentCRNPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage}
+import pages.groupStructure.{CountryOfIncorporationPage, LimitedLiabilityPartnershipPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, ReportingCompanySameAsParentPage}
 import play.api.libs.json.Json
 
 case class DeemedParentModel(companyName: CompanyNameModel,
-                             knownAs: Option[String] = None,
                              ctutr: Option[UTRModel] = None,
                              sautr: Option[UTRModel] = None,
-                             crn: Option[CRNModel] = None,
                              countryOfIncorporation: Option[CountryCodeModel] = None,
-                             nonUkCrn: Option[String] = None,
                              limitedLiabilityPartnership: Option[Boolean] = None,
                              payTaxInUk: Option[Boolean] = None,
-                             registeredCompaniesHouse: Option[Boolean] = None,
-                             registeredForTaxInAnotherCountry: Option[Boolean] = None,
                              reportingCompanySameAsParent: Option[Boolean] = None
                             ) {
   val utr: Option[UTRModel] = ctutr.fold(sautr){ utr => Some(utr)}
@@ -40,12 +36,15 @@ object DeemedParentModel {
 
   implicit val format = Json.format[DeemedParentModel]
 
-  def apply(userAnswers: UserAnswers): Either[ErrorModel, DeemedParentModel] = {
+  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig): Either[ErrorModel, DeemedParentModel] = {
 
-    val oName = userAnswers.get(ParentCompanyNamePage)
-    val ctutr = userAnswers.get(ParentCompanyCTUTRPage)
-    val crn = userAnswers.get(ParentCRNPage)
-    val sautr = userAnswers.get(ParentCompanySAUTRPage)
+    val oName: Option[String] = userAnswers.get(ParentCompanyNamePage)
+    val ctutr: Option[String] = userAnswers.get(ParentCompanyCTUTRPage)
+    val sautr: Option[String] = userAnswers.get(ParentCompanySAUTRPage)
+    val countryOfIncorporation = userAnswers.get(CountryOfIncorporationPage)
+    val limitedLiabilityPartnership: Option[Boolean] = userAnswers.get(LimitedLiabilityPartnershipPage)
+    val payTaxInUk: Option[Boolean] = userAnswers.get(PayTaxInUkPage)
+    val reportingCompanySameAsParent: Option[Boolean] = userAnswers.get(ReportingCompanySameAsParentPage)
 
     oName match {
       case Some(name) =>
@@ -53,10 +52,12 @@ object DeemedParentModel {
           companyName = CompanyNameModel(name),
           ctutr = ctutr.map(UTRModel.apply),
           sautr = sautr.map(UTRModel.apply),
-          crn = crn.map(CRNModel.apply),
-          countryOfIncorporation = None, //TODO: Needs to be updated once page is created
-          nonUkCrn = None, //TODO: Needs to be updated once page is created
-          knownAs = None //TODO: Will be removed from model
+          countryOfIncorporation = countryOfIncorporation.map{
+            countryOfIncorporation => CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(countryOfIncorporation), countryOfIncorporation)
+          },
+          limitedLiabilityPartnership = limitedLiabilityPartnership,
+          payTaxInUk = payTaxInUk,
+          reportingCompanySameAsParent = reportingCompanySameAsParent
         ))
       case _ => Left(ErrorModel("Cannot Construct Deemed Parent Model from User Answers as Company Name is missing"))
     }
