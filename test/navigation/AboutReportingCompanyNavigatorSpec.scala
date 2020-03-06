@@ -19,8 +19,10 @@ package navigation
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import models._
 import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReturn.{AccountingPeriodEndPage, AccountingPeriodStartPage}
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -40,8 +42,24 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyCTUTRPage" should {
 
-        "go to the CheckAnswersReportingCompany" in {
+        "go to the AccountingPeriodStartPage" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AccountingPeriodStartPage" should {
+
+        "go to the AccountingPeriodEndPage" in {
+          navigator.nextPage(AccountingPeriodStartPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AccountingPeriodEndPage" should {
+
+        "go to the CheckAnswersReportingCompany" in {
+          navigator.nextPage(AccountingPeriodEndPage, NormalMode, emptyUserAnswers) mustBe
             aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
         }
       }
@@ -57,8 +75,18 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to Reporting Company CheckYourAnswers" in {
+      "go to Reporting Company CheckYourAnswers from ReportingCompanyCTUTRPage" in {
         navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "go to Reporting Company CheckYourAnswers from AccountingPeriodStartPage" in {
+        navigator.nextPage(AccountingPeriodStartPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "go to Reporting Company CheckYourAnswers from AccountingPeriodEndPage" in {
+        navigator.nextPage(AccountingPeriodEndPage, CheckMode, emptyUserAnswers) mustBe
           aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
       }
     }
