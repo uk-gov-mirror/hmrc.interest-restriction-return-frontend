@@ -33,7 +33,7 @@ class AccountingPeriodStartFormProvider @Inject() extends Mappings {
         twoRequiredKey = "accountingPeriodStart.error.required.two",
         requiredKey = "accountingPeriodStart.error.required"
       )
-        .verifying("accountingPeriodStart.error.invalid", period => !period.isAfter(now))
+        .verifying("accountingPeriodStart.error.range", period => !period.isAfter(now))
     )
   }
 }

@@ -796,6 +796,7 @@ accountingPeriodStart.error.required = You must enter a valid date
 accountingPeriodStart.error.invalid = You must enter a valid date
 accountingPeriodStart.error.required.two = You must enter a valid date
 accountingPeriodStart.error.required.all = You must enter a valid date
+accountingPeriodStart.error.range = Start Date must not be in the past
 accountingPeriodStart.hint = For example, 27 3 2007
 
 # AccountingPeriodEndPage Messages
@@ -807,4 +808,5 @@ accountingPeriodEnd.error.required = You must enter a valid date
 accountingPeriodEnd.error.invalid = You must enter a valid date
 accountingPeriodEnd.error.required.two = You must enter a valid date
 accountingPeriodEnd.error.required.all = You must enter a valid date
+accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
 accountingPeriodEnd.hint = For example, 27 3 2007

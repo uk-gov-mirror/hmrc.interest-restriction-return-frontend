@@ -32,7 +32,7 @@ class AccountingPeriodEndFormProvider @Inject() extends Mappings {
         twoRequiredKey = "accountingPeriodEnd.error.required.two",
         requiredKey    = "accountingPeriodEnd.error.required"
       )
-        .verifying("accountingPeriodEnd.error.invalid", endDate =>
+        .verifying("accountingPeriodEnd.error.range", endDate =>
           endDate.isAfter(startDate) && !endDate.minusMonths(18).isAfter(startDate))
 
     )
