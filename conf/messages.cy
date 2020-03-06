@@ -69,7 +69,7 @@ timeout.signOut = Sign out
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutReturn = About the return
-section.reportingCompany = About the reporting company
+section.aboutReturn = About the reporting company
 section.groupStructure = Ultimate parent company
 section.elections = Elections
 section.ukCompanies = The companies involved

@@ -30,7 +30,7 @@ class ReportingCompanyRequiredViewSpec extends ViewBehaviours {
 
     behave like normalPage(twirlView, "reportingCompanyRequired", section = section)
 
-    behave like pageWithSubHeading(twirlView, SectionHeaderMessages.reportingCompany)
+    behave like pageWithSubHeading(twirlView, SectionHeaderMessages.aboutReturn)
 
     behave like pageWithBackLink(twirlView)
   }

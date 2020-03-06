@@ -8,13 +8,6 @@ POST       /name                                        controllers.aboutReporti
 GET        /name/change                                 controllers.aboutReportingCompany.ReportingCompanyNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /name/change                                 controllers.aboutReportingCompany.ReportingCompanyNameController.onSubmit(mode: Mode = CheckMode)
 
-### ReportingCompanyCRN Controller
-### ----------------------------------------
-GET        /crn                                         controllers.aboutReportingCompany.ReportingCompanyCRNController.onPageLoad(mode: Mode = NormalMode)
-POST       /crn                                         controllers.aboutReportingCompany.ReportingCompanyCRNController.onSubmit(mode: Mode = NormalMode)
-GET        /crn/change                                  controllers.aboutReportingCompany.ReportingCompanyCRNController.onPageLoad(mode: Mode = CheckMode)
-POST       /crn/change                                  controllers.aboutReportingCompany.ReportingCompanyCRNController.onSubmit(mode: Mode = CheckMode)
-
 ### ReportingCompanyCTUTR Controller
 ### ----------------------------------------
 GET        /ctutr                                       controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
