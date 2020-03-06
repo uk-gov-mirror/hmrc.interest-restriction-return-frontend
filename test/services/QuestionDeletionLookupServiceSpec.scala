@@ -20,7 +20,6 @@ import assets.constants.BaseConstants
 import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
 import pages.Page
-import pages.aboutReportingCompany.ReportingCompanyCRNPage
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, ReportingCompanyAppointedPage}
 
 
@@ -79,17 +78,6 @@ class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationC
             val result = TestQuestionDeletionLookupService.getPagesToRemove(AgentActingOnBehalfOfCompanyPage)(userAnswers)
             result mustBe List(AgentNamePage)
           }
-        }
-      }
-
-      "called with a page which does not exist in the mapping" should {
-
-        "return no pages to delete" in {
-
-          val userAnswers = emptyUserAnswers.set(ReportingCompanyCRNPage, crnModel.crn).get
-
-          val result = TestQuestionDeletionLookupService.getPagesToRemove(ReportingCompanyCRNPage)(userAnswers)
-          result mustBe List()
         }
       }
     }

@@ -21,10 +21,10 @@ import assets.messages.BaseMessages._
 import assets.messages.{CheckAnswersReportingCompanyMessages, SectionHeaderMessages}
 import models.FullOrAbbreviatedReturn.Full
 import models.Section._
-import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany.{ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 import play.twirl.api.HtmlFormat
-import utils.{CheckYourAnswersAboutReportingCompanyHelper, CheckYourAnswersHelper}
+import utils.CheckYourAnswersAboutReportingCompanyHelper
 import views.BaseSelectors
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
@@ -44,7 +44,6 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
     .set(FullOrAbbreviatedReturnPage, Full).get
     .set(ReportingCompanyNamePage, companyNameModel.name).get
     .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
-    .set(ReportingCompanyCRNPage, crnModel.crn).get
 
   val checkYourAnswersHelper = new CheckYourAnswersAboutReportingCompanyHelper(userAnswers)
 
@@ -75,8 +74,7 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
       CheckAnswersReportingCompanyMessages.agentName -> agentName,
       CheckAnswersReportingCompanyMessages.fullOrAbbreviatedReturn -> "Full",
       CheckAnswersReportingCompanyMessages.name -> companyNameModel.name,
-      CheckAnswersReportingCompanyMessages.ctutr -> ctutrModel.utr,
-      CheckAnswersReportingCompanyMessages.crn -> crnModel.crn
+      CheckAnswersReportingCompanyMessages.ctutr -> ctutrModel.utr
     )
   }
 }

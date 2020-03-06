@@ -37,7 +37,6 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
       .set(FullOrAbbreviatedReturnPage, Full).get
       .set(ReportingCompanyNamePage, companyNameModel.name).get
       .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
-      .set(ReportingCompanyCRNPage, crnModel.crn).get
   )
 
   "Check Your Answers Helper" must {
@@ -110,18 +109,6 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
           messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
           ctutrModel.utr,
           aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the ReportingCompanyCRN" must {
-
-      "get an answer from useranswers for true" in {
-
-        helper.reportingCompanyCRN mustBe Some(summaryListRow(
-          messages("reportingCompanyCRN.checkYourAnswersLabel"),
-          crnModel.crn,
-          aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

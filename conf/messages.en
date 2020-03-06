@@ -268,7 +268,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = About the reporting company
+reportingCompany.checkYourAnswers.subheading = About the return
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
