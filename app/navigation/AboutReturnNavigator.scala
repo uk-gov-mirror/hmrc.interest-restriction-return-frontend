@@ -16,10 +16,11 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.elections.{routes => electionRoutes}
 import controllers.routes
-import javax.inject.{Inject, Singleton}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
@@ -54,9 +55,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     InterestReactivationsCapPage -> (_ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode)),
-    AccountingPeriodStartPage -> (_ => routes.UnderConstructionController.onPageLoad()),
-    AccountingPeriodEndPage -> (_ => routes.UnderConstructionController.onPageLoad())
+    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)
