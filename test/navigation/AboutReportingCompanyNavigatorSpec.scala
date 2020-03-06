@@ -40,7 +40,7 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyCTUTRPage" should {
 
-        "go to the ReportingCompanyCRNPage" in {
+        "go to the CheckAnswersReportingCompany" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
             aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
         }

@@ -70,7 +70,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to ReportingCompanyCRN page" in {
+          "redirect to CheckAnswersReportingCompany page" in {
 
             AuthStub.authorised()
 
