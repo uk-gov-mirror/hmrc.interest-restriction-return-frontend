@@ -1,4 +1,5 @@
 
 ### ReviewAndComplete Controller
 ### ----------------------------------------
-GET        /review-and-complete                         controllers.reviewAndComplete.ReviewAndCompleteController.onPageLoad()
+GET         /                         controllers.reviewAndComplete.ReviewAndCompleteController.onPageLoad()
+POST        /                         controllers.reviewAndComplete.ReviewAndCompleteController.onSubmit()

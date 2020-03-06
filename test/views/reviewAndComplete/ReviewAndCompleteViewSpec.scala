@@ -16,6 +16,7 @@
 
 package views.reviewAndComplete
 
+import assets.messages.BaseMessages
 import utils.ReviewAndCompleteHelper
 import viewmodels.TaskListRow
 import views.behaviours.ViewBehaviours
@@ -26,7 +27,7 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
   val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows
 
   lazy val viewTemplate = viewFor[ReviewAndCompleteView](Some(emptyUserAnswers))
-  lazy val view = viewTemplate.apply(taskListRows)(fakeRequest, frontendAppConfig, messages)
+  lazy val view = viewTemplate.apply(taskListRows, onwardRoute)(fakeRequest, frontendAppConfig, messages)
 
   val messageKeyPrefix = "reviewAndComplete"
   val section = Some(messages("section.reviewAndComplete"))
@@ -41,6 +42,10 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
     behave like normalPage(view, messageKeyPrefix, section = section)
 
     behave like pageWithBackLink(view)
+
+    behave like pageWithSubmitButton(view, BaseMessages.saveAndContinue)
+
+    behave like pageWithSaveForLater(view)
 
     taskListRows.zipWithIndex.foreach { case (row, i) =>
 

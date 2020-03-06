@@ -18,30 +18,42 @@ package controllers.reviewAndComplete
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import javax.inject.Inject
+import models.NormalMode
+import navigation.ReviewAndCompleteNavigator
+import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.reviewAndComplete.ReviewAndCompleteView
+import repositories.SessionRepository
+import services.QuestionDeletionLookupService
 import utils.ReviewAndCompleteHelper
+import views.html.reviewAndComplete.ReviewAndCompleteView
 
 import scala.concurrent.ExecutionContext
 
 class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesApi,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: ReviewAndCompleteView
-                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
-  extends FrontendBaseController with I18nSupport with FeatureSwitching {
+                                            override val navigator: ReviewAndCompleteNavigator,
+                                            override val sessionRepository: SessionRepository,
+                                            override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            val controllerComponents: MessagesControllerComponents,
+                                            view: ReviewAndCompleteView
+                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+  extends BaseNavigationController with I18nSupport with FeatureSwitching {
 
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val reviewAndCompleteHelper = new ReviewAndCompleteHelper()
 
-    Ok(view(reviewAndCompleteHelper.rows))
+    Ok(view(reviewAndCompleteHelper.rows, routes.ReviewAndCompleteController.onSubmit()))
+  }
+
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request => Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
   }
 }

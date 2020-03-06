@@ -17,28 +17,21 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import models._
 import pages._
-import pages.checkTotals._
-import pages.ukCompanies._
+import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.mvc.Call
 
 @Singleton
-class CheckTotalsNavigator @Inject()() extends Navigator {
+class ReviewAndCompleteNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
-  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    DerivedCompanyPage -> (_ => nextSection),
-    ReviewTaxEBITDAPage -> (_ => controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()),
-    ReviewNetTaxInterestPage -> (_ => controllers.checkTotals.routes.DerivedCompanyController.onPageLoad())
+  val routes: Map[Page, UserAnswers => Call] = Map(
+    ReviewAndCompletePage -> (_ => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
-  //TODO update with CYA call
-  private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
-
   //TODO update with Next Section call
-  private def nextSection: Call = controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()
+  def nextSection(mode: Mode): Call = controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
 
-  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = normalRoutes(page)(userAnswers)
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = routes(page)(userAnswers)
 }

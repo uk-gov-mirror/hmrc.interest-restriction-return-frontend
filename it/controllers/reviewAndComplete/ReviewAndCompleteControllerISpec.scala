@@ -19,7 +19,7 @@ package controllers.reviewAndComplete
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -27,14 +27,14 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Normal mode" when {
 
-    "GET /reviewAndComplete/review-and-complete" when {
+    "GET /review-and-complete" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/reviewAndComplete/review-and-complete")()
+          val res = getRequest("/review-and-complete")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reviewAndComplete/review-and-complete")()
+          val res = getRequest("/review-and-complete")()
 
           whenReady(res) { result =>
             result should have(
@@ -62,24 +62,23 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
         }
       }
     }
-  }
 
-  "in Change mode" when {
+    "POST /review-and-complete" when {
 
-    "GET /reviewAndComplete/review-and-complete" when {
+      "user is authorised" when {
 
-      "user is authorised" should {
-
-        "return OK (200)" in {
+        "redirect to the next page" in {
 
           AuthStub.authorised()
 
-          val res = getRequest("/reviewAndComplete/review-and-complete/change")()
+          setAnswers(emptyUserAnswers)
+
+          val res = postRequest("/review-and-complete", JsString(""))()
 
           whenReady(res) { result =>
             result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.reviewAndComplete)
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
             )
           }
         }
@@ -91,7 +90,7 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/reviewAndComplete/review-and-complete/change")()
+          val res = postRequest("/review-and-complete", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

@@ -19,6 +19,7 @@ package controllers.reviewAndComplete
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import navigation.FakeNavigators.FakeReviewAndCompleteNavigator
 import play.api.test.Helpers._
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
@@ -32,7 +33,10 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    sessionRepository = sessionRepository,
+    navigator = FakeReviewAndCompleteNavigator,
+    questionDeletionLookupService = questionDeletionLookupService
   )
 
   "ReviewAndComplete Controller" must {
@@ -41,9 +45,19 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onPageLoad(fakeRequest)
+      val result = Controller.onPageLoad()(fakeRequest)
 
-      status(result) mustBe OK
+      status(result) mustEqual OK
+    }
+
+    "redirect to the next page when submitted" in {
+
+      mockGetAnswers(Some(emptyUserAnswers))
+
+      val result = Controller.onSubmit()(fakeDataRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }
