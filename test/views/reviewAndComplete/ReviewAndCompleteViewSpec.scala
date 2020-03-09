@@ -52,7 +52,7 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
       val document = asDocument(view)
       val number = i + 1
 
-      s"have a row for ${row.name}" in {
+      s"have a row for ${i}" in {
         document.select(Selectors.section(number)).text() mustBe row.name
         document.select(Selectors.section(number)).attr("href") mustBe row.link.url
         document.select(Selectors.state(number)).text() mustBe row.state

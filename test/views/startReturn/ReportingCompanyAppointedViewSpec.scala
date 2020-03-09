@@ -45,7 +45,7 @@ class ReportingCompanyAppointedViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.startReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

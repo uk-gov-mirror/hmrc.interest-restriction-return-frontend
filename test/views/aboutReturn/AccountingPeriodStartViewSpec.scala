@@ -30,7 +30,7 @@ import views.html.aboutReportingCompany.AccountingPeriodStartView
 class AccountingPeriodStartViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "accountingPeriodStart"
-  val section = Some(messages("section.aboutReturn"))
+  val section = Some(messages("section.startReturn"))
   val form = new AccountingPeriodStartFormProvider()()
 
     "AccountingPeriodStartView" must {
@@ -42,7 +42,7 @@ class AccountingPeriodStartViewSpec extends QuestionViewBehaviours[LocalDate] {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), aboutReturn)
+      behave like pageWithSubHeading(applyView(form), startReturn)
 
       behave like pageWithBackLink(applyView(form))
 

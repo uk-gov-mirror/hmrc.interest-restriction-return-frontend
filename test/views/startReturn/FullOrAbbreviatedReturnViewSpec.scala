@@ -46,7 +46,7 @@ class FullOrAbbreviatedReturnViewSpec extends ViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.startReturn)
 
       behave like pageWithSaveForLater(applyView(form))
 

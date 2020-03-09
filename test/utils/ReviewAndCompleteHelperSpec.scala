@@ -32,11 +32,12 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
         val helper = new ReviewAndCompleteHelper()
 
         helper.rows mustBe Seq(
-          TaskListRow(SectionHeaderMessages.aboutReturn, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.reportingCompany, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
+          TaskListRow(SectionHeaderMessages.startReturn, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
+          TaskListRow(SectionHeaderMessages.aboutReportingCompany, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
           TaskListRow(SectionHeaderMessages.groupStructure, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
           TaskListRow(SectionHeaderMessages.elections, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
           TaskListRow(SectionHeaderMessages.ukCompanies, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
+          TaskListRow(SectionHeaderMessages.aboutReturn, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
           TaskListRow(SectionHeaderMessages.checkTotals, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed)
         )
       }

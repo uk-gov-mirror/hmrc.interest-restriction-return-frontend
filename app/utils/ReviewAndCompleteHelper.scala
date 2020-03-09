@@ -22,11 +22,12 @@ import viewmodels.TaskListRow
 class ReviewAndCompleteHelper(implicit val messages: Messages) {
 
   val rows = Seq(
-    TaskListRow(messages("section.aboutReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.reportingCompany"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
+    TaskListRow(messages("section.startReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
+    TaskListRow(messages("section.aboutReportingCompany"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
     TaskListRow(messages("section.groupStructure"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
     TaskListRow(messages("section.elections"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
     TaskListRow(messages("section.ukCompanies"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
+    TaskListRow(messages("section.aboutReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
     TaskListRow(messages("section.checkTotals"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed"))
   )
 }
