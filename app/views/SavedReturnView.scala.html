@@ -16,10 +16,13 @@
 
 @import views.ViewUtils._
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     h1: components.h1,
+    govukBackLink: GovukBackLink,
     link: components.link
 )
 
@@ -49,7 +52,7 @@
     </p>
     <ul class="govuk-list govuk-list--bullet">
         <li>
-            @link(controllers.routes.SavedReturnController.nextUnansweredPage().url, "savedReturn.bullet1")
+            @link("#", "savedReturn.bullet1", Some("back-link"))
         </li>
         <li>
             @link(controllers.routes.SavedReturnController.deleteAndStartAgain().url, "savedReturn.bullet2")

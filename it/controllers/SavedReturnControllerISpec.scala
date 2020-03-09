@@ -62,65 +62,6 @@ class SavedReturnControllerISpec extends IntegrationSpecBase with CreateRequestH
     }
   }
 
-  "GET /continue-from-save" when {
-
-    "user is authorised" when {
-
-      "no previous answers" must {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.authorised()
-
-          val res = getRequest("/continue-from-save")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
-            )
-          }
-        }
-      }
-
-      "existing previous answers" must {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.authorised()
-
-          setAnswers(ReportingCompanyAppointedPage, true)
-
-          val res = getRequest("/continue-from-save")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.startReturn.routes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode).url)
-            )
-          }
-        }
-      }
-    }
-
-    "user not authorised" should {
-
-      "return SEE_OTHER (303)" in {
-
-        AuthStub.unauthorised()
-
-        val res = getRequest("/continue-from-save")()
-
-        whenReady(res) { result =>
-          result should have(
-            httpStatus(SEE_OTHER),
-            redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-          )
-        }
-      }
-    }
-  }
-
   "GET /delete-answers" when {
 
     "user is authorised" when {

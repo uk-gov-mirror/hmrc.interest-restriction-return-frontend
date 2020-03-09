@@ -50,17 +50,6 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
     Ok(view(savedTilDate))
   }
 
-  def nextUnansweredPage: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
-    val lastSavedPage = request.userAnswers.lastPageSaved.fold[Page](IndexPage)(page => page)
-    val allRoutesMap = startReturnNavigator.normalRoutes ++
-      aboutReportingCompanyNavigator.normalRoutes ++
-      aboutReturnNavigator.normalRoutes ++
-      electionsNavigator.normalRoutes
-
-    Redirect(allRoutesMap(lastSavedPage)(request.userAnswers))
-  }
-
   def deleteAndStartAgain: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     sessionRepository.delete(request.userAnswers).map(_ =>
       Redirect(controllers.routes.IndexController.onPageLoad())
