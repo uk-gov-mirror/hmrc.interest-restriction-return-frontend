@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-package assets
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import models.returnModels.fullReturn.AllocatedReactivationsModel
-import play.api.libs.json.Json
+case object ReactivationAmountPage extends QuestionPage[BigDecimal] {
 
-object AllocatedReactivationsITConstants {
+  override def path: JsPath = JsPath \ toString
 
-  val ap1NetDisallowances = 1.11
-  val currentPeriodReactivation = 2.22
-  val incorrectTotalReactivation = 10
-
-  val allocatedReactivationsModel = AllocatedReactivationsModel(
-    reactivation = currentPeriodReactivation
-  )
-
-  val allocatedReactivationsJson = Json.obj(
-    "reactivation" -> currentPeriodReactivation
-  )
+  override def toString: String = "reactivationAmount"
 }

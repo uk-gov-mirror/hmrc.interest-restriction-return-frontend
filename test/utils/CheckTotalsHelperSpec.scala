@@ -17,7 +17,7 @@
 package utils
 
 import assets.constants.BaseConstants
-import assets.constants.fullReturn.AllocatedReactivationsConstants.{currentPeriodReactivation, _}
+import assets.constants.fullReturn.AllocatedReactivationsConstants.{reactivation, _}
 import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 import assets.constants.fullReturn.FullReturnConstants.{fullReturnModelMax, fullReturnModelMin, fullReturnNetTaxExpenseModelMax, fullReturnNetTaxIncomeModelMax}
 import assets.constants.fullReturn.UkCompanyConstants.{netTaxInterestIncome, _}
@@ -123,14 +123,14 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
 
         val result = helper.calculateSums(fullReturnModelMax.ukCompanies)
 
-        result.reactivations mustBe Some(currentPeriodReactivation)
+        result.reactivations mustBe Some(reactivation)
       }
 
       "multiple companies have a allocatedRestrictions" in {
 
         val result = helper.calculateSums(fullReturnNetTaxExpenseModelMax.ukCompanies)
 
-        result.reactivations mustBe Some(3 * currentPeriodReactivation)
+        result.reactivations mustBe Some(3 * reactivation)
       }
     }
   }
@@ -165,7 +165,7 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
           ),
           summaryListRow(
             CheckTotalsMessages.t5,
-            currencyFormat(currentPeriodReactivation),
+            currencyFormat(reactivation),
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review
           )
         )

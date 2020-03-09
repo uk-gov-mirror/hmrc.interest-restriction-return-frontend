@@ -18,10 +18,10 @@ package models.returnModels.fullReturn
 
 import play.api.libs.json.Json
 
-case class AllocatedReactivationsModel(ap1NetDisallowances: BigDecimal,
-                                       currentPeriodReactivation: BigDecimal)
+case class AllocatedReactivationsModel(reactivation: BigDecimal)
 
 object AllocatedReactivationsModel {
   implicit val format = Json.format[AllocatedReactivationsModel]
+
 }
 
