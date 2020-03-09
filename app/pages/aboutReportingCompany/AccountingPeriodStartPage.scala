@@ -16,12 +16,14 @@
 
 package pages.aboutReportingCompany
 
+import java.time.LocalDate
+
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object ReportingCompanyCRNPage extends QuestionPage[String] {
+case object AccountingPeriodStartPage extends QuestionPage[LocalDate] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "reportingCompanyCRN"
+  override def toString: String = "accountingPeriodStart"
 }

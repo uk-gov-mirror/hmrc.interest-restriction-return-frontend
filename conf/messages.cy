@@ -69,7 +69,6 @@ timeout.signOut = Sign out
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutReturn = About the return
-section.reportingCompany = About the reporting company
 section.groupStructure = Ultimate parent company
 section.elections = Elections
 section.ukCompanies = The companies involved
@@ -86,17 +85,6 @@ helloWorldYesNo.title = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.heading = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.error.required = Select yes if you want to say Hello World
-
-
-# ReportingCompanyCRNPage Messages
-# ----------------------------------------------------------
-reportingCompanyCRN.title = Company Registration Number (CRN)
-reportingCompanyCRN.heading = Company Registration Number (CRN)
-reportingCompanyCRN.checkYourAnswersLabel = Reporting Company CRN
-reportingCompanyCRN.label = Company Registration Number (CRN)
-reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
-reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
-reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not found on Companies House
 
 
 # ReportingCompanyCTUTRPage Messages
@@ -269,7 +257,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = About the reporting company
+reportingCompany.checkYourAnswers.subheading = About the return
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -786,22 +774,27 @@ reviewTaxEBITDA.checkYourAnswers.subheading = Check totals
 reviewNetTaxInterest.checkYourAnswers.title = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.heading = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.subheading = Check totals
-# AccountingPeriodEndPage Messages
-# ----------------------------------------------------------
-accountingPeriodEnd.title = AccountingPeriodEnd
-accountingPeriodEnd.heading = AccountingPeriodEnd
-accountingPeriodEnd.checkYourAnswersLabel = AccountingPeriodEnd
-accountingPeriodEnd.error.required.all = Enter the accountingPeriodEnd
-accountingPeriodEnd.error.required.two= The accountingPeriodEnd must include {0} and {1}
-accountingPeriodEnd.error.required = The accountingPeriodEnd must include {0}
-accountingPeriodEnd.error.invalid = Enter a real AccountingPeriodEnd
 
 # AccountingPeriodStartPage Messages
 # ----------------------------------------------------------
-accountingPeriodStart.title = AccountingPeriodStart
-accountingPeriodStart.heading = AccountingPeriodStart
-accountingPeriodStart.checkYourAnswersLabel = AccountingPeriodStart
-accountingPeriodStart.error.required.all = Enter the accountingPeriodStart
-accountingPeriodStart.error.required.two= The accountingPeriodStart must include {0} and {1}
-accountingPeriodStart.error.required = The accountingPeriodStart must include {0}
-accountingPeriodStart.error.invalid = Enter a real AccountingPeriodStart
+accountingPeriodStart.title = When does the worldwide period of account start?
+accountingPeriodStart.heading = When does the worldwide period of account start?
+accountingPeriodStart.checkYourAnswersLabel = When does the worldwide period of account start?
+accountingPeriodStart.error.required = You must enter a valid date
+accountingPeriodStart.error.invalid = You must enter a valid date
+accountingPeriodStart.error.required.two = You must enter a valid date
+accountingPeriodStart.error.required.all = You must enter a valid date
+accountingPeriodStart.error.range = Start Date can’t be in the future
+accountingPeriodStart.hint = For example, 27 3 2007
+
+# AccountingPeriodEndPage Messages
+# ----------------------------------------------------------
+accountingPeriodEnd.title = When does the worldwide period of account end?
+accountingPeriodEnd.heading = When does the worldwide period of account end?
+accountingPeriodEnd.checkYourAnswersLabel = When does the worldwide period of account end?
+accountingPeriodEnd.error.required = You must enter a valid date
+accountingPeriodEnd.error.invalid = You must enter a valid date
+accountingPeriodEnd.error.required.two = You must enter a valid date
+accountingPeriodEnd.error.required.all = You must enter a valid date
+accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
+accountingPeriodEnd.hint = For example, 27 3 2007

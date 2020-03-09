@@ -18,10 +18,10 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.startReturn.ReportingCompanyAppointedPage
+import pages.aboutReportingCompany._
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -41,16 +41,24 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyCTUTRPage" should {
 
-        "go to the ReportingCompanyCRNPage" in {
+        "go to the AccountingPeriodStartPage" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)
+            aboutReportingCompanyRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)
         }
       }
 
-      "from the ReportingCompanyCRNPage" should {
+      "from the AccountingPeriodStartPage" should {
 
-        "go to the Check Your Answers for the Reporting Company page" in {
-          navigator.nextPage(ReportingCompanyCRNPage, NormalMode, emptyUserAnswers) mustBe
+        "go to the AccountingPeriodEndPage" in {
+          navigator.nextPage(AccountingPeriodStartPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AccountingPeriodEndPage" should {
+
+        "go to the CheckAnswersReportingCompany" in {
+          navigator.nextPage(AccountingPeriodEndPage, NormalMode, emptyUserAnswers) mustBe
             aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
         }
       }
@@ -66,8 +74,18 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to Reporting Company CheckYourAnswers" in {
+      "go to Reporting Company CheckYourAnswers from ReportingCompanyCTUTRPage" in {
         navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "go to Reporting Company CheckYourAnswers from AccountingPeriodStartPage" in {
+        navigator.nextPage(AccountingPeriodStartPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "go to Reporting Company CheckYourAnswers from AccountingPeriodEndPage" in {
+        navigator.nextPage(AccountingPeriodEndPage, CheckMode, emptyUserAnswers) mustBe
           aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
       }
     }

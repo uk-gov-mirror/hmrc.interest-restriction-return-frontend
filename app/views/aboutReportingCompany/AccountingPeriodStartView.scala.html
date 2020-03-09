@@ -15,7 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
-@import controllers.aboutReturn.routes._
+@import controllers.aboutReportingCompany.routes._
 @import models.Mode
 @import views.ViewUtils._
 
@@ -34,15 +34,15 @@
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "accountingPeriodEnd.title", Some("section.aboutReturn")))) {
+@govukLayout(pageTitle = Some(title(form, "accountingPeriodStart.title", Some("section.aboutReturn")))) {
 
-    @formHelper(action = AccountingPeriodEndController.onSubmit(mode), 'autoComplete -> "on") {
+    @formHelper(action = AccountingPeriodStartController.onSubmit(mode), 'autoComplete -> "on") {
 
         @errorSummary(form.errors, Some("date-value.day"))
 
         @subheading("section.aboutReturn")
 
-        @inputDate(form, "accountingPeriodEnd.heading")
+        @inputDate(form, "accountingPeriodStart.heading")
 
         @button("site.saveAndContinue")
 

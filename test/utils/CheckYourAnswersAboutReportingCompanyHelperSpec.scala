@@ -16,6 +16,8 @@
 
 package utils
 
+import java.time.LocalDate
+
 import assets.constants.BaseConstants
 import assets.messages.BaseMessages
 import base.SpecBase
@@ -29,6 +31,8 @@ import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper {
 
+  val date = LocalDate.of(2020,1,1)
+
   val helper = new CheckYourAnswersAboutReportingCompanyHelper(
     UserAnswers("id")
       .set(ReportingCompanyAppointedPage, true).get
@@ -37,7 +41,8 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
       .set(FullOrAbbreviatedReturnPage, Full).get
       .set(ReportingCompanyNamePage, companyNameModel.name).get
       .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
-      .set(ReportingCompanyCRNPage, crnModel.crn).get
+      .set(AccountingPeriodStartPage, date).get
+      .set(AccountingPeriodEndPage, date.plusMonths(1)).get
   )
 
   "Check Your Answers Helper" must {
@@ -114,14 +119,26 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
       }
     }
 
-    "For the ReportingCompanyCRN" must {
+    "For the AP start date" must {
 
-      "get an answer from useranswers for true" in {
+      "get an answer from useranswers for a date" in {
 
-        helper.reportingCompanyCRN mustBe Some(summaryListRow(
-          messages("reportingCompanyCRN.checkYourAnswersLabel"),
-          crnModel.crn,
-          aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        helper.accountingPeriodStart mustBe Some(summaryListRow(
+          messages("accountingPeriodStart.checkYourAnswersLabel"),
+          "1 January 2020",
+          aboutReportingCompanyRoutes.AccountingPeriodStartController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the AP end date" must {
+
+      "get an answer from useranswers for a date" in {
+
+        helper.accountingPeriodEnd mustBe Some(summaryListRow(
+          messages("accountingPeriodEnd.checkYourAnswersLabel"),
+          "1 February 2020",
+          aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

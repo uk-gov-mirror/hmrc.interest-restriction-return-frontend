@@ -45,8 +45,11 @@ class CheckYourAnswersAboutReportingCompanyHelper(val userAnswers: UserAnswers)
   def reportingCompanyCTUTR: Option[SummaryListRow] =
     answer(ReportingCompanyCTUTRPage, aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
 
-  def reportingCompanyCRN: Option[SummaryListRow] =
-    answer(ReportingCompanyCRNPage, aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(CheckMode))
+  def accountingPeriodStart: Option[SummaryListRow] =
+    answer(AccountingPeriodStartPage, aboutReportingCompanyRoutes.AccountingPeriodStartController.onPageLoad(CheckMode))
+
+  def accountingPeriodEnd: Option[SummaryListRow] =
+    answer(AccountingPeriodEndPage, aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(CheckMode))
 
   val rows: Seq[SummaryListRow] = Seq(
     reportingCompanyAppointed,
@@ -55,7 +58,8 @@ class CheckYourAnswersAboutReportingCompanyHelper(val userAnswers: UserAnswers)
     fullOrAbbreviatedReturn,
     reportingCompanyName,
     reportingCompanyCTUTR,
-    reportingCompanyCRN
+    accountingPeriodStart,
+    accountingPeriodEnd
   ).flatten
 
 }

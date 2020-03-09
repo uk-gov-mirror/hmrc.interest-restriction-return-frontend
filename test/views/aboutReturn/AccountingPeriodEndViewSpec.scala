@@ -19,12 +19,12 @@ package views.aboutReturn
 import java.time.{Instant, LocalDate, ZoneOffset}
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import forms.aboutReturn.AccountingPeriodEndFormProvider
+import forms.aboutReportingCompany.AccountingPeriodEndFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.aboutReturn.AccountingPeriodEndView
+import views.html.aboutReportingCompany.AccountingPeriodEndView
 
 class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 

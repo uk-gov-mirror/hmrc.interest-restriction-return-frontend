@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package pages.aboutReturn
+package pages.aboutReportingCompany
 
 import java.time.LocalDate
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object AccountingPeriodStartPage extends QuestionPage[LocalDate] {
+case object AccountingPeriodEndPage extends QuestionPage[LocalDate] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "accountingPeriodStart"
+  override def toString: String = "accountingPeriodEnd"
 }

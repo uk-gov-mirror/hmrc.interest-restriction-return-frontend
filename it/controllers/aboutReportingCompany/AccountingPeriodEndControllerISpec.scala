@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import java.time.{Instant, ZoneOffset}
 
 import assets.{BaseITConstants, PageTitles}
-import pages.aboutReturn.AccountingPeriodStartPage
+import pages.aboutReportingCompany.AccountingPeriodStartPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -31,7 +31,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
   "in Normal mode" when {
 
-    "GET /about-return/accounting-period-end" when {
+    "GET /reporting-company/accounting-period-end" when {
 
       "user is authorised" should {
 
@@ -40,7 +40,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
           setAnswers(AccountingPeriodStartPage,now)
 
           AuthStub.authorised()
-          val res = getRequest("/about-return/accounting-period-end")()
+          val res = getRequest("/reporting-company/accounting-period-end")()
 
           whenReady(res) { result =>
             result should have(
@@ -57,7 +57,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/accounting-period-end")()
+          val res = getRequest("/reporting-company/accounting-period-end")()
 
           whenReady(res) { result =>
             result should have(
@@ -69,27 +69,27 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
       }
     }
 
-    "POST /about-return/accounting-period-end" when {
+    "POST /reporting-company/accounting-period-end" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction Page" in {
+          "redirect to Check answer Page" in {
 
             setAnswers(AccountingPeriodStartPage,now)
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-return/accounting-period-end",
+            val res = postRequest("/reporting-company/accounting-period-end",
               Json.obj("value.day" -> now.plusDays(1).getDayOfMonth,
-                "value.month" -> now.plusDays(1).getMonthValue,
-                "value.year" -> now.plusDays(1).getYear))()
+                "value.month" -> now.getMonthValue,
+                "value.year" -> now.getYear))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
               )
             }
           }
@@ -102,7 +102,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-return/accounting-period-end", Json.obj("value" -> ""))()
+          val res = postRequest("/reporting-company/accounting-period-end", Json.obj("value" -> ""))()
 
           whenReady(res) { result =>
             result should have(
@@ -127,7 +127,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-return/accounting-period-end/change")()
+          val res = getRequest("/reporting-company/accounting-period-end/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -144,7 +144,7 @@ class AccountingPeriodEndControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/accounting-period-end/change")()
+          val res = getRequest("/reporting-company/accounting-period-end/change")()
 
           whenReady(res) { result =>
             result should have(

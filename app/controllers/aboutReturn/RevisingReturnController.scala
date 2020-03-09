@@ -16,12 +16,13 @@
 
 package controllers.aboutReturn
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReturn.RevisingReturnFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
 import pages.aboutReturn.RevisingReturnPage

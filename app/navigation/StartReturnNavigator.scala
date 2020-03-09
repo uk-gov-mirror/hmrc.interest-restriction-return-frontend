@@ -15,12 +15,15 @@
  */
 
 package navigation
-
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
 import javax.inject.{Inject, Singleton}
+
+import controllers.routes
 import models._
 import pages._
+import pages.aboutReturn.RevisingReturnPage
 import pages.startReturn._
 import play.api.mvc.Call
 
@@ -40,7 +43,7 @@ class StartReturnNavigator @Inject()() extends Navigator {
       case _ => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
     }),
     AgentNamePage -> (_ => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)),
-    FullOrAbbreviatedReturnPage -> (_ => nextSection(NormalMode))
+    FullOrAbbreviatedReturnPage -> (_ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map(

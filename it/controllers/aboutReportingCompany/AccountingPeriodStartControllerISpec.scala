@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import java.time.{Instant, ZoneOffset}
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -30,14 +31,14 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
   "in Normal mode" when {
 
-    "GET /about-return/accounting-period-start" when {
+    "GET /reporting-company/accounting-period-start" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/about-return/accounting-period-start")()
+          val res = getRequest("/reporting-company/accounting-period-start")()
 
           whenReady(res) { result =>
             result should have(
@@ -54,7 +55,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/accounting-period-start")()
+          val res = getRequest("/reporting-company/accounting-period-start")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,17 +68,17 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
     }
 
 
-    "POST /about-return/accounting-period-end" when {
+    "POST /reporting-company/accounting-period-end" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction Page" in {
+          "redirect to AccountingPeriodEnd Page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-return/accounting-period-start",
+            val res = postRequest("/reporting-company/accounting-period-start",
               Json.obj("value.day" -> now.getDayOfMonth,
                 "value.month" -> now.getMonthValue,
                 "value.year" -> now.getYear))()
@@ -85,7 +86,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReportingCompany.routes.AccountingPeriodEndController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -98,7 +99,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-return/accounting-period-start", Json.obj("value" -> ""))()
+          val res = postRequest("/reporting-company/accounting-period-start", Json.obj("value" -> ""))()
 
           whenReady(res) { result =>
             result should have(
@@ -113,7 +114,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
   "in Change mode" when {
 
-    "GET /about-return/accounting-period-start" when {
+    "GET /reporting-company/accounting-period-start" when {
 
       "user is authorised" should {
 
@@ -121,7 +122,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-return/accounting-period-start/change")()
+          val res = getRequest("/reporting-company/accounting-period-start/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -138,7 +139,7 @@ class AccountingPeriodStartControllerISpec extends IntegrationSpecBase with Crea
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/accounting-period-start/change")()
+          val res = getRequest("/reporting-company/accounting-period-start/change")()
 
           whenReady(res) { result =>
             result should have(

@@ -80,7 +80,7 @@ class FullOrAbbreviatedReturnControllerISpec extends IntegrationSpecBase with Cr
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.ReportingCompanyNameController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.RevisingReturnController.onPageLoad(NormalMode).url)
               )
             }
           }

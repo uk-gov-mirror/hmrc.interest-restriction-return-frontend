@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package forms.aboutReturn
+package forms.aboutReportingCompany
 
-import java.time.{Instant, LocalDate, ZoneOffset}
+import java.time.LocalDate
 import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
 
-class AccountingPeriodStartFormProvider @Inject() extends Mappings {
+class AccountingPeriodEndFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[LocalDate] = {
-    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+  def apply(startDate: LocalDate): Form[LocalDate] =
     Form(
       "value" -> localDate(
-        invalidKey = "accountingPeriodStart.error.invalid",
-        allRequiredKey = "accountingPeriodStart.error.required.all",
-        twoRequiredKey = "accountingPeriodStart.error.required.two",
-        requiredKey = "accountingPeriodStart.error.required"
+        invalidKey     = "accountingPeriodEnd.error.invalid",
+        allRequiredKey = "accountingPeriodEnd.error.required.all",
+        twoRequiredKey = "accountingPeriodEnd.error.required.two",
+        requiredKey    = "accountingPeriodEnd.error.required"
       )
-        .verifying("accountingPeriodStart.error.range", period => !period.isAfter(now))
+        .verifying("accountingPeriodEnd.error.range", endDate =>
+          endDate.isAfter(startDate) && !endDate.minusMonths(18).isAfter(startDate))
+
     )
-  }
 }
