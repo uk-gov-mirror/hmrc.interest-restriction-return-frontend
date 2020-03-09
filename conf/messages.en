@@ -810,3 +810,11 @@ accountingPeriodEnd.error.required.two = You must enter a valid date
 accountingPeriodEnd.error.required.all = You must enter a valid date
 accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
 accountingPeriodEnd.hint = For example, 27 3 2007
+
+# AddAnReactivationQueryPage Messages
+# ----------------------------------------------------------
+addAnReactivationQuery.title = Do you need to add a reactivation to this company?
+addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
+addAnReactivationQuery.subheading = {0}

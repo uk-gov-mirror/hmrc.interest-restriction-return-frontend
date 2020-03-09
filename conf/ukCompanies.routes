@@ -56,3 +56,10 @@ POST       /:idx/consenting-company/change                      controllers.ukCo
 ### ----------------------------------------
 GET        /:idx/check-answers-uk-company                         controllers.ukCompanies.CheckAnswersUkCompanyController.onPageLoad(idx: Int)
 POST       /:idx/check-answers-uk-company                         controllers.ukCompanies.CheckAnswersUkCompanyController.onSubmit(idx: Int)
+
+### AddAnReactivationQuery Controller
+### ----------------------------------------
+GET        /:idx/add-an-reactivation-query                          controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/add-an-reactivation-query                          controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/add-an-reactivation-query/change                   controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/add-an-reactivation-query/change                   controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = CheckMode)

@@ -805,3 +805,11 @@ accountingPeriodStart.error.required.all = Enter the accountingPeriodStart
 accountingPeriodStart.error.required.two= The accountingPeriodStart must include {0} and {1}
 accountingPeriodStart.error.required = The accountingPeriodStart must include {0}
 accountingPeriodStart.error.invalid = Enter a real AccountingPeriodStart
+
+# AddAnReactivationQueryPage Messages
+# ----------------------------------------------------------
+addAnReactivationQuery.title = Do you need to add a reactivation to this company?
+addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
+addAnReactivationQuery.subheading = {0}
