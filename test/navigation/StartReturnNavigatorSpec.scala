@@ -19,6 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import models._
 import pages._
 import pages.aboutReportingCompany.{ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
@@ -94,9 +95,9 @@ class StartReturnNavigatorSpec extends SpecBase {
 
       "from the FullOrAbbreviatedReturnPage" should {
 
-        "go to the FullOrAbbreviatedReturnPage when answer is true" in {
+        "go to the ReviseReturn when answer is true" in {
           navigator.nextPage(FullOrAbbreviatedReturnPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
+            aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
         }
       }
     }

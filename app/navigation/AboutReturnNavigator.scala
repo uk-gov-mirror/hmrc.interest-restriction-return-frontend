@@ -18,6 +18,7 @@ package navigation
 
 import javax.inject.{Inject, Singleton}
 
+import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.elections.{routes => electionRoutes}
 import controllers.routes
@@ -31,11 +32,6 @@ import play.api.mvc.Call
 class AboutReturnNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
-      case Some(false) => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
-      case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
-    }),
     InfrastructureCompanyElectionPage -> (_.get(startReturn.FullOrAbbreviatedReturnPage) match {
       case Some(Full) => aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
       case Some(Abbreviated) => routes.UnderConstructionController.onPageLoad() //TODO Link to abbreviated return section when implemented
@@ -55,7 +51,12 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     InterestReactivationsCapPage -> (_ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
+    GroupInterestCapacityPage -> (_ => nextSection(NormalMode)),
+    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
+      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(false) => aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
+      case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
+    })
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)
