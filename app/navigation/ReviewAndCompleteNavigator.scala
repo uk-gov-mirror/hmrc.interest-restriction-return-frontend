@@ -25,12 +25,10 @@ import play.api.mvc.Call
 @Singleton
 class ReviewAndCompleteNavigator @Inject()() extends Navigator {
 
-  //TODO update with next page
   val routes: Map[Page, UserAnswers => Call] = Map(
     ReviewAndCompletePage -> (_ => nextSection(NormalMode))
   )
 
-  //TODO update with Next Section call
   def nextSection(mode: Mode): Call = controllers.routes.ConfirmationController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = routes(page)(userAnswers)
