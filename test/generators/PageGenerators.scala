@@ -27,6 +27,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryReactivationAmountPage: Arbitrary[ReactivationAmountPage.type] =
+    Arbitrary(ReactivationAmountPage)
+
   implicit lazy val arbitraryAccountingPeriodStartPage: Arbitrary[AccountingPeriodStartPage.type] =
     Arbitrary(AccountingPeriodStartPage)
 

@@ -798,3 +798,14 @@ accountingPeriodEnd.error.required.two = You must enter a valid date
 accountingPeriodEnd.error.required.all = You must enter a valid date
 accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
 accountingPeriodEnd.hint = For example, 27 3 2007
+
+# ReactivationAmountPage Messages
+# ----------------------------------------------------------
+reactivationAmount.title = ReactivationAmount
+reactivationAmount.heading = ReactivationAmount
+reactivationAmount.label=Add a reactivation amount
+reactivationAmount.checkYourAnswersLabel = ReactivationAmount
+reactivationAmount.error.nonNumeric = Enter your reactivationAmount using numbers
+reactivationAmount.error.required = Enter your reactivationAmount
+reactivationAmount.error.invalidNumeric = The reactivationAmount must be valid decimal or whole number
+reactivationAmount.error.outOfRange = ReactivationAmount must be between {0} and {1}

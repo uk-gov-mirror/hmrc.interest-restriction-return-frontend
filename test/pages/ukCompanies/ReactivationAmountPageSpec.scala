@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package assets
+package pages.ukCompanies
 
-import models.returnModels.fullReturn.AllocatedReactivationsModel
-import play.api.libs.json.Json
+import pages.behaviours.PageBehaviours
 
-object AllocatedReactivationsITConstants {
+class ReactivationAmountPageSpec extends PageBehaviours {
 
-  val ap1NetDisallowances = 1.11
-  val currentPeriodReactivation = 2.22
-  val incorrectTotalReactivation = 10
+  "ReactivationAmountPage" must {
 
-  val allocatedReactivationsModel = AllocatedReactivationsModel(
-    reactivation = currentPeriodReactivation
-  )
+    beRetrievable[BigDecimal](ReactivationAmountPage)
 
-  val allocatedReactivationsJson = Json.obj(
-    "reactivation" -> currentPeriodReactivation
-  )
+    beSettable[BigDecimal](ReactivationAmountPage)
+
+    beRemovable[BigDecimal](ReactivationAmountPage)
+  }
 }
