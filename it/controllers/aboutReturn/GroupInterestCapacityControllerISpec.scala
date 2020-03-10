@@ -70,7 +70,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to Group Ratio Election page" in {
+          "redirect to About Adding UK Companies page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +79,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad().url)
               )
             }
           }
