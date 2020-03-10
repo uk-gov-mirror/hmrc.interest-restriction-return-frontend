@@ -24,8 +24,9 @@ import forms.elections.PartnershipSAUTRFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import models.returnModels.UTRModel
 import navigation.ElectionsNavigator
-import pages.elections.{PartnershipNamePage, PartnershipSAUTRPage}
+import pages.elections.{PartnershipSAUTRPage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -35,31 +36,51 @@ import views.html.elections.PartnershipSAUTRView
 import scala.concurrent.Future
 
 class PartnershipSAUTRController @Inject()(
-                                       override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: ElectionsNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: PartnershipSAUTRFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: PartnershipSAUTRView
-                                    )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                            override val messagesApi: MessagesApi,
+                                            val sessionRepository: SessionRepository,
+                                            val navigator: ElectionsNavigator,
+                                            val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: PartnershipSAUTRFormProvider,
+                                            val controllerComponents: MessagesControllerComponents,
+                                            view: PartnershipSAUTRView
+                                          )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(PartnershipNamePage) { name =>
-      Future.successful(Ok(view(fillForm(PartnershipSAUTRPage, formProvider()), mode, name)))
+  private val form = formProvider()
+
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(PartnershipsPage, idx) { partnership =>
+      Future.successful(
+        Ok(view(
+          form = partnership.sautr.map(_.utr).fold(form)(form.fill),
+          postAction = routes.PartnershipSAUTRController.onSubmit(idx, mode),
+          partnershipName = partnership.name
+        ))
+      )
     }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors => answerFor(PartnershipNamePage) { name =>
-        Future.successful(BadRequest(view(formWithErrors, mode, name)))
-      },
-      value =>
-        saveAndRedirect(PartnershipSAUTRPage, value, mode)
-    )
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(PartnershipsPage, idx) { partnership =>
+      form.bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors,
+              postAction = routes.PartnershipSAUTRController.onSubmit(idx, mode),
+              partnershipName = partnership.name
+            ))
+          ),
+        value => {
+          val updatedModel = partnership.copy(sautr = Some(UTRModel((value)))
+          )
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(PartnershipsPage, updatedModel, Some(idx)))
+          } yield Redirect(navigator.nextPage(PartnershipSAUTRPage, mode, updatedAnswers, Some(idx)))
+        }
+      )
+    }
   }
 }

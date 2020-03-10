@@ -53,7 +53,6 @@ class ConsentingCompanyController @Inject()(
       Future.successful(
         Ok(view(
           form = ukCompany.consenting.fold(formProvider())(formProvider().fill),
-          mode = mode,
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.ConsentingCompanyController.onSubmit(idx, mode)
         ))
@@ -68,7 +67,6 @@ class ConsentingCompanyController @Inject()(
           Future.successful(
             BadRequest(view(
               form = formWithErrors,
-              mode = mode,
               companyName = ukCompany.companyDetails.companyName,
               postAction = routes.ConsentingCompanyController.onSubmit(idx, mode)
             ))

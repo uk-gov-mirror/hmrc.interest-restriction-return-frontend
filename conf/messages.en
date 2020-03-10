@@ -798,3 +798,12 @@ accountingPeriodEnd.error.required.two = You must enter a valid date
 accountingPeriodEnd.error.required.all = You must enter a valid date
 accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
 accountingPeriodEnd.hint = For example, 27 3 2007
+
+# PartnershipsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+partnershipsReviewAnswersList.plural.title = {0} partnerships added
+partnershipsReviewAnswersList.singular.title = {0} partnership added
+partnershipsReviewAnswersList.plural.heading = {0} partnerships added
+partnershipsReviewAnswersList.singular.heading = {0} partnership added
+partnershipsReviewAnswersList.addAnother = Do you need to add another partnership?
+partnershipsReviewAnswersList.error.required = Select yes if Do you need to add another partnership?

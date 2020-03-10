@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val partnershipsReviewAnswersList = "Do you need to add another partnership?"
   val accountingPeriodStart = "When does the worldwide period of account start?"
   val accountingPeriodEnd = "When does the worldwide period of account end?"
   val checkAnswersUkCompany: String => String = name => s"Check $name details"

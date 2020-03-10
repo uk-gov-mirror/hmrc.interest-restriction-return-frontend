@@ -30,7 +30,7 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "consentingCompany.title", Some(messages("consentingCompany.subheading", companyName))))) {
 

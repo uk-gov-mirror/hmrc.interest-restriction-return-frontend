@@ -27,7 +27,7 @@ import views.html.elections.PartnershipNameView
 
 class PartnershipNameViewSpec extends StringViewBehaviours  {
 
-  val messageKeyPrefix = "partnershipName"
+  val messageKeyPrefix = "name"
   val section = Some(messages("section.elections"))
   val form = new PartnershipNameFormProvider()()
 
