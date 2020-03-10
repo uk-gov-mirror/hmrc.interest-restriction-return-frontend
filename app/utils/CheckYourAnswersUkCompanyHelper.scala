@@ -84,10 +84,10 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     ))
 
   def companyReactivationAmount(idx: Int): Option[SummaryListRow] =
-    ukCompanyModel(idx).flatMap(_.allocatedReactivations.map(reactivation =>
+    ukCompanyModel(idx).flatMap(_.allocatedReactivations.map(reactivationModel =>
       summaryListRow(
         label = messages("reactivationAmount.checkYourAnswersLabel", Seq()),
-        value = currencyFormat(reactivation.reactivation),
+        value = currencyFormat(reactivationModel.reactivation),
         (ukCompanyRoutes.ReactivationAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
