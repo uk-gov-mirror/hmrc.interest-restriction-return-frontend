@@ -86,7 +86,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching w
           val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(controllers.routes.SavedReturnController.nextUnansweredPage().url)
+          redirectLocation(result) mustBe Some(controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad().url)
         }
       }
 

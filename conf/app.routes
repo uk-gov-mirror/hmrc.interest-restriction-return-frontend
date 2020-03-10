@@ -16,6 +16,7 @@ GET        /                                            controllers.IndexControl
 ->         /elections                                   elections.Routes
 ->         /uk-companies                                ukCompanies.Routes
 ->         /check-totals                                checkTotals.Routes
+->         /review-and-complete                         reviewAndComplete.Routes
 
 ### Error Pages
 ### -----------
@@ -32,7 +33,6 @@ GET        /sign-out-no-survey                          controllers.SignOutContr
 ### SavedReturn Controller
 ### ----------------------------------------
 GET        /saved-return                                controllers.SavedReturnController.onPageLoad()
-GET        /continue-from-save                          controllers.SavedReturnController.nextUnansweredPage()
 GET        /delete-answers                              controllers.SavedReturnController.deleteAndStartAgain()
 
 ### ContinueSavedReturn Controller

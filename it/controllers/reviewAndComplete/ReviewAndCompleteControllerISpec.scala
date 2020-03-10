@@ -14,35 +14,32 @@
  * limitations under the License.
  */
 
-package controllers.checkTotals
+package controllers.reviewAndComplete
 
-import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
-import pages.ukCompanies.UkCompaniesPage
+import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /check-totals/derived-company" when {
+    "GET /review-and-complete" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          appendList(UkCompaniesPage, ukCompanyModelMax)
-
-          val res = getRequest("/check-totals/derived-company")()
+          val res = getRequest("/review-and-complete")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.derivedCompany)
+              titleOf(PageTitles.reviewAndComplete)
             )
           }
         }
@@ -54,7 +51,7 @@ class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/check-totals/derived-company")()
+          val res = getRequest("/review-and-complete")()
 
           whenReady(res) { result =>
             result should have(
@@ -66,7 +63,7 @@ class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /check-totals/derived-company" when {
+    "POST /review-and-complete" when {
 
       "user is authorised" when {
 
@@ -76,12 +73,12 @@ class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateReque
 
           setAnswers(emptyUserAnswers)
 
-          val res = postRequest("/check-totals/derived-company", JsString(""))()
+          val res = postRequest("/review-and-complete", JsString(""))()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad().url)
+              redirectLocation(controllers.routes.ConfirmationController.onPageLoad().url)
             )
           }
         }
@@ -93,7 +90,7 @@ class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/check-totals/derived-company", JsString(""))()
+          val res = postRequest("/review-and-complete", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

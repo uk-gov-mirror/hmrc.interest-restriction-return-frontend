@@ -45,7 +45,7 @@ class AgentNameViewSpec extends StringViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.agents)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.startReturn)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

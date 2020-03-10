@@ -67,10 +67,11 @@ timeout.signOut = Sign out
 
 # Sections
 # ----------------------------------------------------------
-section.agents = Agents
-section.aboutReturn = About the return
+section.startReturn = About the return
+section.aboutReportingCompany = About the return
 section.groupStructure = Ultimate parent company
 section.elections = Elections
+section.aboutReturn = Group level information
 section.ukCompanies = The companies involved
 section.checkTotals = Check totals
 
@@ -809,3 +810,10 @@ reactivationAmount.error.nonNumeric = Enter your reactivationAmount using number
 reactivationAmount.error.required = Enter your reactivationAmount
 reactivationAmount.error.invalidNumeric = The reactivationAmount must be valid decimal or whole number
 reactivationAmount.error.outOfRange = ReactivationAmount must be between {0} and {1}
+
+# ReviewAndCompletePage Messages
+# ----------------------------------------------------------
+reviewAndComplete.title = Interest Restriction Return
+reviewAndComplete.heading = Interest Restriction Return
+reviewAndComplete.completed = Completed
+reviewAndComplete.text = Send your return to HMRC

@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package assets.messages
+package navigation
 
-object SectionHeaderMessages {
+import javax.inject.{Inject, Singleton}
+import models._
+import pages._
+import pages.reviewAndComplete.ReviewAndCompletePage
+import play.api.mvc.Call
 
-  val startReturn = "About the return"
-  val aboutReportingCompany = "About the return"
-  val groupStructure = "Ultimate parent company"
-  val elections = "Elections"
-  val aboutReturn = "Group level information"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
+@Singleton
+class ReviewAndCompleteNavigator @Inject()() extends Navigator {
+
+  val routes: Map[Page, UserAnswers => Call] = Map(
+    ReviewAndCompletePage -> (_ => nextSection(NormalMode))
+  )
+
+  def nextSection(mode: Mode): Call = controllers.routes.ConfirmationController.onPageLoad()
+
+  def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = routes(page)(userAnswers)
 }

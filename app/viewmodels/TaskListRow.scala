@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-package assets.messages
+package viewmodels
 
-object SectionHeaderMessages {
+import play.api.mvc.Call
 
-  val startReturn = "About the return"
-  val aboutReportingCompany = "About the return"
-  val groupStructure = "Ultimate parent company"
-  val elections = "Elections"
-  val aboutReturn = "Group level information"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
-}
+
+case class TaskListRow(name: String, link: Call, state: String)

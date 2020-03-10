@@ -14,15 +14,11 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.reviewAndComplete
+import pages.Page
+import play.api.libs.json.JsPath
 
-object SectionHeaderMessages {
+case object ReviewAndCompletePage extends Page{
 
-  val startReturn = "About the return"
-  val aboutReportingCompany = "About the return"
-  val groupStructure = "Ultimate parent company"
-  val elections = "Elections"
-  val aboutReturn = "Group level information"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
+  override def toString: String = "reviewAndComplete"
 }

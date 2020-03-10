@@ -14,15 +14,27 @@
  * limitations under the License.
  */
 
-package assets.messages
+package navigation
 
-object SectionHeaderMessages {
+import base.SpecBase
+import models._
+import pages.reviewAndComplete.ReviewAndCompletePage
 
-  val startReturn = "About the return"
-  val aboutReportingCompany = "About the return"
-  val groupStructure = "Ultimate parent company"
-  val elections = "Elections"
-  val aboutReturn = "Group level information"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
+class ReviewAndCompleteNavigatorSpec extends SpecBase {
+
+  val navigator = new ReviewAndCompleteNavigator
+
+  "ReviewAndCompleteNavigator" when {
+
+    "in Normal mode" must {
+
+      "from the ReviewAndCompletePage" should {
+
+        "go to the Under construction page" in {
+          navigator.nextPage(ReviewAndCompletePage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.ConfirmationController.onPageLoad()
+        }
+      }
+    }
+  }
 }

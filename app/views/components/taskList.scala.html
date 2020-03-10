@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package assets.messages
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import viewmodels.TaskListRow
 
-object SectionHeaderMessages {
+@this(link: components.link)
 
-  val startReturn = "About the return"
-  val aboutReportingCompany = "About the return"
-  val groupStructure = "Ultimate parent company"
-  val elections = "Elections"
-  val aboutReturn = "Group level information"
-  val ukCompanies = "The companies involved"
-  val checkTotals = "Check totals"
-}
+@(rows: Seq[TaskListRow])(implicit messages: Messages)
+
+<ul class="app-task-list__items">
+    @rows.map{ row =>
+        <li class="app-task-list__item">
+            <span class="app-task-list__task-name">
+                <a href="@row.link">@row.name</a>
+            </span>
+            <strong class="app-task-list__task-completed">@row.state</strong>
+        </li>
+    }
+</ul>
