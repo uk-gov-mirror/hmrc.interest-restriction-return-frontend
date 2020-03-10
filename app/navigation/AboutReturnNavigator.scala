@@ -51,12 +51,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     InterestReactivationsCapPage -> (_ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode)),
-    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
-      case Some(false) => aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
-      case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
-    })
+    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)

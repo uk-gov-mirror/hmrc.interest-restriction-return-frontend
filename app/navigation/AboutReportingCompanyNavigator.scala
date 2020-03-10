@@ -17,29 +17,40 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
+import controllers.routes
 import models._
 import pages._
 import pages.aboutReportingCompany._
+import pages.aboutReturn.RevisingReturnPage
 import play.api.mvc.Call
 
 @Singleton
 class AboutReportingCompanyNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
+      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(false) => aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
+      case _ => aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(NormalMode)
+    }),
     ReportingCompanyNamePage -> (_ => aboutReportingCompanyRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
     ReportingCompanyCTUTRPage -> (_ => aboutReportingCompanyRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)),
     AccountingPeriodStartPage -> (_ => aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)),
-    AccountingPeriodEndPage -> (_ => aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()),
+    AccountingPeriodEndPage -> (_ => checkAnswers),
     CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ =>
-    aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
-  )
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
+    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
+      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(false) => checkAnswers
+      case _ => aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(NormalMode)
+    })
+  ).withDefaultValue(_ => checkAnswers)
 
+  private def checkAnswers = aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
   private def nextSection(mode: Mode): Call = groupStructureRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {

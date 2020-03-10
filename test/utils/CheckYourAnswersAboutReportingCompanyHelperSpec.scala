@@ -19,13 +19,14 @@ package utils
 import java.time.LocalDate
 
 import assets.constants.BaseConstants
-import assets.messages.BaseMessages
+import assets.messages.{BaseMessages, CheckAnswersAboutReturnMessages}
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
 import models.FullOrAbbreviatedReturn.Full
 import models.{CheckMode, UserAnswers}
 import pages.aboutReportingCompany._
+import pages.aboutReturn.RevisingReturnPage
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 import viewmodels.SummaryListRowHelper
 
@@ -39,6 +40,7 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
       .set(AgentActingOnBehalfOfCompanyPage, true).get
       .set(AgentNamePage, agentName).get
       .set(FullOrAbbreviatedReturnPage, Full).get
+      .set(RevisingReturnPage, true).get
       .set(ReportingCompanyNamePage, companyNameModel.name).get
       .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
       .set(AccountingPeriodStartPage, date).get
@@ -91,6 +93,18 @@ class CheckYourAnswersAboutReportingCompanyHelperSpec extends SpecBase with Base
           messages("fullOrAbbreviatedReturn.checkYourAnswersLabel"),
           messages("fullOrAbbreviatedReturn.full"),
           startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the RevisingReturn answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.revisingReturn mustBe Some(summaryListRow(
+          CheckAnswersAboutReturnMessages.revisingReturn,
+          BaseMessages.yes,
+          aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

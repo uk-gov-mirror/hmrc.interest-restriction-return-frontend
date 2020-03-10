@@ -34,25 +34,6 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "from the Revising Return page" should {
-
-        "go to the Revision Information page when yes selected to revising a return" ignore {
-
-          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
-
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-            ??? //TODO Link to Revision Information Page when implemented
-        }
-
-        "go to the Reporting company name page when no selected to revising a return" in {
-
-          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
-
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
-        }
-      }
-
       "from the Infrastructure Company Election page" should {
 
         "go to the Return Contains Estimates page when Full Return is being submitted" in {
