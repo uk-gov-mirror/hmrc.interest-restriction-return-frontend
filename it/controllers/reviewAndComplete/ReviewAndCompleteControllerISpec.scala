@@ -78,7 +78,7 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              redirectLocation(controllers.routes.ConfirmationController.onPageLoad().url)
             )
           }
         }

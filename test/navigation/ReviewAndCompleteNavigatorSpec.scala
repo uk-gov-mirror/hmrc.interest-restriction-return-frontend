@@ -32,7 +32,7 @@ class ReviewAndCompleteNavigatorSpec extends SpecBase {
 
         "go to the Under construction page" in {
           navigator.nextPage(ReviewAndCompletePage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.routes.ConfirmationController.onPageLoad()
         }
       }
     }
