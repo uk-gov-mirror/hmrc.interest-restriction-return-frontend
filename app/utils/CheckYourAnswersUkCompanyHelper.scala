@@ -83,12 +83,23 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def companyReactivationAmount(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.allocatedReactivations.map(reactivation =>
+      summaryListRow(
+        label = messages("reactivationAmount.checkYourAnswersLabel", Seq()),
+        value = currencyFormat(reactivation.reactivation),
+        (ukCompanyRoutes.ReactivationAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
+    ))
+
+
   def rows(idx: Int): Seq[SummaryListRow] = Seq(
     companyName(idx),
     ctutr(idx),
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
-    netTaxInterestAmount(idx)
+    netTaxInterestAmount(idx),
+    companyReactivationAmount(idx)
   ).flatten
 
 
