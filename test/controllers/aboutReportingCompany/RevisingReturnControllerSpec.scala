@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
@@ -22,10 +22,10 @@ import controllers.actions._
 import controllers.errors
 import forms.aboutReturn.RevisingReturnFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeAboutReturnNavigator
+import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
 import pages.aboutReturn.RevisingReturnPage
 import play.api.test.Helpers._
-import views.html.aboutReturn.RevisingReturnView
+import views.html.aboutReportingCompany.RevisingReturnView
 
 class RevisingReturnControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -36,7 +36,7 @@ class RevisingReturnControllerSpec extends SpecBase with FeatureSwitching with M
   object Controller extends RevisingReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeAboutReturnNavigator,
+    navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

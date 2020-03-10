@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package views.aboutReturn
+package views.aboutReportingCompany
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.aboutReturn.routes
+import controllers.aboutReportingCompany.routes
 import forms.aboutReturn.RevisingReturnFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.Twirl
 import views.behaviours.YesNoViewBehaviours
-import views.html.aboutReturn.RevisingReturnView
+import views.html.aboutReportingCompany.RevisingReturnView
 
 class RevisingReturnViewSpec extends YesNoViewBehaviours {
 

@@ -25,13 +25,6 @@ GET        /interest-allowance-brought-forward/change       controllers.aboutRet
 POST       /interest-allowance-brought-forward/change       controllers.aboutReturn.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)
 
 
-### RevisingReturn Controller
-### ----------------------------------------
-GET        /revising-return                                 controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
-POST       /revising-return                                 controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
-GET        /revising-return/change                          controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
-POST       /revising-return/change                          controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
-
 ### GroupInterestCapacity Controller
 ### ----------------------------------------
 GET        /group-interest-capacity                         controllers.aboutReturn.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)

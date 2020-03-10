@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
@@ -27,7 +27,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Normal mode" when {
 
-    "GET /about-return/revising-return" when {
+    "GET /reporting-company/revising-return" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-return/revising-return")()
+          val res = getRequest("/reporting-company/revising-return")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/revising-return")()
+          val res = getRequest("/reporting-company/revising-return")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /about-return/revising-return" when {
+    "POST /reporting-company/revising-return" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-return/revising-return", Json.obj("value" -> true))()
+            val res = postRequest("/reporting-company/revising-return", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-return/revising-return", Json.obj("value" -> false))()
+            val res = postRequest("/reporting-company/revising-return", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +109,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-return/revising-return", Json.obj("value" -> true))()
+          val res = postRequest("/reporting-company/revising-return", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +124,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /about-return/revising-return" when {
+    "GET /reporting-company/revising-return" when {
 
       "user is authorised" should {
 
@@ -132,7 +132,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-return/revising-return/change")()
+          val res = getRequest("/reporting-company/revising-return/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -149,7 +149,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/revising-return/change")()
+          val res = getRequest("/reporting-company/revising-return/change")()
 
           whenReady(res) { result =>
             result should have(
