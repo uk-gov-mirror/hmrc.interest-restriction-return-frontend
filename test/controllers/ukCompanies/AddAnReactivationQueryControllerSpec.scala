@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddAnReactivationQueryFormProvider
 import models.NormalMode
-import pages.ukCompanies.AddAnReactivationQueryPage
+import pages.ukCompanies.{AddAnReactivationQueryPage, UkCompaniesPage}
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddAnReactivationQueryView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
@@ -51,10 +51,11 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(consenting = None), Some(1)).get))
 
       val result = Controller.onPageLoad(1,NormalMode)(fakeRequest)
 
+      status(result) mustEqual OK
       contentAsString(result) mustEqual view(form = form,
         mode = NormalMode,
         companyName = ukCompanyModelMax.companyDetails.companyName,
@@ -63,9 +64,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AddAnReactivationQueryPage, true).success.value
-
-      mockGetAnswers(Some(userAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
@@ -76,7 +75,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
       val result = Controller.onSubmit(1,NormalMode)(request)
 
@@ -88,7 +87,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
       val result = Controller.onSubmit(1,NormalMode)(request)
 
