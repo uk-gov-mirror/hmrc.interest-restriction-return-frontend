@@ -35,6 +35,7 @@ object Page {
 
   val pages: Map[String, Page] = Map(
     AddAnReactivationQueryPage.toString -> AddAnReactivationQueryPage,
+    ReactivationAmountPage.toString -> ReactivationAmountPage,
     AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
     AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
     CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
@@ -83,7 +84,6 @@ object Page {
     ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
     ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
     ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
-    ReportingCompanyCRNPage.toString -> ReportingCompanyCRNPage,
     AgentActingOnBehalfOfCompanyPage.toString -> AgentActingOnBehalfOfCompanyPage,
     AgentNamePage.toString -> AgentNamePage,
     FullOrAbbreviatedReturnPage.toString -> FullOrAbbreviatedReturnPage,

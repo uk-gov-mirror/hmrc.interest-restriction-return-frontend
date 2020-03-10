@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package pages.aboutReportingCompany
-
+package pages.ukCompanies
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object ReportingCompanyCRNPage extends QuestionPage[String] {
+case object ReactivationAmountPage extends QuestionPage[BigDecimal] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "reportingCompanyCRN"
+  override def toString: String = "reactivationAmount"
 }

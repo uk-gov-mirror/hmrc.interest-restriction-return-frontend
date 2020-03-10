@@ -14,33 +14,29 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
-
-import java.time.{LocalDate, ZoneOffset}
+package controllers.aboutReportingCompany
 
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.aboutReturn.AccountingPeriodStartFormProvider
+import forms.aboutReturn.RevisingReturnFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.AccountingPeriodStartPage
+import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
+import pages.aboutReturn.RevisingReturnPage
 import play.api.test.Helpers._
-import views.html.aboutReturn.AccountingPeriodStartView
+import views.html.aboutReportingCompany.RevisingReturnView
 
-class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class RevisingReturnControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[AccountingPeriodStartView]
-  val formProvider = injector.instanceOf[AccountingPeriodStartFormProvider]
+  val view = injector.instanceOf[RevisingReturnView]
+  val formProvider = injector.instanceOf[RevisingReturnFormProvider]
   val form = formProvider()
 
-  val validAnswer = LocalDate.now(ZoneOffset.UTC)
-
-  object Controller extends AccountingPeriodStartController(
+  object Controller extends RevisingReturnController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeAboutReturnNavigator,
+    navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
@@ -50,55 +46,53 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
     view = view
   )
 
-  "AccountingPeriodStart Controller" must {
+  "RevisingReturn Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "If rendering using the Twirl templating engine" must {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "return OK and the correct view for a GET" in {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        mockGetAnswers(Some(emptyUserAnswers))
 
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
+        status(result) mustEqual OK
+        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      }
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AccountingPeriodStartPage, validAnswer).success.value
+      val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).success.value
 
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe OK
+      status(result) mustEqual OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
-      )
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe SEE_OTHER
+      status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe BAD_REQUEST
+      status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -107,26 +101,22 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
-      )
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(None)
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe SEE_OTHER
+      status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }
-

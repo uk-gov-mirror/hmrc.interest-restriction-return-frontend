@@ -18,11 +18,10 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
-import controllers.routes
 import controllers.startReturn.{routes => startReturnRoutes}
 import models._
 import pages._
-import pages.aboutReportingCompany.{ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
+import pages.aboutReportingCompany.{ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
 import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
 
 class StartReturnNavigatorSpec extends SpecBase {
@@ -95,9 +94,9 @@ class StartReturnNavigatorSpec extends SpecBase {
 
       "from the FullOrAbbreviatedReturnPage" should {
 
-        "go to the FullOrAbbreviatedReturnPage when answer is true" in {
+        "go to the ReviseReturn when answer is true" in {
           navigator.nextPage(FullOrAbbreviatedReturnPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
+            aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(NormalMode)
         }
       }
     }
@@ -166,14 +165,6 @@ class StartReturnNavigatorSpec extends SpecBase {
 
         "go to the Check Your Answers page" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
-            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
-        }
-      }
-
-      "from the Reporting Company CRN page" should {
-
-        "go to the Check Your Answers page" in {
-          navigator.nextPage(ReportingCompanyCRNPage, CheckMode, emptyUserAnswers) mustBe
             aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
         }
       }

@@ -17,6 +17,7 @@
 package navigation
 
 import base.SpecBase
+import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.elections.{routes => electionRoutes}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
@@ -32,25 +33,6 @@ class AboutReturnNavigatorSpec extends SpecBase {
   "AboutReturnNavigator" when {
 
     "in Normal mode" must {
-
-      "from the Revising Return page" should {
-
-        "go to the Revision Information page when yes selected to revising a return" ignore {
-
-          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
-
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-            ??? //TODO Link to Revision Information Page when implemented
-        }
-
-        "go to the Infrastructure Company Election page when no selected to revising a return" in {
-
-          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
-
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-            aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
-        }
-      }
 
       "from the Infrastructure Company Election page" should {
 

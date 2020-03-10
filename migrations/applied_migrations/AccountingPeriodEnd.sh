@@ -9,10 +9,10 @@ echo "" >> ../conf/accountingPeriodEnd.routes
 echo "### AccountingPeriodEnd Controller" >> ../conf/accountingPeriodEnd.routes
 echo "### ----------------------------------------" >> ../conf/accountingPeriodEnd.routes
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "AccountingPeriodEnd" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.aboutReturn.AccountingPeriodEndController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/accountingPeriodEnd.routes
-echo "POST       /$kebabClassName                          controllers.aboutReturn.AccountingPeriodEndController.onSubmit(mode: Mode = NormalMode)" >> ../conf/accountingPeriodEnd.routes
-echo "GET        /$kebabClassName/change                   controllers.aboutReturn.AccountingPeriodEndController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/accountingPeriodEnd.routes
-echo "POST       /$kebabClassName/change                   controllers.aboutReturn.AccountingPeriodEndController.onSubmit(mode: Mode = CheckMode)" >> ../conf/accountingPeriodEnd.routes
+echo "GET        /$kebabClassName                          controllers.aboutReportingCompany.AccountingPeriodEndController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/accountingPeriodEnd.routes
+echo "POST       /$kebabClassName                          controllers.aboutReportingCompany.AccountingPeriodEndController.onSubmit(mode: Mode = NormalMode)" >> ../conf/accountingPeriodEnd.routes
+echo "GET        /$kebabClassName/change                   controllers.aboutReportingCompany.AccountingPeriodEndController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/accountingPeriodEnd.routes
+echo "POST       /$kebabClassName/change                   controllers.aboutReportingCompany.AccountingPeriodEndController.onSubmit(mode: Mode = CheckMode)" >> ../conf/accountingPeriodEnd.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

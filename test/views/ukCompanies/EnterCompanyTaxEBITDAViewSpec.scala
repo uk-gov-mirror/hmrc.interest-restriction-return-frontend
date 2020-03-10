@@ -47,6 +47,8 @@ class EnterCompanyTaxEBITDAViewSpec extends DecimalViewBehaviours  {
 
     behave like decimalPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
+    behave like currencyPage(applyView)
+
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     behave like pageWithSaveForLater(applyView(form))

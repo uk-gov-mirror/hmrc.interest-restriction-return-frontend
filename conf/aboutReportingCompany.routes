@@ -1,6 +1,13 @@
 # About the Reporting Company Section Routes
 # ==========================================
 
+### RevisingReturn Controller
+### ----------------------------------------
+GET        /revising-return                             controllers.aboutReportingCompany.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /revising-return                             controllers.aboutReportingCompany.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /revising-return/change                      controllers.aboutReportingCompany.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /revising-return/change                      controllers.aboutReportingCompany.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
+
 ### ReportingCompanyName Controller
 ### ----------------------------------------
 GET        /name                                        controllers.aboutReportingCompany.ReportingCompanyNameController.onPageLoad(mode: Mode = NormalMode)
@@ -8,19 +15,26 @@ POST       /name                                        controllers.aboutReporti
 GET        /name/change                                 controllers.aboutReportingCompany.ReportingCompanyNameController.onPageLoad(mode: Mode = CheckMode)
 POST       /name/change                                 controllers.aboutReportingCompany.ReportingCompanyNameController.onSubmit(mode: Mode = CheckMode)
 
-### ReportingCompanyCRN Controller
-### ----------------------------------------
-GET        /crn                                         controllers.aboutReportingCompany.ReportingCompanyCRNController.onPageLoad(mode: Mode = NormalMode)
-POST       /crn                                         controllers.aboutReportingCompany.ReportingCompanyCRNController.onSubmit(mode: Mode = NormalMode)
-GET        /crn/change                                  controllers.aboutReportingCompany.ReportingCompanyCRNController.onPageLoad(mode: Mode = CheckMode)
-POST       /crn/change                                  controllers.aboutReportingCompany.ReportingCompanyCRNController.onSubmit(mode: Mode = CheckMode)
-
 ### ReportingCompanyCTUTR Controller
 ### ----------------------------------------
 GET        /ctutr                                       controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
 POST       /ctutr                                       controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
 GET        /ctutr/change                                controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
 POST       /ctutr/change                                controllers.aboutReportingCompany.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
+
+### AccountingPeriodStart Controller
+### ----------------------------------------
+GET        /accounting-period-start                     controllers.aboutReportingCompany.AccountingPeriodStartController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period-start                     controllers.aboutReportingCompany.AccountingPeriodStartController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period-start/change              controllers.aboutReportingCompany.AccountingPeriodStartController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period-start/change              controllers.aboutReportingCompany.AccountingPeriodStartController.onSubmit(mode: Mode = CheckMode)
+
+### AccountingPeriodEnd Controller
+### ----------------------------------------
+GET        /accounting-period-end                       controllers.aboutReportingCompany.AccountingPeriodEndController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period-end                       controllers.aboutReportingCompany.AccountingPeriodEndController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period-end/change                controllers.aboutReportingCompany.AccountingPeriodEndController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period-end/change                controllers.aboutReportingCompany.AccountingPeriodEndController.onSubmit(mode: Mode = CheckMode)
 
 ### CheckYourAnswersController
 ### -----------------------------

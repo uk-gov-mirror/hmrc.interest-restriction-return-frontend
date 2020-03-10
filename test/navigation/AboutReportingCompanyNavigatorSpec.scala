@@ -18,10 +18,11 @@ package navigation
 
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.groupStructure.{routes => groupStructureRoutes}
 import models._
-import pages.aboutReportingCompany.{CheckAnswersReportingCompanyPage, ReportingCompanyCRNPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage}
-import pages.startReturn.ReportingCompanyAppointedPage
+import pages.aboutReportingCompany._
+import pages.aboutReturn.RevisingReturnPage
 
 class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
@@ -39,18 +40,44 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the ReportingCompanyCTUTRPage" should {
+      "from the Revising Return page" should {
 
-        "go to the ReportingCompanyCRNPage" in {
-          navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyCRNController.onPageLoad(NormalMode)
+        "go to the Revision Information page when yes selected to revising a return" in {
+
+          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
+
+          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+        "go to the Reporting company name page when no selected to revising a return" in {
+
+          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
+
+          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
+            aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
         }
       }
 
-      "from the ReportingCompanyCRNPage" should {
+      "from the ReportingCompanyCTUTRPage" should {
 
-        "go to the Check Your Answers for the Reporting Company page" in {
-          navigator.nextPage(ReportingCompanyCRNPage, NormalMode, emptyUserAnswers) mustBe
+        "go to the AccountingPeriodStartPage" in {
+          navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AccountingPeriodStartPage" should {
+
+        "go to the AccountingPeriodEndPage" in {
+          navigator.nextPage(AccountingPeriodStartPage, NormalMode, emptyUserAnswers) mustBe
+            aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the AccountingPeriodEndPage" should {
+
+        "go to the CheckAnswersReportingCompany" in {
+          navigator.nextPage(AccountingPeriodEndPage, NormalMode, emptyUserAnswers) mustBe
             aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
         }
       }
@@ -66,9 +93,37 @@ class AboutReportingCompanyNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to Reporting Company CheckYourAnswers" in {
+      "from ReportingCompanyCTUTRPage go to Reporting Company CheckYourAnswers " in {
         navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
           aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "from AccountingPeriodStartPage go to Reporting Company CheckYourAnswers" in {
+        navigator.nextPage(AccountingPeriodStartPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "from AccountingPeriodEndPage go to Reporting Company CheckYourAnswers" in {
+        navigator.nextPage(AccountingPeriodEndPage, CheckMode, emptyUserAnswers) mustBe
+          aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+      }
+
+      "from the Revising Return page" should {
+
+        "go to the Revision Information page when yes selected to revising a return" in {
+
+          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
+
+          navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+        "go to Reporting Company CheckYourAnswers" in {
+
+          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
+
+          navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe
+            aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+        }
       }
     }
   }

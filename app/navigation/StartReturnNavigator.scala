@@ -15,12 +15,15 @@
  */
 
 package navigation
-
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
 import javax.inject.{Inject, Singleton}
+
+import controllers.routes
 import models._
 import pages._
+import pages.aboutReturn.RevisingReturnPage
 import pages.startReturn._
 import play.api.mvc.Call
 
@@ -53,7 +56,7 @@ class StartReturnNavigator @Inject()() extends Navigator {
   )
 
   private def checkYourAnswers: Call = aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
-  private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(mode)
+  private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

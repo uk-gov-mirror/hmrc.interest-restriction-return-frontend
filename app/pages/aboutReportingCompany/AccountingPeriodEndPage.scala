@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package forms.aboutReportingCompany
+package pages.aboutReportingCompany
 
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+import java.time.LocalDate
 
-class ReportingCompanyCRNFormProvider @Inject() extends Mappings {
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("reportingCompanyCRN.error.required")
-        .verifying(regexp("^([0-9]{8})|([A-Za-z]{2}[0-9]{6})$", "reportingCompanyCRN.error.invalidFormat"))
-    )
+case object AccountingPeriodEndPage extends QuestionPage[LocalDate] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "accountingPeriodEnd"
 }

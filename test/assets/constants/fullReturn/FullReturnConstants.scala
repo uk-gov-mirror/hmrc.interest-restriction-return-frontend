@@ -34,7 +34,7 @@ object FullReturnConstants {
   val revisedReturnDetails = "some details"
   val angie: BigDecimal = 1.11
   val totalReactivations: BigDecimal = ukCompanyModelReactivationMaxIncome.allocatedReactivations.foldLeft[BigDecimal](0) {
-    (total, company) => total + company.currentPeriodReactivation
+    (total, company) => total + company.reactivation
   }
 
   val fullReturnModelMax: FullReturnModel = FullReturnModel(

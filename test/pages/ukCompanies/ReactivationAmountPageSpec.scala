@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package pages.aboutReturn
+package pages.ukCompanies
 
-import java.time.LocalDate
+import pages.behaviours.PageBehaviours
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+class ReactivationAmountPageSpec extends PageBehaviours {
 
-case object AccountingPeriodEndPage extends QuestionPage[LocalDate] {
+  "ReactivationAmountPage" must {
 
-  override def path: JsPath = JsPath \ toString
+    beRetrievable[BigDecimal](ReactivationAmountPage)
 
-  override def toString: String = "accountingPeriodEnd"
+    beSettable[BigDecimal](ReactivationAmountPage)
+
+    beRemovable[BigDecimal](ReactivationAmountPage)
+  }
 }

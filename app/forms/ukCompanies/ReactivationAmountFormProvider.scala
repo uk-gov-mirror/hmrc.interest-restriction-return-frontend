@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package assets
+package forms.ukCompanies
 
+import forms.mappings.Mappings
+import javax.inject.Inject
 import models.returnModels.fullReturn.AllocatedReactivationsModel
-import play.api.libs.json.Json
+import play.api.data.Form
+import play.api.data.Forms._
 
-object AllocatedReactivationsITConstants {
+class ReactivationAmountFormProvider @Inject() extends Mappings {
 
-  val ap1NetDisallowances = 1.11
-  val currentPeriodReactivation = 2.22
-  val incorrectTotalReactivation = 10
-
-  val allocatedReactivationsModel = AllocatedReactivationsModel(
-    reactivation = currentPeriodReactivation
-  )
-
-  val allocatedReactivationsJson = Json.obj(
-    "reactivation" -> currentPeriodReactivation
-  )
+  def apply(): Form[AllocatedReactivationsModel] =
+    Form(mapping(
+      "value" -> numeric(
+        "reactivationAmount.error.required",
+        "reactivationAmount.error.invalidNumeric",
+        "reactivationAmount.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "reactivationAmount.error.outOfRange"))
+    )(AllocatedReactivationsModel.apply)(AllocatedReactivationsModel.unapply)
+    )
 }

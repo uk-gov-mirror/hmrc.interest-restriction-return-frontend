@@ -16,29 +16,28 @@
 
 package controllers.aboutReportingCompany
 
-import assets.constants.BaseConstants
+import java.time.{LocalDate, ZoneOffset}
+
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
-import connectors.httpParsers.{InvalidCRN, UnexpectedFailure, ValidCRN}
 import controllers.actions._
 import controllers.errors
-import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
+import forms.aboutReportingCompany.AccountingPeriodStartFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
-import pages.aboutReportingCompany.ReportingCompanyCRNPage
-import play.api.http.Status
+import pages.aboutReportingCompany.AccountingPeriodStartPage
 import play.api.test.Helpers._
-import services.mocks.MockCRNValidationService
-import views.html.aboutReportingCompany.ReportingCompanyCRNView
+import views.html.aboutReportingCompany.AccountingPeriodStartView
 
-class ReportingCompanyCRNValidationControllerSpec extends SpecBase with FeatureSwitching
-  with MockCRNValidationService with BaseConstants with MockDataRetrievalAction {
+class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[ReportingCompanyCRNView]
-  val formProvider = injector.instanceOf[ReportingCompanyCRNFormProvider]
+  val view = injector.instanceOf[AccountingPeriodStartView]
+  val formProvider = injector.instanceOf[AccountingPeriodStartFormProvider]
   val form = formProvider()
 
-  object Controller extends ReportingCompanyCRNController(
+  val validAnswer = LocalDate.now(ZoneOffset.UTC)
+
+  object Controller extends AccountingPeriodStartController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
@@ -48,42 +47,40 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with FeatureS
     requireData = dataRequiredAction,
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    crnValidationService = mockCRNValidationService,
-    errorHandler = errorHandler
+    view = view
   )
 
-  "ReportingCompanyCRN Controller" must {
+  "AccountingPeriodStart Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
+      mockGetAnswers(Some(emptyUserAnswers))
 
-        mockGetAnswers(Some(emptyUserAnswers))
+      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(ReportingCompanyCRNPage, "answer").success.value
+      val userAnswers = emptyUserAnswers.set(AccountingPeriodStartPage, validAnswer).success.value
 
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual OK
+      status(result) mustBe OK
     }
 
     "redirect to the next page when valid data is submitted" in {
 
-      mockValidateCRN(crnModel.crn)(Right(ValidCRN))
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
+      val request = fakeRequest.withFormUrlEncodedBody(
+        "value.day" -> validAnswer.getDayOfMonth.toString,
+        "value.month" -> validAnswer.getMonthValue.toString,
+        "value.year" -> validAnswer.getYear.toString
+      )
 
       mockGetAnswers(Some(emptyUserAnswers))
 
@@ -95,39 +92,13 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with FeatureS
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
-    }
-
-    "return a Bad Request and errors when invalid crn is submitted" in {
-
-      mockValidateCRN(crnModel.crn)(Left(InvalidCRN))
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
-
-      mockGetAnswers(Some(emptyUserAnswers))
-
-      val result = Controller.onSubmit(NormalMode)(request)
-
-      status(result) mustBe BAD_REQUEST
-    }
-
-    "return a Internal Server Error when Unexpected Failure is returned" in {
-
-      mockValidateCRN(crnModel.crn)(Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error")))
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", crnModel.crn))
-
-      mockGetAnswers(Some(emptyUserAnswers))
-
-      val result = Controller.onSubmit(NormalMode)(request)
-
-      status(result) mustBe INTERNAL_SERVER_ERROR
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -142,15 +113,20 @@ class ReportingCompanyCRNValidationControllerSpec extends SpecBase with FeatureS
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(
+        "value.day" -> validAnswer.getDayOfMonth.toString,
+        "value.month" -> validAnswer.getMonthValue.toString,
+        "value.year" -> validAnswer.getYear.toString
+      )
 
       mockGetAnswers(None)
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+      status(result) mustBe SEE_OTHER
 
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
   }
 }
+

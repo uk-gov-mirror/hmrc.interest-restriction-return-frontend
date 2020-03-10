@@ -34,6 +34,7 @@ trait UserAnswersGenerator extends TryValues {
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
     arbitrary[(AddAnReactivationQueryPage.type, JsValue)] ::
+    arbitrary[(ReactivationAmountPage.type, JsValue)] ::
     arbitrary[(AccountingPeriodStartPage.type, JsValue)] ::
     arbitrary[(AccountingPeriodEndPage.type, JsValue)] ::
     arbitrary[(InvestorGroupsDeletionConfirmationPage.type, JsValue)] ::
@@ -82,7 +83,6 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(ReportingCompanyNamePage.type, JsValue)] ::
     arbitrary[(ReportingCompanyRequiredPage.type, JsValue)] ::
     arbitrary[(ReportingCompanyCTUTRPage.type, JsValue)] ::
-    arbitrary[(ReportingCompanyCRNPage.type, JsValue)] ::
     arbitrary[(InterestReactivationsCapPage.type, JsValue)] ::
     arbitrary[(InterestAllowanceBroughtForwardPage.type, JsValue)] ::
     arbitrary[(GroupSubjectToReactivationsPage.type, JsValue)] ::

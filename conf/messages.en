@@ -69,7 +69,6 @@ timeout.signOut = Sign out
 # ----------------------------------------------------------
 section.agents = Agents
 section.aboutReturn = About the return
-section.reportingCompany = About the reporting company
 section.groupStructure = Ultimate parent company
 section.elections = Elections
 section.ukCompanies = The companies involved
@@ -86,17 +85,6 @@ helloWorldYesNo.title = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.heading = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.checkYourAnswersLabel = Would you like to say Hello World? (Twirl Style)
 helloWorldYesNo.error.required = Select yes if you want to say Hello World
-
-
-# ReportingCompanyCRNPage Messages
-# ----------------------------------------------------------
-reportingCompanyCRN.title = Company Registration Number (CRN)
-reportingCompanyCRN.heading = Company Registration Number (CRN)
-reportingCompanyCRN.checkYourAnswersLabel = Reporting Company CRN
-reportingCompanyCRN.label = Company Registration Number (CRN)
-reportingCompanyCRN.error.required = Enter Company Registration Number (CRN)
-reportingCompanyCRN.error.invalidFormat = Company Registration Number (CRN) must be 8 numbers, or 2 letters followed by 6 numbers
-reportingCompanyCRN.error.invalid = Company Registration Number (CRN) was not found on Companies House
 
 
 # ReportingCompanyCTUTRPage Messages
@@ -269,7 +257,7 @@ savedReturn.bullet2 = Delete this form and start again
 # ----------------------------------------------------------
 reportingCompany.checkYourAnswers.title = Check your answers
 reportingCompany.checkYourAnswers.heading = Check your answers
-reportingCompany.checkYourAnswers.subheading = About the reporting company
+reportingCompany.checkYourAnswers.subheading = About the return
 
 # ContinueSavedReturnPage Messages
 # ----------------------------------------------------------
@@ -818,3 +806,16 @@ addAnReactivationQuery.heading = Do you need to add a reactivation to this compa
 addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
 addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
 addAnReactivationQuery.subheading = {0}
+
+# ReactivationAmountPage Messages
+# ----------------------------------------------------------
+reactivationAmount.title = Add a reactivation amount
+reactivationAmount.heading = Add a reactivation amount
+reactivationAmount.label= Add a reactivation amount
+reactivationAmount.subheading = {0}
+reactivationAmount.checkYourAnswersLabel = Reactivation
+reactivationAmount.error.nonNumeric = A Reactivation must be numeric
+reactivationAmount.error.required = Enter your reactivation amount
+reactivationAmount.error.invalidNumeric = The reactivation amount must be valid decimal or whole number
+reactivationAmount.error.outOfRange = Reactivation amount must be between {0} and {1}
+

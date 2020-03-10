@@ -70,7 +70,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to ReportingCompanyCRN page" in {
+          "redirect to CheckAnswersReportingCompany page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +79,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReportingCompany.routes.ReportingCompanyCRNController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReportingCompany.routes.AccountingPeriodStartController.onPageLoad(NormalMode).url)
               )
             }
           }

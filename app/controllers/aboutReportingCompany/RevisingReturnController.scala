@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
@@ -23,19 +23,19 @@ import controllers.actions._
 import forms.aboutReturn.RevisingReturnFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.AboutReturnNavigator
+import navigation.AboutReportingCompanyNavigator
 import pages.aboutReturn.RevisingReturnPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.QuestionDeletionLookupService
-import views.html.aboutReturn.RevisingReturnView
+import views.html.aboutReportingCompany.RevisingReturnView
 
 import scala.concurrent.Future
 
 class RevisingReturnController @Inject()(override val messagesApi: MessagesApi,
                                          val sessionRepository: SessionRepository,
-                                         val navigator: AboutReturnNavigator,
+                                         val navigator: AboutReportingCompanyNavigator,
                                          val questionDeletionLookupService: QuestionDeletionLookupService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,

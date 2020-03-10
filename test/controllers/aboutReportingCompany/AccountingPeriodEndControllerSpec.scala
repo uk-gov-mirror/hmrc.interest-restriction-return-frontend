@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.aboutReportingCompany
 
 import java.time.{Instant, LocalDate, ZoneOffset}
 
@@ -22,12 +22,12 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.aboutReturn.AccountingPeriodEndFormProvider
+import forms.aboutReportingCompany.AccountingPeriodEndFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.{AccountingPeriodEndPage, AccountingPeriodStartPage}
+import navigation.FakeNavigators.FakeAboutReportingCompanyNavigator
+import pages.aboutReportingCompany.{AccountingPeriodEndPage, AccountingPeriodStartPage}
 import play.api.test.Helpers._
-import views.html.aboutReturn.AccountingPeriodEndView
+import views.html.aboutReportingCompany.AccountingPeriodEndView
 
 class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -42,7 +42,7 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
   object Controller extends AccountingPeriodEndController(
     messagesApi = messagesApi,
     sessionRepository = sessionRepository,
-    navigator = FakeAboutReturnNavigator,
+    navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

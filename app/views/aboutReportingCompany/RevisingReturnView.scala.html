@@ -14,35 +14,33 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import controllers.aboutReturn.routes._
+@import controllers.aboutReportingCompany.routes._
 @import models.Mode
 @import views.ViewUtils._
-
-@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    inputDate: components.inputDate,
-    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    yesNoRadio: components.yesNoRadio,
     button: components.button,
-    link: components.link,
     subheading: components.subheading,
     saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "accountingPeriodStart.title", Some("section.aboutReturn")))) {
+@govukLayout(
+    pageTitle = Some(title(form, "revisingReturn.title",Some("section.aboutReturn")))) {
 
-    @formHelper(action = AccountingPeriodStartController.onSubmit(mode), 'autoComplete -> "on") {
+    @formHelper(action = RevisingReturnController.onSubmit(mode), args = 'novalidate -> "novalidate") {
 
-        @errorSummary(form.errors, Some("date-value.day"))
+        @errorSummary(form.errors)
 
         @subheading("section.aboutReturn")
 
-        @inputDate(form, "accountingPeriodStart.heading")
+        @yesNoRadio(form, "revisingReturn.heading")
 
         @button("site.saveAndContinue")
 

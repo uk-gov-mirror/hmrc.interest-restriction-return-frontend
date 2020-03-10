@@ -20,12 +20,12 @@ import java.time.LocalDate
 
 import assets.messages.BaseMessages
 import assets.messages.SectionHeaderMessages._
-import forms.aboutReturn.AccountingPeriodStartFormProvider
+import forms.aboutReportingCompany.AccountingPeriodStartFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.aboutReturn.AccountingPeriodStartView
+import views.html.aboutReportingCompany.AccountingPeriodStartView
 
 class AccountingPeriodStartViewSpec extends QuestionViewBehaviours[LocalDate] {
 

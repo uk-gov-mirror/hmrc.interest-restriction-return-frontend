@@ -14,33 +14,35 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.ukCompanies
 
+import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /about-return/revising-return" when {
+    "GET /uk-companies/1/reactivation-amount" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/about-return/revising-return")()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+          val res = getRequest("/uk-companies/1/reactivation-amount")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.revisingReturn)
+              titleOf(PageTitles.reactivationAmount)
             )
           }
         }
@@ -52,7 +54,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/revising-return")()
+          val res = getRequest("/uk-companies/1/reactivation-amount")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,41 +66,24 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /about-return/revising-return" when {
+    "POST /uk-companies/1/reactivation-amount" when {
 
       "user is authorised" when {
 
-        "enters true" when {
+        "enters a valid answer" when {
 
-          "redirect to UnderConstruction page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/about-return/revising-return", Json.obj("value" -> true))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
-              )
-            }
-          }
-        }
-
-        "enters false" when {
-
-          "redirect to InfrastructureCompanyElection page" in {
+          "redirect to ReactivationAmount page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-return/revising-return", Json.obj("value" -> false))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode).url)
-              )
-            }
+            val res = postRequest("/uk-companies/1/reactivation-amount", Json.obj("value" -> 1))()
+//TODO: Implement
+//            whenReady(res) { result =>
+//              result should have(
+//                httpStatus(SEE_OTHER),
+//                redirectLocation(controllers.uk-companies.1/routes.ReactivationAmountController.onPageLoad(NormalMode).url)
+//              )
+//            }
           }
         }
       }
@@ -109,7 +94,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-return/revising-return", Json.obj("value" -> true))()
+          val res = postRequest("/uk-companies/1/reactivation-amount", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,20 +109,21 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /about-return/revising-return" when {
+    "GET /uk-companies/1/reactivation-amount" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/about-return/revising-return/change")()
+          val res = getRequest("/uk-companies/1/reactivation-amount/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.revisingReturn)
+              titleOf(PageTitles.reactivationAmount)
             )
           }
         }
@@ -149,7 +135,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-return/revising-return/change")()
+          val res = getRequest("/uk-companies/1/reactivation-amount/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -160,7 +146,5 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
         }
       }
     }
-
-    //TODO: Add Check Your Answers tests
   }
 }

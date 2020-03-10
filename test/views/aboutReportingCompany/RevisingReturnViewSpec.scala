@@ -18,26 +18,26 @@ package views.aboutReportingCompany
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.aboutReportingCompany.routes
-import forms.aboutReportingCompany.ReportingCompanyCRNFormProvider
+import forms.aboutReturn.RevisingReturnFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.Twirl
-import views.behaviours.StringViewBehaviours
-import views.html.aboutReportingCompany.ReportingCompanyCRNView
+import views.behaviours.YesNoViewBehaviours
+import views.html.aboutReportingCompany.RevisingReturnView
 
-class ReportingCompanyCRNViewSpec extends StringViewBehaviours {
+class RevisingReturnViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "reportingCompanyCRN"
-  val section = Some(messages("section.aboutReportingCompany"))
-  val form = new ReportingCompanyCRNFormProvider()()
+  val messageKeyPrefix = "revisingReturn"
+  val section = Some(messages("section.aboutReturn"))
+  val form = new RevisingReturnFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
 
-    s"ReportingCompanyCRN ($templatingSystem) view" must {
+    s"RevisingReturn ($templatingSystem) view" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[ReportingCompanyCRNView](Some(emptyUserAnswers))
+        val view = viewFor[RevisingReturnView](Some(emptyUserAnswers))
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
@@ -45,11 +45,11 @@ class ReportingCompanyCRNViewSpec extends StringViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.reportingCompany)
-
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like stringPage(form, applyView, messageKeyPrefix, routes.ReportingCompanyCRNController.onSubmit(NormalMode).url, section = section)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+
+      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
     }
