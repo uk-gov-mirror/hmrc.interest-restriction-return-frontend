@@ -107,7 +107,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   def addInvestment(idx: Int): Call = routes.InvestmentNameController.onPageLoad(idx + 1, NormalMode)
   def addInvestorGroup(idx: Int): Call = routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode)
 
-  def nextSection(mode: Mode): Call = controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
+  def nextSection(mode: Mode): Call = controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))
