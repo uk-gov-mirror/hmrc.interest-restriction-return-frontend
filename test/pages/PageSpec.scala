@@ -37,6 +37,7 @@ class PageSpec extends SpecBase {
         ReactivationAmountPage.toString -> ReactivationAmountPage,
         AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
         AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
+        ReviewAndCompletePage.toString -> ReviewAndCompletePage,
         CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
         UkCompaniesDeletionConfirmationPage.toString -> UkCompaniesDeletionConfirmationPage,
         ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
