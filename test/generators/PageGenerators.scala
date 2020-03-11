@@ -22,6 +22,7 @@ import pages.aboutReportingCompany._
 import pages.aboutReturn._
 import pages.elections._
 import pages.groupStructure._
+import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.startReturn._
 import pages.ukCompanies._
 
@@ -38,6 +39,9 @@ trait PageGenerators {
 
   implicit lazy val arbitraryAccountingPeriodEndPage: Arbitrary[AccountingPeriodEndPage.type] =
     Arbitrary(AccountingPeriodEndPage)
+
+  implicit lazy val arbitraryReviewAndCompletePage: Arbitrary[ReviewAndCompletePage.type] =
+    Arbitrary(ReviewAndCompletePage)
 
   implicit lazy val arbitraryCheckAnswersUkCompanyPage: Arbitrary[CheckAnswersUkCompanyPage.type] =
     Arbitrary(CheckAnswersUkCompanyPage)

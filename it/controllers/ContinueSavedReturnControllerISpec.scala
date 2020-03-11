@@ -94,7 +94,7 @@ class ContinueSavedReturnControllerISpec extends IntegrationSpecBase with Create
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.routes.SavedReturnController.nextUnansweredPage().url)
+              redirectLocation(controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad().url)
             )
           }
         }

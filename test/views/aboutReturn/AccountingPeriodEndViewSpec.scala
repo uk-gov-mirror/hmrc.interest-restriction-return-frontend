@@ -29,7 +29,7 @@ import views.html.aboutReportingCompany.AccountingPeriodEndView
 class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "accountingPeriodEnd"
-  val section = Some(messages("section.aboutReturn"))
+  val section = Some(messages("section.aboutReportingCompany"))
   val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
   val form = new AccountingPeriodEndFormProvider().apply(now)
 
@@ -42,7 +42,7 @@ class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReportingCompany)
 
       behave like pageWithBackLink(applyView(form))
 

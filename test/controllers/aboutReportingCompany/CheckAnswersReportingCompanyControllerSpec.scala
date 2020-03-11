@@ -51,7 +51,7 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSw
         val result = Controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title, Some(SectionHeaderMessages.aboutReturn))
+        titleOf(contentAsString(result)) mustEqual title(CheckAnswersReportingCompanyMessages.title, Some(SectionHeaderMessages.aboutReportingCompany))
       }
 
       "calling the onSubmit() method" must {

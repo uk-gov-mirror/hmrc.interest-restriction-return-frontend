@@ -29,7 +29,7 @@ class CheckTotalsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    DerivedCompanyPage -> (_ => controllers.routes.UnderConstructionController.onPageLoad()),
+    DerivedCompanyPage -> (_ => nextSection),
     ReviewTaxEBITDAPage -> (_ => controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()),
     ReviewNetTaxInterestPage -> (_ => controllers.checkTotals.routes.DerivedCompanyController.onPageLoad())
   )
@@ -38,7 +38,7 @@ class CheckTotalsNavigator @Inject()() extends Navigator {
   private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   //TODO update with Next Section call
-  private def nextSection(mode: Mode): Call = controllers.routes.UnderConstructionController.onPageLoad()
+  private def nextSection: Call = controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = normalRoutes(page)(userAnswers)
 }

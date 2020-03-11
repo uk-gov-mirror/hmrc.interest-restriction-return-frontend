@@ -36,5 +36,5 @@ object FakeNavigators extends SpecBase {
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
   object FakeUkCompaniesNavigator extends UkCompaniesNavigator() with FakeNavigator
   object FakeCheckTotalsNavigator extends CheckTotalsNavigator() with FakeNavigator
-
+  object FakeReviewAndCompleteNavigator extends ReviewAndCompleteNavigator() with FakeNavigator
 }

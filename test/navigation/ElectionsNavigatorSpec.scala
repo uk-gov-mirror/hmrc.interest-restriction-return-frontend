@@ -400,10 +400,10 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the CheckAnswersElections page" should {
 
-        "go to the CheckAnswersElections page" in {
+        "go to the ReturnContainEstimates page" in {
 
           navigator.nextPage(CheckAnswersElectionsPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
+            controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
         }
       }
 

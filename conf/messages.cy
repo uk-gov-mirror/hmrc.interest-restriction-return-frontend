@@ -67,10 +67,11 @@ timeout.signOut = Sign out
 
 # Sections
 # ----------------------------------------------------------
-section.agents = Agents
-section.aboutReturn = About the return
+section.startReturn = About the return
+section.aboutReportingCompany = About the return
 section.groupStructure = Ultimate parent company
 section.elections = Elections
+section.aboutReturn = Group level information
 section.ukCompanies = The companies involved
 section.checkTotals = Check totals
 
@@ -817,3 +818,11 @@ addAnReactivationQuery.heading = Do you need to add a reactivation to this compa
 addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
 addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
 addAnReactivationQuery.subheading = {0}
+
+# ReviewAndCompletePage Messages
+# ----------------------------------------------------------
+reviewAndComplete.title = Interest Restriction Return
+reviewAndComplete.heading = Interest Restriction Return
+reviewAndComplete.completed = Completed
+reviewAndComplete.text = Send your return to HMRC
+

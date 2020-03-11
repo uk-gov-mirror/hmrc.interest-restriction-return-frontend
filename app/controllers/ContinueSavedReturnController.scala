@@ -56,7 +56,7 @@ class ContinueSavedReturnController @Inject()(override val messagesApi: Messages
         BadRequest(view(formWithErrors, NormalMode)),
       {
         case NewReturn => Redirect(controllers.routes.SavedReturnController.deleteAndStartAgain())
-        case ContinueReturn => Redirect(controllers.routes.SavedReturnController.nextUnansweredPage())
+        case ContinueReturn => Redirect(controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
       }
     )
   }
