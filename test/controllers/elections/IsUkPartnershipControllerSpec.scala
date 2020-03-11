@@ -56,10 +56,10 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, routes.IsUkPartnershipController.onSubmit(1, NormalMode), companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -70,7 +70,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -81,7 +81,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -97,7 +97,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -106,7 +106,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -119,7 +119,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

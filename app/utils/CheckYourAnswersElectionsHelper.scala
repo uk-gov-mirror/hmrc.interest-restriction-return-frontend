@@ -64,11 +64,10 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
   def groupRatioElection: Option[SummaryListRow] =
     answer(GroupRatioElectionPage, electionsRoutes.GroupRatioElectionController.onPageLoad(CheckMode))
 
-  //TODO: This is a placeholder row. It needs to be updated to calculate number of investors held in UserAnswers
   def investorGroupsRow(implicit messages: Messages): Option[SummaryListRow] = {
     if(!userAnswers.get(AddInvestorGroupPage).contains(true)) None else {
-      val numberOfInvestorGroupsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
-      val valueMsgSuffix = if (numberOfInvestorGroupsAdded > 1) "plural" else "singular"
+      val numberOfInvestorGroupsAdded = userAnswers.getList(InvestorGroupsPage).length
+      val valueMsgSuffix = if(numberOfInvestorGroupsAdded == 1) "singular" else "plural"
       Some(summaryListRow(
         Messages("investorGroupsAdded.checkYourAnswers.label"),
         Messages(s"investorGroupsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfInvestorGroupsAdded),
@@ -77,13 +76,12 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     }
   }
 
-  //TODO: This is a placeholder row. It needs to be updated to calculate number of partnerships held in UserAnswers
   def consolidatedPartnershipsRow(implicit messages: Messages): Option[SummaryListRow] = {
     val addedPships = userAnswers.get(ElectedInterestAllowanceConsolidatedPshipBeforePage).contains(true) ||
       userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage).contains(true)
     if (!addedPships) None else {
-      val numberOfPartnershipsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
-      val valueMsgSuffix = if(numberOfPartnershipsAdded > 1) "plural" else "singular"
+      val numberOfPartnershipsAdded = userAnswers.getList(PartnershipsPage).length
+      val valueMsgSuffix = if(numberOfPartnershipsAdded == 1) "singular" else "plural"
       Some(summaryListRow(
         Messages("consolidatedPartnershipsAdded.checkYourAnswers.label"),
         Messages(s"consolidatedPartnershipsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfPartnershipsAdded),
@@ -92,11 +90,10 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     }
   }
 
-  //TODO: This is a placeholder row. It needs to be updated to calculate number of nonConsolidatedInvestments held in UserAnswers
   def nonConsolidatedInvestmentsRow(implicit messages: Messages): Option[SummaryListRow] = {
     if(!userAnswers.get(InterestAllowanceNonConsolidatedInvestmentsElectionPage).contains(true)) None else {
-      val numberOfInvestmentsAdded = 1 //TODO: This will need to be calculated from list held in UserAnswers in future
-      val valueMsgSuffix = if(numberOfInvestmentsAdded > 1) "plural" else "singular"
+      val numberOfInvestmentsAdded = userAnswers.getList(InvestmentNamePage).length
+      val valueMsgSuffix = if(numberOfInvestmentsAdded == 1) "singular" else "plural"
       Some(summaryListRow(
         Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.label"),
         Messages(s"nonConsolidatedInvestmentsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfInvestmentsAdded),
