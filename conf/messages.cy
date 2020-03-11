@@ -811,9 +811,18 @@ reactivationAmount.error.required = Enter your reactivationAmount
 reactivationAmount.error.invalidNumeric = The reactivationAmount must be valid decimal or whole number
 reactivationAmount.error.outOfRange = ReactivationAmount must be between {0} and {1}
 
+# AddAnReactivationQueryPage Messages
+# ----------------------------------------------------------
+addAnReactivationQuery.title = Do you need to add a reactivation to this company?
+addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
+addAnReactivationQuery.subheading = {0}
+
 # ReviewAndCompletePage Messages
 # ----------------------------------------------------------
 reviewAndComplete.title = Interest Restriction Return
 reviewAndComplete.heading = Interest Restriction Return
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC
+

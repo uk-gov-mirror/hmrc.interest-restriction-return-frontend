@@ -35,6 +35,7 @@ object Page {
   implicit def toString(page: Page): String = page.toString
 
   val pages: Map[String, Page] = Map(
+    AddAnReactivationQueryPage.toString -> AddAnReactivationQueryPage,
     ReactivationAmountPage.toString -> ReactivationAmountPage,
     AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
     AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
