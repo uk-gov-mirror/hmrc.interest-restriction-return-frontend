@@ -820,3 +820,9 @@ reviewAndComplete.title = Interest Restriction Return
 reviewAndComplete.heading = Interest Restriction Return
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC
+
+# ReviewReactivations Messages
+# ----------------------------------------------------------
+reviewReactivations.checkYourAnswers.title = Review reactivations for companies in the group
+reviewReactivations.checkYourAnswers.heading = Review reactivations for companies in the group
+reviewReactivations.checkYourAnswers.subheading = Check totals
