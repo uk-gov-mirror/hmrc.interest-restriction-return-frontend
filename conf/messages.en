@@ -775,6 +775,8 @@ reviewTaxEBITDA.checkYourAnswers.subheading = Check totals
 reviewNetTaxInterest.checkYourAnswers.title = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.heading = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.subheading = Check totals
+reviewNetTaxInterest.checkYourAnswers.income = income
+reviewNetTaxInterest.checkYourAnswers.expense = expense
 
 # AccountingPeriodStartPage Messages
 # ----------------------------------------------------------

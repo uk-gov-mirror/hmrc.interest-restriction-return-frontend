@@ -21,19 +21,19 @@ import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class ReviewNetTaxInterestHelper(val userAnswers: UserAnswers)
-                                (implicit val messages: Messages) extends CheckYourAnswersHelper {
+class ReviewReactivationsHelper(val userAnswers: UserAnswers)
+                               (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
   def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).zipWithIndex.flatMap {
     case (model, idx) =>
       for {
-        amount <- model.netTaxInterest
-        incomeOrExpense <- model.netTaxInterestIncomeOrExpense
+        allocatedReactivation <- model.allocatedReactivations
+        amount = allocatedReactivation.reactivation
       } yield {
         summaryListRow(
           label = model.companyDetails.companyName,
-          value = s"${currencyFormat(amount)} ${messages(s"reviewNetTaxInterest.checkYourAnswers.$incomeOrExpense")}",
-          actions = controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
+          value = currencyFormat(amount),
+          actions = controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
         )
       }
   }
