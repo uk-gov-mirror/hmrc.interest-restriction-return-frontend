@@ -42,6 +42,10 @@ object Section {
     override val toString = "reviewTaxEBITDA"
   }
 
+  object ReviewReactivations extends Section {
+    override val toString = "reviewReactivations"
+  }
+
   object CheckTotals extends Section {
     override val toString = "checkTotals"
   }

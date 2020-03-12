@@ -44,7 +44,7 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
     }
     val aggregateAllocatedReactivations = derivedData.reactivations match {
       case Some(r) => Some(summaryListRow(messages("derivedCompany.t5"),
-        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
+        currencyFormat(r),(controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad(),messages("site.review"))))
       case None => None
     }
     Seq(numberOfUkCompanies,aggregateTaxEBITDA,aggregateNetTaxInterest,aggregateAllocatedRestrictions,aggregateAllocatedReactivations).flatten

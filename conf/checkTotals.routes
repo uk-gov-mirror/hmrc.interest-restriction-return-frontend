@@ -3,11 +3,8 @@
 
 ### DerivedCompany Controller
 ### ----------------------------------------
-GET        /derived-company                                   controllers.checkTotals.DerivedCompanyController.onPageLoad()
-POST       /derived-company                                   controllers.checkTotals.DerivedCompanyController.onSubmit()
-
-# Check Totals Section Routes
-# ===========================
+GET        /derived-company                    controllers.checkTotals.DerivedCompanyController.onPageLoad()
+POST       /derived-company                    controllers.checkTotals.DerivedCompanyController.onSubmit()
 
 ### FullOrAbbreviatedReturn Controller
 ### ----------------------------------------
@@ -18,3 +15,8 @@ POST       /review-tax-ebitda                  controllers.checkTotals.ReviewTax
 ### ----------------------------------------
 GET        /review-net-tax-interest            controllers.checkTotals.ReviewNetTaxInterestController.onPageLoad()
 POST       /review-net-tax-interest            controllers.checkTotals.ReviewNetTaxInterestController.onSubmit()
+
+### ReviewReactivations Controller
+### ----------------------------------------
+GET        /review-reactivations               controllers.checkTotals.ReviewReactivationsController.onPageLoad()
+POST       /review-reactivations               controllers.checkTotals.ReviewReactivationsController.onSubmit()

@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
-import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
+import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewReactivationsPage, ReviewTaxEBITDAPage}
 import pages.ukCompanies._
 
 class CheckTotalsNavigatorSpec extends SpecBase {
@@ -53,6 +53,15 @@ class CheckTotalsNavigatorSpec extends SpecBase {
         "go to the DerivedCompanyPage page" in {
 
           navigator.nextPage(ReviewNetTaxInterestPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
+        }
+      }
+
+      "from the ReviewReactivationsPage" should {
+
+        "go to the DerivedCompanyPage page" in {
+
+          navigator.nextPage(ReviewReactivationsPage, NormalMode, emptyUserAnswers) mustBe
             controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
         }
       }
