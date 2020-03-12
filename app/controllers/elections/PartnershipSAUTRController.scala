@@ -78,6 +78,7 @@ class PartnershipSAUTRController @Inject()(
           )
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(PartnershipsPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(PartnershipSAUTRPage, mode, updatedAnswers, Some(idx)))
         }
       )

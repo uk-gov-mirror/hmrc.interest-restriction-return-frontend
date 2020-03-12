@@ -24,7 +24,7 @@ echo "partnershipSAUTR.heading = partnershipSAUTR" >> ../conf/messages.en
 echo "partnershipSAUTR.checkYourAnswersLabel = partnershipSAUTR" >> ../conf/messages.en
 echo "partnershipSAUTR.label= Enter dsa's Self Assessment Unique Taxpayer Reference" >> ../conf/messages.en
 echo "partnershipSAUTR.error.required = Enter partnershipSAUTR" >> ../conf/messages.en
-echo "partnershipSAUTR.error.length = PartnershipSAUTR must be 10 characters or less" >> ../conf/messages.en
+echo "partnershipSAUTR.error.regexp = PartnershipSAUTR must be 10 characters or less" >> ../conf/messages.en
 
 echo "Adding messages to Welsh conf.messages"
 echo "" >> ../conf/messages.cy
@@ -35,7 +35,7 @@ echo "partnershipSAUTR.heading = partnershipSAUTR" >> ../conf/messages.cy
 echo "partnershipSAUTR.checkYourAnswersLabel = partnershipSAUTR" >> ../conf/messages.cy
 echo "partnershipSAUTR.label = Enter dsa's Self Assessment Unique Taxpayer Reference" >> ../conf/messages.cy
 echo "partnershipSAUTR.error.required = Enter partnershipSAUTR" >> ../conf/messages.cy
-echo "partnershipSAUTR.error.length = PartnershipSAUTR must be 10 characters or less" >> ../conf/messages.cy
+echo "partnershipSAUTR.error.regexp = PartnershipSAUTR must be 10 characters or less" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\

@@ -76,6 +76,7 @@ class IsUkPartnershipController @Inject()(
           val updatedModel = partnership.copy(isUkPartnership = Some(value))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(PartnershipsPage, updatedModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(IsUkPartnershipPage, mode, updatedAnswers, Some(idx)))
         }
       )
