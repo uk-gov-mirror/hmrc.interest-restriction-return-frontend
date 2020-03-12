@@ -30,6 +30,8 @@ GET        /:idx/net-tax-interest-amount                        controllers.ukCo
 POST       /:idx/net-tax-interest-amount                        controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/net-tax-interest-amount/change                 controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/net-tax-interest-amount/change                 controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/net-tax-interest-amount/review                 controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(idx: Int, mode: Mode = ReviewMode)
+POST       /:idx/net-tax-interest-amount/review                 controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = ReviewMode)
 
 ### EnterCompanyTaxEBITDA Controller
 ### ----------------------------------------
@@ -37,6 +39,8 @@ GET        /:idx/enter-company-tax-ebitda                       controllers.ukCo
 POST       /:idx/enter-company-tax-ebitda                       controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/enter-company-tax-ebitda/change                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/enter-company-tax-ebitda/change                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/enter-company-tax-ebitda/review                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(idx: Int, mode: Mode = ReviewMode)
+POST       /:idx/enter-company-tax-ebitda/review                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = ReviewMode)
 
 ### NetTaxInterestIncomeOrExpense Controller
 ### ----------------------------------------
@@ -54,8 +58,8 @@ POST       /:idx/consenting-company/change                      controllers.ukCo
 
 ### CheckAnswersUkCompany Controller
 ### ----------------------------------------
-GET        /:idx/check-answers-uk-company                         controllers.ukCompanies.CheckAnswersUkCompanyController.onPageLoad(idx: Int)
-POST       /:idx/check-answers-uk-company                         controllers.ukCompanies.CheckAnswersUkCompanyController.onSubmit(idx: Int)
+GET        /:idx/check-answers-uk-company                       controllers.ukCompanies.CheckAnswersUkCompanyController.onPageLoad(idx: Int)
+POST       /:idx/check-answers-uk-company                       controllers.ukCompanies.CheckAnswersUkCompanyController.onSubmit(idx: Int)
 
 ### AddAnReactivationQuery Controller
 ### ----------------------------------------
@@ -66,7 +70,9 @@ POST       /:idx/add-an-reactivation-query/change                   controllers.
 
 ### ReactivationAmount Controller
 ### ----------------------------------------
-GET        /:idx/reactivation-amount                          controllers.ukCompanies.ReactivationAmountController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /:idx/reactivation-amount                          controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /:idx/reactivation-amount/change                   controllers.ukCompanies.ReactivationAmountController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /:idx/reactivation-amount/change                   controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/reactivation-amount                            controllers.ukCompanies.ReactivationAmountController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/reactivation-amount                            controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/reactivation-amount/change                     controllers.ukCompanies.ReactivationAmountController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/reactivation-amount/change                     controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/reactivation-amount/review                     controllers.ukCompanies.ReactivationAmountController.onPageLoad(idx: Int, mode: Mode = ReviewMode)
+POST       /:idx/reactivation-amount/review                     controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = ReviewMode)

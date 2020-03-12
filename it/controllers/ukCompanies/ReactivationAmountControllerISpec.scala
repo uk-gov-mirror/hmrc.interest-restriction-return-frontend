@@ -37,6 +37,7 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
           val res = getRequest("/uk-companies/1/reactivation-amount")()
 
           whenReady(res) { result =>
@@ -75,6 +76,7 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
           "redirect to Check your Answers page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
             setAnswers(
               emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
@@ -112,7 +114,7 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
 
   "in Change mode" when {
 
-    "GET /uk-companies/1/reactivation-amount" when {
+    "GET /uk-companies/1/reactivation-amount/change" when {
 
       "user is authorised" should {
 
@@ -139,6 +141,130 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
           AuthStub.unauthorised()
 
           val res = getRequest("/uk-companies/1/reactivation-amount/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /uk-companies/1/reactivation-amount/change" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to UK Company CYA page" in {
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/reactivation-amount/change", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/reactivation-amount/change", Json.obj("value" -> 1))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+  }
+
+  "in Review mode" when {
+
+    "GET /uk-companies/1/reactivation-amount/review" when {
+
+      "user is authorised" should {
+
+        "return OK (200)" in {
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+          val res = getRequest("/uk-companies/1/reactivation-amount/review")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(PageTitles.reactivationAmount)
+            )
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = getRequest("/uk-companies/1/reactivation-amount/review")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /uk-companies/1/reactivation-amount/review" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to Review Reactivations page" in {
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/reactivation-amount/review", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad().url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/reactivation-amount/review", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
