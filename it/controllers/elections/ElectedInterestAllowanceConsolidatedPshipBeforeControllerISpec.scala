@@ -89,7 +89,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
 
           "the answer is true" should {
 
-            "redirect to PartnershipName page" in {
+            "redirect to PartnershipsReviewAnswersList page" in {
 
               AuthStub.authorised()
 
@@ -98,7 +98,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(routes.PartnershipNameController.onPageLoad(1, NormalMode).url)
+                  redirectLocation(routes.PartnershipsReviewAnswersListController.onPageLoad().url)
                 )
               }
             }

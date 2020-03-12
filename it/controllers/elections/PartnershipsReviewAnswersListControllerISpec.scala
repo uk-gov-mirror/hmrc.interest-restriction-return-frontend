@@ -16,8 +16,10 @@
 
 package controllers.elections
 
+import assets.PartnershipsITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.elections.PartnershipsPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,60 +29,48 @@ class PartnershipsReviewAnswersListControllerISpec extends IntegrationSpecBase w
 
   "in Normal mode" when {
 
-    "GET /elections/partnerships-review-answers-list" when {
-
-      "user is authorised" should {
-
-        "return OK (200)" in {
-
-          AuthStub.authorised()
-          val res = getRequest("/elections/partnerships-review-answers-list")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.partnershipsReviewAnswersList)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/elections/partnerships-review-answers-list")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-
-    "POST /elections/partnerships-review-answers-list" when {
+    "GET /elections/partnerships/review" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "there are investments in the list" should {
 
-          "redirect to PartnershipsReviewAnswersList page" in {
+          "return OK (200)" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnerships-review-answers-list", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.elections.routes.PartnershipsReviewAnswersListController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(
+              emptyUserAnswers
+                .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+                .set(PartnershipsPage, partnershipModelNonUk, Some(2)).success.value
+                .set(PartnershipsPage, partnershipModelUK, Some(3)).success.value
+            )
+
+            val res = getRequest("/elections/partnerships/review")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.partnershipsReviewAnswersList(3))
+              )
+            }
+          }
+        }
+
+        "there are NO investments in the list" should {
+
+          "return SEE_OTHER (303)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/elections/partnerships/review")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.PartnershipNameController.onPageLoad(1, NormalMode).url)
+              )
+            }
           }
         }
       }
@@ -91,7 +81,7 @@ class PartnershipsReviewAnswersListControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/partnerships-review-answers-list", Json.obj("value" -> 1))()
+          val res = getRequest("/elections/partnerships/review")()
 
           whenReady(res) { result =>
             result should have(
@@ -102,25 +92,52 @@ class PartnershipsReviewAnswersListControllerISpec extends IntegrationSpecBase w
         }
       }
     }
-  }
 
-  "in Change mode" when {
-
-    "GET /elections/partnerships-review-answers-list" when {
+    "POST /elections/investments" when {
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "Add another partnership is true" must {
 
-          AuthStub.authorised()
+          "redirect to the next PartnershipName page" in {
 
-          val res = getRequest("/elections/partnerships-review-answers-list/change")()
+            AuthStub.authorised()
 
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.partnershipsReviewAnswersList)
-            )
+            val userAnswers = emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/elections/partnerships/review", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.PartnershipNameController.onPageLoad(2, NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "Add another partnership is false" must {
+
+          "redirect to Check Answers page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/elections/partnerships/review", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -131,7 +148,7 @@ class PartnershipsReviewAnswersListControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/partnerships-review-answers-list/change")()
+          val res = getRequest("/elections/partnerships/review")()
 
           whenReady(res) { result =>
             result should have(

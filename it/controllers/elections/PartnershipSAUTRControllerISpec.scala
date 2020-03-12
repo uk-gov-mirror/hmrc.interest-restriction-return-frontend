@@ -16,8 +16,9 @@
 
 package controllers.elections
 
+import assets.PartnershipsITConstants._
 import assets.{BaseITConstants, PageTitles}
-import pages.elections.PartnershipNamePage
+import pages.elections.PartnershipsPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,21 +28,24 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
   "in Normal mode" when {
 
-    "GET /elections/partnership-sautr" when {
+    "GET /elections/partnership/1/sautr" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
 
-          val res = getRequest("/elections/partnership-sautr")()
+          setAnswers(emptyUserAnswers
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+          )
+
+          val res = getRequest("/elections/partnership/1/sautr")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.partnershipSAUTR(companyName))
+              titleOf(PageTitles.partnershipSAUTR(partnerName))
             )
           }
         }
@@ -53,7 +57,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/partnership-sautr")()
+          val res = getRequest("/elections/partnership/1/sautr")()
 
           whenReady(res) { result =>
             result should have(
@@ -65,7 +69,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
       }
     }
 
-    "POST /elections/partnership-sautr" when {
+    "POST /elections/partnership/1/sautr" when {
 
       "user is authorised" when {
 
@@ -75,12 +79,16 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> sautr))()
+            setAnswers(emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+            )
+
+            val res = postRequest("/elections/partnership/1/sautr", Json.obj("value" -> sautr))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url)
+                redirectLocation(controllers.elections.routes.PartnershipsReviewAnswersListController.onPageLoad().url)
               )
             }
           }
@@ -93,7 +101,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/partnership-sautr", Json.obj("value" -> sautr))()
+          val res = postRequest("/elections/partnership/1/sautr", Json.obj("value" -> sautr))()
 
           whenReady(res) { result =>
             result should have(
@@ -108,21 +116,23 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
   "in Change mode" when {
 
-    "GET /elections/partnership-sautr" when {
+    "GET /elections/partnership/1/sautr" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
 
-          val res = getRequest("/elections/partnership-sautr/change")()
+          setAnswers(emptyUserAnswers
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+          )
+          val res = getRequest("/elections/partnership/1/sautr/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.partnershipSAUTR(companyName))
+              titleOf(PageTitles.partnershipSAUTR(partnerName))
             )
           }
         }
@@ -134,7 +144,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/partnership-sautr/change")()
+          val res = getRequest("/elections/partnership/1/sautr/change")()
 
           whenReady(res) { result =>
             result should have(

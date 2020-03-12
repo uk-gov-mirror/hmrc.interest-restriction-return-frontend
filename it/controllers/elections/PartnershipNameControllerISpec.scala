@@ -27,14 +27,14 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
   "in Normal mode" when {
 
-    "GET /elections/partnership-name" when {
+    "GET /elections/partnership/1/name" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/elections/partnership-name")()
+          val res = getRequest("/elections/partnership/1/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/partnership-name")()
+          val res = getRequest("/elections/partnership/1/name")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
       }
     }
 
-    "POST /elections/partnership-name" when {
+    "POST /elections/partnership/1/name" when {
 
       "user is authorised" when {
 
@@ -73,12 +73,12 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/partnership-name", Json.obj("value" -> companyName))()
+            val res = postRequest("/elections/partnership/1/name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.elections.routes.IsUkPartnershipController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.elections.routes.IsUkPartnershipController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -91,7 +91,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/partnership-name", Json.obj("value" -> companyName))()
+          val res = postRequest("/elections/partnership/1/name", Json.obj("value" -> companyName))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
   "in Change mode" when {
 
-    "GET /elections/partnership-name" when {
+    "GET /elections/partnership/1/name" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.authorised()
 
-          val res = getRequest("/elections/partnership-name/change")()
+          val res = getRequest("/elections/partnership/1/name/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class PartnershipNameControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/partnership-name/change")()
+          val res = getRequest("/elections/partnership/1/name/change")()
 
           whenReady(res) { result =>
             result should have(
