@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.elections.{routes => electionRoutes}
+import controllers.ukCompanies.{routes => ukCompaniesRoutes}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.{CheckMode, NormalMode, UserAnswers}
 import pages.Page
@@ -34,25 +34,6 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "from the Revising Return page" should {
-
-        "go to the Revision Information page when yes selected to revising a return" ignore {
-
-          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
-
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-            ??? //TODO Link to Revision Information Page when implemented
-        }
-
-        "go to the Reporting company name page when no selected to revising a return" in {
-
-          val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
-
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
-            aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
-        }
-      }
-
       "from the Infrastructure Company Election page" should {
 
         "go to the Return Contains Estimates page when Full Return is being submitted" in {
@@ -63,12 +44,13 @@ class AboutReturnNavigatorSpec extends SpecBase {
             aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
         }
 
-        "go to the abbreviated return section when Abbreviated Return is being submitted" ignore {
+        //TODO: Update in future story once abbreviated return journey is implemented
+        "go to the abbreviated return section when Abbreviated Return is being submitted" in {
 
           val fullOrAbbreviatedAnswer = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).get
 
           navigator.nextPage(InfrastructureCompanyElectionPage, NormalMode, fullOrAbbreviatedAnswer) mustBe
-            ??? //TODO Link to abbreviated return section when implemented
+            controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
 
@@ -151,7 +133,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
         "go to the next section page" in {
 
           navigator.nextPage(GroupInterestCapacityPage, NormalMode, emptyUserAnswers) mustBe
-            electionRoutes.GroupRatioElectionController.onPageLoad(NormalMode)
+            ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
         }
       }
 

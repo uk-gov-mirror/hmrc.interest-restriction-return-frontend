@@ -20,6 +20,7 @@ import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
+import play.api.libs.json.JsString
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -54,6 +55,45 @@ class DerivedCompanyControllerISpec extends IntegrationSpecBase with CreateReque
           AuthStub.unauthorised()
 
           val res = getRequest("/check-totals/derived-company")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /check-totals/derived-company" when {
+
+      "user is authorised" when {
+
+        "redirect to the next page" in {
+
+          AuthStub.authorised()
+
+          setAnswers(emptyUserAnswers)
+
+          val res = postRequest("/check-totals/derived-company", JsString(""))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad().url)
+            )
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/check-totals/derived-company", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

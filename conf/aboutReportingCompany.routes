@@ -1,6 +1,13 @@
 # About the Reporting Company Section Routes
 # ==========================================
 
+### RevisingReturn Controller
+### ----------------------------------------
+GET        /revising-return                             controllers.aboutReportingCompany.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /revising-return                             controllers.aboutReportingCompany.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /revising-return/change                      controllers.aboutReportingCompany.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /revising-return/change                      controllers.aboutReportingCompany.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
+
 ### ReportingCompanyName Controller
 ### ----------------------------------------
 GET        /name                                        controllers.aboutReportingCompany.ReportingCompanyNameController.onPageLoad(mode: Mode = NormalMode)

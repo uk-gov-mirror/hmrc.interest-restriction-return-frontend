@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package views.aboutReturn
+package views.aboutReportingCompany
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.aboutReturn.routes
+import controllers.aboutReportingCompany.routes
 import forms.aboutReturn.RevisingReturnFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.Twirl
 import views.behaviours.YesNoViewBehaviours
-import views.html.aboutReturn.RevisingReturnView
+import views.html.aboutReportingCompany.RevisingReturnView
 
 class RevisingReturnViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "revisingReturn"
-  val section = Some(messages("section.aboutReturn"))
+  val section = Some(SectionHeaderMessages.aboutReportingCompany)
   val form = new RevisingReturnFormProvider()()
 
   Seq(Twirl).foreach { templatingSystem =>
@@ -47,7 +47,7 @@ class RevisingReturnViewSpec extends YesNoViewBehaviours {
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+      behave like pageWithSubHeading(applyView(form), section.get)
 
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.RevisingReturnController.onSubmit(NormalMode).url, section = section)
 

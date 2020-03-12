@@ -17,6 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
+import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.JsString
 import stubs.AuthStub
@@ -69,7 +70,7 @@ class CheckAnswersElectionsControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to Return Contain Estimates page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +79,7 @@ class CheckAnswersElectionsControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode).url)
               )
             }
           }

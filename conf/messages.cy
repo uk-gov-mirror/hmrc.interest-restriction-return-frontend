@@ -67,10 +67,11 @@ timeout.signOut = Sign out
 
 # Sections
 # ----------------------------------------------------------
-section.agents = Agents
-section.aboutReturn = About the return
+section.startReturn = About the return
+section.aboutReportingCompany = About the return
 section.groupStructure = Ultimate parent company
 section.elections = Elections
+section.aboutReturn = Group level information
 section.ukCompanies = The companies involved
 section.checkTotals = Check totals
 
@@ -798,6 +799,33 @@ accountingPeriodEnd.error.required.two = You must enter a valid date
 accountingPeriodEnd.error.required.all = You must enter a valid date
 accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
 accountingPeriodEnd.hint = For example, 27 3 2007
+
+# ReactivationAmountPage Messages
+# ----------------------------------------------------------
+reactivationAmount.title = ReactivationAmount
+reactivationAmount.heading = ReactivationAmount
+reactivationAmount.label=Add a reactivation amount
+reactivationAmount.checkYourAnswersLabel = ReactivationAmount
+reactivationAmount.error.nonNumeric = Enter your reactivationAmount using numbers
+reactivationAmount.error.required = Enter your reactivationAmount
+reactivationAmount.error.invalidNumeric = The reactivationAmount must be valid decimal or whole number
+reactivationAmount.error.outOfRange = ReactivationAmount must be between {0} and {1}
+
+# AddAnReactivationQueryPage Messages
+# ----------------------------------------------------------
+addAnReactivationQuery.title = Do you need to add a reactivation to this company?
+addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
+addAnReactivationQuery.subheading = {0}
+
+# ReviewAndCompletePage Messages
+# ----------------------------------------------------------
+reviewAndComplete.title = Interest Restriction Return
+reviewAndComplete.heading = Interest Restriction Return
+reviewAndComplete.completed = Completed
+reviewAndComplete.text = Send your return to HMRC
+
 
 # PartnershipsReviewAnswersListPage Messages
 # ----------------------------------------------------------

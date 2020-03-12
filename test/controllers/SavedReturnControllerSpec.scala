@@ -59,19 +59,6 @@ class SavedReturnControllerSpec extends SpecBase with FeatureSwitching with Mock
     }
   }
 
-  "for the nextUnansweredQuestion() method" must {
-
-    "redirect to the next page" in {
-
-      mockGetAnswers(Some(emptyUserAnswers))
-
-      val result = Controller.nextUnansweredPage(fakeRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
-    }
-  }
-
   "for the deleteAndStartAgain() method" must {
 
     "redirect to the IndexRoute and clear the user answers held" in {

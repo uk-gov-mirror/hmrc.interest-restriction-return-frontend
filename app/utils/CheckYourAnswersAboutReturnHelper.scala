@@ -40,9 +40,6 @@ class CheckYourAnswersAboutReturnHelper(val userAnswers: UserAnswers)
   def interestReactivationsCap: Option[SummaryListRow] =
     monetaryAnswer(InterestReactivationsCapPage, routes.InterestReactivationsCapController.onPageLoad(CheckMode))
 
-  def revisingReturn: Option[SummaryListRow] =
-    answer(RevisingReturnPage, routes.RevisingReturnController.onPageLoad(CheckMode))
-
   def groupSubjectToReactivations: Option[SummaryListRow] =
     answer(GroupSubjectToReactivationsPage, routes.GroupSubjectToReactivationsController.onPageLoad(CheckMode))
 
@@ -55,7 +52,6 @@ class CheckYourAnswersAboutReturnHelper(val userAnswers: UserAnswers)
     groupInterestCapacity,
     groupSubjectToRestrictions,
     interestReactivationsCap,
-    revisingReturn,
     groupSubjectToReactivations,
     interestAllowanceBroughtForward
   ).flatten

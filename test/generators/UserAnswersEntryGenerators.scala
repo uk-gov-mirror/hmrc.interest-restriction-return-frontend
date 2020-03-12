@@ -38,6 +38,22 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryAddAnReactivationQueryUserAnswersEntry: Arbitrary[(AddAnReactivationQueryPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[AddAnReactivationQueryPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryReactivationAmountUserAnswersEntry: Arbitrary[(ReactivationAmountPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ReactivationAmountPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryAccountingPeriodStartUserAnswersEntry: Arbitrary[(AccountingPeriodStartPage.type, JsValue)] =
     Arbitrary {
       for {

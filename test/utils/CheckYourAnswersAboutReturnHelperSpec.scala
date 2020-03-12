@@ -33,7 +33,6 @@ class CheckYourAnswersAboutReturnHelperSpec extends SpecBase with BaseConstants 
       .set(GroupInterestCapacityPage, groupInterestCapacity).get
       .set(GroupSubjectToRestrictionsPage, true).get
       .set(InterestReactivationsCapPage, interestReactivationCap).get
-      .set(RevisingReturnPage, false).get
       .set(GroupSubjectToReactivationsPage, false).get
       .set(InterestAllowanceBroughtForwardPage, interestAllowanceBroughtForward).get
   )
@@ -96,18 +95,6 @@ class CheckYourAnswersAboutReturnHelperSpec extends SpecBase with BaseConstants 
           CheckAnswersAboutReturnMessages.interestReactivationsCap,
           currencyFormat(interestReactivationCap),
           aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the RevisingReturn answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.revisingReturn mustBe Some(summaryListRow(
-          CheckAnswersAboutReturnMessages.revisingReturn,
-          BaseMessages.no,
-          aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

@@ -22,6 +22,7 @@ import pages.aboutReturn._
 import pages.checkTotals.ReviewTaxEBITDAPage
 import pages.elections._
 import pages.groupStructure._
+import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.startReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsString, Json}
@@ -37,6 +38,12 @@ class PageSpec extends SpecBase {
     AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
     AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
     CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
+        AddAnReactivationQueryPage.toString -> AddAnReactivationQueryPage,
+        ReactivationAmountPage.toString -> ReactivationAmountPage,
+        AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
+        AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
+        ReviewAndCompletePage.toString -> ReviewAndCompletePage,
+        CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
         UkCompaniesDeletionConfirmationPage.toString -> UkCompaniesDeletionConfirmationPage,
         ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
         CompanyDetailsPage.toString -> CompanyDetailsPage,

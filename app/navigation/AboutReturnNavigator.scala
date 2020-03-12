@@ -20,7 +20,7 @@ import javax.inject.{Inject, Singleton}
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.elections.{routes => electionRoutes}
+import controllers.ukCompanies.{routes => ukCompaniesRoutes}
 import controllers.routes
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
@@ -51,17 +51,13 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     InterestReactivationsCapPage -> (_ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode)),
-    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
-      case Some(false) => aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
-      case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
-    })
+    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] = Map().withDefaultValue(_ => ???) //TODO: Add Check Your Answers)
+  val checkRouteMap: Map[Page, UserAnswers => Call] =
+    Map().withDefaultValue(_ => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Add Check Your Answers)
 
-  private def nextSection(mode: Mode): Call = electionRoutes.GroupRatioElectionController.onPageLoad(NormalMode)
+  private def nextSection(mode: Mode): Call = ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

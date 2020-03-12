@@ -43,7 +43,7 @@ class StartReturnNavigator @Inject()() extends Navigator {
       case _ => startReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
     }),
     AgentNamePage -> (_ => startReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)),
-    FullOrAbbreviatedReturnPage -> (_ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode))
+    FullOrAbbreviatedReturnPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map(
@@ -56,7 +56,7 @@ class StartReturnNavigator @Inject()() extends Navigator {
   )
 
   private def checkYourAnswers: Call = aboutReportingCompanyRoutes.CheckAnswersReportingCompanyController.onPageLoad()
-  private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.ReportingCompanyNameController.onPageLoad(mode)
+  private def nextSection(mode: Mode): Call = aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

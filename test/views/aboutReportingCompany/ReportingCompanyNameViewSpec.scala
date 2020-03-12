@@ -45,7 +45,7 @@ class ReportingCompanyNameViewSpec extends StringViewBehaviours {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReportingCompany)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

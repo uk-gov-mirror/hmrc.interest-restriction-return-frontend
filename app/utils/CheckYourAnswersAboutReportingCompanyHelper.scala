@@ -18,8 +18,10 @@ package utils
 
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.startReturn.{routes => startReturnRoutes}
+import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.aboutReportingCompany._
+import pages.aboutReturn.RevisingReturnPage
 import pages.startReturn._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
@@ -51,11 +53,15 @@ class CheckYourAnswersAboutReportingCompanyHelper(val userAnswers: UserAnswers)
   def accountingPeriodEnd: Option[SummaryListRow] =
     answer(AccountingPeriodEndPage, aboutReportingCompanyRoutes.AccountingPeriodEndController.onPageLoad(CheckMode))
 
+  def revisingReturn: Option[SummaryListRow] =
+    answer(RevisingReturnPage, aboutReportingCompanyRoutes.RevisingReturnController.onPageLoad(CheckMode))
+
   val rows: Seq[SummaryListRow] = Seq(
     reportingCompanyAppointed,
     agentActingOnBehalfOfCompany,
     agentName,
     fullOrAbbreviatedReturn,
+    revisingReturn,
     reportingCompanyName,
     reportingCompanyCTUTR,
     accountingPeriodStart,

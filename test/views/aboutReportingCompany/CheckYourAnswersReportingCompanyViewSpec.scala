@@ -54,7 +54,7 @@ class CheckYourAnswersReportingCompanyViewSpec extends ViewBehaviours with BaseC
       view.apply(checkYourAnswersHelper.rows, ReportingCompany, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.aboutReturn))
+    behave like normalPage(applyView(), messageKeyPrefix, section = Some(SectionHeaderMessages.aboutReportingCompany))
 
     behave like pageWithBackLink(applyView())
 

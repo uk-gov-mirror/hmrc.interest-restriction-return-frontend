@@ -35,7 +35,7 @@ class CheckTotalsNavigatorSpec extends SpecBase {
         "to the UnderConstructionController" in {
 
           navigator.nextPage(DerivedCompanyPage, NormalMode, emptyUserAnswers) mustBe
-            routes.UnderConstructionController.onPageLoad()
+            controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()
         }
       }
 
