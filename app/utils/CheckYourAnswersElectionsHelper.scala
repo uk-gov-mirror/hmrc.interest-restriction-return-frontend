@@ -71,7 +71,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
       Some(summaryListRow(
         Messages("investorGroupsAdded.checkYourAnswers.label"),
         Messages(s"investorGroupsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfInvestorGroupsAdded),
-        controllers.routes.UnderConstructionController.onPageLoad() -> Messages("investorGroupsAdded.checkYourAnswers.review")
+        electionsRoutes.InvestorGroupsReviewAnswersListController.onPageLoad() -> Messages("investorGroupsAdded.checkYourAnswers.review")
       ))
     }
   }
@@ -85,7 +85,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
       Some(summaryListRow(
         Messages("consolidatedPartnershipsAdded.checkYourAnswers.label"),
         Messages(s"consolidatedPartnershipsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfPartnershipsAdded),
-        controllers.routes.UnderConstructionController.onPageLoad() -> Messages("consolidatedPartnershipsAdded.checkYourAnswers.review")
+        electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> Messages("consolidatedPartnershipsAdded.checkYourAnswers.review")
       ))
     }
   }
@@ -97,7 +97,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
       Some(summaryListRow(
         Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.label"),
         Messages(s"nonConsolidatedInvestmentsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfInvestmentsAdded),
-        controllers.routes.UnderConstructionController.onPageLoad() -> Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.review")
+        electionsRoutes.InvestmentsReviewAnswersListController.onPageLoad() -> Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.review")
       ))
     }
   }

@@ -124,7 +124,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-    //TODO:      update the Change Link to go to the review page (when created)
     "For the Investor Groups Added" must {
 
       "have a correctly formatted summary list row when one added" in {
@@ -132,7 +131,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.investorGroupsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.investorGroupsHeading,
           CheckAnswersElectionsMessages.investorGroupsValue(1),
-          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
+          electionsRoutes.InvestorGroupsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
         ))
       }
 
@@ -145,7 +144,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.investorGroupsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.investorGroupsHeading,
           CheckAnswersElectionsMessages.investorGroupsValue(3),
-          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
+          electionsRoutes.InvestorGroupsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
         ))
       }
     }
@@ -210,7 +209,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-    //TODO:      update the Change Link to go to the review page (when created)
     "For the Non Consolidated Investments listed" must {
 
       "have a correctly formatted summary list row when one added" in {
@@ -218,7 +216,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.nonConsolidatedInvestmentsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading,
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(1),
-          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
+          electionsRoutes.InvestmentsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
         ))
       }
 
@@ -231,7 +229,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.nonConsolidatedInvestmentsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading,
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(3),
-          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
+          electionsRoutes.InvestmentsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
         ))
       }
     }
@@ -260,7 +258,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-    //TODO:      update the Change Link to go to the review page (when created)
     "For the Consolidated Partnerships listed" must {
 
       "have a correctly formatted summary list row when one added" in {
@@ -268,7 +265,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.consolidatedPartnershipsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
           CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1),
-          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
+          electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
         ))
       }
 
@@ -281,11 +278,9 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.consolidatedPartnershipsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
           CheckAnswersElectionsMessages.consolidatedPartnershipsValue(3),
-          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
+          electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
         ))
       }
     }
-
-
   }
 }
