@@ -39,6 +39,7 @@ class InterestReactivationsCapControllerSpec extends SpecBase with FeatureSwitch
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

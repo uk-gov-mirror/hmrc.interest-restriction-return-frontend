@@ -36,7 +36,8 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     view = view,
     sessionRepository = sessionRepository,
     navigator = FakeReviewAndCompleteNavigator,
-    questionDeletionLookupService = questionDeletionLookupService
+    questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService
   )
 
   "ReviewAndComplete Controller" must {

@@ -38,6 +38,7 @@ class GroupRatioBlendedElectionControllerSpec extends SpecBase with FeatureSwitc
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

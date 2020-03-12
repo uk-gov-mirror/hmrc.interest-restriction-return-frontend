@@ -17,7 +17,6 @@
 package controllers.aboutReportingCompany
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
@@ -29,16 +28,17 @@ import pages.aboutReportingCompany.AccountingPeriodStartPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.aboutReportingCompany.AccountingPeriodStartView
 
 import scala.concurrent.Future
 
 class AccountingPeriodStartController @Inject()(
                                                  override val messagesApi: MessagesApi,
-                                                 val sessionRepository: SessionRepository,
-                                                 val navigator: AboutReportingCompanyNavigator,
-                                                 val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                 override val sessionRepository: SessionRepository,
+                                                 override val navigator: AboutReportingCompanyNavigator,
+                                                 override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                 override val updateSectionService: UpdateSectionService,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,

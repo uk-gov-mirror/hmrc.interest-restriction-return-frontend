@@ -38,6 +38,7 @@ class GroupSubjectToRestrictionsControllerSpec extends SpecBase with FeatureSwit
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

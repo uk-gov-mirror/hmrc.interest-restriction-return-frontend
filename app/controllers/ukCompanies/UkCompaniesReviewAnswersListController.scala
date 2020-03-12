@@ -24,7 +24,7 @@ import forms.ukCompanies.UkCompaniesReviewAnswersListFormProvider
 import handlers.ErrorHandler
 import models.requests.DataRequest
 import models.NormalMode
-import models.SectionStatus.{Completed}
+import models.SectionStatus.Completed
 import navigation.UkCompaniesNavigator
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.UkCompaniesPage
@@ -32,7 +32,7 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import utils.UkCompaniesReviewAnswersListHelper
 import views.html.ukCompanies.UkCompaniesReviewAnswersListView
 
@@ -42,6 +42,7 @@ class UkCompaniesReviewAnswersListController @Inject()(override val messagesApi:
                                                        override val sessionRepository: SessionRepository,
                                                        override val navigator: UkCompaniesNavigator,
                                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                       override val updateSectionService: UpdateSectionService,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,

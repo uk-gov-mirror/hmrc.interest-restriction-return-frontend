@@ -38,6 +38,7 @@ class InvestmentsDeletionConfirmationControllerSpec extends SpecBase with Featur
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

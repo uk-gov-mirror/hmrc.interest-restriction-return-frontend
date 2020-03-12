@@ -40,6 +40,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

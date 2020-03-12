@@ -40,6 +40,7 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

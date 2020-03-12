@@ -29,23 +29,23 @@ import pages.elections.{IsUkPartnershipPage, PartnershipNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.elections.IsUkPartnershipView
 
 import scala.concurrent.Future
 
-class IsUkPartnershipController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: ElectionsNavigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: IsUkPartnershipFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: IsUkPartnershipView
-                                 )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+class IsUkPartnershipController @Inject()(override val messagesApi: MessagesApi,
+                                          override val sessionRepository: SessionRepository,
+                                          override val navigator: ElectionsNavigator,
+                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          override val updateSectionService: UpdateSectionService,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: IsUkPartnershipFormProvider,
+                                          val controllerComponents: MessagesControllerComponents,
+                                          view: IsUkPartnershipView
+                                         )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(PartnershipNamePage) { name =>

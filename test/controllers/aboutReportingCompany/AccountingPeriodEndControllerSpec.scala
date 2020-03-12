@@ -44,6 +44,7 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
     sessionRepository = sessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

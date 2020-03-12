@@ -38,6 +38,7 @@ class AgentActingOnBehalfOfCompanyControllerSpec extends SpecBase with FeatureSw
     sessionRepository = sessionRepository,
     navigator = FakeStartReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

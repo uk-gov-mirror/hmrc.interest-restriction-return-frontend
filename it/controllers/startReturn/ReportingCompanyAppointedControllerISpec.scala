@@ -95,10 +95,6 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
             AuthStub.authorised()
 
-            setAnswers(emptyUserAnswers
-              .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = InProgress)).success.value
-            )
-
             val res = postRequest("/start/reporting-company-appointed", Json.obj("value" -> false))()
 
             whenReady(res) { result =>

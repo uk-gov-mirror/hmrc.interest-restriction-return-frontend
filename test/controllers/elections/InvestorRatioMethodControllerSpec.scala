@@ -39,6 +39,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

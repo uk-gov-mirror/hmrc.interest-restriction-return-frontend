@@ -40,6 +40,7 @@ class GroupRatioPercentageControllerSpec extends SpecBase with FeatureSwitching 
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

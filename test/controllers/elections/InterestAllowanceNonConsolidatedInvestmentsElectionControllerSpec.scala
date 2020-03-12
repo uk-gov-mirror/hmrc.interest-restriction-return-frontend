@@ -38,6 +38,7 @@ class InterestAllowanceNonConsolidatedInvestmentsElectionControllerSpec extends 
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

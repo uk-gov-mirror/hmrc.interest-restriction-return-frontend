@@ -39,6 +39,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

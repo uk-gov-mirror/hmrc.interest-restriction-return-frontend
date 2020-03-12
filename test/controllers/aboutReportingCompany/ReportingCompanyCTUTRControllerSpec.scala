@@ -39,6 +39,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching
     sessionRepository = sessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

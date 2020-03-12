@@ -27,7 +27,7 @@ class QuestionDeletionLookupService @Inject()() {
 
   private val startReturnLogic: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] = Map(
     ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
-      case Some(false) => allQuestionPages
+      case Some(false) => allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage)
       case _ => List()
     }),
     AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {

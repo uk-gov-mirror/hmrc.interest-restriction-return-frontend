@@ -38,6 +38,7 @@ class AddInvestorGroupControllerSpec extends SpecBase with FeatureSwitching with
     sessionRepository = sessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

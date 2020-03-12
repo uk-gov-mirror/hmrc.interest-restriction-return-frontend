@@ -32,21 +32,21 @@ import handlers.ErrorHandler
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import controllers.BaseNavigationController
 
-class ConsentingCompanyController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: UkCompaniesNavigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: ConsentingCompanyFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: ConsentingCompanyView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+class ConsentingCompanyController @Inject()(override val messagesApi: MessagesApi,
+                                            override val sessionRepository: SessionRepository,
+                                            override val navigator: UkCompaniesNavigator,
+                                            override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val updateSectionService: UpdateSectionService,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: ConsentingCompanyFormProvider,
+                                            val controllerComponents: MessagesControllerComponents,
+                                            view: ConsentingCompanyView
+                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>

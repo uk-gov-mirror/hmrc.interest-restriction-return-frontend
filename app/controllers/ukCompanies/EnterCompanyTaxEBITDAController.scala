@@ -29,15 +29,16 @@ import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.ukCompanies.EnterCompanyTaxEBITDAView
 
 import scala.concurrent.Future
 
 class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: MessagesApi,
-                                                val sessionRepository: SessionRepository,
-                                                val navigator: UkCompaniesNavigator,
-                                                val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val sessionRepository: SessionRepository,
+                                                override val navigator: UkCompaniesNavigator,
+                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val updateSectionService: UpdateSectionService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,

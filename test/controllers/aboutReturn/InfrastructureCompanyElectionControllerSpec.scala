@@ -38,6 +38,7 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

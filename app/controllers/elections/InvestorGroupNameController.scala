@@ -32,14 +32,15 @@ import config.featureSwitch.FeatureSwitching
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import controllers.BaseNavigationController
 import models.returnModels.InvestorGroupModel
 
 class InvestorGroupNameController @Inject()(override val messagesApi: MessagesApi,
-                                            val sessionRepository: SessionRepository,
-                                            val navigator: ElectionsNavigator,
-                                            val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val sessionRepository: SessionRepository,
+                                            override val navigator: ElectionsNavigator,
+                                            override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val updateSectionService: UpdateSectionService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,

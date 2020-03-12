@@ -29,15 +29,16 @@ import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.groupStructure.LimitedLiabilityPartnershipView
 
 import scala.concurrent.Future
 
 class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: MessagesApi,
-                                                      val sessionRepository: SessionRepository,
-                                                      val navigator: GroupStructureNavigator,
-                                                      val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                      override val sessionRepository: SessionRepository,
+                                                      override val navigator: GroupStructureNavigator,
+                                                      override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                      override val updateSectionService: UpdateSectionService,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,

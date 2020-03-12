@@ -38,6 +38,7 @@ class FullOrAbbreviatedReturnControllerSpec extends SpecBase with FeatureSwitchi
     sessionRepository = sessionRepository,
     navigator = FakeStartReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

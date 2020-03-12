@@ -30,12 +30,13 @@ import views.html.ukCompanies.AboutAddingUKCompaniesView
 import scala.concurrent.ExecutionContext
 
 class AboutAddingUKCompaniesController @Inject()(override val messagesApi: MessagesApi,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: AboutAddingUKCompaniesView,
-                                      val navigator: UkCompaniesNavigator)(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 val controllerComponents: MessagesControllerComponents,
+                                                 view: AboutAddingUKCompaniesView,
+                                                 val navigator: UkCompaniesNavigator
+                                                )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.AboutAddingUKCompaniesController.onSubmit()))

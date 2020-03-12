@@ -41,6 +41,7 @@ class ReactivationAmountControllerSpec extends SpecBase with FeatureSwitching wi
     sessionRepository = sessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

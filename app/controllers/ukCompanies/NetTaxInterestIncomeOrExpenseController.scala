@@ -29,23 +29,24 @@ import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
 
 import scala.concurrent.Future
 
-class NetTaxInterestIncomeOrExpenseController @Inject()(
-                                  override val messagesApi: MessagesApi,
-                                  val sessionRepository: SessionRepository,
-                                  val navigator: UkCompaniesNavigator,
-                                  val questionDeletionLookupService: QuestionDeletionLookupService,
-                                  identify: IdentifierAction,
-                                  getData: DataRetrievalAction,
-                                  requireData: DataRequiredAction,
-                                  formProvider: NetTaxInterestIncomeOrExpenseFormProvider,
-                                  val controllerComponents: MessagesControllerComponents,
-                                  view: NetTaxInterestIncomeOrExpenseView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+class NetTaxInterestIncomeOrExpenseController @Inject()(override val messagesApi: MessagesApi,
+                                                        override val sessionRepository: SessionRepository,
+                                                        override val navigator: UkCompaniesNavigator,
+                                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                        override val updateSectionService: UpdateSectionService,
+                                                        identify: IdentifierAction,
+                                                        getData: DataRetrievalAction,
+                                                        requireData: DataRequiredAction,
+                                                        formProvider: NetTaxInterestIncomeOrExpenseFormProvider,
+                                                        val controllerComponents: MessagesControllerComponents,
+                                                        view: NetTaxInterestIncomeOrExpenseView
+                                                       )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>

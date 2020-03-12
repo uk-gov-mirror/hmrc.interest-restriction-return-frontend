@@ -51,10 +51,6 @@ object Page {
     Section.UkCompanies -> ukCompaniesSectionPages
   )
 
-  def findSection(currentPage: QuestionPage[_]): Option[Section.UkCompanies.type] =
-    sections.find{
-      section => section._2.contains(currentPage)
-    }.map(_._1)
 
   val pages: Map[String, Page] = sections.flatMap{
     section => section._2.map(page => page.toString -> page)

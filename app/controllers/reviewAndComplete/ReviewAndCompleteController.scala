@@ -27,7 +27,7 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
@@ -37,6 +37,7 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
                                             override val navigator: ReviewAndCompleteNavigator,
                                             override val sessionRepository: SessionRepository,
                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val updateSectionService: UpdateSectionService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,

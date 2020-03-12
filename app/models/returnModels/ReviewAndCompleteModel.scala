@@ -27,7 +27,7 @@ case class ReviewAndCompleteModel(startReturn: SectionStatus = NotStarted,
                                   ukCompanies: SectionStatus = NotStarted,
                                   checkTotals: SectionStatus = NotStarted){
 
-  def apply(section: Section, sectionStatus: SectionStatus): ReviewAndCompleteModel = section match {
+  def update(section: Section, sectionStatus: SectionStatus): ReviewAndCompleteModel = section match {
     case Section.StartReturn => this.copy(startReturn = sectionStatus)
     case Section.Elections => this.copy(elections = sectionStatus)
     case Section.AboutReturn => this.copy(elections = aboutReturn)

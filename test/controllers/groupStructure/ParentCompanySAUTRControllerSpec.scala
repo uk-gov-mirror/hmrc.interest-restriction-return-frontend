@@ -40,6 +40,7 @@ class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching wi
     sessionRepository = sessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

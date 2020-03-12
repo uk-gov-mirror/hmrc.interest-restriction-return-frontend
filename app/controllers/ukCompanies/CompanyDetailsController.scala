@@ -23,30 +23,29 @@ import controllers.actions._
 import forms.ukCompanies.CompanyDetailsFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{CompanyDetailsModel, Mode}
-import models.returnModels.CompanyNameModel
 import models.returnModels.fullReturn.UkCompanyModel
+import models.{CompanyDetailsModel, Mode}
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{CompanyDetailsPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.ukCompanies.CompanyDetailsView
 
 import scala.concurrent.Future
 
-class CompanyDetailsController @Inject()(
-                                          override val messagesApi: MessagesApi,
-                                          val sessionRepository: SessionRepository,
-                                          val navigator: UkCompaniesNavigator,
-                                          val questionDeletionLookupService: QuestionDeletionLookupService,
-                                          identify: IdentifierAction,
-                                          getData: DataRetrievalAction,
-                                          requireData: DataRequiredAction,
-                                          formProvider: CompanyDetailsFormProvider,
-                                          val controllerComponents: MessagesControllerComponents,
-                                          view: CompanyDetailsView
+class CompanyDetailsController @Inject()(override val messagesApi: MessagesApi,
+                                         override val sessionRepository: SessionRepository,
+                                         override val navigator: UkCompaniesNavigator,
+                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                         override val updateSectionService: UpdateSectionService,
+                                         identify: IdentifierAction,
+                                         getData: DataRetrievalAction,
+                                         requireData: DataRequiredAction,
+                                         formProvider: CompanyDetailsFormProvider,
+                                         val controllerComponents: MessagesControllerComponents,
+                                         view: CompanyDetailsView
                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

@@ -38,6 +38,7 @@ class ReturnContainEstimatesControllerSpec extends SpecBase with FeatureSwitchin
     sessionRepository = sessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

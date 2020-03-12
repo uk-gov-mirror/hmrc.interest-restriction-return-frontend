@@ -42,6 +42,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
     sessionRepository = sessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

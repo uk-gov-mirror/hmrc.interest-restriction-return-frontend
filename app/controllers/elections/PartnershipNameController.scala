@@ -16,37 +16,35 @@
 
 package controllers.elections
 
+import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.PartnershipNameFormProvider
 import javax.inject.Inject
 import models.Mode
+import navigation.ElectionsNavigator
 import pages.elections.PartnershipNamePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import views.html.elections.PartnershipNameView
-import config.FrontendAppConfig
-import play.api.data.Form
 
-import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
-import navigation.ElectionsNavigator
-import services.QuestionDeletionLookupService
-import controllers.BaseNavigationController
 
-class PartnershipNameController @Inject()(
-                                       override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: ElectionsNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: PartnershipNameFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: PartnershipNameView
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+class PartnershipNameController @Inject()(override val messagesApi: MessagesApi,
+                                          override val sessionRepository: SessionRepository,
+                                          override val navigator: ElectionsNavigator,
+                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          override val updateSectionService: UpdateSectionService,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: PartnershipNameFormProvider,
+                                          val controllerComponents: MessagesControllerComponents,
+                                          view: PartnershipNameView
+                                         )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(PartnershipNamePage, formProvider()), mode))

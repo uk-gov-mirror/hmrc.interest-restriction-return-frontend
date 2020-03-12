@@ -38,6 +38,7 @@ class ReportingCompanyAppointedControllerSpec extends SpecBase with FeatureSwitc
     sessionRepository = sessionRepository,
     navigator = FakeStartReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
