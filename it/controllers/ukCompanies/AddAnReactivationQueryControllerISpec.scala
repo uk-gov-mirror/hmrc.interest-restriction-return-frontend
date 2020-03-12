@@ -71,20 +71,43 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a True" when {
 
-          "redirect to AddAnReactivationQuery page" in {
+          "redirect to reactivationAmount page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.AddAnReactivationQueryController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(
+              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+            )
+
+            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> true))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(1,NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a False" when {
+
+          "redirect to check page" in {
+
+            AuthStub.authorised()
+
+            setAnswers(
+              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+            )
+
+            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> false))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
           }
         }
       }
