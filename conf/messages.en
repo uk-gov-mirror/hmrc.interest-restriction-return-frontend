@@ -823,6 +823,8 @@ reviewAndComplete.text = Send your return to HMRC
 
 # ReviewReactivations Messages
 # ----------------------------------------------------------
-reviewReactivations.checkYourAnswers.title = Review reactivations for companies in the group
-reviewReactivations.checkYourAnswers.heading = Review reactivations for companies in the group
-reviewReactivations.checkYourAnswers.subheading = Check totals
+reviewReactivations.title = Review reactivations for companies in the group
+reviewReactivations.heading = Review reactivations for companies in the group
+reviewReactivations.subheading = Check totals
+reviewReactivations.reactivationCap = Reactivation cap:
+reviewReactivations.totalReactivations = Total allocated reactivations:

@@ -22,15 +22,15 @@ import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import handlers.ErrorHandler
 import models.NormalMode
-import models.Section.{ReviewReactivations, ReviewTaxEBITDA}
 import navigation.CheckTotalsNavigator
-import pages.checkTotals.{ReviewReactivationsPage, ReviewTaxEBITDAPage}
+import pages.aboutReturn.InterestReactivationsCapPage
+import pages.checkTotals.ReviewReactivationsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import utils.{ReviewReactivationsHelper, ReviewTaxEBITDARowsHelper}
-import views.html.CheckYourAnswersView
+import utils.ReviewReactivationsHelper
+import views.html.checkTotals.ReviewReactivationsView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class ReviewReactivationsController @Inject()(override val messagesApi: MessagesApi,
                                               identify: IdentifierAction,
@@ -38,13 +38,20 @@ class ReviewReactivationsController @Inject()(override val messagesApi: Messages
                                               requireData: DataRequiredAction,
                                               val controllerComponents: MessagesControllerComponents,
                                               navigator: CheckTotalsNavigator,
-                                              view: CheckYourAnswersView
+                                              view: ReviewReactivationsView
                                          )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      val checkYourAnswersHelper = new ReviewReactivationsHelper(request.userAnswers)
-      Ok(view(checkYourAnswersHelper.rows, ReviewReactivations, routes.ReviewReactivationsController.onSubmit()))
+      answerFor(InterestReactivationsCapPage) { reactivationCap =>
+        val reactivationsHelper = new ReviewReactivationsHelper(request.userAnswers)
+        Future.successful(Ok(view(
+          allocatedReactivations = reactivationsHelper.rows,
+          postAction = routes.ReviewReactivationsController.onSubmit(),
+          reactivationCapAmt = reactivationCap,
+          totalReactivationAmt = reactivationsHelper.totalReactivations
+        )))
+      }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {

@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package assets.messages.checkTotals
+@this()
 
-import views.ViewSpecBase
+@(content: Html)(implicit messages: Messages)
 
-object ReviewReactivationsMessages extends ViewSpecBase {
-
-  val title = "Review reactivations for companies in the group"
-  val reactivationCap: BigDecimal => String = amt => s"Reactivation cap: ${currency(amt)}"
-  val totalReactivations: BigDecimal => String = amt => s"Total allocated reactivations: ${currency(amt)}"
-
-}
+<p class="govuk-body">@content</p>

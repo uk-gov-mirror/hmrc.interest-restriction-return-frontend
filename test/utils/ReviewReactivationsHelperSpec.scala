@@ -19,12 +19,20 @@ package utils
 import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages
 import base.SpecBase
-import models.CheckMode
+import models.{CheckMode, ReviewMode}
+import pages.aboutReturn.InterestReactivationsCapPage
 import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
 
 
 class ReviewReactivationsHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+
+  lazy val helper = new ReviewReactivationsHelper(
+    emptyUserAnswers
+      .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+      .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get
+      .set(UkCompaniesPage, ukCompanyModelMax, Some(3)).get
+  )
 
   "ReviewReactivationsHelper.rows" when {
 
@@ -32,31 +40,32 @@ class ReviewReactivationsHelperSpec extends SpecBase with SummaryListRowHelper w
 
       "return the correct summary list row models" in {
 
-        val helper = new ReviewReactivationsHelper(
-          emptyUserAnswers
-            .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-            .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get
-            .set(UkCompaniesPage, ukCompanyModelMax, Some(3)).get
-        )
-
         helper.rows mustBe Seq(
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.allocatedReactivations.fold[BigDecimal](0)(_.reactivation)),
-            controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+            controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(1, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.allocatedReactivations.fold[BigDecimal](0)(_.reactivation)),
-            controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink
+            controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(2, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.allocatedReactivations.fold[BigDecimal](0)(_.reactivation)),
-            controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink
+            controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(3, ReviewMode) -> BaseMessages.changeLink
           )
         )
       }
+    }
+  }
+
+  "ReviewReactivationsHelper.totalReactivations" should {
+
+    "return the total reactivations" in {
+      val expectedTotal = ukCompanyModelMax.allocatedReactivations.get.reactivation * 3
+      helper.totalReactivations mustBe Some(expectedTotal)
     }
   }
 }

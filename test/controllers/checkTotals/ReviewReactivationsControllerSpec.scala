@@ -16,6 +16,7 @@
 
 package controllers.checkTotals
 
+import assets.constants.fullReturn.GroupLevelAmountConstants.interestReactivationCap
 import assets.messages.SectionHeaderMessages
 import assets.messages.checkTotals.ReviewReactivationsMessages
 import base.SpecBase
@@ -23,13 +24,14 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
 import navigation.FakeNavigators.FakeCheckTotalsNavigator
+import pages.aboutReturn.InterestReactivationsCapPage
 import pages.checkTotals.ReviewReactivationsPage
 import play.api.test.Helpers._
-import views.html.CheckYourAnswersView
+import views.html.checkTotals.ReviewReactivationsView
 
 class ReviewReactivationsControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[CheckYourAnswersView]
+  val view = injector.instanceOf[ReviewReactivationsView]
 
   object Controller extends ReviewReactivationsController(
     messagesApi = messagesApi,
@@ -43,16 +45,34 @@ class ReviewReactivationsControllerSpec extends SpecBase with FeatureSwitching w
 
   "Review Reactivations Controller" when {
 
-    "calling the onPageLoad() method" must {
+    "calling the onPageLoad() method" when {
 
-      "return a OK (200)" in {
+      "the Interest Reactivation Cap is successfully retrieved" must {
 
-        mockGetAnswers(Some(emptyUserAnswers))
+        "return a OK (200)" in {
 
-        val result = Controller.onPageLoad(fakeRequest)
+          val userAnswers = emptyUserAnswers.set(InterestReactivationsCapPage, interestReactivationCap).get
 
-        status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(ReviewReactivationsMessages.title, Some(SectionHeaderMessages.checkTotals))
+          mockGetAnswers(Some(userAnswers))
+
+          val result = Controller.onPageLoad(fakeRequest)
+
+          status(result) mustEqual OK
+          titleOf(contentAsString(result)) mustEqual title(ReviewReactivationsMessages.title, Some(SectionHeaderMessages.checkTotals))
+        }
+      }
+
+      "the Interest Reactivation Cap is NOT retrieved" must {
+
+        "return a ISE (500)" in {
+
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onPageLoad(fakeRequest)
+
+          status(result) mustEqual INTERNAL_SERVER_ERROR
+          contentAsString(result) mustEqual errorHandler.internalServerErrorTemplate(fakeRequest).toString
+        }
       }
     }
 

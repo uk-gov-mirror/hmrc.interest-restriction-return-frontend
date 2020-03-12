@@ -19,6 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.ukCompanies.routes
 import models._
+import pages.checkTotals.ReviewReactivationsPage
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
@@ -102,9 +103,22 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to Under Construction" in {
+      "for any page go to CheckAnswersUKCompany" in {
         navigator.nextPage(CheckAnswersUkCompanyPage, CheckMode, emptyUserAnswers) mustBe
           routes.CheckAnswersUkCompanyController.onPageLoad(1)
+      }
+    }
+
+    "in Review mode" must {
+
+      "for the ReactivationAmount page got to Review Reactivations page" in {
+        navigator.nextPage(ReactivationAmountPage, ReviewMode, emptyUserAnswers) mustBe
+          controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()
+      }
+
+      "for any other page got to Review & Complete page" in {
+        navigator.nextPage(CompanyDetailsPage, ReviewMode, emptyUserAnswers) mustBe
+          controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()
       }
     }
 

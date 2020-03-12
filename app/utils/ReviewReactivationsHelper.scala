@@ -16,13 +16,13 @@
 
 package utils
 
-import models.{CheckMode, UserAnswers}
+import models.{CheckMode, ReviewMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 class ReviewReactivationsHelper(val userAnswers: UserAnswers)
-                               (implicit val messages: Messages) extends CheckYourAnswersHelper {
+                               (implicit val messages: Messages) extends CheckTotalsHelper with CheckYourAnswersHelper {
 
   def rows: Seq[SummaryListRow] = userAnswers.getList(UkCompaniesPage).zipWithIndex.flatMap {
     case (model, idx) =>
@@ -33,8 +33,11 @@ class ReviewReactivationsHelper(val userAnswers: UserAnswers)
         summaryListRow(
           label = model.companyDetails.companyName,
           value = currencyFormat(amount),
-          actions = controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
+          actions = controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(idx + 1, ReviewMode) -> messages("site.edit")
         )
       }
   }
+
+  val totalReactivations: Option[BigDecimal] = calculateSums(userAnswers.getList(UkCompaniesPage)).reactivations
+
 }
