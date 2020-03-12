@@ -16,20 +16,20 @@
 
 package controllers.ukCompanies
 
+import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
-import assets.UkCompanyITConstants._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /uk-companies/1/consenting-company" when {
+    "GET /uk-companies/1/add-an-reactivation-query" when {
 
       "user is authorised" should {
 
@@ -38,12 +38,12 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/consenting-company")()
+          val res = getRequest("/uk-companies/1/add-an-reactivation-query")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.consentingCompany)
+              titleOf(PageTitles.addAnReactivationQuery)
             )
           }
         }
@@ -55,7 +55,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/consenting-company")()
+          val res = getRequest("/uk-companies/1/add-an-reactivation-query")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,23 +67,45 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "POST /uk-Companies/consenting-company" when {
+    "POST /uk-companies/1/add-an-reactivation-query" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a True" when {
 
-          "redirect to ConsentingCompany page" in {
+          "redirect to reactivationAmount page" in {
 
             AuthStub.authorised()
 
-            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+            setAnswers(
+              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+            )
 
-            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> true))()
+            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> true))()
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.AddAnReactivationQueryController.onPageLoad(1,NormalMode).url)
+                redirectLocation(controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(1,NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a False" when {
+
+          "redirect to check page" in {
+
+            AuthStub.authorised()
+
+            setAnswers(
+              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+            )
+
+            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> false))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
               )
             }
           }
@@ -96,7 +118,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -111,7 +133,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Change mode" when {
 
-    "GET /uk-companies/1/consenting-company" when {
+    "GET /uk-companies/1/add-an-reactivation-query" when {
 
       "user is authorised" should {
 
@@ -121,12 +143,12 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/consenting-company/change")()
+          val res = getRequest("/uk-companies/1/add-an-reactivation-query/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.consentingCompany)
+              titleOf(PageTitles.addAnReactivationQuery)
             )
           }
         }
@@ -138,7 +160,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/consenting-company/change")()
+          val res = getRequest("/uk-companies/1/add-an-reactivation-query/change")()
 
           whenReady(res) { result =>
             result should have(

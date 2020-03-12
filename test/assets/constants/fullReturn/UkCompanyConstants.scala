@@ -149,4 +149,49 @@ object UkCompanyConstants extends BaseConstants {
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA
   )
+
+  val ukCompanyModelReactivationFalse = UkCompanyModel(
+    companyDetails = companyDetailsModel,
+    consenting = Some(true),
+    netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
+    netTaxInterest = Some(netTaxInterestExpense),
+    taxEBITDA = Some(taxEBITDA),
+    allocatedRestrictions = Some(allocatedRestrictionsModel),
+    reactivation = Some(false),
+    allocatedReactivations = Some(allocatedReactivationsModel)
+  )
+
+  val ukCompanyJsonReactivationFalse = Json.obj(
+    "companyDetails" -> companyDetailsJson,
+    "consenting" -> true,
+    "netTaxInterestIncomeOrExpense" -> NetTaxInterestExpense.toString,
+    "netTaxInterest" -> netTaxInterestExpense,
+    "taxEBITDA" -> taxEBITDA,
+    "allocatedRestrictions" -> allocatedRestrictionsJson,
+    "reactivation" -> reactivation,
+    "allocatedReactivations" -> allocatedReactivationsJson
+  )
+
+  val ukCompanyModelReactivationTrue = UkCompanyModel(
+    companyDetails = companyDetailsModel,
+    consenting = Some(true),
+    netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+    netTaxInterest = Some(netTaxInterestIncome),
+    taxEBITDA = Some(taxEBITDA),
+    allocatedRestrictions = None,
+    reactivation = Some(true),
+    allocatedReactivations = Some(allocatedReactivationsModel)
+  )
+
+  val ukCompanyReactivationJsonTrue = Json.obj(
+    "companyDetails" -> companyDetailsJson,
+    "consenting" -> true,
+    "netTaxInterestIncomeOrExpense" -> NetTaxInterestIncome.toString,
+    "netTaxInterest" -> netTaxInterestIncome,
+    "taxEBITDA" -> taxEBITDA,
+    "reactivation" -> reactivation,
+    "allocatedReactivations" -> allocatedReactivationsJson
+  )
+
+
 }

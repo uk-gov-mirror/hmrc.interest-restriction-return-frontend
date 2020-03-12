@@ -26,6 +26,7 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           netTaxInterest: Option[BigDecimal] = None,
                           taxEBITDA: Option[BigDecimal] = None,
                           allocatedRestrictions: Option[AllocatedRestrictionsModel] = None,
+                          reactivation: Option[Boolean] = None,
                           allocatedReactivations: Option[AllocatedReactivationsModel] = None
                          )
 object UkCompanyModel {

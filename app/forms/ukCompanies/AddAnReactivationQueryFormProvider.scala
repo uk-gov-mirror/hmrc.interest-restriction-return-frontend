@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.ukCompanies
 
-object CheckAnswersUkCompanyMessages {
+import javax.inject.Inject
 
-  val title: String => String = name => s"Check $name details"
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  val companyName= "Name"
-  val companyCTUTR = "CTUTR"
-  val consenting = "Consenting"
-  val taxEBITDA = "Tax-EBITDA"
-  val netTaxInterest = "Net tax-interest"
-  val income = "Income"
-  val expense = "Expense"
-  val reactivationAmount = "Company reactivations"
+class AddAnReactivationQueryFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("addAnReactivationQuery.error.required")
+    )
 }
