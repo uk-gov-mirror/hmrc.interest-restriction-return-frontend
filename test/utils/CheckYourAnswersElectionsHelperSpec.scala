@@ -17,37 +17,38 @@
 package utils
 
 import assets.constants.BaseConstants
+import assets.constants.InvestorGroupConstants._
+import assets.constants.NonConsolidatedInvestmentConstants._
+import assets.constants.PartnershipsConstants._
 import assets.messages.{BaseMessages, CheckAnswersElectionsMessages}
 import base.SpecBase
 import controllers.elections.{routes => electionsRoutes}
-import controllers.startReturn.{routes => startReturnRoutes}
-import models.FullOrAbbreviatedReturn.Full
 import models.{CheckMode, UserAnswers}
-import pages.aboutReportingCompany._
-import pages.elections.{AddInvestorGroupPage, ElectedGroupEBITDABeforePage, ElectedInterestAllowanceAlternativeCalcBeforePage, ElectedInterestAllowanceConsolidatedPshipBeforePage, EnterANGIEPage, EnterQNGIEPage, GroupEBITDAChargeableGainsElectionPage, GroupEBITDAPage, GroupRatioBlendedElectionPage, GroupRatioElectionPage, GroupRatioPercentagePage, InterestAllowanceAlternativeCalcElectionPage, InterestAllowanceConsolidatedPshipElectionPage, InterestAllowanceNonConsolidatedInvestmentsElectionPage}
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage}
-import play.api.i18n.Messages
+import pages.elections._
 import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
 
-  val helper = new CheckYourAnswersElectionsHelper(
-    UserAnswers("id")
-      .set(GroupRatioElectionPage, true).get
-      .set(EnterANGIEPage, angie).get
-      .set(EnterQNGIEPage, qngie).get
-      .set(GroupEBITDAPage, ebitda).get
-      .set(GroupRatioPercentagePage, groupRatioPercentage).get
-      .set(GroupRatioBlendedElectionPage, true).get
-      .set(AddInvestorGroupPage, true).get
-      .set(ElectedGroupEBITDABeforePage, false).get
-      .set(GroupEBITDAChargeableGainsElectionPage, true).get
-      .set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
-      .set(InterestAllowanceAlternativeCalcElectionPage, true).get
-      .set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true).get
-      .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, false).get
-      .set(InterestAllowanceConsolidatedPshipElectionPage, true).get
-  )
+  val userAnswers = UserAnswers("id")
+    .set(GroupRatioElectionPage, true).get
+    .set(EnterANGIEPage, angie).get
+    .set(EnterQNGIEPage, qngie).get
+    .set(GroupEBITDAPage, ebitda).get
+    .set(GroupRatioPercentagePage, groupRatioPercentage).get
+    .set(GroupRatioBlendedElectionPage, true).get
+    .set(AddInvestorGroupPage, true).get
+    .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get
+    .set(ElectedGroupEBITDABeforePage, false).get
+    .set(GroupEBITDAChargeableGainsElectionPage, true).get
+    .set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
+    .set(InterestAllowanceAlternativeCalcElectionPage, true).get
+    .set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true).get
+    .set(InvestmentNamePage, investmentName, Some(1)).get
+    .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, false).get
+    .set(InterestAllowanceConsolidatedPshipElectionPage, true).get
+    .set(PartnershipsPage, partnershipModelUK, Some(1)).get
+
+  val helper = new CheckYourAnswersElectionsHelper(userAnswers)
 
   "Check Your Answers Helper" must {
 
@@ -123,16 +124,27 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-
-    //TODO: This will need updating to calculate the number of investor groups added
-    //      As well as updating the Change Link to go to the review page (when created)
+    //TODO:      update the Change Link to go to the review page (when created)
     "For the Investor Groups Added" must {
 
-      "have a correctly formatted summary list row" in {
+      "have a correctly formatted summary list row when one added" in {
 
         helper.investorGroupsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.investorGroupsHeading,
           CheckAnswersElectionsMessages.investorGroupsValue(1),
+          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
+        ))
+      }
+
+      "have a correctly formatted summary list row when multiple added" in {
+
+        val helper = new CheckYourAnswersElectionsHelper(userAnswers
+          .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(2)).get
+          .set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(3)).get)
+
+        helper.investorGroupsRow mustBe Some(summaryListRow(
+          CheckAnswersElectionsMessages.investorGroupsHeading,
+          CheckAnswersElectionsMessages.investorGroupsValue(3),
           controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
         ))
       }
@@ -198,14 +210,27 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-    //TODO: Test needs updating for multiple Investments added and to correct the change link once review page is created
+    //TODO:      update the Change Link to go to the review page (when created)
     "For the Non Consolidated Investments listed" must {
 
-      "have a correctly formatted summary list row" in {
+      "have a correctly formatted summary list row when one added" in {
 
         helper.nonConsolidatedInvestmentsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading,
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(1),
+          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
+        ))
+      }
+
+      "have a correctly formatted summary list row when multiple added" in {
+
+        val helper = new CheckYourAnswersElectionsHelper(userAnswers
+          .set(InvestmentNamePage, investmentName, Some(2)).get
+          .set(InvestmentNamePage, investmentName, Some(3)).get)
+
+        helper.nonConsolidatedInvestmentsRow mustBe Some(summaryListRow(
+          CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading,
+          CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(3),
           controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
         ))
       }
@@ -235,10 +260,10 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-    //TODO: Test needs updating for multiple Pships added and to correct the change link once review page is created
+    //TODO:      update the Change Link to go to the review page (when created)
     "For the Consolidated Partnerships listed" must {
 
-      "have a correctly formatted summary list row" in {
+      "have a correctly formatted summary list row when one added" in {
 
         helper.consolidatedPartnershipsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
@@ -246,6 +271,21 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
           controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
         ))
       }
+
+      "have a correctly formatted summary list row when multiple added" in {
+
+        val helper = new CheckYourAnswersElectionsHelper(userAnswers
+          .set(PartnershipsPage, partnershipModelUK, Some(2)).get
+          .set(PartnershipsPage, partnershipModelNonUk, Some(3)).get)
+
+        helper.consolidatedPartnershipsRow mustBe Some(summaryListRow(
+          CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
+          CheckAnswersElectionsMessages.consolidatedPartnershipsValue(3),
+          controllers.routes.UnderConstructionController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
+        ))
+      }
     }
+
+
   }
 }

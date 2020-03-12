@@ -17,16 +17,17 @@
 package controllers.elections
 
 import assets.constants.BaseConstants
-import controllers.errors
+import assets.constants.PartnershipsConstants._
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import controllers.errors
 import forms.elections.PartnershipSAUTRFormProvider
 import models.NormalMode
-import pages.elections.{PartnershipNamePage, PartnershipSAUTRPage}
+import navigation.FakeNavigators.FakeElectionsNavigator
+import pages.elections.PartnershipsPage
 import play.api.test.Helpers._
 import views.html.elections.PartnershipSAUTRView
-import navigation.FakeNavigators.FakeElectionsNavigator
 
 
 class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction with BaseConstants {
@@ -53,26 +54,31 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
     "return OK and the correct view for a GET" in {
 
       val userAnswers = emptyUserAnswers
-        .set(PartnershipNamePage, companyNameModel.name).success.value
+        .set(PartnershipsPage,
+          partnershipModelUK.copy(
+            sautr = None
+          ),
+          Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, partnerName, routes.PartnershipSAUTRController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val userAnswers = emptyUserAnswers
-        .set(PartnershipSAUTRPage, "answer").success.value
-        .set(PartnershipNamePage, companyNameModel.name).success.value
+        .set(PartnershipsPage,
+          partnershipModelUK,
+          Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -81,9 +87,14 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val userAnswers = emptyUserAnswers
+        .set(PartnershipsPage,
+          partnershipModelUK,
+          Some(1)).success.value
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -92,13 +103,17 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val userAnswers = emptyUserAnswers
-        .set(PartnershipNamePage, companyNameModel.name).success.value
+        .set(PartnershipsPage,
+          partnershipModelUK.copy(
+            sautr = None
+          ),
+          Some(1)).success.value
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -107,7 +122,7 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -119,7 +134,7 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

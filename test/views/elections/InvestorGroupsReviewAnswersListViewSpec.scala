@@ -16,7 +16,6 @@
 
 package views.elections
 
-import assets.constants.GroupStructureCheckYourAnswersConstants
 import assets.constants.InvestorGroupConstants._
 import assets.messages.elections.InvestorGroupsReviewAnswersListMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
@@ -30,7 +29,7 @@ import viewmodels.SummaryListRowHelper
 import views.behaviours.YesNoViewBehaviours
 import views.html.elections.InvestorGroupsReviewAnswersListView
 
-class InvestorGroupsReviewAnswersListViewSpec extends YesNoViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
+class InvestorGroupsReviewAnswersListViewSpec extends YesNoViewBehaviours  with SummaryListRowHelper {
 
   val view = viewFor[InvestorGroupsReviewAnswersListView]()
   val messageKeyPrefix: String => String = addition => s"investorGroupsReviewAnswersList.$addition"
@@ -45,7 +44,6 @@ class InvestorGroupsReviewAnswersListViewSpec extends YesNoViewBehaviours with G
         summaryList,
         onwardRoute
       )(fakeRequest, messages, frontendAppConfig)
-
 
     "given a single investment" must {
 

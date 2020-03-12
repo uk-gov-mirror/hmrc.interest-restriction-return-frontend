@@ -98,7 +98,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeControllerISpec extends Int
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(routes.PartnershipNameController.onPageLoad(NormalMode).url)
+                  redirectLocation(routes.PartnershipNameController.onPageLoad(1, NormalMode).url)
                 )
               }
             }

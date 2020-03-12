@@ -27,7 +27,7 @@ import views.html.elections.PartnershipNameView
 
 class PartnershipNameViewSpec extends StringViewBehaviours  {
 
-  val messageKeyPrefix = "name"
+  val messageKeyPrefix = "partnershipName"
   val section = Some(messages("section.elections"))
   val form = new PartnershipNameFormProvider()()
 
@@ -35,7 +35,7 @@ class PartnershipNameViewSpec extends StringViewBehaviours  {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[PartnershipNameView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, routes.PartnershipNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig)
         }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
@@ -44,7 +44,7 @@ class PartnershipNameViewSpec extends StringViewBehaviours  {
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.elections)
 
-      behave like stringPage(form, applyView, messageKeyPrefix, routes.PartnershipNameController.onSubmit(NormalMode).url, section = section)
+      behave like stringPage(form, applyView, messageKeyPrefix, routes.PartnershipNameController.onSubmit(1, NormalMode).url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

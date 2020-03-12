@@ -16,16 +16,18 @@
 
 package controllers.elections
 
-import controllers.errors
+import assets.constants.PartnershipsConstants._
+import assets.messages.SectionHeaderMessages
+import assets.messages.elections.PartnershipsReviewAnswersListMessages
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.elections.PartnershipsReviewAnswersListFormProvider
 import models.NormalMode
-import pages.elections.PartnershipsReviewAnswersListPage
+import navigation.FakeNavigators.FakeElectionsNavigator
+import pages.elections.PartnershipsPage
 import play.api.test.Helpers._
 import views.html.elections.PartnershipsReviewAnswersListView
-import navigation.FakeNavigators.FakeElectionsNavigator
 
 class PartnershipsReviewAnswersListControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -46,74 +48,70 @@ class PartnershipsReviewAnswersListControllerSpec extends SpecBase with FeatureS
     view = view
   )
 
-  "PartnershipsReviewAnswersList Controller" must {
+  "PartnershipsReviewAnswersList Controller" when {
 
-    "return OK and the correct view for a GET" in {
+    "calling the onPageLoad() method" when {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "there are no partnerships in the list" must {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+        "return a SEE_OTHER (303)" in {
 
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+          mockGetAnswers(Some(emptyUserAnswers))
+
+          val result = Controller.onPageLoad()(fakeRequest)
+
+          status(result) mustEqual SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeElectionsNavigator.addPartnership(0).url)
+        }
+      }
+
+      "there are investor groups in the list" must {
+
+        "return a OK (200)" in {
+
+          mockGetAnswers(Some(emptyUserAnswers.set(PartnershipsPage, partnershipModelUK, Some(1)).get))
+
+          val result = Controller.onPageLoad()(fakeRequest)
+
+          status(result) mustEqual OK
+          titleOf(contentAsString(result)) mustEqual title(PartnershipsReviewAnswersListMessages.title(1), Some(SectionHeaderMessages.elections))
+        }
+      }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
+    "calling the onSubmit() method" when {
 
-      val userAnswers = emptyUserAnswers.set(PartnershipsReviewAnswersListPage, true).success.value
+      "add another partnership answer is yes" should {
 
-      mockGetAnswers(Some(userAnswers))
+        "redirect to the Add Partnership route" in {
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+          mockGetAnswers(Some(emptyUserAnswers.set(PartnershipsPage, partnershipModelUK, Some(1)).get))
 
-      status(result) mustEqual OK
-    }
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-    "redirect to the next page when valid data is submitted" in {
+          val result = Controller.onSubmit()(request)
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeElectionsNavigator.addPartnership(1).url)
+        }
+      }
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      "add another partnership answer is false" should {
 
-      val result = Controller.onSubmit(NormalMode)(request)
+        "redirect to the Next Page route" in {
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
+          mockGetAnswers(Some(emptyUserAnswers))
 
-    "return a Bad Request and errors when invalid data is submitted" in {
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+          val result = Controller.onSubmit()(request)
 
-      mockGetAnswers(Some(emptyUserAnswers))
-
-      val result = Controller.onSubmit(NormalMode)(request)
-
-      status(result) mustEqual BAD_REQUEST
-    }
-
-    "redirect to Session Expired for a GET if no existing data is found" in {
-
-      mockGetAnswers(None)
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
-    }
-
-    "redirect to Session Expired for a POST if no existing data is found" in {
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-
-      mockGetAnswers(None)
-
-      val result = Controller.onSubmit(NormalMode)(request)
-
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeElectionsNavigator.nextPage(PartnershipsPage, NormalMode, emptyUserAnswers).url)
+        }
+      }
     }
   }
 }
+
+

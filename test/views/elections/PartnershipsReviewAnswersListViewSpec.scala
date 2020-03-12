@@ -17,37 +17,126 @@
 package views.elections
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.constants.PartnershipsConstants._
+import assets.messages.elections.PartnershipsReviewAnswersListMessages
 import controllers.elections.routes
 import forms.elections.PartnershipsReviewAnswersListFormProvider
 import models.NormalMode
+import pages.elections.PartnershipsPage
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
+import utils.PartnershipsReviewAnswersListHelper
+import viewmodels.SummaryListRowHelper
 import views.behaviours.YesNoViewBehaviours
 import views.html.elections.PartnershipsReviewAnswersListView
 
-class PartnershipsReviewAnswersListViewSpec extends YesNoViewBehaviours  {
+class PartnershipsReviewAnswersListViewSpec extends YesNoViewBehaviours with SummaryListRowHelper {
 
-  val messageKeyPrefix = "partnershipsReviewAnswersList"
-  val section = Some(messages("section.elections"))
+  val view: PartnershipsReviewAnswersListView = viewFor[PartnershipsReviewAnswersListView]()
+  val messageKeyPrefix: String => String = addition => s"partnershipsReviewAnswersList.$addition"
+  val section: Option[String] = Some(SectionHeaderMessages.elections)
   val form = new PartnershipsReviewAnswersListFormProvider()()
 
-    "PartnershipsReviewAnswersListView" must {
+    "PartnershipsReviewAnswersList View" when {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[PartnershipsReviewAnswersListView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+      def applyView(summaryList: Seq[SummaryListRow])(form: Form[_]): HtmlFormat.Appendable =
+        view.apply(
+          form,
+          summaryList,
+          onwardRoute
+        )(fakeRequest, messages, frontendAppConfig)
+
+      "given a single partnership" must {
+
+        val summaryList = new PartnershipsReviewAnswersListHelper(
+          emptyUserAnswers
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).get
+        ).rows
+
+        val view = applyView(summaryList)(form)
+
+        behave like normalPage(view, messageKeyPrefix("singular"), section = section, headingArgs = Seq(summaryList.length.toString))
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+      "given multiple partnerships" must {
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.elections)
+        val summaryList = new PartnershipsReviewAnswersListHelper(
+          emptyUserAnswers
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(2)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(3)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(4)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(5)).get
+        ).rows
 
-      behave like pageWithBackLink(applyView(form))
+        val view = applyView(summaryList)(form)
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.PartnershipsReviewAnswersListController.onSubmit(NormalMode).url, section = section)
+        behave like normalPage(view, messageKeyPrefix("plural"), section = section, headingArgs = Seq(summaryList.length.toString))
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+        behave like pageWithBackLink(view)
 
-      behave like pageWithSaveForLater(applyView(form))
+        behave like pageWithSubmitButton(view, BaseMessages.continue)
+
+        behave like pageWithSubHeading(view, SectionHeaderMessages.elections)
+
+        behave like pageWithSaveForLater(view)
+
+        "behave like a page with a Yes/No question" when {
+
+          "rendered with no errors" must {
+
+            lazy val doc = asDocument(applyView(summaryList)(form))
+
+            "contain a legend for the question" in {
+
+              val legends = doc.getElementsByTag("legend")
+              legends.size mustBe 1
+              legends.first.text mustBe PartnershipsReviewAnswersListMessages.addAnother
+            }
+
+            "contain an input for the value" in {
+
+              assertRenderedByCssSelector(doc, "input[value='true']")
+              assertRenderedByCssSelector(doc, "input[value='false']")
+            }
+
+            "have no values checked when rendered with no form" in {
+
+              assert(!doc.select("input[value='true']").hasAttr("checked"))
+              assert(!doc.select("input[value='false']").hasAttr("checked"))
+            }
+
+            "not render an error summary" in {
+              assertNotRenderedById(doc, "error-summary_header")
+            }
+          }
+
+          "rendered with an error" must {
+
+            lazy val doc = asDocument(applyView(summaryList)(form.withError(error)))
+
+            "show an error summary" in {
+              assertRenderedById(doc, "error-summary-title")
+            }
+
+            "show an error associated with the value field" in {
+
+              val errorSpan = doc.getElementsByClass("govuk-error-message").first
+
+              errorSpan.text mustBe messages("error.browser.title.prefix") + " " + messages(errorMessage)
+              doc.getElementsByTag("fieldset").first.attr("aria-describedby") contains errorSpan.attr("id")
+            }
+
+            "show an error prefix in the browser title" in {
+              assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(PartnershipsReviewAnswersListMessages.title(5), section)}""")
+            }
+          }
+        }
+      }
+
+
+
+
     }
   }
