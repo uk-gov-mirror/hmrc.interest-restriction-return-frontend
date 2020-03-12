@@ -73,10 +73,9 @@ class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: Messag
           ),
         value => {
           val updatedModel = ukCompany.copy(taxEBITDA = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(EnterCompanyTaxEBITDAPage, mode, updatedAnswers, Some(idx)))
+          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(EnterCompanyTaxEBITDAPage, mode, cleanedAnswers, Some(idx)))
+          }
         }
       )
     }

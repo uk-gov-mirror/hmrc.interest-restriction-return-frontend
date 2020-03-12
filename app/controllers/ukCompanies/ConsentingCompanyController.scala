@@ -75,10 +75,9 @@ class ConsentingCompanyController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(consenting = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ConsentingCompanyPage, mode, updatedAnswers, Some(idx)))
+          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(ConsentingCompanyPage, mode, cleanedAnswers, Some(idx)))
+          }
         }
       )
     }

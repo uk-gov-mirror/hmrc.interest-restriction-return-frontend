@@ -34,17 +34,22 @@ trait BaseNavigationController extends BaseController {
   val questionDeletionLookupService: QuestionDeletionLookupService
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Int)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = saveAndRedirect(page, answer, mode, Some(idx))
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, Some(idx)).map{ cleanedAnswers =>
+    Redirect(navigator.nextPage(page, mode, cleanedAnswers, Some(idx)))
+  }
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = saveAndRedirect(page, answer, mode, None)
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, None).map{ cleanedAnswers =>
+    Redirect(navigator.nextPage(page, mode, cleanedAnswers, None))
+  }
 
-  def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, id: Option[Int] = None)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] =
+  def save[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Option[Int] = None)
+             (implicit request: DataRequest[_], writes: Writes[A]): Future[UserAnswers] =
     for {
-      updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer, id))
+      updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer, idx))
       pagesToDelete  = questionDeletionLookupService.getPagesToRemove(page)(updatedAnswers)
       cleanedAnswers <- Future.fromTry(updatedAnswers.remove(pagesToDelete))
       _              <- sessionRepository.set(cleanedAnswers)
-    } yield Redirect(navigator.nextPage(page, mode, updatedAnswers, id))
+    } yield cleanedAnswers
+
 }

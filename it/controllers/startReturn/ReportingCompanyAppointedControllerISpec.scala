@@ -19,6 +19,9 @@ package controllers.startReturn
 import assets.{BaseITConstants, PageTitles}
 import models.FullOrAbbreviatedReturn.Full
 import models.NormalMode
+import models.SectionStatus.InProgress
+import models.returnModels.ReviewAndCompleteModel
+import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -91,6 +94,10 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
           "redirect to ReportingCompanyRequired page" in {
 
             AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = InProgress)).success.value
+            )
 
             val res = postRequest("/start/reporting-company-appointed", Json.obj("value" -> false))()
 

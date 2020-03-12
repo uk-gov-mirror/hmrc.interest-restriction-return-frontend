@@ -69,10 +69,9 @@ class CompanyDetailsController @Inject()(
       value => {
         val companyDetails = CompanyDetailsModel(value.companyName, value.ctutr)
         val ukCompanyModel = getAnswer(UkCompaniesPage, idx).fold(UkCompanyModel(companyDetails))(_.copy(companyDetails = companyDetails))
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, ukCompanyModel, Some(idx)))
-          _ <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(CompanyDetailsPage, mode, updatedAnswers, Some(idx)))
+        save(UkCompaniesPage, ukCompanyModel, mode, Some(idx)).map { cleanedAnswers =>
+          Redirect(navigator.nextPage(CompanyDetailsPage, mode, cleanedAnswers, Some(idx)))
+        }
       }
     )
   }

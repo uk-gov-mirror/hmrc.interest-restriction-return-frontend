@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
@@ -74,10 +74,9 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(netTaxInterestIncomeOrExpense = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, updatedAnswers, Some(idx)))
+          save(UkCompaniesPage, updatedModel, mode).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, cleanedAnswers, Some(idx)))
+          }
         }
       )
     }

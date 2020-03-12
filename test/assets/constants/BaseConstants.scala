@@ -44,4 +44,5 @@ trait BaseConstants {
   val groupInterestCapacity = BigDecimal(34567)
   val interestReactivationCap = BigDecimal(8765)
   val interestAllowanceBroughtForward = BigDecimal(76969)
+
 }

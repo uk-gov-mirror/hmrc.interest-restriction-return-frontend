@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package pages.reviewAndComplete
-import models.returnModels.ReviewAndCompleteModel
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+package models
 
-case object ReviewAndCompletePage extends QuestionPage[ReviewAndCompleteModel]{
+sealed trait SectionStatus
 
-  override def toString: String = "reviewAndComplete"
+object SectionStatus  extends Enumerable.Implicits {
 
-  override def path: JsPath = JsPath \ toString
+  object NotStarted extends WithName("notStarted") with SectionStatus
+  object InProgress extends WithName("inProgress") with SectionStatus
+  object Completed extends WithName("completed") with SectionStatus
+
+  implicit val enumerable: Enumerable[SectionStatus] = Enumerable(
+    (NotStarted.toString, NotStarted),
+    (InProgress.toString, InProgress),
+    (Completed.toString, Completed)
+  )
 }

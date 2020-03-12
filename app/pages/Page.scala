@@ -16,6 +16,7 @@
 
 package pages
 
+import models.Section
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
 import pages.checkTotals.ReviewTaxEBITDAPage
@@ -34,25 +35,39 @@ object Page {
 
   implicit def toString(page: Page): String = page.toString
 
-  val pages: Map[String, Page] = Map(
-    ReactivationAmountPage.toString -> ReactivationAmountPage,
+  val ukCompaniesSectionPages: Seq[Page] = List(
+    UkCompaniesPage,
+    CheckAnswersUkCompanyPage,
+    CompanyDetailsPage,
+    ConsentingCompanyPage,
+    EnterCompanyTaxEBITDAPage,
+    NetTaxInterestIncomeOrExpensePage,
+    NetTaxInterestAmountPage,
+    ReactivationAmountPage,
+    UkCompaniesDeletionConfirmationPage
+  )
+
+  val sections = Map(
+    Section.UkCompanies -> ukCompaniesSectionPages
+  )
+
+  def findSection(currentPage: QuestionPage[_]): Option[Section.UkCompanies.type] =
+    sections.find{
+      section => section._2.contains(currentPage)
+    }.map(_._1)
+
+  val pages: Map[String, Page] = sections.flatMap{
+    section => section._2.map(page => page.toString -> page)
+  } ++ Map(
     AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
     AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
     ReviewAndCompletePage.toString -> ReviewAndCompletePage,
-    CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
-    UkCompaniesDeletionConfirmationPage.toString -> UkCompaniesDeletionConfirmationPage,
     ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
-    UkCompaniesPage.toString -> UkCompaniesPage,
-    CompanyDetailsPage.toString -> CompanyDetailsPage,
     InvestorGroupsDeletionConfirmationPage.toString -> InvestorGroupsDeletionConfirmationPage,
     InvestorGroupsPage.toString -> InvestorGroupsPage,
     InvestmentsDeletionConfirmationPage.toString -> InvestmentsDeletionConfirmationPage,
     InvestmentNamePage.toString -> InvestmentNamePage,
-    ConsentingCompanyPage.toString -> ConsentingCompanyPage,
-    EnterCompanyTaxEBITDAPage.toString -> EnterCompanyTaxEBITDAPage,
     DeletionConfirmationPage.toString -> DeletionConfirmationPage,
-    NetTaxInterestIncomeOrExpensePage.toString -> NetTaxInterestIncomeOrExpensePage,
-    NetTaxInterestAmountPage.toString -> NetTaxInterestAmountPage,
     PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
     IsUkPartnershipPage.toString -> IsUkPartnershipPage,
     PartnershipNamePage.toString -> PartnershipNamePage,

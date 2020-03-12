@@ -16,25 +16,23 @@
 
 package controllers.ukCompanies
 
+import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.ReactivationAmountFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{ReactivationAmountPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.ukCompanies.ReactivationAmountView
-import config.FrontendAppConfig
-import play.api.data.Form
-import config.featureSwitch.FeatureSwitching
-import scala.concurrent.Future
-import navigation.UkCompaniesNavigator
 import services.QuestionDeletionLookupService
-import controllers.BaseNavigationController
-import handlers.ErrorHandler
-import models.returnModels.fullReturn.AllocatedReactivationsModel
+import views.html.ukCompanies.ReactivationAmountView
+
+import scala.concurrent.Future
 
 class ReactivationAmountController @Inject()(
                                        override val messagesApi: MessagesApi,
@@ -76,10 +74,9 @@ class ReactivationAmountController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(allocatedReactivations = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ReactivationAmountPage, mode, updatedAnswers, Some(idx)))
+          save(UkCompaniesPage, updatedModel, mode).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(ReactivationAmountPage, mode, cleanedAnswers, Some(idx)))
+          }
         }
       )
     }
