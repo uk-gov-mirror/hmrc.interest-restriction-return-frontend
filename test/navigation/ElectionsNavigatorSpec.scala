@@ -228,7 +228,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
 
-        "go to the PartnershipName page when answer is true" in {
+        "go to the Partnerships Review Answers List page when answer is true" in {
 
           val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
 
@@ -247,7 +247,7 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is true" should {
 
-          "go to the PartnershipName page" in {
+          "go to the Partnerships Review Answers List page" in {
 
             val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, true).success.value
 
