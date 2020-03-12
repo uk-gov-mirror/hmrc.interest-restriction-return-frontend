@@ -775,6 +775,8 @@ reviewTaxEBITDA.checkYourAnswers.subheading = Check totals
 reviewNetTaxInterest.checkYourAnswers.title = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.heading = Review the net tax-interest for companies in the group
 reviewNetTaxInterest.checkYourAnswers.subheading = Check totals
+reviewNetTaxInterest.checkYourAnswers.income = income
+reviewNetTaxInterest.checkYourAnswers.expense = expense
 
 # AccountingPeriodStartPage Messages
 # ----------------------------------------------------------
@@ -814,7 +816,6 @@ reactivationAmount.title = Add a reactivation amount
 reactivationAmount.heading = Add a reactivation amount
 reactivationAmount.label= Add a reactivation amount
 reactivationAmount.subheading = {0}
-reactivationAmount.checkYourAnswersLabel = Reactivation
 reactivationAmount.error.nonNumeric = A Reactivation must be numeric
 reactivationAmount.error.required = Enter your reactivation amount
 reactivationAmount.error.invalidNumeric = The reactivation amount must be valid decimal or whole number
@@ -828,3 +829,10 @@ reviewAndComplete.heading = Interest Restriction Return
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC
 
+# ReviewReactivations Messages
+# ----------------------------------------------------------
+reviewReactivations.title = Review reactivations for companies in the group
+reviewReactivations.heading = Review reactivations for companies in the group
+reviewReactivations.subheading = Check totals
+reviewReactivations.reactivationCap = Reactivation cap:
+reviewReactivations.totalReactivations = Total allocated reactivations:

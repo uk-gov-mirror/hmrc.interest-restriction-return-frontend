@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package utils
+package assets.messages.checkTotals
 
-trait CurrencyFormatter {
-  def currencyFormat(amt: BigDecimal): String = f"&pound;$amt%,1.2f".replace(".00","")
+import views.ViewSpecBase
+
+object ReviewReactivationsMessages extends ViewSpecBase {
+
+  val title = "Review reactivations for companies in the group"
+  val reactivationCap: BigDecimal => String = amt => s"Reactivation cap: ${currency(amt)}"
+  val totalReactivations: BigDecimal => String = amt => s"Total allocated reactivations: ${currency(amt)}"
+
 }
-
-object CurrencyFormatter extends CurrencyFormatter

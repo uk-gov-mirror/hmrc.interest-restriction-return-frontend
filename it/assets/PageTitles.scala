@@ -3,6 +3,7 @@ package assets
 object PageTitles {
   val addAnReactivationQuery = "Do you need to add a reactivation to this company?"
   val reactivationAmount = "Add a reactivation amount"
+  val reviewReactivations = "Review reactivations for companies in the group"
   val accountingPeriodStart = "When does the worldwide period of account start?"
   val accountingPeriodEnd = "When does the worldwide period of account end?"
   val reviewAndComplete = "Interest Restriction Return"

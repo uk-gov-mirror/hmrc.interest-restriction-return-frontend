@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package utils
+package pages.checkTotals
 
-trait CurrencyFormatter {
-  def currencyFormat(amt: BigDecimal): String = f"&pound;$amt%,1.2f".replace(".00","")
+import pages.QuestionPage
+import play.api.libs.json.JsPath
+
+case object ReviewReactivationsPage extends QuestionPage[String] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "reviewReactivations"
 }
-
-object CurrencyFormatter extends CurrencyFormatter

@@ -126,7 +126,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
   "in Change mode" when {
 
-    "GET /uk-companies/1/net-tax-interest-amount" when {
+    "GET /uk-companies/1/net-tax-interest-amount/change" when {
 
       "user is authorised" should {
 
@@ -160,6 +160,150 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           AuthStub.unauthorised()
 
           val res = getRequest("/uk-companies/1/net-tax-interest-amount/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /uk-companies/1/net-tax-interest-amount/change" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to UK Company CYA page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount/change", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/net-tax-interest-amount/change", Json.obj("value" -> 1))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+  }
+
+  "in Review mode" when {
+
+    "GET /uk-companies/1/net-tax-interest-amount/review" when {
+
+      "user is authorised" should {
+
+        "return OK (200)" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(UkCompaniesPage, ukCompanyModelMin.copy(
+              netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+              netTaxInterest = None
+            ), Some(1)).success.value
+
+          setAnswers(userAnswers)
+
+          AuthStub.authorised()
+
+          val res = getRequest("/uk-companies/1/net-tax-interest-amount/review")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyDetails.companyName))
+            )
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = getRequest("/uk-companies/1/net-tax-interest-amount/review")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /uk-companies/1/net-tax-interest-amount/review" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to Review Net Tax Interest page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount/review", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad().url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/net-tax-interest-amount/review", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
