@@ -72,18 +72,21 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" when {
 
-          "redirect to ReactivationAmount page" in {
+          "redirect to Check your Answers page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/uk-companies/1/reactivation-amount", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.uk-companies.1/routes.ReactivationAmountController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(
+              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+            )
+
+            val res = postRequest("/uk-companies/1/reactivation-amount", Json.obj("value" -> 1.00))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
           }
         }
       }

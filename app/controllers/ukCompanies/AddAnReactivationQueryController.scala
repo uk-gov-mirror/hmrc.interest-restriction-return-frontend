@@ -52,7 +52,7 @@ class AddAnReactivationQueryController @Inject()(
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(
         Ok(view(
-          form = ukCompany.consenting.fold(formProvider())(formProvider().fill),
+          form = ukCompany.reactivation.fold(formProvider())(formProvider().fill),
           mode = mode,
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.AddAnReactivationQueryController.onSubmit(idx, mode)
@@ -74,7 +74,7 @@ class AddAnReactivationQueryController @Inject()(
             ))
           ),
         value => {
-          val updatedModel = ukCompany.copy(consenting = Some(value))
+          val updatedModel = ukCompany.copy(reactivation = Some(value))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)

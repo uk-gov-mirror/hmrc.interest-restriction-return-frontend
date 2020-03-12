@@ -20,6 +20,7 @@ import base.SpecBase
 import controllers.ukCompanies.routes
 import models._
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
+import assets.constants.fullReturn.UkCompanyConstants._
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -76,9 +77,37 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the ConsentingCompanyPage to the" should {
 
+        "Add a reactivation query page" in {
+
+          navigator.nextPage(ConsentingCompanyPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "go from the AddareactivationqueryPage to the" should {
+
+        "if yes to the reactivationamountpage" in {
+
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationTrue, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.ReactivationAmountController.onPageLoad(1, NormalMode)
+        }
+
+        "if no to the checkyouranswerspage" in {
+
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
+
+      "go from the ReactivationAmount to the" should {
+
         "Check your answers page" in {
 
-          navigator.nextPage(ConsentingCompanyPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(ReactivationAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
