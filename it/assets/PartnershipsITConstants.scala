@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package assets.constants
+package assets
 
 import models.returnModels.PartnershipModel
 import play.api.libs.json.Json
 
-object PartnershipsConstants extends  BaseConstants {
+object PartnershipsITConstants extends  BaseITConstants {
 
   val partnerName = "some partner"
 

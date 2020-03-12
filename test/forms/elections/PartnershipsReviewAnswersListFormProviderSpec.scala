@@ -16,32 +16,24 @@
 
 package forms.elections
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class PartnershipNameFormProviderSpec extends StringFieldBehaviours {
+class PartnershipsReviewAnswersListFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "name.error.required"
-  val lengthKey = "name.error.length"
-  val maxLength = 160
+  val requiredKey = "partnershipsReviewAnswersList.error.required"
+  val invalidKey = "error.boolean"
 
-  val form = new PartnershipNameFormProvider()()
+  val form = new PartnershipsReviewAnswersListFormProvider()()
 
   ".value" must {
 
     val fieldName = "value"
 
-    behave like fieldThatBindsValidData(
+    behave like booleanField(
       form,
       fieldName,
-      stringsWithMaxLength(maxLength)
-    )
-
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      invalidError = FormError(fieldName, invalidKey)
     )
 
     behave like mandatoryField(

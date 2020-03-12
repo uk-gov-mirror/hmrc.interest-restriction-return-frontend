@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val partnershipsReviewAnswersList: Int => String = i => s"$i partnership${if (i > 1) 's'} added"
   val addAnReactivationQuery = "Do you need to add a reactivation to this company?"
   val reactivationAmount = "Add a reactivation amount"
   val reviewReactivations = "Review reactivations for companies in the group"

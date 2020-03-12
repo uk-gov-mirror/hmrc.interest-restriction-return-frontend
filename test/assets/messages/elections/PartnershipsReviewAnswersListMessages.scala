@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package forms.elections
+package assets.messages.elections
 
-import javax.inject.Inject
+object PartnershipsReviewAnswersListMessages {
 
-import forms.mappings.Mappings
-import play.api.data.Form
+  val title: Int => String = amount => s"$amount partnership${if(amount > 1) "s" else ""} added"
+  val addAnother = "Do you need to add another partnership?"
 
-class PartnershipNameFormProvider @Inject() extends Mappings {
-
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("name.error.required")
-        .verifying(maxLength(160, "name.error.length"))
-    )
 }

@@ -37,7 +37,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
           val view = viewFor[PartnershipSAUTRView](Some(emptyUserAnswers))
-          view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
+          view.apply(form, companyNameModel.name, routes.PartnershipSAUTRController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig)
         }
 
       behave like normalPage(view = applyView(form),
@@ -53,7 +53,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
       behave like stringPage(form = form,
         createView = applyView,
         messageKeyPrefix = messageKeyPrefix,
-        expectedFormAction = routes.PartnershipSAUTRController.onSubmit(NormalMode).url,
+        expectedFormAction = routes.PartnershipSAUTRController.onSubmit(1, NormalMode).url,
         section = section,
         headingArgs = Seq(addPossessive(companyNameModel.name))
       )

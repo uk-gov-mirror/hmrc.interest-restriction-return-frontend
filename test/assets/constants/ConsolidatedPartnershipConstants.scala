@@ -26,12 +26,12 @@ object ConsolidatedPartnershipConstants extends BaseConstants {
 
   val consolidatedPartnershipsModelMax = ConsolidatedPartnershipModel(
     isElected = true,
-    consolidatedPartnerships = Some(Seq(partnershipModel))
+    consolidatedPartnerships = Some(Seq(partnershipModelUK))
   )
 
   val consolidatedPartnershipsJsonMax = Json.obj(
     "isElected" -> true,
-    "consolidatedPartnerships" -> Seq(partnershipJson)
+    "consolidatedPartnerships" -> Seq(partnershipJsonUk)
   )
 
   val consolidatedPartnershipsModelMin = ConsolidatedPartnershipModel(

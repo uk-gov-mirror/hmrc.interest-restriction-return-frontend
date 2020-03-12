@@ -16,21 +16,20 @@
 
 package controllers.elections
 
-import assets.NonConsolidatedInvestmentsITConstants._
+import assets.PartnershipsITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.elections.InvestmentNamePage
-import pages.groupStructure.{DeemedParentPage, HasDeemedParentPage}
+import pages.elections.PartnershipsPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class PartnershipsReviewAnswersListControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /elections/investments" when {
+    "GET /elections/partnerships/review" when {
 
       "user is authorised" when {
 
@@ -41,18 +40,18 @@ class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase wi
             AuthStub.authorised()
 
             setAnswers(
-              emptyUserAnswers.set(HasDeemedParentPage, true).success.value
-                .set(InvestmentNamePage, investmentName, Some(1)).success.value
-                .set(InvestmentNamePage, investmentName, Some(2)).success.value
-                .set(InvestmentNamePage, investmentName, Some(3)).success.value
+              emptyUserAnswers
+                .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+                .set(PartnershipsPage, partnershipModelNonUk, Some(2)).success.value
+                .set(PartnershipsPage, partnershipModelUK, Some(3)).success.value
             )
 
-            val res = getRequest("/elections/investments")()
+            val res = getRequest("/elections/partnerships/review")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.investmentsReviewAnswersList(3))
+                titleOf(PageTitles.partnershipsReviewAnswersList(3))
               )
             }
           }
@@ -64,12 +63,12 @@ class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val res = getRequest("/elections/investments")()
+            val res = getRequest("/elections/partnerships/review")()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.InvestmentNameController.onPageLoad(1, NormalMode).url)
+                redirectLocation(routes.PartnershipNameController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -82,7 +81,7 @@ class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investments")()
+          val res = getRequest("/elections/partnerships/review")()
 
           whenReady(res) { result =>
             result should have(
@@ -96,47 +95,47 @@ class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
     "POST /elections/investments" when {
 
-      "user is authorised" when {
+      "user is authorised" should {
 
-        "Add another investment is true" must {
+        "Add another partnership is true" must {
 
-          "redirect to the next InvestmentName page" in {
+          "redirect to the next PartnershipName page" in {
 
             AuthStub.authorised()
 
-            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
-              .set(InvestmentNamePage, investmentName, Some(1)).success.value
+            val userAnswers = emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
 
             setAnswers(userAnswers)
 
-            val res = postRequest("/elections/investments", Json.obj("value" -> true))()
+            val res = postRequest("/elections/partnerships/review", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.InvestmentNameController.onPageLoad(2, NormalMode).url)
+                redirectLocation(routes.PartnershipNameController.onPageLoad(2, NormalMode).url)
               )
             }
           }
         }
 
-        "Add another investment is false" must {
+        "Add another partnership is false" must {
 
-          "redirect to lectedInterestAllowanceConsolidatedPshipBefore page" in {
+          "redirect to Check Answers page" in {
 
             AuthStub.authorised()
 
-            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
-              .set(InvestmentNamePage, investmentName, Some(1)).success.value
+            val userAnswers = emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
 
             setAnswers(userAnswers)
 
-            val res = postRequest("/elections/investments", Json.obj("value" -> false))()
+            val res = postRequest("/elections/partnerships/review", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
               )
             }
           }
@@ -149,7 +148,7 @@ class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/investments", Json.obj("value" -> true))()
+          val res = getRequest("/elections/partnerships/review")()
 
           whenReady(res) { result =>
             result should have(

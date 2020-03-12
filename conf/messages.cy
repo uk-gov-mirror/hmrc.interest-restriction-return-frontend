@@ -571,7 +571,7 @@ partnershipSAUTR.heading = Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.checkYourAnswersLabel = Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.label= Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.error.required = Enter Self Assessment Unique Taxpayer Reference
-partnershipSAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 characters or less
+partnershipSAUTR.error.regexp = Self Assessment Unique Taxpayer Reference must be 10 characters or less
 partnershipSAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 # CheckAnswersElectionsPage Messages
@@ -826,3 +826,10 @@ reviewAndComplete.heading = Interest Restriction Return
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC
 
+
+# PartnershipsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+partnershipsReviewAnswersList.title = Do you need to add another partnership?
+partnershipsReviewAnswersList.heading = Do you need to add another partnership?
+partnershipsReviewAnswersList.checkYourAnswersLabel = Do you need to add another partnership?
+partnershipsReviewAnswersList.error.required = Select yes if Do you need to add another partnership?

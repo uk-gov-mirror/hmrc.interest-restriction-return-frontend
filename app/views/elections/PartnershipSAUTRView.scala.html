@@ -15,7 +15,6 @@
  *@
 
 @import controllers.elections.routes._
-@import models.Mode
 @import config.FrontendAppConfig
 
 @this(
@@ -31,11 +30,11 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode, partnershipName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], partnershipName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "partnershipSAUTR.title", Some("section.elections"), Seq(addPossessive(partnershipName))))) {
 
-    @formHelper(action = PartnershipSAUTRController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
@@ -47,7 +46,8 @@
               name = "value",
               label = "partnershipSAUTR.label",
               isPageHeading = true,
-              headingMessageArgs = Seq(addPossessive(partnershipName))
+              headingMessageArgs = Seq(addPossessive(partnershipName)),
+              classes = Some("govuk-input--width-10")
             )
 
         @button("site.saveAndContinue")

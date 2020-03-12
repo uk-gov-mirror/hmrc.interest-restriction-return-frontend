@@ -64,16 +64,16 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
         CheckAnswersElectionsMessages.ebitda -> currency(ebitda),
         CheckAnswersElectionsMessages.groupRatioPercentage -> s"$groupRatioPercentage%",
         CheckAnswersElectionsMessages.groupRatioBlended -> "Yes",
-        CheckAnswersElectionsMessages.investorGroupsHeading -> CheckAnswersElectionsMessages.investorGroupsValue(1),
+        CheckAnswersElectionsMessages.investorGroupsHeading -> CheckAnswersElectionsMessages.investorGroupsValue(2),
         CheckAnswersElectionsMessages.electedGroupEBITDABefore -> "No",
         CheckAnswersElectionsMessages.groupEBITDAElection -> "Yes",
         CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore -> "No",
-        CheckAnswersElectionsMessages.interestAllowanceAlternativeCalcElection -> "No",
+        CheckAnswersElectionsMessages.interestAllowanceAlternativeCalcElection -> "Yes",
         CheckAnswersElectionsMessages.interestAllowanceNonConsolidatedElection -> "Yes",
-        CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(1),
+        CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(3),
         CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "No",
         CheckAnswersElectionsMessages.interestAllowanceConsolidatedPshipElection -> "Yes",
-        CheckAnswersElectionsMessages.consolidatedPartnershipsHeading -> CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1)
+        CheckAnswersElectionsMessages.consolidatedPartnershipsHeading -> CheckAnswersElectionsMessages.consolidatedPartnershipsValue(4)
       )
     }
 
@@ -100,8 +100,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
         CheckAnswersElectionsMessages.angie -> currency(angie),
         CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore -> "Yes",
         CheckAnswersElectionsMessages.interestAllowanceNonConsolidatedElection -> "No",
-        CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "Yes",
-        CheckAnswersElectionsMessages.consolidatedPartnershipsHeading -> CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1)
+        CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "Yes"
       )
     }
   }

@@ -69,7 +69,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
 
         "enters a true" when {
 
-          "redirect to Check Your Answers page" in {
+          "redirect to PartnershipsReviewAnswersList page" in {
 
             AuthStub.authorised()
 
@@ -78,7 +78,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.PartnershipNameController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.PartnershipsReviewAnswersListController.onPageLoad().url)
               )
             }
           }

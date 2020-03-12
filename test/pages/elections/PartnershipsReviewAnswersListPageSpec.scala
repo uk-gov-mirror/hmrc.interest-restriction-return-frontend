@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package forms.elections
+package pages.elections
 
-import javax.inject.Inject
+import pages.behaviours.PageBehaviours
 
-import forms.mappings.Mappings
-import play.api.data.Form
+class PartnershipsReviewAnswersListPageSpec extends PageBehaviours {
 
-class PartnershipNameFormProvider @Inject() extends Mappings {
+  "PartnershipsReviewAnswersListPage" must {
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("name.error.required")
-        .verifying(maxLength(160, "name.error.length"))
-    )
+    beRetrievable[Boolean](PartnershipsReviewAnswersListPage)
+
+    beSettable[Boolean](PartnershipsReviewAnswersListPage)
+
+    beRemovable[Boolean](PartnershipsReviewAnswersListPage)
+  }
 }

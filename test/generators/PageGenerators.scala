@@ -28,6 +28,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryPartnershipsReviewAnswersListPage: Arbitrary[PartnershipsReviewAnswersListPage.type] =
+    Arbitrary(PartnershipsReviewAnswersListPage)
+
   implicit lazy val arbitraryAddAnReactivationQueryPage: Arbitrary[AddAnReactivationQueryPage.type] =
     Arbitrary(AddAnReactivationQueryPage)
 

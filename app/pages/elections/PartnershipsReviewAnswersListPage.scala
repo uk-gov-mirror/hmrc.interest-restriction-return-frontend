@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package forms.elections
+package pages.elections
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import javax.inject.Inject
+case object PartnershipsReviewAnswersListPage extends QuestionPage[Boolean] {
 
-import forms.mappings.Mappings
-import play.api.data.Form
+  override def path: JsPath = JsPath \ toString
 
-class PartnershipNameFormProvider @Inject() extends Mappings {
-
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("name.error.required")
-        .verifying(maxLength(160, "name.error.length"))
-    )
+  override def toString: String = "partnershipsReviewAnswersList"
 }

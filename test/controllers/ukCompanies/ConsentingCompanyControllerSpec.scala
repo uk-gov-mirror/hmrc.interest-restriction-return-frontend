@@ -56,8 +56,8 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form = form,
-        mode = NormalMode,
+      contentAsString(result) mustEqual view(
+        form = form,
         companyName = ukCompanyModelMax.companyDetails.companyName,
         postAction = routes.ConsentingCompanyController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
