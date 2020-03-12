@@ -16,8 +16,8 @@
 
 package models.returnModels
 
-import models.{Section, SectionStatus}
 import models.SectionStatus.NotStarted
+import models.{Section, SectionStatus}
 import play.api.libs.json.Json
 
 case class ReviewAndCompleteModel(startReturn: SectionStatus = NotStarted,
@@ -25,15 +25,15 @@ case class ReviewAndCompleteModel(startReturn: SectionStatus = NotStarted,
                                   aboutReturn: SectionStatus = NotStarted,
                                   groupStructure: SectionStatus = NotStarted,
                                   ukCompanies: SectionStatus = NotStarted,
-                                  checkTotals: SectionStatus = NotStarted){
+                                  checkTotals: SectionStatus = NotStarted) {
 
   def update(section: Section, sectionStatus: SectionStatus): ReviewAndCompleteModel = section match {
     case Section.StartReturn => this.copy(startReturn = sectionStatus)
     case Section.Elections => this.copy(elections = sectionStatus)
-    case Section.AboutReturn => this.copy(elections = aboutReturn)
-    case Section.GroupStructure => this.copy(elections = groupStructure)
-    case Section.UkCompanies => this.copy(elections = ukCompanies)
-    case Section.CheckTotals => this.copy(elections = checkTotals)
+    case Section.AboutReturn => this.copy(aboutReturn = sectionStatus)
+    case Section.GroupStructure => this.copy(groupStructure = sectionStatus)
+    case Section.UkCompanies => this.copy(ukCompanies = sectionStatus)
+    case Section.CheckTotals => this.copy(checkTotals = sectionStatus)
   }
 }
 

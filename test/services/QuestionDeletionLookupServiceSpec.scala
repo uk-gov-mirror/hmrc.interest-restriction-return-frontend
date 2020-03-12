@@ -51,7 +51,7 @@ class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationC
             val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, false).get
 
             val result = TestQuestionDeletionLookupService.getPagesToRemove(ReportingCompanyAppointedPage)(userAnswers)
-            result mustBe Page.allQuestionPages
+            result mustBe Page.allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage)
           }
         }
       }
