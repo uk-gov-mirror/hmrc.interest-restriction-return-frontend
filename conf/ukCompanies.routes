@@ -30,6 +30,8 @@ GET        /:idx/net-tax-interest-amount                        controllers.ukCo
 POST       /:idx/net-tax-interest-amount                        controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/net-tax-interest-amount/change                 controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/net-tax-interest-amount/change                 controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/net-tax-interest-amount/review                 controllers.ukCompanies.NetTaxInterestAmountController.onPageLoad(idx: Int, mode: Mode = ReviewMode)
+POST       /:idx/net-tax-interest-amount/review                 controllers.ukCompanies.NetTaxInterestAmountController.onSubmit(idx: Int, mode: Mode = ReviewMode)
 
 ### EnterCompanyTaxEBITDA Controller
 ### ----------------------------------------
@@ -37,6 +39,8 @@ GET        /:idx/enter-company-tax-ebitda                       controllers.ukCo
 POST       /:idx/enter-company-tax-ebitda                       controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/enter-company-tax-ebitda/change                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/enter-company-tax-ebitda/change                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/enter-company-tax-ebitda/review                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onPageLoad(idx: Int, mode: Mode = ReviewMode)
+POST       /:idx/enter-company-tax-ebitda/review                controllers.ukCompanies.EnterCompanyTaxEBITDAController.onSubmit(idx: Int, mode: Mode = ReviewMode)
 
 ### NetTaxInterestIncomeOrExpense Controller
 ### ----------------------------------------

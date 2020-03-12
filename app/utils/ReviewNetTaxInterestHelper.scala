@@ -16,7 +16,7 @@
 
 package utils
 
-import models.{CheckMode, UserAnswers}
+import models.{ReviewMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
@@ -33,7 +33,7 @@ class ReviewNetTaxInterestHelper(val userAnswers: UserAnswers)
         summaryListRow(
           label = model.companyDetails.companyName,
           value = s"${currencyFormat(amount)} ${messages(s"reviewNetTaxInterest.checkYourAnswers.$incomeOrExpense")}",
-          actions = controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit")
+          actions = controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(idx + 1, ReviewMode) -> messages("site.edit")
         )
       }
   }

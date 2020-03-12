@@ -116,6 +116,16 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()
       }
 
+      "for the NetTaxInterestAmount page got to Review Reactivations page" in {
+        navigator.nextPage(NetTaxInterestAmountPage, ReviewMode, emptyUserAnswers) mustBe
+          controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad()
+      }
+
+      "for the EnterCompanyTaxEBITDA page got to Review Reactivations page" in {
+        navigator.nextPage(EnterCompanyTaxEBITDAPage, ReviewMode, emptyUserAnswers) mustBe
+          controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()
+      }
+
       "for any other page got to Review & Complete page" in {
         navigator.nextPage(CompanyDetailsPage, ReviewMode, emptyUserAnswers) mustBe
           controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()

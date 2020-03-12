@@ -41,7 +41,9 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
-    ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad())
+    ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
+    EnterCompanyTaxEBITDAPage -> ((_,_) => controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()),
+    NetTaxInterestAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad())
   ).withDefaultValue((_, _) => controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)

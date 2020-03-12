@@ -95,7 +95,7 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
 
           "enters a valid answer" when {
 
-            "redirect to Under Construction page" in {
+            "redirect to NetTaxInterestIncomeOrExpense page" in {
 
               AuthStub.authorised()
               setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
@@ -194,6 +194,183 @@ class EnterCompanyTaxEBITDAControllerISpec extends IntegrationSpecBase with Crea
           AuthStub.unauthorised()
 
           val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /uk-companies/1/enter-company-tax-ebitda/change" when {
+
+      "user is authorised" when {
+
+        "data is retrieved for the uk companies model" should {
+
+          "enters a valid answer" when {
+
+            "redirect to UK Company CYA page" in {
+
+              AuthStub.authorised()
+              setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+              val res = postRequest("/uk-companies/1/enter-company-tax-ebitda/change", Json.obj("value" -> 1))()
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+                )
+              }
+            }
+          }
+        }
+
+        "NO data is retrieved for the uk companies model" should {
+
+          "Return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/uk-companies/1/enter-company-tax-ebitda/change", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/enter-company-tax-ebitda/change", Json.obj("value" -> 1))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+  }
+
+  "in Review mode" when {
+
+    "GET /uk-companies/1/enter-company-tax-ebitda/review" when {
+
+      "user is authorised" should {
+
+        "data is retrieved for the uk companies model" should {
+
+          "return OK (200)" in {
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/review")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(OK),
+                titleOf(PageTitles.companyTaxEBITDA)
+              )
+            }
+          }
+        }
+
+        "no data is retrieved for the uk companies model" should {
+
+          "return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/review")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = getRequest("/uk-companies/1/enter-company-tax-ebitda/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /uk-companies/1/enter-company-tax-ebitda/review" when {
+
+      "user is authorised" when {
+
+        "data is retrieved for the uk companies model" should {
+
+          "enters a valid answer" when {
+
+            "redirect to Review Tax EBITDA page" in {
+
+              AuthStub.authorised()
+              setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+              val res = postRequest("/uk-companies/1/enter-company-tax-ebitda/review", Json.obj("value" -> 1))()
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad().url)
+                )
+              }
+            }
+          }
+        }
+
+        "NO data is retrieved for the uk companies model" should {
+
+          "Return ISE (500)" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/uk-companies/1/enter-company-tax-ebitda/review", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(INTERNAL_SERVER_ERROR)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/enter-company-tax-ebitda/review", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
