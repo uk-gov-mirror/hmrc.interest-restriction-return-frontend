@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val partnershipDeletionConfirmation: String => String = name => s"Are you sure you want to delete partnership ‘$name’?"
   val partnershipsReviewAnswersList: Int => String = i => s"$i partnership${if (i > 1) 's'} added"
   val addAnReactivationQuery = "Do you need to add a reactivation to this company?"
   val reactivationAmount = "Add a reactivation amount"

@@ -427,7 +427,7 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the PartnershipsReviewAnswersList" should {
+      "from the PartnershipsReviewAnswersList page" should {
 
         "Do you need to add another partnership is" must {
 
@@ -445,6 +445,16 @@ class ElectionsNavigatorSpec extends SpecBase {
 
             navigator.nextPage(PartnershipsReviewAnswersListPage, NormalMode, userAnswers) mustBe
               routes.CheckAnswersElectionsController.onPageLoad()
+          }
+        }
+
+        "from the partnership deletion confirmation page" should {
+
+          "Go to partnership review answers list page" in {
+
+            navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
+              routes.PartnershipsReviewAnswersListController.onPageLoad()
+
           }
         }
       }

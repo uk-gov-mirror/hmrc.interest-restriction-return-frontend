@@ -845,3 +845,9 @@ reviewReactivations.heading = Review reactivations for companies in the group
 reviewReactivations.subheading = Check totals
 reviewReactivations.reactivationCap = Reactivation cap:
 reviewReactivations.totalReactivations = Total allocated reactivations:
+
+# PartnershipDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+partnershipDeletionConfirmation.title = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.heading = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.error.required = Select yes if Are you sure you want to delete partnership ‘{0}’?

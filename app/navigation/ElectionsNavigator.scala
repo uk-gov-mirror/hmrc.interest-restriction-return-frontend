@@ -72,6 +72,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
     PartnershipsReviewAnswersListPage -> (_ => checkYourAnswers),
+    PartnershipDeletionConfirmationPage -> (_ => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
       case Some(true) => routes.InvestorGroupsReviewAnswersListController.onPageLoad()
       case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)

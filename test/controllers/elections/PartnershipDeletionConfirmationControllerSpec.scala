@@ -16,24 +16,24 @@
 
 package controllers.elections
 
-import assets.constants.InvestorGroupConstants.investorGroupsGroupRatioModel
+import assets.constants.PartnershipsConstants._
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.elections.InvestorGroupsDeletionConfirmationFormProvider
+import forms.elections.PartnershipDeletionConfirmationFormProvider
 import navigation.FakeNavigators.FakeElectionsNavigator
-import pages.elections.InvestorGroupsPage
+import pages.elections.PartnershipsPage
 import play.api.test.Helpers._
-import views.html.elections.InvestorGroupsDeletionConfirmationView
+import views.html.elections.PartnershipDeletionConfirmationView
 
-class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class PartnershipDeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[InvestorGroupsDeletionConfirmationView]
-  val formProvider = injector.instanceOf[InvestorGroupsDeletionConfirmationFormProvider]
+  val view = injector.instanceOf[PartnershipDeletionConfirmationView]
+  val formProvider = injector.instanceOf[PartnershipDeletionConfirmationFormProvider]
   val form = formProvider()
 
-  object Controller extends InvestorGroupsDeletionConfirmationController(
+  object Controller extends PartnershipDeletionConfirmationController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
@@ -46,28 +46,31 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
     view = view
   )
 
-  "InvestorGroupsDeletionConfirmation Controller" when {
+  "PartnershipDeletionConfirmation Controller" when {
 
     "calling .onPageLoad(idx: Int)" when {
 
-      "there is an investor group the user answers" should {
+      "There is a partnership in the user answers" should {
 
         "return OK and the correct view" in {
 
-          mockGetAnswers(Some(emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get))
+          mockGetAnswers(Some(emptyUserAnswers.set(
+            PartnershipsPage,
+            partnershipModelUK,
+            Some(1)).get))
 
-          val result = Controller.onPageLoad(idx = 1)(fakeRequest)
+          val result = Controller.onPageLoad(1)(fakeRequest)
 
           status(result) mustEqual OK
           contentAsString(result) mustEqual view(
-            form, routes.InvestorGroupsDeletionConfirmationController.onSubmit(idx = 1), investorGroupsGroupRatioModel.investorName
+            form, routes.PartnershipDeletionConfirmationController.onSubmit(1), partnershipModelUK.name
           )(fakeRequest, messages, frontendAppConfig).toString
         }
       }
 
-      "there are no investments in the user answers" should {
+      "there are no partnerships in the user answers" should {
 
-        "return ISE (500)" in {
+        "Return internal server error (500)" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
 
@@ -86,6 +89,7 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
         status(result) mustEqual SEE_OTHER
 
         redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+
       }
     }
 
@@ -93,13 +97,13 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
 
       "user confirms deletion by choosing Yes" should {
 
-        "delete the selected investment and redirect to the next page" in {
+        "delete the selected partnership and redirect to the next page" in {
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
           val userAnswers = emptyUserAnswers
-            .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get
-            .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).get
+            .set(PartnershipsPage, partnershipModelNonUk, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
           mockSetAnswers(true)
@@ -118,8 +122,8 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
           val userAnswers = emptyUserAnswers
-            .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get
-            .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).get
+            .set(PartnershipsPage, partnershipModelUK, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
 
@@ -132,7 +136,7 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
 
       "return a Bad Request and errors when invalid data is submitted" in {
 
-        mockGetAnswers(Some(emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get))
+        mockGetAnswers(Some(emptyUserAnswers.set(PartnershipsPage, partnershipModelUK, Some(1)).get))
 
         val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 

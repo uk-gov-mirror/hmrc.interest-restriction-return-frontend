@@ -16,19 +16,21 @@
 
 package controllers.elections
 
-import assets.NonConsolidatedInvestmentsITConstants._
+import assets.NonConsolidatedInvestmentsITConstants.investmentName
 import assets.{BaseITConstants, PageTitles}
-import pages.elections.InvestmentNamePage
+import assets.PartnershipsITConstants._
+import models.NormalMode
+import pages.elections.{InvestmentNamePage, PartnershipsPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class PartnershipDeletionConfirmationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /elections/investment/2/deletion-confirmation" when {
+    "GET /elections/partnership/2/deletion-confirmation" when {
 
       "user is authorised" should {
 
@@ -37,16 +39,17 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
           AuthStub.authorised()
 
           setAnswers(emptyUserAnswers
-            .set(InvestmentNamePage, investmentName, Some(1)).success.value
-            .set(InvestmentNamePage, investmentName, Some(2)).success.value
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+            .set(PartnershipsPage, partnershipModelNonUk, Some(2)).success.value
+            .set(PartnershipsPage, partnershipModelUK, Some(3)).success.value
           )
-
-          val res = getRequest("/elections/investment/2/deletion-confirmation")()
+          
+          val res = getRequest("/elections/partnership/2/deletion-confirmation")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.investmentsDeletionConfirmation(investmentName))
+              titleOf(PageTitles.partnershipDeletionConfirmation(partnerName))
             )
           }
         }
@@ -58,7 +61,7 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/investment/2/deletion-confirmation")()
+          val res = getRequest("/elections/partnership/2/deletion-confirmation")()
 
           whenReady(res) { result =>
             result should have(
@@ -70,56 +73,57 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
       }
     }
 
-    "POST /elections/investment/2/deletion-confirmation" when {
+    "POST /elections/partnership/2/deletion-confirmation" when {
 
       "user is authorised" when {
 
         "enters a valid answer of 'Yes'" when {
 
-          "delete the selected investment and redirect to the list view" in {
+          "delete the selected partnership and redirect to the list view" in {
 
             AuthStub.authorised()
 
             setAnswers(emptyUserAnswers
-              .set(InvestmentNamePage, investmentName, Some(1)).success.value
-              .set(InvestmentNamePage, investmentName, Some(2)).success.value
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+              .set(PartnershipsPage, partnershipModelNonUk, Some(2)).success.value
+              .set(PartnershipsPage, partnershipModelUK, Some(3)).success.value
             )
 
-            val res = postRequest("/elections/investment/2/deletion-confirmation", Json.obj("value" -> true))()
+            val res = postRequest("/elections/partnership/2/deletion-confirmation", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.InvestmentsReviewAnswersListController.onPageLoad().url)
+                redirectLocation(routes.PartnershipsReviewAnswersListController.onPageLoad().url)
               )
 
               val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
-              updatedAnswers.getList(InvestmentNamePage) shouldBe Seq(investmentName)
+              updatedAnswers.getList(PartnershipsPage) shouldBe Seq(partnershipModelUK, partnershipModelUK)
             }
           }
         }
-
         "enters a valid answer of 'No'" when {
 
-          "redirect to DeletionConfirmation page" in {
+          "redirect to Review Answers List page" in {
 
             AuthStub.authorised()
 
             setAnswers(emptyUserAnswers
-              .set(InvestmentNamePage, investmentName, Some(1)).success.value
-              .set(InvestmentNamePage, investmentName, Some(2)).success.value
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+              .set(PartnershipsPage, partnershipModelNonUk, Some(2)).success.value
+              .set(PartnershipsPage, partnershipModelUK, Some(3)).success.value
             )
 
-            val res = postRequest("/elections/investment/2/deletion-confirmation", Json.obj("value" -> false))()
+            val res = postRequest("/elections/partnership/2/deletion-confirmation", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.InvestmentsReviewAnswersListController.onPageLoad().url)
+                redirectLocation(routes.PartnershipsReviewAnswersListController.onPageLoad().url)
               )
 
               val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
-              updatedAnswers.getList(InvestmentNamePage) shouldBe Seq(investmentName, investmentName)
+              updatedAnswers.getList(PartnershipsPage) shouldBe Seq(partnershipModelUK, partnershipModelNonUk, partnershipModelUK)
             }
           }
         }
@@ -131,7 +135,7 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/investment/2/deletion-confirmation", Json.obj("value" -> true))()
+          val res = postRequest("/elections/partnership/2/deletion-confirmation", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
