@@ -23,7 +23,7 @@ import viewmodels.TaskListRow
 
 class ReviewAndCompleteHelper(implicit val messages: Messages) {
 
-  def rows(reviewAndCompleteModel: ReviewAndCompleteModel) = {
+  def rows(reviewAndCompleteModel: ReviewAndCompleteModel): Seq[TaskListRow] = {
 
     Seq(
       TaskListRow(

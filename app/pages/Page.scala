@@ -46,7 +46,8 @@ object Page {
     ReportingCompanyNamePage,
     ReportingCompanyCTUTRPage,
     RevisingReturnPage,
-    IndexPage
+    IndexPage,
+    CheckAnswersReportingCompanyPage
   )
 
   val aboutReturnSectionPages: Seq[Page] = List(

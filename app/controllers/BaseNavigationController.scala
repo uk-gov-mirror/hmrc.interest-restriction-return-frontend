@@ -65,8 +65,8 @@ trait BaseNavigationController extends BaseController {
       updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
     } yield updatedSectionAnswers
 
-  private def updateState(page: QuestionPage[_], mode: Mode, userAnswers: UserAnswers)
-                         (implicit request: DataRequest[_]) = {
+  def updateState(page: Page, mode: Mode, userAnswers: UserAnswers)
+                 (implicit request: DataRequest[_]) = {
     val reviewModel = updateSectionService.updateState(userAnswers, page)
     val pagesToDelete = questionDeletionLookupService.getPagesToRemove(page)(userAnswers)
     for {

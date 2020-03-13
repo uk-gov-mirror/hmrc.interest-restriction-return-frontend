@@ -23,30 +23,38 @@ import models.returnModels.ReviewAndCompleteModel
 import pages.Page
 import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import pages.elections.CheckAnswersElectionsPage
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
-import pages.ukCompanies.CheckAnswersUkCompanyPage
+import pages.ukCompanies.{CheckAnswersUkCompanyPage, DerivedCompanyPage, UkCompaniesPage}
 
 @Singleton
 class UpdateSectionService @Inject()() {
 
-  val completionPages = List(
-    CheckAnswersElectionsPage,
-    CheckAnswersUkCompanyPage,
-    CheckAnswersReportingCompanyPage,
-    CheckAnswersGroupStructurePage, //Ultimate Parent
-    DeemedParentPage //Deemed Parent Review Answer List
-  )
+  def completionPages(userAnswers: UserAnswers): List[Page] = {
+
+    val pages = List(
+      CheckAnswersElectionsPage,
+      CheckAnswersUkCompanyPage,
+      CheckAnswersReportingCompanyPage,
+      UkCompaniesPage,
+      DerivedCompanyPage
+    )
+
+    val groupStructureFinal = (userAnswers.get(HasDeemedParentPage), userAnswers.get(ReportingCompanySameAsParentPage)) match {
+      case (Some(true), _) => DeemedParentPage
+      case (_, Some(true)) => ReportingCompanySameAsParentPage
+      case _ => CheckAnswersGroupStructurePage
+    }
+
+    pages :+ groupStructureFinal
+  }
 
   def updateState(userAnswers: UserAnswers, page: Page): ReviewAndCompleteModel = {
     userAnswers.get(ReviewAndCompletePage).fold(ReviewAndCompleteModel()) { model =>
       Page.sections.find {
-        section => (page, userAnswers.get(HasDeemedParentPage)) match {
-          case (CheckAnswersGroupStructurePage, Some(false)) => true
-          case _ => section._2.contains(page)
-        }
+        section => section._2.contains(page)
       }.fold(model) { section =>
-        val status = if (completionPages.contains(page)) Completed else InProgress
+        val status = if (completionPages(userAnswers).contains(page)) Completed else InProgress
         model.update(section._1, status)
       }
     }

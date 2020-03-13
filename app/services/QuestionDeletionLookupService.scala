@@ -25,7 +25,7 @@ import pages.Page._
 @Singleton
 class QuestionDeletionLookupService @Inject()() {
 
-  private val startReturnLogic: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] = Map(
+  private val startReturnLogic: Map[Page, UserAnswers => List[QuestionPage[_]]] = Map(
     ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
       case Some(false) => allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage)
       case _ => List()
@@ -36,10 +36,10 @@ class QuestionDeletionLookupService @Inject()() {
     })
   )
 
-  private val pagesToRemove: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] =
+  private val pagesToRemove: Map[Page, UserAnswers => List[QuestionPage[_]]] =
     startReturnLogic
 
-  def getPagesToRemove(currentPage: QuestionPage[_]): UserAnswers => List[QuestionPage[_]] = {
+  def getPagesToRemove(currentPage: Page): UserAnswers => List[QuestionPage[_]] = {
     pagesToRemove.getOrElse(currentPage,_ => List.empty)
   }
 }
