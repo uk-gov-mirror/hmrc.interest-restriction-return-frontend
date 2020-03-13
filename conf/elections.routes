@@ -177,3 +177,9 @@ POST       /investor-groups/:idx/deletion-confirmation                          
 ### ----------------------------------------
 GET        /partnerships/review                          controllers.elections.PartnershipsReviewAnswersListController.onPageLoad()
 POST       /partnerships/review                          controllers.elections.PartnershipsReviewAnswersListController.onSubmit()
+
+### PartnershipDeletionConfirmation Controller
+### ----------------------------------------
+GET        /partnership/:idx/deletion-confirmation                          controllers.elections.PartnershipDeletionConfirmationController.onPageLoad(idx: Int)
+POST       /partnership/:idx/deletion-confirmation                          controllers.elections.PartnershipDeletionConfirmationController.onSubmit(idx: Int)
+

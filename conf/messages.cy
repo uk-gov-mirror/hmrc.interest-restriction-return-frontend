@@ -833,3 +833,10 @@ partnershipsReviewAnswersList.title = Do you need to add another partnership?
 partnershipsReviewAnswersList.heading = Do you need to add another partnership?
 partnershipsReviewAnswersList.checkYourAnswersLabel = Do you need to add another partnership?
 partnershipsReviewAnswersList.error.required = Select yes if Do you need to add another partnership?
+
+# PartnershipDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+partnershipDeletionConfirmation.title = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.heading = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.error.required = Select yes if Are you sure you want to delete partnership ‘{0}’?
