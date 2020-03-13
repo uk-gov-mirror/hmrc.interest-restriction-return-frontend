@@ -92,6 +92,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
               )
             }
           }
+
           "redirect to Checkanswers page in subject to restriction" in {
 
             AuthStub.authorised()
@@ -99,6 +100,25 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             setAnswers(emptyUserAnswers
               .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
               .set(GroupSubjectToRestrictionsPage, true).get
+            )
+
+            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> false))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to Checkanswers page in no subject to reactivation or to restriction" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(GroupSubjectToReactivationsPage, false).get
+              .set(GroupSubjectToRestrictionsPage, false).get
             )
 
             val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> false))()
