@@ -17,8 +17,9 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
+import assets.PartnershipsITConstants._
 import models.NormalMode
-import pages.elections.PartnershipNamePage
+import pages.elections.{PartnershipNamePage, PartnershipsPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -28,21 +29,28 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
   "in Normal mode" when {
 
-    "GET /elections/is-uk-partnership" when {
+    "GET /elections/partnership/1/is-uk" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
+          setAnswers(emptyUserAnswers
+            .set(PartnershipsPage,
+              partnershipModelUK.copy(
+                isUkPartnership = None,
+                sautr = None
+              ),
+              Some(1)).success.value
+          )
 
-          val res = getRequest("/elections/is-uk-partnership")()
+          val res = getRequest("/elections/partnership/1/is-uk")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.isUkPartnership(companyName))
+              titleOf(PageTitles.isUkPartnership(partnerName))
             )
           }
         }
@@ -54,7 +62,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/is-uk-partnership")()
+          val res = getRequest("/elections/partnership/1/is-uk")()
 
           whenReady(res) { result =>
             result should have(
@@ -66,7 +74,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
       }
     }
 
-    "POST /elections/is-uk-partnership" when {
+    "POST /elections/partnership/1/is-uk" when {
 
       "user is authorised" when {
 
@@ -75,13 +83,16 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
           "redirect to PartnershipSAUTR page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+            )
 
-            val res = postRequest("/elections/is-uk-partnership", Json.obj("value" -> true))()
+            val res = postRequest("/elections/partnership/1/is-uk", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.elections.routes.PartnershipSAUTRController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.elections.routes.PartnershipSAUTRController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -89,16 +100,19 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
         "enters false" when {
 
-          "redirect to Under construction page" in {
+          "redirect to Review list page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers
+              .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+            )
 
-            val res = postRequest("/elections/is-uk-partnership", Json.obj("value" -> false))()
+            val res = postRequest("/elections/partnership/1/is-uk", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url)
+                redirectLocation(controllers.elections.routes.PartnershipsReviewAnswersListController.onPageLoad().url)
               )
             }
           }
@@ -111,7 +125,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/is-uk-partnership", Json.obj("value" -> 1))()
+          val res = postRequest("/elections/partnership/1/is-uk", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -126,21 +140,22 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
   "in Change mode" when {
 
-    "GET /elections/is-uk-partnership" when {
+    "GET /elections/partnership/1/is-uk" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(PartnershipNamePage, companyName)
-
-          val res = getRequest("/elections/is-uk-partnership/change")()
+          setAnswers(emptyUserAnswers
+            .set(PartnershipsPage, partnershipModelUK, Some(1)).success.value
+          )
+          val res = getRequest("/elections/partnership/1/is-uk/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.isUkPartnership(companyName))
+              titleOf(PageTitles.isUkPartnership(partnerName))
             )
           }
         }
@@ -152,7 +167,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/is-uk-partnership/change")()
+          val res = getRequest("/elections/partnership/1/is-uk/change")()
 
           whenReady(res) { result =>
             result should have(

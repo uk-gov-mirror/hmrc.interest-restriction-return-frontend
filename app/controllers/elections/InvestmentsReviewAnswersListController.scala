@@ -60,8 +60,7 @@ class InvestmentsReviewAnswersListController @Inject()(override val messagesApi:
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        BadRequest(renderView(formWithErrors))
-      ,
+        BadRequest(renderView(formWithErrors)),
       {
         case true => Redirect(navigator.addInvestment(investments.length))
         case false => Redirect(navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, request.userAnswers))

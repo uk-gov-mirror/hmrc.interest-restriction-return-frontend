@@ -19,7 +19,7 @@ package utils
 import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages
 import base.SpecBase
-import models.{CheckMode, NormalMode}
+import models.ReviewMode
 import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
 
@@ -43,17 +43,17 @@ class ReviewTaxEBITDARowsHelperSpec extends SpecBase with SummaryListRowHelper w
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
-            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(1, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
-            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink
+            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(2, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
-            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink
+            controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(3, ReviewMode) -> BaseMessages.changeLink
           )
         )
       }

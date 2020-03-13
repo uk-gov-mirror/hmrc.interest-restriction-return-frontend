@@ -37,7 +37,7 @@ class ConsentingCompanyViewSpec extends YesNoViewBehaviours  {
   "ConsentingCompanyView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable =
-      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, companyNameModel.name, routes.ConsentingCompanyController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 

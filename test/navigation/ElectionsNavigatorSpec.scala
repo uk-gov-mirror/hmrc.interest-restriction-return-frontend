@@ -17,6 +17,7 @@
 package navigation
 
 import base.SpecBase
+import assets.constants.PartnershipsConstants._
 import controllers.elections.routes
 import models._
 import pages.elections._
@@ -227,12 +228,12 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
 
-        "go to the Under Construction page when answer is true" in {
+        "go to the Partnerships Review Answers List page when answer is true" in {
 
           val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
-            routes.PartnershipNameController.onPageLoad(NormalMode)
+            routes.PartnershipsReviewAnswersListController.onPageLoad()
         }
 
         "go to the Elected Interest Allowance Consolidated Partnership Before page when answer there's no answer" in {
@@ -246,18 +247,18 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is true" should {
 
-          "go to the PartnershipName page" in {
+          "go to the Partnerships Review Answers List page" in {
 
             val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, true).success.value
 
             navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
-              routes.PartnershipNameController.onPageLoad(NormalMode)
+              routes.PartnershipsReviewAnswersListController.onPageLoad()
           }
         }
 
         "the answer is false" should {
 
-          "go to the Under Construction page" in {
+          "go to the check answers page" in {
 
             val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, false).success.value
 
@@ -350,8 +351,17 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the IsUkPartnership page" in {
 
-          navigator.nextPage(PartnershipNamePage, NormalMode, emptyUserAnswers) mustBe
-            routes.IsUkPartnershipController.onPageLoad(NormalMode)
+          val userAnswers = emptyUserAnswers.set(
+            page = PartnershipsPage,
+            value = partnershipModelUK.copy(
+              name = partnerName,
+              isUkPartnership = None,
+              sautr = None
+            ),
+            idx = Some(1)).success.value
+
+          navigator.nextPage(PartnershipNamePage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.IsUkPartnershipController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -361,21 +371,35 @@ class ElectionsNavigatorSpec extends SpecBase {
 
           "go to the PartnershipSAUTR page" in {
 
-            val userAnswers = emptyUserAnswers.set(IsUkPartnershipPage, true).success.value
+            val userAnswers = emptyUserAnswers.set(
+              page = PartnershipsPage,
+              value = partnershipModelUK.copy(
+                name = partnerName,
+                isUkPartnership = Some(true),
+                sautr = None
+              ),
+              idx = Some(1)).success.value
 
-            navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers) mustBe
-              routes.PartnershipSAUTRController.onPageLoad(NormalMode)
+            navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.PartnershipSAUTRController.onPageLoad(1, NormalMode)
           }
         }
 
         "answer is false" should {
 
-          "go to the under construction page" in {
+          "go to the PartnershipsReviewAnswersList page" in {
 
-            val userAnswers = emptyUserAnswers.set(IsUkPartnershipPage, false).success.value
+            val userAnswers = emptyUserAnswers.set(
+              page = PartnershipsPage,
+              value = partnershipModelUK.copy(
+                name = partnerName,
+                isUkPartnership = Some(false),
+                sautr = None
+              ),
+              idx = Some(1)).success.value
 
-            navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers) mustBe
-              routes.CheckAnswersElectionsController.onPageLoad()
+            navigator.nextPage(IsUkPartnershipPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.PartnershipsReviewAnswersListController.onPageLoad()
           }
         }
 
@@ -383,18 +407,45 @@ class ElectionsNavigatorSpec extends SpecBase {
 
           "go to the IsUkPartnership page" in {
 
-            navigator.nextPage(IsUkPartnershipPage, NormalMode, emptyUserAnswers) mustBe
-              routes.IsUkPartnershipController.onPageLoad(NormalMode)
+            navigator.nextPage(IsUkPartnershipPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+              routes.IsUkPartnershipController.onPageLoad(1, NormalMode)
           }
         }
       }
 
       "from the PartnershipSAUTR page" should {
 
-        "go to the CheckAnswersElections page" in {
+        "go to the PartnershipsReviewAnswersList page" in {
 
-          navigator.nextPage(PartnershipSAUTRPage, NormalMode, emptyUserAnswers) mustBe
-            routes.CheckAnswersElectionsController.onPageLoad()
+          val userAnswers = emptyUserAnswers.set(
+            page = PartnershipsPage,
+            value = partnershipModelUK,
+            idx = Some(1)).success.value
+
+          navigator.nextPage(PartnershipSAUTRPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.PartnershipsReviewAnswersListController.onPageLoad()
+        }
+      }
+
+      "from the PartnershipsReviewAnswersList" should {
+
+        "Do you need to add another partnership is" must {
+
+          "yes, go to Partnership name page" in {
+
+            navigator.addPartnership(1) mustBe
+              routes.PartnershipNameController.onPageLoad(2, NormalMode)
+          }
+
+          "no, go to check answers page" in {
+
+            val userAnswers = emptyUserAnswers.set(
+              page = PartnershipsReviewAnswersListPage,
+              value = false).success.value
+
+            navigator.nextPage(PartnershipsReviewAnswersListPage, NormalMode, userAnswers) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
         }
       }
 

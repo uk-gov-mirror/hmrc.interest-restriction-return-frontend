@@ -16,6 +16,9 @@
 
 package assets.constants
 
+import assets.constants.InvestorGroupConstants.investorGroupsGroupRatioModel
+import assets.constants.NonConsolidatedInvestmentConstants.investmentName
+import assets.constants.PartnershipsConstants.partnershipModelUK
 import pages.elections._
 import views.behaviours.ViewBehaviours
 
@@ -29,13 +32,23 @@ trait ElectionsCheckYourAnswersConstants extends ViewBehaviours with BaseConstan
     .set(GroupRatioPercentagePage, groupRatioPercentage).get
     .set(GroupRatioBlendedElectionPage, true).get
     .set(AddInvestorGroupPage, true).get
+    .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get
+    .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).get
     .set(ElectedGroupEBITDABeforePage, false).get
     .set(GroupEBITDAChargeableGainsElectionPage, true).get
     .set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
-    .set(InterestAllowanceAlternativeCalcElectionPage, false).get
+    .set(InterestAllowanceAlternativeCalcElectionPage, true).get
     .set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true).get
+    .set(InvestmentNamePage, investmentName, Some(1)).get
+    .set(InvestmentNamePage, investmentName, Some(2)).get
+    .set(InvestmentNamePage, investmentName, Some(3)).get
     .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, false).get
     .set(InterestAllowanceConsolidatedPshipElectionPage, true).get
+    .set(PartnershipsPage, partnershipModelUK, Some(1)).get
+    .set(PartnershipsPage, partnershipModelUK, Some(2)).get
+    .set(PartnershipsPage, partnershipModelUK, Some(3)).get
+    .set(PartnershipsPage, partnershipModelUK, Some(4)).get
+
 
   val minElections = emptyUserAnswers
     .set(GroupRatioElectionPage, false).get
