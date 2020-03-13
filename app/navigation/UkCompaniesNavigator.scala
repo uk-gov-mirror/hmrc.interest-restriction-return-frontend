@@ -20,6 +20,7 @@ import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
+import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.mvc.Call
 
@@ -32,7 +33,15 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
-    ConsentingCompanyPage -> ((idx, _) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)),
+    ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(GroupSubjectToRestrictionsPage) match {
+      case Some(true) => checkYourAnswers(idx)
+      case Some(false) => userAnswers.get(GroupSubjectToReactivationsPage) match {
+        case Some(true) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
+        case Some(false) => checkYourAnswers(idx)
+        case _ => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)
+      }
+      case _ => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)
+    }),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
       case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
       case Some(false) => checkYourAnswers(idx)

@@ -22,6 +22,7 @@ import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import assets.UkCompanyITConstants._
+import pages.aboutReturn.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -73,11 +74,15 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
         "enters a valid answer" when {
 
-          "redirect to ConsentingCompany page" in {
+          "redirect to add activation page in subject to reactivation" in {
 
             AuthStub.authorised()
 
-            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(GroupSubjectToReactivationsPage, true).get
+              .set(GroupSubjectToRestrictionsPage, false).get
+            )
 
             val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> true))()
             whenReady(res) { result =>
@@ -87,6 +92,44 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
               )
             }
           }
+
+          "redirect to Checkanswers page in subject to restriction" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(GroupSubjectToRestrictionsPage, true).get
+            )
+
+            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> false))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to Checkanswers page in no subject to reactivation or to restriction" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(GroupSubjectToReactivationsPage, false).get
+              .set(GroupSubjectToRestrictionsPage, false).get
+            )
+
+            val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> false))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+
         }
       }
 
