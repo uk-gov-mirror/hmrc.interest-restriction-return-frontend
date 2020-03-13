@@ -64,7 +64,7 @@ class CheckAnswersUkCompanyController @Inject()(override val messagesApi: Messag
       }
   }
 
-  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(CheckAnswersUkCompanyPage, NormalMode, request.userAnswers, Some(idx)))
+  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request => saveAndRedirect(CheckAnswersUkCompanyPage, NormalMode)
   }
 }

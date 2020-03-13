@@ -37,6 +37,9 @@ class InvestmentsReviewAnswersListControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends InvestmentsReviewAnswersListController(
     messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    updateSectionService = updateSectionService,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

@@ -20,7 +20,7 @@ import models.Section
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
 import pages.checkTotals.ReviewTaxEBITDAPage
-import pages.elections._
+import pages.elections.{IsUkPartnershipPage, _}
 import pages.groupStructure._
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.startReturn._
@@ -47,8 +47,37 @@ object Page {
     UkCompaniesDeletionConfirmationPage
   )
 
+  val electionsSectionPages: Seq[Page] = List(
+    AddInvestorGroupPage,
+    ElectedGroupEBITDABeforePage,
+    ElectedInterestAllowanceAlternativeCalcBeforePage,
+    ElectedInterestAllowanceConsolidatedPshipBeforePage,
+    EnterQNGIEPage,
+    EnterANGIEPage,
+    GroupEBITDAChargeableGainsElectionPage,
+    GroupEBITDAPage,
+    GroupRatioBlendedElectionPage,
+    GroupRatioPercentagePage,
+    InterestAllowanceAlternativeCalcElectionPage,
+    InterestAllowanceConsolidatedPshipElectionPage,
+    InterestAllowanceNonConsolidatedInvestmentsElectionPage,
+    InvestmentNamePage,
+    InvestmentsDeletionConfirmationPage,
+    InvestmentsReviewAnswersListPage,
+    CheckAnswersElectionsPage,
+    InvestorGroupNamePage,
+    InvestorGroupsDeletionConfirmationPage,
+    InvestorGroupsPage,
+    InvestorRatioMethodPage,
+    IsUkPartnershipPage,
+    OtherInvestorGroupElectionsPage,
+    PartnershipSAUTRPage,
+    PartnershipNamePage
+  )
+
   val sections = Map(
-    Section.UkCompanies -> ukCompaniesSectionPages
+    Section.UkCompanies -> ukCompaniesSectionPages,
+    Section.Elections -> electionsSectionPages
   )
 
 
@@ -59,30 +88,7 @@ object Page {
     AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
     ReviewAndCompletePage.toString -> ReviewAndCompletePage,
     ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
-    InvestorGroupsDeletionConfirmationPage.toString -> InvestorGroupsDeletionConfirmationPage,
-    InvestorGroupsPage.toString -> InvestorGroupsPage,
-    InvestmentsDeletionConfirmationPage.toString -> InvestmentsDeletionConfirmationPage,
-    InvestmentNamePage.toString -> InvestmentNamePage,
     DeletionConfirmationPage.toString -> DeletionConfirmationPage,
-    PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
-    IsUkPartnershipPage.toString -> IsUkPartnershipPage,
-    PartnershipNamePage.toString -> PartnershipNamePage,
-    InvestorRatioMethodPage.toString -> InvestorRatioMethodPage,
-    InvestorGroupNamePage.toString -> InvestorGroupNamePage,
-    AddInvestorGroupPage.toString -> AddInvestorGroupPage,
-    OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
-    GroupEBITDAPage.toString -> GroupEBITDAPage,
-    InterestAllowanceConsolidatedPshipElectionPage.toString -> InterestAllowanceConsolidatedPshipElectionPage,
-    ElectedInterestAllowanceConsolidatedPshipBeforePage.toString -> ElectedInterestAllowanceConsolidatedPshipBeforePage,
-    InterestAllowanceNonConsolidatedInvestmentsElectionPage.toString -> InterestAllowanceNonConsolidatedInvestmentsElectionPage,
-    GroupRatioPercentagePage.toString -> GroupRatioPercentagePage,
-    InterestAllowanceAlternativeCalcElectionPage.toString -> InterestAllowanceAlternativeCalcElectionPage,
-    ElectedInterestAllowanceAlternativeCalcBeforePage.toString -> ElectedInterestAllowanceAlternativeCalcBeforePage,
-    GroupEBITDAChargeableGainsElectionPage.toString -> GroupEBITDAChargeableGainsElectionPage,
-    ElectedGroupEBITDABeforePage.toString -> ElectedGroupEBITDABeforePage,
-    GroupRatioBlendedElectionPage.toString -> GroupRatioBlendedElectionPage,
-    EnterQNGIEPage.toString -> EnterQNGIEPage,
-    EnterANGIEPage.toString -> EnterANGIEPage,
     GroupRatioElectionPage.toString -> GroupRatioElectionPage,
     CountryOfIncorporationPage.toString -> CountryOfIncorporationPage,
     ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,

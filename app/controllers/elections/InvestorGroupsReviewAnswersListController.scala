@@ -18,33 +18,37 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.elections.InvestorGroupsReviewAnswersListFormProvider
-import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import handlers.ErrorHandler
 import models.NormalMode
 import models.requests.DataRequest
-import navigation.{ElectionsNavigator, GroupStructureNavigator}
+import navigation.ElectionsNavigator
 import pages.elections.InvestorGroupsPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import utils.{DeemedParentReviewAnswersListHelper, InvestorGroupsReviewAnswersListHelper}
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionService}
+import utils.InvestorGroupsReviewAnswersListHelper
 import views.html.elections.InvestorGroupsReviewAnswersListView
-import views.html.groupStructure.DeemedParentReviewAnswersListView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class InvestorGroupsReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
+                                                          override val sessionRepository: SessionRepository,
+                                                          override val navigator: ElectionsNavigator,
+                                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                          override val updateSectionService: UpdateSectionService,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
                                                           val controllerComponents: MessagesControllerComponents,
-                                                          navigator: ElectionsNavigator,
                                                           formProvider: InvestorGroupsReviewAnswersListFormProvider,
                                                           view: InvestorGroupsReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends BaseNavigationController {
 
   private def investorGroups(implicit request: DataRequest[_]) = new InvestorGroupsReviewAnswersListHelper(request.userAnswers).rows
 
@@ -59,14 +63,14 @@ class InvestorGroupsReviewAnswersListController @Inject()(override val messagesA
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        BadRequest(renderView(formWithErrors))
+        Future.successful(BadRequest(renderView(formWithErrors)))
       ,
       {
-        case true => Redirect(navigator.addInvestorGroup(investorGroups.length))
-        case false => Redirect(navigator.nextPage(InvestorGroupsPage, NormalMode, request.userAnswers))
+        case true => Future.successful(Redirect(navigator.addInvestorGroup(investorGroups.length)))
+        case false => saveAndRedirect(InvestorGroupsPage, NormalMode)
       }
     )
   }

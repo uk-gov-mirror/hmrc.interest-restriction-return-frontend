@@ -37,6 +37,9 @@ class InvestorGroupsReviewAnswersListControllerSpec extends SpecBase with Featur
 
   object Controller extends InvestorGroupsReviewAnswersListController(
     messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    updateSectionService = updateSectionService,
+    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

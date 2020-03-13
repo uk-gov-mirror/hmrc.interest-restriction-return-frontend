@@ -19,7 +19,7 @@ package controllers
 import models._
 import models.requests.DataRequest
 import navigation.Navigator
-import pages.QuestionPage
+import pages.{Page, QuestionPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.libs.json.Writes
 import play.api.mvc.Result
@@ -36,23 +36,44 @@ trait BaseNavigationController extends BaseController {
   val updateSectionService: UpdateSectionService
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Int)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, Some(idx)).map{ cleanedAnswers =>
-    Redirect(navigator.nextPage(page, mode, cleanedAnswers, Some(idx)))
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, Some(idx)).map{ updatedAnswers =>
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, Some(idx)))
   }
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, None).map{ cleanedAnswers =>
-    Redirect(navigator.nextPage(page, mode, cleanedAnswers, None))
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, None).map{ updatedAnswers =>
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, None))
   }
+
+  def saveAndRedirect(page: QuestionPage[_], mode: Mode)
+                     (implicit request: DataRequest[_]): Future[Result] = updateState(page, mode, request.userAnswers).map{ updatedAnswers =>
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, None))
+  }
+
+
+  def remove[A](page: QuestionPage[A], mode: Mode, idx: Option[Int] = None)
+             (implicit request: DataRequest[_], writes: Writes[A]): Future[UserAnswers] =
+    for {
+      updatedAnswers <- Future.fromTry(request.userAnswers.remove(page, idx))
+      updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
+    } yield updatedSectionAnswers
 
   def save[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Option[Int] = None)
              (implicit request: DataRequest[_], writes: Writes[A]): Future[UserAnswers] =
     for {
       updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer, idx))
-      pagesToDelete = questionDeletionLookupService.getPagesToRemove(page)(updatedAnswers)
-      cleanedAnswers <- Future.fromTry(updatedAnswers.remove(pagesToDelete))
-      reviewModel = updateSectionService.updateState(cleanedAnswers, page)
+      updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
+    } yield updatedSectionAnswers
+
+  private def updateState(page: QuestionPage[_], mode: Mode, userAnswers: UserAnswers)
+                         (implicit request: DataRequest[_]) = {
+    val reviewModel = updateSectionService.updateState(userAnswers, page)
+    val pagesToDelete = questionDeletionLookupService.getPagesToRemove(page)(userAnswers)
+    for {
+      cleanedAnswers <- Future.fromTry(userAnswers.remove(pagesToDelete))
       updatedSectionAnswers <- Future.fromTry(cleanedAnswers.set(ReviewAndCompletePage, reviewModel))
       _ <- sessionRepository.set(updatedSectionAnswers)
     } yield updatedSectionAnswers
+  }
+
 }

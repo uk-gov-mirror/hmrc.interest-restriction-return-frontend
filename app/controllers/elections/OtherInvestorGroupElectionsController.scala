@@ -23,7 +23,7 @@ import forms.elections.OtherInvestorGroupElectionsFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.returnModels.InvestorGroupModel
-import models.{InvestorRatioMethod, Mode}
+import models.{InvestorRatioMethod, Mode, NormalMode}
 import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
 import play.api.i18n.MessagesApi
@@ -79,10 +79,9 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
             ))),
           value => {
             val updatedModel = investorGroups.copy(otherInvestorGroupElections = Some(value))
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, updatedAnswers))
+            save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+              Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, userAnswers))
+            }
           }
         )
       }

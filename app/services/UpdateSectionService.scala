@@ -38,7 +38,7 @@ class UpdateSectionService @Inject()() {
     DeemedParentPage //Deemed Parent Review Answer List
   )
 
-  def updateState(userAnswers: UserAnswers, page: QuestionPage[_]): ReviewAndCompleteModel = {
+  def updateState(userAnswers: UserAnswers, page: Page): ReviewAndCompleteModel = {
     userAnswers.get(ReviewAndCompletePage).fold(ReviewAndCompleteModel()) { model =>
       Page.sections.find {
         section => section._2.contains(page)
