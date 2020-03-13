@@ -19,6 +19,7 @@ package models.returnModels
 import models.SectionStatus.NotStarted
 import models.{Section, SectionStatus}
 import play.api.libs.json.Json
+import viewmodels.TaskListRow
 
 case class ReviewAndCompleteModel(startReturn: SectionStatus = NotStarted,
                                   elections: SectionStatus = NotStarted,
@@ -35,6 +36,15 @@ case class ReviewAndCompleteModel(startReturn: SectionStatus = NotStarted,
     case Section.UkCompanies => this.copy(ukCompanies = sectionStatus)
     case Section.CheckTotals => this.copy(checkTotals = sectionStatus)
   }
+
+  val rows: Map[Section, SectionStatus] = Map(
+    Section.StartReturn -> startReturn,
+    Section.Elections -> elections,
+    Section.AboutReturn -> aboutReturn,
+    Section.GroupStructure -> groupStructure,
+    Section.UkCompanies -> ukCompanies,
+    Section.CheckTotals -> checkTotals
+  )
 }
 
 object ReviewAndCompleteModel {

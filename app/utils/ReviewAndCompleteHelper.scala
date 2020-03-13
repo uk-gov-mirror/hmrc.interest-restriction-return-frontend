@@ -16,18 +16,46 @@
 
 package utils
 
+import models.Section
+import models.returnModels.ReviewAndCompleteModel
 import play.api.i18n.Messages
 import viewmodels.TaskListRow
 
 class ReviewAndCompleteHelper(implicit val messages: Messages) {
 
-  val rows = Seq(
-    TaskListRow(messages("section.startReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.aboutReportingCompany"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.groupStructure"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.elections"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.ukCompanies"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.aboutReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.checkTotals"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed"))
-  )
+  def rows(reviewAndCompleteModel: ReviewAndCompleteModel) = {
+
+    Seq(
+      TaskListRow(
+        messages(s"section.${Section.StartReturn}"),
+        controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.startReturn}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.Elections}"),
+        controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.elections}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.GroupStructure}"),
+        controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupStructure}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.AboutReturn}"),
+        controllers.routes.UnderConstructionController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturn}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.UkCompanies}"),
+        controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompanies}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.CheckTotals}"),
+        controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.checkTotals}")
+      )
+    )
+  }
 }

@@ -54,3 +54,4 @@ class CheckAnswersReportingCompanyController @Inject()(override val messagesApi:
     saveAndRedirect(CheckAnswersReportingCompanyPage, NormalMode)
   }
 }
+

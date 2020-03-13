@@ -816,5 +816,7 @@ reactivationAmount.error.outOfRange = Reactivation amount must be between {0} an
 # ----------------------------------------------------------
 reviewAndComplete.title = Interest Restriction Return
 reviewAndComplete.heading = Interest Restriction Return
+reviewAndComplete.inProgress = In progress
+reviewAndComplete.notStarted = Not started
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC

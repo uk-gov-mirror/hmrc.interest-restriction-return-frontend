@@ -18,5 +18,7 @@ package assets.messages
 
 object ReviewAndCompleteMessages {
 
+  val notStarted = "Not started"
+  val inProgress = "In progress"
   val completed = "Completed"
 }

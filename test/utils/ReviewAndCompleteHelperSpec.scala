@@ -18,6 +18,8 @@ package utils
 
 import assets.messages.{ReviewAndCompleteMessages, SectionHeaderMessages}
 import base.SpecBase
+import models.SectionStatus.{Completed, InProgress, NotStarted}
+import models.returnModels.ReviewAndCompleteModel
 import viewmodels.{SummaryListRowHelper, TaskListRow}
 
 
@@ -31,14 +33,20 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
 
         val helper = new ReviewAndCompleteHelper()
 
-        helper.rows mustBe Seq(
-          TaskListRow(SectionHeaderMessages.startReturn, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.aboutReportingCompany, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.groupStructure, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.elections, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.ukCompanies, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.aboutReturn, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed),
-          TaskListRow(SectionHeaderMessages.checkTotals, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.completed)
+        helper.rows(ReviewAndCompleteModel(
+          startReturn = NotStarted,
+          elections = InProgress,
+          groupStructure = Completed,
+          aboutReturn = NotStarted,
+          ukCompanies = InProgress,
+          checkTotals = Completed
+        )) mustBe Seq(
+          TaskListRow(SectionHeaderMessages.startReturn, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(), ReviewAndCompleteMessages.notStarted),
+          TaskListRow(SectionHeaderMessages.elections, controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(), ReviewAndCompleteMessages.inProgress),
+          TaskListRow(SectionHeaderMessages.groupStructure, controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad(), ReviewAndCompleteMessages.completed),
+          TaskListRow(SectionHeaderMessages.aboutReturn, controllers.routes.UnderConstructionController.onPageLoad(), ReviewAndCompleteMessages.notStarted),
+          TaskListRow(SectionHeaderMessages.ukCompanies, controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(), ReviewAndCompleteMessages.inProgress),
+          TaskListRow(SectionHeaderMessages.checkTotals, controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(), ReviewAndCompleteMessages.completed)
         )
       }
     }

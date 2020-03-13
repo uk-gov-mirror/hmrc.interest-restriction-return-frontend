@@ -17,6 +17,8 @@
 package views.reviewAndComplete
 
 import assets.messages.BaseMessages
+import models.SectionStatus.{Completed, InProgress, NotStarted}
+import models.returnModels.ReviewAndCompleteModel
 import utils.ReviewAndCompleteHelper
 import viewmodels.TaskListRow
 import views.behaviours.ViewBehaviours
@@ -24,7 +26,9 @@ import views.html.reviewAndComplete.ReviewAndCompleteView
 
 class ReviewAndCompleteViewSpec extends ViewBehaviours {
 
-  val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows
+  val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows(
+    ReviewAndCompleteModel(NotStarted, InProgress, Completed, NotStarted, InProgress, Completed)
+  )
 
   lazy val viewTemplate = viewFor[ReviewAndCompleteView](Some(emptyUserAnswers))
   lazy val view = viewTemplate.apply(taskListRows, onwardRoute)(fakeRequest, frontendAppConfig, messages)
