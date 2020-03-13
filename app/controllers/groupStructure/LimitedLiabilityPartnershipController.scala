@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{DeemedParentPage, LimitedLiabilityPartnershipPage}
 import play.api.i18n.MessagesApi
@@ -72,10 +72,9 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, updatedAnswers, Some(idx)))
+          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+            Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, userAnswers, Some(idx)))
+          }
         }
       )
     }

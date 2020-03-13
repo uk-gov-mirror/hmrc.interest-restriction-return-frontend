@@ -33,19 +33,18 @@ import views.html.aboutReportingCompany.AccountingPeriodStartView
 
 import scala.concurrent.Future
 
-class AccountingPeriodStartController @Inject()(
-                                                 override val messagesApi: MessagesApi,
-                                                 override val sessionRepository: SessionRepository,
-                                                 override val navigator: AboutReportingCompanyNavigator,
-                                                 override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                 override val updateSectionService: UpdateSectionService,
-                                                 identify: IdentifierAction,
-                                                 getData: DataRetrievalAction,
-                                                 requireData: DataRequiredAction,
-                                                 formProvider: AccountingPeriodStartFormProvider,
-                                                 val controllerComponents: MessagesControllerComponents,
-                                                 view: AccountingPeriodStartView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+class AccountingPeriodStartController @Inject()(override val messagesApi: MessagesApi,
+                                                override val sessionRepository: SessionRepository,
+                                                override val navigator: AboutReportingCompanyNavigator,
+                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val updateSectionService: UpdateSectionService,
+                                                identify: IdentifierAction,
+                                                getData: DataRetrievalAction,
+                                                requireData: DataRequiredAction,
+                                                formProvider: AccountingPeriodStartFormProvider,
+                                                val controllerComponents: MessagesControllerComponents,
+                                                view: AccountingPeriodStartView
+                                               )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(AccountingPeriodStartPage, formProvider()), mode))

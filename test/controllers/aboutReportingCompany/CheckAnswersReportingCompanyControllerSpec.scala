@@ -32,12 +32,15 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends CheckAnswersReportingCompanyController(
     messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    navigator = FakeAboutReportingCompanyNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    navigator = FakeAboutReportingCompanyNavigator
+    view = view
   )
 
   "Check Your Answers Controller" when {

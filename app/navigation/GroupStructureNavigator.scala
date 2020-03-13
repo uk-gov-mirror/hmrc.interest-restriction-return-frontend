@@ -54,6 +54,7 @@ class GroupStructureNavigator @Inject()() extends Navigator {
       case Some(false) => nextSection(NormalMode)
       case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
     }),
+    DeemedParentPage -> ((_, _) => nextSection(NormalMode)),
     DeletionConfirmationPage -> ((_, _) => routes.DeemedParentReviewAnswersListController.onPageLoad())
   )
 

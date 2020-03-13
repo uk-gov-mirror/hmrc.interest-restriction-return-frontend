@@ -18,31 +18,37 @@ package controllers.groupStructure
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import handlers.ErrorHandler
 import models.NormalMode
 import models.requests.DataRequest
 import navigation.GroupStructureNavigator
-import pages.groupStructure.CheckAnswersGroupStructurePage
+import pages.groupStructure.DeemedParentPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionService}
 import utils.DeemedParentReviewAnswersListHelper
 import views.html.groupStructure.DeemedParentReviewAnswersListView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class DeemedParentReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
+                                                        override val sessionRepository: SessionRepository,
+                                                        override val navigator: GroupStructureNavigator,
+                                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                        override val updateSectionService: UpdateSectionService,
                                                         identify: IdentifierAction,
                                                         getData: DataRetrievalAction,
                                                         requireData: DataRequiredAction,
                                                         val controllerComponents: MessagesControllerComponents,
-                                                        navigator: GroupStructureNavigator,
                                                         formProvider: DeemedParentReviewAnswersListFormProvider,
                                                         view: DeemedParentReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends BaseNavigationController {
 
   private def deemedParents(implicit request: DataRequest[_]) = new DeemedParentReviewAnswersListHelper(request.userAnswers).rows
 
@@ -57,14 +63,14 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        BadRequest(renderView(formWithErrors))
+        Future.successful(BadRequest(renderView(formWithErrors)))
       ,
       {
-        case true => Redirect(navigator.addParent(deemedParents.length))
-        case false => Redirect(navigator.nextSection(NormalMode))
+        case true => Future.successful(Redirect(navigator.addParent(deemedParents.length)))
+        case false => saveAndRedirect(DeemedParentPage, NormalMode)
       }
     )
   }

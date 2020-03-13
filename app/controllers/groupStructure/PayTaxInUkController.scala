@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.groupStructure.PayTaxInUkFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{DeemedParentPage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
@@ -72,10 +72,9 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(payTaxInUk = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers, Some(idx)))
+          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+            Redirect(navigator.nextPage(PayTaxInUkPage, mode, userAnswers, Some(idx)))
+          }
         }
       )
     }

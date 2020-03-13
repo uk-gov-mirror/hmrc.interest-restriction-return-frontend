@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.groupStructure.ParentCompanySAUTRFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import models.returnModels.UTRModel
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{DeemedParentPage, ParentCompanySAUTRPage}
@@ -70,10 +70,9 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
       value => {
         answerFor(DeemedParentPage, idx) { deemedParentModel =>
           val updatedModel = deemedParentModel.copy(sautr = Some(UTRModel(value)))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, updatedAnswers, Some(idx)))
+          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+            Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, userAnswers, Some(idx)))
+          }
         }
       }
     )

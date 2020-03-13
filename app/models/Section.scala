@@ -54,6 +54,10 @@ object Section {
     override val toString = "checkTotals"
   }
 
+  object ReviewAndComplete extends Section {
+    override val toString = "reviewAndComplete"
+  }
+
   implicit object SectionWrites extends Writes[Section]{
     def writes(section: Section): JsValue = Json.toJson(section.toString)
   }

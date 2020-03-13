@@ -20,12 +20,12 @@ import javax.inject.{Inject, Singleton}
 import models.SectionStatus.{Completed, InProgress}
 import models.UserAnswers
 import models.returnModels.ReviewAndCompleteModel
+import pages.Page
 import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import pages.elections.CheckAnswersElectionsPage
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.CheckAnswersUkCompanyPage
-import pages.{Page, QuestionPage}
 
 @Singleton
 class UpdateSectionService @Inject()() {
@@ -41,7 +41,10 @@ class UpdateSectionService @Inject()() {
   def updateState(userAnswers: UserAnswers, page: Page): ReviewAndCompleteModel = {
     userAnswers.get(ReviewAndCompletePage).fold(ReviewAndCompleteModel()) { model =>
       Page.sections.find {
-        section => section._2.contains(page)
+        section => (page, userAnswers.get(HasDeemedParentPage)) match {
+          case (CheckAnswersGroupStructurePage, Some(false)) => true
+          case _ => section._2.contains(page)
+        }
       }.fold(model) { section =>
         val status = if (completionPages.contains(page)) Completed else InProgress
         model.update(section._1, status)

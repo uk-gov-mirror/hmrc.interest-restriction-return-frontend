@@ -45,9 +45,9 @@ trait BaseNavigationController extends BaseController {
     Redirect(navigator.nextPage(page, mode, updatedAnswers, None))
   }
 
-  def saveAndRedirect(page: QuestionPage[_], mode: Mode)
+  def saveAndRedirect(page: QuestionPage[_], mode: Mode, idx: Option[Int] = None)
                      (implicit request: DataRequest[_]): Future[Result] = updateState(page, mode, request.userAnswers).map{ updatedAnswers =>
-    Redirect(navigator.nextPage(page, mode, updatedAnswers, None))
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, idx))
   }
 
 

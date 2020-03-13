@@ -32,12 +32,15 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
   object Controller extends CheckAnswersGroupStructureController(
     messagesApi = messagesApi,
+    sessionRepository = sessionRepository,
+    navigator = FakeGroupStructureNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    navigator = FakeGroupStructureNavigator
+    view = view
   )
 
   "Check Your Answers Controller" when {

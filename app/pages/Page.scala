@@ -19,7 +19,7 @@ package pages
 import models.Section
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.checkTotals.ReviewTaxEBITDAPage
+import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.elections.{IsUkPartnershipPage, _}
 import pages.groupStructure._
 import pages.reviewAndComplete.ReviewAndCompletePage
@@ -34,6 +34,32 @@ trait Page
 object Page {
 
   implicit def toString(page: Page): String = page.toString
+
+  val startReturnSectionPages: Seq[Page] = List(
+    AgentActingOnBehalfOfCompanyPage,
+    AgentNamePage,
+    FullOrAbbreviatedReturnPage,
+    ReportingCompanyAppointedPage,
+    ReportingCompanyRequiredPage,
+    AccountingPeriodStartPage,
+    AccountingPeriodEndPage,
+    ReportingCompanyNamePage,
+    ReportingCompanyCTUTRPage,
+    RevisingReturnPage,
+    IndexPage
+  )
+
+  val aboutReturnSectionPages: Seq[Page] = List(
+    GroupInterestAllowancePage,
+    GroupInterestCapacityPage,
+    GroupSubjectToReactivationsPage,
+    GroupSubjectToRestrictionsPage,
+    InfrastructureCompanyElectionPage,
+    InterestAllowanceBroughtForwardPage,
+    InterestReactivationsCapPage,
+    ReturnContainEstimatesPage
+  )
+
 
   val ukCompaniesSectionPages: Seq[Page] = List(
     UkCompaniesPage,
@@ -72,52 +98,50 @@ object Page {
     IsUkPartnershipPage,
     OtherInvestorGroupElectionsPage,
     PartnershipSAUTRPage,
-    PartnershipNamePage
+    PartnershipNamePage,
+    GroupRatioElectionPage
+  )
+
+  val groupStructureSectionPages: Seq[Page] = List(
+    CheckAnswersGroupStructurePage,
+    DeletionConfirmationPage,
+    CountryOfIncorporationPage,
+    ParentCompanySAUTRPage,
+    PayTaxInUkPage,
+    LimitedLiabilityPartnershipPage,
+    ParentCompanyCTUTRPage,
+    ParentCompanyNamePage,
+    HasDeemedParentPage,
+    ReportingCompanySameAsParentPage,
+    DeemedParentPage
+  )
+
+  val checkTotalsSectionPages: Seq[Page] = List(
+    DerivedCompanyPage,
+    ReviewTaxEBITDAPage,
+    ReviewNetTaxInterestPage
+  )
+
+  val reviewAndCompleteSectionPages: Seq[Page] = List(
+    ReviewAndCompletePage
   )
 
   val sections = Map(
+    Section.StartReturn -> startReturnSectionPages,
+    Section.AboutReturn -> aboutReturnSectionPages,
     Section.UkCompanies -> ukCompaniesSectionPages,
-    Section.Elections -> electionsSectionPages
+    Section.Elections -> electionsSectionPages,
+    Section.CheckTotals -> checkTotalsSectionPages,
+    Section.ReviewAndComplete -> reviewAndCompleteSectionPages,
+    Section.GroupStructure -> groupStructureSectionPages
   )
 
 
   val pages: Map[String, Page] = sections.flatMap{
     section => section._2.map(page => page.toString -> page)
   } ++ Map(
-    AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
-    AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
-    ReviewAndCompletePage.toString -> ReviewAndCompletePage,
-    ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
-    DeletionConfirmationPage.toString -> DeletionConfirmationPage,
-    GroupRatioElectionPage.toString -> GroupRatioElectionPage,
-    CountryOfIncorporationPage.toString -> CountryOfIncorporationPage,
-    ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
-    PayTaxInUkPage.toString -> PayTaxInUkPage,
-    LimitedLiabilityPartnershipPage.toString -> LimitedLiabilityPartnershipPage,
-    ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
-    ParentCompanyNamePage.toString -> ParentCompanyNamePage,
-    HasDeemedParentPage.toString -> HasDeemedParentPage,
     ConfirmationPage.toString -> ConfirmationPage,
-    ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
-    ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
-    ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
-    ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
-    AgentActingOnBehalfOfCompanyPage.toString -> AgentActingOnBehalfOfCompanyPage,
-    AgentNamePage.toString -> AgentNamePage,
-    FullOrAbbreviatedReturnPage.toString -> FullOrAbbreviatedReturnPage,
-    ReportingCompanyAppointedPage.toString -> ReportingCompanyAppointedPage,
-    ReportingCompanyRequiredPage.toString -> ReportingCompanyRequiredPage,
-    GroupInterestAllowancePage.toString -> GroupInterestAllowancePage,
-    GroupInterestCapacityPage.toString -> GroupInterestCapacityPage,
-    GroupSubjectToReactivationsPage.toString -> GroupSubjectToReactivationsPage,
-    GroupSubjectToRestrictionsPage.toString -> GroupSubjectToRestrictionsPage,
-    InfrastructureCompanyElectionPage.toString -> InfrastructureCompanyElectionPage,
-    InterestAllowanceBroughtForwardPage.toString -> InterestAllowanceBroughtForwardPage,
-    InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
-    RevisingReturnPage.toString -> RevisingReturnPage,
-    ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
-    IndexPage.toString -> IndexPage,
-    DeemedParentPage.toString -> DeemedParentPage
+    ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
   )
 
   val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList

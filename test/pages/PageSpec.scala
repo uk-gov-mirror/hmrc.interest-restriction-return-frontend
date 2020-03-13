@@ -19,7 +19,7 @@ package pages
 import base.SpecBase
 import pages.aboutReportingCompany._
 import pages.aboutReturn._
-import pages.checkTotals.ReviewTaxEBITDAPage
+import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.elections._
 import pages.groupStructure._
 import pages.reviewAndComplete.ReviewAndCompletePage
@@ -34,6 +34,25 @@ class PageSpec extends SpecBase {
     "Have a mapping between all possible pages (as String) to pages" in {
 
       val expected = Map(
+        AgentActingOnBehalfOfCompanyPage.toString -> AgentActingOnBehalfOfCompanyPage,
+        AgentNamePage.toString -> AgentNamePage,
+        FullOrAbbreviatedReturnPage.toString -> FullOrAbbreviatedReturnPage,
+        ReportingCompanyAppointedPage.toString -> ReportingCompanyAppointedPage,
+        ReportingCompanyRequiredPage.toString -> ReportingCompanyRequiredPage,
+        AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
+        AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
+        ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
+        ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
+        RevisingReturnPage.toString -> RevisingReturnPage,
+        IndexPage.toString -> IndexPage,
+        GroupInterestAllowancePage.toString -> GroupInterestAllowancePage,
+        GroupInterestCapacityPage.toString -> GroupInterestCapacityPage,
+        GroupSubjectToReactivationsPage.toString -> GroupSubjectToReactivationsPage,
+        GroupSubjectToRestrictionsPage.toString -> GroupSubjectToRestrictionsPage,
+        InfrastructureCompanyElectionPage.toString -> InfrastructureCompanyElectionPage,
+        InterestAllowanceBroughtForwardPage.toString -> InterestAllowanceBroughtForwardPage,
+        InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
+        ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
         UkCompaniesPage.toString -> UkCompaniesPage,
         CheckAnswersUkCompanyPage.toString -> CheckAnswersUkCompanyPage,
         CompanyDetailsPage.toString -> CompanyDetailsPage,
@@ -68,12 +87,9 @@ class PageSpec extends SpecBase {
         OtherInvestorGroupElectionsPage.toString -> OtherInvestorGroupElectionsPage,
         PartnershipSAUTRPage.toString -> PartnershipSAUTRPage,
         PartnershipNamePage.toString -> PartnershipNamePage,
-        AccountingPeriodStartPage.toString -> AccountingPeriodStartPage,
-        AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
-        ReviewAndCompletePage.toString -> ReviewAndCompletePage,
-        ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
-        DeletionConfirmationPage.toString -> DeletionConfirmationPage,
         GroupRatioElectionPage.toString -> GroupRatioElectionPage,
+        CheckAnswersGroupStructurePage.toString -> CheckAnswersGroupStructurePage,
+        DeletionConfirmationPage.toString -> DeletionConfirmationPage,
         CountryOfIncorporationPage.toString -> CountryOfIncorporationPage,
         ParentCompanySAUTRPage.toString -> ParentCompanySAUTRPage,
         PayTaxInUkPage.toString -> PayTaxInUkPage,
@@ -81,27 +97,14 @@ class PageSpec extends SpecBase {
         ParentCompanyCTUTRPage.toString -> ParentCompanyCTUTRPage,
         ParentCompanyNamePage.toString -> ParentCompanyNamePage,
         HasDeemedParentPage.toString -> HasDeemedParentPage,
-        ConfirmationPage.toString -> ConfirmationPage,
-        ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
         ReportingCompanySameAsParentPage.toString -> ReportingCompanySameAsParentPage,
-        ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
-        ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
-        AgentActingOnBehalfOfCompanyPage.toString -> AgentActingOnBehalfOfCompanyPage,
-        AgentNamePage.toString -> AgentNamePage,
-        FullOrAbbreviatedReturnPage.toString -> FullOrAbbreviatedReturnPage,
-        ReportingCompanyAppointedPage.toString -> ReportingCompanyAppointedPage,
-        ReportingCompanyRequiredPage.toString -> ReportingCompanyRequiredPage,
-        GroupInterestAllowancePage.toString -> GroupInterestAllowancePage,
-        GroupInterestCapacityPage.toString -> GroupInterestCapacityPage,
-        GroupSubjectToReactivationsPage.toString -> GroupSubjectToReactivationsPage,
-        GroupSubjectToRestrictionsPage.toString -> GroupSubjectToRestrictionsPage,
-        InfrastructureCompanyElectionPage.toString -> InfrastructureCompanyElectionPage,
-        InterestAllowanceBroughtForwardPage.toString -> InterestAllowanceBroughtForwardPage,
-        InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
-        RevisingReturnPage.toString -> RevisingReturnPage,
-        ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,
-        IndexPage.toString -> IndexPage,
-        DeemedParentPage.toString -> DeemedParentPage
+        DeemedParentPage.toString -> DeemedParentPage,
+        DerivedCompanyPage.toString -> DerivedCompanyPage,
+        ReviewTaxEBITDAPage.toString -> ReviewTaxEBITDAPage,
+        ReviewNetTaxInterestPage.toString -> ReviewNetTaxInterestPage,
+        ReviewAndCompletePage.toString -> ReviewAndCompletePage,
+        ConfirmationPage.toString -> ConfirmationPage,
+        ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
       )
 
       Page.pages mustBe expected
