@@ -17,27 +17,47 @@
 package assets.constants
 
 import models.SectionStatus
-import models.returnModels.ReviewAndCompleteModel
+import models.SectionStatus.{Completed, InProgress, NotStarted}
+import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.elections.GroupRatioBlendedElectionPage
+import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.libs.json.{JsObject, Json}
 
 object ReviewAndCompleteConstants {
 
   val reviewAndCompleteModel: ReviewAndCompleteModel = ReviewAndCompleteModel(
-    startReturn = SectionStatus.NotStarted,
-    elections = SectionStatus.InProgress,
-    aboutReturn = SectionStatus.Completed,
-    groupStructure = SectionStatus.NotStarted,
-    ukCompanies = SectionStatus.InProgress,
-    checkTotals = SectionStatus.Completed
+    startReturn = SectionState(NotStarted, None),
+    elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
+    aboutReturn = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
+    groupStructure = SectionState(NotStarted, None),
+    ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
+    checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
   )
 
   val reviewAndCompleteJson: JsObject = Json.obj(
-    "startReturn" -> SectionStatus.NotStarted.toString,
-    "elections" -> SectionStatus.InProgress.toString,
-    "aboutReturn" -> SectionStatus.Completed.toString,
-    "groupStructure" -> SectionStatus.NotStarted.toString,
-    "ukCompanies" -> SectionStatus.InProgress.toString,
-    "checkTotals" -> SectionStatus.Completed.toString
+    "startReturn" -> Json.obj(
+      "status" -> SectionStatus.NotStarted.toString
+    ),
+    "elections" -> Json.obj(
+      "status" -> SectionStatus.InProgress.toString,
+      "lastPageSaved" -> GroupRatioBlendedElectionPage.toString
+    ),
+    "aboutReturn" -> Json.obj(
+      "status" -> SectionStatus.Completed.toString,
+      "lastPageSaved" -> InfrastructureCompanyElectionPage.toString
+    ),
+    "groupStructure" -> Json.obj(
+      "status" -> SectionStatus.NotStarted.toString
+    ),
+    "ukCompanies" -> Json.obj(
+      "status" -> SectionStatus.InProgress.toString,
+      "lastPageSaved" -> UkCompaniesPage.toString
+    ),
+    "checkTotals" -> Json.obj(
+      "status" -> SectionStatus.Completed.toString,
+      "lastPageSaved" -> DerivedCompanyPage.toString
+    )
   )
 
 }

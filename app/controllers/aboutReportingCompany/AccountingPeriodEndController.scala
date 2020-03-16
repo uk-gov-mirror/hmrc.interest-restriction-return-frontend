@@ -29,7 +29,7 @@ import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.aboutReportingCompany.AccountingPeriodEndView
 
 import scala.concurrent.Future
@@ -38,7 +38,7 @@ class AccountingPeriodEndController @Inject()(override val messagesApi: Messages
                                               override val sessionRepository: SessionRepository,
                                               override val navigator: AboutReportingCompanyNavigator,
                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                              override val updateSectionService: UpdateSectionService,
+                                              override val updateSectionService: UpdateSectionStateService,
                                               identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,

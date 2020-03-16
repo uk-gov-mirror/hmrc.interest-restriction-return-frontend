@@ -43,6 +43,7 @@ class PageSpec extends SpecBase {
         AccountingPeriodEndPage.toString -> AccountingPeriodEndPage,
         ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
         ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
+        CheckAnswersReportingCompanyPage.toString -> CheckAnswersReportingCompanyPage,
         RevisingReturnPage.toString -> RevisingReturnPage,
         IndexPage.toString -> IndexPage,
         GroupInterestAllowancePage.toString -> GroupInterestAllowancePage,
@@ -107,7 +108,8 @@ class PageSpec extends SpecBase {
         ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
       )
 
-      Page.pages mustBe expected
+      expected.foreach { kv => Page.pages.find(_ == kv) mustBe Some(kv) }
+      Page.pages.foreach { kv => expected.find(_ == kv) mustBe Some(kv) }
     }
 
     "be able to construct a Page from its name" in {

@@ -28,7 +28,7 @@ import pages.elections.ElectedInterestAllowanceConsolidatedPshipBeforePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.ElectedInterestAllowanceConsolidatedPshipBeforeView
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeController @Inject()(overri
                                                                           override val sessionRepository: SessionRepository,
                                                                           override val navigator: ElectionsNavigator,
                                                                           override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                                          override val updateSectionService: UpdateSectionService,
+                                                                          override val updateSectionService: UpdateSectionStateService,
                                                                           identify: IdentifierAction,
                                                                           getData: DataRetrievalAction,
                                                                           requireData: DataRequiredAction,

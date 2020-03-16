@@ -28,7 +28,7 @@ import pages.startReturn.AgentActingOnBehalfOfCompanyPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.startReturn.AgentActingOnBehalfOfCompanyView
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class AgentActingOnBehalfOfCompanyController @Inject()(override val messagesApi:
                                                        override val sessionRepository: SessionRepository,
                                                        override val navigator: StartReturnNavigator,
                                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                       override val updateSectionService: UpdateSectionService,
+                                                       override val updateSectionService: UpdateSectionStateService,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,

@@ -29,23 +29,23 @@ import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.InvestorRatioMethodView
 
 import scala.concurrent.Future
 
 class InvestorRatioMethodController @Inject()(
-                                  override val messagesApi: MessagesApi,
-                                  override val sessionRepository: SessionRepository,
-                                  override val navigator: ElectionsNavigator,
-                                  override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                  override val updateSectionService: UpdateSectionService,
-                                  identify: IdentifierAction,
-                                  getData: DataRetrievalAction,
-                                  requireData: DataRequiredAction,
-                                  formProvider: InvestorRatioMethodFormProvider,
-                                  val controllerComponents: MessagesControllerComponents,
-                                  view: InvestorRatioMethodView
+                                               override val messagesApi: MessagesApi,
+                                               override val sessionRepository: SessionRepository,
+                                               override val navigator: ElectionsNavigator,
+                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                               override val updateSectionService: UpdateSectionStateService,
+                                               identify: IdentifierAction,
+                                               getData: DataRetrievalAction,
+                                               requireData: DataRequiredAction,
+                                               formProvider: InvestorRatioMethodFormProvider,
+                                               val controllerComponents: MessagesControllerComponents,
+                                               view: InvestorRatioMethodView
                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   private val form = formProvider()

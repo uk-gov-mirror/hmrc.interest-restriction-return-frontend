@@ -19,7 +19,7 @@ package controllers.ukCompanies
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.{NormalMode, SectionStatus}
-import models.returnModels.ReviewAndCompleteModel
+import models.returnModels.{ReviewAndCompleteModel, SectionState}
 import pages.groupStructure.HasDeemedParentPage
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.UkCompaniesPage
@@ -131,7 +131,7 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
             val userAnswers = emptyUserAnswers
               .set(HasDeemedParentPage, false).success.value
               .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
-              .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionStatus.InProgress)).success.value
+              .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress, Some(HasDeemedParentPage)))).success.value
 
 
             setAnswers(userAnswers)

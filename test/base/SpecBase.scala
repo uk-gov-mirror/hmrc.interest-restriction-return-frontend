@@ -36,7 +36,7 @@ import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
 import play.api.test.CSRFTokenHelper._
 import play.api.test.FakeRequest
 import repositories.DefaultSessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
 
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
@@ -84,7 +84,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
 
   lazy val questionDeletionLookupService = injector.instanceOf[QuestionDeletionLookupService]
 
-  lazy val updateSectionService = injector.instanceOf[UpdateSectionService]
+  lazy val updateSectionService = injector.instanceOf[UpdateSectionStateService]
 
   implicit val hc = HeaderCarrier()
 

@@ -18,33 +18,31 @@ package models.returnModels
 
 import models.SectionStatus.NotStarted
 import models.{Section, SectionStatus}
-import play.api.libs.json.Json
-import viewmodels.TaskListRow
+import pages.Page
+import play.api.libs.json.{Format, Json}
 
-case class ReviewAndCompleteModel(startReturn: SectionStatus = NotStarted,
-                                  elections: SectionStatus = NotStarted,
-                                  aboutReturn: SectionStatus = NotStarted,
-                                  groupStructure: SectionStatus = NotStarted,
-                                  ukCompanies: SectionStatus = NotStarted,
-                                  checkTotals: SectionStatus = NotStarted) {
 
-  def update(section: Section, sectionStatus: SectionStatus): ReviewAndCompleteModel = section match {
-    case Section.StartReturn => this.copy(startReturn = sectionStatus)
-    case Section.Elections => this.copy(elections = sectionStatus)
-    case Section.AboutReturn => this.copy(aboutReturn = sectionStatus)
-    case Section.GroupStructure => this.copy(groupStructure = sectionStatus)
-    case Section.UkCompanies => this.copy(ukCompanies = sectionStatus)
-    case Section.CheckTotals => this.copy(checkTotals = sectionStatus)
+case class SectionState(status: SectionStatus = NotStarted, lastPageSaved: Option[Page] = None)
+
+object SectionState {
+  implicit val fmt: Format[SectionState] = Json.format[SectionState]
+}
+
+case class ReviewAndCompleteModel(startReturn: SectionState = SectionState(),
+                                  elections: SectionState = SectionState(),
+                                  aboutReturn: SectionState = SectionState(),
+                                  groupStructure: SectionState = SectionState(),
+                                  ukCompanies: SectionState = SectionState(),
+                                  checkTotals: SectionState = SectionState()) {
+
+  def update(section: Section, sectionStatus: SectionStatus, page: Page): ReviewAndCompleteModel = section match {
+    case Section.StartReturn => this.copy(startReturn = SectionState(sectionStatus, Some(page)))
+    case Section.Elections => this.copy(elections = SectionState(sectionStatus, Some(page)))
+    case Section.AboutReturn => this.copy(aboutReturn = SectionState(sectionStatus, Some(page)))
+    case Section.GroupStructure => this.copy(groupStructure = SectionState(sectionStatus, Some(page)))
+    case Section.UkCompanies => this.copy(ukCompanies = SectionState(sectionStatus, Some(page)))
+    case Section.CheckTotals => this.copy(checkTotals = SectionState(sectionStatus, Some(page)))
   }
-
-  val rows: Map[Section, SectionStatus] = Map(
-    Section.StartReturn -> startReturn,
-    Section.Elections -> elections,
-    Section.AboutReturn -> aboutReturn,
-    Section.GroupStructure -> groupStructure,
-    Section.UkCompanies -> ukCompanies,
-    Section.CheckTotals -> checkTotals
-  )
 }
 
 object ReviewAndCompleteModel {

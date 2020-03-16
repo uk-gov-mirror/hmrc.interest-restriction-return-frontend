@@ -28,7 +28,7 @@ import pages.aboutReturn.InfrastructureCompanyElectionPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.aboutReturn.InfrastructureCompanyElectionView
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class InfrastructureCompanyElectionController @Inject()(override val messagesApi
                                                         override val sessionRepository: SessionRepository,
                                                         override val navigator: AboutReturnNavigator,
                                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                        override val updateSectionService: UpdateSectionService,
+                                                        override val updateSectionService: UpdateSectionStateService,
                                                         identify: IdentifierAction,
                                                         getData: DataRetrievalAction,
                                                         requireData: DataRequiredAction,

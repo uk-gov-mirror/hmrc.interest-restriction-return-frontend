@@ -28,7 +28,7 @@ import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
 
@@ -36,7 +36,7 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
                                          override val sessionRepository: SessionRepository,
                                          override val navigator: CheckTotalsNavigator,
                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                         override val updateSectionService: UpdateSectionService,
+                                         override val updateSectionService: UpdateSectionStateService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,

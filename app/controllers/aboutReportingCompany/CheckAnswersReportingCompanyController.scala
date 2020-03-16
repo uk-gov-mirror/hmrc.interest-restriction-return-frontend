@@ -27,7 +27,7 @@ import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersAboutReportingCompanyHelper
 import views.html.CheckYourAnswersView
 
@@ -37,7 +37,7 @@ class CheckAnswersReportingCompanyController @Inject()(override val messagesApi:
                                                        override val sessionRepository: SessionRepository,
                                                        override val navigator: AboutReportingCompanyNavigator,
                                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                       override val updateSectionService: UpdateSectionService,
+                                                       override val updateSectionService: UpdateSectionStateService,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,

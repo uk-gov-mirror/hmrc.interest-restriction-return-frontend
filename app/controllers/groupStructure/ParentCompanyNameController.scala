@@ -33,7 +33,7 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Reads
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.groupStructure.ParentCompanyNameView
 
 import scala.concurrent.Future
@@ -42,7 +42,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
                                             override val sessionRepository: SessionRepository,
                                             override val navigator: GroupStructureNavigator,
                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                            override val updateSectionService: UpdateSectionService,
+                                            override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,

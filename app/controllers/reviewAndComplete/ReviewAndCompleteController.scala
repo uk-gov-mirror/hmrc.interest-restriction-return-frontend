@@ -28,7 +28,7 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
@@ -38,7 +38,7 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
                                             override val navigator: ReviewAndCompleteNavigator,
                                             override val sessionRepository: SessionRepository,
                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                            override val updateSectionService: UpdateSectionService,
+                                            override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
@@ -52,11 +52,14 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
 
     val reviewAndCompleteHelper = new ReviewAndCompleteHelper()
     answerFor(ReviewAndCompletePage) { reviewAndCompleteModel =>
-      Future.successful(Ok(view(reviewAndCompleteHelper.rows(reviewAndCompleteModel), routes.ReviewAndCompleteController.onSubmit())))
+      Future.successful(Ok(view(
+        taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel, request.userAnswers),
+        postAction = routes.ReviewAndCompleteController.onSubmit()
+      )))
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
   }
 }

@@ -29,7 +29,7 @@ import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersUkCompanyHelper
 import views.ViewUtils._
@@ -41,7 +41,7 @@ class CheckAnswersUkCompanyController @Inject()(override val messagesApi: Messag
                                                 override val sessionRepository: SessionRepository,
                                                 override val navigator: UkCompaniesNavigator,
                                                 override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                override val updateSectionService: UpdateSectionService,
+                                                override val updateSectionService: UpdateSectionStateService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,

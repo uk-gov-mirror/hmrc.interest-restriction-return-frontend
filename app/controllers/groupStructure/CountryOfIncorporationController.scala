@@ -29,7 +29,7 @@ import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.groupStructure.CountryOfIncorporationView
 
 import scala.concurrent.Future
@@ -38,7 +38,7 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
                                                  override val sessionRepository: SessionRepository,
                                                  override val navigator: GroupStructureNavigator,
                                                  override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                 override val updateSectionService: UpdateSectionService,
+                                                 override val updateSectionService: UpdateSectionStateService,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,

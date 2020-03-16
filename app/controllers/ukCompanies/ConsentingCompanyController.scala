@@ -32,14 +32,14 @@ import handlers.ErrorHandler
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
 
 class ConsentingCompanyController @Inject()(override val messagesApi: MessagesApi,
                                             override val sessionRepository: SessionRepository,
                                             override val navigator: UkCompaniesNavigator,
                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                            override val updateSectionService: UpdateSectionService,
+                                            override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,

@@ -31,7 +31,7 @@ import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.GroupStructureNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
@@ -39,7 +39,7 @@ class DeletionConfirmationController @Inject()(override val messagesApi: Message
                                                override val sessionRepository: SessionRepository,
                                                override val navigator: GroupStructureNavigator,
                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                               override val updateSectionService: UpdateSectionService,
+                                               override val updateSectionService: UpdateSectionStateService,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,

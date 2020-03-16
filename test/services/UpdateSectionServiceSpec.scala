@@ -21,14 +21,14 @@ import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
 import models.SectionStatus.InProgress
-import models.returnModels.ReviewAndCompleteModel
+import models.returnModels.{ReviewAndCompleteModel, SectionState}
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.{ConsentingCompanyPage, UkCompaniesPage}
 
 
 class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector with BaseConstants {
 
-  object TestUpdateSectionService extends UpdateSectionService
+  object TestUpdateSectionStateService extends UpdateSectionStateService
 
   "UpdateSectionService.updateState()" when {
 
@@ -40,8 +40,8 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
           .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
           .set(ConsentingCompanyPage, true).get
 
-        val result = TestUpdateSectionService.updateState(userAnswers, ConsentingCompanyPage)
-        result mustBe ReviewAndCompleteModel(ukCompanies = InProgress)
+        val result = TestUpdateSectionStateService.updateState(userAnswers, ConsentingCompanyPage)
+        result mustBe ReviewAndCompleteModel(ukCompanies = SectionState(InProgress, Some(ConsentingCompanyPage)))
       }
     }
 
@@ -53,8 +53,8 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
           .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
           .set(UkCompaniesPage, ukCompanyModelMax).get
 
-        val result = TestUpdateSectionService.updateState(userAnswers, ConsentingCompanyPage)
-        result mustBe ReviewAndCompleteModel(ukCompanies = InProgress)
+        val result = TestUpdateSectionStateService.updateState(userAnswers, ConsentingCompanyPage)
+        result mustBe ReviewAndCompleteModel(ukCompanies = SectionState(InProgress, Some(ConsentingCompanyPage)))
       }
     }
   }

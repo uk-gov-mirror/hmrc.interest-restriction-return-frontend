@@ -28,7 +28,7 @@ import pages.elections.ElectedGroupEBITDABeforePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.ElectedGroupEBITDABeforeView
 
 import scala.concurrent.Future
@@ -37,7 +37,7 @@ class ElectedGroupEBITDABeforeController @Inject()(override val messagesApi: Mes
                                                    override val sessionRepository: SessionRepository,
                                                    override val navigator: ElectionsNavigator,
                                                    override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                   override val updateSectionService: UpdateSectionService,
+                                                   override val updateSectionService: UpdateSectionStateService,
                                                    identify: IdentifierAction,
                                                    getData: DataRetrievalAction,
                                                    requireData: DataRequiredAction,

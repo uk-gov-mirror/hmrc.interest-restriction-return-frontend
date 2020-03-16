@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.InvestorGroupsReviewAnswersListHelper
 import views.html.elections.InvestorGroupsReviewAnswersListView
 
@@ -40,7 +40,7 @@ class InvestorGroupsReviewAnswersListController @Inject()(override val messagesA
                                                           override val sessionRepository: SessionRepository,
                                                           override val navigator: ElectionsNavigator,
                                                           override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                          override val updateSectionService: UpdateSectionService,
+                                                          override val updateSectionService: UpdateSectionStateService,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,

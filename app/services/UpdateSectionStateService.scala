@@ -28,35 +28,28 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.{CheckAnswersUkCompanyPage, DerivedCompanyPage, UkCompaniesPage}
 
 @Singleton
-class UpdateSectionService @Inject()() {
+class UpdateSectionStateService @Inject()() {
 
-  def completionPages(userAnswers: UserAnswers): List[Page] = {
-
-    val pages = List(
-      CheckAnswersElectionsPage,
-      CheckAnswersUkCompanyPage,
-      CheckAnswersReportingCompanyPage,
-      UkCompaniesPage,
-      DerivedCompanyPage
-    )
-
-    val groupStructureFinal = (userAnswers.get(HasDeemedParentPage), userAnswers.get(ReportingCompanySameAsParentPage)) match {
-      case (Some(true), _) => DeemedParentPage
-      case (_, Some(true)) => ReportingCompanySameAsParentPage
-      case _ => CheckAnswersGroupStructurePage
-    }
-
-    pages :+ groupStructureFinal
-  }
-
-  def updateState(userAnswers: UserAnswers, page: Page): ReviewAndCompleteModel = {
+  def updateState(userAnswers: UserAnswers, page: Page): ReviewAndCompleteModel =
     userAnswers.get(ReviewAndCompletePage).fold(ReviewAndCompleteModel()) { model =>
       Page.sections.find {
         section => section._2.contains(page)
       }.fold(model) { section =>
         val status = if (completionPages(userAnswers).contains(page)) Completed else InProgress
-        model.update(section._1, status)
+        model.update(section._1, status, page)
       }
     }
-  }
+
+  private def completionPages(userAnswers: UserAnswers): List[Page] =
+    List(
+      CheckAnswersElectionsPage,
+      CheckAnswersUkCompanyPage,
+      CheckAnswersReportingCompanyPage,
+      UkCompaniesPage,
+      DerivedCompanyPage
+    ) :+ ((userAnswers.get(HasDeemedParentPage), userAnswers.get(ReportingCompanySameAsParentPage)) match {
+      case (Some(true), _) => DeemedParentPage
+      case (_, Some(true)) => ReportingCompanySameAsParentPage
+      case _ => CheckAnswersGroupStructurePage
+    })
 }

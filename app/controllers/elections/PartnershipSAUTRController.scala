@@ -29,7 +29,7 @@ import pages.elections.{PartnershipNamePage, PartnershipSAUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionService}
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.PartnershipSAUTRView
 
 import scala.concurrent.Future
@@ -38,7 +38,7 @@ class PartnershipSAUTRController @Inject()(override val messagesApi: MessagesApi
                                            override val sessionRepository: SessionRepository,
                                            override val navigator: ElectionsNavigator,
                                            override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                           override val updateSectionService: UpdateSectionService,
+                                           override val updateSectionService: UpdateSectionStateService,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
