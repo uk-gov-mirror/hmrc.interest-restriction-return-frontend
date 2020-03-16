@@ -35,7 +35,7 @@ class FullOrAbbreviatedReturnControllerSpec extends SpecBase with FeatureSwitchi
 
   object Controller extends FullOrAbbreviatedReturnController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeStartReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -75,6 +75,7 @@ class FullOrAbbreviatedReturnControllerSpec extends SpecBase with FeatureSwitchi
       val request = fakeRequest.withFormUrlEncodedBody(("value", FullOrAbbreviatedReturn.values.head.toString))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

@@ -38,7 +38,7 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
 
   object Controller extends EnterCompanyTaxEBITDAController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -81,6 +81,7 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

@@ -105,7 +105,10 @@ class PageSpec extends SpecBase {
         ReviewNetTaxInterestPage.toString -> ReviewNetTaxInterestPage,
         ReviewAndCompletePage.toString -> ReviewAndCompletePage,
         ConfirmationPage.toString -> ConfirmationPage,
-        ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
+        ContinueSavedReturnPage.toString -> ContinueSavedReturnPage,
+        PartnershipsPage.toString -> PartnershipsPage,
+        PartnershipDeletionConfirmationPage.toString -> PartnershipDeletionConfirmationPage,
+        PartnershipsReviewAnswersListPage.toString -> PartnershipsReviewAnswersListPage
       )
 
       expected.foreach { kv => Page.pages.find(_ == kv) mustBe Some(kv) }

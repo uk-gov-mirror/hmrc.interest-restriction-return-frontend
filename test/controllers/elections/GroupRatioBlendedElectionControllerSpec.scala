@@ -35,7 +35,7 @@ class GroupRatioBlendedElectionControllerSpec extends SpecBase with FeatureSwitc
 
   object Controller extends GroupRatioBlendedElectionController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -75,6 +75,7 @@ class GroupRatioBlendedElectionControllerSpec extends SpecBase with FeatureSwitc
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

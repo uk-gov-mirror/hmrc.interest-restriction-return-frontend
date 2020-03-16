@@ -42,7 +42,8 @@
         @inputRadio(
             form = form,
             legend = messages("fullOrAbbreviatedReturn.heading"),
-            items = FullOrAbbreviatedReturn.options(form)
+            items = FullOrAbbreviatedReturn.options(form),
+            inline = true
         )
 
         @button("site.saveAndContinue")

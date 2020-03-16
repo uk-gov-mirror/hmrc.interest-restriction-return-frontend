@@ -100,7 +100,10 @@ object Page {
     OtherInvestorGroupElectionsPage,
     PartnershipSAUTRPage,
     PartnershipNamePage,
-    GroupRatioElectionPage
+    GroupRatioElectionPage,
+    PartnershipsPage,
+    PartnershipDeletionConfirmationPage,
+    PartnershipsReviewAnswersListPage
   )
 
   val groupStructureSectionPages: Seq[Page] = List(

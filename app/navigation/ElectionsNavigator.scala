@@ -20,7 +20,8 @@ import controllers.elections.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.elections._
+import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.elections.{PartnershipNamePage, _}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.mvc.Call
 
@@ -28,7 +29,7 @@ import play.api.mvc.Call
 class ElectionsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
-  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+  val normalRoutes: Map[Page, (UserAnswers => Call)] = Map(
     GroupRatioElectionPage -> (_ => routes.EnterANGIEController.onPageLoad(NormalMode)),
     EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
       case Some(true) => routes.EnterQNGIEController.onPageLoad(NormalMode)
@@ -61,15 +62,17 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case _ => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
     }),
     ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_.get(ElectedInterestAllowanceConsolidatedPshipBeforePage) match {
-      case Some(true) => routes.PartnershipNameController.onPageLoad(NormalMode)
+      case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case Some(false) => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
       case _ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
     }),
     InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
-      case Some(true) => routes.PartnershipNameController.onPageLoad(NormalMode)
+      case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case Some(false) => checkYourAnswers
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
+    PartnershipsReviewAnswersListPage -> (_ => checkYourAnswers),
+    PartnershipDeletionConfirmationPage -> (_ => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
       case Some(true) => routes.InvestorGroupsReviewAnswersListController.onPageLoad()
       case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
@@ -77,13 +80,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
     }),
     OtherInvestorGroupElectionsPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad()),
     InvestorGroupsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
-    PartnershipNamePage -> (_ => routes.IsUkPartnershipController.onPageLoad(NormalMode)),
-    IsUkPartnershipPage -> (_.get(IsUkPartnershipPage) match {
-      case Some(true) => routes.PartnershipSAUTRController.onPageLoad(NormalMode)
-      case Some(false) => checkYourAnswers
-      case _ => routes.IsUkPartnershipController.onPageLoad(NormalMode)
-    }),
-    PartnershipSAUTRPage -> (_ => checkYourAnswers),
     CheckAnswersElectionsPage -> (_ => nextSection(NormalMode)),
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     InvestmentsReviewAnswersListPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
@@ -93,7 +89,14 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
   val idxRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     InvestorGroupNamePage -> ((idx, _) => routes.InvestorRatioMethodController.onPageLoad(idx, NormalMode)),
-    InvestorRatioMethodPage -> ((idx, _) => routes.OtherInvestorGroupElectionsController.onPageLoad(idx, NormalMode))
+    InvestorRatioMethodPage -> ((idx, _) => routes.OtherInvestorGroupElectionsController.onPageLoad(idx, NormalMode)),
+    PartnershipNamePage -> ((idx, _) => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)),
+    IsUkPartnershipPage -> ((idx, userAnswers) => userAnswers.get(PartnershipsPage, Some(idx)) match {
+      case Some(partnership) if partnership.isUkPartnership.get => routes.PartnershipSAUTRController.onPageLoad(idx, NormalMode)
+      case Some(_) => routes.PartnershipsReviewAnswersListController.onPageLoad()
+      case _ => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)
+    }),
+    PartnershipSAUTRPage -> ((_,_) => routes.PartnershipsReviewAnswersListController.onPageLoad())
   )
 
 
@@ -104,10 +107,15 @@ class ElectionsNavigator @Inject()() extends Navigator {
   )
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
+
   def addInvestment(idx: Int): Call = routes.InvestmentNameController.onPageLoad(idx + 1, NormalMode)
+
   def addInvestorGroup(idx: Int): Call = routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode)
 
-  def nextSection(mode: Mode): Call = controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
+  def addPartnership(idx: Int): Call = routes.PartnershipNameController.onPageLoad(idx + 1, NormalMode)
+
+
+  def nextSection(mode: Mode): Call = controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))

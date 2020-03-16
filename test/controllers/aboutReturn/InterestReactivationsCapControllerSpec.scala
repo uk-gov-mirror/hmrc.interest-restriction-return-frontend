@@ -36,7 +36,7 @@ class InterestReactivationsCapControllerSpec extends SpecBase with FeatureSwitch
 
   object Controller extends InterestReactivationsCapController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -76,6 +76,7 @@ class InterestReactivationsCapControllerSpec extends SpecBase with FeatureSwitch
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

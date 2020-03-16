@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.elections.{routes => electionRoutes}
+import controllers.ukCompanies.{routes => ukCompaniesRoutes}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.{CheckMode, NormalMode, UserAnswers}
 import pages.Page
@@ -44,12 +44,13 @@ class AboutReturnNavigatorSpec extends SpecBase {
             aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
         }
 
-        "go to the abbreviated return section when Abbreviated Return is being submitted" ignore {
+        //TODO: Update in future story once abbreviated return journey is implemented
+        "go to the abbreviated return section when Abbreviated Return is being submitted" in {
 
           val fullOrAbbreviatedAnswer = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).get
 
           navigator.nextPage(InfrastructureCompanyElectionPage, NormalMode, fullOrAbbreviatedAnswer) mustBe
-            ??? //TODO Link to abbreviated return section when implemented
+            controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
 
@@ -132,7 +133,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
         "go to the next section page" in {
 
           navigator.nextPage(GroupInterestCapacityPage, NormalMode, emptyUserAnswers) mustBe
-            electionRoutes.GroupRatioElectionController.onPageLoad(NormalMode)
+            ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
         }
       }
 

@@ -35,7 +35,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerSpec extends SpecBase 
 
   object Controller extends InterestAllowanceConsolidatedPshipElectionController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -75,6 +75,7 @@ class InterestAllowanceConsolidatedPshipElectionControllerSpec extends SpecBase 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

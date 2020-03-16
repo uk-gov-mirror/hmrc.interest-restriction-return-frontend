@@ -39,7 +39,7 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
 
   object Controller extends AccountingPeriodStartController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -84,6 +84,7 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
       )
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

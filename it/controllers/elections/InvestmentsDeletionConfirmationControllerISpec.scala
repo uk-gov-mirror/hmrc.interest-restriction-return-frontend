@@ -76,7 +76,7 @@ class InvestmentsDeletionConfirmationControllerISpec extends IntegrationSpecBase
 
         "enters a valid answer of 'Yes'" when {
 
-          "delete the selected deemed parent and redirect to the list view" in {
+          "delete the selected investment and redirect to the list view" in {
 
             AuthStub.authorised()
 

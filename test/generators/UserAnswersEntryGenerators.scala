@@ -30,6 +30,30 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryPartnershipDeletionConfirmationUserAnswersEntry: Arbitrary[(PartnershipDeletionConfirmationPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[PartnershipDeletionConfirmationPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryPartnershipsReviewAnswersListUserAnswersEntry: Arbitrary[(PartnershipsReviewAnswersListPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[PartnershipsReviewAnswersListPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryAddAnReactivationQueryUserAnswersEntry: Arbitrary[(AddAnReactivationQueryPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[AddAnReactivationQueryPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryReactivationAmountUserAnswersEntry: Arbitrary[(ReactivationAmountPage.type, JsValue)] =
     Arbitrary {
       for {

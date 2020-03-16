@@ -18,10 +18,11 @@ package models.returnModels
 
 import play.api.libs.json.Json
 
-case class PartnershipModel(partnershipName: String,
-                            sautr:Option[UTRModel])
+case class PartnershipModel(name: String,
+                            isUkPartnership: Option[Boolean] = None,
+                            sautr: Option[UTRModel] = None)
 
 object PartnershipModel {
 
-  implicit val writes = Json.writes[PartnershipModel]
+  implicit val format = Json.format[PartnershipModel]
 }

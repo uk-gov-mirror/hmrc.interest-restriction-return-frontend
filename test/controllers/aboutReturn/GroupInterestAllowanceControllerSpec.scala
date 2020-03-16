@@ -36,7 +36,7 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
 
   object Controller extends GroupInterestAllowanceController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -80,6 +80,7 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

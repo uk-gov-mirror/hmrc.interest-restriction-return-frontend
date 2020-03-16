@@ -17,23 +17,22 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.ConsentingCompanyFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{ConsentingCompanyPage, UkCompaniesPage}
-import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.ukCompanies.ConsentingCompanyView
-import play.api.data.Form
-import handlers.ErrorHandler
 
 import scala.concurrent.Future
-import navigation.UkCompaniesNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
-import controllers.BaseNavigationController
 
 class ConsentingCompanyController @Inject()(override val messagesApi: MessagesApi,
                                             override val sessionRepository: SessionRepository,
@@ -53,7 +52,6 @@ class ConsentingCompanyController @Inject()(override val messagesApi: MessagesAp
       Future.successful(
         Ok(view(
           form = ukCompany.consenting.fold(formProvider())(formProvider().fill),
-          mode = mode,
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.ConsentingCompanyController.onSubmit(idx, mode)
         ))
@@ -68,7 +66,6 @@ class ConsentingCompanyController @Inject()(override val messagesApi: MessagesAp
           Future.successful(
             BadRequest(view(
               form = formWithErrors,
-              mode = mode,
               companyName = ukCompany.companyDetails.companyName,
               postAction = routes.ConsentingCompanyController.onSubmit(idx, mode)
             ))

@@ -32,7 +32,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
   object Controller extends CheckAnswersGroupStructureController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -67,6 +67,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
           lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
           mockGetAnswers(Some(userAnswers))
+          mockSetAnswers(true)
 
           val result = Controller.onSubmit(1)(fakeRequest)
 
@@ -86,6 +87,7 @@ class CheckAnswersGroupStructureControllerSpec extends SpecBase with FeatureSwit
 
           val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
           mockGetAnswers(Some(userAnswers))
+          mockSetAnswers(true)
 
           val result = Controller.onSubmit(1)(fakeRequest)
 

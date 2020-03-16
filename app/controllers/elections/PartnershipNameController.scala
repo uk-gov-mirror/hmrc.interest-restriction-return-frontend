@@ -24,14 +24,21 @@ import forms.elections.PartnershipNameFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.ElectionsNavigator
-import pages.elections.PartnershipNamePage
+import pages.elections.{InvestorGroupsPage, PartnershipNamePage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.PartnershipNameView
+import config.FrontendAppConfig
+import play.api.data.Form
+import config.featureSwitch.FeatureSwitching
 
 import scala.concurrent.Future
+import navigation.ElectionsNavigator
+import services.QuestionDeletionLookupService
+import controllers.BaseNavigationController
+import models.returnModels.PartnershipModel
 
 class PartnershipNameController @Inject()(override val messagesApi: MessagesApi,
                                           override val sessionRepository: SessionRepository,
@@ -46,16 +53,24 @@ class PartnershipNameController @Inject()(override val messagesApi: MessagesApi,
                                           view: PartnershipNameView
                                          )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(PartnershipNamePage, formProvider()), mode))
+  private val form = formProvider()
+
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    val partnershipName = getAnswer(PartnershipsPage, idx).map(_.name)
+    Ok(view(partnershipName.fold(form)(form.fill), routes.PartnershipNameController.onSubmit(idx, mode)))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(PartnershipNamePage, value, mode)
+        Future.successful(BadRequest(view(formWithErrors, routes.PartnershipNameController.onSubmit(idx, mode)))),
+      value => {
+        val partnership = getAnswer(PartnershipsPage, idx).fold(PartnershipModel(value))(_.copy(name = value))
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(PartnershipsPage, partnership, Some(idx)))
+          _ <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(PartnershipNamePage, mode, updatedAnswers, Some(idx)))
+      }
     )
   }
 }

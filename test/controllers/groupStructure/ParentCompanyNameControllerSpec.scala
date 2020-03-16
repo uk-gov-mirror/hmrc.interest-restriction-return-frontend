@@ -36,7 +36,7 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
 
   object Controller extends ParentCompanyNameController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -76,6 +76,7 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

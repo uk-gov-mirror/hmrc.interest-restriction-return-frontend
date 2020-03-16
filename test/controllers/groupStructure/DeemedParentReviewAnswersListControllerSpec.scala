@@ -38,7 +38,7 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
 
   object Controller extends DeemedParentReviewAnswersListController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -103,6 +103,7 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
         "redirect to the Next Section route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers(true)
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

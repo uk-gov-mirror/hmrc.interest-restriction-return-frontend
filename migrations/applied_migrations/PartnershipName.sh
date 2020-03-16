@@ -68,7 +68,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def partnershipName: Option[SummaryListRow] = answer(PartnershipNamePage, electionsRoutes.PartnershipNameController.onPageLoad(CheckMode))";\
+     print "  def name: Option[SummaryListRow] = answer(PartnershipNamePage, electionsRoutes.PartnershipNameController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Adding to Pages map"
@@ -86,7 +86,7 @@ awk '/val expected/ {\
 echo "adding to PageTitles"
 awk '/object PageTitles/ {\
     print;\
-    print "  val partnershipName = \"Enter the name of the partnership\"";\
+    print "  val name = \"Enter the name of the partnership\"";\
     next }1' ../it/assets/PageTitles.scala > tmp && mv tmp ../it/assets/PageTitles.scala
 
 echo "adding route to integration test"

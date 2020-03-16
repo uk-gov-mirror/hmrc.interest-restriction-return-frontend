@@ -20,20 +20,34 @@ import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
+import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.mvc.Call
 
 @Singleton
 class UkCompaniesNavigator @Inject()() extends Navigator {
 
-  //TODO update with next page
   val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     AboutAddingUKCompaniesPage -> ((idx, _) => routes.CompanyDetailsController.onPageLoad(idx, NormalMode)),
     CompanyDetailsPage -> ((idx, _) => routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)),
     EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
-    ConsentingCompanyPage -> ((idx, _) => checkYourAnswers(idx)),
+    ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(GroupSubjectToRestrictionsPage) match {
+      case Some(true) => checkYourAnswers(idx)
+      case Some(false) => userAnswers.get(GroupSubjectToReactivationsPage) match {
+        case Some(true) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
+        case Some(false) => checkYourAnswers(idx)
+        case _ => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)
+      }
+      case _ => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)
+    }),
+    AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
+      case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
+      case Some(false) => checkYourAnswers(idx)
+      case _ => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
+    }),
+    ReactivationAmountPage -> ((idx,_) => checkYourAnswers(idx)),
     CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad())
@@ -41,15 +55,20 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
-  //TODO update with CYA call
+  val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
+    ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
+    EnterCompanyTaxEBITDAPage -> ((_,_) => controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()),
+    NetTaxInterestAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad())
+  ).withDefaultValue((_, _) => controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
+
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
 
-  //TODO update with Next Section call
   def nextSection(mode: Mode): Call = controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
   def addCompany(numberOfCompanies: Int): Call = routes.CompanyDetailsController.onPageLoad(numberOfCompanies + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
     case CheckMode => checkRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
+    case ReviewMode => reviewRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
   }
 }

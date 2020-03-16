@@ -37,7 +37,7 @@ class InvestmentsReviewAnswersListControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends InvestmentsReviewAnswersListController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
@@ -102,6 +102,7 @@ class InvestmentsReviewAnswersListControllerSpec extends SpecBase with FeatureSw
         "redirect to the Next Page route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers(true)
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

@@ -571,7 +571,7 @@ partnershipSAUTR.heading = Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.checkYourAnswersLabel = Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.label= Enter {0} Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.error.required = Enter Self Assessment Unique Taxpayer Reference
-partnershipSAUTR.error.length = Self Assessment Unique Taxpayer Reference must be 10 characters or less
+partnershipSAUTR.error.regexp = Self Assessment Unique Taxpayer Reference must be 10 characters or less
 partnershipSAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
 # CheckAnswersElectionsPage Messages
@@ -811,9 +811,32 @@ reactivationAmount.error.required = Enter your reactivationAmount
 reactivationAmount.error.invalidNumeric = The reactivationAmount must be valid decimal or whole number
 reactivationAmount.error.outOfRange = ReactivationAmount must be between {0} and {1}
 
+# AddAnReactivationQueryPage Messages
+# ----------------------------------------------------------
+addAnReactivationQuery.title = Do you need to add a reactivation to this company?
+addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
+addAnReactivationQuery.subheading = {0}
+
 # ReviewAndCompletePage Messages
 # ----------------------------------------------------------
 reviewAndComplete.title = Interest Restriction Return
 reviewAndComplete.heading = Interest Restriction Return
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC
+
+
+# PartnershipsReviewAnswersListPage Messages
+# ----------------------------------------------------------
+partnershipsReviewAnswersList.title = Do you need to add another partnership?
+partnershipsReviewAnswersList.heading = Do you need to add another partnership?
+partnershipsReviewAnswersList.checkYourAnswersLabel = Do you need to add another partnership?
+partnershipsReviewAnswersList.error.required = Select yes if Do you need to add another partnership?
+
+# PartnershipDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+partnershipDeletionConfirmation.title = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.heading = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.checkYourAnswersLabel = Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.error.required = Select yes if Are you sure you want to delete partnership ‘{0}’?

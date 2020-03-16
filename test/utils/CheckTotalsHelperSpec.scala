@@ -166,7 +166,7 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
           summaryListRow(
             CheckTotalsMessages.t5,
             currencyFormat(reactivation),
-            controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review
+            controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad() -> BaseMessages.review
           )
         )
     }

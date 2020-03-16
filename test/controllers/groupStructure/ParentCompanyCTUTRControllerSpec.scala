@@ -37,7 +37,7 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
 
   object Controller extends ParentCompanyCTUTRController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -76,6 +76,7 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "1111111111"))
 
       mockGetAnswers(Some(userAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

@@ -37,7 +37,7 @@ class InvestorGroupsReviewAnswersListControllerSpec extends SpecBase with Featur
 
   object Controller extends InvestorGroupsReviewAnswersListController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
@@ -102,6 +102,7 @@ class InvestorGroupsReviewAnswersListControllerSpec extends SpecBase with Featur
         "redirect to the Next Page route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers(true)
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

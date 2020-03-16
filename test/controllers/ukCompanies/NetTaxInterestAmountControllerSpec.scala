@@ -39,7 +39,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
 
   object Controller extends NetTaxInterestAmountController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -80,6 +80,8 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
         .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None), Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
+      mockSetAnswers(true)
+
       val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER

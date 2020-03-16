@@ -35,7 +35,7 @@ class InterestAllowanceAlternativeCalcElectionControllerSpec extends SpecBase wi
 
   object Controller extends InterestAllowanceAlternativeCalcElectionController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -75,6 +75,7 @@ class InterestAllowanceAlternativeCalcElectionControllerSpec extends SpecBase wi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

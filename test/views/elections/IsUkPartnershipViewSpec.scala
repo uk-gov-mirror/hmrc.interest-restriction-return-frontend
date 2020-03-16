@@ -36,7 +36,7 @@ class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[IsUkPartnershipView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode, companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, routes.IsUkPartnershipController.onSubmit(1, NormalMode), companyNameModel.name)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(
@@ -54,7 +54,7 @@ class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
         form = form,
         createView = applyView,
         messageKeyPrefix = messageKeyPrefix,
-        expectedFormAction = routes.IsUkPartnershipController.onSubmit(NormalMode).url,
+        expectedFormAction = routes.IsUkPartnershipController.onSubmit(1, NormalMode).url,
         section = section,
         headingArgs = Seq(companyNameModel.name)
       )

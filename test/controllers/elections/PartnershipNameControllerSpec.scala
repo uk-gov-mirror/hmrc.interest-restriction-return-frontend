@@ -36,7 +36,7 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
 
   object Controller extends PartnershipNameController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -54,10 +54,10 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, routes.PartnershipNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
 
@@ -67,7 +67,7 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
     }
@@ -77,8 +77,9 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -90,7 +91,7 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(Some(emptyUserAnswers))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustBe BAD_REQUEST
     }
@@ -99,7 +100,7 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
@@ -111,7 +112,7 @@ class PartnershipNameControllerSpec extends SpecBase with FeatureSwitching with 
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

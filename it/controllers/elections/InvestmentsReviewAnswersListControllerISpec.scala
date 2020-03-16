@@ -122,7 +122,7 @@ class InvestmentsReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
         "Add another investment is false" must {
 
-          "redirect to Revising Return page" in {
+          "redirect to electedInterestAllowanceConsolidatedPshipBefore page" in {
 
             AuthStub.authorised()
 

@@ -36,7 +36,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
 
   object Controller extends InvestmentNameController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -77,6 +77,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

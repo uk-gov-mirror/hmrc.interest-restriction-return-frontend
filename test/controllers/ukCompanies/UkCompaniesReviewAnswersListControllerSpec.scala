@@ -39,7 +39,7 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends UkCompaniesReviewAnswersListController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -106,6 +106,7 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
           mockGetAnswers(Some(emptyUserAnswers
             .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress, Some(ReviewAndCompletePage)))).get
           ))
+          mockSetAnswers(true)
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

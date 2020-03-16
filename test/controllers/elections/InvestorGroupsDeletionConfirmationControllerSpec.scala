@@ -66,7 +66,7 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
         }
       }
 
-      "there is no investments in the user answers" should {
+      "there are no investments in the user answers" should {
 
         "return ISE (500)" in {
 

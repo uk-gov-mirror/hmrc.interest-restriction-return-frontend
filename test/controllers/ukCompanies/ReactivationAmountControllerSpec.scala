@@ -38,7 +38,7 @@ class ReactivationAmountControllerSpec extends SpecBase with FeatureSwitching wi
 
   object Controller extends ReactivationAmountController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -81,6 +81,7 @@ class ReactivationAmountControllerSpec extends SpecBase with FeatureSwitching wi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

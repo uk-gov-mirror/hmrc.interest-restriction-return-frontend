@@ -36,7 +36,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
   object Controller extends InvestorRatioMethodController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -104,6 +104,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
             val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
 
             mockGetAnswers(Some(userAnswers))
+            mockSetAnswers(true)
 
             val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
 

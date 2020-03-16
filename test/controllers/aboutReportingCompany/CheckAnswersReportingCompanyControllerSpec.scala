@@ -32,7 +32,7 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends CheckAnswersReportingCompanyController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
@@ -62,6 +62,7 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSw
         "redirect to the next page in the navigator" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers(true)
 
           val result = Controller.onSubmit()(fakeRequest)
 
