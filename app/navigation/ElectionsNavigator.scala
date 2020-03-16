@@ -81,7 +81,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
     OtherInvestorGroupElectionsPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad()),
     InvestorGroupsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
     CheckAnswersElectionsPage -> (_ => nextSection(NormalMode)),
-    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     InvestmentsReviewAnswersListPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
     InvestmentsDeletionConfirmationPage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     InvestorGroupsDeletionConfirmationPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad())
@@ -96,7 +95,8 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case Some(_) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case _ => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)
     }),
-    PartnershipSAUTRPage -> ((_,_) => routes.PartnershipsReviewAnswersListController.onPageLoad())
+    PartnershipSAUTRPage -> ((_,_) => routes.PartnershipsReviewAnswersListController.onPageLoad()),
+    InvestmentNamePage -> ((_, _) => routes.InvestmentsReviewAnswersListController.onPageLoad())
   )
 
 

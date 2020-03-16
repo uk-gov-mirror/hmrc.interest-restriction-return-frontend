@@ -472,7 +472,10 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "go to the Investments Review Answers List page" in {
 
-          navigator.nextPage(InvestmentNamePage, NormalMode, emptyUserAnswers) mustBe
+          val userAnswers = emptyUserAnswers
+              .set(InvestmentNamePage, companyNameModel.name).success.value
+
+          navigator.nextPage(InvestmentNamePage, NormalMode, userAnswers, Some(1)) mustBe
             routes.InvestmentsReviewAnswersListController.onPageLoad()
         }
       }
