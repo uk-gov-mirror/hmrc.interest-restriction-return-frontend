@@ -39,14 +39,14 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
         messages(s"reviewAndComplete.${reviewAndCompleteModel.startReturn.status}")
       ),
       TaskListRow(
-        messages(s"section.${Section.Elections}"),
-        controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.elections.status}")
-      ),
-      TaskListRow(
         messages(s"section.${Section.GroupStructure}"),
         ultimateParentLink,
         messages(s"reviewAndComplete.${reviewAndCompleteModel.groupStructure.status}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.Elections}"),
+        controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.elections.status}")
       ),
       TaskListRow(
         messages(s"section.${Section.AboutReturn}"),

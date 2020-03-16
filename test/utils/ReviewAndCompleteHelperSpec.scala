@@ -54,14 +54,14 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
             ReviewAndCompleteMessages.notStarted
           ),
           TaskListRow(
-            SectionHeaderMessages.elections,
-            controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-            ReviewAndCompleteMessages.inProgress
-          ),
-          TaskListRow(
             SectionHeaderMessages.groupStructure,
             controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode),
             ReviewAndCompleteMessages.completed
+          ),
+          TaskListRow(
+            SectionHeaderMessages.elections,
+            controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+            ReviewAndCompleteMessages.inProgress
           ),
           TaskListRow(
             SectionHeaderMessages.aboutReturn,
@@ -101,14 +101,14 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
               ReviewAndCompleteMessages.notStarted
             ),
             TaskListRow(
-              SectionHeaderMessages.elections,
-              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
               SectionHeaderMessages.groupStructure,
               controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad(),
               ReviewAndCompleteMessages.completed
+            ),
+            TaskListRow(
+              SectionHeaderMessages.elections,
+              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+              ReviewAndCompleteMessages.inProgress
             ),
             TaskListRow(
               SectionHeaderMessages.aboutReturn,
@@ -146,14 +146,14 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
               ReviewAndCompleteMessages.notStarted
             ),
             TaskListRow(
-              SectionHeaderMessages.elections,
-              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
               SectionHeaderMessages.groupStructure,
               controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1),
               ReviewAndCompleteMessages.completed
+            ),
+            TaskListRow(
+              SectionHeaderMessages.elections,
+              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+              ReviewAndCompleteMessages.inProgress
             ),
             TaskListRow(
               SectionHeaderMessages.aboutReturn,
