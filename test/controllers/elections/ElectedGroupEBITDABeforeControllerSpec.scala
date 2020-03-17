@@ -35,9 +35,10 @@ class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitch
 
   object Controller extends ElectedGroupEBITDABeforeController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -74,6 +75,7 @@ class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitch
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

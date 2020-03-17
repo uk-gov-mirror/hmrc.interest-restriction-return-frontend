@@ -37,9 +37,10 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
 
   object Controller extends PayTaxInUkController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -125,6 +126,7 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
           val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
           mockGetAnswers(Some(userAnswers))
+          mockSetAnswers(true)
 
           val result = Controller.onSubmit(1, NormalMode)(request)
 

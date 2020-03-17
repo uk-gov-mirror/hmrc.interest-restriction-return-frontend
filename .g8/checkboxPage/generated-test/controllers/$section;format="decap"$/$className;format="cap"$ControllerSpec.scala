@@ -35,7 +35,7 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
   object Controller extends $className;format="cap"$Controller(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = Fake$section;format="cap"$Navigator,
     questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,

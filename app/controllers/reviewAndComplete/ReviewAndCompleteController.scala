@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.NormalMode
 import navigation.ReviewAndCompleteNavigator
@@ -27,33 +28,38 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesApi,
                                             override val navigator: ReviewAndCompleteNavigator,
                                             override val sessionRepository: SessionRepository,
                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ReviewAndCompleteView
-                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseNavigationController with I18nSupport with FeatureSwitching {
 
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     val reviewAndCompleteHelper = new ReviewAndCompleteHelper()
-
-    Ok(view(reviewAndCompleteHelper.rows, routes.ReviewAndCompleteController.onSubmit()))
+    answerFor(ReviewAndCompletePage) { reviewAndCompleteModel =>
+      Future.successful(Ok(view(
+        taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel, request.userAnswers),
+        postAction = routes.ReviewAndCompleteController.onSubmit()
+      )))
+    }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
   }
 }

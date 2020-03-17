@@ -18,8 +18,10 @@ package controllers.ukCompanies
 
 import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.{NormalMode, SectionStatus}
+import models.returnModels.{ReviewAndCompleteModel, SectionState}
 import pages.groupStructure.HasDeemedParentPage
+import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -126,8 +128,11 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
 
             AuthStub.authorised()
 
-            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+            val userAnswers = emptyUserAnswers
+              .set(HasDeemedParentPage, false).success.value
               .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+              .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress, Some(HasDeemedParentPage)))).success.value
+
 
             setAnswers(userAnswers)
 

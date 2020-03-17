@@ -23,21 +23,22 @@ import forms.elections.OtherInvestorGroupElectionsFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.returnModels.InvestorGroupModel
-import models.{InvestorRatioMethod, Mode}
+import models.{InvestorRatioMethod, Mode, NormalMode}
 import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.OtherInvestorGroupElectionsView
 
 import scala.concurrent.Future
 
 class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: MessagesApi,
-                                                      val sessionRepository: SessionRepository,
-                                                      val navigator: ElectionsNavigator,
-                                                      val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                      override val sessionRepository: SessionRepository,
+                                                      override val navigator: ElectionsNavigator,
+                                                      override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                      override val updateSectionService: UpdateSectionStateService,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
@@ -78,10 +79,9 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
             ))),
           value => {
             val updatedModel = investorGroups.copy(otherInvestorGroupElections = Some(value))
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, updatedAnswers))
+            save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+              Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, userAnswers))
+            }
           }
         )
       }

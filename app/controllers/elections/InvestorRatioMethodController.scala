@@ -18,34 +18,34 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.InvestorRatioMethodFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{InvestorRatioMethod, Mode}
+import models.{Mode, NormalMode}
+import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.InvestorRatioMethodView
-import play.api.data.Form
 
 import scala.concurrent.Future
-import navigation.ElectionsNavigator
-import services.QuestionDeletionLookupService
-import controllers.BaseNavigationController
-import handlers.ErrorHandler
 
 class InvestorRatioMethodController @Inject()(
-                                  override val messagesApi: MessagesApi,
-                                  val sessionRepository: SessionRepository,
-                                  val navigator: ElectionsNavigator,
-                                  val questionDeletionLookupService: QuestionDeletionLookupService,
-                                  identify: IdentifierAction,
-                                  getData: DataRetrievalAction,
-                                  requireData: DataRequiredAction,
-                                  formProvider: InvestorRatioMethodFormProvider,
-                                  val controllerComponents: MessagesControllerComponents,
-                                  view: InvestorRatioMethodView
+                                               override val messagesApi: MessagesApi,
+                                               override val sessionRepository: SessionRepository,
+                                               override val navigator: ElectionsNavigator,
+                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                               override val updateSectionService: UpdateSectionStateService,
+                                               identify: IdentifierAction,
+                                               getData: DataRetrievalAction,
+                                               requireData: DataRequiredAction,
+                                               formProvider: InvestorRatioMethodFormProvider,
+                                               val controllerComponents: MessagesControllerComponents,
+                                               view: InvestorRatioMethodView
                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   private val form = formProvider()
@@ -69,10 +69,9 @@ class InvestorRatioMethodController @Inject()(
       value => {
         answerFor(InvestorGroupsPage, idx) { investorGroups =>
           val updatedModel = investorGroups.copy(ratioMethod = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, updatedAnswers, Some(idx)))
+          save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+            Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, userAnswers, Some(idx)))
+          }
         }
       }
     )

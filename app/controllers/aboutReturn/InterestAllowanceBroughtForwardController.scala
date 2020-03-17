@@ -28,15 +28,16 @@ import pages.aboutReturn.InterestAllowanceBroughtForwardPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.aboutReturn.InterestAllowanceBroughtForwardView
 
 import scala.concurrent.Future
 
 class InterestAllowanceBroughtForwardController @Inject()(override val messagesApi: MessagesApi,
-                                                          val sessionRepository: SessionRepository,
-                                                          val navigator: AboutReturnNavigator,
-                                                          val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                          override val sessionRepository: SessionRepository,
+                                                          override val navigator: AboutReturnNavigator,
+                                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                          override val updateSectionService: UpdateSectionStateService,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,

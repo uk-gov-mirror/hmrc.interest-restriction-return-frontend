@@ -22,7 +22,7 @@ import controllers.{BaseController, BaseNavigationController}
 import controllers.actions._
 import forms.groupStructure.ParentCompanyNameFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import models.requests.DataRequest
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
 import navigation.GroupStructureNavigator
@@ -33,15 +33,16 @@ import play.api.i18n.MessagesApi
 import play.api.libs.json.Reads
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.groupStructure.ParentCompanyNameView
 
 import scala.concurrent.Future
 
 class ParentCompanyNameController @Inject()(override val messagesApi: MessagesApi,
-                                            val sessionRepository: SessionRepository,
-                                            val navigator: GroupStructureNavigator,
-                                            val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val sessionRepository: SessionRepository,
+                                            override val navigator: GroupStructureNavigator,
+                                            override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                            override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
@@ -63,10 +64,9 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
       value => {
         val companyName = CompanyNameModel(value)
         val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers, Some(idx)))
+        save(DeemedParentPage, deemedParentModel, NormalMode, Some(idx)).map { userAnswers =>
+          Redirect(navigator.nextPage(ParentCompanyNamePage, mode, userAnswers, Some(idx)))
+        }
       }
     )
   }

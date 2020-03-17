@@ -31,14 +31,15 @@ import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class InvestorGroupsDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                                             val sessionRepository: SessionRepository,
-                                                             val navigator: ElectionsNavigator,
-                                                             val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                             override val sessionRepository: SessionRepository,
+                                                             override val navigator: ElectionsNavigator,
+                                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                             override val updateSectionService: UpdateSectionStateService,
                                                              identify: IdentifierAction,
                                                              getData: DataRetrievalAction,
                                                              requireData: DataRequiredAction,
@@ -69,10 +70,9 @@ class InvestorGroupsDeletionConfirmationController @Inject()(override val messag
           ))),
         {
           case true =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(InvestorGroupsPage, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, updatedAnswers))
+            remove(InvestorGroupsPage, NormalMode, Some(idx)).map{ userAnswers =>
+              Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, userAnswers))
+            }
           case false =>
             Future.successful(Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

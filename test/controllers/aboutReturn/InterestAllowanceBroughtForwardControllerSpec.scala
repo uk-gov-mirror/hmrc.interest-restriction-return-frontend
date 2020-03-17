@@ -36,9 +36,10 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
 
   object Controller extends InterestAllowanceBroughtForwardController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -75,6 +76,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

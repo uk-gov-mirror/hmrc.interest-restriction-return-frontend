@@ -15,10 +15,13 @@
  */
 
 package pages.reviewAndComplete
-import pages.Page
+import models.returnModels.ReviewAndCompleteModel
+import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case object ReviewAndCompletePage extends Page{
+case object ReviewAndCompletePage extends QuestionPage[ReviewAndCompleteModel]{
 
   override def toString: String = "reviewAndComplete"
+
+  override def path: JsPath = JsPath \ toString
 }

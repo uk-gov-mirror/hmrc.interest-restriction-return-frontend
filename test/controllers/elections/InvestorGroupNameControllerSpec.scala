@@ -36,9 +36,10 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
 
   object Controller extends InvestorGroupNameController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -66,6 +67,7 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

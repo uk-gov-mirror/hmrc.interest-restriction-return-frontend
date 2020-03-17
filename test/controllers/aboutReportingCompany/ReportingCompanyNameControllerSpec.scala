@@ -35,9 +35,10 @@ class ReportingCompanyNameControllerSpec extends SpecBase with FeatureSwitching 
 
   object Controller extends ReportingCompanyNameController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -77,6 +78,7 @@ class ReportingCompanyNameControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

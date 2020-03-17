@@ -35,9 +35,10 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
 
   object Controller extends InfrastructureCompanyElectionController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -77,6 +78,7 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

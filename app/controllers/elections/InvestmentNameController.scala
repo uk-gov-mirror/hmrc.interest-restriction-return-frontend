@@ -22,21 +22,22 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.InvestmentNameFormProvider
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import navigation.ElectionsNavigator
-import pages.elections.{InvestmentNamePage, InvestmentsDeletionConfirmationPage}
+import pages.elections.InvestmentNamePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.InvestmentNameView
 
 import scala.concurrent.Future
 
 class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: ElectionsNavigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
+                                         override val sessionRepository: SessionRepository,
+                                         override val navigator: ElectionsNavigator,
+                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                         override val updateSectionService: UpdateSectionStateService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -54,10 +55,7 @@ class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.InvestmentNameController.onSubmit(idx, mode)))),
       value =>
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestmentNamePage, value, Some(idx)))
-          _ <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(InvestmentNamePage, mode, updatedAnswers))
+        saveAndRedirect(InvestmentNamePage, value, mode, idx)
     )
   }
 }

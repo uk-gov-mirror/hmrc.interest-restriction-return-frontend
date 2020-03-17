@@ -35,9 +35,10 @@ class ReturnContainEstimatesControllerSpec extends SpecBase with FeatureSwitchin
 
   object Controller extends ReturnContainEstimatesController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -77,6 +78,7 @@ class ReturnContainEstimatesControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

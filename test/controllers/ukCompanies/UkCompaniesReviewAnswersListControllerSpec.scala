@@ -23,8 +23,10 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.UkCompaniesReviewAnswersListFormProvider
-import models.NormalMode
+import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import models.{NormalMode, SectionStatus}
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.UkCompaniesReviewAnswersListView
@@ -37,12 +39,15 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends UkCompaniesReviewAnswersListController(
     messagesApi = messagesApi,
+    sessionRepository = mockSessionRepository,
+    navigator = FakeUkCompaniesNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    navigator = FakeUkCompaniesNavigator,
     formProvider = formProvider
   )
 
@@ -98,7 +103,10 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
 
         "redirect to the Next Page route" in {
 
-          mockGetAnswers(Some(emptyUserAnswers))
+          mockGetAnswers(Some(emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress, Some(ReviewAndCompletePage)))).get
+          ))
+          mockSetAnswers(true)
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

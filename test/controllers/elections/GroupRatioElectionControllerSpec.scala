@@ -35,9 +35,10 @@ class GroupRatioElectionControllerSpec extends SpecBase with FeatureSwitching wi
 
   object Controller extends GroupRatioElectionController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -74,6 +75,7 @@ class GroupRatioElectionControllerSpec extends SpecBase with FeatureSwitching wi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

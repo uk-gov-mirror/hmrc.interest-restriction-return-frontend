@@ -38,9 +38,10 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
 
   object Controller extends PartnershipSAUTRController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -93,6 +94,7 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
           Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

@@ -835,6 +835,8 @@ reactivationAmount.checkYourAnswersLabel = Company reactivations
 # ----------------------------------------------------------
 reviewAndComplete.title = Interest Restriction Return
 reviewAndComplete.heading = Interest Restriction Return
+reviewAndComplete.inProgress = In progress
+reviewAndComplete.notStarted = Not started
 reviewAndComplete.completed = Completed
 reviewAndComplete.text = Send your return to HMRC
 

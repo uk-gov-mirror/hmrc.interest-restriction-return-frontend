@@ -30,22 +30,22 @@ import pages.elections.{PartnershipSAUTRPage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.PartnershipSAUTRView
 
 import scala.concurrent.Future
 
-class PartnershipSAUTRController @Inject()(
-                                            override val messagesApi: MessagesApi,
-                                            val sessionRepository: SessionRepository,
-                                            val navigator: ElectionsNavigator,
-                                            val questionDeletionLookupService: QuestionDeletionLookupService,
-                                            identify: IdentifierAction,
-                                            getData: DataRetrievalAction,
-                                            requireData: DataRequiredAction,
-                                            formProvider: PartnershipSAUTRFormProvider,
-                                            val controllerComponents: MessagesControllerComponents,
-                                            view: PartnershipSAUTRView
+class PartnershipSAUTRController @Inject()(override val messagesApi: MessagesApi,
+                                           override val sessionRepository: SessionRepository,
+                                           override val navigator: ElectionsNavigator,
+                                           override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                           override val updateSectionService: UpdateSectionStateService,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: PartnershipSAUTRFormProvider,
+                                           val controllerComponents: MessagesControllerComponents,
+                                           view: PartnershipSAUTRView
                                           )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   private val form = formProvider()

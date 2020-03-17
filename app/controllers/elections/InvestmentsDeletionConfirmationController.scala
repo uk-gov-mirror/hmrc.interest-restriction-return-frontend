@@ -29,22 +29,23 @@ import pages.elections.{InvestmentNamePage, InvestmentsDeletionConfirmationPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.InvestmentsDeletionConfirmationView
 
 import scala.concurrent.Future
 
 class InvestmentsDeletionConfirmationController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: ElectionsNavigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: InvestmentsDeletionConfirmationFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: InvestmentsDeletionConfirmationView
+                                                           override val messagesApi: MessagesApi,
+                                                           override val sessionRepository: SessionRepository,
+                                                           override val navigator: ElectionsNavigator,
+                                                           override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                           override val updateSectionService: UpdateSectionStateService,
+                                                           identify: IdentifierAction,
+                                                           getData: DataRetrievalAction,
+                                                           requireData: DataRequiredAction,
+                                                           formProvider: InvestmentsDeletionConfirmationFormProvider,
+                                                           val controllerComponents: MessagesControllerComponents,
+                                                           view: InvestmentsDeletionConfirmationView
                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -68,10 +69,9 @@ class InvestmentsDeletionConfirmationController @Inject()(
           ))),
         {
           case true =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(InvestmentNamePage, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, updatedAnswers))
+            remove(InvestmentNamePage, NormalMode, Some(idx)).map { userAnswers =>
+              Redirect(navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, userAnswers))
+            }
           case false =>
             Future.successful(Redirect(navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

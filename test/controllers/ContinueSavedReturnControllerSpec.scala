@@ -35,7 +35,7 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching w
 
   object Controller extends ContinueSavedReturnController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

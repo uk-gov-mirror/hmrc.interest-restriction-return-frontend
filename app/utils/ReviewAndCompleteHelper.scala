@@ -16,18 +16,53 @@
 
 package utils
 
+import models.{NormalMode, Section, UserAnswers}
+import models.returnModels.ReviewAndCompleteModel
+import pages.groupStructure.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.i18n.Messages
 import viewmodels.TaskListRow
 
 class ReviewAndCompleteHelper(implicit val messages: Messages) {
 
-  val rows = Seq(
-    TaskListRow(messages("section.startReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.aboutReportingCompany"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.groupStructure"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.elections"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.ukCompanies"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.aboutReturn"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed")),
-    TaskListRow(messages("section.checkTotals"), controllers.routes.UnderConstructionController.onPageLoad(), messages("reviewAndComplete.completed"))
-  )
+  def rows(reviewAndCompleteModel: ReviewAndCompleteModel, userAnswers: UserAnswers): Seq[TaskListRow] = {
+
+    val ultimateParentLink = (userAnswers.get(ReportingCompanySameAsParentPage), userAnswers.get(HasDeemedParentPage)) match {
+      case (Some(true), _) => controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
+      case (Some(false), Some(true)) => controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad()
+      case (_, _) => controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1)
+    }
+
+    Seq(
+      TaskListRow(
+        messages(s"section.${Section.StartReturn}"),
+        controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.startReturn.status}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.GroupStructure}"),
+        ultimateParentLink,
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupStructure.status}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.Elections}"),
+        controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.elections.status}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.AboutReturn}"),
+        controllers.routes.UnderConstructionController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturn.status}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.UkCompanies}"),
+        controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompanies.status}")
+      ),
+      TaskListRow(
+        messages(s"section.${Section.CheckTotals}"),
+        controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.checkTotals.status}")
+      )
+    )
+  }
 }

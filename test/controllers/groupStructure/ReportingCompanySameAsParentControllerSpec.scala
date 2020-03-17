@@ -38,9 +38,10 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends ReportingCompanySameAsParentController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -74,6 +75,7 @@ class ReportingCompanySameAsParentControllerSpec extends SpecBase with FeatureSw
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

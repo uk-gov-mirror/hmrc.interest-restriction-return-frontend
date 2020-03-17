@@ -17,29 +17,29 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.AddAnReactivationQueryFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
+import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{AddAnReactivationQueryPage, UkCompaniesPage}
-import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.ukCompanies.AddAnReactivationQueryView
-import play.api.data.Form
 
 import scala.concurrent.Future
-import navigation.UkCompaniesNavigator
-import services.QuestionDeletionLookupService
-import controllers.BaseNavigationController
-import handlers.ErrorHandler
 
 class AddAnReactivationQueryController @Inject()(
                                          override val messagesApi: MessagesApi,
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: UkCompaniesNavigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
+                                         override val sessionRepository: SessionRepository,
+                                         override val navigator: UkCompaniesNavigator,
+                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                         override val updateSectionService: UpdateSectionStateService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -75,10 +75,9 @@ class AddAnReactivationQueryController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(reactivation = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, updatedAnswers, Some(idx)))
+          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, cleanedAnswers, Some(idx)))
+          }
         }
       )
     }

@@ -17,7 +17,6 @@
 package controllers.aboutReportingCompany
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
@@ -30,22 +29,22 @@ import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.aboutReportingCompany.AccountingPeriodEndView
 
 import scala.concurrent.Future
 
-class AccountingPeriodEndController @Inject()(
-                                               override val messagesApi: MessagesApi,
-                                               val sessionRepository: SessionRepository,
-                                               val navigator: AboutReportingCompanyNavigator,
-                                               val questionDeletionLookupService: QuestionDeletionLookupService,
-                                               identify: IdentifierAction,
-                                               getData: DataRetrievalAction,
-                                               requireData: DataRequiredAction,
-                                               formProvider: AccountingPeriodEndFormProvider,
-                                               val controllerComponents: MessagesControllerComponents,
-                                               view: AccountingPeriodEndView
+class AccountingPeriodEndController @Inject()(override val messagesApi: MessagesApi,
+                                              override val sessionRepository: SessionRepository,
+                                              override val navigator: AboutReportingCompanyNavigator,
+                                              override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                              override val updateSectionService: UpdateSectionStateService,
+                                              identify: IdentifierAction,
+                                              getData: DataRetrievalAction,
+                                              requireData: DataRequiredAction,
+                                              formProvider: AccountingPeriodEndFormProvider,
+                                              val controllerComponents: MessagesControllerComponents,
+                                              view: AccountingPeriodEndView
                                              )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

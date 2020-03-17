@@ -41,9 +41,10 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
 
   object Controller extends AccountingPeriodEndController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -85,6 +86,7 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
       )
 
       mockGetAnswers(Some(userAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

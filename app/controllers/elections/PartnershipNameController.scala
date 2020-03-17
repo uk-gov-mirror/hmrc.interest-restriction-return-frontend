@@ -16,15 +16,19 @@
 
 package controllers.elections
 
+import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.PartnershipNameFormProvider
 import javax.inject.Inject
 import models.Mode
+import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, PartnershipNamePage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.PartnershipNameView
 import config.FrontendAppConfig
 import play.api.data.Form
@@ -36,17 +40,17 @@ import services.QuestionDeletionLookupService
 import controllers.BaseNavigationController
 import models.returnModels.PartnershipModel
 
-class PartnershipNameController @Inject()(
-                                           override val messagesApi: MessagesApi,
-                                           val sessionRepository: SessionRepository,
-                                           val navigator: ElectionsNavigator,
-                                           val questionDeletionLookupService: QuestionDeletionLookupService,
-                                           identify: IdentifierAction,
-                                           getData: DataRetrievalAction,
-                                           requireData: DataRequiredAction,
-                                           formProvider: PartnershipNameFormProvider,
-                                           val controllerComponents: MessagesControllerComponents,
-                                           view: PartnershipNameView
+class PartnershipNameController @Inject()(override val messagesApi: MessagesApi,
+                                          override val sessionRepository: SessionRepository,
+                                          override val navigator: ElectionsNavigator,
+                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          override val updateSectionService: UpdateSectionStateService,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: PartnershipNameFormProvider,
+                                          val controllerComponents: MessagesControllerComponents,
+                                          view: PartnershipNameView
                                          )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   private val form = formProvider()

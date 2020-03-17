@@ -29,15 +29,16 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.groupStructure.DeemedParentView
 
 import scala.concurrent.Future
 
 class HasDeemedParentController @Inject()(override val messagesApi: MessagesApi,
-                                          val sessionRepository: SessionRepository,
-                                          val navigator: GroupStructureNavigator,
-                                          val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          override val sessionRepository: SessionRepository,
+                                          override val navigator: GroupStructureNavigator,
+                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                          override val updateSectionService: UpdateSectionStateService,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,

@@ -23,21 +23,22 @@ import controllers.actions._
 import forms.groupStructure.PayTaxInUkFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{DeemedParentPage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.groupStructure.PayTaxInUkView
 
 import scala.concurrent.Future
 
 class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
-                                     val sessionRepository: SessionRepository,
-                                     val navigator: GroupStructureNavigator,
-                                     val questionDeletionLookupService: QuestionDeletionLookupService,
+                                     override val sessionRepository: SessionRepository,
+                                     override val navigator: GroupStructureNavigator,
+                                     override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                     override val updateSectionService: UpdateSectionStateService,
                                      identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
@@ -71,10 +72,9 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(payTaxInUk = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers, Some(idx)))
+          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+            Redirect(navigator.nextPage(PayTaxInUkPage, mode, userAnswers, Some(idx)))
+          }
         }
       )
     }

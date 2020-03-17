@@ -19,7 +19,9 @@ package controllers.reviewAndComplete
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import models.returnModels.ReviewAndCompleteModel
 import navigation.FakeNavigators.FakeReviewAndCompleteNavigator
+import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.test.Helpers._
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
@@ -34,16 +36,19 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeReviewAndCompleteNavigator,
-    questionDeletionLookupService = questionDeletionLookupService
+    questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService
   )
 
   "ReviewAndComplete Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers
+        .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+      ))
 
       val result = Controller.onPageLoad()(fakeRequest)
 

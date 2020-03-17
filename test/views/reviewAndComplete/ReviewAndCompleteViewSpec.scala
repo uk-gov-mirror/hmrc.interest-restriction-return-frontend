@@ -17,6 +17,11 @@
 package views.reviewAndComplete
 
 import assets.messages.BaseMessages
+import models.SectionStatus.{Completed, InProgress, NotStarted}
+import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.elections.GroupRatioBlendedElectionPage
+import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import utils.ReviewAndCompleteHelper
 import viewmodels.TaskListRow
 import views.behaviours.ViewBehaviours
@@ -24,7 +29,17 @@ import views.html.reviewAndComplete.ReviewAndCompleteView
 
 class ReviewAndCompleteViewSpec extends ViewBehaviours {
 
-  val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows
+  val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows(
+    ReviewAndCompleteModel(
+      startReturn = SectionState(NotStarted, None),
+      elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
+      aboutReturn = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
+      groupStructure = SectionState(NotStarted, None),
+      ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
+      checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
+    ),
+    emptyUserAnswers
+  )
 
   lazy val viewTemplate = viewFor[ReviewAndCompleteView](Some(emptyUserAnswers))
   lazy val view = viewTemplate.apply(taskListRows, onwardRoute)(fakeRequest, frontendAppConfig, messages)

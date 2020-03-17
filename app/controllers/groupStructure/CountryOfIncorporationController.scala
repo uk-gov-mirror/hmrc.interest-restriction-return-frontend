@@ -22,22 +22,23 @@ import controllers.actions._
 import forms.groupStructure.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{Mode, NormalMode}
 import models.returnModels.CountryCodeModel
 import navigation.GroupStructureNavigator
 import pages.groupStructure.{CountryOfIncorporationPage, DeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.groupStructure.CountryOfIncorporationView
 
 import scala.concurrent.Future
 
 class CountryOfIncorporationController @Inject()(override val messagesApi: MessagesApi,
-                                                 val sessionRepository: SessionRepository,
-                                                 val navigator: GroupStructureNavigator,
-                                                 val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                 override val sessionRepository: SessionRepository,
+                                                 override val navigator: GroupStructureNavigator,
+                                                 override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                 override val updateSectionService: UpdateSectionStateService,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
@@ -73,10 +74,9 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
         value => {
           val countryModel = if(value.isEmpty) None else Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value))
           val updatedModel = deemedParentModel.copy(countryOfIncorporation = countryModel)
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers, Some(idx)))
+          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
+            Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, userAnswers, Some(idx)))
+          }
         }
       )
     }

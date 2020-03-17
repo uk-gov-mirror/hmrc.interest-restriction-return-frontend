@@ -29,22 +29,22 @@ import pages.ukCompanies.{NetTaxInterestAmountPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.ukCompanies.NetTaxInterestAmountView
 
 import scala.concurrent.Future
 
-class NetTaxInterestAmountController @Inject()(
-                                                override val messagesApi: MessagesApi,
-                                                val sessionRepository: SessionRepository,
-                                                val navigator: UkCompaniesNavigator,
-                                                val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                identify: IdentifierAction,
-                                                getData: DataRetrievalAction,
-                                                requireData: DataRequiredAction,
-                                                formProvider: NetTaxInterestAmountFormProvider,
-                                                val controllerComponents: MessagesControllerComponents,
-                                                view: NetTaxInterestAmountView
+class NetTaxInterestAmountController @Inject()(override val messagesApi: MessagesApi,
+                                               override val sessionRepository: SessionRepository,
+                                               override val navigator: UkCompaniesNavigator,
+                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                               override val updateSectionService: UpdateSectionStateService,
+                                               identify: IdentifierAction,
+                                               getData: DataRetrievalAction,
+                                               requireData: DataRequiredAction,
+                                               formProvider: NetTaxInterestAmountFormProvider,
+                                               val controllerComponents: MessagesControllerComponents,
+                                               view: NetTaxInterestAmountView
                                               )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -78,10 +78,9 @@ class NetTaxInterestAmountController @Inject()(
               ))),
             value => {
               val updatedModel = ukCompany.copy(netTaxInterest = Some(value))
-              for {
-                updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-                _ <- sessionRepository.set(updatedAnswers)
-              } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers, Some(idx)))
+              save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+                Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, cleanedAnswers, Some(idx)))
+              }
             }
           )
         case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))

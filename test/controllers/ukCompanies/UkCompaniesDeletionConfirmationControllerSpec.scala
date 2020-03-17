@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.ukCompanies.UkCompaniesDeletionConfirmationFormProvider
-import navigation.FakeNavigators.{FakeGroupStructureNavigator, FakeUkCompaniesNavigator}
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.UkCompaniesDeletionConfirmationView
@@ -38,6 +38,7 @@ class UkCompaniesDeletionConfirmationControllerSpec extends SpecBase with Featur
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

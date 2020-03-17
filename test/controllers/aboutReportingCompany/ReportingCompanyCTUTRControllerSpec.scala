@@ -36,9 +36,10 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching
 
   object Controller extends ReportingCompanyCTUTRController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeAboutReportingCompanyNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -79,6 +80,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching
       val request = fakeRequest.withFormUrlEncodedBody(("value", ctutrModel.utr))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(NormalMode)(request)
 

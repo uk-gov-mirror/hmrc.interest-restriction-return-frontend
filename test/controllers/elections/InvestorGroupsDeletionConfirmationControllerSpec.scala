@@ -38,6 +38,7 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

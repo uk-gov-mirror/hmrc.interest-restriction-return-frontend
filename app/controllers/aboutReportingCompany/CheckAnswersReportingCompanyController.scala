@@ -18,7 +18,7 @@ package controllers.aboutReportingCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.ReportingCompany
@@ -26,26 +26,32 @@ import navigation.AboutReportingCompanyNavigator
 import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersAboutReportingCompanyHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
 
 class CheckAnswersReportingCompanyController @Inject()(override val messagesApi: MessagesApi,
+                                                       override val sessionRepository: SessionRepository,
+                                                       override val navigator: AboutReportingCompanyNavigator,
+                                                       override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                       override val updateSectionService: UpdateSectionStateService,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       navigator: AboutReportingCompanyNavigator,
                                                        view: CheckYourAnswersView
-                                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseNavigationController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val checkAnswersHelper = new CheckYourAnswersAboutReportingCompanyHelper(request.userAnswers)
     Ok(view(checkAnswersHelper.rows, ReportingCompany, controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onSubmit()))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, request.userAnswers))
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    saveAndRedirect(CheckAnswersReportingCompanyPage, NormalMode)
   }
 }
+

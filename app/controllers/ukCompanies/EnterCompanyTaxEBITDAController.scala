@@ -29,15 +29,16 @@ import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.ukCompanies.EnterCompanyTaxEBITDAView
 
 import scala.concurrent.Future
 
 class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: MessagesApi,
-                                                val sessionRepository: SessionRepository,
-                                                val navigator: UkCompaniesNavigator,
-                                                val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val sessionRepository: SessionRepository,
+                                                override val navigator: UkCompaniesNavigator,
+                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val updateSectionService: UpdateSectionStateService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
@@ -73,10 +74,9 @@ class EnterCompanyTaxEBITDAController @Inject()(override val messagesApi: Messag
           ),
         value => {
           val updatedModel = ukCompany.copy(taxEBITDA = Some(value))
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(EnterCompanyTaxEBITDAPage, mode, updatedAnswers, Some(idx)))
+          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(EnterCompanyTaxEBITDAPage, mode, cleanedAnswers, Some(idx)))
+          }
         }
       )
     }

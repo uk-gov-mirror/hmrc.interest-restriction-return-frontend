@@ -17,9 +17,10 @@
 package controllers.reviewAndComplete
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.returnModels.ReviewAndCompleteModel
+import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.http.Status._
-import play.api.libs.json.{JsString, Json}
+import play.api.libs.json.JsString
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -34,6 +35,10 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(
+            emptyUserAnswers.set(ReviewAndCompletePage, ReviewAndCompleteModel()).success.value
+          )
+
           val res = getRequest("/review-and-complete")()
 
           whenReady(res) { result =>

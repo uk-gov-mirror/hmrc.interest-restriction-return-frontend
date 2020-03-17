@@ -29,7 +29,7 @@ import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.CheckYourAnswersUkCompanyHelper
 import views.ViewUtils._
@@ -38,13 +38,14 @@ import views.html.CheckYourAnswersView
 import scala.concurrent.{ExecutionContext, Future}
 
 class CheckAnswersUkCompanyController @Inject()(override val messagesApi: MessagesApi,
-                                                val sessionRepository: SessionRepository,
-                                                val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val sessionRepository: SessionRepository,
+                                                override val navigator: UkCompaniesNavigator,
+                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val updateSectionService: UpdateSectionStateService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
                                                 val controllerComponents: MessagesControllerComponents,
-                                                val navigator: UkCompaniesNavigator,
                                                 view: CheckYourAnswersView
                                                )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseNavigationController {
@@ -63,7 +64,7 @@ class CheckAnswersUkCompanyController @Inject()(override val messagesApi: Messag
       }
   }
 
-  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(CheckAnswersUkCompanyPage, NormalMode, request.userAnswers, Some(idx)))
+  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request => saveAndRedirect(CheckAnswersUkCompanyPage, NormalMode)
   }
 }

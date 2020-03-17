@@ -18,7 +18,7 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import handlers.ErrorHandler
 import models.NormalMode
@@ -27,20 +27,25 @@ import navigation.ElectionsNavigator
 import pages.elections.CheckAnswersElectionsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersElectionsHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
 
 class CheckAnswersElectionsController @Inject()(override val messagesApi: MessagesApi,
+                                                override val sessionRepository: SessionRepository,
+                                                override val navigator: ElectionsNavigator,
+                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                override val updateSectionService: UpdateSectionStateService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
                                                 val controllerComponents: MessagesControllerComponents,
-                                                navigator: ElectionsNavigator,
                                                 view: CheckYourAnswersView
                                                )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseController {
+  extends BaseNavigationController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request => {
@@ -49,8 +54,7 @@ class CheckAnswersElectionsController @Inject()(override val messagesApi: Messag
     }
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-      Redirect(navigator.nextPage(CheckAnswersElectionsPage, NormalMode, request.userAnswers))
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request => saveAndRedirect(CheckAnswersElectionsPage, NormalMode)
   }
 }

@@ -37,9 +37,10 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
 
   object Controller extends OtherInvestorGroupElectionsController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -105,6 +106,7 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
             val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
 
             mockGetAnswers(Some(userAnswers))
+            mockSetAnswers(true)
 
             val request = fakeRequest.withFormUrlEncodedBody(("value[0]", OtherInvestorGroupElections.values(GroupRatioMethod).head.toString))
 

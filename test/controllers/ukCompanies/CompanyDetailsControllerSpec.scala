@@ -39,9 +39,10 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
 
   object Controller extends CompanyDetailsController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -82,6 +83,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
     "redirect to the next page when valid data is submitted" in {
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers(true)
 
       val request = fakeRequest.withFormUrlEncodedBody(
         "companyNameValue" -> companyNameModel.name,

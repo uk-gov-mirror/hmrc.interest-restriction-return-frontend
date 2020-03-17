@@ -37,9 +37,10 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
   object Controller extends LimitedLiabilityPartnershipController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeGroupStructureNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -88,6 +89,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(userAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

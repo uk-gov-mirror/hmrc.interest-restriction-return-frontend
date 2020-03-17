@@ -28,23 +28,23 @@ import pages.elections.EnterQNGIEPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.EnterQNGIEView
 
 import scala.concurrent.Future
 
-class EnterQNGIEController @Inject()(
-                                       override val messagesApi: MessagesApi,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: ElectionsNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: EnterQNGIEFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: EnterQNGIEView
-                                     )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+class EnterQNGIEController @Inject()(override val messagesApi: MessagesApi,
+                                     override val sessionRepository: SessionRepository,
+                                     override val navigator: ElectionsNavigator,
+                                     override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                     override val updateSectionService: UpdateSectionStateService,
+                                     identify: IdentifierAction,
+                                     getData: DataRetrievalAction,
+                                     requireData: DataRequiredAction,
+                                     formProvider: EnterQNGIEFormProvider,
+                                     val controllerComponents: MessagesControllerComponents,
+                                     view: EnterQNGIEView
+                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(EnterQNGIEPage, formProvider()), mode))

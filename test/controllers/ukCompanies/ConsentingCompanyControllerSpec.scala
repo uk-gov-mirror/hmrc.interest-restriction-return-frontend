@@ -16,17 +16,17 @@
 
 package controllers.ukCompanies
 
-import controllers.errors
+import assets.constants.fullReturn.UkCompanyConstants._
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import controllers.errors
 import forms.ukCompanies.ConsentingCompanyFormProvider
 import models.NormalMode
-import pages.ukCompanies.{ConsentingCompanyPage, UkCompaniesPage}
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.ConsentingCompanyView
-import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import assets.constants.fullReturn.UkCompanyConstants._
 
 class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -36,9 +36,10 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
 
   object Controller extends ConsentingCompanyController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -76,6 +77,7 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

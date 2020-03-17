@@ -26,12 +26,20 @@ object Section {
     override val toString = "reportingCompany"
   }
 
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
+  object StartReturn extends Section {
+    override val toString = "startReturn"
+  }
+
+  object AboutReturn extends Section {
+    override val toString = "aboutReturn"
   }
 
   object Elections extends Section {
     override val toString = "elections"
+  }
+
+  object GroupStructure extends Section {
+    override val toString = "groupStructure"
   }
 
   object UkCompanies extends Section {
@@ -48,6 +56,10 @@ object Section {
 
   object CheckTotals extends Section {
     override val toString = "checkTotals"
+  }
+
+  object ReviewAndComplete extends Section {
+    override val toString = "reviewAndComplete"
   }
 
   implicit object SectionWrites extends Writes[Section]{

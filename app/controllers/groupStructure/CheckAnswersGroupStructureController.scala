@@ -18,7 +18,7 @@ package controllers.groupStructure
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import handlers.ErrorHandler
 import models.NormalMode
@@ -27,20 +27,25 @@ import navigation.GroupStructureNavigator
 import pages.groupStructure.CheckAnswersGroupStructurePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersGroupStructureHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
+                                                     override val sessionRepository: SessionRepository,
+                                                     override val navigator: GroupStructureNavigator,
+                                                     override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                     override val updateSectionService: UpdateSectionStateService,
                                                      identify: IdentifierAction,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
-                                                     navigator: GroupStructureNavigator,
                                                      view: CheckYourAnswersView
                                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseController {
+  extends BaseNavigationController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
@@ -48,7 +53,7 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
       Ok(view(checkYourAnswersHelper.rows(idx), GroupStructure, controllers.groupStructure.routes.CheckAnswersGroupStructureController.onSubmit(idx)))
   }
 
-  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers, Some(idx)))
+  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request => saveAndRedirect(CheckAnswersGroupStructurePage, NormalMode, Some(idx))
   }
 }

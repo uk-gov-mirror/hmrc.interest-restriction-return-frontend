@@ -36,9 +36,10 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
   object Controller extends AddAnReactivationQueryController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
-    navigator = FakeUkCompaniesNavigator,
+    sessionRepository = mockSessionRepository,
+    updateSectionService = updateSectionService,
     questionDeletionLookupService = questionDeletionLookupService,
+    navigator = FakeUkCompaniesNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -76,6 +77,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1,NormalMode)(request)
 

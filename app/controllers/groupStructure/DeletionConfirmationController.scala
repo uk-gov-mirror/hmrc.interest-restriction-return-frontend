@@ -31,22 +31,23 @@ import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.GroupStructureNavigator
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
-class DeletionConfirmationController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         val sessionRepository: SessionRepository,
-                                         val navigator: GroupStructureNavigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: DeletionConfirmationFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: DeletionConfirmationView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+class DeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
+                                               override val sessionRepository: SessionRepository,
+                                               override val navigator: GroupStructureNavigator,
+                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                               override val updateSectionService: UpdateSectionStateService,
+                                               identify: IdentifierAction,
+                                               getData: DataRetrievalAction,
+                                               requireData: DataRequiredAction,
+                                               formProvider: DeletionConfirmationFormProvider,
+                                               val controllerComponents: MessagesControllerComponents,
+                                               view: DeletionConfirmationView
+                                              )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(DeemedParentPage, idx) { deemedParent =>
@@ -66,10 +67,9 @@ class DeletionConfirmationController @Inject()(
         ,
         {
           case true =>
-            for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(DeemedParentPage, Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, updatedAnswers, Some(idx)))
+            remove(DeemedParentPage, NormalMode, Some(idx)).map{ userAnswers =>
+              Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, userAnswers, Some(idx)))
+            }
           case false =>
             Future.successful(Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, request.userAnswers, Some(idx))))
         }

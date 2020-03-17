@@ -16,23 +16,27 @@
 
 package controllers.checkTotals
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
+import javax.inject.Inject
 import models.NormalMode
 import navigation.CheckTotalsNavigator
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
 
 class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
-                                         val navigator: CheckTotalsNavigator,
+                                         override val sessionRepository: SessionRepository,
+                                         override val navigator: CheckTotalsNavigator,
+                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                         override val updateSectionService: UpdateSectionStateService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -40,7 +44,7 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
                                          view: DerivedCompanyView,
                                          checkTotalsHelper: CheckTotalsHelper
                                         )(implicit appConfig: FrontendAppConfig)
-  extends FeatureSwitching with BaseController {
+  extends FeatureSwitching with BaseNavigationController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     request.userAnswers.getList(UkCompaniesPage) match {
@@ -50,7 +54,9 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request => Redirect(navigator.nextPage(DerivedCompanyPage, NormalMode, request.userAnswers))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async {
+    implicit request => updateState(DerivedCompanyPage, NormalMode, request.userAnswers).map{ userAnswers =>
+      Redirect(navigator.nextPage(DerivedCompanyPage, NormalMode, userAnswers))
+    }
   }
 }

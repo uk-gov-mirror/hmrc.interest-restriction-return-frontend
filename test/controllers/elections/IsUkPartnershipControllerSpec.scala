@@ -37,9 +37,10 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
 
   object Controller extends IsUkPartnershipController(
     messagesApi = messagesApi,
-    sessionRepository = sessionRepository,
+    sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -92,6 +93,7 @@ class IsUkPartnershipControllerSpec extends SpecBase with FeatureSwitching with 
           Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
+      mockSetAnswers(true)
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

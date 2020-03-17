@@ -29,7 +29,8 @@ import pages.groupStructure.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentReviewAnswersListView
 
-class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class
+DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[DeemedParentReviewAnswersListView]
   val formProvider = injector.instanceOf[DeemedParentReviewAnswersListFormProvider]
@@ -37,12 +38,15 @@ class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureS
 
   object Controller extends DeemedParentReviewAnswersListController(
     messagesApi = messagesApi,
+    sessionRepository = mockSessionRepository,
+    navigator = FakeGroupStructureNavigator,
+    questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    navigator = FakeGroupStructureNavigator,
     formProvider = formProvider
   )
 
@@ -99,13 +103,14 @@ class DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureS
         "redirect to the Next Section route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers(true)
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
           val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextSection(NormalMode).url)
+          redirectLocation(result) mustBe Some("/foo")//todo check this
         }
       }
     }

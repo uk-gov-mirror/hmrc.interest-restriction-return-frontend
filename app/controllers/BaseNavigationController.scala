@@ -19,11 +19,12 @@ package controllers
 import models._
 import models.requests.DataRequest
 import navigation.Navigator
-import pages.QuestionPage
+import pages.{Page, QuestionPage}
+import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.libs.json.Writes
 import play.api.mvc.Result
 import repositories.SessionRepository
-import services.QuestionDeletionLookupService
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 
 import scala.concurrent.Future
 
@@ -32,19 +33,47 @@ trait BaseNavigationController extends BaseController {
   val sessionRepository: SessionRepository
   val navigator: Navigator
   val questionDeletionLookupService: QuestionDeletionLookupService
+  val updateSectionService: UpdateSectionStateService
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Int)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = saveAndRedirect(page, answer, mode, Some(idx))
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, Some(idx)).map{ updatedAnswers =>
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, Some(idx)))
+  }
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = saveAndRedirect(page, answer, mode, None)
+                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] = save(page, answer, mode, None).map{ updatedAnswers =>
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, None))
+  }
 
-  def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, id: Option[Int] = None)
-                        (implicit request: DataRequest[_], writes: Writes[A]): Future[Result] =
+  def saveAndRedirect(page: QuestionPage[_], mode: Mode, idx: Option[Int] = None)
+                     (implicit request: DataRequest[_]): Future[Result] = updateState(page, mode, request.userAnswers).map{ updatedAnswers =>
+    Redirect(navigator.nextPage(page, mode, updatedAnswers, idx))
+  }
+
+
+  def remove[A](page: QuestionPage[A], mode: Mode, idx: Option[Int] = None)
+             (implicit request: DataRequest[_], writes: Writes[A]): Future[UserAnswers] =
     for {
-      updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer, id))
-      pagesToDelete  = questionDeletionLookupService.getPagesToRemove(page)(updatedAnswers)
-      cleanedAnswers <- Future.fromTry(updatedAnswers.remove(pagesToDelete))
-      _              <- sessionRepository.set(cleanedAnswers)
-    } yield Redirect(navigator.nextPage(page, mode, updatedAnswers, id))
+      updatedAnswers <- Future.fromTry(request.userAnswers.remove(page, idx))
+      updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
+    } yield updatedSectionAnswers
+
+  def save[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Option[Int] = None)
+             (implicit request: DataRequest[_], writes: Writes[A]): Future[UserAnswers] =
+    for {
+      updatedAnswers <- Future.fromTry(request.userAnswers.set(page, answer, idx))
+      updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
+    } yield updatedSectionAnswers
+
+  def updateState(page: Page, mode: Mode, userAnswers: UserAnswers)
+                 (implicit request: DataRequest[_]) = {
+    val reviewModel = updateSectionService.updateState(userAnswers, page)
+    val pagesToDelete = questionDeletionLookupService.getPagesToRemove(page)(userAnswers)
+    for {
+      cleanedAnswers <- Future.fromTry(userAnswers.remove(pagesToDelete))
+      updatedSectionAnswers <- Future.fromTry(cleanedAnswers.set(ReviewAndCompletePage, reviewModel))
+      _ <- sessionRepository.set(updatedSectionAnswers)
+    } yield updatedSectionAnswers
+  }
+
 }

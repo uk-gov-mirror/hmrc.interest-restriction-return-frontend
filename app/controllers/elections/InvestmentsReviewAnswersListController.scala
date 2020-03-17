@@ -18,7 +18,7 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.{BaseController, BaseNavigationController}
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.elections.InvestmentsReviewAnswersListFormProvider
 import handlers.ErrorHandler
@@ -29,20 +29,26 @@ import pages.elections.InvestmentsReviewAnswersListPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import repositories.SessionRepository
+import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.InvestmentsReviewAnswersListHelper
 import views.html.elections.InvestmentsReviewAnswersListView
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 class InvestmentsReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
+                                                       override val sessionRepository: SessionRepository,
+                                                       override val navigator: ElectionsNavigator,
+                                                       override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                       override val updateSectionService: UpdateSectionStateService,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       navigator: ElectionsNavigator,
                                                        formProvider: InvestmentsReviewAnswersListFormProvider,
                                                        view: InvestmentsReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+  extends BaseNavigationController {
 
   private def investments(implicit request: DataRequest[_]) = new InvestmentsReviewAnswersListHelper(request.userAnswers).rows
 
@@ -57,13 +63,14 @@ class InvestmentsReviewAnswersListController @Inject()(override val messagesApi:
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        BadRequest(renderView(formWithErrors)),
+        Future.successful(BadRequest(renderView(formWithErrors)))
+      ,
       {
-        case true => Redirect(navigator.addInvestment(investments.length))
-        case false => Redirect(navigator.nextPage(InvestmentsReviewAnswersListPage, NormalMode, request.userAnswers))
+        case true => Future.successful(Redirect(navigator.addInvestment(investments.length)))
+        case false => saveAndRedirect(InvestmentsReviewAnswersListPage, NormalMode)
       }
     )
   }
