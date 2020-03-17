@@ -20,10 +20,15 @@ import assets.constants.BaseConstants
 import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
-import models.SectionStatus.InProgress
+import models.SectionStatus.{Completed, InProgress}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import pages.aboutReportingCompany.{AccountingPeriodStartPage, CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
+import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.checkTotals.ReviewNetTaxInterestPage
+import pages.elections.{CheckAnswersElectionsPage, IsUkPartnershipPage}
+import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, LimitedLiabilityPartnershipPage, ReportingCompanySameAsParentPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
-import pages.ukCompanies.{ConsentingCompanyPage, UkCompaniesPage}
+import pages.ukCompanies.{CheckAnswersUkCompanyPage, ConsentingCompanyPage, DerivedCompanyPage, UkCompaniesPage}
 
 
 class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector with BaseConstants {
@@ -32,30 +37,187 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
 
   "UpdateSectionService.updateState()" when {
 
-    "given a page in the ukCompanies section" must {
+    "for the ukCompanies section" when {
 
-      "return ukCompanies section udpated with InProgress" in {
+      "given a page in the middle of the section" must {
 
-        val userAnswers = emptyUserAnswers
-          .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
-          .set(ConsentingCompanyPage, true).get
+        "return the section updated with InProgress" in {
 
-        val result = TestUpdateSectionStateService.updateState(userAnswers, ConsentingCompanyPage)
-        result mustBe ReviewAndCompleteModel(ukCompanies = SectionState(InProgress, Some(ConsentingCompanyPage)))
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(ConsentingCompanyPage, true).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, ConsentingCompanyPage)
+          result mustBe ReviewAndCompleteModel(ukCompanies = SectionState(InProgress, Some(ConsentingCompanyPage)))
+        }
+      }
+
+      "given the final page of the section" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(UkCompaniesPage, ukCompanyModelMax).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, CheckAnswersUkCompanyPage)
+          result mustBe ReviewAndCompleteModel(ukCompanies = SectionState(Completed, Some(CheckAnswersUkCompanyPage)))
+        }
       }
     }
 
-    "given the final page in the ukCompanies section" must {
+    "for the startReturn section" when {
 
-      "return ukCompanies section udpated with InProgress" in {
+      "given a page in the middle of the section" must {
 
-        val userAnswers = emptyUserAnswers
-          .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
-          .set(UkCompaniesPage, ukCompanyModelMax).get
+        "return the section updated with InProgress" in {
 
-        val result = TestUpdateSectionStateService.updateState(userAnswers, ConsentingCompanyPage)
-        result mustBe ReviewAndCompleteModel(ukCompanies = SectionState(InProgress, Some(ConsentingCompanyPage)))
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(ReportingCompanyNamePage, "reporting company").get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, ReportingCompanyNamePage)
+          result mustBe ReviewAndCompleteModel(startReturn = SectionState(InProgress, Some(ReportingCompanyNamePage)))
+        }
+      }
+
+      "given the final page of the section" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, CheckAnswersReportingCompanyPage)
+          result mustBe ReviewAndCompleteModel(startReturn = SectionState(Completed, Some(CheckAnswersReportingCompanyPage)))
+        }
       }
     }
+
+    "for the elections section" when {
+
+      "given a page in the middle of the section" must {
+
+        "return the section updated with InProgress" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(IsUkPartnershipPage, true).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, IsUkPartnershipPage)
+          result mustBe ReviewAndCompleteModel(elections = SectionState(InProgress, Some(IsUkPartnershipPage)))
+        }
+      }
+
+      "given the final page of the section" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, CheckAnswersElectionsPage)
+          result mustBe ReviewAndCompleteModel(elections = SectionState(Completed, Some(CheckAnswersElectionsPage)))
+        }
+      }
+    }
+
+    "for the aboutReturn section" when {
+
+      "given a page in the middle of the section" must {
+
+        "return the section updated with InProgress" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(InfrastructureCompanyElectionPage, true).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, InfrastructureCompanyElectionPage)
+          result mustBe ReviewAndCompleteModel(aboutReturn = SectionState(InProgress, Some(InfrastructureCompanyElectionPage)))
+        }
+      }
+    }
+
+    "for the groupStructure section" when {
+
+      "given a page in the middle of the section" must {
+
+        "return the section updated with InProgress" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(LimitedLiabilityPartnershipPage, true).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, LimitedLiabilityPartnershipPage)
+          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(InProgress, Some(LimitedLiabilityPartnershipPage)))
+        }
+      }
+
+      "given the final page of the section" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, CheckAnswersGroupStructurePage)
+          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(Completed, Some(CheckAnswersGroupStructurePage)))
+        }
+      }
+
+      "given the HasDeemedParent page answered true and given DeemedParent page" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(HasDeemedParentPage, true).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, DeemedParentPage)
+          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(Completed, Some(DeemedParentPage)))
+        }
+      }
+
+      "given the ReportingCompanySameAsParent page answered true" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, ReportingCompanySameAsParentPage)
+          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(Completed, Some(ReportingCompanySameAsParentPage)))
+        }
+      }
+    }
+
+    "for the checkTotals section" when {
+
+      "given a page in the middle of the section" must {
+
+        "return the section updated with InProgress" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, ReviewNetTaxInterestPage)
+          result mustBe ReviewAndCompleteModel(checkTotals = SectionState(InProgress, Some(ReviewNetTaxInterestPage)))
+        }
+      }
+
+      "given the final page of the section" must {
+
+        "return the section updated with Completed" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
+
+          val result = TestUpdateSectionStateService.updateState(userAnswers, DerivedCompanyPage)
+          result mustBe ReviewAndCompleteModel(checkTotals = SectionState(Completed, Some(DerivedCompanyPage)))
+        }
+      }
+    }
+
   }
 }
