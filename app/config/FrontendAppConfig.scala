@@ -66,17 +66,6 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
   lazy val timeout: Int = servicesConfig.getInt("timeout.timeout")
   lazy val countdown: Int = servicesConfig.getInt("timeout.countdown")
 
-  lazy val languageTranslationEnabled: Boolean =
-    servicesConfig.getBoolean("features.welsh-translation")
-
-  def languageMap: Map[String, Lang] = Map(
-    "english" -> Lang("en"),
-    "cymraeg" -> Lang("cy")
-  )
-
-  def routeToSwitchLanguage: String => Call =
-    (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
-
   lazy val dynamicStub = servicesConfig.baseUrl("interest-restriction-return-dynamic-stub")
   lazy val interestRestrictionReturn = servicesConfig.baseUrl("interest-restriction-return")
 

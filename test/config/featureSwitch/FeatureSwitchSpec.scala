@@ -25,7 +25,8 @@ class FeatureSwitchSpec extends SpecBase {
     "for `.apply(fsName: String): FeatureSwitch`" must {
 
       "Construct a feature switch from a supplied key" in {
-        FeatureSwitch("features.welsh-translation") mustBe WelshLanguage
+//      Needs to be added in when we have at least 1 feature switch.
+//        FeatureSwitch("features.{feature-name}") mustBe {FeatureName}
       }
 
       "Throw Illegal Arg exception if feature switch does not exist" in {
@@ -38,7 +39,8 @@ class FeatureSwitchSpec extends SpecBase {
     "for `.get(fsName: String): Option[FeatureSwitch]`" must {
 
       "Return Some({feature switch}) if a feature switch can be found" in {
-        FeatureSwitch.get("features.welsh-translation") mustBe Some(WelshLanguage)
+//      Needs to be added in when we have at least 1 feature switch.
+//        FeatureSwitch.get("features.{feature-name}") mustBe Some({feature-name})
       }
 
       "Return None if a feature switch can NOT be found" in {

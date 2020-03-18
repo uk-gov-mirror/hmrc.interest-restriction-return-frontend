@@ -16,13 +16,11 @@
 
 package config.featureSwitch
 
-import config.featureSwitch.FeatureSwitch.prefix
-
 object FeatureSwitch {
 
   val prefix = "features"
 
-  val switches: Seq[FeatureSwitch] = Seq(WelshLanguage)
+  val switches: Seq[FeatureSwitch] = Seq()
   val booleanFeatureSwitches: Seq[BooleanFeatureSwitch] = switches.collect{case a: BooleanFeatureSwitch => a}
   val customValueFeatureSwitch: Seq[CustomValueFeatureSwitch] = switches.collect{case a: CustomValueFeatureSwitch => a}
 
@@ -45,9 +43,4 @@ sealed trait FeatureSwitch {
 sealed trait BooleanFeatureSwitch extends FeatureSwitch
 sealed trait CustomValueFeatureSwitch extends FeatureSwitch {
   val values: Set[String]
-}
-
-case object WelshLanguage extends BooleanFeatureSwitch {
-  override val name: String = s"$prefix.welsh-translation"
-  override val displayText: String = "Enable welsh translation"
 }
