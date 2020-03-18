@@ -72,9 +72,10 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
       {
         case true => Future.successful(Redirect(navigator.addParent(deemedParents.length)))
         case false => saveAndRedirect(DeemedParentPage, NormalMode)
-      })
       }
-      else{saveAndRedirect(DeemedParentPage, NormalMode)
-      }
+    )
+    } else {
+      saveAndRedirect(DeemedParentPage, NormalMode)
+    }
   }
 }

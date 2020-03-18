@@ -127,7 +127,7 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
             .set(DeemedParentPage, deemedParentModelUkCompany, Some(3)).success.value))
           mockSetAnswers(true)
 
-          val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+          val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
           val result = Controller.onSubmit()(request)
 
