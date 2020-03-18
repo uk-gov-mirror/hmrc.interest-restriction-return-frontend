@@ -24,13 +24,14 @@ import forms.behaviours.DateBehaviours
 class AccountingPeriodStartFormProviderSpec extends DateBehaviours {
 
   val form = new AccountingPeriodStartFormProvider()()
+  val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+  val min = LocalDate.of(2000, 1, 1)
 
   ".value" should {
 
-
     val validData = datesBetween(
-      min = LocalDate.of(2000, 1, 1),
-      max = LocalDate.now(ZoneOffset.UTC)
+      min = min,
+      max = now
     )
 
     behave like dateField(form, "value", validData)
@@ -40,8 +41,6 @@ class AccountingPeriodStartFormProviderSpec extends DateBehaviours {
 
   "start date" should {
 
-    val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
-
     "pass validation if in the present" in {
       form.fillAndValidate(now).errors.length mustBe 0
     }
@@ -50,8 +49,8 @@ class AccountingPeriodStartFormProviderSpec extends DateBehaviours {
       form.fillAndValidate(now.minusDays(1L)).errors.length mustBe 0
     }
 
-    "pass validation if several thousand years in the past" in {
-      form.fillAndValidate(now.minusYears(4510L)).errors.length mustBe 0
+    "fail validation if 1 day before the min date" in {
+      form.fillAndValidate(min.minusDays(1)).errors.length mustBe 1
     }
 
     "fail validation if 1 day in the future" in {

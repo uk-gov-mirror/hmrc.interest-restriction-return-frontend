@@ -32,8 +32,9 @@ class AccountingPeriodStartFormProvider @Inject() extends Mappings {
         allRequiredKey = "accountingPeriodStart.error.required.all",
         twoRequiredKey = "accountingPeriodStart.error.required.two",
         requiredKey = "accountingPeriodStart.error.required"
+      ).verifying("accountingPeriodStart.error.range",
+        period => !period.isAfter(now) && !period.isBefore(LocalDate.parse("2000-01-01"))
       )
-        .verifying("accountingPeriodStart.error.range", period => !period.isAfter(now))
     )
   }
 }
