@@ -20,6 +20,7 @@ import java.time.{Instant, LocalDate, ZoneOffset}
 
 import forms.aboutReportingCompany.AccountingPeriodStartFormProvider
 import forms.behaviours.DateBehaviours
+import play.api.data.FormError
 
 class AccountingPeriodStartFormProviderSpec extends DateBehaviours {
 
@@ -50,11 +51,17 @@ class AccountingPeriodStartFormProviderSpec extends DateBehaviours {
     }
 
     "fail validation if 1 day before the min date" in {
-      form.fillAndValidate(min.minusDays(1)).errors.length mustBe 1
+
+      val errors = form.fillAndValidate(min.minusDays(1)).errors
+      errors.length mustBe 1
+      errors.head mustBe FormError("value", "accountingPeriodStart.error.range.below")
     }
 
     "fail validation if 1 day in the future" in {
-      form.fillAndValidate(now.plusDays(1L)).errors.length mustBe 1
+
+      val errors = form.fillAndValidate(now.plusDays(1L)).errors
+      errors.length mustBe 1
+      errors.head mustBe FormError("value", "accountingPeriodStart.error.range.above")
     }
 
   }
