@@ -697,8 +697,10 @@ netTaxInterestIncomeOrExpense.heading = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.subheading = {0}
 netTaxInterestIncomeOrExpense.expense = Net tax-interest expense
 netTaxInterestIncomeOrExpense.income = Net tax-interest income
+netTaxInterestIncomeOrExpense.noIncomeOrExpense = This company does not have a net tax-interest
 netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
+
 
 # CompanyDetailsPage Messages
 # ----------------------------------------------------------

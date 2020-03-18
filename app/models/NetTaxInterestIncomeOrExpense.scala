@@ -26,9 +26,10 @@ object NetTaxInterestIncomeOrExpense extends Enumerable.Implicits {
 
   case object NetTaxInterestExpense extends WithName("expense") with NetTaxInterestIncomeOrExpense
   case object NetTaxInterestIncome extends WithName("income") with NetTaxInterestIncomeOrExpense
+  case object NetTaxInterestNoIncomeOrExpense extends WithName("noIncomeOrExpense") with NetTaxInterestIncomeOrExpense
 
   val values: Seq[NetTaxInterestIncomeOrExpense] = Seq(
-    NetTaxInterestExpense, NetTaxInterestIncome
+    NetTaxInterestExpense, NetTaxInterestIncome, NetTaxInterestNoIncomeOrExpense
   )
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {

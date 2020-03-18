@@ -18,6 +18,7 @@ package navigation
 
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
+import models.NetTaxInterestIncomeOrExpense._
 import models._
 import pages._
 import pages.aboutReturn._
@@ -31,7 +32,12 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     AboutAddingUKCompaniesPage -> ((idx, _) => routes.CompanyDetailsController.onPageLoad(idx, NormalMode)),
     CompanyDetailsPage -> ((idx, _) => routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)),
     EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
-    NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
+    NetTaxInterestIncomeOrExpensePage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.netTaxInterestIncomeOrExpense) match {
+      case Some(NetTaxInterestIncome) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)
+      case Some(NetTaxInterestExpense) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)
+      case Some(NetTaxInterestNoIncomeOrExpense) => checkYourAnswers(idx)
+      case None => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
+    }),
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),
     ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(GroupSubjectToRestrictionsPage) match {
       case Some(true) => checkYourAnswers(idx)
@@ -57,9 +63,9 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
-    ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
-    EnterCompanyTaxEBITDAPage -> ((_,_) => controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()),
-    NetTaxInterestAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad())
+    ReactivationAmountPage -> ((_, _) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
+    EnterCompanyTaxEBITDAPage -> ((_, _) => controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()),
+    NetTaxInterestAmountPage -> ((_, _) => controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad())
   ).withDefaultValue((_, _) => controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
