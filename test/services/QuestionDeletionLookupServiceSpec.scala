@@ -20,7 +20,8 @@ import assets.constants.BaseConstants
 import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
 import pages.Page
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, ReportingCompanyAppointedPage}
+import pages.aboutReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, ReportingCompanyAppointedPage}
+import pages.aboutReturn.{AgentNamePage, ReportingCompanyAppointedPage}
 
 
 class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationConnector with BaseConstants {

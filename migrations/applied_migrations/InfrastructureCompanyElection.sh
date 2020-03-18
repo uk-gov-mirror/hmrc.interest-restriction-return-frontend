@@ -6,11 +6,11 @@ echo "Applying migration InfrastructureCompanyElection"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /infrastructureCompanyElection                        controllers.aboutReturn.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /infrastructureCompanyElection                        controllers.aboutReturn.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /infrastructureCompanyElection                        controllers.groupLevelInformation.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /infrastructureCompanyElection                        controllers.groupLevelInformation.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeInfrastructureCompanyElection                  controllers.aboutReturn.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeInfrastructureCompanyElection                  controllers.aboutReturn.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeInfrastructureCompanyElection                  controllers.groupLevelInformation.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeInfrastructureCompanyElection                  controllers.groupLevelInformation.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

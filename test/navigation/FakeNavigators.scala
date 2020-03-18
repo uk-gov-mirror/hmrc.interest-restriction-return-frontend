@@ -27,10 +27,9 @@ object FakeNavigators extends SpecBase {
     override def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = onwardRoute
   }
 
-  object FakeStartReturnNavigator extends StartReturnNavigator() with FakeNavigator
-  object FakeAboutReportingCompanyNavigator extends AboutReportingCompanyNavigator() with FakeNavigator
   object FakeAboutReturnNavigator extends AboutReturnNavigator() with FakeNavigator
-  object FakeGroupStructureNavigator extends GroupStructureNavigator() with FakeNavigator {
+  object FakeGroupLevelInformationNavigator extends GroupLevelInformationNavigator() with FakeNavigator
+  object FakeUltimateParentCompanyNavigator extends ultimateParentCompanyNavigator() with FakeNavigator {
     override def addParent(numberOfParents: Int): Call = Call("GET", s"/addParent/$numberOfParents")
   }
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator

@@ -19,7 +19,7 @@ package controllers.checkTotals
 import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.GroupLevelAmountITConstants.interestReactivationCap
 import assets.{BaseITConstants, PageTitles}
-import pages.aboutReturn.InterestReactivationsCapPage
+import pages.groupLevelInformation.InterestReactivationsCapPage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.JsString

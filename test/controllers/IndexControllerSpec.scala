@@ -19,8 +19,8 @@ package controllers
 import base.SpecBase
 import controllers.actions._
 import mocks.MockSessionRepository
-import navigation.FakeNavigators.FakeStartReturnNavigator
-import pages.startReturn.ReportingCompanyAppointedPage
+import navigation.FakeNavigators.FakeAboutReturnNavigator
+import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.test.Helpers._
 
 class IndexControllerSpec extends SpecBase with MockSessionRepository with MockDataRetrievalAction {
@@ -29,7 +29,7 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository with MockD
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     sessionRepository = mockSessionRepository,
-    navigator = FakeStartReturnNavigator,
+    navigator = FakeAboutReturnNavigator,
     controllerComponents = messagesControllerComponents
   )
 

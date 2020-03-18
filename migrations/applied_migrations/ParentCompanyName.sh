@@ -6,11 +6,11 @@ echo "Applying migration ParentCompanyName"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /parentCompanyName                        controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /parentCompanyName                        controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /parentCompanyName                        controllers.ultimateParentCompany.ParentCompanyNameController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /parentCompanyName                        controllers.ultimateParentCompany.ParentCompanyNameController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeParentCompanyName                  controllers.groupStructure.ParentCompanyNameController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeParentCompanyName                  controllers.groupStructure.ParentCompanyNameController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeParentCompanyName                  controllers.ultimateParentCompany.ParentCompanyNameController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeParentCompanyName                  controllers.ultimateParentCompany.ParentCompanyNameController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

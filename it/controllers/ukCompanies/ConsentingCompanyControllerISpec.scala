@@ -22,7 +22,7 @@ import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import assets.UkCompanyITConstants._
-import pages.aboutReturn.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
+import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 

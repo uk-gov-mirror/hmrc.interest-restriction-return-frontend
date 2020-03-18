@@ -22,11 +22,11 @@ import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
 import models.SectionStatus.{Completed, InProgress}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.aboutReportingCompany.{AccountingPeriodStartPage, CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
-import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.aboutReturn.{AccountingPeriodStartPage, CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
+import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.checkTotals.ReviewNetTaxInterestPage
 import pages.elections.{CheckAnswersElectionsPage, IsUkPartnershipPage}
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, LimitedLiabilityPartnershipPage, ReportingCompanySameAsParentPage}
+import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, LimitedLiabilityPartnershipPage, ReportingCompanySameAsParentPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.{CheckAnswersUkCompanyPage, ConsentingCompanyPage, DerivedCompanyPage, UkCompaniesPage}
 
@@ -66,7 +66,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
       }
     }
 
-    "for the startReturn section" when {
+    "for the aboutReturn section" when {
 
       "given a page in the middle of the section" must {
 
@@ -77,7 +77,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(ReportingCompanyNamePage, "reporting company").get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, ReportingCompanyNamePage)
-          result mustBe ReviewAndCompleteModel(startReturn = SectionState(InProgress, Some(ReportingCompanyNamePage)))
+          result mustBe ReviewAndCompleteModel(aboutReturn = SectionState(InProgress, Some(ReportingCompanyNamePage)))
         }
       }
 
@@ -89,7 +89,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, CheckAnswersReportingCompanyPage)
-          result mustBe ReviewAndCompleteModel(startReturn = SectionState(Completed, Some(CheckAnswersReportingCompanyPage)))
+          result mustBe ReviewAndCompleteModel(aboutReturn = SectionState(Completed, Some(CheckAnswersReportingCompanyPage)))
         }
       }
     }
@@ -122,7 +122,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
       }
     }
 
-    "for the aboutReturn section" when {
+    "for the groupLevelInformation section" when {
 
       "given a page in the middle of the section" must {
 
@@ -133,12 +133,12 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(InfrastructureCompanyElectionPage, true).get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, InfrastructureCompanyElectionPage)
-          result mustBe ReviewAndCompleteModel(aboutReturn = SectionState(InProgress, Some(InfrastructureCompanyElectionPage)))
+          result mustBe ReviewAndCompleteModel(groupLevelInformation = SectionState(InProgress, Some(InfrastructureCompanyElectionPage)))
         }
       }
     }
 
-    "for the groupStructure section" when {
+    "for the ultimateParentCompany section" when {
 
       "given a page in the middle of the section" must {
 
@@ -149,7 +149,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(LimitedLiabilityPartnershipPage, true).get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, LimitedLiabilityPartnershipPage)
-          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(InProgress, Some(LimitedLiabilityPartnershipPage)))
+          result mustBe ReviewAndCompleteModel(ultimateParentCompany = SectionState(InProgress, Some(LimitedLiabilityPartnershipPage)))
         }
       }
 
@@ -161,7 +161,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, CheckAnswersGroupStructurePage)
-          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(Completed, Some(CheckAnswersGroupStructurePage)))
+          result mustBe ReviewAndCompleteModel(ultimateParentCompany = SectionState(Completed, Some(CheckAnswersGroupStructurePage)))
         }
       }
 
@@ -174,7 +174,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(HasDeemedParentPage, true).get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, DeemedParentPage)
-          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(Completed, Some(DeemedParentPage)))
+          result mustBe ReviewAndCompleteModel(ultimateParentCompany = SectionState(Completed, Some(DeemedParentPage)))
         }
       }
 
@@ -187,7 +187,7 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
             .set(ReportingCompanySameAsParentPage, true).get
 
           val result = TestUpdateSectionStateService.updateState(userAnswers, ReportingCompanySameAsParentPage)
-          result mustBe ReviewAndCompleteModel(groupStructure = SectionState(Completed, Some(ReportingCompanySameAsParentPage)))
+          result mustBe ReviewAndCompleteModel(ultimateParentCompany = SectionState(Completed, Some(ReportingCompanySameAsParentPage)))
         }
       }
     }

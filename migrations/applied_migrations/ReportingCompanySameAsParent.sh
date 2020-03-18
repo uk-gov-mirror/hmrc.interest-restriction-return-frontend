@@ -6,11 +6,11 @@ echo "Applying migration ReportingCompanySameAsParent"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /reportingCompanySameAsParent                        controllers.groupStructure.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /reportingCompanySameAsParent                        controllers.groupStructure.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /reportingCompanySameAsParent                        controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /reportingCompanySameAsParent                        controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeReportingCompanySameAsParent                  controllers.groupStructure.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeReportingCompanySameAsParent                  controllers.groupStructure.ReportingCompanySameAsParentController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeReportingCompanySameAsParent                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeReportingCompanySameAsParent                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

@@ -21,9 +21,9 @@ import models.SectionStatus.{Completed, InProgress}
 import models.UserAnswers
 import models.returnModels.ReviewAndCompleteModel
 import pages.Page
-import pages.aboutReportingCompany.CheckAnswersReportingCompanyPage
+import pages.aboutReturn.CheckAnswersReportingCompanyPage
 import pages.elections.CheckAnswersElectionsPage
-import pages.groupStructure.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
+import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.{CheckAnswersUkCompanyPage, DerivedCompanyPage, UkCompaniesPage}
 

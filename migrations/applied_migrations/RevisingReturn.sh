@@ -6,11 +6,11 @@ echo "Applying migration RevisingReturn"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /revisingReturn                        controllers.aboutReportingCompany.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /revisingReturn                        controllers.aboutReportingCompany.RevisingReturnController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /revisingReturn                        controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /revisingReturn                        controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeRevisingReturn                  controllers.aboutReportingCompany.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeRevisingReturn                  controllers.aboutReportingCompany.RevisingReturnController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeRevisingReturn                  controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeRevisingReturn                  controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

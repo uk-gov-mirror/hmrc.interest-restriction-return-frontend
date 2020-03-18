@@ -6,11 +6,11 @@ echo "Applying migration RegisteredCompaniesHouse"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /registeredCompaniesHouse                        controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /registeredCompaniesHouse                        controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /registeredCompaniesHouse                        controllers.ultimateParentCompany.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /registeredCompaniesHouse                        controllers.ultimateParentCompany.RegisteredCompaniesHouseController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeRegisteredCompaniesHouse                  controllers.groupStructure.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeRegisteredCompaniesHouse                  controllers.groupStructure.RegisteredCompaniesHouseController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeRegisteredCompaniesHouse                  controllers.ultimateParentCompany.RegisteredCompaniesHouseController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeRegisteredCompaniesHouse                  controllers.ultimateParentCompany.RegisteredCompaniesHouseController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

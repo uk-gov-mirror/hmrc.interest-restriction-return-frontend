@@ -6,11 +6,11 @@ echo "Applying migration ParentCompanyCTUTR"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /parentCompanyCTUTR                        controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /parentCompanyCTUTR                        controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /parentCompanyCTUTR                        controllers.ultimateParentCompany.ParentCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /parentCompanyCTUTR                        controllers.ultimateParentCompany.ParentCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeParentCompanyCTUTR                  controllers.groupStructure.ParentCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeParentCompanyCTUTR                  controllers.groupStructure.ParentCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeParentCompanyCTUTR                  controllers.ultimateParentCompany.ParentCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeParentCompanyCTUTR                  controllers.ultimateParentCompany.ParentCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

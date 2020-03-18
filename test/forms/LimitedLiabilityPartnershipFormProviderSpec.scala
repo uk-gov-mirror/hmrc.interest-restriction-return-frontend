@@ -17,7 +17,7 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
-import forms.groupStructure.LimitedLiabilityPartnershipFormProvider
+import forms.ultimateParentCompany.LimitedLiabilityPartnershipFormProvider
 import play.api.data.FormError
 
 class LimitedLiabilityPartnershipFormProviderSpec extends BooleanFieldBehaviours {

@@ -1,64 +1,74 @@
-# About the Return Section Routes
-# ===============================
+# About the Reporting Company Section Routes
+# ==========================================
 
-### GroupSubjectToReactivations Controller
+### RevisingReturn Controller
 ### ----------------------------------------
-GET        /group-subject-to-reactivations                  controllers.aboutReturn.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-subject-to-reactivations                  controllers.aboutReturn.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
-GET        /group-subject-to-reactivations/change           controllers.aboutReturn.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-subject-to-reactivations/change           controllers.aboutReturn.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
+GET        /revising-return                             controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /revising-return                             controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /revising-return/change                      controllers.aboutReturn.RevisingReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /revising-return/change                      controllers.aboutReturn.RevisingReturnController.onSubmit(mode: Mode = CheckMode)
 
-
-### InfrastructureCompanyElection Controller
+### ReportingCompanyName Controller
 ### ----------------------------------------
-GET        /infrastructure-company-election                 controllers.aboutReturn.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /infrastructure-company-election                 controllers.aboutReturn.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /infrastructure-company-election/change          controllers.aboutReturn.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /infrastructure-company-election/change          controllers.aboutReturn.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
+GET        /name                                        controllers.aboutReturn.ReportingCompanyNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /name                                        controllers.aboutReturn.ReportingCompanyNameController.onSubmit(mode: Mode = NormalMode)
+GET        /name/change                                 controllers.aboutReturn.ReportingCompanyNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /name/change                                 controllers.aboutReturn.ReportingCompanyNameController.onSubmit(mode: Mode = CheckMode)
 
-
-### InterestAllowanceBroughtForward Controller
+### ReportingCompanyCTUTR Controller
 ### ----------------------------------------
-GET        /interest-allowance-brought-forward              controllers.aboutReturn.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)
-POST       /interest-allowance-brought-forward              controllers.aboutReturn.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = NormalMode)
-GET        /interest-allowance-brought-forward/change       controllers.aboutReturn.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = CheckMode)
-POST       /interest-allowance-brought-forward/change       controllers.aboutReturn.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)
+GET        /ctutr                                       controllers.aboutReturn.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = NormalMode)
+POST       /ctutr                                       controllers.aboutReturn.ReportingCompanyCTUTRController.onSubmit(mode: Mode = NormalMode)
+GET        /ctutr/change                                controllers.aboutReturn.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
+POST       /ctutr/change                                controllers.aboutReturn.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
 
-
-### GroupInterestCapacity Controller
+### AccountingPeriodStart Controller
 ### ----------------------------------------
-GET        /group-interest-capacity                         controllers.aboutReturn.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-interest-capacity                         controllers.aboutReturn.GroupInterestCapacityController.onSubmit(mode: Mode = NormalMode)
-GET        /group-interest-capacity/change                  controllers.aboutReturn.GroupInterestCapacityController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-interest-capacity/change                  controllers.aboutReturn.GroupInterestCapacityController.onSubmit(mode: Mode = CheckMode)
+GET        /accounting-period-start                     controllers.aboutReturn.AccountingPeriodStartController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period-start                     controllers.aboutReturn.AccountingPeriodStartController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period-start/change              controllers.aboutReturn.AccountingPeriodStartController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period-start/change              controllers.aboutReturn.AccountingPeriodStartController.onSubmit(mode: Mode = CheckMode)
 
-
-### GroupSubjectToRestrictions Controller
+### AccountingPeriodEnd Controller
 ### ----------------------------------------
-GET        /group-subject-to-restrictions                   controllers.aboutReturn.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-subject-to-restrictions                   controllers.aboutReturn.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
-GET        /group-subject-to-restrictions/change            controllers.aboutReturn.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-subject-to-restrictions/change            controllers.aboutReturn.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
+GET        /accounting-period-end                       controllers.aboutReturn.AccountingPeriodEndController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period-end                       controllers.aboutReturn.AccountingPeriodEndController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period-end/change                controllers.aboutReturn.AccountingPeriodEndController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period-end/change                controllers.aboutReturn.AccountingPeriodEndController.onSubmit(mode: Mode = CheckMode)
 
+### CheckYourAnswersController
+### -----------------------------
+GET        /check-answers                               controllers.aboutReturn.CheckAnswersReportingCompanyController.onPageLoad
+POST       /check-answers                               controllers.aboutReturn.CheckAnswersReportingCompanyController.onSubmit
 
-### GroupInterestAllowance Controller
+### ReportingCompanyAppointed Controller
 ### ----------------------------------------
-GET        /group-interest-allowance                        controllers.aboutReturn.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-interest-allowance                        controllers.aboutReturn.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)
-GET        /group-interest-allowance/change                 controllers.aboutReturn.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-interest-allowance/change                 controllers.aboutReturn.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)
+GET        /about-the-return-appointed                 controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)
+POST       /about-the-return-appointed                 controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)
+GET        /about-the-return-appointed/change          controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)
+POST       /about-the-return-appointed/change          controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)
 
-### InterestReactivationsCap Controller
+### ReportingCompanyRequired Controller
 ### ----------------------------------------
-GET        /interest-reactivations-cap                      controllers.aboutReturn.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)
-POST       /interest-reactivations-cap                      controllers.aboutReturn.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)
-GET        /interest-reactivations-cap/change               controllers.aboutReturn.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)
-POST       /interest-reactivations-cap/change               controllers.aboutReturn.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)
+GET        /about-the-return-required                  controllers.aboutReturn.ReportingCompanyRequiredController.onPageLoad()
 
-
-### ReturnContainEstimates Controller
+### AgentActingOnBehalfOfCompany Controller
 ### ----------------------------------------
-GET        /return-contain-estimates                        controllers.aboutReturn.ReturnContainEstimatesController.onPageLoad(mode: Mode = NormalMode)
-POST       /return-contain-estimates                        controllers.aboutReturn.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)
-GET        /return-contain-estimates/change                 controllers.aboutReturn.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)
-POST       /return-contain-estimates/change                 controllers.aboutReturn.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)
+GET        /agent-acting-on-behalf-of-company           controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-acting-on-behalf-of-company           controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-acting-on-behalf-of-company/change    controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-acting-on-behalf-of-company/change    controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)
+
+### AgentName Controller
+### ----------------------------------------
+GET        /agent-name                                  controllers.aboutReturn.AgentNameController.onPageLoad(mode: Mode = NormalMode)
+POST       /agent-name                                  controllers.aboutReturn.AgentNameController.onSubmit(mode: Mode = NormalMode)
+GET        /agent-name/change                           controllers.aboutReturn.AgentNameController.onPageLoad(mode: Mode = CheckMode)
+POST       /agent-name/change                           controllers.aboutReturn.AgentNameController.onSubmit(mode: Mode = CheckMode)
+
+### FullOrAbbreviatedReturn Controller
+### ----------------------------------------
+GET        /full-or-abbreviated-return                  controllers.aboutReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)
+POST       /full-or-abbreviated-return                  controllers.aboutReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
+GET        /full-or-abbreviated-return/change           controllers.aboutReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
+POST       /full-or-abbreviated-return/change           controllers.aboutReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)

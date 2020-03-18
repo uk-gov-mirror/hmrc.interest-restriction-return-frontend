@@ -6,11 +6,11 @@ echo "Applying migration PayTaxInUk"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /payTaxInUk                        controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /payTaxInUk                        controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /payTaxInUk                        controllers.ultimateParentCompany.PayTaxInUkController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /payTaxInUk                        controllers.ultimateParentCompany.PayTaxInUkController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changePayTaxInUk                  controllers.groupStructure.PayTaxInUkController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changePayTaxInUk                  controllers.groupStructure.PayTaxInUkController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changePayTaxInUk                  controllers.ultimateParentCompany.PayTaxInUkController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changePayTaxInUk                  controllers.ultimateParentCompany.PayTaxInUkController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

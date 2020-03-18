@@ -23,7 +23,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import handlers.ErrorHandler
 import models.NormalMode
 import navigation.CheckTotalsNavigator
-import pages.aboutReturn.InterestReactivationsCapPage
+import pages.groupLevelInformation.InterestReactivationsCapPage
 import pages.checkTotals.ReviewReactivationsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._

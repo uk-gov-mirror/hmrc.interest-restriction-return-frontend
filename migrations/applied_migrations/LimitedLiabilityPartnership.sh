@@ -8,10 +8,10 @@ echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
 
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "LimitedLiabilityPartnership" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.groupStructure.LimitedLiabilityPartnershipController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName                          controllers.groupStructure.LimitedLiabilityPartnershipController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /$kebabClassName/change                   controllers.groupStructure.LimitedLiabilityPartnershipController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName/change                   controllers.groupStructure.LimitedLiabilityPartnershipController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName                          controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /$kebabClassName                          controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName/change                   controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /$kebabClassName/change                   controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

@@ -17,7 +17,7 @@
 package utils
 
 import models.UserAnswers
-import pages.groupStructure._
+import pages.ultimateParentCompany._
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
@@ -28,8 +28,8 @@ class DeemedParentReviewAnswersListHelper(val userAnswers: UserAnswers)
     case (model, idx) => summaryListRow(
       model.companyName.name,
       model.utr.fold("")(_.utr),
-      controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(idx + 1) -> messages("site.review"),
-      controllers.groupStructure.routes.DeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
+      controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(idx + 1) -> messages("site.review"),
+      controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )
   }
 }

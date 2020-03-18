@@ -19,7 +19,7 @@ package assets.constants
 import models.SectionStatus
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.GroupRatioBlendedElectionPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.libs.json.{JsObject, Json}
@@ -27,27 +27,27 @@ import play.api.libs.json.{JsObject, Json}
 object ReviewAndCompleteConstants {
 
   val reviewAndCompleteModel: ReviewAndCompleteModel = ReviewAndCompleteModel(
-    startReturn = SectionState(NotStarted, None),
+    aboutReturn = SectionState(NotStarted, None),
     elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-    aboutReturn = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
-    groupStructure = SectionState(NotStarted, None),
+    groupLevelInformation = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
+    ultimateParentCompany = SectionState(NotStarted, None),
     ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
     checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
   )
 
   val reviewAndCompleteJson: JsObject = Json.obj(
-    "startReturn" -> Json.obj(
+    "aboutReturn" -> Json.obj(
       "status" -> SectionStatus.NotStarted.toString
     ),
     "elections" -> Json.obj(
       "status" -> SectionStatus.InProgress.toString,
       "lastPageSaved" -> GroupRatioBlendedElectionPage.toString
     ),
-    "aboutReturn" -> Json.obj(
+    "groupLevelInformation" -> Json.obj(
       "status" -> SectionStatus.Completed.toString,
       "lastPageSaved" -> InfrastructureCompanyElectionPage.toString
     ),
-    "groupStructure" -> Json.obj(
+    "ultimateParentCompany" -> Json.obj(
       "status" -> SectionStatus.NotStarted.toString
     ),
     "ukCompanies" -> Json.obj(

@@ -17,7 +17,7 @@
 package utils
 
 import base.SpecBase
-import pages.groupStructure._
+import pages.ultimateParentCompany._
 import viewmodels.SummaryListRowHelper
 import assets.constants.DeemedParentConstants._
 import assets.messages.BaseMessages
@@ -42,20 +42,20 @@ class DeemedParentReviewAnswersListHelperSpec extends SpecBase with SummaryListR
           summaryListRow(
             deemedParentModelUkCompany.companyName.name,
             deemedParentModelUkCompany.utr.get.utr,
-            controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1) -> BaseMessages.review,
-            controllers.groupStructure.routes.DeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
+            controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1) -> BaseMessages.review,
+            controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             deemedParentModelUkPartnership.companyName.name,
             deemedParentModelUkPartnership.utr.get.utr,
-            controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(2) -> BaseMessages.review,
-            controllers.groupStructure.routes.DeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
+            controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(2) -> BaseMessages.review,
+            controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             deemedParentModelNonUkCompany.companyName.name,
             "",
-            controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(3) -> BaseMessages.review,
-            controllers.groupStructure.routes.DeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
+            controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(3) -> BaseMessages.review,
+            controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )
         )
       }

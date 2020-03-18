@@ -79,7 +79,7 @@ class CheckAnswersElectionsControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode).url)
               )
             }
           }

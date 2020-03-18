@@ -9,10 +9,9 @@ GET        /                                            controllers.IndexControl
 
 ### Section routing
 ### ---------------
-->         /start                                       startReturn.Routes
-->         /reporting-company                           aboutReportingCompany.Routes
-->     	   /group-structure                             groupStructure.Routes
-->         /about-return                                aboutReturn.Routes
+->         /about-the-return                            aboutReturn.Routes
+->     	   /ultimate-parent-company                     ultimateParentCompany.Routes
+->         /group-level-information                     groupLevelInformation.Routes
 ->         /elections                                   elections.Routes
 ->         /uk-companies                                ukCompanies.Routes
 ->         /check-totals                                checkTotals.Routes

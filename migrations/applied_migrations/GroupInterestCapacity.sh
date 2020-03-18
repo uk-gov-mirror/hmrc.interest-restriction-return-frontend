@@ -6,11 +6,11 @@ echo "Applying migration GroupInterestCapacity"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /groupInterestCapacity                  controllers.aboutReturn.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /groupInterestCapacity                  controllers.aboutReturn.GroupInterestCapacityController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /groupInterestCapacity                  controllers.groupLevelInformation.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /groupInterestCapacity                  controllers.groupLevelInformation.GroupInterestCapacityController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeGroupInterestCapacity                        controllers.aboutReturn.GroupInterestCapacityController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeGroupInterestCapacity                        controllers.aboutReturn.GroupInterestCapacityController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeGroupInterestCapacity                        controllers.groupLevelInformation.GroupInterestCapacityController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeGroupInterestCapacity                        controllers.groupLevelInformation.GroupInterestCapacityController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

@@ -6,11 +6,11 @@ echo "Applying migration CheckAnswersReportingCompany"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /checkAnswersReportingCompany                        controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /checkAnswersReportingCompany                        controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /checkAnswersReportingCompany                        controllers.aboutReturn.CheckAnswersReportingCompanyController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /checkAnswersReportingCompany                        controllers.aboutReturn.CheckAnswersReportingCompanyController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeCheckAnswersReportingCompany                  controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeCheckAnswersReportingCompany                  controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeCheckAnswersReportingCompany                  controllers.aboutReturn.CheckAnswersReportingCompanyController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeCheckAnswersReportingCompany                  controllers.aboutReturn.CheckAnswersReportingCompanyController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

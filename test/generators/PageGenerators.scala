@@ -18,12 +18,12 @@ package generators
 
 import org.scalacheck.Arbitrary
 import pages._
-import pages.aboutReportingCompany._
 import pages.aboutReturn._
+import pages.groupLevelInformation._
 import pages.elections._
-import pages.groupStructure._
+import pages.ultimateParentCompany._
 import pages.reviewAndComplete.ReviewAndCompletePage
-import pages.startReturn._
+import pages.aboutReturn._
 import pages.ukCompanies._
 
 trait PageGenerators {

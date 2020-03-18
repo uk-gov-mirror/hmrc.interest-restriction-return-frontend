@@ -22,16 +22,13 @@ import controllers.actions._
 import forms.ContinueSavedReturnFormProvider
 import javax.inject.Inject
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
-import models.{ContinueSavedReturn, NormalMode}
-import navigation.{AboutReportingCompanyNavigator, AboutReturnNavigator, StartReturnNavigator}
+import models.NormalMode
+import navigation.{AboutReturnNavigator, GroupLevelInformationNavigator}
 import pages.ContinueSavedReturnPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ContinueSavedReturnView
-
-import scala.concurrent.Future
 
 class ContinueSavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                               sessionRepository: SessionRepository,
@@ -41,9 +38,8 @@ class ContinueSavedReturnController @Inject()(override val messagesApi: Messages
                                               formProvider: ContinueSavedReturnFormProvider,
                                               val controllerComponents: MessagesControllerComponents,
                                               view: ContinueSavedReturnView,
-                                              startReturnNavigator: StartReturnNavigator,
-                                              aboutReportingCompanyNavigator: AboutReportingCompanyNavigator,
-                                              aboutReturnNavigator: AboutReturnNavigator
+                                              aboutReturnNavigator: AboutReturnNavigator,
+                                              groupLevelInformationNavigator: GroupLevelInformationNavigator
                                              )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

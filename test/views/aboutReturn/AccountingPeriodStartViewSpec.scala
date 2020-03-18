@@ -20,17 +20,17 @@ import java.time.LocalDate
 
 import assets.messages.BaseMessages
 import assets.messages.SectionHeaderMessages._
-import forms.aboutReportingCompany.AccountingPeriodStartFormProvider
+import forms.aboutReturn.AccountingPeriodStartFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.aboutReportingCompany.AccountingPeriodStartView
+import views.html.aboutReturn.AccountingPeriodStartView
 
 class AccountingPeriodStartViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "accountingPeriodStart"
-  val section = Some(messages("section.startReturn"))
+  val section = Some(messages("section.aboutReturn"))
   val form = new AccountingPeriodStartFormProvider()()
 
     "AccountingPeriodStartView" must {
@@ -42,7 +42,7 @@ class AccountingPeriodStartViewSpec extends QuestionViewBehaviours[LocalDate] {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), startReturn)
+      behave like pageWithSubHeading(applyView(form), aboutReturn)
 
       behave like pageWithBackLink(applyView(form))
 

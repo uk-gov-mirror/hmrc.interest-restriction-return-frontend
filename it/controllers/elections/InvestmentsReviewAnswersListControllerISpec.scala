@@ -20,7 +20,7 @@ import assets.NonConsolidatedInvestmentsITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import pages.elections.InvestmentNamePage
-import pages.groupStructure.{DeemedParentPage, HasDeemedParentPage}
+import pages.ultimateParentCompany.{DeemedParentPage, HasDeemedParentPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub

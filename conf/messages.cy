@@ -67,11 +67,11 @@ timeout.signOut = Sign out
 
 # Sections
 # ----------------------------------------------------------
-section.startReturn = About the return
-section.aboutReportingCompany = About the return
-section.groupStructure = Ultimate parent company
+section.aboutReturn = About the return
+section.aboutReturn = About the return
+section.ultimateParentCompany = Ultimate parent company
 section.elections = Elections
-section.aboutReturn = Group level information
+section.groupLevelInformation = Group level information
 section.ukCompanies = The companies involved
 section.checkTotals = Check totals
 
@@ -399,9 +399,9 @@ countryOfIncorporation.hint = (Optional)
 
 # CheckAnswersGroupStructurePage Messages
 # ----------------------------------------------------------
-groupStructure.checkYourAnswers.title = Check parent company details
-groupStructure.checkYourAnswers.heading = Check parent company details
-groupStructure.checkYourAnswers.subheading = Ultimate parent company
+ultimateParentCompany.checkYourAnswers.title = Check parent company details
+ultimateParentCompany.checkYourAnswers.heading = Check parent company details
+ultimateParentCompany.checkYourAnswers.subheading = Ultimate parent company
 
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------

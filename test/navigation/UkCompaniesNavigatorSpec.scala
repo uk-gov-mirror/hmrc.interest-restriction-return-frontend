@@ -22,7 +22,7 @@ import models._
 import pages.checkTotals.ReviewReactivationsPage
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import assets.constants.fullReturn.UkCompanyConstants._
-import pages.aboutReturn.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
+import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 

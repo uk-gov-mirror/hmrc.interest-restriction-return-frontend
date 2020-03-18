@@ -28,18 +28,18 @@ object SectionState {
   implicit val fmt: Format[SectionState] = Json.format[SectionState]
 }
 
-case class ReviewAndCompleteModel(startReturn: SectionState = SectionState(),
+case class ReviewAndCompleteModel(aboutReturn: SectionState = SectionState(),
                                   elections: SectionState = SectionState(),
-                                  aboutReturn: SectionState = SectionState(),
-                                  groupStructure: SectionState = SectionState(),
+                                  groupLevelInformation: SectionState = SectionState(),
+                                  ultimateParentCompany: SectionState = SectionState(),
                                   ukCompanies: SectionState = SectionState(),
                                   checkTotals: SectionState = SectionState()) {
 
   def update(section: Section, sectionStatus: SectionStatus, page: Page): ReviewAndCompleteModel = section match {
-    case Section.StartReturn => this.copy(startReturn = SectionState(sectionStatus, Some(page)))
-    case Section.Elections => this.copy(elections = SectionState(sectionStatus, Some(page)))
     case Section.AboutReturn => this.copy(aboutReturn = SectionState(sectionStatus, Some(page)))
-    case Section.GroupStructure => this.copy(groupStructure = SectionState(sectionStatus, Some(page)))
+    case Section.Elections => this.copy(elections = SectionState(sectionStatus, Some(page)))
+    case Section.GroupLevelInformation => this.copy(groupLevelInformation = SectionState(sectionStatus, Some(page)))
+    case Section.UltimateParentCompany => this.copy(ultimateParentCompany = SectionState(sectionStatus, Some(page)))
     case Section.UkCompanies => this.copy(ukCompanies = SectionState(sectionStatus, Some(page)))
     case Section.CheckTotals => this.copy(checkTotals = SectionState(sectionStatus, Some(page)))
   }

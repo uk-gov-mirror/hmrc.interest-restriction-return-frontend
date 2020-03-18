@@ -18,7 +18,7 @@ package models
 
 import assets.constants.DeemedParentConstants._
 import base.SpecBase
-import pages.groupStructure.DeemedParentPage
+import pages.ultimateParentCompany.DeemedParentPage
 import play.api.libs.json.Json
 
 class UserAnswersSpec extends SpecBase {

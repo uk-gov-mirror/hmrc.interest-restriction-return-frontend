@@ -6,11 +6,11 @@ echo "Applying migration GroupSubjectToRestrictions"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /groupSubjectToRestrictions                        controllers.aboutReturn.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /groupSubjectToRestrictions                        controllers.aboutReturn.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /groupSubjectToRestrictions                        controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /groupSubjectToRestrictions                        controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeGroupSubjectToRestrictions                  controllers.aboutReturn.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeGroupSubjectToRestrictions                  controllers.aboutReturn.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeGroupSubjectToRestrictions                  controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeGroupSubjectToRestrictions                  controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

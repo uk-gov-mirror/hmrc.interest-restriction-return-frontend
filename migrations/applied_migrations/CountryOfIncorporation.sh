@@ -10,10 +10,10 @@ echo "### CountryOfIncorporation Controller" >> ../conf/app.routes
 echo "### ----------------------------------------" >> ../conf/app.routes
 
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "CountryOfIncorporation" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName                          controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /$kebabClassName/change                   controllers.groupStructure.CountryOfIncorporationController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName/change                   controllers.groupStructure.CountryOfIncorporationController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName                          controllers.ultimateParentCompany.CountryOfIncorporationController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /$kebabClassName                          controllers.ultimateParentCompany.CountryOfIncorporationController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName/change                   controllers.ultimateParentCompany.CountryOfIncorporationController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /$kebabClassName/change                   controllers.ultimateParentCompany.CountryOfIncorporationController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

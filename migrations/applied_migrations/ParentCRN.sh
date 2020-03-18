@@ -6,11 +6,11 @@ echo "Applying migration ParentCRN"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /parentCRN                        controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /parentCRN                        controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /parentCRN                        controllers.ultimateParentCompany.ParentCRNController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /parentCRN                        controllers.ultimateParentCompany.ParentCRNController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeParentCRN                  controllers.groupStructure.ParentCRNController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeParentCRN                  controllers.groupStructure.ParentCRNController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeParentCRN                  controllers.ultimateParentCompany.ParentCRNController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeParentCRN                  controllers.ultimateParentCompany.ParentCRNController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

@@ -18,15 +18,14 @@ package assets.messages
 
 object CheckAnswersAboutReturnMessages {
 
-  val title = "Check parent company details"
+  val title = "Check answers"
 
-  val returnContainEstimates = "Does the return contains estimates?"
-  val groupInterestAllowance = "Group interest allowance"
-  val groupInterestCapacity = "Group interest capacity"
-  val groupSubjectToRestrictions = "Is the group subject to restrictions?"
-  val interestReactivationsCap = "Interest Reactivations Cap"
-  val revisingReturn = "Are you revising a return you have already submitted?"
-  val groupSubjectToReactivations = "Is the group subject to reactivations?"
-  val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
-
+  val reportingCompanyAppointed = "Reporting company appointed"
+  val agentAppointed = "Agent"
+  val agentName = "Agent name"
+  val fullOrAbbreviatedReturn = "Type of return"
+  val name = "Name"
+  val ctutr = "CTUTR"
+  val accountingPeriodStart = "When does the worldwide period of account start?"
+  val accountingPeriodEnd = "When does the worldwide period of account end?"
 }

@@ -17,13 +17,13 @@
 package pages
 
 import models.Section
-import pages.aboutReportingCompany._
 import pages.aboutReturn._
+import pages.groupLevelInformation._
 import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.elections.{IsUkPartnershipPage, _}
-import pages.groupStructure._
+import pages.ultimateParentCompany._
 import pages.reviewAndComplete.ReviewAndCompletePage
-import pages.startReturn._
+import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
@@ -35,7 +35,7 @@ object Page {
 
   implicit def toString(page: Page): String = page.toString
 
-  val startReturnSectionPages: Seq[Page] = List(
+  val aboutReturnSectionPages: Seq[Page] = List(
     AgentActingOnBehalfOfCompanyPage,
     AgentNamePage,
     FullOrAbbreviatedReturnPage,
@@ -50,7 +50,7 @@ object Page {
     CheckAnswersReportingCompanyPage
   )
 
-  val aboutReturnSectionPages: Seq[Page] = List(
+  val groupLevelInformationSectionPages: Seq[Page] = List(
     GroupInterestAllowancePage,
     GroupInterestCapacityPage,
     GroupSubjectToReactivationsPage,
@@ -106,7 +106,7 @@ object Page {
     PartnershipsReviewAnswersListPage
   )
 
-  val groupStructureSectionPages: Seq[Page] = List(
+  val ultimateParentCompanySectionPages: Seq[Page] = List(
     CheckAnswersGroupStructurePage,
     DeletionConfirmationPage,
     CountryOfIncorporationPage,
@@ -131,13 +131,13 @@ object Page {
   )
 
   val sections = Map(
-    Section.StartReturn -> startReturnSectionPages,
     Section.AboutReturn -> aboutReturnSectionPages,
+    Section.GroupLevelInformation -> groupLevelInformationSectionPages,
     Section.UkCompanies -> ukCompaniesSectionPages,
     Section.Elections -> electionsSectionPages,
     Section.CheckTotals -> checkTotalsSectionPages,
     Section.ReviewAndComplete -> reviewAndCompleteSectionPages,
-    Section.GroupStructure -> groupStructureSectionPages
+    Section.UltimateParentCompany -> ultimateParentCompanySectionPages
   )
 
 

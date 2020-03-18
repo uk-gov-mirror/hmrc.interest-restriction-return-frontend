@@ -16,7 +16,7 @@
 
 package views.ukCompanies
 
-import assets.constants.GroupStructureCheckYourAnswersConstants
+import assets.constants.UltimateParentCompanyCheckYourAnswersConstants
 import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.ukCompanies.UkCompaniesReviewAnswersListMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
@@ -30,7 +30,7 @@ import viewmodels.SummaryListRowHelper
 import views.behaviours.YesNoViewBehaviours
 import views.html.ukCompanies.UkCompaniesReviewAnswersListView
 
-class UkCompaniesReviewAnswersListViewSpec extends YesNoViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
+class UkCompaniesReviewAnswersListViewSpec extends YesNoViewBehaviours with UltimateParentCompanyCheckYourAnswersConstants with SummaryListRowHelper {
 
   val view = viewFor[UkCompaniesReviewAnswersListView]()
   val messageKeyPrefix: String => String = addition => s"ukCompaniesReviewAnswersList.$addition"

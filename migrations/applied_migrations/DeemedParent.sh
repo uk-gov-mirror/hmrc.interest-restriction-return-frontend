@@ -6,11 +6,11 @@ echo "Applying migration DeemedParent"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /deemedParent                        controllers.groupStructure.DeemedParentController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /deemedParent                        controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /deemedParent                        controllers.ultimateParentCompany.DeemedParentController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /deemedParent                        controllers.ultimateParentCompany.DeemedParentController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeDeemedParent                  controllers.groupStructure.DeemedParentController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeDeemedParent                  controllers.groupStructure.DeemedParentController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeDeemedParent                  controllers.ultimateParentCompany.DeemedParentController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeDeemedParent                  controllers.ultimateParentCompany.DeemedParentController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

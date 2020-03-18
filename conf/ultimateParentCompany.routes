@@ -1,0 +1,76 @@
+# Group Structure Section Routes
+# ==============================
+
+### ReportingCompanySameAsParent Controller
+### ----------------------------------------
+GET        /about-the-return-same-as-parent                                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)
+POST       /about-the-return-same-as-parent                                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)
+GET        /about-the-return-same-as-parent/change                           controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = CheckMode)
+POST       /about-the-return-same-as-parent/change                           controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = CheckMode)
+
+### HasDeemedParent Controller
+### ----------------------------------------
+GET        /deemed-parent                                                     controllers.ultimateParentCompany.HasDeemedParentController.onPageLoad(mode: Mode = NormalMode)
+POST       /deemed-parent                                                     controllers.ultimateParentCompany.HasDeemedParentController.onSubmit(mode: Mode = NormalMode)
+GET        /deemed-parent/change                                              controllers.ultimateParentCompany.HasDeemedParentController.onPageLoad(mode: Mode = CheckMode)
+POST       /deemed-parent/change                                              controllers.ultimateParentCompany.HasDeemedParentController.onSubmit(mode: Mode = CheckMode)
+
+# Parent Company Section Routes
+# ==============================
+
+### ParentCompanyName Controller
+### ----------------------------------------
+GET        /:idx/name                                          controllers.ultimateParentCompany.ParentCompanyNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/name                                          controllers.ultimateParentCompany.ParentCompanyNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/name/change                                   controllers.ultimateParentCompany.ParentCompanyNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/name/change                                   controllers.ultimateParentCompany.ParentCompanyNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### PayTaxInUk Controller
+### ----------------------------------------
+GET        /:idx/pay-tax-in-uk                                 controllers.ultimateParentCompany.PayTaxInUkController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/pay-tax-in-uk                                 controllers.ultimateParentCompany.PayTaxInUkController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/pay-tax-in-uk/change                          controllers.ultimateParentCompany.PayTaxInUkController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/pay-tax-in-uk/change                          controllers.ultimateParentCompany.PayTaxInUkController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### LimitedLiabilityPartnership Controller
+### ----------------------------------------
+GET        /:idx/limited-liability-partnership                 controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/limited-liability-partnership                 controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/limited-liability-partnership/change          controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/limited-liability-partnership/change          controllers.ultimateParentCompany.LimitedLiabilityPartnershipController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### ParentCompanySAUTR Controller
+### ----------------------------------------
+GET        /:idx/sautr                                         controllers.ultimateParentCompany.ParentCompanySAUTRController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/sautr                                         controllers.ultimateParentCompany.ParentCompanySAUTRController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/sautr/change                                  controllers.ultimateParentCompany.ParentCompanySAUTRController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/sautr/change                                  controllers.ultimateParentCompany.ParentCompanySAUTRController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### ParentCompanyCTUTR Controller
+### ----------------------------------------
+GET        /:idx/ctutr                                         controllers.ultimateParentCompany.ParentCompanyCTUTRController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/ctutr                                         controllers.ultimateParentCompany.ParentCompanyCTUTRController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/ctutr/change                                  controllers.ultimateParentCompany.ParentCompanyCTUTRController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/ctutr/change                                  controllers.ultimateParentCompany.ParentCompanyCTUTRController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### CountryOfIncorporation Controller
+### ----------------------------------------
+GET        /:idx/country-of-incorporation                      controllers.ultimateParentCompany.CountryOfIncorporationController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/country-of-incorporation                      controllers.ultimateParentCompany.CountryOfIncorporationController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/country-of-incorporation/change               controllers.ultimateParentCompany.CountryOfIncorporationController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/country-of-incorporation/change               controllers.ultimateParentCompany.CountryOfIncorporationController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### CheckYourAnswersController
+### -----------------------------
+GET        /:idx/check-answers                                 controllers.ultimateParentCompany.CheckAnswersGroupStructureController.onPageLoad(idx: Int)
+POST       /:idx/check-answers                                 controllers.ultimateParentCompany.CheckAnswersGroupStructureController.onSubmit(idx: Int)
+
+### DeemedParentReviewAnswersListController
+### -----------------------------
+GET        /deemed-parent-list                                                controllers.ultimateParentCompany.DeemedParentReviewAnswersListController.onPageLoad()
+POST       /deemed-parent-list                                                controllers.ultimateParentCompany.DeemedParentReviewAnswersListController.onSubmit()
+
+### DeletionConfirmation Controller
+### ----------------------------------------
+GET        /:idx/deletion-confirmation                         controllers.ultimateParentCompany.DeletionConfirmationController.onPageLoad(idx: Int)
+POST       /:idx/deletion-confirmation                         controllers.ultimateParentCompany.DeletionConfirmationController.onSubmit(idx: Int)
