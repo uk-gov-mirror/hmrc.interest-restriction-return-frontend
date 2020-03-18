@@ -62,7 +62,7 @@ class CheckAnswersReportingCompanyControllerSpec extends SpecBase with FeatureSw
         "redirect to the next page in the navigator" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val result = Controller.onSubmit()(fakeRequest)
 

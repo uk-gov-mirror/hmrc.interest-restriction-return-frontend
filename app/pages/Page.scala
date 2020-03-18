@@ -71,7 +71,8 @@ object Page {
     NetTaxInterestIncomeOrExpensePage,
     NetTaxInterestAmountPage,
     ReactivationAmountPage,
-    UkCompaniesDeletionConfirmationPage
+    UkCompaniesDeletionConfirmationPage,
+    AddRestrictionPage
   )
 
   val electionsSectionPages: Seq[Page] = List(

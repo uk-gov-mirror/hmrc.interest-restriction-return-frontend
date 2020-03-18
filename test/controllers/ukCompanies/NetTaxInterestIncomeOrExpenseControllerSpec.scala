@@ -83,7 +83,7 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
       val request = fakeRequest.withFormUrlEncodedBody(("value", NetTaxInterestIncomeOrExpense.values.head.toString))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

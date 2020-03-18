@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package controllers.startReturn
+package controllers.ukCompanies
 
+import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import controllers.errors
-import forms.startReturn.AgentNameFormProvider
+import forms.ukCompanies.AddRestrictionFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeStartReturnNavigator
-import pages.startReturn.AgentNamePage
+import pages.ukCompanies.AddRestrictionPage
 import play.api.test.Helpers._
-import views.html.startReturn.AgentNameView
+import views.html.ukCompanies.AddRestrictionView
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
 
-class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[AgentNameView]
-  val formProvider = injector.instanceOf[AgentNameFormProvider]
+  val view = injector.instanceOf[AddRestrictionView]
+  val formProvider = injector.instanceOf[AddRestrictionFormProvider]
   val form = formProvider()
 
-  object Controller extends AgentNameController(
+  object Controller extends AddRestrictionController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = FakeStartReturnNavigator,
+    navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
@@ -47,7 +47,7 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
     view = view
   )
 
-  "AgentName Controller" must {
+  "AddRestriction Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -61,7 +61,7 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AgentNamePage, "answer").success.value
+      val userAnswers = emptyUserAnswers.set(AddRestrictionPage, true).success.value
 
       mockGetAnswers(Some(userAnswers))
 
@@ -72,14 +72,14 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
       mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe SEE_OTHER
+      status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
@@ -91,7 +91,7 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustBe BAD_REQUEST
+      status(result) mustEqual BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -100,13 +100,14 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+      status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(None)
 
@@ -114,7 +115,7 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }

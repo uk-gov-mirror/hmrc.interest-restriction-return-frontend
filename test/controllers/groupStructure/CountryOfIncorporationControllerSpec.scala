@@ -77,7 +77,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", frontendAppConfig.countryCodeMap("US")))
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 
@@ -93,7 +93,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

@@ -104,7 +104,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
             val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
 
             mockGetAnswers(Some(userAnswers))
-            mockSetAnswers(true)
+            mockSetAnswers
 
             val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
 

@@ -77,7 +77,7 @@ class EnterANGIEControllerSpec extends SpecBase with FeatureSwitching with MockD
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

@@ -89,7 +89,7 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

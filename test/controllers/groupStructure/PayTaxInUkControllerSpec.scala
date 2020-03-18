@@ -126,7 +126,7 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
           val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val result = Controller.onSubmit(1, NormalMode)(request)
 
