@@ -25,6 +25,7 @@ import forms.groupStructure.DeemedParentReviewAnswersListFormProvider
 import models.NormalMode
 import assets.constants.DeemedParentConstants._
 import navigation.FakeNavigators.FakeGroupStructureNavigator
+import pages.elections.GroupRatioElectionPage
 import pages.groupStructure.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.groupStructure.DeemedParentReviewAnswersListView
@@ -110,7 +111,29 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
           val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some("/foo")//todo check this
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+            page = GroupRatioElectionPage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers).url)
+        }
+      }
+
+      "when there is 3 deemed parents" should {
+
+        "redirect to the Next Section route" in {
+
+          mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers(true)
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+          val result = Controller.onSubmit()(request)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeGroupStructureNavigator.nextPage(
+            page = GroupRatioElectionPage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers).url)
         }
       }
     }
