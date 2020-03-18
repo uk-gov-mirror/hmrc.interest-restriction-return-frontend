@@ -64,14 +64,18 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(renderView(formWithErrors)))
-      ,
-      {
-        case true => Future.successful(Redirect(navigator.addParent(deemedParents.length)))
-        case false => saveAndRedirect(DeemedParentPage, NormalMode)
-      }
-    )
+    if(deemedParents.length < 3) {
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(renderView(formWithErrors)))
+        ,
+        {
+          case true => Future.successful(Redirect(navigator.addParent(deemedParents.length)))
+          case false => saveAndRedirect(DeemedParentPage, NormalMode)
+        }
+      )
+    } else {
+      saveAndRedirect(DeemedParentPage, NormalMode)
+    }
   }
 }
