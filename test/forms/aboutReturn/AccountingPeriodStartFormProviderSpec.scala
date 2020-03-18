@@ -59,7 +59,7 @@ class AccountingPeriodStartFormProviderSpec extends DateBehaviours {
 
     "fail validation if 1 day in the future" in {
 
-      val errors = form.fillAndValidate(now.plusDays(1L)).errors
+      val errors = form.fillAndValidate(now.plusDays(1)).errors
       errors.length mustBe 1
       errors.head mustBe FormError("value", "accountingPeriodStart.error.range.above")
     }
