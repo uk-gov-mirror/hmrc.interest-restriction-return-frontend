@@ -785,7 +785,7 @@ accountingPeriodStart.error.required = You must enter a valid date
 accountingPeriodStart.error.invalid = You must enter a valid date
 accountingPeriodStart.error.required.two = You must enter a valid date
 accountingPeriodStart.error.required.all = You must enter a valid date
-accountingPeriodStart.error.range = Start Date can’t be in the future
+accountingPeriodStart.error.range.above = Start Date can’t be in the future
 accountingPeriodStart.hint = For example, 27 3 2007
 
 # AccountingPeriodEndPage Messages
