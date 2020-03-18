@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.ukCompanies.AddRestrictionFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.AddRestrictionPage
+import pages.ukCompanies.{AddRestrictionPage, UkCompaniesPage}
 import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -33,6 +33,7 @@ import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
+import handlers.ErrorHandler
 
 class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
                                          override val sessionRepository: SessionRepository,
@@ -45,18 +46,40 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
                                          formProvider: AddRestrictionFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: AddRestrictionView
-                                        )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                        )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(AddRestrictionPage, formProvider()), mode))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      Future.successful(
+        Ok(view(
+          form = ukCompany.restriction.fold(formProvider())(formProvider().fill),
+          mode = mode,
+          companyName = ukCompany.companyDetails.companyName,
+          postAction = routes.AddRestrictionController.onSubmit(idx, mode)
+        ))
+      )
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(AddRestrictionPage, value, mode)
-    )
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors,
+              mode = mode,
+              companyName = ukCompany.companyDetails.companyName,
+              postAction = routes.AddRestrictionController.onSubmit(idx, mode)
+            ))
+          ),
+        value => {
+          val updatedModel = ukCompany.copy(restriction = Some(value))
+          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(AddRestrictionPage, mode, cleanedAnswers, Some(idx)))
+          }
+        }
+      )
+    }
   }
 }

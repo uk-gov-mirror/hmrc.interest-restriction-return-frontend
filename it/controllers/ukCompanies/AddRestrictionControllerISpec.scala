@@ -16,8 +16,10 @@
 
 package controllers.ukCompanies
 
+import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,14 +29,16 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Normal mode" when {
 
-    "GET /ukCompanies/add-restriction" when {
+    "GET /uk-companies/1/add-restriction" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ukCompanies/add-restriction")()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+          val res = getRequest("/uk-companies/1/add-restriction")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +55,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/add-restriction")()
+          val res = getRequest("/uk-companies/1/add-restriction")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +67,26 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /ukCompanies/add-restriction" when {
+    "POST /uk-companies/1/add-restriction" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to AddRestriction page" in {
+          //TODO: Update as part of routing storys
+          "redirect to Under Construction page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = postRequest("/ukCompanies/add-restriction", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.AddRestrictionController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -91,7 +97,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ukCompanies/add-restriction", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,15 +112,16 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /ukCompanies/add-restriction" when {
+    "GET /uk-companies/1/add-restriction/change" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/ukCompanies/add-restriction/change")()
+          val res = getRequest("/uk-companies/1/add-restriction/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +138,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/add-restriction/change")()
+          val res = getRequest("/uk-companies/1/add-restriction/change")()
 
           whenReady(res) { result =>
             result should have(

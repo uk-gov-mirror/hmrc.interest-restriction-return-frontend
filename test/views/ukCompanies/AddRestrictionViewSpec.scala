@@ -16,8 +16,9 @@
 
 package views.ukCompanies
 
+import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.ukCompanies.AddRestrictionMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.ukCompanies.routes
 import forms.ukCompanies.AddRestrictionFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -28,26 +29,25 @@ import views.html.ukCompanies.AddRestrictionView
 class AddRestrictionViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "addRestriction"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some(AddRestrictionMessages.subheading(companyNameModel.name))
   val form = new AddRestrictionFormProvider()()
+  val view = viewFor[AddRestrictionView]()
 
-    "AddRestrictionView" must {
+  "AddRestrictionView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[AddRestrictionView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-      }
+    def applyView(form: Form[_]): HtmlFormat.Appendable =
+      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+    behave like pageWithSubHeading(applyView(form), AddRestrictionMessages.subheading(companyNameModel.name))
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AddRestrictionController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSaveForLater(applyView(form))
-    }
+    behave like pageWithSaveForLater(applyView(form))
   }
+}

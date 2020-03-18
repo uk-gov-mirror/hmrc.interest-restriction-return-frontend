@@ -50,7 +50,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     ReactivationAmountPage -> ((idx,_) => checkYourAnswers(idx)),
     CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
-    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad())
+    UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
+    AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Update as part of routing subtask
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))

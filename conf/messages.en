@@ -860,4 +860,5 @@ partnershipDeletionConfirmation.error.required = Select yes if Are you sure you 
 addRestriction.title = Do you need to add a restriction to this company?
 addRestriction.heading = Do you need to add a restriction to this company?
 addRestriction.checkYourAnswersLabel = Do you need to add a restriction to this company?
-addRestriction.error.required = Select yes if Do you need to add a restriction to this company?
+addRestriction.error.required = Select yes if you need to add a restriction to this company
+addRestriction.subheading = {0}

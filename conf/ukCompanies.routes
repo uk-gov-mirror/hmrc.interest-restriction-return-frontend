@@ -63,10 +63,10 @@ POST       /:idx/check-answers-uk-company                       controllers.ukCo
 
 ### AddAnReactivationQuery Controller
 ### ----------------------------------------
-GET        /:idx/add-an-reactivation-query                          controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /:idx/add-an-reactivation-query                          controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /:idx/add-an-reactivation-query/change                   controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /:idx/add-an-reactivation-query/change                   controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/add-an-reactivation-query                      controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/add-an-reactivation-query                      controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/add-an-reactivation-query/change               controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/add-an-reactivation-query/change               controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### ReactivationAmount Controller
 ### ----------------------------------------
@@ -79,7 +79,7 @@ POST       /:idx/reactivation-amount/review                     controllers.ukCo
 
 ### AddRestriction Controller
 ### ----------------------------------------
-GET        /add-restriction                          controllers.ukCompanies.AddRestrictionController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-restriction                          controllers.ukCompanies.AddRestrictionController.onSubmit(mode: Mode = NormalMode)
-GET        /add-restriction/change                   controllers.ukCompanies.AddRestrictionController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-restriction/change                   controllers.ukCompanies.AddRestrictionController.onSubmit(mode: Mode = CheckMode)
+GET        /:idx/add-restriction                                controllers.ukCompanies.AddRestrictionController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/add-restriction                                controllers.ukCompanies.AddRestrictionController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/add-restriction/change                         controllers.ukCompanies.AddRestrictionController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/add-restriction/change                         controllers.ukCompanies.AddRestrictionController.onSubmit(idx: Int, mode: Mode = CheckMode)

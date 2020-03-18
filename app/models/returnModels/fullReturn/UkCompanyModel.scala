@@ -25,6 +25,7 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           netTaxInterestIncomeOrExpense: Option[NetTaxInterestIncomeOrExpense] = None,
                           netTaxInterest: Option[BigDecimal] = None,
                           taxEBITDA: Option[BigDecimal] = None,
+                          restriction: Option[Boolean] = None,
                           allocatedRestrictions: Option[AllocatedRestrictionsModel] = None,
                           reactivation: Option[Boolean] = None,
                           allocatedReactivations: Option[AllocatedReactivationsModel] = None
