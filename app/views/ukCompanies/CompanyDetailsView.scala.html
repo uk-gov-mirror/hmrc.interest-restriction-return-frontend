@@ -58,6 +58,7 @@
               name = "ctutrValue",
               label = "companyDetails.ctutr.label",
               isPageHeading = false,
+              hint = Some(hint),
               value = "ctutrValue",
               classes = Some("govuk-input--width-10")
             )
@@ -66,4 +67,9 @@
 
         @saveForLater()
     }
+}
+
+@hint = {
+@messages("netTaxInterestIncomeOrExpense.hint")
+<a href="@appConfig.findLostUTRUrl">@messages("netTaxInterestIncomeOrExpense.link")</a>.
 }

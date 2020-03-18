@@ -35,7 +35,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     NetTaxInterestIncomeOrExpensePage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.netTaxInterestIncomeOrExpense) match {
       case Some(NetTaxInterestIncome) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)
       case Some(NetTaxInterestExpense) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)
-      case Some(NetTaxInterestNoIncomeOrExpense) => checkYourAnswers(idx)
+      case Some(NetTaxInterestNoIncomeOrExpense) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)
       case None => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
     }),
     NetTaxInterestAmountPage -> ((idx, _) => routes.ConsentingCompanyController.onPageLoad(idx, NormalMode)),

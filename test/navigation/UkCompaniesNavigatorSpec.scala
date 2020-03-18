@@ -16,13 +16,13 @@
 
 package navigation
 
+import assets.constants.fullReturn.UkCompanyConstants._
 import base.SpecBase
 import controllers.ukCompanies.routes
+import models.NetTaxInterestIncomeOrExpense._
 import models._
-import pages.checkTotals.ReviewReactivationsPage
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
-import assets.constants.fullReturn.UkCompanyConstants._
 import pages.aboutReturn.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
+import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -63,50 +63,59 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "to the NetTaxInterestAmountPage" in {
 
-          navigator.nextPage(NetTaxInterestIncomeOrExpensePage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse.copy(
+            companyDetails = companyDetailsModel,
+            consenting = Some(true),
+            netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
+            netTaxInterest = None,
+            taxEBITDA = Some(taxEBITDA),
+            allocatedRestrictions = None,
+            allocatedReactivations = None), Some(1)).success.value
+
+          navigator.nextPage(NetTaxInterestIncomeOrExpensePage, NormalMode, userAnswers, Some(1)) mustBe
             routes.NetTaxInterestAmountController.onPageLoad(1, NormalMode)
         }
-      }
 
-      "go from the NetTaxInterestAmountPage" should {
+        "go from the NetTaxInterestAmountPage" should {
 
-        "to the ConsentingCompanyPage" in {
+          "to the ConsentingCompanyPage" in {
 
-          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.ConsentingCompanyController.onPageLoad(1, NormalMode)
-        }
-      }
-
-      "go from the ConsentingCompanyPage to the" should {
-
-        "Add a checkanswers page for subject to restrictions" in {
-
-          val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true).success.value
-
-          navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            navigator.nextPage(NetTaxInterestAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+              routes.ConsentingCompanyController.onPageLoad(1, NormalMode)
+          }
         }
 
-        "Add a checkanswers page for not subject to reactivations" in {
+        "go from the ConsentingCompanyPage to the" should {
 
-          val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
+          "Add a checkanswers page for subject to restrictions" in {
+
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true).success.value
+
+            navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.CheckAnswersUkCompanyController.onPageLoad(1)
+          }
+
+          "Add a checkanswers page for not subject to reactivations" in {
+
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
               .set(GroupSubjectToReactivationsPage, false).success.value
 
-          navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
-        }
+            navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.CheckAnswersUkCompanyController.onPageLoad(1)
+          }
 
-        "Add a checkanswers page for subject to reactivations" in {
+          "Add a checkanswers page for subject to reactivations" in {
 
-          val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
-            .set(GroupSubjectToReactivationsPage, true).success.value
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
+              .set(GroupSubjectToReactivationsPage, true).success.value
 
-          navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+            navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+          }
         }
       }
 
-      "go from the AddareactivationqueryPage to the" should {
+      "go from the AddAnReactivationQueryPage to the" should {
 
         "if yes to the reactivationamountpage" in {
 
@@ -199,3 +208,4 @@ class UkCompaniesNavigatorSpec extends SpecBase {
     }
   }
 }
+

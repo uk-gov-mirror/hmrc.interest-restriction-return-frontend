@@ -72,7 +72,7 @@ section.aboutReportingCompany = About the return
 section.groupStructure = Ultimate parent company
 section.elections = Elections
 section.aboutReturn = Group level information
-section.ukCompanies = The companies involved
+section.ukCompanies = About the companies involved
 section.checkTotals = Check totals
 
 feedback.before = This is a new service - your
@@ -412,7 +412,7 @@ groupRatioElection.error.required = Select yes if you are making a group ratio e
 
 # EnterANGIEPage Messages
 # ----------------------------------------------------------
-    enterANGIE.title = Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.title = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.heading = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.label = Enter the adjusted net group-interest expense (ANGIE)
 enterANGIE.checkYourAnswersLabel = ANGIE
@@ -605,10 +605,10 @@ aboutAddingUKCompanies.heading = In this section you will need to tell us about 
 
 # EnterCompanyTaxEBITDAPage Messages
 # ----------------------------------------------------------
-enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
-enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.title = Enter the tax-EBITDA for this company
+enterCompanyTaxEBITDA.heading = Enter the tax-EBITDA for this company
 enterCompanyTaxEBITDA.subheading = {0}
-enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.label= Enter the tax-EBITDA for this company
 enterCompanyTaxEBITDA.checkYourAnswersLabel = Tax-EBITDA
 enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
 enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
@@ -700,6 +700,8 @@ netTaxInterestIncomeOrExpense.income = Net tax-interest income
 netTaxInterestIncomeOrExpense.noIncomeOrExpense = This company does not have a net tax-interest
 netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
 netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
+netTaxInterestIncomeOrExpense.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can find
+netTaxInterestIncomeOrExpense.link = a lost UTR number (opens in a new window or tab).
 
 
 # CompanyDetailsPage Messages
@@ -716,6 +718,7 @@ companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Referenc
 companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
 companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid
 
+
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
 ukCompaniesReviewAnswersList.singular.title = {0} company added
@@ -724,6 +727,7 @@ ukCompaniesReviewAnswersList.singular.heading = {0} company added
 ukCompaniesReviewAnswersList.plural.heading = {0} companies added
 ukCompaniesReviewAnswersList.addAnother = Do you need to add another company?
 ukCompaniesReviewAnswersList.error.required = Select yes if you need to add another company
+
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
@@ -755,7 +759,7 @@ netTaxInterestAmount.expense = Expense
 # ----------------------------------------------------------
 ukCompanies.checkYourAnswers.title = Check {0} details
 ukCompanies.checkYourAnswers.heading = Check {0} details
-ukCompanies.checkYourAnswers.subheading = The companies involved
+ukCompanies.checkYourAnswers.subheading = About the companies involved
 ukCompanies.checkYourAnswers.button = Confirm company
 
 
