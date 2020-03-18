@@ -22,29 +22,31 @@ class FeatureSwitchingSpec extends SpecBase with FeatureSwitching {
 
   "FeatureSwitching" must {
 
+    // Tests need adding in when we have at least 1 feature switch
+
     "Load config from appConfig if nothing set in sysProps" in {
-      sys.props -= WelshLanguage.name
-      isEnabled(WelshLanguage) mustBe false
+//      sys.props -= {FeatureName}}.name
+//      isEnabled({FeatureName}}) mustBe false
     }
 
     "Allow a feature switch to be enabled" in {
-      enable(WelshLanguage)
-      sys.props.get(WelshLanguage.name) mustBe Some(FEATURE_SWITCH_ON)
+//      enable({FeatureName}})
+//      sys.props.get({FeatureName}}.name) mustBe Some(FEATURE_SWITCH_ON)
     }
 
     "Allow a feature switch to be disabled" in {
-      disable(WelshLanguage)
-      sys.props.get(WelshLanguage.name) mustBe Some(FEATURE_SWITCH_OFF)
+//      disable({FeatureName}})
+//      sys.props.get({FeatureName}}.name) mustBe Some(FEATURE_SWITCH_OFF)
     }
 
     "Allow checking of an enabled feature switch via a helper" in {
-      enable(WelshLanguage)
-      isEnabled(WelshLanguage) mustBe true
+//      enable({FeatureName}})
+//      isEnabled({FeatureName}}) mustBe true
     }
 
     "Allow checking of a disabled feature switch via a helper" in {
-      disable(WelshLanguage)
-      isEnabled(WelshLanguage) mustBe false
+//      disable({FeatureName}})
+//      isEnabled({FeatureName}}) mustBe false
     }
   }
 }
