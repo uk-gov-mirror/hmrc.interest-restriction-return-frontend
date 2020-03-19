@@ -40,8 +40,7 @@ object AllocatedRestrictionsITConstants {
     ap3End = Some(ap3End),
     disallowanceAp1 = Some(disallowanceAp1),
     disallowanceAp2 = Some(disallowanceAp2),
-    disallowanceAp3 = Some(disallowanceAp3),
-    totalDisallowances = Some(totalDisallowances)
+    disallowanceAp3 = Some(disallowanceAp3)
   )
 
   val allocatedRestrictionsJson = Json.obj(

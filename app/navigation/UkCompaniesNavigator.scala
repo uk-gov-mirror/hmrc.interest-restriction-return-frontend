@@ -19,7 +19,7 @@ package navigation
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
 import models._
-import pages._
+import pages.{ukCompanies, _}
 import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.mvc.Call
@@ -52,7 +52,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
-    CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Update as part of routing subtask
+    CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Update as part of routing subtask
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))

@@ -66,7 +66,7 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
       case sum if sum > 0.0 => sum
       case _ => 0.0
     }
-    val restrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.flatMap(_.totalDisallowances)))
+    val restrictions: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedRestrictions.map(_.totalDisallowances)))
     val reactivations: Option[BigDecimal] = oSum(ukCompanies.flatMap(_.allocatedReactivations.map(_.reactivation)))
 
     UKCompanyDerivedData(companyLength,aggregateEbitda,aggregateInterest,restrictions,reactivations)
