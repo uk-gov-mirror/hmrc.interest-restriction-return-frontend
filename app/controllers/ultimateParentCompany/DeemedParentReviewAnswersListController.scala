@@ -24,7 +24,7 @@ import forms.ultimateParentCompany.DeemedParentReviewAnswersListFormProvider
 import handlers.ErrorHandler
 import models.NormalMode
 import models.requests.DataRequest
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
@@ -38,7 +38,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class DeemedParentReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
                                                         override val sessionRepository: SessionRepository,
-                                                        override val navigator: ultimateParentCompanyNavigator,
+                                                        override val navigator: UltimateParentCompanyNavigator,
                                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                         override val updateSectionService: UpdateSectionStateService,
                                                         identify: IdentifierAction,

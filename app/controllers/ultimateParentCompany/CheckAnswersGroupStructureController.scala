@@ -23,7 +23,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.UltimateParentCompany
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.CheckAnswersGroupStructurePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -36,7 +36,7 @@ import scala.concurrent.ExecutionContext
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
                                                      override val sessionRepository: SessionRepository,
-                                                     override val navigator: ultimateParentCompanyNavigator,
+                                                     override val navigator: UltimateParentCompanyNavigator,
                                                      override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                      override val updateSectionService: UpdateSectionStateService,
                                                      identify: IdentifierAction,

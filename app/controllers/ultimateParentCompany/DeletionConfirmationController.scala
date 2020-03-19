@@ -30,14 +30,14 @@ import views.html.ultimateParentCompany.DeletionConfirmationView
 import play.api.data.Form
 
 import scala.concurrent.Future
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class DeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                                override val sessionRepository: SessionRepository,
-                                               override val navigator: ultimateParentCompanyNavigator,
+                                               override val navigator: UltimateParentCompanyNavigator,
                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                override val updateSectionService: UpdateSectionStateService,
                                                identify: IdentifierAction,

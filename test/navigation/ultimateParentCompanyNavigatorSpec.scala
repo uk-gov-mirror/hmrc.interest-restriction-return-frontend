@@ -24,7 +24,7 @@ import pages.ultimateParentCompany._
 
 class ultimateParentCompanyNavigatorSpec extends SpecBase {
 
-  val navigator = new ultimateParentCompanyNavigator
+  val navigator = new UltimateParentCompanyNavigator
 
   "ultimateParentCompanyNavigator" when {
 

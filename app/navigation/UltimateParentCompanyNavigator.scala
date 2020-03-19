@@ -25,7 +25,7 @@ import pages.ultimateParentCompany._
 import play.api.mvc.Call
 
 @Singleton
-class ultimateParentCompanyNavigator @Inject()() extends Navigator {
+class UltimateParentCompanyNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(

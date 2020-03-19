@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.requests.DataRequest
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import pages.QuestionPage
 import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.data.Form
@@ -40,7 +40,7 @@ import scala.concurrent.Future
 
 class ParentCompanyNameController @Inject()(override val messagesApi: MessagesApi,
                                             override val sessionRepository: SessionRepository,
-                                            override val navigator: ultimateParentCompanyNavigator,
+                                            override val navigator: UltimateParentCompanyNavigator,
                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
                                             override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,

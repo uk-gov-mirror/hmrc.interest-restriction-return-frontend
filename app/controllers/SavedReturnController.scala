@@ -41,7 +41,7 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       aboutReturnNavigator: AboutReturnNavigator,
                                       groupLevelInformationNavigator: GroupLevelInformationNavigator,
                                       electionsNavigator: ElectionsNavigator,
-                                      ultimateParentCompanyNavigator: ultimateParentCompanyNavigator
+                                      ultimateParentCompanyNavigator: UltimateParentCompanyNavigator
                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

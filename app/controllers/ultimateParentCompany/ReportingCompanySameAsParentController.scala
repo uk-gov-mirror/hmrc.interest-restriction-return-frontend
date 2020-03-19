@@ -24,7 +24,7 @@ import forms.ultimateParentCompany.ReportingCompanySameAsParentFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import pages.aboutReturn.ReportingCompanyNamePage
 import pages.ultimateParentCompany.ReportingCompanySameAsParentPage
 import play.api.i18n.MessagesApi
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class ReportingCompanySameAsParentController @Inject()(override val messagesApi: MessagesApi,
                                                        override val sessionRepository: SessionRepository,
-                                                       override val navigator: ultimateParentCompanyNavigator,
+                                                       override val navigator: UltimateParentCompanyNavigator,
                                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                        override val updateSectionService: UpdateSectionStateService,
                                                        identify: IdentifierAction,

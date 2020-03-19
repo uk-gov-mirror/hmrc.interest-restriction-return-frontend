@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.ultimateParentCompany.DeemedParentFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.HasDeemedParentPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
@@ -36,7 +36,7 @@ import scala.concurrent.Future
 
 class HasDeemedParentController @Inject()(override val messagesApi: MessagesApi,
                                           override val sessionRepository: SessionRepository,
-                                          override val navigator: ultimateParentCompanyNavigator,
+                                          override val navigator: UltimateParentCompanyNavigator,
                                           override val questionDeletionLookupService: QuestionDeletionLookupService,
                                           override val updateSectionService: UpdateSectionStateService,
                                           identify: IdentifierAction,

@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.returnModels.UTRModel
-import navigation.ultimateParentCompanyNavigator
+import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyCTUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -37,7 +37,7 @@ import scala.concurrent.Future
 
 class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesApi,
                                              override val sessionRepository: SessionRepository,
-                                             override val navigator: ultimateParentCompanyNavigator,
+                                             override val navigator: UltimateParentCompanyNavigator,
                                              override val questionDeletionLookupService: QuestionDeletionLookupService,
                                              override val updateSectionService: UpdateSectionStateService,
                                              identify: IdentifierAction,

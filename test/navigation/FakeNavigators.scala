@@ -29,7 +29,7 @@ object FakeNavigators extends SpecBase {
 
   object FakeAboutReturnNavigator extends AboutReturnNavigator() with FakeNavigator
   object FakeGroupLevelInformationNavigator extends GroupLevelInformationNavigator() with FakeNavigator
-  object FakeUltimateParentCompanyNavigator extends ultimateParentCompanyNavigator() with FakeNavigator {
+  object FakeUltimateParentCompanyNavigator extends UltimateParentCompanyNavigator() with FakeNavigator {
     override def addParent(numberOfParents: Int): Call = Call("GET", s"/addParent/$numberOfParents")
   }
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
