@@ -16,7 +16,7 @@
 
 @this()
 
-@(msg: String)(implicit messages: Messages)
+@(msg: String, subheadingMsgArgs: Seq[String] = Seq())(implicit messages: Messages)
 
-<span class="govuk-caption-xl">@messages(msg)</span>
+<span class="govuk-caption-xl">@messages(msg, subheadingMsgArgs:_*)</span>
 

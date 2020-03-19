@@ -18,11 +18,11 @@ package views.ukCompanies
 
 import assets.constants.UkCompanyCheckYourAnswersConstants
 import assets.constants.fullReturn.UkCompanyConstants._
-import assets.messages.{CheckAnswersUkCompanyMessages, SectionHeaderMessages}
+import assets.messages.{CheckAnswersUkCompanyMessages}
 import models.Section.UkCompanies
 import org.jsoup.nodes.Document
 import play.twirl.api.HtmlFormat
-import utils.{CheckYourAnswersUkCompanyHelper, CurrencyFormatter}
+import utils.CheckYourAnswersUkCompanyHelper
 import views.BaseSelectors
 import views.ViewUtils.addPossessive
 import views.behaviours.ViewBehaviours
@@ -33,26 +33,25 @@ class CheckAnswersUkCompanyViewSpec extends ViewBehaviours with UkCompanyCheckYo
   object Selectors extends BaseSelectors
 
   val messageKeyPrefix = s"$UkCompanies.checkYourAnswers"
-  val section = Some(messages("section.ukCompanies"))
-  val ukCompaniesSubheading = s"$UkCompanies.checkYourAnswers.subheading"
+  val section = Some(CheckAnswersUkCompanyMessages.subheading(companyNameModel.name))
+  val ukCompaniesSubheading = CheckAnswersUkCompanyMessages.subheading(companyNameModel.name)
   val ukCompaniesHeading = s"$UkCompanies.checkYourAnswers.heading"
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
   def applyView(checkYourAnswersHelper: CheckYourAnswersUkCompanyHelper)(): HtmlFormat.Appendable = {
     view.apply(
-      checkYourAnswersHelper.rows(1),
-      UkCompanies,
-      onwardRoute,
-      Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
-      "ukCompanies.checkYourAnswers.button"
-    )(fakeRequest, messages, frontendAppConfig
-    )
+      answers = checkYourAnswersHelper.rows(1),
+      section = UkCompanies,
+      postAction = onwardRoute,
+      subheadingMsgArgs = Seq(ukCompanyModelReactivationMaxIncome.companyDetails.companyName),
+      buttonMsg = "ukCompanies.checkYourAnswers.button"
+    )(fakeRequest, messages, frontendAppConfig)
   }
 
   "CheckAnswersUkCompanyView" when {
 
-    "net tax amount is and income" must {
+    "Net Tax Amount is an Income" must {
 
       val checkYourAnswersHelper = new CheckYourAnswersUkCompanyHelper(userAnswersUKCompanyNetTaxReactivationIncome)
 
@@ -60,29 +59,30 @@ class CheckAnswersUkCompanyViewSpec extends ViewBehaviours with UkCompanyCheckYo
         view = applyView(checkYourAnswersHelper)(),
         messageKeyPrefix = messageKeyPrefix,
         headingArgs = Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
-        section = Some(SectionHeaderMessages.ukCompanies)
-        )
+        section = Some(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)
+      )
 
-      behave like pageWithBackLink (applyView(checkYourAnswersHelper)())
+      behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
       behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), ukCompaniesSubheading)
 
-      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), confirmCompany)
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-      behave like pageWithSaveForLater (applyView(checkYourAnswersHelper)())
+      behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
       implicit lazy val document: Document = asDocument(applyView(checkYourAnswersHelper)())
 
       checkYourAnswersRowChecks(
-        CheckAnswersUkCompanyMessages.companyName -> ukCompanyModelReactivationMaxIncome.companyDetails.companyName,
-        CheckAnswersUkCompanyMessages.companyCTUTR -> ukCompanyModelReactivationMaxIncome.companyDetails.ctutr,
-        CheckAnswersUkCompanyMessages.consenting -> "Yes",
-        CheckAnswersUkCompanyMessages.taxEBITDA -> currency(taxEBITDA),
-        CheckAnswersUkCompanyMessages.netTaxInterest -> s"${currency(netTaxInterestIncome)} ${CheckAnswersUkCompanyMessages.income}"
+        CheckAnswersUkCompanyMessages.companyNameLabel -> ukCompanyModelReactivationMaxIncome.companyDetails.companyName,
+        CheckAnswersUkCompanyMessages.companyCTUTRLabel -> ukCompanyModelReactivationMaxIncome.companyDetails.ctutr,
+        CheckAnswersUkCompanyMessages.consentingLabel -> "Yes",
+        CheckAnswersUkCompanyMessages.taxEBITDALabel -> currency(taxEBITDA),
+        CheckAnswersUkCompanyMessages.netTaxInterestLabel -> "Income",
+        CheckAnswersUkCompanyMessages.netTaxInterestAmountLabel -> s"${currency(netTaxInterestIncome)} ${CheckAnswersUkCompanyMessages.income}"
       )
     }
 
-    "net tax amount is an expense" must {
+    "Net Tax amount is an Expense" must {
 
       val checkYourAnswersHelper = new CheckYourAnswersUkCompanyHelper(userAnswersUKCompanyNetTaxReactivationExpense)
 
@@ -90,30 +90,58 @@ class CheckAnswersUkCompanyViewSpec extends ViewBehaviours with UkCompanyCheckYo
         view = applyView(checkYourAnswersHelper)(),
         messageKeyPrefix = messageKeyPrefix,
         headingArgs = Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
-        section = Some(SectionHeaderMessages.ukCompanies)
+        section = Some(companyNameModel.name)
       )
 
-      behave like pageWithBackLink (applyView(checkYourAnswersHelper)())
+      behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
       behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), ukCompaniesSubheading)
 
-      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), confirmCompany)
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 
-      behave like pageWithSaveForLater (applyView(checkYourAnswersHelper)())
+      behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
       implicit lazy val document: Document = asDocument(applyView(checkYourAnswersHelper)())
 
       checkYourAnswersRowChecks(
-        CheckAnswersUkCompanyMessages.companyName -> ukCompanyModelReactivationMaxIncome.companyDetails.companyName,
-        CheckAnswersUkCompanyMessages.companyCTUTR -> ukCompanyModelReactivationMaxIncome.companyDetails.ctutr,
-        CheckAnswersUkCompanyMessages.consenting -> "Yes",
-        CheckAnswersUkCompanyMessages.taxEBITDA -> currency(taxEBITDA),
-        CheckAnswersUkCompanyMessages.netTaxInterest -> s"${currency(netTaxInterestExpense)} ${CheckAnswersUkCompanyMessages.expense}"
+        CheckAnswersUkCompanyMessages.companyNameLabel -> ukCompanyModelReactivationMaxIncome.companyDetails.companyName,
+        CheckAnswersUkCompanyMessages.companyCTUTRLabel -> ukCompanyModelReactivationMaxIncome.companyDetails.ctutr,
+        CheckAnswersUkCompanyMessages.consentingLabel -> "Yes",
+        CheckAnswersUkCompanyMessages.taxEBITDALabel -> currency(taxEBITDA),
+        CheckAnswersUkCompanyMessages.netTaxInterestLabel -> "Expense",
+        CheckAnswersUkCompanyMessages.netTaxInterestAmountLabel -> s"${currency(netTaxInterestExpense)} ${CheckAnswersUkCompanyMessages.expense}"
       )
-
-
     }
 
+    "Net Tax interest is not an Income or Expense " must {
+
+      val checkYourAnswersHelper = new CheckYourAnswersUkCompanyHelper(userAnswersUKCompanyNetTaxNoIncomeOrExpense)
+
+      behave like normalPage(
+        view = applyView(checkYourAnswersHelper)(),
+        messageKeyPrefix = messageKeyPrefix,
+        headingArgs = Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
+        section = Some(companyNameModel.name)
+      )
+
+      behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
+
+      behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), ukCompaniesSubheading)
+
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
+
+      behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
+
+      implicit lazy val document: Document = asDocument(applyView(checkYourAnswersHelper)())
+
+      checkYourAnswersRowChecks(
+        CheckAnswersUkCompanyMessages.companyNameLabel -> ukCompanyModelReactivationMaxIncome.companyDetails.companyName,
+        CheckAnswersUkCompanyMessages.companyCTUTRLabel -> ukCompanyModelReactivationMaxIncome.companyDetails.ctutr,
+        CheckAnswersUkCompanyMessages.consentingLabel -> "Yes",
+        CheckAnswersUkCompanyMessages.taxEBITDALabel -> currency(taxEBITDA),
+        CheckAnswersUkCompanyMessages.netTaxInterestLabel -> "No Income Or Expense"
+      )
+    }
 
   }
 }

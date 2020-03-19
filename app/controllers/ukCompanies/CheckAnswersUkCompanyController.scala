@@ -57,6 +57,7 @@ class CheckAnswersUkCompanyController @Inject()(override val messagesApi: Messag
         Future.successful(Ok(view(
           answers = checkYourAnswersHelper.rows(idx),
           section = UkCompanies,
+          subheadingMsgArgs = Seq(ukCompany.companyDetails.companyName),
           postAction = controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onSubmit(idx),
           headingMsgArgs = Seq(addPossessive(ukCompany.companyDetails.companyName)),
           buttonMsg = "ukCompanies.checkYourAnswers.button"

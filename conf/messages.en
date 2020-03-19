@@ -698,7 +698,10 @@ netTaxInterestIncomeOrExpense.subheading = {0}
 netTaxInterestIncomeOrExpense.expense = Net tax-interest expense
 netTaxInterestIncomeOrExpense.income = Net tax-interest income
 netTaxInterestIncomeOrExpense.noIncomeOrExpense = This company does not have a net tax-interest
-netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Which net tax-interest does {0} have?
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel.expense = Expense
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel.income = Income
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel.noIncomeOrExpense = No Income Or Expense
+netTaxInterestIncomeOrExpense.checkYourAnswersLabel = Net tax-interest expense or income
 netTaxInterestIncomeOrExpense.error.required = Select a net tax-interest income or expense
 netTaxInterestIncomeOrExpense.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can find
 netTaxInterestIncomeOrExpense.link = a lost UTR number (opens in a new window or tab).
@@ -708,11 +711,11 @@ netTaxInterestIncomeOrExpense.link = a lost UTR number (opens in a new window or
 # ----------------------------------------------------------
 companyDetails.title = Company details
 companyDetails.heading = Company details
-companyDetails.companyName.checkYourAnswersLabel = Name
-companyDetails.companyName.label= Company name
+companyDetails.companyName.checkYourAnswersLabel = Company Name
+companyDetails.companyName.label = Company Name
 companyDetails.companyName.error.required = A company name must be entered
 companyDetails.companyName.error.length = Company name must be 160 characters or less
-companyDetails.ctutr.checkYourAnswersLabel = CTUTR
+companyDetails.ctutr.checkYourAnswersLabel = UTR
 companyDetails.ctutr.label = Corporation Tax Unique Taxpayer Reference
 companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Reference must be entered
 companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
@@ -731,36 +734,37 @@ ukCompaniesReviewAnswersList.error.required = Select yes if you need to add anot
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
-netTaxInterestAmount.expense.title = What is the {0} total net-tax interest expense?
-netTaxInterestAmount.expense.heading = What is the {0} total net-tax interest expense?
-netTaxInterestAmount.expense.label = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.title = Enter the total net tax-interest expense?
+netTaxInterestAmount.expense.heading = Enter the total net tax-interest expense?
+netTaxInterestAmount.expense.label = Enter the total net tax-interest expense?
 netTaxInterestAmount.expense.subheading = {0}
-netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.checkYourAnswersLabel = Net tax-interest amount
 netTaxInterestAmount.expense.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.expense.error.required = Enter {0} total net-tax interest expense?
+netTaxInterestAmount.expense.error.required = Enter the total net tax-interest income?
 netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be valid decimal or whole number
 netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
-netTaxInterestAmount.income.title = What is the {0} total net-tax interest income?
-netTaxInterestAmount.income.heading = What is the {0} total net-tax interest income?
-netTaxInterestAmount.income.label = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.title = Enter the total net tax-interest income?
+netTaxInterestAmount.income.heading = Enter the total net tax-interest income?
+netTaxInterestAmount.income.label = Enter the total net tax-interest income?
 netTaxInterestAmount.income.subheading = {0}
-netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.checkYourAnswersLabel = Net tax-interest amount
 netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
+netTaxInterestAmount.income.error.required = Enter the total net tax-interest income?
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
 
-netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest
+netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest amount
 netTaxInterestAmount.income = Income
 netTaxInterestAmount.expense = Expense
+netTaxInterestAmount.noIncomeOrExpense = No Tax Income Or Expense
 
 # CheckAnswersUkCompanyPage Messages
 # ----------------------------------------------------------
-ukCompanies.checkYourAnswers.title = Check {0} details
-ukCompanies.checkYourAnswers.heading = Check {0} details
-ukCompanies.checkYourAnswers.subheading = About the companies involved
-ukCompanies.checkYourAnswers.button = Confirm company
+ukCompanies.checkYourAnswers.title = Check this company’s details
+ukCompanies.checkYourAnswers.heading = Check this company’s details
+ukCompanies.checkYourAnswers.subheading = {0}
+ukCompanies.checkYourAnswers.button = Save and continue
 
 
 # UkCompaniesDeletionConfirmationPage Messages

@@ -40,19 +40,19 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       "have a correctly formatted summary list row" in {
 
         helper.companyName(1) mustBe Some(summaryListRow(
-          CheckAnswersUkCompanyMessages.companyName,
+          CheckAnswersUkCompanyMessages.companyNameLabel,
           companyNameModel.name,
           ukCompaniesRoutes.CompanyDetailsController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
 
-    "For the CT UTR answer" must {
+    "For the UTR answer" must {
 
       "have a correctly formatted summary list row" in {
 
         helper.ctutr(1) mustBe Some(summaryListRow(
-          CheckAnswersUkCompanyMessages.companyCTUTR,
+          CheckAnswersUkCompanyMessages.companyCTUTRLabel,
           ctutrModel.utr,
           ukCompaniesRoutes.CompanyDetailsController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
@@ -64,7 +64,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       "have a correctly formatted summary list row" in {
 
         helper.consentingCompany(1) mustBe Some(summaryListRow(
-          CheckAnswersUkCompanyMessages.consenting,
+          CheckAnswersUkCompanyMessages.consentingLabel,
           BaseMessages.yes,
           ukCompaniesRoutes.ConsentingCompanyController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
@@ -76,9 +76,21 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       "have a correctly formatted summary list row" in {
 
         helper.enterCompanyTaxEBITDA(1) mustBe Some(summaryListRow(
-          CheckAnswersUkCompanyMessages.taxEBITDA,
+          CheckAnswersUkCompanyMessages.taxEBITDALabel,
           currencyFormat(taxEBITDA),
           ukCompaniesRoutes.EnterCompanyTaxEBITDAController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the netTaxInterestIncomeOrExpense answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.netTaxInterestIncomeOrExpense(1) mustBe Some(summaryListRow(
+          CheckAnswersUkCompanyMessages.netTaxInterestLabel,
+          "Expense",
+          ukCompaniesRoutes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -88,7 +100,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       "have a correctly formatted summary list row" in {
 
         helper.netTaxInterestAmount(1) mustBe Some(summaryListRow(
-          CheckAnswersUkCompanyMessages.netTaxInterest,
+          CheckAnswersUkCompanyMessages.netTaxInterestAmountLabel,
           currencyFormat(netTaxInterestIncome) + " Expense",
           ukCompaniesRoutes.NetTaxInterestAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
@@ -100,7 +112,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       "have a correctly formatted summary list row" in {
 
         helper.companyReactivationAmount(1) mustBe Some(summaryListRow(
-          CheckAnswersUkCompanyMessages.reactivationAmount,
+          CheckAnswersUkCompanyMessages.reactivationAmountLabel,
           currencyFormat(reactivation),
           ukCompaniesRoutes.ReactivationAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))

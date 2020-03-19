@@ -18,7 +18,8 @@ package assets.messages
 
 object CheckAnswersUkCompanyMessages {
 
-  val title: String => String = name => s"Check $name details"
+  val title: String => String = name => s"Check this company’s details"
+  val subheading: String => String = x => x
 
   val companyName= "Name"
   val companyCTUTR = "CTUTR"
@@ -28,4 +29,16 @@ object CheckAnswersUkCompanyMessages {
   val income = "Income"
   val expense = "Expense"
   val reactivationAmount = "Company reactivations"
+
+  //SummaryList Row
+
+  val companyNameLabel= "Company Name"
+  val companyCTUTRLabel = "UTR"
+  val consentingLabel = "Consenting"
+  val taxEBITDALabel = "Tax-EBITDA"
+  val netTaxInterestLabel = "Net tax-interest expense or income"
+  val netTaxInterestAmountLabel = "Net tax-interest amount"
+  val incomeLabel = "Income"
+  val expenseLabel = "Expense"
+  val reactivationAmountLabel = "Company reactivations"
 }

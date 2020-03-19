@@ -17,6 +17,7 @@
 package utils
 
 import controllers.ukCompanies.{routes => ukCompanyRoutes}
+import models.NetTaxInterestIncomeOrExpense.NetTaxInterestNoIncomeOrExpense
 import models.returnModels.fullReturn.UkCompanyModel
 import models.{CheckMode, CompanyDetailsModel, UserAnswers}
 import pages.QuestionPage
@@ -36,17 +37,18 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
 
   private def incomeOrExpense(idx: Int)(implicit messages: Messages) = {
     val incomeOrExpense = ukCompanyModel(idx).flatMap(_.netTaxInterestIncomeOrExpense).getOrElse("None")
-      messages(s"netTaxInterestAmount.$incomeOrExpense")
+    messages(s"netTaxInterestAmount.$incomeOrExpense")
   }
 
   def companyName(idx: Int): Option[SummaryListRow] =
-  companyDetailsModel(idx).map(_.companyName).map(companyName =>
-    summaryListRow(
-      label = messages("companyDetails.companyName.checkYourAnswersLabel", Seq()),
-      value = companyName,
-      (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
+    companyDetailsModel(idx).map(_.companyName).map(companyName =>
+      summaryListRow(
+        label = messages("companyDetails.companyName.checkYourAnswersLabel", Seq()),
+        value = companyName,
+        (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
     )
-  )
+
   def ctutr(idx: Int): Option[SummaryListRow] =
     companyDetailsModel(idx).map(_.ctutr).map(ctutr =>
       summaryListRow(
@@ -74,14 +76,29 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
-  def netTaxInterestAmount(idx: Int): Option[SummaryListRow] =
-    ukCompanyModel(idx).flatMap(_.netTaxInterest.map(netTaxInterest =>
+  def netTaxInterestIncomeOrExpense(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.netTaxInterestIncomeOrExpense.map(netTaxInterestIncomeOrExpense =>
       summaryListRow(
-        label = messages("netTaxInterestAmount.checkYourAnswersLabel", Seq()),
-        value = s"${currencyFormat(netTaxInterest)} ${incomeOrExpense(idx)}",
-        (ukCompanyRoutes.NetTaxInterestAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
+        label = messages("netTaxInterestIncomeOrExpense.checkYourAnswersLabel", Seq()),
+        value = messages(s"netTaxInterestIncomeOrExpense.checkYourAnswersLabel.$netTaxInterestIncomeOrExpense"),
+        (ukCompanyRoutes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
+
+  def netTaxInterestAmount(idx: Int): Option[SummaryListRow] = {
+
+    ukCompanyModel(idx).flatMap(ukCompanyModel =>
+      (ukCompanyModel.netTaxInterest, ukCompanyModel.netTaxInterestIncomeOrExpense) match {
+        case (_, Some(NetTaxInterestNoIncomeOrExpense)) => None
+        case (Some(netTaxInterest), _) =>
+          Some(summaryListRow(
+            label = messages("netTaxInterestAmount.checkYourAnswersLabel", Seq()),
+            value = s"${currencyFormat(netTaxInterest)} ${incomeOrExpense(idx)}",
+            (ukCompanyRoutes.NetTaxInterestAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
+          ))
+      }
+    )
+  }
 
   def companyReactivationAmount(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.allocatedReactivations.map(reactivationModel =>
@@ -98,6 +115,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     ctutr(idx),
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
+    netTaxInterestIncomeOrExpense(idx),
     netTaxInterestAmount(idx),
     companyReactivationAmount(idx)
   ).flatten

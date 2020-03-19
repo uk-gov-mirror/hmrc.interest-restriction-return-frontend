@@ -17,6 +17,7 @@
 package assets.constants
 
 import assets.constants.fullReturn.UkCompanyConstants._
+import models.NetTaxInterestIncomeOrExpense._
 import pages.ukCompanies.UkCompaniesPage
 import views.behaviours.ViewBehaviours
 
@@ -34,6 +35,11 @@ trait UkCompanyCheckYourAnswersConstants extends ViewBehaviours with BaseConstan
   val userAnswersUKCompanyNetTaxRestrictionExpense = emptyUserAnswers
     .set(UkCompaniesPage, ukCompanyModelRestrictionMaxExpense, idx = Some(1)).get
 
+  val userAnswersUKCompanyNetTaxNoIncomeOrExpense = emptyUserAnswers
+    .set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense.copy(netTaxInterestIncomeOrExpense = Some(NetTaxInterestNoIncomeOrExpense), netTaxInterest = None), idx = Some(1)).get
+
   val confirmCompany = "Confirm company"
+
+  val saveAndContinue = "Save and continue"
 
 }

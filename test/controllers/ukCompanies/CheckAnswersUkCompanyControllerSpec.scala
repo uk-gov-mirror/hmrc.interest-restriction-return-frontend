@@ -16,9 +16,8 @@
 
 package controllers.ukCompanies
 
-import assets.messages.{CheckAnswersUkCompanyMessages, CheckAnswersUkParentCompanyMessages, SectionHeaderMessages}
 import assets.constants.fullReturn.UkCompanyConstants._
-import controllers.errors
+import assets.messages.CheckAnswersUkCompanyMessages
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -59,7 +58,7 @@ class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching
         val result = Controller.onPageLoad(1)(fakeRequest)
 
         status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(CheckAnswersUkCompanyMessages.title(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)), Some(SectionHeaderMessages.ukCompanies))
+        titleOf(contentAsString(result)) mustEqual title(CheckAnswersUkCompanyMessages.title(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)), Some(ukCompanyModelReactivationMaxIncome.companyDetails.companyName))
       }
     }
 
