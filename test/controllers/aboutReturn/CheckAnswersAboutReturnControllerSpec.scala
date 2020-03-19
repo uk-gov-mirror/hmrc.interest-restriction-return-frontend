@@ -30,7 +30,7 @@ class CheckAnswersAboutReturnControllerSpec extends SpecBase with FeatureSwitchi
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  object Controller extends CheckAnswersReportingCompanyController(
+  object Controller extends CheckAnswersAboutReturnController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,

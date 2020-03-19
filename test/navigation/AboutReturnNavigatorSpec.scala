@@ -139,7 +139,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
             val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, false).get
 
             navigator.nextPage(AgentActingOnBehalfOfCompanyPage, CheckMode, userAnswers) mustBe
-              aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+              aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
           }
         }
 
@@ -159,7 +159,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the Check Your Answers page" in {
           navigator.nextPage(AgentNamePage, CheckMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+            aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
 
@@ -167,7 +167,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the Check Your Answers page" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+            aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
 
@@ -175,7 +175,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the Check Your Answers page" in {
           navigator.nextPage(ReportingCompanyNamePage, CheckMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+            aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
 
@@ -240,7 +240,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
         "go to the CheckAnswersReportingCompany" in {
           navigator.nextPage(AccountingPeriodEndPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+            aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
 
@@ -257,17 +257,17 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "from ReportingCompanyCTUTRPage go to Reporting Company CheckYourAnswers " in {
         navigator.nextPage(ReportingCompanyCTUTRPage, CheckMode, emptyUserAnswers) mustBe
-          aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+          aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
       }
 
       "from AccountingPeriodStartPage go to Reporting Company CheckYourAnswers" in {
         navigator.nextPage(AccountingPeriodStartPage, CheckMode, emptyUserAnswers) mustBe
-          aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+          aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
       }
 
       "from AccountingPeriodEndPage go to Reporting Company CheckYourAnswers" in {
         navigator.nextPage(AccountingPeriodEndPage, CheckMode, emptyUserAnswers) mustBe
-          aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+          aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
       }
 
       "from the Revising Return page" should {
@@ -284,7 +284,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
 
           navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe
-            aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+            aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
     }

@@ -159,7 +159,7 @@ class ReportingCompanyNameControllerISpec extends IntegrationSpecBase with Creat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.CheckAnswersReportingCompanyController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad().url)
               )
             }
           }

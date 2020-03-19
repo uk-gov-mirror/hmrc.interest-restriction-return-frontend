@@ -38,8 +38,8 @@ POST       /accounting-period-end/change                controllers.aboutReturn.
 
 ### CheckYourAnswersController
 ### -----------------------------
-GET        /check-answers                               controllers.aboutReturn.CheckAnswersReportingCompanyController.onPageLoad
-POST       /check-answers                               controllers.aboutReturn.CheckAnswersReportingCompanyController.onSubmit
+GET        /check-answers                               controllers.aboutReturn.CheckAnswersAboutReturnController.onPageLoad
+POST       /check-answers                               controllers.aboutReturn.CheckAnswersAboutReturnController.onSubmit
 
 ### ReportingCompanyAppointed Controller
 ### ----------------------------------------

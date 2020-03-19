@@ -23,7 +23,7 @@ import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class CheckAnswersReportingCompanyControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class CheckAnswersAboutReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 

@@ -69,7 +69,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     })
   ).withDefaultValue(_ => checkAnswers)
 
-  private def checkAnswers = aboutReturnRoutes.CheckAnswersReportingCompanyController.onPageLoad()
+  private def checkAnswers = aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
   private def nextSection(mode: Mode): Call = ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {

@@ -35,7 +35,7 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
     Seq(
       TaskListRow(
         messages(s"section.${Section.AboutReturn}"),
-        controllers.aboutReturn.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+        controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
         messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturn.status}")
       ),
       TaskListRow(

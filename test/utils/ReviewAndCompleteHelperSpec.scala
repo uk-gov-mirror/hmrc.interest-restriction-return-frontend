@@ -50,7 +50,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
         helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
           TaskListRow(
             SectionHeaderMessages.aboutReturn,
-            controllers.aboutReturn.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+            controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
             ReviewAndCompleteMessages.notStarted
           ),
           TaskListRow(
@@ -97,7 +97,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
             TaskListRow(
               SectionHeaderMessages.aboutReturn,
-              controllers.aboutReturn.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
               ReviewAndCompleteMessages.notStarted
             ),
             TaskListRow(
@@ -142,7 +142,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
             TaskListRow(
               SectionHeaderMessages.aboutReturn,
-              controllers.aboutReturn.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
               ReviewAndCompleteMessages.notStarted
             ),
             TaskListRow(

@@ -33,21 +33,21 @@ import views.html.CheckYourAnswersView
 
 import scala.concurrent.ExecutionContext
 
-class CheckAnswersReportingCompanyController @Inject()(override val messagesApi: MessagesApi,
-                                                       override val sessionRepository: SessionRepository,
-                                                       override val navigator: AboutReturnNavigator,
-                                                       override val questionDeletionLookupService: QuestionDeletionLookupService,
-                                                       override val updateSectionService: UpdateSectionStateService,
-                                                       identify: IdentifierAction,
-                                                       getData: DataRetrievalAction,
-                                                       requireData: DataRequiredAction,
-                                                       val controllerComponents: MessagesControllerComponents,
-                                                       view: CheckYourAnswersView
+class CheckAnswersAboutReturnController @Inject()(override val messagesApi: MessagesApi,
+                                                  override val sessionRepository: SessionRepository,
+                                                  override val navigator: AboutReturnNavigator,
+                                                  override val questionDeletionLookupService: QuestionDeletionLookupService,
+                                                  override val updateSectionService: UpdateSectionStateService,
+                                                  identify: IdentifierAction,
+                                                  getData: DataRetrievalAction,
+                                                  requireData: DataRequiredAction,
+                                                  val controllerComponents: MessagesControllerComponents,
+                                                  view: CheckYourAnswersView
                                                       )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseNavigationController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val checkAnswersHelper = new CheckYourAnswersAboutReturnCompanyHelper(request.userAnswers)
-    Ok(view(checkAnswersHelper.rows, AboutReturn, controllers.aboutReturn.routes.CheckAnswersReportingCompanyController.onSubmit()))
+    Ok(view(checkAnswersHelper.rows, AboutReturn, controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onSubmit()))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
