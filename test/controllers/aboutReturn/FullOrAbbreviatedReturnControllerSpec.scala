@@ -75,7 +75,7 @@ class FullOrAbbreviatedReturnControllerSpec extends SpecBase with FeatureSwitchi
       val request = fakeRequest.withFormUrlEncodedBody(("value", FullOrAbbreviatedReturn.values.head.toString))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

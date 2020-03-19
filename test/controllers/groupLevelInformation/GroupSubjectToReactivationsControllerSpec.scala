@@ -75,7 +75,7 @@ class GroupSubjectToReactivationsControllerSpec extends SpecBase with FeatureSwi
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

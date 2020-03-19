@@ -75,7 +75,7 @@ class GroupRatioBlendedElectionControllerSpec extends SpecBase with FeatureSwitc
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

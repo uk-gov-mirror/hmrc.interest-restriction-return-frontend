@@ -76,7 +76,7 @@ class InterestAllowanceBroughtForwardControllerSpec extends SpecBase with Featur
       val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

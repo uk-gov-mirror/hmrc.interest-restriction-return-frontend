@@ -86,7 +86,7 @@ class AccountingPeriodEndControllerSpec extends SpecBase with FeatureSwitching w
       )
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

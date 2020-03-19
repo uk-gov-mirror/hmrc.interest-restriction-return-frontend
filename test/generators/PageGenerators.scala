@@ -28,6 +28,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryAddRestrictionPage: Arbitrary[AddRestrictionPage.type] =
+    Arbitrary(AddRestrictionPage)
+
   implicit lazy val arbitraryPartnershipDeletionConfirmationPage: Arbitrary[PartnershipDeletionConfirmationPage.type] =
     Arbitrary(PartnershipDeletionConfirmationPage)
 

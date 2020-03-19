@@ -63,10 +63,10 @@ POST       /:idx/check-answers-uk-company                       controllers.ukCo
 
 ### AddAnReactivationQuery Controller
 ### ----------------------------------------
-GET        /:idx/add-an-reactivation-query                          controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /:idx/add-an-reactivation-query                          controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /:idx/add-an-reactivation-query/change                   controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /:idx/add-an-reactivation-query/change                   controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET        /:idx/add-an-reactivation-query                      controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/add-an-reactivation-query                      controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/add-an-reactivation-query/change               controllers.ukCompanies.AddAnReactivationQueryController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/add-an-reactivation-query/change               controllers.ukCompanies.AddAnReactivationQueryController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### ReactivationAmount Controller
 ### ----------------------------------------
@@ -76,3 +76,10 @@ GET        /:idx/reactivation-amount/change                     controllers.ukCo
 POST       /:idx/reactivation-amount/change                     controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = CheckMode)
 GET        /:idx/reactivation-amount/review                     controllers.ukCompanies.ReactivationAmountController.onPageLoad(idx: Int, mode: Mode = ReviewMode)
 POST       /:idx/reactivation-amount/review                     controllers.ukCompanies.ReactivationAmountController.onSubmit(idx: Int, mode: Mode = ReviewMode)
+
+### AddRestriction Controller
+### ----------------------------------------
+GET        /:idx/add-restriction                                controllers.ukCompanies.AddRestrictionController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/add-restriction                                controllers.ukCompanies.AddRestrictionController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/add-restriction/change                         controllers.ukCompanies.AddRestrictionController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/add-restriction/change                         controllers.ukCompanies.AddRestrictionController.onSubmit(idx: Int, mode: Mode = CheckMode)

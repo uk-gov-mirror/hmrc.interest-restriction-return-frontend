@@ -108,7 +108,7 @@ class UkCompaniesDeletionConfirmationControllerSpec extends SpecBase with Featur
             .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get
 
           mockGetAnswers(Some(userAnswersBefore))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val result = Controller.onSubmit(idx = 2)(request)
 

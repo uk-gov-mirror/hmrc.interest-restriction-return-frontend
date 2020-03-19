@@ -77,7 +77,7 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

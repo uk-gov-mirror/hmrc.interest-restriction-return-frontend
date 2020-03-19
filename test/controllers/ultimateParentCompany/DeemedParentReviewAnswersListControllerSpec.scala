@@ -25,6 +25,7 @@ import forms.ultimateParentCompany.DeemedParentReviewAnswersListFormProvider
 import models.NormalMode
 import assets.constants.DeemedParentConstants._
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
+import pages.elections.GroupRatioElectionPage
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.DeemedParentReviewAnswersListView
@@ -103,14 +104,38 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
         "redirect to the Next Section route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
           val result = Controller.onSubmit()(request)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some("/foo")//todo check this
+          redirectLocation(result) mustBe Some(FakeUltimateParentCompanyNavigator.nextPage(
+            page = GroupRatioElectionPage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers).url)
+        }
+      }
+
+      "when there is 3 deemed parents" should {
+
+        "redirect to the Next Section route" in {
+
+          mockGetAnswers(Some(emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
+            .set(DeemedParentPage, deemedParentModelUkCompany, Some(3)).success.value))
+          mockSetAnswers
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+
+          val result = Controller.onSubmit()(request)
+
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(FakeUltimateParentCompanyNavigator.nextPage(
+            page = GroupRatioElectionPage,
+            mode = NormalMode,
+            userAnswers = emptyUserAnswers).url)
         }
       }
     }

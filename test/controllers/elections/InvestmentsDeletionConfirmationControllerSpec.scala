@@ -106,7 +106,7 @@ class InvestmentsDeletionConfirmationControllerSpec extends SpecBase with Featur
             .set(InvestmentNamePage, investmentName, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val result = Controller.onSubmit(idx = 2)(request)
 

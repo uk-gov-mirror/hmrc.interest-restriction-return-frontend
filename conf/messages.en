@@ -786,7 +786,8 @@ accountingPeriodStart.error.required = You must enter a valid date
 accountingPeriodStart.error.invalid = You must enter a valid date
 accountingPeriodStart.error.required.two = You must enter a valid date
 accountingPeriodStart.error.required.all = You must enter a valid date
-accountingPeriodStart.error.range = Start Date can’t be in the future
+accountingPeriodStart.error.range.above = Start Date can’t be in the future
+accountingPeriodStart.error.range.below = Start Date can’t be before 01 01 2000
 accountingPeriodStart.hint = For example, 27 3 2007
 
 # AccountingPeriodEndPage Messages
@@ -852,3 +853,11 @@ reviewReactivations.totalReactivations = Total allocated reactivations:
 partnershipDeletionConfirmation.title = Are you sure you want to delete partnership ‘{0}’?
 partnershipDeletionConfirmation.heading = Are you sure you want to delete partnership ‘{0}’?
 partnershipDeletionConfirmation.error.required = Select yes if Are you sure you want to delete partnership ‘{0}’?
+
+# AddRestrictionPage Messages
+# ----------------------------------------------------------
+addRestriction.title = Do you need to add a restriction to this company?
+addRestriction.heading = Do you need to add a restriction to this company?
+addRestriction.checkYourAnswersLabel = Do you need to add a restriction to this company?
+addRestriction.error.required = Select yes if you need to add a restriction to this company
+addRestriction.subheading = {0}

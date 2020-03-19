@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package pages.ukCompanies
 
-@(langMap: Map[String, Lang], langToCall: String => Call, customClass: Option[String] = None, appName: Option[String] = None)(implicit messages: Messages)
+import pages.behaviours.PageBehaviours
 
-<p class="govuk-body @customClass.map(x => x)">
+class AddRestrictionPageSpec extends PageBehaviours {
 
-@langMap.map { case (key: String, value: Lang) =>
-    @if(messages.lang.code != value.code) {
-        <a href="@langToCall(key)" id="@{key}-switch">
-            @key.capitalize
-        </a>
-    } else {
-        @key.capitalize
-    }
-    @if(key != langMap.last._1) {
-        @Html(" | ")
-    }
+  "AddRestrictionPage" must {
+
+    beRetrievable[Boolean](AddRestrictionPage)
+
+    beSettable[Boolean](AddRestrictionPage)
+
+    beRemovable[Boolean](AddRestrictionPage)
+  }
 }
-</p>

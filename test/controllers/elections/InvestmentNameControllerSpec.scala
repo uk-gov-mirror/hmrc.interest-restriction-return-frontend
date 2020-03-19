@@ -77,7 +77,7 @@ class InvestmentNameControllerSpec extends SpecBase with FeatureSwitching with M
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

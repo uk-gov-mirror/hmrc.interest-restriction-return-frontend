@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package controllers.elections
+package controllers.ukCompanies
 
+import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import controllers.errors
-import forms.elections.ElectedGroupEBITDABeforeFormProvider
+import forms.ukCompanies.AddRestrictionFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeElectionsNavigator
-import pages.elections.ElectedGroupEBITDABeforePage
+import pages.ukCompanies.{AddRestrictionPage, UkCompaniesPage}
 import play.api.test.Helpers._
-import views.html.elections.ElectedGroupEBITDABeforeView
+import views.html.ukCompanies.AddRestrictionView
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import assets.constants.fullReturn.UkCompanyConstants.{companyNameModel, ukCompanyModelMax}
 
-class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[ElectedGroupEBITDABeforeView]
-  val formProvider = injector.instanceOf[ElectedGroupEBITDABeforeFormProvider]
+  val view = injector.instanceOf[AddRestrictionView]
+  val formProvider = injector.instanceOf[AddRestrictionFormProvider]
   val form = formProvider()
 
-  object Controller extends ElectedGroupEBITDABeforeController(
+  object Controller extends AddRestrictionController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = FakeElectionsNavigator,
+    navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
@@ -47,37 +48,31 @@ class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitch
     view = view
   )
 
-  "ElectedGroupEBITDABefore Controller" must {
+  "AddRestriction Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers.set(ElectedGroupEBITDABeforePage, true).success.value
-
-      mockGetAnswers(Some(userAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustEqual view(
+        form = form,
+        mode = NormalMode,
+        companyName = companyNameModel.name,
+        postAction = routes.AddRestrictionController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
       mockSetAnswers
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -87,9 +82,9 @@ class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitch
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -98,7 +93,7 @@ class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitch
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -111,7 +106,7 @@ class ElectedGroupEBITDABeforeControllerSpec extends SpecBase with FeatureSwitch
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

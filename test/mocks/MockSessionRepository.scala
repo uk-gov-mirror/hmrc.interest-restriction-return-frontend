@@ -32,15 +32,15 @@ trait MockSessionRepository extends MockFactory {
       .returns(Future.successful(result))
   }
 
-  def mockSetAnswers(result: Boolean): Unit = {
+  def mockSetAnswers: Unit = {
     (mockSessionRepository.set(_: UserAnswers))
       .expects(*)
-      .returns(Future.successful(result))
+      .returns(Future.successful(true))
   }
 
-  def mockDeleteAnswers(result: Boolean): Unit = {
+  def mockDeleteAnswers: Unit = {
     (mockSessionRepository.delete(_: UserAnswers))
       .expects(*)
-      .returns(Future.successful(result))
+      .returns(Future.successful(true))
   }
 }

@@ -80,7 +80,7 @@ class ReportingCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching
       val request = fakeRequest.withFormUrlEncodedBody(("value", ctutrModel.utr))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

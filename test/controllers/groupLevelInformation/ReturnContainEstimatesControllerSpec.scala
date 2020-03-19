@@ -78,7 +78,7 @@ class ReturnContainEstimatesControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

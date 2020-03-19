@@ -78,7 +78,7 @@ class ReportingCompanyNameControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

@@ -83,7 +83,7 @@ class CompanyDetailsControllerSpec extends SpecBase with FeatureSwitching with M
     "redirect to the next page when valid data is submitted" in {
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val request = fakeRequest.withFormUrlEncodedBody(
         "companyNameValue" -> companyNameModel.name,

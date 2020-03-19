@@ -50,7 +50,7 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository with MockD
     "return OK and the correct view for a GET with UserAnswers NOT already supplied" in {
 
       mockGetAnswers(None)
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onPageLoad()(fakeRequest)
 
@@ -61,7 +61,7 @@ class IndexControllerSpec extends SpecBase with MockSessionRepository with MockD
     "return OK and get the correct view for a GET with empty userAnswers supplied due to 'start a new return' being selected" in {
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onPageLoad()(fakeRequest)
 

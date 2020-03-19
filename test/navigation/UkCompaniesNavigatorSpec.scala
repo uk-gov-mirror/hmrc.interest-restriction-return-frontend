@@ -149,6 +149,15 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
         }
       }
+
+      "from the UkCompaniesPage" should {
+
+        //TODO: Update as part of routing subtask
+        "go to the UnderConstructionController page" in {
+          navigator.nextPage(AddRestrictionPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {

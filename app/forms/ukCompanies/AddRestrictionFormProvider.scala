@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package forms.aboutReturn
+package forms.ukCompanies
 
-import java.time.LocalDate
 import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
 
-class AccountingPeriodEndFormProvider @Inject() extends Mappings {
+class AddRestrictionFormProvider @Inject() extends Mappings {
 
-  def apply(startDate: LocalDate): Form[LocalDate] =
+  def apply(): Form[Boolean] =
     Form(
-      "value" -> localDate(
-        invalidKey     = "accountingPeriodEnd.error.invalid",
-        allRequiredKey = "accountingPeriodEnd.error.required.all",
-        twoRequiredKey = "accountingPeriodEnd.error.required.two",
-        requiredKey    = "accountingPeriodEnd.error.required"
-      ).verifying("accountingPeriodEnd.error.range", endDate =>
-        endDate.isAfter(startDate) && !endDate.minusMonths(18).isAfter(startDate)
-      )
+      "value" -> boolean("addRestriction.error.required")
     )
 }

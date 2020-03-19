@@ -75,7 +75,7 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 
