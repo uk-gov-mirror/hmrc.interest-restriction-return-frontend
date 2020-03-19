@@ -30,15 +30,15 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "companyAccountingPeriodSameAsGroup.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form, "companyAccountingPeriodSameAsGroup.title", Some(messages("companyAccountingPeriodSameAsGroup.subheading", companyName))))) {
 
-    @formHelper(action = CompanyAccountingPeriodSameAsGroupController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ukCompanies")
+        @subheading(messages("companyAccountingPeriodSameAsGroup.subheading", companyName))
 
         @yesNoRadio(form, "companyAccountingPeriodSameAsGroup.heading")
 

@@ -149,5 +149,47 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
         }
       }
     }
+
+    "POST /uk-companies/1/add-restriction/change" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" should {
+
+          "redirect to UK Companies Check Answers page" in {
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/add-restriction/change", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/add-restriction/change", Json.obj("value" -> "true"))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
   }
 }

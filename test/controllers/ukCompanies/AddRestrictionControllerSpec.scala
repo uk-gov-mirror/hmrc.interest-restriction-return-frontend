@@ -59,7 +59,6 @@ class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with M
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form = form,
-        mode = NormalMode,
         companyName = companyNameModel.name,
         postAction = routes.AddRestrictionController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

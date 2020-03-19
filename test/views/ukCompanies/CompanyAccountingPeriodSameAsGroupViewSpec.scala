@@ -16,10 +16,10 @@
 
 package views.ukCompanies
 
-import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.ukCompanies.routes
+import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
+import assets.messages.BaseMessages
+import assets.messages.ukCompanies.CompanyAccountingPeriodSameAsGroupMessages
 import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
-import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
@@ -28,26 +28,25 @@ import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 class CompanyAccountingPeriodSameAsGroupViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "companyAccountingPeriodSameAsGroup"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some(CompanyAccountingPeriodSameAsGroupMessages.subheading(companyNameModel.name))
   val form = new CompanyAccountingPeriodSameAsGroupFormProvider()()
+  val view = viewFor[CompanyAccountingPeriodSameAsGroupView]()
 
-    "CompanyAccountingPeriodSameAsGroupView" must {
+  "CompanyAccountingPeriodSameAsGroupView" must {
 
-      def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[CompanyAccountingPeriodSameAsGroupView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
-      }
+    def applyView(form: Form[_]): HtmlFormat.Appendable =
+      view.apply(form, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+    behave like pageWithSubHeading(applyView(form), section.get)
 
-      behave like pageWithBackLink(applyView(form))
+    behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(NormalMode).url, section = section)
+    behave like yesNoPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
-      behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
-      behave like pageWithSaveForLater(applyView(form))
-    }
+    behave like pageWithSaveForLater(applyView(form))
   }
+}

@@ -16,8 +16,9 @@
 
 package controllers.ukCompanies
 
+import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -27,14 +28,16 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
 
   "in Normal mode" when {
 
-    "GET /ukCompanies/company-accounting-period-same-as-group" when {
+    "GET /uk-companies/1/company-accounting-period-same-as-group" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ukCompanies/company-accounting-period-same-as-group")()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +54,7 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/company-accounting-period-same-as-group")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +66,25 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
       }
     }
 
-    "POST /ukCompanies/company-accounting-period-same-as-group" when {
+    "POST /uk-companies/1/company-accounting-period-same-as-group" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to CompanyAccountingPeriodSameAsGroup page" in {
+          "redirect to Under Construction page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = postRequest("/ukCompanies/company-accounting-period-same-as-group", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -91,7 +95,7 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ukCompanies/company-accounting-period-same-as-group", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,15 +110,16 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
 
   "in Change mode" when {
 
-    "GET /ukCompanies/company-accounting-period-same-as-group" when {
+    "GET /uk-companies/1/company-accounting-period-same-as-group/change" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/ukCompanies/company-accounting-period-same-as-group/change")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +136,7 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ukCompanies/company-accounting-period-same-as-group/change")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -142,5 +147,47 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
         }
       }
     }
+
+    "POST /uk-companies/1/company-accounting-period-same-as-group/change" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" should {
+
+          "redirect to Company Check Your Answers page" in {
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group/change", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group/change", Json.obj("value" -> "true"))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
   }
 }

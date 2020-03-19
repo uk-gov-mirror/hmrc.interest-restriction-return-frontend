@@ -53,7 +53,6 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
       Future.successful(
         Ok(view(
           form = ukCompany.restriction.fold(formProvider())(formProvider().fill),
-          mode = mode,
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.AddRestrictionController.onSubmit(idx, mode)
         ))
@@ -68,7 +67,6 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
           Future.successful(
             BadRequest(view(
               form = formWithErrors,
-              mode = mode,
               companyName = ukCompany.companyDetails.companyName,
               postAction = routes.AddRestrictionController.onSubmit(idx, mode)
             ))

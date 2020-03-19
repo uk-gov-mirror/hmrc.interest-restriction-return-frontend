@@ -21,17 +21,19 @@ import controllers.actions._
 import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.CompanyAccountingPeriodSameAsGroupPage
-import config.featureSwitch.{FeatureSwitching}
+import pages.ukCompanies.{AddRestrictionPage, CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
+import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 import play.api.data.Form
+
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
+import handlers.ErrorHandler
 
 class CompanyAccountingPeriodSameAsGroupController @Inject()(
                                          override val messagesApi: MessagesApi,
@@ -45,18 +47,38 @@ class CompanyAccountingPeriodSameAsGroupController @Inject()(
                                          formProvider: CompanyAccountingPeriodSameAsGroupFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: CompanyAccountingPeriodSameAsGroupView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(CompanyAccountingPeriodSameAsGroupPage, formProvider()), mode))
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      Future.successful(
+        Ok(view(
+          form = ukCompany.accountPeriodSameAsGroup.fold(formProvider())(formProvider().fill),
+          companyName = ukCompany.companyDetails.companyName,
+          postAction = routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(idx, mode)
+        ))
+      )
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-        saveAndRedirect(CompanyAccountingPeriodSameAsGroupPage, value, mode)
-    )
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors,
+              companyName = ukCompany.companyDetails.companyName,
+              postAction = routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(idx, mode)
+            ))
+          ),
+        value => {
+          val updatedModel = ukCompany.copy(accountPeriodSameAsGroup = Some(value))
+          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
+            Redirect(navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, mode, cleanedAnswers, Some(idx)))
+          }
+        }
+      )
+    }
   }
 }

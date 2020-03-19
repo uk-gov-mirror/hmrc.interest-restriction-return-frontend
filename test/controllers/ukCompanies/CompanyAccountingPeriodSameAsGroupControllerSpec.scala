@@ -16,13 +16,14 @@
 
 package controllers.ukCompanies
 
+import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import models.NormalMode
-import pages.ukCompanies.CompanyAccountingPeriodSameAsGroupPage
+import pages.ukCompanies.{CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
 import play.api.test.Helpers._
 import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
@@ -51,22 +52,26 @@ class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with Fea
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(
+        form = form,
+        companyName = ukCompanyModelMax.companyDetails.companyName,
+        postAction = routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(1, NormalMode)
+      )(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
       mockSetAnswers
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -76,9 +81,9 @@ class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with Fea
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -87,7 +92,7 @@ class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with Fea
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -100,7 +105,7 @@ class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with Fea
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 
