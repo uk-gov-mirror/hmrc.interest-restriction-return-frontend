@@ -104,7 +104,7 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
         "redirect to the Next Section route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

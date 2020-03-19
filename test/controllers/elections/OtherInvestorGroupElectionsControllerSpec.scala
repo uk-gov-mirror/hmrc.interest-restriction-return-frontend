@@ -106,7 +106,7 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
             val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
 
             mockGetAnswers(Some(userAnswers))
-            mockSetAnswers(true)
+            mockSetAnswers
 
             val request = fakeRequest.withFormUrlEncodedBody(("value[0]", OtherInvestorGroupElections.values(GroupRatioMethod).head.toString))
 

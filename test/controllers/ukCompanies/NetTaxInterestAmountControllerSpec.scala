@@ -80,7 +80,7 @@ class NetTaxInterestAmountControllerSpec extends SpecBase with FeatureSwitching 
         .set(UkCompaniesPage, ukCompanyModelMin.copy(netTaxInterest = None), Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

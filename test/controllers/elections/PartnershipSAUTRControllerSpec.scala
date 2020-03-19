@@ -94,7 +94,7 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
           Some(1)).success.value
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers(true)
+      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

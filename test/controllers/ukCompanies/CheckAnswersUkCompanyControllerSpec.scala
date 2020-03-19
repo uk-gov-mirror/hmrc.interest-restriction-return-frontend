@@ -72,7 +72,7 @@ class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching
           lazy val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1)).success.value
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val result = Controller.onSubmit(1)(fakeRequest)
 

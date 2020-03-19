@@ -106,7 +106,7 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
           mockGetAnswers(Some(emptyUserAnswers
             .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress, Some(ReviewAndCompletePage)))).get
           ))
-          mockSetAnswers(true)
+          mockSetAnswers
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

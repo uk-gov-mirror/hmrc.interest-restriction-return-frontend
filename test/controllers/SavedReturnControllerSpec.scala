@@ -64,7 +64,7 @@ class SavedReturnControllerSpec extends SpecBase with FeatureSwitching with Mock
     "redirect to the IndexRoute and clear the user answers held" in {
 
       mockGetAnswers(Some(emptyUserAnswers))
-      mockDeleteAnswers(result = true)
+      mockDeleteAnswers
 
       val result = Controller.deleteAndStartAgain(fakeRequest)
 
