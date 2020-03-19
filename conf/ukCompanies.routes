@@ -83,3 +83,10 @@ GET        /:idx/add-restriction                                controllers.ukCo
 POST       /:idx/add-restriction                                controllers.ukCompanies.AddRestrictionController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/add-restriction/change                         controllers.ukCompanies.AddRestrictionController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/add-restriction/change                         controllers.ukCompanies.AddRestrictionController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### CompanyAccountingPeriodSameAsGroup Controller
+### ----------------------------------------
+GET        /:idx/company-accounting-period-same-as-group        controllers.ukCompanies.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/company-accounting-period-same-as-group        controllers.ukCompanies.CompanyAccountingPeriodSameAsGroupController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/company-accounting-period-same-as-group/change controllers.ukCompanies.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/company-accounting-period-same-as-group/change controllers.ukCompanies.CompanyAccountingPeriodSameAsGroupController.onSubmit(idx: Int, mode: Mode = CheckMode)

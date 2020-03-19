@@ -16,25 +16,25 @@
 
 package controllers.ukCompanies
 
+import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.ukCompanies.AddRestrictionFormProvider
+import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import models.NormalMode
-import pages.ukCompanies.{AddRestrictionPage, UkCompaniesPage}
+import pages.ukCompanies.{CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
 import play.api.test.Helpers._
-import views.html.ukCompanies.AddRestrictionView
+import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import assets.constants.fullReturn.UkCompanyConstants.{companyNameModel, ukCompanyModelMax}
 
-class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[AddRestrictionView]
-  val formProvider = injector.instanceOf[AddRestrictionFormProvider]
+  val view = injector.instanceOf[CompanyAccountingPeriodSameAsGroupView]
+  val formProvider = injector.instanceOf[CompanyAccountingPeriodSameAsGroupFormProvider]
   val form = formProvider()
 
-  object Controller extends AddRestrictionController(
+  object Controller extends CompanyAccountingPeriodSameAsGroupController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
@@ -48,7 +48,7 @@ class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with M
     view = view
   )
 
-  "AddRestriction Controller" must {
+  "CompanyAccountingPeriodSameAsGroup Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -59,8 +59,8 @@ class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with M
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form = form,
-        companyName = companyNameModel.name,
-        postAction = routes.AddRestrictionController.onSubmit(1, NormalMode)
+        companyName = ukCompanyModelMax.companyDetails.companyName,
+        postAction = routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }
 

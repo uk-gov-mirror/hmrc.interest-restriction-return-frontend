@@ -28,7 +28,8 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           restriction: Option[Boolean] = None,
                           allocatedRestrictions: Option[AllocatedRestrictionsModel] = None,
                           reactivation: Option[Boolean] = None,
-                          allocatedReactivations: Option[AllocatedReactivationsModel] = None
+                          allocatedReactivations: Option[AllocatedReactivationsModel] = None,
+                          accountPeriodSameAsGroup: Option[Boolean] = None
                          )
 object UkCompanyModel {
 

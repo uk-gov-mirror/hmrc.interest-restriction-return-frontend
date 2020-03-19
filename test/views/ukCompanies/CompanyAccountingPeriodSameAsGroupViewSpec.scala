@@ -17,30 +17,29 @@
 package views.ukCompanies
 
 import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
-import assets.messages.ukCompanies.AddRestrictionMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
-import forms.ukCompanies.AddRestrictionFormProvider
-import models.NormalMode
+import assets.messages.BaseMessages
+import assets.messages.ukCompanies.CompanyAccountingPeriodSameAsGroupMessages
+import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
-import views.html.ukCompanies.AddRestrictionView
+import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 
-class AddRestrictionViewSpec extends YesNoViewBehaviours  {
+class CompanyAccountingPeriodSameAsGroupViewSpec extends YesNoViewBehaviours  {
 
-  val messageKeyPrefix = "addRestriction"
-  val section = Some(AddRestrictionMessages.subheading(companyNameModel.name))
-  val form = new AddRestrictionFormProvider()()
-  val view = viewFor[AddRestrictionView]()
+  val messageKeyPrefix = "companyAccountingPeriodSameAsGroup"
+  val section = Some(CompanyAccountingPeriodSameAsGroupMessages.subheading(companyNameModel.name))
+  val form = new CompanyAccountingPeriodSameAsGroupFormProvider()()
+  val view = viewFor[CompanyAccountingPeriodSameAsGroupView]()
 
-  "AddRestrictionView" must {
+  "CompanyAccountingPeriodSameAsGroupView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable =
       view.apply(form, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-    behave like pageWithSubHeading(applyView(form), AddRestrictionMessages.subheading(companyNameModel.name))
+    behave like pageWithSubHeading(applyView(form), section.get)
 
     behave like pageWithBackLink(applyView(form))
 
