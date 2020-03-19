@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package controllers.$section;format="decap"$
+package controllers.ukCompanies
 
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.$section;format="decap"$.$className;format="cap"$FormProvider
+import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import models.NormalMode
-import pages.$section;format="decap"$.$className;format="cap"$Page
+import pages.ukCompanies.CompanyAccountingPeriodSameAsGroupPage
 import play.api.test.Helpers._
-import views.html.$section;format="decap"$.$className;format="cap"$View
-import navigation.FakeNavigators.Fake$section;format="cap"$Navigator
+import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
+import navigation.FakeNavigators.FakeUkCompaniesNavigator
 
-class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[$className;format="cap"$View]
-  val formProvider = injector.instanceOf[$className;format="cap"$FormProvider]
+  val view = injector.instanceOf[CompanyAccountingPeriodSameAsGroupView]
+  val formProvider = injector.instanceOf[CompanyAccountingPeriodSameAsGroupFormProvider]
   val form = formProvider()
 
-  object Controller extends $className;format="cap"$Controller(
+  object Controller extends CompanyAccountingPeriodSameAsGroupController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = Fake$section;format="cap"$Navigator,
+    navigator = FakeUkCompaniesNavigator,
     questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
@@ -47,7 +47,7 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
     view = view
   )
 
-  "$className;format="cap"$ Controller" must {
+  "CompanyAccountingPeriodSameAsGroup Controller" must {
 
     "return OK and the correct view for a GET" in {
 
