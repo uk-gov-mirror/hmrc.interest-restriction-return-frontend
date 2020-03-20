@@ -3,10 +3,10 @@
 
 ### ReportingCompanySameAsParent Controller
 ### ----------------------------------------
-GET        /about-the-return-same-as-parent                                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)
-POST       /about-the-return-same-as-parent                                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)
-GET        /about-the-return-same-as-parent/change                           controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = CheckMode)
-POST       /about-the-return-same-as-parent/change                           controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = CheckMode)
+GET        /reporting-company-same-as-parent                                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-same-as-parent                                  controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-same-as-parent/change                           controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-same-as-parent/change                           controllers.ultimateParentCompany.ReportingCompanySameAsParentController.onSubmit(mode: Mode = CheckMode)
 
 ### HasDeemedParent Controller
 ### ----------------------------------------
