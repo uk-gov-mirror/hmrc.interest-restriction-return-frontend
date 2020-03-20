@@ -18,18 +18,38 @@ package models.returnModels.fullReturn
 
 import java.time.LocalDate
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Reads, Writes}
 
-case class AllocatedRestrictionsModel(ap1End: Option[LocalDate],
-                                      ap2End: Option[LocalDate],
-                                      ap3End: Option[LocalDate],
-                                      disallowanceAp1: Option[BigDecimal],
-                                      disallowanceAp2: Option[BigDecimal],
-                                      disallowanceAp3: Option[BigDecimal],
-                                      totalDisallowances: Option[BigDecimal]
-                                     )
+case class AllocatedRestrictionsModel(ap1End: Option[LocalDate] = None,
+                                      ap2End: Option[LocalDate] = None,
+                                      ap3End: Option[LocalDate] = None,
+                                      disallowanceAp1: Option[BigDecimal] = None,
+                                      disallowanceAp2: Option[BigDecimal] = None,
+                                      disallowanceAp3: Option[BigDecimal] = None
+                                     ) {
+  val totalDisallowances = List(disallowanceAp1, disallowanceAp2, disallowanceAp3).flatten.sum
+
+  def setRestriction(period: Int, endDate: LocalDate, restriction: BigDecimal): AllocatedRestrictionsModel = period match {
+    case 1 => copy(ap1End = Some(endDate), disallowanceAp1 = Some(restriction))
+    case 2 => copy(ap2End = Some(endDate), disallowanceAp2 = Some(restriction))
+    case 3 => copy(ap3End = Some(endDate), disallowanceAp3 = Some(restriction))
+    case _ => throw new IndexOutOfBoundsException(s"'$period' is not a valid Account Period which can be set")
+  }
+}
 
 object AllocatedRestrictionsModel {
 
-  implicit val format = Json.format[AllocatedRestrictionsModel]
+  implicit val reads: Reads[AllocatedRestrictionsModel] = Json.reads[AllocatedRestrictionsModel]
+
+  implicit val writes: Writes[AllocatedRestrictionsModel] = Writes { model =>
+    Json.obj(
+      "ap1End" -> model.ap1End,
+      "ap2End" -> model.ap2End,
+      "ap3End" -> model.ap3End,
+      "disallowanceAp1" -> model.disallowanceAp1,
+      "disallowanceAp2" -> model.disallowanceAp2,
+      "disallowanceAp3" -> model.disallowanceAp3,
+      "totalDisallowances" -> model.totalDisallowances
+    )
+  }
 }

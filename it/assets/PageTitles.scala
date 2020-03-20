@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val restrictionAmountSameAP = "Enter the restriction amount for this company"
   val addRestriction = "Do you need to add a restriction to this company?"
   val companyAccountingPeriodSameAsGroup = "Is this company’s accounting period the same as the group’s period of account?"
   val partnershipDeletionConfirmation: String => String = name => s"Are you sure you want to delete partnership ‘$name’?"

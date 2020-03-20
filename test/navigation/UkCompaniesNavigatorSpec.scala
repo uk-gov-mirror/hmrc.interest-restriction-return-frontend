@@ -167,6 +167,15 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
+
+      "from the RestrictionAmountSameAPPage" should {
+
+        //TODO: Update as part of routing subtask
+        "go to the Under Construction page" in {
+          navigator.nextPage(RestrictionAmountSameAPPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
     }
 
     "in Check mode" must {
