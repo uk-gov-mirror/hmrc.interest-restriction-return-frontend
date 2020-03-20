@@ -16,15 +16,16 @@
 
 @import controllers.ukCompanies.routes._
 @import models.Mode
-@import views.ViewUtils._
 @import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
     button: components.button,
+    inputCurrency: components.inputCurrency,
+    h1: components.h1,
+    fieldset: components.fieldset,
     subheading: components.subheading,
     link: components.link,
     saveForLater: components.saveForLater
@@ -32,15 +33,23 @@
 
 @(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "addRestriction.title", Some(messages("addRestriction.subheading", companyName))))) {
+@govukLayout(pageTitle = Some(title(form, "restrictionAmountSameAP.title", Some(messages("addRestriction.subheading", companyName))))) {
 
-    @formHelper(action = postAction) {
+    @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
         @subheading(messages("addRestriction.subheading", companyName))
 
-        @yesNoRadio(form, "addRestriction.heading")
+        @inputCurrency(
+            form,
+            id = "value",
+            name = "value",
+            label = "restrictionAmountSameAP.label",
+            isPageHeading = true,
+            isDecimal = true,
+            classes = Some("govuk-input--width-20")
+        )
 
         @button("site.saveAndContinue")
 

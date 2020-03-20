@@ -17,19 +17,21 @@
 package controllers.ukCompanies
 
 import assets.UkCompanyITConstants.ukCompanyModelMax
+import assets.AccountingPeriodITConstants.endDate
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.aboutReturn.AccountingPeriodEndPage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /uk-companies/1/add-restriction" when {
+    "GET /uk-companies/1/restriction-amount-same-accounting-period" when {
 
       "user is authorised" should {
 
@@ -38,12 +40,12 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/add-restriction")()
+          val res = getRequest("/uk-companies/1/restriction-amount-same-accounting-period")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.addRestriction)
+              titleOf(PageTitles.restrictionAmountSameAP)
             )
           }
         }
@@ -55,7 +57,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/add-restriction")()
+          val res = getRequest("/uk-companies/1/restriction-amount-same-accounting-period")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,19 +69,21 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /uk-companies/1/add-restriction" when {
+    "POST /uk-companies/1/restriction-amount-same-accounting-period" when {
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a valid answer" should {
 
-          //TODO: Update as part of routing storys
-          "redirect to Under Construction page" in {
+          "redirect to UnderConstruction page" in {
 
             AuthStub.authorised()
-            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(AccountingPeriodEndPage, endDate).get
+            )
 
-            val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "true"))()
+            val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
 
             whenReady(res) { result =>
               result should have(
@@ -97,7 +101,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "true"))()
+          val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
 
           whenReady(res) { result =>
             result should have(
@@ -112,7 +116,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /uk-companies/1/add-restriction/change" when {
+    "GET /uk-companies/1/restriction-amount-same-accounting-period/change" when {
 
       "user is authorised" should {
 
@@ -121,12 +125,12 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/add-restriction/change")()
+          val res = getRequest("/uk-companies/1/restriction-amount-same-accounting-period/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.addRestriction)
+              titleOf(PageTitles.restrictionAmountSameAP)
             )
           }
         }
@@ -138,7 +142,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/add-restriction/change")()
+          val res = getRequest("/uk-companies/1/restriction-amount-same-accounting-period/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -150,18 +154,21 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /uk-companies/1/add-restriction/change" when {
+    "POST /uk-companies/1/restriction-amount-same-accounting-period/change" when {
 
       "user is authorised" when {
 
         "enters a valid answer" should {
 
-          "redirect to UK Companies Check Answers page" in {
+          "redirect to UK Companies Check Your Answer page" in {
 
             AuthStub.authorised()
-            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(AccountingPeriodEndPage, endDate).get
+            )
 
-            val res = postRequest("/uk-companies/1/add-restriction/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period/change", Json.obj("value" -> 123456))()
 
             whenReady(res) { result =>
               result should have(
@@ -179,7 +186,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/add-restriction/change", Json.obj("value" -> "true"))()
+          val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
 
           whenReady(res) { result =>
             result should have(

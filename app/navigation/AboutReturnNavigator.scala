@@ -74,6 +74,6 @@ class AboutReturnNavigator @Inject()() extends Navigator {
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
-    case CheckMode => checkRouteMap.getOrElse[UserAnswers => Call](page, _ => checkAnswers)(userAnswers)
+    case CheckMode => checkRouteMap(page)(userAnswers)
   }
 }

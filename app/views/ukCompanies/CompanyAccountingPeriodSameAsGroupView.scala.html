@@ -32,15 +32,15 @@
 
 @(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "addRestriction.title", Some(messages("addRestriction.subheading", companyName))))) {
+@govukLayout(pageTitle = Some(title(form, "companyAccountingPeriodSameAsGroup.title", Some(messages("companyAccountingPeriodSameAsGroup.subheading", companyName))))) {
 
     @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
-        @subheading(messages("addRestriction.subheading", companyName))
+        @subheading(messages("companyAccountingPeriodSameAsGroup.subheading", companyName))
 
-        @yesNoRadio(form, "addRestriction.heading")
+        @yesNoRadio(form, "companyAccountingPeriodSameAsGroup.heading")
 
         @button("site.saveAndContinue")
 

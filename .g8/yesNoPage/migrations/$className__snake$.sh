@@ -24,15 +24,6 @@ echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.en
 echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = Select yes if $heading$" >> ../conf/messages.en
 
-echo "Adding messages to Welsh conf.messages"
-echo "" >> ../conf/messages.cy
-echo "# $className;format="cap"$Page Messages" >> ../conf/messages.cy
-echo "# ----------------------------------------------------------" >> ../conf/messages.cy
-echo "$className;format="decap"$.title = $title$" >> ../conf/messages.cy
-echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.cy
-echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.cy
-echo "$className;format="decap"$.error.required = Select yes if $heading$" >> ../conf/messages.cy
-
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
     print;\

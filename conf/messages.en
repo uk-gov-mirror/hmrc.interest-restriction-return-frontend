@@ -861,3 +861,22 @@ addRestriction.heading = Do you need to add a restriction to this company?
 addRestriction.checkYourAnswersLabel = Do you need to add a restriction to this company?
 addRestriction.error.required = Select yes if you need to add a restriction to this company
 addRestriction.subheading = {0}
+
+# CompanyAccountingPeriodSameAsGroupPage Messages
+# ----------------------------------------------------------
+companyAccountingPeriodSameAsGroup.title = Is this company’s accounting period the same as the group’s period of account?
+companyAccountingPeriodSameAsGroup.heading = Is this company’s accounting period the same as the group’s period of account?
+companyAccountingPeriodSameAsGroup.checkYourAnswersLabel = Is this company’s accounting period the same as the group’s period of account?
+companyAccountingPeriodSameAsGroup.error.required = Select yes if this company’s accounting period is the same as the group’s period of account
+companyAccountingPeriodSameAsGroup.subheading = {0}
+
+# RestrictionAmountSameAPPage Messages
+# ----------------------------------------------------------
+restrictionAmountSameAP.title = Enter the restriction amount for this company
+restrictionAmountSameAP.heading = Enter the restriction amount for this company
+restrictionAmountSameAP.label= Enter the restriction amount for this company
+restrictionAmountSameAP.checkYourAnswersLabel = Enter the restriction amount for this company
+restrictionAmountSameAP.error.nonNumeric = Enter the restriction amount using numbers
+restrictionAmountSameAP.error.required = Enter the restriction amount for this company
+restrictionAmountSameAP.error.invalidNumeric = The restriction amount must be valid decimal or whole number
+restrictionAmountSameAP.error.outOfRange = The restriction amount must be between {0} and {1}

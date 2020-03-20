@@ -72,7 +72,9 @@ object Page {
     NetTaxInterestAmountPage,
     ReactivationAmountPage,
     UkCompaniesDeletionConfirmationPage,
-    AddRestrictionPage
+    AddRestrictionPage,
+    CompanyAccountingPeriodSameAsGroupPage,
+    RestrictionAmountSameAPPage
   )
 
   val electionsSectionPages: Seq[Page] = List(

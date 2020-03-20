@@ -28,6 +28,12 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryRestrictionAmountSameAPPage: Arbitrary[RestrictionAmountSameAPPage.type] =
+    Arbitrary(RestrictionAmountSameAPPage)
+
+  implicit lazy val arbitraryCompanyAccountingPeriodSameAsGroupPage: Arbitrary[CompanyAccountingPeriodSameAsGroupPage.type] =
+    Arbitrary(CompanyAccountingPeriodSameAsGroupPage)
+
   implicit lazy val arbitraryAddRestrictionPage: Arbitrary[AddRestrictionPage.type] =
     Arbitrary(AddRestrictionPage)
 

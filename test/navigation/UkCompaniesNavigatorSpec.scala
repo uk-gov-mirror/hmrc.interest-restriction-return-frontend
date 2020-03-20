@@ -150,11 +150,29 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the UkCompaniesPage" should {
+      "from the AddRestrictionPage" should {
 
         //TODO: Update as part of routing subtask
-        "go to the UnderConstructionController page" in {
+        "go to the Under Construction page" in {
           navigator.nextPage(AddRestrictionPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the CompanyAccountingPeriodSameAsGroupPage" should {
+
+        //TODO: Update as part of routing subtask
+        "go to the Under Construction page" in {
+          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+      }
+
+      "from the RestrictionAmountSameAPPage" should {
+
+        //TODO: Update as part of routing subtask
+        "go to the Under Construction page" in {
+          navigator.nextPage(RestrictionAmountSameAPPage, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }

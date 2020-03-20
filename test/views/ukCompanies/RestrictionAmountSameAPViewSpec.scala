@@ -17,34 +17,36 @@
 package views.ukCompanies
 
 import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
-import assets.messages.ukCompanies.AddRestrictionMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
-import forms.ukCompanies.AddRestrictionFormProvider
+import assets.messages.BaseMessages
+import assets.messages.ukCompanies.RestrictionAmountSameAPMessages
+import forms.ukCompanies.RestrictionAmountSameAPFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
-import views.html.ukCompanies.AddRestrictionView
+import views.behaviours.DecimalViewBehaviours
+import views.html.ukCompanies.RestrictionAmountSameAPView
 
-class AddRestrictionViewSpec extends YesNoViewBehaviours  {
+class RestrictionAmountSameAPViewSpec extends DecimalViewBehaviours  {
 
-  val messageKeyPrefix = "addRestriction"
-  val section = Some(AddRestrictionMessages.subheading(companyNameModel.name))
-  val form = new AddRestrictionFormProvider()()
-  val view = viewFor[AddRestrictionView]()
+  val messageKeyPrefix = "restrictionAmountSameAP"
+  val section = Some(RestrictionAmountSameAPMessages.subheading(companyNameModel.name))
+  val form = new RestrictionAmountSameAPFormProvider()()
+  val view = viewFor[RestrictionAmountSameAPView]()
 
-  "AddRestrictionView" must {
+  "RestrictionAmountSameAPView" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable =
       view.apply(form, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-    behave like pageWithSubHeading(applyView(form), AddRestrictionMessages.subheading(companyNameModel.name))
-
     behave like pageWithBackLink(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
+    behave like pageWithSubHeading(applyView(form), section.get)
+
+    behave like decimalPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
+
+    behave like currencyPage(applyView)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

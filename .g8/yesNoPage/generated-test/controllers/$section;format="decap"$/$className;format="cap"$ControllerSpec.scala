@@ -38,6 +38,7 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
     sessionRepository = mockSessionRepository,
     navigator = Fake$section;format="cap"$Navigator,
     questionDeletionLookupService = questionDeletionLookupService,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -58,22 +59,12 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
       contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers.set($className;format="cap"$Page, true).success.value
-
-      mockGetAnswers(Some(userAnswers))
-
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
-    }
-
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 

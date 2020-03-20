@@ -18,15 +18,15 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.ukCompanies.AddRestrictionFormProvider
+import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.{AddRestrictionPage, UkCompaniesPage}
+import pages.ukCompanies.{AddRestrictionPage, CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
 import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.ukCompanies.AddRestrictionView
+import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 import play.api.data.Form
 
 import scala.concurrent.Future
@@ -35,7 +35,8 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
-class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
+class CompanyAccountingPeriodSameAsGroupController @Inject()(
+                                         override val messagesApi: MessagesApi,
                                          override val sessionRepository: SessionRepository,
                                          override val navigator: UkCompaniesNavigator,
                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
@@ -43,18 +44,18 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
-                                         formProvider: AddRestrictionFormProvider,
+                                         formProvider: CompanyAccountingPeriodSameAsGroupFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
-                                         view: AddRestrictionView
-                                        )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                         view: CompanyAccountingPeriodSameAsGroupView
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(
         Ok(view(
-          form = ukCompany.restriction.fold(formProvider())(formProvider().fill),
+          form = ukCompany.accountPeriodSameAsGroup.fold(formProvider())(formProvider().fill),
           companyName = ukCompany.companyDetails.companyName,
-          postAction = routes.AddRestrictionController.onSubmit(idx, mode)
+          postAction = routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(idx, mode)
         ))
       )
     }
@@ -68,13 +69,13 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
             BadRequest(view(
               form = formWithErrors,
               companyName = ukCompany.companyDetails.companyName,
-              postAction = routes.AddRestrictionController.onSubmit(idx, mode)
+              postAction = routes.CompanyAccountingPeriodSameAsGroupController.onSubmit(idx, mode)
             ))
           ),
         value => {
-          val updatedModel = ukCompany.copy(restriction = Some(value))
+          val updatedModel = ukCompany.copy(accountPeriodSameAsGroup = Some(value))
           save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(AddRestrictionPage, mode, cleanedAnswers, Some(idx)))
+            Redirect(navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, mode, cleanedAnswers, Some(idx)))
           }
         }
       )

@@ -18,18 +18,17 @@ package controllers.ukCompanies
 
 import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /uk-companies/1/add-restriction" when {
+    "GET /uk-companies/1/company-accounting-period-same-as-group" when {
 
       "user is authorised" should {
 
@@ -38,12 +37,12 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/add-restriction")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.addRestriction)
+              titleOf(PageTitles.companyAccountingPeriodSameAsGroup)
             )
           }
         }
@@ -55,7 +54,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/add-restriction")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,19 +66,18 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /uk-companies/1/add-restriction" when {
+    "POST /uk-companies/1/company-accounting-period-same-as-group" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          //TODO: Update as part of routing storys
           "redirect to Under Construction page" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "true"))()
+            val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -97,7 +95,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "true"))()
+          val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -112,7 +110,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /uk-companies/1/add-restriction/change" when {
+    "GET /uk-companies/1/company-accounting-period-same-as-group/change" when {
 
       "user is authorised" should {
 
@@ -121,12 +119,12 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/add-restriction/change")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.addRestriction)
+              titleOf(PageTitles.companyAccountingPeriodSameAsGroup)
             )
           }
         }
@@ -138,7 +136,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/add-restriction/change")()
+          val res = getRequest("/uk-companies/1/company-accounting-period-same-as-group/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -150,18 +148,18 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /uk-companies/1/add-restriction/change" when {
+    "POST /uk-companies/1/company-accounting-period-same-as-group/change" when {
 
       "user is authorised" when {
 
         "enters a valid answer" should {
 
-          "redirect to UK Companies Check Answers page" in {
+          "redirect to Company Check Your Answers page" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-            val res = postRequest("/uk-companies/1/add-restriction/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group/change", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
@@ -179,7 +177,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/add-restriction/change", Json.obj("value" -> "true"))()
+          val res = postRequest("/uk-companies/1/company-accounting-period-same-as-group/change", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
