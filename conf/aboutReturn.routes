@@ -43,10 +43,10 @@ POST       /check-answers                               controllers.aboutReturn.
 
 ### ReportingCompanyAppointed Controller
 ### ----------------------------------------
-GET        /about-the-return-appointed                 controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)
-POST       /about-the-return-appointed                 controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)
-GET        /about-the-return-appointed/change          controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)
-POST       /about-the-return-appointed/change          controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)
+GET        /reporting-company-appointed                 controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)
+POST       /reporting-company-appointed                 controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)
+GET        /reporting-company-appointed/change          controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)
+POST       /reporting-company-appointed/change          controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)
 
 ### ReportingCompanyRequired Controller
 ### ----------------------------------------

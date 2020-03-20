@@ -27,7 +27,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
   "in Normal mode" when {
 
-    "GET /about-the-return/about-the-return-appointed" when {
+    "GET /about-the-return/reporting-company-appointed" when {
 
       "user is authorised" should {
 
@@ -35,7 +35,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-the-return/about-the-return-appointed")()
+          val res = getRequest("/about-the-return/reporting-company-appointed")()
 
           whenReady(res) { result =>
             result should have(
@@ -52,7 +52,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-the-return/about-the-return-appointed")()
+          val res = getRequest("/about-the-return/reporting-company-appointed")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,7 +64,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
       }
     }
 
-    "POST /about-the-return/about-the-return-appointed" when {
+    "POST /about-the-return/reporting-company-appointed" when {
 
       "user is authorised" when {
 
@@ -74,7 +74,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-the-return/about-the-return-appointed", Json.obj("value" -> true))()
+            val res = postRequest("/about-the-return/reporting-company-appointed", Json.obj("value" -> true))()
 
             whenReady(res) { result =>
               result should have(
@@ -91,7 +91,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-the-return/about-the-return-appointed", Json.obj("value" -> false))()
+            val res = postRequest("/about-the-return/reporting-company-appointed", Json.obj("value" -> false))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +109,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-the-return/about-the-return-appointed", Json.obj("value" -> true))()
+          val res = postRequest("/about-the-return/reporting-company-appointed", Json.obj("value" -> true))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +124,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
   "in Change mode" when {
 
-    "GET /about-the-return/about-the-return-appointed" when {
+    "GET /about-the-return/reporting-company-appointed" when {
 
       "user is authorised" should {
 
@@ -132,7 +132,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-the-return/about-the-return-appointed/change")()
+          val res = getRequest("/about-the-return/reporting-company-appointed/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -149,7 +149,7 @@ class ReportingCompanyAppointedControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-the-return/about-the-return-appointed/change")()
+          val res = getRequest("/about-the-return/reporting-company-appointed/change")()
 
           whenReady(res) { result =>
             result should have(
