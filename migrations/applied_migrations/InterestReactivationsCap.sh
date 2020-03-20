@@ -6,11 +6,11 @@ echo "Applying migration InterestReactivationsCap"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /interestReactivationsCap                  controllers.aboutReturn.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /interestReactivationsCap                  controllers.aboutReturn.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /interestReactivationsCap                  controllers.groupLevelInformation.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /interestReactivationsCap                  controllers.groupLevelInformation.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeInterestReactivationsCap                        controllers.aboutReturn.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeInterestReactivationsCap                        controllers.aboutReturn.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeInterestReactivationsCap                        controllers.groupLevelInformation.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeInterestReactivationsCap                        controllers.groupLevelInformation.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

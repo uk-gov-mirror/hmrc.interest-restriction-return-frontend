@@ -1,0 +1,61 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.ultimateParentCompany.routes._
+@import models.Mode
+@import config.FrontendAppConfig
+
+@this(
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        button: components.button,
+        inputNumber: components.inputNumber,
+        h1: components.h1,
+        subheading: components.subheading,
+        saveForLater: components.saveForLater
+)
+
+@(form: Form[_], mode: Mode, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@govukLayout(pageTitle = Some(title(form, "parentCompanySAUTR.title", Some("section.ultimateParentCompany")))) {
+
+    @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
+
+        @errorSummary(form.errors)
+
+        @subheading("section.ultimateParentCompany")
+
+        @inputNumber(
+            form,
+            id = "value",
+            name = "value",
+            label = "parentCompanySAUTR.label",
+            isPageHeading = true,
+            hint = Some(hint),
+            classes = Some("govuk-input--width-10")
+        )
+
+        @button("site.saveAndContinue")
+
+        @saveForLater()
+    }
+}
+
+@hint = {
+    @messages("parentCompanySAUTR.hint")
+    <a href="@appConfig.findLostUTRUrl">@messages("parentCompanySAUTR.findUtr")</a>.
+}

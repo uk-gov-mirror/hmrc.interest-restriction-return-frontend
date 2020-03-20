@@ -10,10 +10,10 @@ echo "### LocalRegistrationNumber Controller" >> ../conf/app.routes
 echo "### ----------------------------------------" >> ../conf/app.routes
 
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "LocalRegistrationNumber" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName                          controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /$kebabClassName/change                   controllers.groupStructure.LocalRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName/change                   controllers.groupStructure.LocalRegistrationNumberController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName                          controllers.ultimateParentCompany.LocalRegistrationNumberController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /$kebabClassName                          controllers.ultimateParentCompany.LocalRegistrationNumberController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName/change                   controllers.ultimateParentCompany.LocalRegistrationNumberController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /$kebabClassName/change                   controllers.ultimateParentCompany.LocalRegistrationNumberController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

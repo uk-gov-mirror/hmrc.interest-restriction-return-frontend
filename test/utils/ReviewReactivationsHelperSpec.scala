@@ -20,7 +20,7 @@ import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages
 import base.SpecBase
 import models.{CheckMode, ReviewMode}
-import pages.aboutReturn.InterestReactivationsCapPage
+import pages.groupLevelInformation.InterestReactivationsCapPage
 import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
 

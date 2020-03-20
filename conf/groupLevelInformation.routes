@@ -1,0 +1,64 @@
+# About the Return Section Routes
+# ===============================
+
+### GroupSubjectToReactivations Controller
+### ----------------------------------------
+GET        /group-subject-to-reactivations                  controllers.groupLevelInformation.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-reactivations                  controllers.groupLevelInformation.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-reactivations/change           controllers.groupLevelInformation.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-subject-to-reactivations/change           controllers.groupLevelInformation.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
+
+
+### InfrastructureCompanyElection Controller
+### ----------------------------------------
+GET        /infrastructure-company-election                 controllers.groupLevelInformation.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)
+POST       /infrastructure-company-election                 controllers.groupLevelInformation.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
+GET        /infrastructure-company-election/change          controllers.groupLevelInformation.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
+POST       /infrastructure-company-election/change          controllers.groupLevelInformation.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
+
+
+### InterestAllowanceBroughtForward Controller
+### ----------------------------------------
+GET        /interest-allowance-brought-forward              controllers.groupLevelInformation.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-allowance-brought-forward              controllers.groupLevelInformation.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-allowance-brought-forward/change       controllers.groupLevelInformation.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-allowance-brought-forward/change       controllers.groupLevelInformation.InterestAllowanceBroughtForwardController.onSubmit(mode: Mode = CheckMode)
+
+
+### GroupInterestCapacity Controller
+### ----------------------------------------
+GET        /group-interest-capacity                         controllers.groupLevelInformation.GroupInterestCapacityController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-interest-capacity                         controllers.groupLevelInformation.GroupInterestCapacityController.onSubmit(mode: Mode = NormalMode)
+GET        /group-interest-capacity/change                  controllers.groupLevelInformation.GroupInterestCapacityController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-interest-capacity/change                  controllers.groupLevelInformation.GroupInterestCapacityController.onSubmit(mode: Mode = CheckMode)
+
+
+### GroupSubjectToRestrictions Controller
+### ----------------------------------------
+GET        /group-subject-to-restrictions                   controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-subject-to-restrictions                   controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = NormalMode)
+GET        /group-subject-to-restrictions/change            controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-subject-to-restrictions/change            controllers.groupLevelInformation.GroupSubjectToRestrictionsController.onSubmit(mode: Mode = CheckMode)
+
+
+### GroupInterestAllowance Controller
+### ----------------------------------------
+GET        /group-interest-allowance                        controllers.groupLevelInformation.GroupInterestAllowanceController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-interest-allowance                        controllers.groupLevelInformation.GroupInterestAllowanceController.onSubmit(mode: Mode = NormalMode)
+GET        /group-interest-allowance/change                 controllers.groupLevelInformation.GroupInterestAllowanceController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-interest-allowance/change                 controllers.groupLevelInformation.GroupInterestAllowanceController.onSubmit(mode: Mode = CheckMode)
+
+### InterestReactivationsCap Controller
+### ----------------------------------------
+GET        /interest-reactivations-cap                      controllers.groupLevelInformation.InterestReactivationsCapController.onPageLoad(mode: Mode = NormalMode)
+POST       /interest-reactivations-cap                      controllers.groupLevelInformation.InterestReactivationsCapController.onSubmit(mode: Mode = NormalMode)
+GET        /interest-reactivations-cap/change               controllers.groupLevelInformation.InterestReactivationsCapController.onPageLoad(mode: Mode = CheckMode)
+POST       /interest-reactivations-cap/change               controllers.groupLevelInformation.InterestReactivationsCapController.onSubmit(mode: Mode = CheckMode)
+
+
+### ReturnContainEstimates Controller
+### ----------------------------------------
+GET        /return-contain-estimates                        controllers.groupLevelInformation.ReturnContainEstimatesController.onPageLoad(mode: Mode = NormalMode)
+POST       /return-contain-estimates                        controllers.groupLevelInformation.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)
+GET        /return-contain-estimates/change                 controllers.groupLevelInformation.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)
+POST       /return-contain-estimates/change                 controllers.groupLevelInformation.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)

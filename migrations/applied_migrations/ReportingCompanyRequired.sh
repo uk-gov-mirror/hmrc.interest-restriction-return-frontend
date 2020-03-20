@@ -5,7 +5,7 @@ echo "Applying migration ReportingCompanyRequired"
 
 echo "Adding routes to conf/app.routes"
 echo "" >> ../conf/app.routes
-echo "GET        /reportingCompanyRequired                       controllers.startReturn.ReportingCompanyRequiredController.onPageLoad()" >> ../conf/app.routes
+echo "GET        /reportingCompanyRequired                       controllers.aboutReturn.ReportingCompanyRequiredController.onPageLoad()" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

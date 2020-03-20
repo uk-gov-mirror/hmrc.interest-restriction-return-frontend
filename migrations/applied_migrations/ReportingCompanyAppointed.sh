@@ -6,11 +6,11 @@ echo "Applying migration ReportingCompanyAppointed"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /reportingCompanyAppointed                        controllers.startReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /reportingCompanyAppointed                        controllers.startReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /reportingCompanyAppointed                        controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /reportingCompanyAppointed                        controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeReportingCompanyAppointed                  controllers.startReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeReportingCompanyAppointed                  controllers.startReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeReportingCompanyAppointed                  controllers.aboutReturn.ReportingCompanyAppointedController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeReportingCompanyAppointed                  controllers.aboutReturn.ReportingCompanyAppointedController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

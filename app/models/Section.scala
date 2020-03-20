@@ -22,24 +22,20 @@ sealed trait Section
 
 object Section {
 
-  object ReportingCompany extends Section {
-    override val toString = "reportingCompany"
-  }
-
-  object StartReturn extends Section {
-    override val toString = "startReturn"
-  }
-
   object AboutReturn extends Section {
     override val toString = "aboutReturn"
+  }
+
+  object GroupLevelInformation extends Section {
+    override val toString = "groupLevelInformation"
   }
 
   object Elections extends Section {
     override val toString = "elections"
   }
 
-  object GroupStructure extends Section {
-    override val toString = "groupStructure"
+  object UltimateParentCompany extends Section {
+    override val toString = "ultimateParentCompany"
   }
 
   object UkCompanies extends Section {

@@ -32,8 +32,8 @@ class ReviewTaxEBITDAViewSpec extends ViewBehaviours {
   object Selectors extends BaseSelectors
 
   val messageKeyPrefix = s"$ReviewTaxEBITDA.checkYourAnswers"
-  val groupStructureSubheading = s"$ReviewTaxEBITDA.checkYourAnswers.subheading"
-  val groupStructureHeading = s"$ReviewTaxEBITDA.checkYourAnswers.heading"
+  val ultimateParentCompanySubheading = s"$ReviewTaxEBITDA.checkYourAnswers.subheading"
+  val ultimateParentCompanyHeading = s"$ReviewTaxEBITDA.checkYourAnswers.heading"
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
@@ -54,9 +54,9 @@ class ReviewTaxEBITDAViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(applyView(checkYourAnswersHelper)())
 
-    behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), groupStructureSubheading)
+    behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), ultimateParentCompanySubheading)
 
-    behave like pageWithHeading(applyView(checkYourAnswersHelper)(), groupStructureHeading)
+    behave like pageWithHeading(applyView(checkYourAnswersHelper)(), ultimateParentCompanyHeading)
 
     behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
 

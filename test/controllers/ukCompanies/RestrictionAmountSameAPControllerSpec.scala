@@ -29,7 +29,7 @@ import pages.ukCompanies.{RestrictionAmountSameAPPage, UkCompaniesPage}
 import play.api.test.Helpers._
 import views.html.ukCompanies.RestrictionAmountSameAPView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import pages.aboutReportingCompany.AccountingPeriodEndPage
+import pages.aboutReturn.AccountingPeriodEndPage
 
 class RestrictionAmountSameAPControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 

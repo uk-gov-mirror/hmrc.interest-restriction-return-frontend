@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
-import pages.aboutReportingCompany.AccountingPeriodEndPage
+import pages.aboutReturn.AccountingPeriodEndPage
 import pages.ukCompanies.{RestrictionAmountSameAPPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._

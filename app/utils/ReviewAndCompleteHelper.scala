@@ -18,7 +18,7 @@ package utils
 
 import models.{NormalMode, Section, UserAnswers}
 import models.returnModels.ReviewAndCompleteModel
-import pages.groupStructure.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
+import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.i18n.Messages
 import viewmodels.TaskListRow
 
@@ -27,21 +27,21 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
   def rows(reviewAndCompleteModel: ReviewAndCompleteModel, userAnswers: UserAnswers): Seq[TaskListRow] = {
 
     val ultimateParentLink = (userAnswers.get(ReportingCompanySameAsParentPage), userAnswers.get(HasDeemedParentPage)) match {
-      case (Some(true), _) => controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
-      case (Some(false), Some(true)) => controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad()
-      case (_, _) => controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1)
+      case (Some(true), _) => controllers.ultimateParentCompany.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
+      case (Some(false), Some(true)) => controllers.ultimateParentCompany.routes.DeemedParentReviewAnswersListController.onPageLoad()
+      case (_, _) => controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1)
     }
 
     Seq(
       TaskListRow(
-        messages(s"section.${Section.StartReturn}"),
-        controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.startReturn.status}")
+        messages(s"section.${Section.AboutReturn}"),
+        controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturn.status}")
       ),
       TaskListRow(
-        messages(s"section.${Section.GroupStructure}"),
+        messages(s"section.${Section.UltimateParentCompany}"),
         ultimateParentLink,
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupStructure.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.ultimateParentCompany.status}")
       ),
       TaskListRow(
         messages(s"section.${Section.Elections}"),
@@ -49,9 +49,9 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
         messages(s"reviewAndComplete.${reviewAndCompleteModel.elections.status}")
       ),
       TaskListRow(
-        messages(s"section.${Section.AboutReturn}"),
+        messages(s"section.${Section.GroupLevelInformation}"),
         controllers.routes.UnderConstructionController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturn.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupLevelInformation.status}")
       ),
       TaskListRow(
         messages(s"section.${Section.UkCompanies}"),

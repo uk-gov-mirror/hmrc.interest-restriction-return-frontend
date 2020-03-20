@@ -49,7 +49,7 @@ object PageTitles {
   val reviewTaxEBITDA = "Review the Tax-EBITDA for companies in the group"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
   val groupRatioElection = "Are you making a group ratio election?"
-  val checkAnswersReportingCompany = "Check your answers - About the return"
+  val checkAnswersAboutReturn = "Check answers - About the return"
   val reportingCompanyCTUTR = "UK Tax reference"
   val reportingCompanyName = "Reporting company name"
   val groupInterestAllowance = "What is the group interest allowance for the period?"

@@ -6,11 +6,11 @@ echo "Applying migration ParentCompanySAUTR"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /parentCompanySAUTR                  controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /parentCompanySAUTR                  controllers.groupStructure.ParentCompanySAUTRController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /parentCompanySAUTR                  controllers.ultimateParentCompany.ParentCompanySAUTRController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /parentCompanySAUTR                  controllers.ultimateParentCompany.ParentCompanySAUTRController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeParentCompanySAUTR                        controllers.groupStructure.ParentCompanySAUTRController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeParentCompanySAUTR                        controllers.groupStructure.ParentCompanySAUTRController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeParentCompanySAUTR                        controllers.ultimateParentCompany.ParentCompanySAUTRController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeParentCompanySAUTR                        controllers.ultimateParentCompany.ParentCompanySAUTRController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

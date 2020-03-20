@@ -464,7 +464,7 @@ class ElectionsNavigatorSpec extends SpecBase {
         "go to the ReturnContainEstimates page" in {
 
           navigator.nextPage(CheckAnswersElectionsPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
+            controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
         }
       }
 

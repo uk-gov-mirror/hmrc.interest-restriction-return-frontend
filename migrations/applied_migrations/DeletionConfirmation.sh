@@ -5,15 +5,15 @@ echo "Applying migration DeletionConfirmation"
 
 echo "Adding routes to conf/app.routes"
 
-echo "" >> ../conf/groupStructure.routes
-echo "### DeletionConfirmation Controller" >> ../conf/groupStructure.routes
-echo "### ----------------------------------------" >> ../conf/groupStructure.routes
+echo "" >> ../conf/ultimateParentCompany.routes
+echo "### DeletionConfirmation Controller" >> ../conf/ultimateParentCompany.routes
+echo "### ----------------------------------------" >> ../conf/ultimateParentCompany.routes
 
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "DeletionConfirmation" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.groupStructure.DeletionConfirmationController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/groupStructure.routes
-echo "POST       /$kebabClassName                          controllers.groupStructure.DeletionConfirmationController.onSubmit(mode: Mode = NormalMode)" >> ../conf/groupStructure.routes
-echo "GET        /$kebabClassName/change                   controllers.groupStructure.DeletionConfirmationController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/groupStructure.routes
-echo "POST       /$kebabClassName/change                   controllers.groupStructure.DeletionConfirmationController.onSubmit(mode: Mode = CheckMode)" >> ../conf/groupStructure.routes
+echo "GET        /$kebabClassName                          controllers.ultimateParentCompany.DeletionConfirmationController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/ultimateParentCompany.routes
+echo "POST       /$kebabClassName                          controllers.ultimateParentCompany.DeletionConfirmationController.onSubmit(mode: Mode = NormalMode)" >> ../conf/ultimateParentCompany.routes
+echo "GET        /$kebabClassName/change                   controllers.ultimateParentCompany.DeletionConfirmationController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/ultimateParentCompany.routes
+echo "POST       /$kebabClassName/change                   controllers.ultimateParentCompany.DeletionConfirmationController.onSubmit(mode: Mode = CheckMode)" >> ../conf/ultimateParentCompany.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -64,7 +64,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def deletionConfirmation: Option[SummaryListRow] = answer(DeletionConfirmationPage, groupStructureRoutes.DeletionConfirmationController.onPageLoad(CheckMode))";\
+     print "  def deletionConfirmation: Option[SummaryListRow] = answer(DeletionConfirmationPage, ultimateParentCompanyRoutes.DeletionConfirmationController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Adding to Pages map"
@@ -87,6 +87,6 @@ awk '/object PageTitles/ {\
 
 echo "adding route to integration test"
 
-sed -i "" "s|ROUTING_PLACEHOLDER|groupStructure\/${kebabClassName}|g" ../generated-it/controllers/groupStructure/DeletionConfirmationControllerISpec.scala
+sed -i "" "s|ROUTING_PLACEHOLDER|ultimateParentCompany\/${kebabClassName}|g" ../generated-it/controllers/ultimateParentCompany/DeletionConfirmationControllerISpec.scala
 
 echo "Migration DeletionConfirmation completed"

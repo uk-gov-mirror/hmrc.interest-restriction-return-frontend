@@ -6,11 +6,11 @@ echo "Applying migration CheckAnswersReportingCompany"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /checkAnswersReportingCompany                        controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /checkAnswersReportingCompany                        controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /checkAnswersReportingCompany                        controllers.aboutReturn.CheckAnswersAboutReturnController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /checkAnswersReportingCompany                        controllers.aboutReturn.CheckAnswersAboutReturnController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeCheckAnswersReportingCompany                  controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeCheckAnswersReportingCompany                  controllers.aboutReportingCompany.CheckAnswersReportingCompanyController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeCheckAnswersReportingCompany                  controllers.aboutReturn.CheckAnswersAboutReturnController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeCheckAnswersReportingCompany                  controllers.aboutReturn.CheckAnswersAboutReturnController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -67,7 +67,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def checkAnswersReportingCompany: Option[SummaryListRow] = answer(CheckAnswersReportingCompanyPage, routes.CheckAnswersReportingCompanyController.onPageLoad(CheckMode))";\
+     print "  def checkAnswersReportingCompany: Option[SummaryListRow] = answer(CheckAnswersReportingCompanyPage, routes.CheckAnswersAboutReturnController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Migration CheckAnswersReportingCompany completed"

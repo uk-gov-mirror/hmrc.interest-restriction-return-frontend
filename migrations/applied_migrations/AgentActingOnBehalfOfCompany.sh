@@ -6,11 +6,11 @@ echo "Applying migration AgentActingOnBehalfOfCompany"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /agentActingOnBehalfOfCompany                        controllers.startReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /agentActingOnBehalfOfCompany                        controllers.startReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /agentActingOnBehalfOfCompany                        controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /agentActingOnBehalfOfCompany                        controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeAgentActingOnBehalfOfCompany                  controllers.startReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeAgentActingOnBehalfOfCompany                  controllers.startReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeAgentActingOnBehalfOfCompany                  controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeAgentActingOnBehalfOfCompany                  controllers.aboutReturn.AgentActingOnBehalfOfCompanyController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

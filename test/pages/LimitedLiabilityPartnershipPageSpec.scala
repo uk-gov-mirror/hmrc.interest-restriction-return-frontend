@@ -17,7 +17,7 @@
 package pages
 
 import pages.behaviours.PageBehaviours
-import pages.groupStructure.LimitedLiabilityPartnershipPage
+import pages.ultimateParentCompany.LimitedLiabilityPartnershipPage
 
 class LimitedLiabilityPartnershipPageSpec extends PageBehaviours {
 

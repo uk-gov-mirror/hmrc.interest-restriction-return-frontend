@@ -17,7 +17,7 @@
 package controllers.checkTotals
 
 import assets.messages.checkTotals.ReviewNetTaxInterestMessages
-import assets.messages.{CheckAnswersReportingCompanyMessages, SectionHeaderMessages}
+import assets.messages.{CheckAnswersAboutReturnMessages, SectionHeaderMessages}
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._

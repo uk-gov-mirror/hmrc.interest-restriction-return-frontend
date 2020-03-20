@@ -19,13 +19,13 @@ package services
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.startReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, ReportingCompanyAppointedPage}
+import pages.aboutReturn.{AgentActingOnBehalfOfCompanyPage, AgentNamePage, ReportingCompanyAppointedPage}
 import pages.Page._
 
 @Singleton
 class QuestionDeletionLookupService @Inject()() {
 
-  private val startReturnLogic: Map[Page, UserAnswers => List[QuestionPage[_]]] = Map(
+  private val aboutReturnLogic: Map[Page, UserAnswers => List[QuestionPage[_]]] = Map(
     ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
       case Some(false) => allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage)
       case _ => List()
@@ -37,7 +37,7 @@ class QuestionDeletionLookupService @Inject()() {
   )
 
   private val pagesToRemove: Map[Page, UserAnswers => List[QuestionPage[_]]] =
-    startReturnLogic
+    aboutReturnLogic
 
   def getPagesToRemove(currentPage: Page): UserAnswers => List[QuestionPage[_]] = {
     pagesToRemove.getOrElse(currentPage,_ => List.empty)

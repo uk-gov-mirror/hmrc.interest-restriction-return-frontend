@@ -16,7 +16,7 @@
 
 package views.elections
 
-import assets.constants.GroupStructureCheckYourAnswersConstants
+import assets.constants.UltimateParentCompanyCheckYourAnswersConstants
 import assets.constants.NonConsolidatedInvestmentConstants._
 import assets.messages.elections.InvestmentsReviewAnswersListMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
@@ -30,7 +30,7 @@ import viewmodels.SummaryListRowHelper
 import views.behaviours.YesNoViewBehaviours
 import views.html.elections.InvestmentsReviewAnswersListView
 
-class InvestmentsReviewAnswersListViewSpec extends YesNoViewBehaviours with GroupStructureCheckYourAnswersConstants with SummaryListRowHelper {
+class InvestmentsReviewAnswersListViewSpec extends YesNoViewBehaviours with UltimateParentCompanyCheckYourAnswersConstants with SummaryListRowHelper {
 
   val view = viewFor[InvestmentsReviewAnswersListView]()
   val messageKeyPrefix: String => String = addition => s"investmentsReviewAnswersList.$addition"

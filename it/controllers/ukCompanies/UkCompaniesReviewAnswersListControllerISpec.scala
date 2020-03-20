@@ -20,7 +20,7 @@ import assets.UkCompanyITConstants._
 import assets.{BaseITConstants, PageTitles}
 import models.{NormalMode, SectionStatus}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.groupStructure.HasDeemedParentPage
+import pages.ultimateParentCompany.HasDeemedParentPage
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._

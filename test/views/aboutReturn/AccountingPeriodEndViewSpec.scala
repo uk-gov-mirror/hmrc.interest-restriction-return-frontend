@@ -19,17 +19,17 @@ package views.aboutReturn
 import java.time.{Instant, LocalDate, ZoneOffset}
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import forms.aboutReportingCompany.AccountingPeriodEndFormProvider
+import forms.aboutReturn.AccountingPeriodEndFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.aboutReportingCompany.AccountingPeriodEndView
+import views.html.aboutReturn.AccountingPeriodEndView
 
 class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 
   val messageKeyPrefix = "accountingPeriodEnd"
-  val section = Some(messages("section.aboutReportingCompany"))
+  val section = Some(messages("section.aboutReturn"))
   val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
   val form = new AccountingPeriodEndFormProvider().apply(now)
 
@@ -42,7 +42,7 @@ class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReportingCompany)
+      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
       behave like pageWithBackLink(applyView(form))
 

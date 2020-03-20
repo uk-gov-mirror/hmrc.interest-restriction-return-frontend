@@ -20,8 +20,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import mocks.MockSessionRepository
-import models.NormalMode
-import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeAboutReturnNavigator, FakeElectionsNavigator, FakeGroupStructureNavigator, FakeStartReturnNavigator}
+import navigation.FakeNavigators.{FakeAboutReturnNavigator, FakeGroupLevelInformationNavigator, FakeElectionsNavigator, FakeUltimateParentCompanyNavigator}
 import play.api.test.Helpers._
 import views.html.SavedReturnView
 
@@ -37,11 +36,10 @@ class SavedReturnControllerSpec extends SpecBase with FeatureSwitching with Mock
     controllerComponents = messagesControllerComponents,
     view = view,
     sessionRepository = mockSessionRepository,
-    startReturnNavigator = FakeStartReturnNavigator,
-    aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator,
     aboutReturnNavigator = FakeAboutReturnNavigator,
+    groupLevelInformationNavigator = FakeGroupLevelInformationNavigator,
     electionsNavigator = FakeElectionsNavigator,
-    groupStructureNavigator = FakeGroupStructureNavigator
+    ultimateParentCompanyNavigator = FakeUltimateParentCompanyNavigator
   )
 
   "SavedReturn Controller" must {

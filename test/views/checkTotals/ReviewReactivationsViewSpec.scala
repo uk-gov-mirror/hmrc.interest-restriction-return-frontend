@@ -20,7 +20,7 @@ import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages.confirm
 import assets.messages.SectionHeaderMessages
 import assets.messages.checkTotals.ReviewReactivationsMessages
-import pages.aboutReturn.InterestReactivationsCapPage
+import pages.groupLevelInformation.InterestReactivationsCapPage
 import pages.checkTotals.ReviewReactivationsPage
 import pages.ukCompanies.UkCompaniesPage
 import play.twirl.api.HtmlFormat

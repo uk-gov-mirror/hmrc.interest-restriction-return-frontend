@@ -19,7 +19,7 @@ package views.reviewAndComplete
 import assets.messages.BaseMessages
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.GroupRatioBlendedElectionPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import utils.ReviewAndCompleteHelper
@@ -31,10 +31,10 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
 
   val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows(
     ReviewAndCompleteModel(
-      startReturn = SectionState(NotStarted, None),
+      aboutReturn = SectionState(NotStarted, None),
       elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-      aboutReturn = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
-      groupStructure = SectionState(NotStarted, None),
+      groupLevelInformation = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
+      ultimateParentCompany = SectionState(NotStarted, None),
       ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
       checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
     ),

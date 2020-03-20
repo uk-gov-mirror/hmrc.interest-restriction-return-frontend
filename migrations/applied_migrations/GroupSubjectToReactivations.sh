@@ -6,11 +6,11 @@ echo "Applying migration GroupSubjectToReactivations"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /groupSubjectToReactivations                        controllers.aboutReturn.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /groupSubjectToReactivations                        controllers.aboutReturn.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /groupSubjectToReactivations                        controllers.groupLevelInformation.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /groupSubjectToReactivations                        controllers.groupLevelInformation.GroupSubjectToReactivationsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeGroupSubjectToReactivations                  controllers.aboutReturn.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeGroupSubjectToReactivations                  controllers.aboutReturn.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeGroupSubjectToReactivations                  controllers.groupLevelInformation.GroupSubjectToReactivationsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeGroupSubjectToReactivations                  controllers.groupLevelInformation.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

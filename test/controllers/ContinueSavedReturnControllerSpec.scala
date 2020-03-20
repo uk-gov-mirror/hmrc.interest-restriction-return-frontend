@@ -22,7 +22,7 @@ import controllers.actions._
 import forms.ContinueSavedReturnFormProvider
 import models.ContinueSavedReturn.{ContinueReturn, NewReturn}
 import models.{ContinueSavedReturn, NormalMode}
-import navigation.FakeNavigators.{FakeAboutReportingCompanyNavigator, FakeAboutReturnNavigator, FakeNavigator, FakeStartReturnNavigator}
+import navigation.FakeNavigators.{FakeAboutReturnNavigator, FakeGroupLevelInformationNavigator}
 import pages.ContinueSavedReturnPage
 import play.api.test.Helpers._
 import views.html.ContinueSavedReturnView
@@ -42,9 +42,8 @@ class ContinueSavedReturnControllerSpec extends SpecBase with FeatureSwitching w
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    startReturnNavigator = FakeStartReturnNavigator,
-    aboutReportingCompanyNavigator = FakeAboutReportingCompanyNavigator,
-    aboutReturnNavigator = FakeAboutReturnNavigator
+    aboutReturnNavigator = FakeAboutReturnNavigator,
+    groupLevelInformationNavigator = FakeGroupLevelInformationNavigator
   )
 
   "ContinueSavedReturn Controller" must {

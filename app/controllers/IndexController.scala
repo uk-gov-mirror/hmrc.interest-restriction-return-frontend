@@ -19,7 +19,7 @@ package controllers
 import controllers.actions.{DataRetrievalAction, IdentifierAction}
 import javax.inject.Inject
 import models.{NormalMode, UserAnswers}
-import navigation.StartReturnNavigator
+import navigation.AboutReturnNavigator
 import pages.IndexPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -29,7 +29,7 @@ import scala.concurrent.Future
 class IndexController @Inject()(identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 sessionRepository: SessionRepository,
-                                navigator: StartReturnNavigator,
+                                navigator: AboutReturnNavigator,
                                 val controllerComponents: MessagesControllerComponents) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>

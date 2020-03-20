@@ -20,11 +20,11 @@ import models._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import pages._
-import pages.aboutReportingCompany._
 import pages.aboutReturn._
+import pages.groupLevelInformation._
 import pages.elections._
-import pages.groupStructure._
-import pages.startReturn._
+import pages.ultimateParentCompany._
+import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsValue, Json}
 

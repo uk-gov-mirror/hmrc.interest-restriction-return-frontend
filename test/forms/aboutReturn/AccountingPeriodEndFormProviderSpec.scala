@@ -18,7 +18,6 @@ package forms.aboutReturn
 
 import java.time.{Instant, LocalDate, ZoneOffset}
 
-import forms.aboutReportingCompany.AccountingPeriodEndFormProvider
 import forms.behaviours.DateBehaviours
 
 class AccountingPeriodEndFormProviderSpec extends DateBehaviours {

@@ -20,7 +20,7 @@ import controllers.elections.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.aboutReturn.InfrastructureCompanyElectionPage
+import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.{PartnershipNamePage, _}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.mvc.Call
@@ -115,7 +115,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   def addPartnership(idx: Int): Call = routes.PartnershipNameController.onPageLoad(idx + 1, NormalMode)
 
 
-  def nextSection(mode: Mode): Call = controllers.aboutReturn.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
+  def nextSection(mode: Mode): Call = controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))

@@ -6,11 +6,11 @@ echo "Applying migration FullOrAbbreviatedReturn"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /fullOrAbbreviatedReturn                        controllers.startReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /fullOrAbbreviatedReturn                        controllers.startReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /fullOrAbbreviatedReturn                        controllers.aboutReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /fullOrAbbreviatedReturn                        controllers.aboutReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeFullOrAbbreviatedReturn                  controllers.startReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeFullOrAbbreviatedReturn                  controllers.startReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeFullOrAbbreviatedReturn                  controllers.aboutReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeFullOrAbbreviatedReturn                  controllers.aboutReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

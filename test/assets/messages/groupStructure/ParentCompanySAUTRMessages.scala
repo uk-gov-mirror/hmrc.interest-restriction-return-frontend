@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package assets.messages.groupStructure
+package assets.messages.ultimateParentCompany
 
 object ParentCompanySAUTRMessages {
 

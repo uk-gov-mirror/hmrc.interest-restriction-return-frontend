@@ -6,11 +6,11 @@ echo "Applying migration ReturnContainEstimates"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /returnContainEstimates                        controllers.aboutReturn.ReturnContainEstimatesController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /returnContainEstimates                        controllers.aboutReturn.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /returnContainEstimates                        controllers.groupLevelInformation.ReturnContainEstimatesController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /returnContainEstimates                        controllers.groupLevelInformation.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeReturnContainEstimates                  controllers.aboutReturn.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeReturnContainEstimates                  controllers.aboutReturn.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeReturnContainEstimates                  controllers.groupLevelInformation.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeReturnContainEstimates                  controllers.groupLevelInformation.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en

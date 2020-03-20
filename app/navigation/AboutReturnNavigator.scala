@@ -17,47 +17,60 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
-import controllers.aboutReportingCompany.{routes => aboutReportingCompanyRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.ukCompanies.{routes => ukCompaniesRoutes}
+import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import controllers.routes
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
 import pages.aboutReturn._
+import pages.groupLevelInformation.RevisingReturnPage
 import play.api.mvc.Call
 
 @Singleton
 class AboutReturnNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    InfrastructureCompanyElectionPage -> (_.get(startReturn.FullOrAbbreviatedReturnPage) match {
-      case Some(Full) => aboutReturnRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
-      case Some(Abbreviated) => routes.UnderConstructionController.onPageLoad() //TODO Link to abbreviated return section when implemented
-      case _ => aboutReturnRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
+    IndexPage -> (_ => aboutReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)),
+    ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
+      case Some(true) => aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+      case Some(false) => aboutReturnRoutes.ReportingCompanyRequiredController.onPageLoad()
+      case _ => aboutReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
     }),
-    ReturnContainEstimatesPage -> (_ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
-    GroupSubjectToRestrictionsPage -> (_.get(GroupSubjectToRestrictionsPage) match {
-      case Some(true) => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
-      case Some(false) => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
-      case _ => aboutReturnRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+    AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
+      case Some(true) => aboutReturnRoutes.AgentNameController.onPageLoad(NormalMode)
+      case Some(false) => aboutReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)
+      case _ => aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
     }),
-    GroupSubjectToReactivationsPage -> (_.get(GroupSubjectToReactivationsPage) match {
-      case Some(true) => aboutReturnRoutes.InterestReactivationsCapController.onPageLoad(NormalMode)
-      case Some(false) => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
-      case _ => aboutReturnRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
+    AgentNamePage -> (_ => aboutReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)),
+    FullOrAbbreviatedReturnPage -> (_ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)),
+    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
+      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(false) => aboutReturnRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
+      case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     }),
-    InterestReactivationsCapPage -> (_ => aboutReturnRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
-    InterestAllowanceBroughtForwardPage -> (_ => aboutReturnRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
-    GroupInterestAllowancePage -> (_ => aboutReturnRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
+    ReportingCompanyNamePage -> (_ => aboutReturnRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
+    ReportingCompanyCTUTRPage -> (_ => aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)),
+    AccountingPeriodStartPage -> (_ => aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)),
+    AccountingPeriodEndPage -> (_ => checkAnswers),
+    CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
   )
 
-  val checkRouteMap: Map[Page, UserAnswers => Call] =
-    Map().withDefaultValue(_ => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Add Check Your Answers)
+  val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
+    ReportingCompanyAppointedPage -> normalRoutes(ReportingCompanyAppointedPage),
+    AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
+      case Some(true) => aboutReturnRoutes.AgentNameController.onPageLoad(CheckMode)
+      case Some(false) => checkAnswers
+      case _ => aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+    }),
+    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
+      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(false) => checkAnswers
+      case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
+    })
+  ).withDefaultValue(_ => checkAnswers)
 
-  private def nextSection(mode: Mode): Call = ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
+  private def checkAnswers = aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
+  private def nextSection(mode: Mode): Call = ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)

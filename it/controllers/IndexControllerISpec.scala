@@ -18,7 +18,7 @@ package controllers
 
 import assets.BaseITConstants
 import models.NormalMode
-import pages.startReturn.ReportingCompanyAppointedPage
+import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.http.Status._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
@@ -40,7 +40,7 @@ class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper 
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.startReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
+              redirectLocation(controllers.aboutReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode).url)
             )
           }
         }

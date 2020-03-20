@@ -22,7 +22,7 @@ import models.NormalMode
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
 import pages.elections.GroupRatioBlendedElectionPage
-import pages.groupStructure.{CheckAnswersGroupStructurePage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
+import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import viewmodels.{SummaryListRowHelper, TaskListRow}
 
@@ -30,10 +30,10 @@ import viewmodels.{SummaryListRowHelper, TaskListRow}
 class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
   lazy val reviewAndCompleteModel =   ReviewAndCompleteModel(
-    startReturn = SectionState(NotStarted, None),
-    elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
     aboutReturn = SectionState(NotStarted, None),
-    groupStructure = SectionState(Completed, Some(CheckAnswersGroupStructurePage)),
+    elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
+    groupLevelInformation = SectionState(NotStarted, None),
+    ultimateParentCompany = SectionState(Completed, Some(CheckAnswersGroupStructurePage)),
     ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
     checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
   )
@@ -49,13 +49,13 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
 
         helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
           TaskListRow(
-            SectionHeaderMessages.startReturn,
-            controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+            SectionHeaderMessages.aboutReturn,
+            controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
             ReviewAndCompleteMessages.notStarted
           ),
           TaskListRow(
-            SectionHeaderMessages.groupStructure,
-            controllers.groupStructure.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode),
+            SectionHeaderMessages.ultimateParentCompany,
+            controllers.ultimateParentCompany.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode),
             ReviewAndCompleteMessages.completed
           ),
           TaskListRow(
@@ -64,7 +64,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
             ReviewAndCompleteMessages.inProgress
           ),
           TaskListRow(
-            SectionHeaderMessages.aboutReturn,
+            SectionHeaderMessages.groupLevelInformation,
             controllers.routes.UnderConstructionController.onPageLoad(),
             ReviewAndCompleteMessages.notStarted
           ),
@@ -96,13 +96,13 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
 
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
             TaskListRow(
-              SectionHeaderMessages.startReturn,
-              controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+              SectionHeaderMessages.aboutReturn,
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
               ReviewAndCompleteMessages.notStarted
             ),
             TaskListRow(
-              SectionHeaderMessages.groupStructure,
-              controllers.groupStructure.routes.DeemedParentReviewAnswersListController.onPageLoad(),
+              SectionHeaderMessages.ultimateParentCompany,
+              controllers.ultimateParentCompany.routes.DeemedParentReviewAnswersListController.onPageLoad(),
               ReviewAndCompleteMessages.completed
             ),
             TaskListRow(
@@ -111,7 +111,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
               ReviewAndCompleteMessages.inProgress
             ),
             TaskListRow(
-              SectionHeaderMessages.aboutReturn,
+              SectionHeaderMessages.groupLevelInformation,
               controllers.routes.UnderConstructionController.onPageLoad(),
               ReviewAndCompleteMessages.notStarted
             ),
@@ -141,13 +141,13 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
 
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
             TaskListRow(
-              SectionHeaderMessages.startReturn,
-              controllers.aboutReportingCompany.routes.CheckAnswersReportingCompanyController.onPageLoad(),
+              SectionHeaderMessages.aboutReturn,
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
               ReviewAndCompleteMessages.notStarted
             ),
             TaskListRow(
-              SectionHeaderMessages.groupStructure,
-              controllers.groupStructure.routes.CheckAnswersGroupStructureController.onPageLoad(1),
+              SectionHeaderMessages.ultimateParentCompany,
+              controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1),
               ReviewAndCompleteMessages.completed
             ),
             TaskListRow(
@@ -156,7 +156,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
               ReviewAndCompleteMessages.inProgress
             ),
             TaskListRow(
-              SectionHeaderMessages.aboutReturn,
+              SectionHeaderMessages.groupLevelInformation,
               controllers.routes.UnderConstructionController.onPageLoad(),
               ReviewAndCompleteMessages.notStarted
             ),

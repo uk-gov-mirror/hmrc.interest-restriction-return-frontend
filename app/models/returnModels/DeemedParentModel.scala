@@ -18,7 +18,7 @@ package models.returnModels
 
 import config.FrontendAppConfig
 import models.{ErrorModel, UserAnswers}
-import pages.groupStructure.{CountryOfIncorporationPage, LimitedLiabilityPartnershipPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, ReportingCompanySameAsParentPage}
+import pages.ultimateParentCompany.{CountryOfIncorporationPage, LimitedLiabilityPartnershipPage, ParentCompanyCTUTRPage, ParentCompanyNamePage, ParentCompanySAUTRPage, PayTaxInUkPage, ReportingCompanySameAsParentPage}
 import play.api.libs.json.Json
 
 case class DeemedParentModel(companyName: CompanyNameModel,

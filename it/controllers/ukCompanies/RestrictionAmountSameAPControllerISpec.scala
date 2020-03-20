@@ -20,7 +20,7 @@ import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.AccountingPeriodITConstants.endDate
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.aboutReportingCompany.AccountingPeriodEndPage
+import pages.aboutReturn.AccountingPeriodEndPage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -75,7 +75,6 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
 
         "enters a valid answer" should {
 
-          //TODO: Update as part of future routing story
           "redirect to UnderConstruction page" in {
 
             AuthStub.authorised()

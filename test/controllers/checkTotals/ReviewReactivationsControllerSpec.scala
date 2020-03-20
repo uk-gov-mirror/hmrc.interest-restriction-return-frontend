@@ -24,7 +24,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
 import navigation.FakeNavigators.FakeCheckTotalsNavigator
-import pages.aboutReturn.InterestReactivationsCapPage
+import pages.groupLevelInformation.InterestReactivationsCapPage
 import pages.checkTotals.ReviewReactivationsPage
 import play.api.test.Helpers._
 import views.html.checkTotals.ReviewReactivationsView
