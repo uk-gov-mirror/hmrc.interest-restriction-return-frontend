@@ -26,12 +26,12 @@ import models.FullOrAbbreviatedReturn.Full
 import models.Section._
 import pages.aboutReturn._
 import play.twirl.api.HtmlFormat
-import utils.CheckYourAnswersAboutReturnCompanyHelper
+import utils.{CheckYourAnswersAboutReturnCompanyHelper, ImplicitDateFormatter}
 import views.BaseSelectors
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConstants {
+class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConstants with ImplicitDateFormatter {
 
   object Selectors extends BaseSelectors
   val section = "aboutReturn"
@@ -80,8 +80,8 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
       CheckAnswersAboutReturnMessages.fullOrAbbreviatedReturn -> "Full",
       CheckAnswersAboutReturnMessages.name -> companyNameModel.name,
       CheckAnswersAboutReturnMessages.ctutr -> ctutrModel.utr,
-      CheckAnswersAboutReturnMessages.accountingPeriodStart -> accountingPeriodModel.startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)),
-      CheckAnswersAboutReturnMessages.accountingPeriodEnd -> accountingPeriodModel.endDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG))
+      CheckAnswersAboutReturnMessages.accountingPeriodStart -> accountingPeriodModel.startDate,
+      CheckAnswersAboutReturnMessages.accountingPeriodEnd -> accountingPeriodModel.endDate
     )
   }
 }
