@@ -36,7 +36,7 @@ object FullOrAbbreviatedReturn extends Enumerable.Implicits {
     value =>
       RadioItem(
         value = Some(value.toString),
-        content = Text(messages(s"fullOrAbbreviatedReturn.${value.toString}")),
+        content = Text(messages(s"fullOrAbbreviatedReturn.${value.toString}") + " return"),
         checked = form("value").value.contains(value.toString)
       )
   }

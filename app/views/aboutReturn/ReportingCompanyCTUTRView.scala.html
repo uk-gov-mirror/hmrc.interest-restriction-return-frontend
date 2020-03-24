@@ -47,6 +47,7 @@
             name = "value",
             label = "reportingCompanyCTUTR.label",
             isPageHeading = true,
+            hint = Some(hint),
             classes = Some("govuk-input--width-10")
         )
 
@@ -54,4 +55,9 @@
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @messages("parentCompanyCTUTR.hint")
+        <a href="@appConfig.findLostUTRUrl">@messages("parentCompanyCTUTR.findUtr")</a>.
 }

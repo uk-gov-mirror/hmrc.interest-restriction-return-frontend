@@ -19,7 +19,7 @@ package utils
 import java.time.LocalDate
 
 import assets.constants.BaseConstants
-import assets.messages.{BaseMessages, CheckAnswersGroupLevelInformationMessages}
+import assets.messages.{BaseMessages, CheckAnswersAboutReturnMessages}
 import base.SpecBase
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
@@ -102,7 +102,7 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
       "have a correctly formatted summary list row" in {
 
         helper.revisingReturn mustBe Some(summaryListRow(
-          CheckAnswersGroupLevelInformationMessages.revisingReturn,
+          CheckAnswersAboutReturnMessages.revisedReturn,
           BaseMessages.yes,
           aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

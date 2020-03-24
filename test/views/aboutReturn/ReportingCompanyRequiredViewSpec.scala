@@ -22,16 +22,14 @@ import views.html.aboutReturn.ReportingCompanyRequiredView
 
 class ReportingCompanyRequiredViewSpec extends ViewBehaviours {
 
-  lazy val twirlViewTemplate = viewFor[ReportingCompanyRequiredView](Some(emptyUserAnswers))
-  lazy val twirlView = twirlViewTemplate.apply()(fakeRequest, frontendAppConfig, messages)
+  lazy val view = viewFor[ReportingCompanyRequiredView](Some(emptyUserAnswers))
+  lazy val applyView = view.apply()(fakeRequest, frontendAppConfig, messages)
   val section = Some(messages("section.aboutReturn"))
 
   "ReportingCompanyRequiredView" must {
 
-    behave like normalPage(twirlView, "reportingCompanyRequired", section = section)
+    behave like normalPage(applyView, "reportingCompanyRequired", section = section)
 
-    behave like pageWithSubHeading(twirlView, SectionHeaderMessages.aboutReturn)
-
-    behave like pageWithBackLink(twirlView)
+    behave like pageWithBackLink(applyView)
   }
 }

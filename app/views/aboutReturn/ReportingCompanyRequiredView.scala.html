@@ -27,10 +27,8 @@
 
 @govukLayout(pageTitle = Some(titleNoForm("reportingCompanyRequired.title", Some("section.aboutReturn")))) {
 
-    @subheading("section.aboutReturn")
-
     @h1("reportingCompanyRequired.heading")
 
-    <p class="govuk-caption-m">@messages("reportingCompanyRequired.p1") <a href='@controllers.routes.UnderConstructionController.onPageLoad().url' class="govuk-link">@messages("reportingCompanyRequired.a1")</a> @messages("reportingCompanyRequired.p2")</p>
+    <p class="govuk-caption-m">@messages("reportingCompanyRequired.p1") <a href='@controllers.routes.UnderConstructionController.onPageLoad().url' class="govuk-link">@messages("reportingCompanyRequired.a1")</a></p>
 
 }

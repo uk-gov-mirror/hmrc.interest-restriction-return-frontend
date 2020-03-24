@@ -20,12 +20,13 @@ object CheckAnswersAboutReturnMessages {
 
   val title = "Check answers"
 
-  val reportingCompanyAppointed = "Reporting company appointed"
+  val reportingCompanyAppointed = "Appointed a reporting company"
   val agentAppointed = "Agent"
   val agentName = "Agent name"
-  val fullOrAbbreviatedReturn = "Type of return"
-  val name = "Name"
-  val ctutr = "CTUTR"
-  val accountingPeriodStart = "When does the worldwide period of account start?"
-  val accountingPeriodEnd = "When does the worldwide period of account end?"
+  val fullOrAbbreviatedReturn = "Full or abbreviated return"
+  val revisedReturn = "Revised return"
+  val name = "Reporting company name"
+  val ctutr = "Reporting company Corporation Tax Unique Taxpayer Reference"
+  val accountingPeriodStart = "Worldwide period of account start date"
+  val accountingPeriodEnd = "Worldwide period of account end date"
 }

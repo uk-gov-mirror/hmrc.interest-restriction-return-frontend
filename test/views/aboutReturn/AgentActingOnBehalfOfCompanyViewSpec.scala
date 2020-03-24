@@ -22,10 +22,13 @@ import forms.aboutReturn.AgentActingOnBehalfOfCompanyFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
+import views.BaseSelectors
 import views.behaviours.YesNoViewBehaviours
 import views.html.aboutReturn.AgentActingOnBehalfOfCompanyView
 
 class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseSelectors
 
   val messageKeyPrefix = "agentActingOnBehalfOfCompany"
   val section = Some(messages("section.aboutReturn"))
@@ -50,5 +53,17 @@ class AgentActingOnBehalfOfCompanyViewSpec extends YesNoViewBehaviours {
       behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AgentActingOnBehalfOfCompanyController.onSubmit(NormalMode).url, section = section)
 
       behave like pageWithSaveForLater(applyView(form))
+
+      lazy val document = asDocument(applyView(form))
+
+      "have a hint" which {
+
+        lazy val hint = document.select(Selectors.hint)
+
+        "has the correct text" in {
+          //TODO to be added when tests for messages are added
+          //hint.text mustBe AgentActingOnBehalfMessages.hint
+        }
+      }
     }
 }

@@ -89,57 +89,59 @@ helloWorldYesNo.error.required = Select yes if you want to say Hello World
 
 # ReportingCompanyCTUTRPage Messages
 # ----------------------------------------------------------
-reportingCompanyCTUTR.title = UK Tax reference - CT UTR
-reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
-reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
-reportingCompanyCTUTR.label = UK Tax reference - CT UTR
+reportingCompanyCTUTR.title = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
+reportingCompanyCTUTR.heading = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
+reportingCompanyCTUTR.checkYourAnswersLabel = Reporting company Corporation Tax Unique Taxpayer Reference
+reportingCompanyCTUTR.label = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.regexp = UK Tax reference - CT UTR must be 10 numbers
 reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid check sum
-
+reportingCompanyCTUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
+reportingCompanyCTUTR.findUtr = find a lost UTR number
+reportingCompanyCTUTR.link = find a lost UTR number.
 
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------
-reportingCompanyName.title = Reporting company name
-reportingCompanyName.heading = Reporting company name
-reportingCompanyName.checkYourAnswersLabel = Name
-reportingCompanyName.label = Reporting company name
-reportingCompanyName.error.required = Enter Reporting company name
+reportingCompanyName.title = Enter the name of the reporting company
+reportingCompanyName.heading = Enter the name of the reporting company
+reportingCompanyName.checkYourAnswersLabel = Reporting company name
+reportingCompanyName.label = Enter the name of the reporting company
+reportingCompanyName.error.required = Enter Enter the name of the reporting company
 reportingCompanyName.error.length = Reporting company name must be 160 characters or less
 
 
 # ReportingCompanyAppointedPage Messages
 # ----------------------------------------------------------
-reportingCompanyAppointed.title = Has the reporting company been appointed
-reportingCompanyAppointed.heading = Has the reporting company been appointed
-reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
+reportingCompanyAppointed.title = Has the group appointed a reporting company?
+reportingCompanyAppointed.heading = Has the group appointed a reporting company?
+reportingCompanyAppointed.checkYourAnswersLabel = Appointed a reporting company
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
 # ReportingCompanyRequiredPage Messages
 # ----------------------------------------------------------
-reportingCompanyRequired.title = A reporting company is required
-reportingCompanyRequired.heading = A reporting company is required
-reportingCompanyRequired.checkYourAnswersLabel = A reporting company is required
-reportingCompanyRequired.p1 = You need to
-reportingCompanyRequired.a1 = appoint a reporting company
-reportingCompanyRequired.p2 = before submitting a return
+reportingCompanyRequired.title = You need to appoint a reporting company
+reportingCompanyRequired.heading = You need to appoint a reporting company
+reportingCompanyRequired.checkYourAnswersLabel = You need to appoint a reporting company
+reportingCompanyRequired.p1 = To submit a full or abbreviated interest restriction return, the group must
+reportingCompanyRequired.a1 = appoint a reporting company (opens in a new window or tab).
 
 
 # AgentActingOnBehalfOfCompanyPage Messages
 # ----------------------------------------------------------
-agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
-agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.title = Are you an agent?
+agentActingOnBehalfOfCompany.heading = Are you an agent?
 agentActingOnBehalfOfCompany.checkYourAnswersLabel = Agent
 agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
+agentActingOnBehalfOfCompany.hint = The group can nominate an agent to complete the return on their behalf.
 
 
 # AgentNamePage Messages
 # ----------------------------------------------------------
-agentName.title = Agent name
-agentName.heading = Agent name
+agentName.title = Enter the name of the agent
+agentName.heading = Enter the name of the agent
 agentName.checkYourAnswersLabel = Agent name
-agentName.label = Agent name
+agentName.label = Enter the name of the agent
 agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
 
@@ -174,20 +176,20 @@ infrastructureCompanyElection.error.required = Select yes if the group has made 
 
 # FullOrAbbreviatedReturnPage Messages
 # ----------------------------------------------------------
-fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
+fullOrAbbreviatedReturn.title = Are you submitting a full or abbreviated return?
+fullOrAbbreviatedReturn.heading = Are you submitting a full or abbreviated return?
 fullOrAbbreviatedReturn.full = Full
 fullOrAbbreviatedReturn.abbreviated = Abbreviated
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Full or abbreviated return
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
 # RevisingReturnPage Messages
 # ----------------------------------------------------------
-revisingReturn.title = Are you revising a return you have already submitted?
-revisingReturn.heading = Are you revising a return you have already submitted?
-revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
-revisingReturn.error.required = Select yes if you revising a return you have already submitted
+revisingReturn.title = Are you revising a return that has already been submitted?
+revisingReturn.heading = Are you revising a return that has already been submitted?
+revisingReturn.checkYourAnswersLabel = Revised return
+revisingReturn.error.required = Select yes if you revising a return that has already been submitted
 
 
 # GroupInterestCapacityPage Messages
@@ -781,7 +783,7 @@ reviewNetTaxInterest.checkYourAnswers.expense = expense
 # ----------------------------------------------------------
 accountingPeriodStart.title = When does the worldwide period of account start?
 accountingPeriodStart.heading = When does the worldwide period of account start?
-accountingPeriodStart.checkYourAnswersLabel = When does the worldwide period of account start?
+accountingPeriodStart.checkYourAnswersLabel = Worldwide period of account start date
 accountingPeriodStart.error.required = You must enter a valid date
 accountingPeriodStart.error.invalid = You must enter a valid date
 accountingPeriodStart.error.required.two = You must enter a valid date
@@ -794,7 +796,7 @@ accountingPeriodStart.hint = For example, 27 3 2007
 # ----------------------------------------------------------
 accountingPeriodEnd.title = When does the worldwide period of account end?
 accountingPeriodEnd.heading = When does the worldwide period of account end?
-accountingPeriodEnd.checkYourAnswersLabel = When does the worldwide period of account end?
+accountingPeriodEnd.checkYourAnswersLabel = Worldwide period of account end date
 accountingPeriodEnd.error.required = You must enter a valid date
 accountingPeriodEnd.error.invalid = You must enter a valid date
 accountingPeriodEnd.error.required.two = You must enter a valid date

@@ -25,6 +25,7 @@ import assets.messages.{CheckAnswersAboutReturnMessages, SectionHeaderMessages}
 import models.FullOrAbbreviatedReturn.Full
 import models.Section._
 import pages.aboutReturn._
+import pages.groupLevelInformation.RevisingReturnPage
 import play.twirl.api.HtmlFormat
 import utils.CheckYourAnswersAboutReturnCompanyHelper
 import views.BaseSelectors
@@ -44,6 +45,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
     .set(AgentActingOnBehalfOfCompanyPage, true).get
     .set(AgentNamePage, agentName).get
     .set(FullOrAbbreviatedReturnPage, Full).get
+    .set(RevisingReturnPage, false).get
     .set(ReportingCompanyNamePage, companyNameModel.name).get
     .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
     .set(AccountingPeriodStartPage, accountingPeriodModel.startDate).get
@@ -78,6 +80,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
       CheckAnswersAboutReturnMessages.agentAppointed -> "Yes",
       CheckAnswersAboutReturnMessages.agentName -> agentName,
       CheckAnswersAboutReturnMessages.fullOrAbbreviatedReturn -> "Full",
+      CheckAnswersAboutReturnMessages.revisedReturn -> "No",
       CheckAnswersAboutReturnMessages.name -> companyNameModel.name,
       CheckAnswersAboutReturnMessages.ctutr -> ctutrModel.utr,
       CheckAnswersAboutReturnMessages.accountingPeriodStart -> accountingPeriodModel.startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)),

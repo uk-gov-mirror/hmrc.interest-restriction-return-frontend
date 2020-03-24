@@ -42,10 +42,18 @@
 
         @subheading("section.aboutReturn")
 
-        @inputDate(form, "accountingPeriodEnd.heading")
+        @inputDate(
+            form,
+            "accountingPeriodEnd.heading",
+            hintText = Some(hint)
+        )
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
+}
+
+@hint = {
+        @messages("accountingPeriodStart.hint")
 }

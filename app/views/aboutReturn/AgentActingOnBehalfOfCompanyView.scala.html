@@ -40,11 +40,19 @@
 
         @subheading("section.aboutReturn")
 
-        @yesNoRadio(form, "agentActingOnBehalfOfCompany.heading")
+        @yesNoRadio(
+            form,
+            "agentActingOnBehalfOfCompany.heading",
+            Some(hint)
+        )
 
         @button("site.saveAndContinue")
 
         @saveForLater()
 
     }
+}
+
+@hint = {
+    @messages("agentActingOnBehalfOfCompany.hint")
 }
