@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import play.api.test.Helpers._
-import uk.gov.hmrc.play.bootstrap.binders.RedirectUrl
+import uk.gov.hmrc.play.binders.ContinueUrl
 
 class SignOutControllerSpec extends SpecBase {
 
@@ -36,7 +36,7 @@ class SignOutControllerSpec extends SpecBase {
         val result = TestSignOutController.signOut(fakeRequest)
 
         status(result) mustEqual SEE_OTHER
-        redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl + s"?continue=${RedirectUrl(frontendAppConfig.exitSurveyUrl)}")
+        redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl + s"?continue=${ContinueUrl(frontendAppConfig.exitSurveyUrl).encodedUrl}")
       }
     }
 
@@ -48,7 +48,7 @@ class SignOutControllerSpec extends SpecBase {
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result) mustBe Some(frontendAppConfig.signOutUrl +
-          s"?continue=${RedirectUrl(frontendAppConfig.host + controllers.errors.routes.SessionExpiredController.onPageLoad().url)}")
+          s"?continue=${ContinueUrl(frontendAppConfig.host + controllers.errors.routes.SessionExpiredController.onPageLoad().url).encodedUrl}")
       }
     }
   }
