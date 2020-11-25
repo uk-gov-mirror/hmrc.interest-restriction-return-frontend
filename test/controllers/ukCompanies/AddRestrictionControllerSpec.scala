@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddRestrictionFormProvider
 import models.NormalMode
-import pages.ukCompanies.{AddRestrictionPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddRestrictionView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator

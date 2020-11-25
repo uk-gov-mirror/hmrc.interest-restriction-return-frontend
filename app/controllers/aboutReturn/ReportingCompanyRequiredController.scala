@@ -24,15 +24,13 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import views.html.aboutReturn.ReportingCompanyRequiredView
 
-import scala.concurrent.ExecutionContext
-
 class ReportingCompanyRequiredController @Inject()(override val messagesApi: MessagesApi,
                                                    identify: IdentifierAction,
                                                    getData: DataRetrievalAction,
                                                    requireData: DataRequiredAction,
                                                    val controllerComponents: MessagesControllerComponents,
                                                    view: ReportingCompanyRequiredView
-                                                  )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                                  )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view())

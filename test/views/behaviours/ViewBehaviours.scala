@@ -19,7 +19,6 @@ package views.behaviours
 import assets.messages.BaseMessages
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import views.ViewUtils._
 
 trait ViewBehaviours extends ViewSpecBase {
 

@@ -22,7 +22,7 @@ import assets.messages.{CheckAnswersUkCompanyMessages, SectionHeaderMessages}
 import models.Section.UkCompanies
 import org.jsoup.nodes.Document
 import play.twirl.api.HtmlFormat
-import utils.{CheckYourAnswersUkCompanyHelper, CurrencyFormatter}
+import utils.CheckYourAnswersUkCompanyHelper
 import views.BaseSelectors
 import views.ViewUtils.addPossessive
 import views.behaviours.ViewBehaviours

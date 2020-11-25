@@ -16,7 +16,7 @@
 
 package utils
 
-import models.{CheckMode, ReviewMode, UserAnswers}
+import models.{ReviewMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._

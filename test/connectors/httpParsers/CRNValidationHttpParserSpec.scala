@@ -20,6 +20,7 @@ import base.SpecBase
 import connectors.httpParsers.CRNValidationHttpParser.CRNValidationReads
 import uk.gov.hmrc.http.HttpResponse
 import play.api.http.Status
+import play.api.libs.json.Json
 
 class CRNValidationHttpParserSpec extends SpecBase {
 
@@ -30,7 +31,7 @@ class CRNValidationHttpParserSpec extends SpecBase {
       "return a Right(ValidCRN)" in {
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.NO_CONTENT))
+        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.NO_CONTENT, Json.obj(), Map.empty[String,Seq[String]]))
 
         actualResult mustBe expectedResult
       }
@@ -41,7 +42,7 @@ class CRNValidationHttpParserSpec extends SpecBase {
       "return a Left(InvalidCRN)" in {
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.BAD_REQUEST))
+        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.BAD_REQUEST, Json.obj(), Map.empty[String,Seq[String]]))
 
         actualResult mustBe expectedResult
       }
@@ -52,7 +53,7 @@ class CRNValidationHttpParserSpec extends SpecBase {
       "return a Left(UnexpectedFailure)" in {
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, s"Unexpected response, status ${Status.INTERNAL_SERVER_ERROR} returned"))
-        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR))
+        val actualResult = CRNValidationReads.read("", "", HttpResponse(Status.INTERNAL_SERVER_ERROR, Json.obj(), Map.empty[String,Seq[String]]))
 
         actualResult mustBe expectedResult
       }

@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi

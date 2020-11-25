@@ -30,7 +30,7 @@ import play.api.mvc._
 import utils.ReviewReactivationsHelper
 import views.html.checkTotals.ReviewReactivationsView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class ReviewReactivationsController @Inject()(override val messagesApi: MessagesApi,
                                               identify: IdentifierAction,
@@ -39,7 +39,7 @@ class ReviewReactivationsController @Inject()(override val messagesApi: Messages
                                               val controllerComponents: MessagesControllerComponents,
                                               navigator: CheckTotalsNavigator,
                                               view: ReviewReactivationsView
-                                         )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>

@@ -17,8 +17,7 @@
 package views.ukCompanies
 
 import assets.messages.ukCompanies.AddAnReactivationMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.ukCompanies.routes
+import assets.messages.BaseMessages
 import forms.ukCompanies.AddAnReactivationQueryFormProvider
 import models.NormalMode
 import play.api.data.Form

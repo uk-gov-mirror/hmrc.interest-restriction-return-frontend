@@ -6,16 +6,17 @@ object AppDependencies {
 
   val compile = Seq(
     play.sbt.PlayImport.ws,
+    "uk.gov.hmrc" %% "bootstrap-frontend-play-27" % "3.0.0",
     "org.reactivemongo" %% "play2-reactivemongo" % "0.18.6-play26",
-    "uk.gov.hmrc" %% "logback-json-logger" % "4.6.0",
-    "uk.gov.hmrc" %% "govuk-template" % "5.41.0-play-26",
-    "uk.gov.hmrc" %% "play-health" % "3.14.0-play-26",
-    "uk.gov.hmrc" %% "play-ui" % "8.7.0-play-26",
-    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.2.0-play-26",
-    "uk.gov.hmrc" %% "bootstrap-play-26" % "1.3.0",
-    "uk.gov.hmrc" %% "play-whitelist-filter" % "3.1.0-play-26",
-    "uk.gov.hmrc" %% "play-frontend-govuk" % "0.33.0-play-26",
-    "org.webjars.npm" % "govuk-frontend" % "3.4.0"
+    "uk.gov.hmrc" %% "logback-json-logger" % "4.8.0",
+    "uk.gov.hmrc" %% "govuk-template" % "5.60.0-play-27",
+    "uk.gov.hmrc" %% "play-health" % "3.15.0-play-27",
+    "uk.gov.hmrc" %% "play-ui" % "8.17.0-play-27",
+    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.4.0-play-26",
+    "uk.gov.hmrc" %% "play-whitelist-filter" % "3.4.0-play-27",
+    "uk.gov.hmrc" %% "play-frontend-govuk" % "0.54.0-play-27",
+    "org.webjars.npm" % "govuk-frontend" % "3.9.1",
+    "com.typesafe.play" %% "play-iteratees" % "2.6.1"
   )
 
   val test = Seq(

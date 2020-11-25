@@ -16,23 +16,20 @@
 
 package testonly.controllers
 
-import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.libs.json.Json
 import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-
-import scala.concurrent.ExecutionContext
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
 class SessionController @Inject()(override val messagesApi: MessagesApi,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents
-                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+                                      )
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
   def set(): Action[AnyContent] = (identify andThen getData andThen requireData) {

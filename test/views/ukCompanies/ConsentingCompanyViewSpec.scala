@@ -17,7 +17,7 @@
 package views.ukCompanies
 
 import assets.messages.ukCompanies.ConsentingCompanyMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.messages.BaseMessages
 import controllers.ukCompanies.routes
 import forms.ukCompanies.ConsentingCompanyFormProvider
 import assets.constants.fullReturn.UkCompanyConstants.companyNameModel

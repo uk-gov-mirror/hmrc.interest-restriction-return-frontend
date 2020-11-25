@@ -18,7 +18,6 @@ package views.ultimateParentCompany
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import assets.messages.ultimateParentCompany.PayTaxInUkMessages
-import controllers.ultimateParentCompany.routes
 import forms.ultimateParentCompany.PayTaxInUkFormProvider
 import models.NormalMode
 import play.api.data.Form

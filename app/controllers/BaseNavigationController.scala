@@ -52,7 +52,7 @@ trait BaseNavigationController extends BaseController {
 
 
   def remove[A](page: QuestionPage[A], mode: Mode, idx: Option[Int] = None)
-             (implicit request: DataRequest[_], writes: Writes[A]): Future[UserAnswers] =
+             (implicit request: DataRequest[_]): Future[UserAnswers] =
     for {
       updatedAnswers <- Future.fromTry(request.userAnswers.remove(page, idx))
       updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
@@ -65,8 +65,7 @@ trait BaseNavigationController extends BaseController {
       updatedSectionAnswers <- updateState(page, mode, updatedAnswers)
     } yield updatedSectionAnswers
 
-  def updateState(page: Page, mode: Mode, userAnswers: UserAnswers)
-                 (implicit request: DataRequest[_]) = {
+  def updateState(page: Page, mode: Mode, userAnswers: UserAnswers) = {
     val reviewModel = updateSectionService.updateState(userAnswers, page)
     val pagesToDelete = questionDeletionLookupService.getPagesToRemove(page)(userAnswers)
     for {

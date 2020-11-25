@@ -25,7 +25,7 @@ import forms.ukCompanies.NetTaxInterestAmountFormProvider
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
 import models.NormalMode
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.NetTaxInterestAmountView
 

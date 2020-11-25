@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.ReactivationAmountFormProvider
 import models.NormalMode
-import pages.ukCompanies.{ReactivationAmountPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.ReactivationAmountView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator

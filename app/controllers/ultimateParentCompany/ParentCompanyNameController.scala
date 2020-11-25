@@ -18,19 +18,15 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.{BaseController, BaseNavigationController}
+import controllers.{BaseNavigationController}
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
 import javax.inject.Inject
 import models.{Mode, NormalMode}
-import models.requests.DataRequest
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
 import navigation.UltimateParentCompanyNavigator
-import pages.QuestionPage
 import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyNamePage}
-import play.api.data.Form
 import play.api.i18n.MessagesApi
-import play.api.libs.json.Reads
 import play.api.mvc._
 import repositories.SessionRepository
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}

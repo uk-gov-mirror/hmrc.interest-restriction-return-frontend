@@ -18,14 +18,13 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.{BaseController, BaseNavigationController}
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ultimateParentCompany.DeemedParentFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.HasDeemedParentPage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository

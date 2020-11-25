@@ -25,7 +25,7 @@ import controllers.errors
 import forms.ultimateParentCompany.CountryOfIncorporationFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
-import pages.ultimateParentCompany.{CountryOfIncorporationPage, DeemedParentPage, ParentCompanyNamePage}
+import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.CountryOfIncorporationView
 

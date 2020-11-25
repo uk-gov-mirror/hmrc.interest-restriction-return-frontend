@@ -20,7 +20,6 @@ import assets.constants.BaseConstants
 import assets.constants.fullReturn.AllocatedReactivationsConstants._
 import assets.constants.fullReturn.AllocatedRestrictionsConstants._
 import models.CompanyDetailsModel
-import models.returnModels.UTRModel
 import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import models.returnModels.fullReturn.UkCompanyModel
 import play.api.libs.json.Json

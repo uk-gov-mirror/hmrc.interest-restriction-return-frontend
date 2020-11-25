@@ -17,7 +17,6 @@
 package models.returnModels.abbreviatedReturn
 
 import assets.constants.abbreviatedReturn.UkCompanyConstants._
-import models.returnModels.abbreviatedReturnModel.UkCompanyModel
 import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
 

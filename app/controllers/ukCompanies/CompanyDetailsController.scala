@@ -21,7 +21,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.CompanyDetailsFormProvider
-import handlers.ErrorHandler
 import javax.inject.Inject
 import models.returnModels.fullReturn.UkCompanyModel
 import models.{CompanyDetailsModel, Mode}
@@ -46,7 +45,7 @@ class CompanyDetailsController @Inject()(override val messagesApi: MessagesApi,
                                          formProvider: CompanyDetailsFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: CompanyDetailsView
-                                        )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                        )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()

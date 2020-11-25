@@ -23,7 +23,7 @@ import controllers.actions._
 import controllers.errors
 import forms.ultimateParentCompany.LimitedLiabilityPartnershipFormProvider
 import models.NormalMode
-import pages.ultimateParentCompany.{DeemedParentPage, LimitedLiabilityPartnershipPage, ParentCompanyNamePage}
+import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.LimitedLiabilityPartnershipView
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator

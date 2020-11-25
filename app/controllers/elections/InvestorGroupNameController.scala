@@ -24,10 +24,8 @@ import pages.elections.{InvestorGroupNamePage, InvestorGroupsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.elections.InvestorGroupNameView
 import config.FrontendAppConfig
-import play.api.data.Form
 import config.featureSwitch.FeatureSwitching
 
 import scala.concurrent.Future

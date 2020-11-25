@@ -16,11 +16,11 @@
 
 package connectors.httpParsers
 
-import play.api.Logger
+import play.api.Logging
 import play.api.http.Status._
 import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
-object CRNValidationHttpParser {
+object CRNValidationHttpParser extends Logging {
 
 
   type CRNValidationResponse = Either[ErrorResponse, SuccessResponse]
@@ -30,15 +30,15 @@ object CRNValidationHttpParser {
     def read(method: String, url: String, response: HttpResponse): CRNValidationResponse = {
       response.status match {
         case NO_CONTENT =>
-          Logger.debug("[CRNValidationReads][read]: Status OK")
-          Logger.debug(s"[CRNValidationReads][read]: Json Response: ${response.body}")
+          logger.debug("[CRNValidationReads][read]: Status OK")
+          logger.debug(s"[CRNValidationReads][read]: Json Response: ${response.body}")
           Right(ValidCRN)
         case BAD_REQUEST =>
-          Logger.debug("[CRNValidationReads][read]: Status BAD_REQUEST")
-          Logger.debug(s"[CRNValidationReads][read]: Json Response: ${response.body}")
+          logger.debug("[CRNValidationReads][read]: Status BAD_REQUEST")
+          logger.debug(s"[CRNValidationReads][read]: Json Response: ${response.body}")
           Left(InvalidCRN)
         case status =>
-          Logger.warn(s"[CRNValidationReads][read]: Unexpected response, status $status returned")
+          logger.warn(s"[CRNValidationReads][read]: Unexpected response, status $status returned")
           Left(UnexpectedFailure(status, s"Unexpected response, status $status returned"))
       }
     }

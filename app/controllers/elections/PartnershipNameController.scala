@@ -24,14 +24,13 @@ import forms.elections.PartnershipNameFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.ElectionsNavigator
-import pages.elections.{InvestorGroupsPage, PartnershipNamePage, PartnershipsPage}
+import pages.elections.{PartnershipNamePage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import views.html.elections.PartnershipNameView
 import config.FrontendAppConfig
-import play.api.data.Form
 import config.featureSwitch.FeatureSwitching
 
 import scala.concurrent.Future

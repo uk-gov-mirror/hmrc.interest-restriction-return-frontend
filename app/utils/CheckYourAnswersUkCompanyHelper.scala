@@ -22,7 +22,6 @@ import models.{CheckMode, CompanyDetailsModel, UserAnswers}
 import pages.QuestionPage
 import pages.ukCompanies.{UkCompaniesPage, _}
 import play.api.i18n.Messages
-import play.api.libs.json.Reads
 import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 
@@ -108,7 +107,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
                          changeLinkCall: Call,
                          answerIsMsgKey: Boolean = false,
                          headingMessageArgs: Seq[String] = Seq())
-                        (implicit messages: Messages, reads: Reads[A], conversion: A => String): SummaryListRow =
+                        (implicit messages: Messages, conversion: A => String): SummaryListRow =
     summaryListRow(
       label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
       value = if (answerIsMsgKey) messages(s"$page.$value") else value,

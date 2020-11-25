@@ -21,7 +21,6 @@ import config.FrontendAppConfig
 import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.ultimateParentCompany.DeemedParentReviewAnswersListFormProvider
-import handlers.ErrorHandler
 import models.NormalMode
 import models.requests.DataRequest
 import navigation.UltimateParentCompanyNavigator
@@ -34,7 +33,7 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.DeemedParentReviewAnswersListHelper
 import views.html.ultimateParentCompany.DeemedParentReviewAnswersListView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class DeemedParentReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
                                                         override val sessionRepository: SessionRepository,
@@ -47,7 +46,7 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
                                                         val controllerComponents: MessagesControllerComponents,
                                                         formProvider: DeemedParentReviewAnswersListFormProvider,
                                                         view: DeemedParentReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                                    )(implicit appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
   private def deemedParents(implicit request: DataRequest[_]) = new DeemedParentReviewAnswersListHelper(request.userAnswers).rows

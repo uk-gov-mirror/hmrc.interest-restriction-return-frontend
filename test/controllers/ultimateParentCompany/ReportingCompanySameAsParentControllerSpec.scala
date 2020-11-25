@@ -17,7 +17,6 @@
 package controllers.ultimateParentCompany
 
 import assets.constants.BaseConstants
-import assets.constants.DeemedParentConstants.deemedParentModelMin
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -26,7 +25,6 @@ import forms.ultimateParentCompany.ReportingCompanySameAsParentFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
 import pages.aboutReturn.ReportingCompanyNamePage
-import pages.ultimateParentCompany.{DeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.ReportingCompanySameAsParentView
 

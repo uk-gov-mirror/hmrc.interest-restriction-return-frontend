@@ -18,11 +18,9 @@ package controllers.actions
 
 import base.SpecBase
 import mocks.MockSessionRepository
-import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import org.scalatest.concurrent.ScalaFutures
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class DataRetrievalActionSpec extends SpecBase with MockSessionRepository with ScalaFutures {

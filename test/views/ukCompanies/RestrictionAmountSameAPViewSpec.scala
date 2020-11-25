@@ -20,7 +20,6 @@ import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
 import assets.messages.BaseMessages
 import assets.messages.ukCompanies.RestrictionAmountSameAPMessages
 import forms.ukCompanies.RestrictionAmountSameAPFormProvider
-import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.DecimalViewBehaviours

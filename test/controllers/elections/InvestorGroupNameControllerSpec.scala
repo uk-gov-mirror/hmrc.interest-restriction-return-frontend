@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.elections.InvestorGroupNameFormProvider
 import models.NormalMode
-import pages.elections.InvestorGroupNamePage
 import play.api.test.Helpers._
 import views.html.elections.InvestorGroupNameView
 import navigation.FakeNavigators.FakeElectionsNavigator

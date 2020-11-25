@@ -20,14 +20,12 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.elections.InvestorGroupsDeletionConfirmationFormProvider
 import javax.inject.Inject
-import models.{Mode, NormalMode}
-import pages.elections.{InvestmentNamePage, InvestmentsDeletionConfirmationPage, InvestorGroupsDeletionConfirmationPage, InvestorGroupsPage}
-import config.featureSwitch.FeatureSwitching
+import models.NormalMode
+import pages.elections.{InvestorGroupsDeletionConfirmationPage, InvestorGroupsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.elections.InvestorGroupsDeletionConfirmationView
-import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator

@@ -17,8 +17,6 @@
 package utils
 
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.aboutReturn.{routes => aboutReturnRoutes}
-import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.aboutReturn._
 import pages.groupLevelInformation.RevisingReturnPage

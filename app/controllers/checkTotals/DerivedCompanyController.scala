@@ -24,7 +24,7 @@ import javax.inject.Inject
 import models.NormalMode
 import navigation.CheckTotalsNavigator
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
-import play.api.Logger
+import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -44,11 +44,11 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
                                          view: DerivedCompanyView,
                                          checkTotalsHelper: CheckTotalsHelper
                                         )(implicit appConfig: FrontendAppConfig)
-  extends FeatureSwitching with BaseNavigationController {
+  extends FeatureSwitching with BaseNavigationController with Logging {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     request.userAnswers.getList(UkCompaniesPage) match {
-      case seq if seq.isEmpty => Logger.debug(s"[DerivedCompanyController][onPageLoad] GET attempt to check totals page without data")
+      case seq if seq.isEmpty => logger.debug(s"[DerivedCompanyController][onPageLoad] GET attempt to check totals page without data")
         Redirect(controllers.routes.UnderConstructionController.onPageLoad())
       case ukCompanies => Ok(view(checkTotalsHelper.constructTotalsTable(ukCompanies),controllers.checkTotals.routes.DerivedCompanyController.onSubmit))
     }

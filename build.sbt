@@ -24,7 +24,10 @@ lazy val root = (project in file("."))
     parallelExecution in IntegrationTest := false,
     javaOptions += "-Dlogger.resource=logback-test.xml"
   )
-  .settings(majorVersion := 0)
+  .settings(
+    majorVersion := 0,
+    scalaVersion := "2.12.12"
+  )
   .settings(
     name := appName,
     RoutesKeys.routesImport += "models._",
@@ -80,3 +83,8 @@ lazy val testSettings: Seq[Def.Setting[_]] = Seq(
     "-Dlogger.resource=logback-test.xml"
   )
 )
+
+lazy val playRoutesSettings = {
+  import play.sbt.routes.RoutesKeys
+  RoutesKeys.routesImport := Seq.empty
+}

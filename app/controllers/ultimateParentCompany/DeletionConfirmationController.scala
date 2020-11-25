@@ -20,14 +20,13 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.ultimateParentCompany.DeletionConfirmationFormProvider
 import javax.inject.Inject
-import models.{Mode, NormalMode}
-import pages.ultimateParentCompany.{DeemedParentPage, DeletionConfirmationPage, ParentCompanyCTUTRPage}
+import models.NormalMode
+import pages.ultimateParentCompany.{DeemedParentPage, DeletionConfirmationPage}
 import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ultimateParentCompany.DeletionConfirmationView
-import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.UltimateParentCompanyNavigator

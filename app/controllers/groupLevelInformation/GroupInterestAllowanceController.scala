@@ -18,14 +18,13 @@ package controllers.groupLevelInformation
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.{BaseController, BaseNavigationController}
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.groupLevelInformation.GroupInterestAllowanceFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupLevelInformationNavigator
 import pages.groupLevelInformation.GroupInterestAllowancePage
-import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository

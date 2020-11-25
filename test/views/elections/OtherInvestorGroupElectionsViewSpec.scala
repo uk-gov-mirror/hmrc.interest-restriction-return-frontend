@@ -19,7 +19,7 @@ package views.elections
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.elections.OtherInvestorGroupElectionsFormProvider
 import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
-import models.{InvestorRatioMethod, NormalMode, OtherInvestorGroupElections}
+import models.{InvestorRatioMethod, OtherInvestorGroupElections}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.CheckboxViewBehaviours

@@ -19,9 +19,7 @@ package views.elections
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import assets.constants.PartnershipsConstants._
 import assets.messages.elections.PartnershipsReviewAnswersListMessages
-import controllers.elections.routes
 import forms.elections.PartnershipsReviewAnswersListFormProvider
-import models.NormalMode
 import pages.elections.PartnershipsPage
 import play.api.data.Form
 import play.twirl.api.HtmlFormat

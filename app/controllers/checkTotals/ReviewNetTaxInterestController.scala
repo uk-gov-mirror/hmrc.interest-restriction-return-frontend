@@ -28,8 +28,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.ReviewNetTaxInterestHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.ExecutionContext
-
 class ReviewNetTaxInterestController @Inject()(override val messagesApi: MessagesApi,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
@@ -37,7 +35,7 @@ class ReviewNetTaxInterestController @Inject()(override val messagesApi: Message
                                                val controllerComponents: MessagesControllerComponents,
                                                navigator: CheckTotalsNavigator,
                                                view: CheckYourAnswersView
-                                              )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                              )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val checkAnswersHelper = new ReviewNetTaxInterestHelper(request.userAnswers)

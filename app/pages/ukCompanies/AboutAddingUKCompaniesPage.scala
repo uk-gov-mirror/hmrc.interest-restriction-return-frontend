@@ -17,7 +17,6 @@
 package pages.ukCompanies
 
 import pages.Page
-import play.api.libs.json.JsPath
 
 case object AboutAddingUKCompaniesPage extends Page {
 
