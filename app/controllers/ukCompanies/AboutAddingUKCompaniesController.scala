@@ -27,8 +27,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import views.html.ukCompanies.AboutAddingUKCompaniesView
 
-import scala.concurrent.ExecutionContext
-
 class AboutAddingUKCompaniesController @Inject()(override val messagesApi: MessagesApi,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
@@ -36,7 +34,7 @@ class AboutAddingUKCompaniesController @Inject()(override val messagesApi: Messa
                                                  val controllerComponents: MessagesControllerComponents,
                                                  view: AboutAddingUKCompaniesView,
                                                  val navigator: UkCompaniesNavigator
-                                                )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                                )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.AboutAddingUKCompaniesController.onSubmit()))

@@ -18,9 +18,8 @@ package views.ukCompanies
 
 import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
 import assets.messages.ukCompanies.AddRestrictionMessages
-import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.messages.BaseMessages
 import forms.ukCompanies.AddRestrictionFormProvider
-import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours

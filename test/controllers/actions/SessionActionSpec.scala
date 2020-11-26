@@ -21,8 +21,6 @@ import play.api.mvc.{BodyParsers, Results}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 class SessionActionSpec extends SpecBase {
 
   class Harness(action: IdentifierAction) {

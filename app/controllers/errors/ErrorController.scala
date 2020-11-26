@@ -16,16 +16,15 @@
 
 package controllers.errors
 
-import config.FrontendAppConfig
 import handlers.ErrorHandler
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
 class ErrorController @Inject()(val controllerComponents: MessagesControllerComponents,
                                 errorHandler: ErrorHandler
-                               )(implicit appConfig: FrontendAppConfig) extends FrontendBaseController with I18nSupport {
+                               ) extends FrontendBaseController with I18nSupport {
 
   def ise: Action[AnyContent] = Action { implicit request =>
     InternalServerError(errorHandler.internalServerErrorTemplate)

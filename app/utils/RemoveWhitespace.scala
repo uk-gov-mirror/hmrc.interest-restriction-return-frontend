@@ -16,8 +16,6 @@
 
 package utils
 
-import scala.language.implicitConversions
-
 trait RemoveWhitespace {
   def removeWhitespace(string: String): String = {
     string.split("\\s+").mkString

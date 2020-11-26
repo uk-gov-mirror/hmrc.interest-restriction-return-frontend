@@ -22,7 +22,7 @@ import base.SpecBase
 import connectors.mocks.MockCRNValidationConnector
 import models.SectionStatus.{Completed, InProgress}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.aboutReturn.{AccountingPeriodStartPage, CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
+import pages.aboutReturn.{CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
 import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.checkTotals.ReviewNetTaxInterestPage
 import pages.elections.{CheckAnswersElectionsPage, IsUkPartnershipPage}

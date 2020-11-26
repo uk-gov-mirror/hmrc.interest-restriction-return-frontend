@@ -20,9 +20,7 @@ import controllers.elections.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.{PartnershipNamePage, _}
-import pages.ukCompanies.UkCompaniesPage
 import play.api.mvc.Call
 
 @Singleton

@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.elections.GroupEBITDAChargeableGainsElectionFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.{ElectionsNavigator, Navigator}
+import navigation.ElectionsNavigator
 import pages.elections.GroupEBITDAChargeableGainsElectionPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._

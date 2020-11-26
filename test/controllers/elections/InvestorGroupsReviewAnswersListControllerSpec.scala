@@ -25,7 +25,7 @@ import controllers.actions._
 import forms.elections.InvestorGroupsReviewAnswersListFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeElectionsNavigator
-import pages.elections.{InvestmentNamePage, InvestorGroupsPage}
+import pages.elections.InvestorGroupsPage
 import play.api.test.Helpers._
 import views.html.elections.InvestorGroupsReviewAnswersListView
 

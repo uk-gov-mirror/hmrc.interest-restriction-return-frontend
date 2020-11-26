@@ -18,7 +18,7 @@ package views.elections
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.elections.InvestorRatioMethodFormProvider
-import models.{InvestorRatioMethod, ContinueSavedReturn, NormalMode}
+import models.InvestorRatioMethod
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours

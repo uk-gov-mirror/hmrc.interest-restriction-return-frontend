@@ -18,7 +18,6 @@ package views.ultimateParentCompany
 
 import assets.messages.ultimateParentCompany.ParentCompanySAUTRMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.ultimateParentCompany.routes
 import forms.ultimateParentCompany.ParentCompanySAUTRFormProvider
 import models.NormalMode
 import play.api.data.Form

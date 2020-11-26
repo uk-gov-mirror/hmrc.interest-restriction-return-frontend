@@ -16,9 +16,8 @@
 
 package controllers.ukCompanies
 
-import assets.messages.{CheckAnswersUkCompanyMessages, CheckAnswersUkParentCompanyMessages, SectionHeaderMessages}
+import assets.messages.{CheckAnswersUkCompanyMessages, SectionHeaderMessages}
 import assets.constants.fullReturn.UkCompanyConstants._
-import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._

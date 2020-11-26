@@ -21,13 +21,12 @@ import controllers.actions._
 import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.{AddRestrictionPage, CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
+import pages.ukCompanies.{CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
 import config.featureSwitch.FeatureSwitching
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
-import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator

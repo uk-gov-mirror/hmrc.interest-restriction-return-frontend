@@ -21,7 +21,6 @@ import config.FrontendAppConfig
 import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.elections.InvestorGroupsReviewAnswersListFormProvider
-import handlers.ErrorHandler
 import models.NormalMode
 import models.requests.DataRequest
 import navigation.ElectionsNavigator
@@ -34,7 +33,7 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.InvestorGroupsReviewAnswersListHelper
 import views.html.elections.InvestorGroupsReviewAnswersListView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class InvestorGroupsReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
                                                           override val sessionRepository: SessionRepository,
@@ -47,7 +46,7 @@ class InvestorGroupsReviewAnswersListController @Inject()(override val messagesA
                                                           val controllerComponents: MessagesControllerComponents,
                                                           formProvider: InvestorGroupsReviewAnswersListFormProvider,
                                                           view: InvestorGroupsReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                                    )(implicit appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
   private def investorGroups(implicit request: DataRequest[_]) = new InvestorGroupsReviewAnswersListHelper(request.userAnswers).rows

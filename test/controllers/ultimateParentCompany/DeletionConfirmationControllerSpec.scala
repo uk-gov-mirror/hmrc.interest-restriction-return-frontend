@@ -22,8 +22,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ultimateParentCompany.DeletionConfirmationFormProvider
-import models.NormalMode
-import pages.ultimateParentCompany.{DeemedParentPage, DeletionConfirmationPage}
+import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.DeletionConfirmationView
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator

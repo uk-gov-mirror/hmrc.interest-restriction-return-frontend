@@ -17,7 +17,6 @@
 package views.elections
 
 import assets.messages.{BaseMessages, SectionHeaderMessages}
-import controllers.elections.routes
 import forms.elections.InvestmentNameFormProvider
 import models.NormalMode
 import play.api.data.Form

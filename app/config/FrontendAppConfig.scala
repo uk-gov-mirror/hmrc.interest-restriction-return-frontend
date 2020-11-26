@@ -19,12 +19,10 @@ package config
 import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
-import controllers.routes
 import models.returnModels.CountryCodeModel
 import play.api.Environment
-import play.api.i18n.Lang
-import play.api.libs.json.{JsError, JsSuccess, Json}
-import play.api.mvc.{Call, Request, RequestHeader}
+import play.api.libs.json.{JsSuccess, Json}
+import play.api.mvc.{Call, RequestHeader}
 import uk.gov.hmrc.play.binders.ContinueUrl
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 

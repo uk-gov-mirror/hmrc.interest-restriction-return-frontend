@@ -17,7 +17,6 @@
 package forms.ukCompanies
 
 import forms.behaviours.DecimalFieldBehaviours
-import models.returnModels.fullReturn.AllocatedReactivationsModel
 import play.api.data.FormError
 
 class ReactivationAmountFormProviderSpec extends DecimalFieldBehaviours {

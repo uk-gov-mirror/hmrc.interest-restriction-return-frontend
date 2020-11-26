@@ -17,7 +17,6 @@
 package connectors.mocks
 
 import connectors.httpParsers.CRNValidationHttpParser.CRNValidationResponse
-import models.requests.DataRequest
 import org.scalamock.scalatest.MockFactory
 import connectors.CRNValidationConnector
 import uk.gov.hmrc.http.HeaderCarrier
@@ -29,8 +28,8 @@ trait MockCRNValidationConnector extends MockFactory {
   lazy val mockCRNValidationConnector: CRNValidationConnector = mock[CRNValidationConnector]
 
   def mockValidateCRN(crn: String)(response: CRNValidationResponse): Unit = {
-    (mockCRNValidationConnector.validateCRN(_: String)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
-      .expects(crn, *, *, *)
+    (mockCRNValidationConnector.validateCRN(_: String)(_: HeaderCarrier, _: ExecutionContext))
+      .expects(crn, *, *)
       .returns(Future.successful(response))
   }
 }

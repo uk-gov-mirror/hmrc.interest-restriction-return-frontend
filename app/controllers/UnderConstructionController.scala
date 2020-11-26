@@ -22,10 +22,8 @@ import controllers.actions._
 import javax.inject.Inject
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.UnderConstructionView
-
-import scala.concurrent.{ExecutionContext, Future}
 
 class UnderConstructionController @Inject()(override val messagesApi: MessagesApi,
                                             identify: IdentifierAction,
@@ -33,7 +31,7 @@ class UnderConstructionController @Inject()(override val messagesApi: MessagesAp
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: UnderConstructionView
-                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig)
+                                           )(implicit appConfig: FrontendAppConfig)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

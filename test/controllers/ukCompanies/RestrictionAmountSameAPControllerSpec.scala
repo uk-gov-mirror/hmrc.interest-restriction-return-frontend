@@ -25,7 +25,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.RestrictionAmountSameAPFormProvider
 import models.NormalMode
-import pages.ukCompanies.{RestrictionAmountSameAPPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.RestrictionAmountSameAPView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator

@@ -23,13 +23,10 @@ import config.FrontendAppConfig
 import controllers.actions._
 import javax.inject.Inject
 import navigation._
-import pages.{IndexPage, Page}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.SavedReturnView
-
-import scala.concurrent.ExecutionContext
 
 class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       identify: IdentifierAction,
@@ -42,7 +39,7 @@ class SavedReturnController @Inject()(override val messagesApi: MessagesApi,
                                       groupLevelInformationNavigator: GroupLevelInformationNavigator,
                                       electionsNavigator: ElectionsNavigator,
                                       ultimateParentCompanyNavigator: UltimateParentCompanyNavigator
-                                     )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig) extends BaseController {
+                                     )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val savedTilDate = LocalDate.now().plusDays(appConfig.cacheTtlDays).format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))

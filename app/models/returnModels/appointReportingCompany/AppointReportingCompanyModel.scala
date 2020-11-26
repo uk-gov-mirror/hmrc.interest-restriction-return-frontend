@@ -16,7 +16,7 @@
 
 package models.returnModels.appointReportingCompany
 
-import play.api.libs.json.{JsPath, Json}
+import play.api.libs.json.Json
 import models.returnModels._
 
 case class AppointReportingCompanyModel(agentDetails: AgentDetailsModel,

@@ -19,7 +19,6 @@ package views.ukCompanies
 import assets.constants.fullReturn.UkCompanyConstants.companyNameModel
 import assets.messages.BaseMessages
 import assets.messages.ukCompanies.NetTaxInterestAmountMessages
-import controllers.ukCompanies.routes
 import forms.ukCompanies.NetTaxInterestAmountFormProvider
 import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import models.NormalMode

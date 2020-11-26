@@ -20,8 +20,8 @@ import assets.constants.{BaseConstants, ElectionsCheckYourAnswersConstants}
 import assets.messages.BaseMessages.saveAndContinue
 import assets.messages.{CheckAnswersElectionsMessages, SectionHeaderMessages}
 import models.Section.Elections
-import play.twirl.api.{Html, HtmlFormat}
-import utils.{CheckYourAnswersElectionsHelper, CurrencyFormatter}
+import play.twirl.api.HtmlFormat
+import utils.CheckYourAnswersElectionsHelper
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 

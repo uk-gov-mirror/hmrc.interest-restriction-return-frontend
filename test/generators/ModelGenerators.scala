@@ -21,8 +21,6 @@ import models._
 import models.returnModels._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
-import pages.elections.IsUkPartnershipPage
-import play.api.libs.json.Json
 
 trait ModelGenerators {
 

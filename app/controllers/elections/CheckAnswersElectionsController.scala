@@ -20,7 +20,6 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.Elections
 import navigation.ElectionsNavigator
@@ -32,8 +31,6 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersElectionsHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.ExecutionContext
-
 class CheckAnswersElectionsController @Inject()(override val messagesApi: MessagesApi,
                                                 override val sessionRepository: SessionRepository,
                                                 override val navigator: ElectionsNavigator,
@@ -44,7 +41,7 @@ class CheckAnswersElectionsController @Inject()(override val messagesApi: Messag
                                                 requireData: DataRequiredAction,
                                                 val controllerComponents: MessagesControllerComponents,
                                                 view: CheckYourAnswersView
-                                               )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                               )(implicit appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {

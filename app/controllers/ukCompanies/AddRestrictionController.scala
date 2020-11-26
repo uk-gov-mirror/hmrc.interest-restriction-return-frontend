@@ -27,7 +27,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.AddRestrictionView
-import play.api.data.Form
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator

@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddAnReactivationQueryFormProvider
 import models.NormalMode
-import pages.ukCompanies.{AddAnReactivationQueryPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddAnReactivationQueryView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator

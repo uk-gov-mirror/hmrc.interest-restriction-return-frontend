@@ -19,23 +19,22 @@ package connectors
 import config.FrontendAppConfig
 import connectors.httpParsers.CRNValidationHttpParser.{CRNValidationReads, CRNValidationResponse}
 import javax.inject.Inject
-import models.requests.DataRequest
-import play.api.Logger
+import play.api.Logging
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 import play.api.http.HeaderNames.ACCEPT
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class CRNValidationConnector @Inject()(httpClient: HttpClient,
-                                       implicit val appConfig: FrontendAppConfig) {
+                                       implicit val appConfig: FrontendAppConfig) extends Logging {
 
   private[connectors] lazy val validateCrnUrl: String => String = crn =>
     s"${appConfig.interestRestrictionReturn}/validate-crn/$crn"
 
   def validateCRN(crn: String)
-                 (implicit hc: HeaderCarrier, ec: ExecutionContext, request: DataRequest[_]): Future[CRNValidationResponse] = {
-    Logger.debug(s"[CRNValidationConnector][validateCRN] URL: ${validateCrnUrl(crn)}")
+                 (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CRNValidationResponse] = {
+    logger.debug(s"[CRNValidationConnector][validateCRN] URL: ${validateCrnUrl(crn)}")
     httpClient.GET(validateCrnUrl(crn))(CRNValidationReads, hc.withExtraHeaders(ACCEPT -> "application/vnd.hmrc.1.0+json"), ec)
   }
 }

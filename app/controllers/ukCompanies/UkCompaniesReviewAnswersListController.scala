@@ -21,12 +21,9 @@ import config.FrontendAppConfig
 import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.ukCompanies.UkCompaniesReviewAnswersListFormProvider
-import handlers.ErrorHandler
 import models.requests.DataRequest
 import models.NormalMode
-import models.SectionStatus.Completed
 import navigation.UkCompaniesNavigator
-import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
@@ -36,7 +33,7 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.UkCompaniesReviewAnswersListHelper
 import views.html.ukCompanies.UkCompaniesReviewAnswersListView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class UkCompaniesReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
                                                        override val sessionRepository: SessionRepository,
@@ -49,7 +46,7 @@ class UkCompaniesReviewAnswersListController @Inject()(override val messagesApi:
                                                        val controllerComponents: MessagesControllerComponents,
                                                        formProvider: UkCompaniesReviewAnswersListFormProvider,
                                                        view: UkCompaniesReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
+                                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController {
 
   private def ukCompanies(implicit request: DataRequest[_]) = new UkCompaniesReviewAnswersListHelper(request.userAnswers).rows
 

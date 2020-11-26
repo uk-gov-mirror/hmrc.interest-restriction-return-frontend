@@ -16,7 +16,6 @@
 
 package models
 import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
-import models.requests.DataRequest
 import play.api.data.Form
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem

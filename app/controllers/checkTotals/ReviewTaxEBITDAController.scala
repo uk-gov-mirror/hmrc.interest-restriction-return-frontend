@@ -20,7 +20,6 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.ReviewTaxEBITDA
 import navigation.CheckTotalsNavigator
@@ -30,8 +29,6 @@ import play.api.mvc._
 import utils.ReviewTaxEBITDARowsHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.ExecutionContext
-
 class ReviewTaxEBITDAController @Inject()(override val messagesApi: MessagesApi,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
@@ -39,7 +36,7 @@ class ReviewTaxEBITDAController @Inject()(override val messagesApi: MessagesApi,
                                           val controllerComponents: MessagesControllerComponents,
                                           navigator: CheckTotalsNavigator,
                                           view: CheckYourAnswersView
-                                         )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+                                         )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>

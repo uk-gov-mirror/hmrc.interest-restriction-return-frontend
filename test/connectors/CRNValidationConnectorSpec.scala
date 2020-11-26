@@ -40,7 +40,7 @@ class CRNValidationConnectorSpec extends SpecBase with MockHttp with BaseConstan
         )
 
         val expectedResult = Right(ValidCRN)
-        val actualResult = TestCRNValidationConnector.validateCRN(crnModel)(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN(crnModel)(implicitly, implicitly)
 
         await(actualResult) mustBe expectedResult
       }
@@ -55,7 +55,7 @@ class CRNValidationConnectorSpec extends SpecBase with MockHttp with BaseConstan
         )
 
         val expectedResult = Left(InvalidCRN)
-        val actualResult = TestCRNValidationConnector.validateCRN(crnModel)(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN(crnModel)(implicitly, implicitly)
 
         await(actualResult) mustBe expectedResult
       }
@@ -70,7 +70,7 @@ class CRNValidationConnectorSpec extends SpecBase with MockHttp with BaseConstan
         )
 
         val expectedResult = Left(UnexpectedFailure(Status.INTERNAL_SERVER_ERROR, "Error"))
-        val actualResult = TestCRNValidationConnector.validateCRN(crnModel)(implicitly, implicitly, fakeDataRequest)
+        val actualResult = TestCRNValidationConnector.validateCRN(crnModel)(implicitly, implicitly)
 
         await(actualResult) mustBe expectedResult
       }

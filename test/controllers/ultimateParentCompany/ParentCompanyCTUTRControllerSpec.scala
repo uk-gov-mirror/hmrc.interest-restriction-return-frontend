@@ -24,8 +24,7 @@ import controllers.errors
 import forms.ultimateParentCompany.ParentCompanyCTUTRFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
-import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyCTUTRPage}
-import play.api.mvc.Call
+import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.ParentCompanyCTUTRView
 

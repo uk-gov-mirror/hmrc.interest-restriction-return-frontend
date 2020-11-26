@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.EnterCompanyTaxEBITDAFormProvider
 import models.NormalMode
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.EnterCompanyTaxEBITDAView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator

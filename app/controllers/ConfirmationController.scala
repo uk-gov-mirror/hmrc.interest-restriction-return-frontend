@@ -24,7 +24,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import views.html.ConfirmationView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                        identify: IdentifierAction,
@@ -32,7 +32,7 @@ class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: ConfirmationView
-                                      )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
+                                      )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     getSessionData(SessionKeys.acknowledgementReference) { ref =>

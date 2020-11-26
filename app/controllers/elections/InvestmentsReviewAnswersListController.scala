@@ -18,10 +18,9 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.{BaseController, BaseNavigationController}
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.elections.InvestmentsReviewAnswersListFormProvider
-import handlers.ErrorHandler
 import models.NormalMode
 import models.requests.DataRequest
 import navigation.ElectionsNavigator
@@ -34,7 +33,7 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.InvestmentsReviewAnswersListHelper
 import views.html.elections.InvestmentsReviewAnswersListView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class InvestmentsReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
                                                        override val sessionRepository: SessionRepository,
@@ -47,7 +46,7 @@ class InvestmentsReviewAnswersListController @Inject()(override val messagesApi:
                                                        val controllerComponents: MessagesControllerComponents,
                                                        formProvider: InvestmentsReviewAnswersListFormProvider,
                                                        view: InvestmentsReviewAnswersListView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                                    )(implicit appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
   private def investments(implicit request: DataRequest[_]) = new InvestmentsReviewAnswersListHelper(request.userAnswers).rows

@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.returnModels.InvestorGroupModel
 import models.{InvestorRatioMethod, Mode, NormalMode}
 import navigation.ElectionsNavigator
-import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage, OtherInvestorGroupElectionsPage}
+import pages.elections.{InvestorGroupsPage, OtherInvestorGroupElectionsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository

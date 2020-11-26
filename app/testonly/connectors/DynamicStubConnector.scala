@@ -18,21 +18,21 @@ package testonly.connectors
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-import play.api.Logger
+import play.api.Logging
 import play.api.libs.json.JsValue
 import testonly.connectors.httpParsers.DynamicStubHttpParser.DynamicStubReads
 import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import uk.gov.hmrc.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class DynamicStubConnector @Inject()(httpClient: HttpClient,
-                                     implicit val appConfig: FrontendAppConfig) {
+                                     implicit val appConfig: FrontendAppConfig) extends Logging {
 
   private[connectors] lazy val dynamicStub = s"${appConfig.dynamicStub}/setup"
 
   def addSchema(json: JsValue)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[HttpResponse] = {
-    Logger.debug(s"[DynamicStubConnector][addSchema] Json: $json")
+    logger.debug(s"[DynamicStubConnector][addSchema] Json: $json")
     httpClient.POST(s"$dynamicStub/schema", json)(implicitly, DynamicStubReads, hc, ec)
   }
 

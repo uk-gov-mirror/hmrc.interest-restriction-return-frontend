@@ -19,8 +19,7 @@ package utils
 import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.BaseMessages
 import base.SpecBase
-import models.{CheckMode, ReviewMode}
-import pages.groupLevelInformation.InterestReactivationsCapPage
+import models.ReviewMode
 import pages.ukCompanies.UkCompaniesPage
 import viewmodels.SummaryListRowHelper
 

@@ -20,7 +20,6 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.UltimateParentCompany
 import navigation.UltimateParentCompanyNavigator
@@ -32,8 +31,6 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersUltimateParentCompanyHelper
 import views.html.CheckYourAnswersView
 
-import scala.concurrent.ExecutionContext
-
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
                                                      override val sessionRepository: SessionRepository,
                                                      override val navigator: UltimateParentCompanyNavigator,
@@ -44,7 +41,7 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      view: CheckYourAnswersView
-                                                    )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                                    )(implicit appConfig: FrontendAppConfig)
   extends BaseNavigationController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {

@@ -32,7 +32,7 @@ import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesApi,
                                             override val navigator: ReviewAndCompleteNavigator,
@@ -44,7 +44,7 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ReviewAndCompleteView
-                                           )(implicit ec: ExecutionContext, appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseNavigationController with I18nSupport with FeatureSwitching {
 
 
