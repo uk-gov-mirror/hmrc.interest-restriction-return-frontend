@@ -83,8 +83,3 @@ lazy val testSettings: Seq[Def.Setting[_]] = Seq(
     "-Dlogger.resource=logback-test.xml"
   )
 )
-
-lazy val playRoutesSettings = {
-  import play.sbt.routes.RoutesKeys
-  RoutesKeys.routesImport := Seq.empty
-}

@@ -48,21 +48,25 @@ object SessionCookieBaker extends IntegrationSpecBase {
     s"""mdtp="$encrypted"; Path=/; HTTPOnly"; Path=/; HTTPOnly"""
   }
 
-  private def cookieData(additionalData: Map[String, String], timeStampRollback: Long): Map[String, String] = {
+  // private def cookieData(additionalData: Map[String, String], timeStampRollback: Long): Map[String, String] = {
 
-    val timeStamp = new java.util.Date().getTime
-    val rollbackTimestamp = (timeStamp - timeStampRollback).toString
+  //   val timeStamp = new java.util.Date().getTime
+  //   val rollbackTimestamp = (timeStamp - timeStampRollback).toString
 
-    Map(
-      SessionKeys.sessionId -> sessionId,
-      SessionKeys.userId -> userId,
-      SessionKeys.authToken -> "token",
-      SessionKeys.lastRequestTimestamp -> rollbackTimestamp,
-      SessionKeys.authToken -> "auth"
-    ) ++ additionalData
+  //   Map(
+  //     SessionKeys.sessionId -> sessionId,
+  //     SessionKeys.userId -> userId,
+  //     SessionKeys.authToken -> "token",
+  //     SessionKeys.lastRequestTimestamp -> rollbackTimestamp,
+  //     SessionKeys.authToken -> "auth"
+  //   ) ++ additionalData
+  // }
+
+  private def cookieData(additionalData: Map[String, String]): Map[String, String] = {
+    Map("authToken" -> "token") ++ additionalData
   }
 
   def bakeSessionCookie(additionalData: Map[String, String] = Map(), timeStampRollback: Long = 0): String = {
-    cookieValue(cookieData(additionalData, timeStampRollback))
+    cookieValue(cookieData(additionalData))//, timeStampRollback))
   }
 }

@@ -28,8 +28,7 @@ class SessionController @Inject()(override val messagesApi: MessagesApi,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
-                                       val controllerComponents: MessagesControllerComponents
-                                      )
+                                       val controllerComponents: MessagesControllerComponents)
   extends FrontendBaseController with I18nSupport with FeatureSwitching {
 
   def set(): Action[AnyContent] = (identify andThen getData andThen requireData) {
