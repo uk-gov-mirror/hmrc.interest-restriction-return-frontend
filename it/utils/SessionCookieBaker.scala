@@ -22,7 +22,6 @@ import java.util.UUID
 import play.api.Application
 import play.api.libs.crypto.CookieSigner
 import uk.gov.hmrc.crypto.{CompositeSymmetricCrypto, PlainText}
-import uk.gov.hmrc.http.SessionKeys
 
 object SessionCookieBaker extends IntegrationSpecBase {
   private val cookieKey = "gvBoGdgzqG1AarzF1LY0zQ=="
@@ -47,20 +46,6 @@ object SessionCookieBaker extends IntegrationSpecBase {
 
     s"""mdtp="$encrypted"; Path=/; HTTPOnly"; Path=/; HTTPOnly"""
   }
-
-  // private def cookieData(additionalData: Map[String, String], timeStampRollback: Long): Map[String, String] = {
-
-  //   val timeStamp = new java.util.Date().getTime
-  //   val rollbackTimestamp = (timeStamp - timeStampRollback).toString
-
-  //   Map(
-  //     SessionKeys.sessionId -> sessionId,
-  //     SessionKeys.userId -> userId,
-  //     SessionKeys.authToken -> "token",
-  //     SessionKeys.lastRequestTimestamp -> rollbackTimestamp,
-  //     SessionKeys.authToken -> "auth"
-  //   ) ++ additionalData
-  // }
 
   private def cookieData(additionalData: Map[String, String]): Map[String, String] = {
     Map("authToken" -> "token") ++ additionalData
