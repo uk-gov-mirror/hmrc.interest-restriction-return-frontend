@@ -110,8 +110,8 @@ reportingCompanyName.error.length = Reporting company name must be 160 character
 
 # ReportingCompanyAppointedPage Messages
 # ----------------------------------------------------------
-reportingCompanyAppointed.title = Has the reporting company been appointed
-reportingCompanyAppointed.heading = Has the reporting company been appointed
+reportingCompanyAppointed.title = Has the group appointed a reporting company?
+reportingCompanyAppointed.heading = Has the group appointed a reporting company?
 reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
