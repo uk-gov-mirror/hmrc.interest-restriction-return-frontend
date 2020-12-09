@@ -128,11 +128,12 @@ reportingCompanyRequired.p2 = before submitting a return
 
 # AgentActingOnBehalfOfCompanyPage Messages
 # ----------------------------------------------------------
-agentActingOnBehalfOfCompany.title = Are you an agent acting on behalf of a company?
-agentActingOnBehalfOfCompany.heading = Are you an agent acting on behalf of a company?
+agentActingOnBehalfOfCompany.subheading = About the return
+agentActingOnBehalfOfCompany.title = Are you an agent?
+agentActingOnBehalfOfCompany.heading = Are you an agent?
 agentActingOnBehalfOfCompany.checkYourAnswersLabel = Agent
 agentActingOnBehalfOfCompany.error.required = Select yes if you are an agent acting on behalf of a company
-
+agentActingOnBehalfOfCompany.p1 = The group can nominate an agent to complete the return on their behalf.
 
 # AgentNamePage Messages
 # ----------------------------------------------------------

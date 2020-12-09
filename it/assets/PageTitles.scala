@@ -61,7 +61,7 @@ object PageTitles {
   val interestReactivationsCap = "What is the group reactivation cap?"
   val returnContainEstimates = "Does the return contain estimates?"
   val revisingReturn = "Are you revising a return you have already submitted?"
-  val agentActingOnBehalfOfCompany = "Are you an agent acting on behalf of a company?"
+  val agentActingOnBehalfOfCompany = "Are you an agent?"
   val agentName = "Agent name"
   val fullOrAbbreviatedReturn = "Do you want to submit a full or abbreviated return?"
   val reportingCompanyAppointed = "Has the group appointed a reporting company?"
