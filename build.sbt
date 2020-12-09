@@ -11,6 +11,7 @@ val silencerVersion = "1.7.0"
 resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtDistributablesPlugin, SbtArtifactory)
+  .disablePlugins(JUnitXmlReportPlugin) //Required to prevent https://github.com/scalatest/scalatest/issues/1427
   .settings(DefaultBuildSettings.scalaSettings: _*)
   .settings(DefaultBuildSettings.defaultSettings(): _*)
   .settings(SbtDistributablesPlugin.publishingSettings: _*)
