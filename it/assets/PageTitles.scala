@@ -65,7 +65,7 @@ object PageTitles {
   val agentName = "Agent name"
   val fullOrAbbreviatedReturn = "Do you want to submit a full or abbreviated return?"
   val reportingCompanyAppointed = "Has the group appointed a reporting company?"
-  val reportingCompanyRequired = "A reporting company is required"
+  val reportingCompanyRequired = "You need to appoint a reporting company"
   val confirmation = "Return submitted"
   val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
   val deemedParent = "Does the group have a ‘deemed’ parent company?"
