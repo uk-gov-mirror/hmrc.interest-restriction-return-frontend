@@ -135,7 +135,7 @@ agentActingOnBehalfOfCompany.p1 = The group can nominate an agent to complete th
 
 # AgentNamePage Messages
 # ----------------------------------------------------------
-agentName.title = Enter the name of the agent   
+agentName.title = Enter the name of the agent
 agentName.heading = Enter the name of the agent
 agentName.checkYourAnswersLabel = Enter the name of the agent
 agentName.label = Enter the name of the agent
