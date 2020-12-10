@@ -128,7 +128,6 @@ reportingCompanyRequired.p2 = before submitting a return
 
 # AgentActingOnBehalfOfCompanyPage Messages
 # ----------------------------------------------------------
-agentActingOnBehalfOfCompany.subheading = About the return
 agentActingOnBehalfOfCompany.title = Are you an agent?
 agentActingOnBehalfOfCompany.heading = Are you an agent?
 agentActingOnBehalfOfCompany.checkYourAnswersLabel = Agent
