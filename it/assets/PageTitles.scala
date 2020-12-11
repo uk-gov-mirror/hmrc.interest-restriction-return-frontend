@@ -60,7 +60,7 @@ object PageTitles {
   val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
   val interestReactivationsCap = "What is the group reactivation cap?"
   val returnContainEstimates = "Does the return contain estimates?"
-  val revisingReturn = "Are you revising a return you have already submitted?"
+  val revisingReturn = "Are you revising a return that has already been submitted?"
   val agentActingOnBehalfOfCompany = "Are you an agent?"
   val agentName = "Enter the name of the agent"
   val fullOrAbbreviatedReturn = "Do you want to submit a full or abbreviated return?"

@@ -183,10 +183,10 @@ fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 # RevisingReturnPage Messages
 # ----------------------------------------------------------
-revisingReturn.title = Are you revising a return you have already submitted?
-revisingReturn.heading = Are you revising a return you have already submitted?
-revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
-revisingReturn.error.required = Select yes if you revising a return you have already submitted
+revisingReturn.title = Are you revising a return that has already been submitted?
+revisingReturn.heading = Are you revising a return that has already been submitted?
+revisingReturn.checkYourAnswersLabel = Are you revising a return that has already been submitted?
+revisingReturn.error.required = Select yes if you are revising a return that has already been submitted?
 
 
 # GroupInterestCapacityPage Messages
