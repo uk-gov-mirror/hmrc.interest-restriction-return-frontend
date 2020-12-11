@@ -22,7 +22,7 @@ object CheckAnswersAboutReturnMessages {
 
   val reportingCompanyAppointed = "Reporting company appointed"
   val agentAppointed = "Agent"
-  val agentName = "Agent name"
+  val agentName = "Enter the name of the agent"
   val fullOrAbbreviatedReturn = "Type of return"
   val name = "Name"
   val ctutr = "CTUTR"
