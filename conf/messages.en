@@ -135,10 +135,10 @@ agentActingOnBehalfOfCompany.p1 = The group can nominate an agent to complete th
 
 # AgentNamePage Messages
 # ----------------------------------------------------------
-agentName.title = Agent name
-agentName.heading = Agent name
-agentName.checkYourAnswersLabel = Agent name
-agentName.label = Agent name
+agentName.title = Enter the name of the agent
+agentName.heading = Enter the name of the agent
+agentName.checkYourAnswersLabel = Enter the name of the agent
+agentName.label = Enter the name of the agent
 agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
 
