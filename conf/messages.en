@@ -137,7 +137,7 @@ agentActingOnBehalfOfCompany.p1 = The group can nominate an agent to complete th
 # ----------------------------------------------------------
 agentName.title = Enter the name of the agent
 agentName.heading = Enter the name of the agent
-agentName.checkYourAnswersLabel = Enter the name of the agent
+agentName.checkYourAnswersLabel = Agent name
 agentName.label = Enter the name of the agent
 agentName.error.required = Enter the agent’s name
 agentName.error.length = The agent’s name must be 160 characters or less
@@ -185,7 +185,7 @@ fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 # ----------------------------------------------------------
 revisingReturn.title = Are you revising a return that has already been submitted?
 revisingReturn.heading = Are you revising a return that has already been submitted?
-revisingReturn.checkYourAnswersLabel = Are you revising a return that has already been submitted?
+revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
 revisingReturn.error.required = Select yes if you are revising a return that has already been submitted?
 
 
