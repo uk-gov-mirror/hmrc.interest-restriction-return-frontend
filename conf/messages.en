@@ -101,6 +101,7 @@ reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid che
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------
 reportingCompanyName.title = Enter the name of the reporting company
+reportingCompanyName.heading = Enter the name of the reporting company
 reportingCompanyName.checkYourAnswersLabel = Name
 reportingCompanyName.label = Enter the name of the reporting company
 reportingCompanyName.error.required = Enter Reporting company name
