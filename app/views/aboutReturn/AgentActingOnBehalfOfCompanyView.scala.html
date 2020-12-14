@@ -40,9 +40,7 @@
 
         @subheading("section.aboutReturn")
 
-        @yesNoRadio(form, "agentActingOnBehalfOfCompany.heading")
-
-        <p class="govuk-caption-m">@messages("agentActingOnBehalfOfCompany.p1") </p>
+        @yesNoRadio(form, "agentActingOnBehalfOfCompany.heading", Some("agentActingOnBehalfOfCompany.p1"))
 
         @button("site.saveAndContinue")
 
