@@ -36,7 +36,7 @@ class PartnershipNameFormProviderSpec extends StringFieldBehaviours {
       fieldName,
       stringsWithMaxLength(maxLength)
     )
-
+ 
     behave like fieldWithMaxLength(
       form,
       fieldName,
