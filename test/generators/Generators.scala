@@ -18,11 +18,14 @@ package generators
 
 import java.time.{Instant, LocalDate, ZoneOffset}
 
+import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary._
 import org.scalacheck.Gen._
 import org.scalacheck.{Gen, Shrink}
 
 trait Generators extends UserAnswersGenerator with PageGenerators with ModelGenerators with UserAnswersEntryGenerators {
+
+  lazy val unicodeCharArbitrary = Arbitrary(Gen.oneOf((Char.MinValue to Char.MaxValue).filter(_.toChar.isValidChar)))
 
   implicit val dontShrink: Shrink[String] = Shrink.shrinkAny
 
@@ -92,13 +95,13 @@ trait Generators extends UserAnswersGenerator with PageGenerators with ModelGene
   def stringsWithMaxLength(maxLength: Int): Gen[String] =
     for {
       length <- choose(1, maxLength)
-      chars <- listOfN(length, arbitrary[Char])
+      chars <- listOfN(length, unicodeCharArbitrary)
     } yield chars.mkString
 
   def stringsLongerThan(minLength: Int): Gen[String] = for {
     maxLength <- (minLength * 2).max(100)
     length    <- Gen.chooseNum(minLength + 1, maxLength)
-    chars     <- listOfN(length, arbitrary[Char])
+    chars     <- listOfN(length, unicodeCharArbitrary)
   } yield chars.mkString
 
   def stringsExceptSpecificValues(excluded: Seq[String]): Gen[String] =
