@@ -120,7 +120,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf("UK Tax reference")
+              titleOf("Enter the Corporation Tax Unique Taxpayer Reference for the reporting company - About the return - Interest Restriction Return - GOV.UK")
             )
           }
         }
