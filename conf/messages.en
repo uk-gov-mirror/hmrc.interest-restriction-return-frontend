@@ -102,7 +102,6 @@ reportingCompanyCTUTR.p2 = It will be on tax returns and other letters about Sel
 reportingCompanyCTUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''. You can
 reportingCompanyCTUTR.p4 = find a lost UTR number (opens in a new window or tab).
 
-
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------
 reportingCompanyName.title = Enter the name of the reporting company

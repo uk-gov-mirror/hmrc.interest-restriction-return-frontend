@@ -41,21 +41,13 @@
 
         @subheading("section.aboutReturn")
 
-        @h1("reportingCompanyCTUTR.heading")
-
-        <p class="govuk-caption-m">
-            @messages("reportingCompanyCTUTR.p1")
-            @messages("reportingCompanyCTUTR.p2")
-            @messages("reportingCompanyCTUTR.p3")
-            <a href="@appConfig.findLostUTRUrl">@messages("reportingCompanyCTUTR.p4")</a>
-        </p>
-
         @inputText(
             form,
             id = "value",
             name = "value",
-            label = "",
+            label = "reportingCompanyCTUTR.heading",
             isPageHeading = true,
+            hint = Some(hint),
             classes = Some("govuk-input--width-10")
         )
 
@@ -63,4 +55,11 @@
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @messages("reportingCompanyCTUTR.p1")
+    @messages("reportingCompanyCTUTR.p2")
+    @messages("reportingCompanyCTUTR.p3")
+    <a href="@appConfig.findLostUTRUrl" target="_blank">@messages("reportingCompanyCTUTR.p4")</a>
 }
