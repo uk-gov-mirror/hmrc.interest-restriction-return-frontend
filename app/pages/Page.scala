@@ -47,7 +47,8 @@ object Page {
     ReportingCompanyCTUTRPage,
     RevisingReturnPage,
     IndexPage,
-    CheckAnswersReportingCompanyPage
+    CheckAnswersReportingCompanyPage,
+    TellUsWhatHasChangedPage
   )
 
   val groupLevelInformationSectionPages: Seq[Page] = List(
