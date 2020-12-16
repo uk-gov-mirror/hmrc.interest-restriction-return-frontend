@@ -37,3 +37,4 @@ bin
 *.iws
 .metals
 .vscode
+.bloop

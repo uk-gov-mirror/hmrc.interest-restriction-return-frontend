@@ -44,7 +44,7 @@ class TellUsWhatHasChangedViewSpec extends StringViewBehaviours  {
 
       behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
 
-      behave like stringPage(form, applyView, messageKeyPrefix, routes.TellUsWhatHasChangedController.onSubmit(NormalMode).url, section = section)
+      behave like stringPage(form, applyView, messageKeyPrefix, routes.TellUsWhatHasChangedController.onSubmit(NormalMode).url, section = section, textArea = true)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

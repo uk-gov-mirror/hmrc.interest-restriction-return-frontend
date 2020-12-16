@@ -23,7 +23,7 @@
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
     button: components.button,
-    inputText: components.inputText,
+    textArea: components.textArea,
     h1: components.h1,
     fieldset: components.fieldset,
     link: components.link,
@@ -41,12 +41,11 @@
 
         @subheading("section.aboutReturn")
 
-            @inputText(
+            @textArea(
               form,
               id = "value",
               name = "value",
-              label = "tellUsWhatHasChanged.label",
-              isPageHeading = true
+              label = "tellUsWhatHasChanged.label"
             )
 
         @button("site.saveAndContinue")
