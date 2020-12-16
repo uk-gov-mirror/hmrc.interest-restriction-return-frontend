@@ -51,7 +51,7 @@ object PageTitles {
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
   val groupRatioElection = "Are you making a group ratio election?"
   val checkAnswersAboutReturn = "Check answers - About the return"
-  val reportingCompanyCTUTR = "UK Tax reference"
+  val reportingCompanyCTUTR = "Enter the Corporation Tax Unique Taxpayer Reference for the reporting company"
   val reportingCompanyName = "Enter the name of the reporting company"
   val groupInterestAllowance = "What is the group interest allowance for the period?"
   val groupInterestCapacity = "What is the group interest capacity for the period?"
