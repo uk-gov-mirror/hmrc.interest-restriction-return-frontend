@@ -15,15 +15,18 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.ViewUtils._
 
 @this(govukErrorSummary: GovukErrorSummary)
 
-@(errors: Seq[FormError], errorFieldName: Option[String] = None)(implicit messages: Messages)
+@(errors: Seq[FormError], errorFieldName: Option[String] = None, errorFieldMap: Map[String, String] = Map.empty)(implicit messages: Messages)
 
 @if(errors.nonEmpty) {
     @defining(errors.map { error =>
+        val errorField = getErrorField(error, errorFieldName, errorFieldMap)
+
         ErrorLink(
-            href = Some(s"#${errorFieldName.getOrElse(error.key)}"),
+            href = Some(s"#$errorField"),
             content = Text(messages(error.message, error.args:_*))
         )
     }) { errorLinks =>

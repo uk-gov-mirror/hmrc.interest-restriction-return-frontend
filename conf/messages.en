@@ -788,7 +788,7 @@ accountingPeriod.start.error.required.two = You must enter a valid date
 accountingPeriod.start.error.required.all = You must enter a valid date
 accountingPeriod.start.error.range.above = Start Date can’t be in the future
 accountingPeriod.start.error.range.below = Start Date can’t be before 01 01 2000
-accountingPeriod.start.hint = For example, 27 3 2007
+accountingPeriod.start.hint = For example, 27 3 2019
 accountingPeriod.end.legend = End date
 accountingPeriod.end.checkYourAnswersLabel = When does the worldwide period of account end?
 accountingPeriod.end.error.required = You must enter a valid date
@@ -796,7 +796,7 @@ accountingPeriod.end.error.invalid = You must enter a valid date
 accountingPeriod.end.error.required.two = You must enter a valid date
 accountingPeriod.end.error.required.all = You must enter a valid date
 accountingPeriod.end.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
-accountingPeriod.end.hint = For example, 27 3 2007
+accountingPeriod.end.hint = For example, 27 6 2019
 
 # PartnershipsReviewAnswersListPage Messages
 # ----------------------------------------------------------

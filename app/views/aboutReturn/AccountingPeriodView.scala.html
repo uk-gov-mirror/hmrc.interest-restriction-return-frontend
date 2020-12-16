@@ -39,7 +39,11 @@
 
     @formHelper(action = AccountingPeriodController.onSubmit(mode), 'autoComplete -> "on") {
 
-        @errorSummary(form.errors, Some("date-value.day"))
+        @errorSummary(
+            form.errors, 
+            Some("startValue-startValue.day"), 
+            Map("accountingPeriod.start" -> "startValue-startValue.day", "accountingPeriod.end" -> "endValue-endValue.day")
+        )
 
         @subheading("section.aboutReturn")
 
