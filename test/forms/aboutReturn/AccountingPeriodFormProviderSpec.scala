@@ -62,14 +62,14 @@ class AccountingPeriodFormProviderSpec extends FieldBehaviours {
       val model = AccountingPeriodModel(min.minusDays(1L), min)
       val errors = fillForm(form, model).errors
       errors.length mustBe 1
-      errors.head mustBe FormError("startValue", "accountingPeriod.start.error.range.below")
+      errors.head mustBe FormError("", "accountingPeriod.start.error.range.below")
     }
 
     "fail validation if 1 day in the future" in {
       val model = AccountingPeriodModel(now.plusDays(1L), now.plusDays(2L))
       val errors = fillForm(form, model).errors
       errors.length mustBe 1
-      errors.head mustBe FormError("startValue", "accountingPeriod.start.error.range.above")
+      errors.head mustBe FormError("", "accountingPeriod.start.error.range.above")
     }
 
   }
