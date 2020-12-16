@@ -70,7 +70,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
         "enters true" when {
 
-          "redirect to UnderConstruction page" in {
+          "redirect to Tell Us What Has Changed Page page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +79,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.aboutReturn.routes.TellUsWhatHasChangedController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -87,7 +87,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
         "enters false" when {
 
-          "redirect to InfrastructureCompanyElection page" in {
+          "redirect to Reporting Company Name page" in {
 
             AuthStub.authorised()
 
