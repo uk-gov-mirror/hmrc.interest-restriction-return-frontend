@@ -58,8 +58,8 @@ trait IntegrationSpecBase extends WordSpec
   override def beforeEach(): Unit = {
     resetWiremock()
     AuthStub.authorised()
-    Await.result(mongo.delete(UserAnswers("id")), Duration(2, TimeUnit.SECONDS))
-    Await.result(mongo.set(UserAnswers("id")), Duration(2, TimeUnit.SECONDS))
+    Await.result(mongo.delete(UserAnswers("id")), Duration(5, TimeUnit.SECONDS))
+    Await.result(mongo.set(UserAnswers("id")), Duration(5, TimeUnit.SECONDS))
   }
 
   override def beforeAll(): Unit = {
