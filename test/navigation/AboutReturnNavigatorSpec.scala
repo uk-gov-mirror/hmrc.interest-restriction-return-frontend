@@ -207,7 +207,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
           val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
 
-          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe controllers.routes.UnderConstructionController.onPageLoad()
+          navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(NormalMode)
         }
 
         "go to the Reporting company name page when no selected to revising a return" in {
@@ -215,6 +215,13 @@ class AboutReturnNavigatorSpec extends SpecBase {
           val userAnswers = emptyUserAnswers.set(RevisingReturnPage, false).get
 
           navigator.nextPage(RevisingReturnPage, NormalMode, userAnswers) mustBe
+            aboutReturnRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Tell Us What Has Changed page" should {
+        "Go to the reporting name company page" in {
+          navigator.nextPage(TellUsWhatHasChangedPage, NormalMode, emptyUserAnswers) mustBe
             aboutReturnRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
         }
       }
