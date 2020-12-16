@@ -34,7 +34,7 @@ class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with Creat
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/aboutReturn/tell-us-what-has-changed")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/aboutReturn/tell-us-what-has-changed")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed")()
 
           whenReady(res) { result =>
             result should have(
@@ -69,18 +69,18 @@ class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with Creat
 
         "enters a valid answer" when {
 
-          "redirect to TellUsWhatHasChanged page" in {
+          "redirect to Reporting Company Name page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/aboutReturn/tell-us-what-has-changed", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.aboutReturn.routes.TellUsWhatHasChangedController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/about-the-return/tell-us-what-has-changed", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.aboutReturn.routes.ReportingCompanyNameController.onPageLoad(NormalMode).url)
+              )
+            }
           }
         }
       }
@@ -91,7 +91,7 @@ class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/aboutReturn/tell-us-what-has-changed", Json.obj("value" -> 1))()
+          val res = postRequest("/about-the-return/tell-us-what-has-changed", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -114,7 +114,7 @@ class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
 
-          val res = getRequest("/aboutReturn/tell-us-what-has-changed/change")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/aboutReturn/tell-us-what-has-changed/change")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed/change")()
 
           whenReady(res) { result =>
             result should have(
