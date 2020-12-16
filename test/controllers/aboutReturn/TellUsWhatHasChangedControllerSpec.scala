@@ -77,6 +77,7 @@ class TellUsWhatHasChangedControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 
