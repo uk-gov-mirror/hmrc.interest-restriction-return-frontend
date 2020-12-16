@@ -75,7 +75,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
       CheckAnswersAboutReturnMessages.reportingCompanyAppointed -> "Yes",
       CheckAnswersAboutReturnMessages.agentAppointed -> "Yes",
       CheckAnswersAboutReturnMessages.agentName -> agentName,
-      CheckAnswersAboutReturnMessages.fullOrAbbreviatedReturn -> "Full",
+      CheckAnswersAboutReturnMessages.fullOrAbbreviatedReturn -> "Full return",
       CheckAnswersAboutReturnMessages.name -> companyNameModel.name,
       CheckAnswersAboutReturnMessages.ctutr -> ctutrModel.utr,
       CheckAnswersAboutReturnMessages.accountingPeriodStart -> accountingPeriodModel.startDate,
