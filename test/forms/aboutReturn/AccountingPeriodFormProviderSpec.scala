@@ -28,7 +28,7 @@ class AccountingPeriodFormProviderSpec extends FieldBehaviours {
 
   val form = new AccountingPeriodFormProvider()()
   val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
-  val min = LocalDate.of(2000, 1, 1)
+  val min = LocalDate.of(2016, 10, 1)
 
   "The dates in the form" should {
 
