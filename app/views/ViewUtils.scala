@@ -18,6 +18,7 @@ package views
 
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.data.FormError
 
 object ViewUtils {
 
@@ -39,4 +40,20 @@ object ViewUtils {
       case _ => s"$name’s"
     }
   }
+
+  def getErrorField(error: FormError, errorFieldName: Option[String], prefixToFieldMap: Map[String, String]): String = 
+    getErrorFieldFromPrefixes(error, prefixToFieldMap).getOrElse(             
+        errorFieldName.getOrElse(
+          error.key
+        )
+    )
+
+  def getErrorFieldFromPrefixes(error: FormError, prefixToFieldMap: Map[String, String]): Option[String] = {
+    def predicate(prefixFieldTup: (String, String)): Boolean = {
+      val (messagePrefix, errorField) = prefixFieldTup
+      messagePrefix.r.findFirstIn(error.message).isDefined
+    }
+    prefixToFieldMap.find(predicate).map(_._2)
+  }
+  
 }

@@ -25,11 +25,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.RestrictionAmountSameAPFormProvider
 import models.NormalMode
+import models.returnModels.AccountingPeriodModel
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.RestrictionAmountSameAPView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import pages.aboutReturn.AccountingPeriodEndPage
+import pages.aboutReturn.AccountingPeriodPage
 
 class RestrictionAmountSameAPControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -89,7 +90,7 @@ class RestrictionAmountSameAPControllerSpec extends SpecBase with FeatureSwitchi
 
       mockGetAnswers(Some(emptyUserAnswers
         .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-        .set(AccountingPeriodEndPage, endDate).get
+        .set(AccountingPeriodPage, AccountingPeriodModel(endDate.minusMonths(1L), endDate)).get
       ))
 
       mockSetAnswers
@@ -107,7 +108,7 @@ class RestrictionAmountSameAPControllerSpec extends SpecBase with FeatureSwitchi
 
       mockGetAnswers(Some(emptyUserAnswers
         .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-        .set(AccountingPeriodEndPage, endDate).get
+        .set(AccountingPeriodPage, AccountingPeriodModel(endDate.minusMonths(1L), endDate)).get
       ))
 
       val result = Controller.onSubmit(1, NormalMode)(request)

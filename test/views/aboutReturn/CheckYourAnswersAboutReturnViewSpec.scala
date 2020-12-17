@@ -44,8 +44,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
     .set(FullOrAbbreviatedReturnPage, Full).get
     .set(ReportingCompanyNamePage, companyNameModel.name).get
     .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
-    .set(AccountingPeriodStartPage, accountingPeriodModel.startDate).get
-    .set(AccountingPeriodEndPage, accountingPeriodModel.endDate).get
+    .set(AccountingPeriodPage, accountingPeriodModel).get
 
   val checkYourAnswersHelper = new CheckYourAnswersAboutReturnCompanyHelper(userAnswers)
 

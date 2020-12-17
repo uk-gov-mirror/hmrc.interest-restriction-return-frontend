@@ -17,15 +17,15 @@
 package controllers.ukCompanies
 
 import assets.UkCompanyITConstants.ukCompanyModelMax
-import assets.AccountingPeriodITConstants.endDate
+import assets.AccountingPeriodITConstants.{startDate, endDate}
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
-import pages.aboutReturn.AccountingPeriodEndPage
+import pages.aboutReturn.AccountingPeriodPage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import models.returnModels.AccountingPeriodModel
 
 class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -80,7 +80,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
             AuthStub.authorised()
             setAnswers(emptyUserAnswers
               .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-              .set(AccountingPeriodEndPage, endDate).get
+              .set(AccountingPeriodPage, AccountingPeriodModel(startDate, endDate)).get
             )
 
             val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
@@ -165,7 +165,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
             AuthStub.authorised()
             setAnswers(emptyUserAnswers
               .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-              .set(AccountingPeriodEndPage, endDate).get
+              .set(AccountingPeriodPage, AccountingPeriodModel(startDate, endDate)).get
             )
 
             val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period/change", Json.obj("value" -> 123456))()

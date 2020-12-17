@@ -49,9 +49,8 @@ class AboutReturnNavigator @Inject()() extends Navigator {
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     }),
     ReportingCompanyNamePage -> (_ => aboutReturnRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
-    ReportingCompanyCTUTRPage -> (_ => aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)),
-    AccountingPeriodStartPage -> (_ => aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)),
-    AccountingPeriodEndPage -> (_ => checkAnswers),
+    ReportingCompanyCTUTRPage -> (_ => aboutReturnRoutes.AccountingPeriodController.onPageLoad(NormalMode)),
+    AccountingPeriodPage -> (_ => checkAnswers),
     CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
   )
 

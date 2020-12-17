@@ -19,21 +19,22 @@ package pages.groupLevelInformation
 import java.time.LocalDate
 
 import org.scalacheck.Arbitrary
-import pages.aboutReturn.AccountingPeriodStartPage
+import pages.aboutReturn.AccountingPeriodPage
 import pages.behaviours.PageBehaviours
+import models.returnModels.AccountingPeriodModel
 
-class AccountingPeriodStartPageSpec extends PageBehaviours {
+class AccountingPeriodPageSpec extends PageBehaviours {
 
-  "AccountingPeriodStartPage" must {
+  "AccountingPeriodPage" must {
 
-    implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
-      datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
+    implicit lazy val arbitraryLocalDate: Arbitrary[AccountingPeriodModel] = Arbitrary {
+      datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1)).map(date => AccountingPeriodModel(date, date))
     }
 
-    beRetrievable[LocalDate](AccountingPeriodStartPage)
+    beRetrievable[AccountingPeriodModel](AccountingPeriodPage)
 
-    beSettable[LocalDate](AccountingPeriodStartPage)
+    beSettable[AccountingPeriodModel](AccountingPeriodPage)
 
-    beRemovable[LocalDate](AccountingPeriodStartPage)
+    beRemovable[AccountingPeriodModel](AccountingPeriodPage)
   }
 }

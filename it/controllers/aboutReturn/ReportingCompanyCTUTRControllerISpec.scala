@@ -79,7 +79,7 @@ class ReportingCompanyCTUTRControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.AccountingPeriodStartController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.aboutReturn.routes.AccountingPeriodController.onPageLoad(NormalMode).url)
               )
             }
           }
