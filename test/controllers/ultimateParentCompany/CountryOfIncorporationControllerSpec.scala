@@ -85,7 +85,7 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "redirect to the next page when No data is submitted" in {
+    "return a Bad Request and errors when No data is submitted" in {
 
       val userAnswers = emptyUserAnswers
         .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
@@ -93,12 +93,10 @@ class CountryOfIncorporationControllerSpec extends SpecBase with FeatureSwitchin
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
       mockGetAnswers(Some(userAnswers))
-      mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      status(result) mustBe BAD_REQUEST
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

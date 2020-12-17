@@ -397,7 +397,7 @@ countryOfIncorporation.heading = Where is {0} registered for tax?
 countryOfIncorporation.checkYourAnswersLabel = Registered for tax in
 countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.invalid = Enter a valid country
-countryOfIncorporation.hint = (Optional)
+countryOfIncorporation.error.required = Enter a country
 
 # CheckAnswersGroupStructurePage Messages
 # ----------------------------------------------------------
