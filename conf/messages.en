@@ -181,7 +181,7 @@ fullOrAbbreviatedReturn.title = Are you submitting a full or abbreviated return?
 fullOrAbbreviatedReturn.heading = Are you submitting a full or abbreviated return?
 fullOrAbbreviatedReturn.full = Full return
 fullOrAbbreviatedReturn.abbreviated = Abbreviated return
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Full or abbreviated return
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
