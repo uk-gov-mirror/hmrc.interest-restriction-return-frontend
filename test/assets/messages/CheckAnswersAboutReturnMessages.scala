@@ -28,4 +28,5 @@ object CheckAnswersAboutReturnMessages {
   val ctutr = "Reporting company Corporation Tax Unique Taxpayer Reference"
   val accountingPeriodStart = "Worldwide period of account start date"
   val accountingPeriodEnd = "Worldwide period of account end date"
+  val revisingReturn = "Revised return"
 }
