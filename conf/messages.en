@@ -177,11 +177,11 @@ infrastructureCompanyElection.error.required = Select yes if the group has made 
 
 # FullOrAbbreviatedReturnPage Messages
 # ----------------------------------------------------------
-fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.full = Full
-fullOrAbbreviatedReturn.abbreviated = Abbreviated
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Full or abbreviated return
+fullOrAbbreviatedReturn.title = Are you submitting a full or abbreviated return?
+fullOrAbbreviatedReturn.heading = Are you submitting a full or abbreviated return?
+fullOrAbbreviatedReturn.full = Full return
+fullOrAbbreviatedReturn.abbreviated = Abbreviated return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
