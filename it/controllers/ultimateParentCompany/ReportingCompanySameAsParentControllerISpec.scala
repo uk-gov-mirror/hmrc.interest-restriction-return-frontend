@@ -44,7 +44,7 @@ it
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.reportingCompanySameAsParent(companyName))
+                titleOf(PageTitles.reportingCompanySameAsParent)
               )
             }
           }
@@ -180,7 +180,7 @@ it
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.reportingCompanySameAsParent(companyName))
+                titleOf(PageTitles.reportingCompanySameAsParent)
               )
             }
           }
