@@ -25,8 +25,6 @@ object CheckAnswersGroupLevelInformationMessages {
   val groupInterestCapacity = "Group interest capacity"
   val groupSubjectToRestrictions = "Is the group subject to restrictions?"
   val interestReactivationsCap = "Interest Reactivations Cap"
-  val revisingReturn = "Are you revising a return you have already submitted?"
   val groupSubjectToReactivations = "Is the group subject to reactivations?"
   val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
-
 }
