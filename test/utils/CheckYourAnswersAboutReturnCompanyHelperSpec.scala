@@ -24,6 +24,7 @@ import base.SpecBase
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import models.FullOrAbbreviatedReturn.Full
 import models.{CheckMode, UserAnswers}
+import models.returnModels.AccountingPeriodModel
 import pages.aboutReturn._
 import pages.groupLevelInformation.RevisingReturnPage
 import pages.aboutReturn.ReportingCompanyAppointedPage
@@ -42,8 +43,7 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
       .set(RevisingReturnPage, true).get
       .set(ReportingCompanyNamePage, companyNameModel.name).get
       .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
-      .set(AccountingPeriodStartPage, date).get
-      .set(AccountingPeriodEndPage, date.plusMonths(1)).get
+      .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
   )
 
   "Check Your Answers Helper" must {
@@ -137,9 +137,9 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
       "get an answer from useranswers for a date" in {
 
         helper.accountingPeriodStart mustBe Some(summaryListRow(
-          messages("accountingPeriodStart.checkYourAnswersLabel"),
+          messages("accountingPeriod.start.checkYourAnswersLabel"),
           "1 January 2020",
-          aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -149,9 +149,9 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
       "get an answer from useranswers for a date" in {
 
         helper.accountingPeriodEnd mustBe Some(summaryListRow(
-          messages("accountingPeriodEnd.checkYourAnswersLabel"),
+          messages("accountingPeriod.end.checkYourAnswersLabel"),
           "1 February 2020",
-          aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

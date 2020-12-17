@@ -221,24 +221,16 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "from the ReportingCompanyCTUTRPage" should {
 
-        "go to the AccountingPeriodStartPage" in {
+        "go to the AccountingPeriodPage" in {
           navigator.nextPage(ReportingCompanyCTUTRPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(NormalMode)
+            aboutReturnRoutes.AccountingPeriodController.onPageLoad(NormalMode)
         }
       }
 
-      "from the AccountingPeriodStartPage" should {
-
-        "go to the AccountingPeriodEndPage" in {
-          navigator.nextPage(AccountingPeriodStartPage, NormalMode, emptyUserAnswers) mustBe
-            aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the AccountingPeriodEndPage" should {
+      "from the AccountingPeriodPage" should {
 
         "go to the CheckAnswersReportingCompany" in {
-          navigator.nextPage(AccountingPeriodEndPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(AccountingPeriodPage, NormalMode, emptyUserAnswers) mustBe
             aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
@@ -259,13 +251,8 @@ class AboutReturnNavigatorSpec extends SpecBase {
           aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
       }
 
-      "from AccountingPeriodStartPage go to Reporting Company CheckYourAnswers" in {
-        navigator.nextPage(AccountingPeriodStartPage, CheckMode, emptyUserAnswers) mustBe
-          aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
-      }
-
-      "from AccountingPeriodEndPage go to Reporting Company CheckYourAnswers" in {
-        navigator.nextPage(AccountingPeriodEndPage, CheckMode, emptyUserAnswers) mustBe
+      "from AccountingPeriodPage go to Reporting Company CheckYourAnswers" in {
+        navigator.nextPage(AccountingPeriodPage, CheckMode, emptyUserAnswers) mustBe
           aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
       }
 

@@ -49,11 +49,8 @@ trait PageGenerators {
   implicit lazy val arbitraryReactivationAmountPage: Arbitrary[ReactivationAmountPage.type] =
     Arbitrary(ReactivationAmountPage)
 
-  implicit lazy val arbitraryAccountingPeriodStartPage: Arbitrary[AccountingPeriodStartPage.type] =
-    Arbitrary(AccountingPeriodStartPage)
-
-  implicit lazy val arbitraryAccountingPeriodEndPage: Arbitrary[AccountingPeriodEndPage.type] =
-    Arbitrary(AccountingPeriodEndPage)
+  implicit lazy val arbitraryAccountingPeriodPage: Arbitrary[AccountingPeriodPage.type] =
+    Arbitrary(AccountingPeriodPage)
 
   implicit lazy val arbitraryReviewAndCompletePage: Arbitrary[ReviewAndCompletePage.type] =
     Arbitrary(ReviewAndCompletePage)

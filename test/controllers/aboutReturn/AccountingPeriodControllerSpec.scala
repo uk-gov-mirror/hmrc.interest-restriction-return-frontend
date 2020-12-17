@@ -22,22 +22,25 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
-import forms.aboutReturn.AccountingPeriodStartFormProvider
+import forms.aboutReturn.AccountingPeriodFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.AccountingPeriodStartPage
 import play.api.test.Helpers._
-import views.html.aboutReturn.AccountingPeriodStartView
+import views.html.aboutReturn.AccountingPeriodView
+import models.returnModels.AccountingPeriodModel
+import pages.aboutReturn.AccountingPeriodPage
 
-class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class AccountingPeriodControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[AccountingPeriodStartView]
-  val formProvider = injector.instanceOf[AccountingPeriodStartFormProvider]
+  val view = injector.instanceOf[AccountingPeriodView]
+  val formProvider = injector.instanceOf[AccountingPeriodFormProvider]
   val form = formProvider()
 
-  val validAnswer = LocalDate.now(ZoneOffset.UTC)
+  val validStartDate = LocalDate.now(ZoneOffset.UTC)
+  val validEndDate = LocalDate.now(ZoneOffset.UTC).plusMonths(1L)
+  val validAnswer = AccountingPeriodModel(validStartDate, validEndDate)
 
-  object Controller extends AccountingPeriodStartController(
+  object Controller extends AccountingPeriodController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
@@ -51,7 +54,7 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
     view = view
   )
 
-  "AccountingPeriodStart Controller" must {
+  "AccountingPeriod Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -66,7 +69,7 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(AccountingPeriodStartPage, validAnswer).success.value
+      val userAnswers = emptyUserAnswers.set(AccountingPeriodPage, validAnswer).success.value
 
       mockGetAnswers(Some(userAnswers))
 
@@ -78,9 +81,12 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
+        "startValue.day" -> validStartDate.getDayOfMonth.toString,
+        "startValue.month" -> validStartDate.getMonthValue.toString,
+        "startValue.year" -> validStartDate.getYear.toString,
+        "endValue.day" -> validEndDate.getDayOfMonth.toString,
+        "endValue.month" -> validEndDate.getMonthValue.toString,
+        "endValue.year" -> validEndDate.getYear.toString
       )
 
       mockGetAnswers(Some(emptyUserAnswers))
@@ -116,9 +122,12 @@ class AccountingPeriodStartControllerSpec extends SpecBase with FeatureSwitching
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
+        "startValue.day" -> validStartDate.getDayOfMonth.toString,
+        "startValue.month" -> validStartDate.getMonthValue.toString,
+        "startValue.year" -> validStartDate.getYear.toString,
+        "endValue.day" -> validEndDate.getDayOfMonth.toString,
+        "endValue.month" -> validEndDate.getMonthValue.toString,
+        "endValue.year" -> validEndDate.getYear.toString
       )
 
       mockGetAnswers(None)

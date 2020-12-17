@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
+package pages.aboutReturn
 
-import java.time.LocalDate
+import pages.QuestionPage
+import play.api.libs.json.JsPath
+import models.returnModels.AccountingPeriodModel
 
-import org.scalacheck.Arbitrary
-import pages.aboutReturn.AccountingPeriodEndPage
-import pages.behaviours.PageBehaviours
+case object AccountingPeriodPage extends QuestionPage[AccountingPeriodModel] {
 
-class AccountingPeriodEndPageSpec extends PageBehaviours {
+  override def path: JsPath = JsPath \ toString
 
-  "AccountingPeriodEndPage" must {
-
-    implicit lazy val arbitraryLocalDate: Arbitrary[LocalDate] = Arbitrary {
-      datesBetween(LocalDate.of(1900, 1, 1), LocalDate.of(2100, 1, 1))
-    }
-
-    beRetrievable[LocalDate](AccountingPeriodEndPage)
-
-    beSettable[LocalDate](AccountingPeriodEndPage)
-
-    beRemovable[LocalDate](AccountingPeriodEndPage)
-  }
+  override def toString: String = "accountingPeriod"
 }

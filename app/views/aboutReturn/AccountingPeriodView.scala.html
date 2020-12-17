@@ -24,25 +24,46 @@
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     errorSummary: components.errorSummary,
-    inputDate: components.inputDate,
+    inputDateRange: components.inputDateRange,
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
     button: components.button,
     link: components.link,
     subheading: components.subheading,
+    h1: components.h1,
     saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "accountingPeriodStart.title", Some("section.aboutReturn")))) {
+@govukLayout(pageTitle = Some(title(form, "accountingPeriod.title", Some("section.aboutReturn")))) {
 
-    @formHelper(action = AccountingPeriodStartController.onSubmit(mode), 'autoComplete -> "on") {
+    @formHelper(action = AccountingPeriodController.onSubmit(mode), 'autoComplete -> "on") {
 
-        @errorSummary(form.errors, Some("date-value.day"))
+        @errorSummary(
+            form.errors, 
+            Some("startValue-startValue.day"), 
+            Map("accountingPeriod.start" -> "startValue-startValue.day", "accountingPeriod.end" -> "endValue-endValue.day")
+        )
 
         @subheading("section.aboutReturn")
 
-        @inputDate(form, "accountingPeriodStart.heading")
+        @h1("accountingPeriod.heading")
+
+            @inputDateRange(
+                form = form,
+                legendContent = "accountingPeriod.start.legend",
+                id = "startValue",
+                hintText = Some("accountingPeriod.start.hint"),
+                errorPrefix = "accountingPeriod.start"
+            )
+
+            @inputDateRange(
+                form = form,
+                legendContent = "accountingPeriod.end.legend",
+                id = "endValue",
+                hintText = Some("accountingPeriod.end.hint"),
+                errorPrefix = "accountingPeriod.end"
+            )
 
         @button("site.saveAndContinue")
 

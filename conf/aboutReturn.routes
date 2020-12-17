@@ -22,19 +22,12 @@ POST       /ctutr                                       controllers.aboutReturn.
 GET        /ctutr/change                                controllers.aboutReturn.ReportingCompanyCTUTRController.onPageLoad(mode: Mode = CheckMode)
 POST       /ctutr/change                                controllers.aboutReturn.ReportingCompanyCTUTRController.onSubmit(mode: Mode = CheckMode)
 
-### AccountingPeriodStart Controller
+### AccountingPeriod Controller
 ### ----------------------------------------
-GET        /accounting-period-start                     controllers.aboutReturn.AccountingPeriodStartController.onPageLoad(mode: Mode = NormalMode)
-POST       /accounting-period-start                     controllers.aboutReturn.AccountingPeriodStartController.onSubmit(mode: Mode = NormalMode)
-GET        /accounting-period-start/change              controllers.aboutReturn.AccountingPeriodStartController.onPageLoad(mode: Mode = CheckMode)
-POST       /accounting-period-start/change              controllers.aboutReturn.AccountingPeriodStartController.onSubmit(mode: Mode = CheckMode)
-
-### AccountingPeriodEnd Controller
-### ----------------------------------------
-GET        /accounting-period-end                       controllers.aboutReturn.AccountingPeriodEndController.onPageLoad(mode: Mode = NormalMode)
-POST       /accounting-period-end                       controllers.aboutReturn.AccountingPeriodEndController.onSubmit(mode: Mode = NormalMode)
-GET        /accounting-period-end/change                controllers.aboutReturn.AccountingPeriodEndController.onPageLoad(mode: Mode = CheckMode)
-POST       /accounting-period-end/change                controllers.aboutReturn.AccountingPeriodEndController.onSubmit(mode: Mode = CheckMode)
+GET        /accounting-period                           controllers.aboutReturn.AccountingPeriodController.onPageLoad(mode: Mode = NormalMode)
+POST       /accounting-period                           controllers.aboutReturn.AccountingPeriodController.onSubmit(mode: Mode = NormalMode)
+GET        /accounting-period/change                    controllers.aboutReturn.AccountingPeriodController.onPageLoad(mode: Mode = CheckMode)
+POST       /accounting-period/change                    controllers.aboutReturn.AccountingPeriodController.onSubmit(mode: Mode = CheckMode)
 
 ### CheckYourAnswersController
 ### -----------------------------

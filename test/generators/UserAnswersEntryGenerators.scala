@@ -86,18 +86,10 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryAccountingPeriodStartUserAnswersEntry: Arbitrary[(AccountingPeriodStartPage.type, JsValue)] =
+  implicit lazy val arbitraryAccountingPeriodUserAnswersEntry: Arbitrary[(AccountingPeriodPage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[AccountingPeriodStartPage.type]
-        value <- arbitrary[Int].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryAccountingPeriodEndUserAnswersEntry: Arbitrary[(AccountingPeriodEndPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[AccountingPeriodEndPage.type]
+        page  <- arbitrary[AccountingPeriodPage.type]
         value <- arbitrary[Int].map(Json.toJson(_))
       } yield (page, value)
     }

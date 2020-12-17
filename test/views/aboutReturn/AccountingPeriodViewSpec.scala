@@ -16,33 +16,34 @@
 
 package views.aboutReturn
 
-import java.time.{Instant, LocalDate, ZoneOffset}
+import java.time.LocalDate
 
-import assets.messages.{BaseMessages, SectionHeaderMessages}
-import forms.aboutReturn.AccountingPeriodEndFormProvider
+import assets.messages.BaseMessages
+import assets.messages.SectionHeaderMessages._
+import forms.aboutReturn.AccountingPeriodFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
-import views.html.aboutReturn.AccountingPeriodEndView
+import views.html.aboutReturn.AccountingPeriodView
+import models.returnModels.AccountingPeriodModel
 
-class AccountingPeriodEndViewSpec extends QuestionViewBehaviours[LocalDate] {
+class AccountingPeriodViewSpec extends QuestionViewBehaviours[AccountingPeriodModel] {
 
-  val messageKeyPrefix = "accountingPeriodEnd"
+  val messageKeyPrefix = "accountingPeriod"
   val section = Some(messages("section.aboutReturn"))
-  val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
-  val form = new AccountingPeriodEndFormProvider().apply(now)
+  val form = new AccountingPeriodFormProvider()()
 
-    "AccountingPeriodEndView" must {
+    "AccountingPeriodView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
-        val view = viewFor[AccountingPeriodEndView](Some(emptyUserAnswers))
+        val view = viewFor[AccountingPeriodView](Some(emptyUserAnswers))
         view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.aboutReturn)
+      behave like pageWithSubHeading(applyView(form), aboutReturn)
 
       behave like pageWithBackLink(applyView(form))
 
