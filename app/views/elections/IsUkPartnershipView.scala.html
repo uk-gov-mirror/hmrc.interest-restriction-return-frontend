@@ -31,15 +31,15 @@
 
 @(form: Form[_], postAction: Call, partnershipName: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "isUkPartnership.title", Some("section.elections"), Seq(partnershipName)))) {
+@govukLayout(pageTitle = Some(title(form, "isUkPartnership.title", Some("section.elections")))) {
 
     @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.elections")
+        @subheading(partnershipName)
 
-        @yesNoRadio(form, "isUkPartnership.heading", None, Seq(partnershipName))
+        @yesNoRadio(form, "isUkPartnership.heading", None)
 
         @button("site.saveAndContinue")
 

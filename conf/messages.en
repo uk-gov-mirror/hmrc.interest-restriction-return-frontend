@@ -561,10 +561,10 @@ partnershipName.error.length = Name of the partnership must be 160 characters or
 
 # IsUkPartnershipPage Messages
 # ----------------------------------------------------------
-isUkPartnership.title = Is {0} a UK Partnership?
-isUkPartnership.heading = Is {0} a UK Partnership?
+isUkPartnership.title = Is this a UK Partnership?
+isUkPartnership.heading = Is this a UK Partnership?
 isUkPartnership.checkYourAnswersLabel = Is {0} a UK Partnership?
-isUkPartnership.error.required = Select yes if Is {0} a UK Partnership?
+isUkPartnership.error.required = Select yes if Is this a UK Partnership?
 
 # PartnershipSAUTRPage Messages
 # ----------------------------------------------------------

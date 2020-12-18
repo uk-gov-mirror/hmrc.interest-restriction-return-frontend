@@ -50,7 +50,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.isUkPartnership(partnerName))
+              titleOf(PageTitles.isUkPartnership)
             )
           }
         }
@@ -155,7 +155,7 @@ class IsUkPartnershipControllerISpec extends IntegrationSpecBase with CreateRequ
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.isUkPartnership(partnerName))
+              titleOf(PageTitles.isUkPartnership)
             )
           }
         }
