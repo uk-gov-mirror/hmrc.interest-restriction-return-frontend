@@ -40,8 +40,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(PartnershipsReviewAnswersListPage.type, JsValue)] ::
     arbitrary[(AddAnReactivationQueryPage.type, JsValue)] ::
     arbitrary[(ReactivationAmountPage.type, JsValue)] ::
-    arbitrary[(AccountingPeriodStartPage.type, JsValue)] ::
-    arbitrary[(AccountingPeriodEndPage.type, JsValue)] ::
+    arbitrary[(AccountingPeriodPage.type, JsValue)] ::
     arbitrary[(InvestorGroupsDeletionConfirmationPage.type, JsValue)] ::
     arbitrary[(InvestmentsDeletionConfirmationPage.type, JsValue)] ::
     arbitrary[(InvestmentNamePage.type, JsValue)] ::

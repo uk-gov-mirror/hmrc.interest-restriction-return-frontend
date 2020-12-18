@@ -21,19 +21,19 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.aboutReturn.AccountingPeriodStartFormProvider
+import forms.aboutReturn.AccountingPeriodFormProvider
 import models.Mode
 import navigation.AboutReturnNavigator
-import pages.aboutReturn.AccountingPeriodStartPage
+import pages.aboutReturn.AccountingPeriodPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
-import views.html.aboutReturn.AccountingPeriodStartView
+import views.html.aboutReturn.AccountingPeriodView
 
 import scala.concurrent.Future
 
-class AccountingPeriodStartController @Inject()(override val messagesApi: MessagesApi,
+class AccountingPeriodController @Inject()(override val messagesApi: MessagesApi,
                                                 override val sessionRepository: SessionRepository,
                                                 override val navigator: AboutReturnNavigator,
                                                 override val questionDeletionLookupService: QuestionDeletionLookupService,
@@ -41,13 +41,13 @@ class AccountingPeriodStartController @Inject()(override val messagesApi: Messag
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
-                                                formProvider: AccountingPeriodStartFormProvider,
+                                                formProvider: AccountingPeriodFormProvider,
                                                 val controllerComponents: MessagesControllerComponents,
-                                                view: AccountingPeriodStartView
+                                                view: AccountingPeriodView
                                                )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(AccountingPeriodStartPage, formProvider()), mode))
+    Ok(view(fillForm(AccountingPeriodPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -55,7 +55,7 @@ class AccountingPeriodStartController @Inject()(override val messagesApi: Messag
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(AccountingPeriodStartPage, value, mode)
+        saveAndRedirect(AccountingPeriodPage, value, mode)
     )
   }
 }

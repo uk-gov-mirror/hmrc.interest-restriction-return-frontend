@@ -44,8 +44,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
     .set(FullOrAbbreviatedReturnPage, Full).get
     .set(ReportingCompanyNamePage, companyNameModel.name).get
     .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
-    .set(AccountingPeriodStartPage, accountingPeriodModel.startDate).get
-    .set(AccountingPeriodEndPage, accountingPeriodModel.endDate).get
+    .set(AccountingPeriodPage, accountingPeriodModel).get
 
   val checkYourAnswersHelper = new CheckYourAnswersAboutReturnCompanyHelper(userAnswers)
 
@@ -75,7 +74,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
       CheckAnswersAboutReturnMessages.reportingCompanyAppointed -> "Yes",
       CheckAnswersAboutReturnMessages.agentAppointed -> "Yes",
       CheckAnswersAboutReturnMessages.agentName -> agentName,
-      CheckAnswersAboutReturnMessages.fullOrAbbreviatedReturn -> "Full",
+      CheckAnswersAboutReturnMessages.fullOrAbbreviatedReturn -> "Full return",
       CheckAnswersAboutReturnMessages.name -> companyNameModel.name,
       CheckAnswersAboutReturnMessages.ctutr -> ctutrModel.utr,
       CheckAnswersAboutReturnMessages.accountingPeriodStart -> accountingPeriodModel.startDate,

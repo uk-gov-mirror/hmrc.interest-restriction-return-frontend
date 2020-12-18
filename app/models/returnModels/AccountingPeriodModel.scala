@@ -23,5 +23,5 @@ import play.api.libs.json.Json
 case class AccountingPeriodModel(startDate: LocalDate, endDate: LocalDate)
 
 object AccountingPeriodModel {
-  implicit val writes = Json.writes[AccountingPeriodModel]
+  implicit val format = Json.format[AccountingPeriodModel]
 }

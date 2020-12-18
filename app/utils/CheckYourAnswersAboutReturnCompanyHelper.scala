@@ -45,11 +45,25 @@ class CheckYourAnswersAboutReturnCompanyHelper(val userAnswers: UserAnswers)
   def reportingCompanyCTUTR: Option[SummaryListRow] =
     answer(ReportingCompanyCTUTRPage, aboutReturnRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode))
 
-  def accountingPeriodStart: Option[SummaryListRow] =
-    answer(AccountingPeriodStartPage, aboutReturnRoutes.AccountingPeriodStartController.onPageLoad(CheckMode))
+  def accountingPeriodStart: Option[SummaryListRow] = {
+    userAnswers.get(AccountingPeriodPage) map { accountingPage =>
+      summaryListRow(
+        label = messages("accountingPeriod.start.checkYourAnswersLabel", Seq()),
+        value = accountingPage.startDate,
+        (aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode), messages("site.edit"))
+      )
+    }
+  }
 
-  def accountingPeriodEnd: Option[SummaryListRow] =
-    answer(AccountingPeriodEndPage, aboutReturnRoutes.AccountingPeriodEndController.onPageLoad(CheckMode))
+  def accountingPeriodEnd: Option[SummaryListRow] = {
+    userAnswers.get(AccountingPeriodPage) map { accountingPage =>
+      summaryListRow(
+        label = messages("accountingPeriod.end.checkYourAnswersLabel", Seq()),
+        value = accountingPage.endDate,
+        (aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode), messages("site.edit"))
+      )
+    }
+  }
 
   def revisingReturn: Option[SummaryListRow] =
     answer(RevisingReturnPage, aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode))

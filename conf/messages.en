@@ -89,14 +89,18 @@ helloWorldYesNo.error.required = Select yes if you want to say Hello World
 
 # ReportingCompanyCTUTRPage Messages
 # ----------------------------------------------------------
-reportingCompanyCTUTR.title = UK Tax reference - CT UTR
-reportingCompanyCTUTR.heading = UK Tax reference - CT UTR
-reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
-reportingCompanyCTUTR.label = UK Tax reference - CT UTR
+reportingCompanyCTUTR.title = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
+reportingCompanyCTUTR.heading = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
+reportingCompanyCTUTR.checkYourAnswersLabel = Reporting company Corporation Tax Unique Taxpayer Reference
+reportingCompanyCTUTR.label = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.regexp = UK Tax reference - CT UTR must be 10 numbers
 reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid check sum
 
+reportingCompanyCTUTR.p1 = This is 10 numbers, for example 1234567890.
+reportingCompanyCTUTR.p2 = It will be on tax returns and other letters about Self Assessment.
+reportingCompanyCTUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''. You can
+reportingCompanyCTUTR.p4 = find a lost UTR number (opens in a new window or tab).
 
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------
@@ -112,7 +116,7 @@ reportingCompanyName.error.length = Reporting company name must be 160 character
 # ----------------------------------------------------------
 reportingCompanyAppointed.title = Has the group appointed a reporting company?
 reportingCompanyAppointed.heading = Has the group appointed a reporting company?
-reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Appointed a reporting company
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
@@ -173,11 +177,11 @@ infrastructureCompanyElection.error.required = Select yes if the group has made 
 
 # FullOrAbbreviatedReturnPage Messages
 # ----------------------------------------------------------
-fullOrAbbreviatedReturn.title = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.heading = Do you want to submit a full or abbreviated return?
-fullOrAbbreviatedReturn.full = Full
-fullOrAbbreviatedReturn.abbreviated = Abbreviated
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
+fullOrAbbreviatedReturn.title = Are you submitting a full or abbreviated return?
+fullOrAbbreviatedReturn.heading = Are you submitting a full or abbreviated return?
+fullOrAbbreviatedReturn.full = Full return
+fullOrAbbreviatedReturn.abbreviated = Abbreviated return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Full or abbreviated return
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
@@ -185,7 +189,7 @@ fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 # ----------------------------------------------------------
 revisingReturn.title = Are you revising a return that has already been submitted?
 revisingReturn.heading = Are you revising a return that has already been submitted?
-revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
+revisingReturn.checkYourAnswersLabel = Revised return
 revisingReturn.error.required = Select yes if you are revising a return that has already been submitted?
 
 
@@ -354,10 +358,10 @@ registeredCompaniesHouse.error.required = Select yes if the parent company is re
 
 # ReportingCompanySameAsParent Messages
 # ----------------------------------------------------------
-reportingCompanySameAsParent.title = Is {0} also the parent company?
-reportingCompanySameAsParent.heading = Is {0} also the parent company?
+reportingCompanySameAsParent.title = Is the reporting company also the ultimate parent of the worldwide group?
+reportingCompanySameAsParent.heading = Is the reporting company also the ultimate parent of the worldwide group?
 reportingCompanySameAsParent.checkYourAnswersLabel = Same as reporting company
-reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
+reportingCompanySameAsParent.error.required = Select yes if the reporting company is also the ultimate parent of the worldwide group?
 
 
 # registeredForTaxInAnotherCountryPage Messages
@@ -776,30 +780,27 @@ reviewNetTaxInterest.checkYourAnswers.subheading = Check totals
 reviewNetTaxInterest.checkYourAnswers.income = income
 reviewNetTaxInterest.checkYourAnswers.expense = expense
 
-# AccountingPeriodStartPage Messages
+# AccountingPeriod Messages
 # ----------------------------------------------------------
-accountingPeriodStart.title = When does the worldwide period of account start?
-accountingPeriodStart.heading = When does the worldwide period of account start?
-accountingPeriodStart.checkYourAnswersLabel = When does the worldwide period of account start?
-accountingPeriodStart.error.required = You must enter a valid date
-accountingPeriodStart.error.invalid = You must enter a valid date
-accountingPeriodStart.error.required.two = You must enter a valid date
-accountingPeriodStart.error.required.all = You must enter a valid date
-accountingPeriodStart.error.range.above = Start Date can’t be in the future
-accountingPeriodStart.error.range.below = Start Date can’t be before 01 01 2000
-accountingPeriodStart.hint = For example, 27 3 2007
-
-# AccountingPeriodEndPage Messages
-# ----------------------------------------------------------
-accountingPeriodEnd.title = When does the worldwide period of account end?
-accountingPeriodEnd.heading = When does the worldwide period of account end?
-accountingPeriodEnd.checkYourAnswersLabel = When does the worldwide period of account end?
-accountingPeriodEnd.error.required = You must enter a valid date
-accountingPeriodEnd.error.invalid = You must enter a valid date
-accountingPeriodEnd.error.required.two = You must enter a valid date
-accountingPeriodEnd.error.required.all = You must enter a valid date
-accountingPeriodEnd.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
-accountingPeriodEnd.hint = For example, 27 3 2007
+accountingPeriod.title = Worldwide group’s period of account
+accountingPeriod.heading = Worldwide group’s period of account
+accountingPeriod.start.legend = Start date
+accountingPeriod.start.checkYourAnswersLabel = Worldwide period of account start date
+accountingPeriod.start.error.required = You must enter a valid date
+accountingPeriod.start.error.invalid = You must enter a valid date
+accountingPeriod.start.error.required.two = You must enter a valid date
+accountingPeriod.start.error.required.all = You must enter a valid date
+accountingPeriod.start.error.range.above = Start Date can’t be in the future
+accountingPeriod.start.error.range.below = Start Date can’t be before 01 01 2000
+accountingPeriod.start.hint = For example, 27 3 2019
+accountingPeriod.end.legend = End date
+accountingPeriod.end.checkYourAnswersLabel = Worldwide period of account end date
+accountingPeriod.end.error.required = You must enter a valid date
+accountingPeriod.end.error.invalid = You must enter a valid date
+accountingPeriod.end.error.required.two = You must enter a valid date
+accountingPeriod.end.error.required.all = You must enter a valid date
+accountingPeriod.end.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
+accountingPeriod.end.hint = For example, 27 6 2019
 
 # PartnershipsReviewAnswersListPage Messages
 # ----------------------------------------------------------

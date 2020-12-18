@@ -25,7 +25,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
-import pages.aboutReturn.AccountingPeriodEndPage
+import pages.aboutReturn.AccountingPeriodPage
 import pages.ukCompanies.{RestrictionAmountSameAPPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -62,7 +62,7 @@ class RestrictionAmountSameAPController @Inject()(
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(AccountingPeriodEndPage) { groupAccountPeriodEnd =>
+    answerFor(AccountingPeriodPage) { groupAccountPeriod =>
       answerFor(UkCompaniesPage, idx) { ukCompany =>
         formProvider().bindFromRequest().fold(
           formWithErrors =>
@@ -74,7 +74,7 @@ class RestrictionAmountSameAPController @Inject()(
               ))
             ),
           value => {
-            val updatedRestrictions = ukCompany.allocatedRestrictions.map(_.setRestriction(1, groupAccountPeriodEnd, value))
+            val updatedRestrictions = ukCompany.allocatedRestrictions.map(_.setRestriction(1, groupAccountPeriod.endDate, value))
             val updatedModel = ukCompany.copy(allocatedRestrictions = updatedRestrictions)
             save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
               Redirect(navigator.nextPage(RestrictionAmountSameAPPage, mode, cleanedAnswers, Some(idx)))
