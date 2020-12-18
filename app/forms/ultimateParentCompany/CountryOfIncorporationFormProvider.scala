@@ -26,9 +26,8 @@ class CountryOfIncorporationFormProvider @Inject()(appConfig: FrontendAppConfig)
 
   def apply(): Form[String] =
     Form(
-      "value" -> optional(
+      "value" ->
         text("countryOfIncorporation.error.required")
-        .verifying(keyExists(appConfig.countryCodes.map(_.country), "countryOfIncorporation.error.invalid"))
-      ).transform[String](_.fold("")(countryCode => countryCode), answer => Some(answer))
+          .verifying(keyExists(appConfig.countryCodes.map(_.country), "countryOfIncorporation.error.invalid"))
     )
 }
