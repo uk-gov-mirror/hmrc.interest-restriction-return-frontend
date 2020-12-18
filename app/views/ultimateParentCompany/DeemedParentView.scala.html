@@ -39,10 +39,15 @@
 
         @subheading("section.ultimateParentCompany")
 
-        @yesNoRadio(form, "hasDeemedParent.heading", Some("hasDeemedParent.p1" + "hasDeemedParent.p2"))
+        @yesNoRadio(form, "hasDeemedParent.heading", Some(hint))
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @messages("hasDeemedParent.p1")
+    @messages("hasDeemedParent.p2")
 }
