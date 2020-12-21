@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.aboutReturn
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-object CheckAnswersAboutReturnMessages {
+case object TellUsWhatHasChangedPage extends QuestionPage[String] {
 
-  val title = "Check answers"
+  override def path: JsPath = JsPath \ toString
 
-  val reportingCompanyAppointed = "Appointed a reporting company"
-  val agentAppointed = "Agent"
-  val agentName = "Agent name"
-  val fullOrAbbreviatedReturn = "Full or abbreviated return"
-  val name = "Name"
-  val ctutr = "Reporting company Corporation Tax Unique Taxpayer Reference"
-  val accountingPeriodStart = "Worldwide period of account start date"
-  val accountingPeriodEnd = "Worldwide period of account end date"
-  val revisingReturn = "Revised return"
+  override def toString: String = "tellUsWhatHasChanged"
 }

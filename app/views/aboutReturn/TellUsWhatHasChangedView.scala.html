@@ -14,40 +14,42 @@
  * limitations under the License.
  *@
 
-@import controllers.ultimateParentCompany.routes._
+@import controllers.aboutReturn.routes._
 @import models.Mode
-@import views.ViewUtils._
 @import config.FrontendAppConfig
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
     button: components.button,
+    textArea: components.textArea,
+    h1: components.h1,
+    fieldset: components.fieldset,
+    link: components.link,
     subheading: components.subheading,
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "hasDeemedParent.title",  Some("section.ultimateParentCompany")))) {
+@govukLayout(pageTitle = Some(title(form, "tellUsWhatHasChanged.title", Some("section.aboutReturn")))) {
 
-    @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
+    @formHelper(action = TellUsWhatHasChangedController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ultimateParentCompany")
+        @subheading("section.aboutReturn")
 
-        @yesNoRadio(form, "hasDeemedParent.heading", Some(hint))
+            @textArea(
+              form,
+              id = "value",
+              name = "value",
+              label = "tellUsWhatHasChanged.label"
+            )
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
-}
-
-@hint = {
-    @messages("hasDeemedParent.p1")
-    @messages("hasDeemedParent.p2")
 }

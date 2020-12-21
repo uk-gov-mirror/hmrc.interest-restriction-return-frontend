@@ -42,11 +42,10 @@ class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
       behave like normalPage(
         view = applyView(form),
         messageKeyPrefix = messageKeyPrefix,
-        section = section,
-        headingArgs = Seq(companyNameModel.name)
+        section = section
       )
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.elections)
+      behave like pageWithSubHeading(applyView(form), companyNameModel.name)
 
       behave like pageWithBackLink(applyView(form))
 
@@ -55,8 +54,7 @@ class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
         createView = applyView,
         messageKeyPrefix = messageKeyPrefix,
         expectedFormAction = routes.IsUkPartnershipController.onSubmit(1, NormalMode).url,
-        section = section,
-        headingArgs = Seq(companyNameModel.name)
+        section = section
       )
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)

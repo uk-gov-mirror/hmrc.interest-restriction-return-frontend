@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.aboutReturn
 
-object CheckAnswersAboutReturnMessages {
+import pages.behaviours.PageBehaviours
 
-  val title = "Check answers"
+class TellUsWhatHasChangedPageSpec extends PageBehaviours {
 
-  val reportingCompanyAppointed = "Appointed a reporting company"
-  val agentAppointed = "Agent"
-  val agentName = "Agent name"
-  val fullOrAbbreviatedReturn = "Full or abbreviated return"
-  val name = "Name"
-  val ctutr = "Reporting company Corporation Tax Unique Taxpayer Reference"
-  val accountingPeriodStart = "Worldwide period of account start date"
-  val accountingPeriodEnd = "Worldwide period of account end date"
-  val revisingReturn = "Revised return"
+  "TellUsWhatHasChangedPage" must {
+
+    beRetrievable[String](TellUsWhatHasChangedPage)
+
+    beSettable[String](TellUsWhatHasChangedPage)
+
+    beRemovable[String](TellUsWhatHasChangedPage)
+  }
 }

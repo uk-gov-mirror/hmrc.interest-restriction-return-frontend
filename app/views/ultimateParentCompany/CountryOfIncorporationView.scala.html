@@ -19,63 +19,58 @@
 @import config.FrontendAppConfig
 
 @this(
-    govukLayout: templates.GovukLayoutWrapper,
-    formHelper: FormWithCSRF,
-    errorSummary: components.errorSummary,
-    button: components.button,
-    inputText: components.inputText,
-    h1: components.h1,
-    fieldset: components.fieldset,
-    link: components.link,
-    subheading: components.subheading,
-    saveForLater: components.saveForLater,
-    autocomplete: components.autocomplete
+        govukLayout: templates.GovukLayoutWrapper,
+        formHelper: FormWithCSRF,
+        errorSummary: components.errorSummary,
+        button: components.button,
+        inputText: components.inputText,
+        h1: components.h1,
+        fieldset: components.fieldset,
+        link: components.link,
+        subheading: components.subheading,
+        saveForLater: components.saveForLater,
+        autocomplete: components.autocomplete
 )
 
 @(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "countryOfIncorporation.title", Some("section.ultimateParentCompany"), Seq(companyName))), js = Some(autocompleteJs)) {
+    @govukLayout(pageTitle = Some(title(form, "countryOfIncorporation.title", Some("section.ultimateParentCompany"), Seq(companyName))), js = Some(autocompleteJs)) {
 
-    @formHelper(action = postAction) {
+        @formHelper(action = postAction) {
 
-        @errorSummary(form.errors)
+            @errorSummary(form.errors)
 
-        @subheading("section.ultimateParentCompany")
+            @subheading("section.ultimateParentCompany")
 
-        @autocomplete(
-            form,
-            id = "countryCode",
-            name = "value",
-            label = "countryOfIncorporation.label",
-            isPageHeading = true,
-            autocompleteOptions = Seq("") ++ appConfig.countryCodes.map(_.country),
-            headingMessageArgs = Seq(companyName),
-            hint = Some(hint)
-        )
+            @autocomplete(
+                form,
+                id = "countryCode",
+                name = "value",
+                label = "countryOfIncorporation.label",
+                isPageHeading = true,
+                autocompleteOptions = Seq("") ++ appConfig.countryCodes.map(_.country),
+                headingMessageArgs = Seq(companyName),
+            )
 
-        @button("site.saveAndContinue")
+            @button("site.saveAndContinue")
 
-        @saveForLater()
+            @saveForLater()
+        }
     }
-}
 
-@hint = {
-    @messages("countryOfIncorporation.hint")
-}
+    @autocompleteJs = {
+        <script type="text/javascript">
+                accessibleAutocomplete.enhanceSelectElement({
+                    defaultValue: '@form.value.fold("")(x => x)',
+                    selectElement: document.querySelector('#value'),
+                    id: "value",
+                    autoselect: true,
+                    name: "value"
+                })
 
-@autocompleteJs = {
-    <script type="text/javascript">
-            accessibleAutocomplete.enhanceSelectElement({
-                defaultValue: '@form.value.fold("")(x => x)',
-                selectElement: document.querySelector('#value'),
-                id: "value",
-                autoselect: true,
-                name: "value"
-            })
-
-            $("#value").removeClass().addClass("govuk-input");
-            if (@{form.hasErrors}) {
-                $("#value").addClass("govuk-input--error");
-            };
-    </script>
-}
+                $("#value").removeClass().addClass("govuk-input");
+                if (@{form.hasErrors}) {
+                    $("#value").addClass("govuk-input--error");
+                };
+        </script>
+    }

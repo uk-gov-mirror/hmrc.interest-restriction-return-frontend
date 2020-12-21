@@ -23,24 +23,23 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class TellUsWhatHasChangedControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /about-the-return/revising-return" when {
+    "GET /aboutReturn/tell-us-what-has-changed" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/about-the-return/revising-return")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.revisingReturn)
+              titleOf(PageTitles.tellUsWhatHasChanged)
             )
           }
         }
@@ -52,7 +51,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-the-return/revising-return")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,34 +63,17 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
       }
     }
 
-    "POST /about-the-return/revising-return" when {
+    "POST /aboutReturn/tell-us-what-has-changed" when {
 
       "user is authorised" when {
 
-        "enters true" when {
-
-          "redirect to Tell Us What Has Changed Page page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/about-the-return/revising-return", Json.obj("value" -> true))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.aboutReturn.routes.TellUsWhatHasChangedController.onPageLoad(NormalMode).url)
-              )
-            }
-          }
-        }
-
-        "enters false" when {
+        "enters a valid answer" when {
 
           "redirect to Reporting Company Name page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/about-the-return/revising-return", Json.obj("value" -> false))()
+            val res = postRequest("/about-the-return/tell-us-what-has-changed", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
@@ -109,7 +91,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/about-the-return/revising-return", Json.obj("value" -> true))()
+          val res = postRequest("/about-the-return/tell-us-what-has-changed", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +106,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
   "in Change mode" when {
 
-    "GET /about-the-return/revising-return" when {
+    "GET /aboutReturn/tell-us-what-has-changed" when {
 
       "user is authorised" should {
 
@@ -132,12 +114,12 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.authorised()
 
-          val res = getRequest("/about-the-return/revising-return/change")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.revisingReturn)
+              titleOf(PageTitles.tellUsWhatHasChanged)
             )
           }
         }
@@ -149,7 +131,7 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/about-the-return/revising-return/change")()
+          val res = getRequest("/about-the-return/tell-us-what-has-changed/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -160,7 +142,5 @@ class RevisingReturnControllerISpec extends IntegrationSpecBase with CreateReque
         }
       }
     }
-
-    //TODO: Add Check Your Answers tests
   }
 }

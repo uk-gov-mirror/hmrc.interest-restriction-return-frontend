@@ -65,3 +65,10 @@ GET        /full-or-abbreviated-return                  controllers.aboutReturn.
 POST       /full-or-abbreviated-return                  controllers.aboutReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = NormalMode)
 GET        /full-or-abbreviated-return/change           controllers.aboutReturn.FullOrAbbreviatedReturnController.onPageLoad(mode: Mode = CheckMode)
 POST       /full-or-abbreviated-return/change           controllers.aboutReturn.FullOrAbbreviatedReturnController.onSubmit(mode: Mode = CheckMode)
+
+### TellUsWhatHasChanged Controller
+### ----------------------------------------
+GET        /tell-us-what-has-changed                          controllers.aboutReturn.TellUsWhatHasChangedController.onPageLoad(mode: Mode = NormalMode)
+POST       /tell-us-what-has-changed                          controllers.aboutReturn.TellUsWhatHasChangedController.onSubmit(mode: Mode = NormalMode)
+GET        /tell-us-what-has-changed/change                   controllers.aboutReturn.TellUsWhatHasChangedController.onPageLoad(mode: Mode = CheckMode)
+POST       /tell-us-what-has-changed/change                   controllers.aboutReturn.TellUsWhatHasChangedController.onSubmit(mode: Mode = CheckMode)

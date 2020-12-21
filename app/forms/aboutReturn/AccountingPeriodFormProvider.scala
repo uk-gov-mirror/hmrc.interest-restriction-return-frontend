@@ -44,7 +44,7 @@ class AccountingPeriodFormProvider @Inject() extends Mappings {
        )
       )(AccountingPeriodModel.apply)(AccountingPeriodModel.unapply)
       .verifying("accountingPeriod.start.error.range.above", period => !period.startDate.isAfter(now))
-      .verifying("accountingPeriod.start.error.range.below", period => !period.startDate.isBefore(LocalDate.parse("2000-01-01")))
+      .verifying("accountingPeriod.start.error.range.below", period => !period.startDate.isBefore(LocalDate.parse("2016-10-01")))
       .verifying("accountingPeriod.end.error.range", period => period.endDate.isAfter(period.startDate) && !period.endDate.minusMonths(18).isAfter(period.startDate))
       
     )

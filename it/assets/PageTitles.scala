@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val tellUsWhatHasChanged = "Tell us what has changed"
   val restrictionAmountSameAP = "Enter the restriction amount for this company"
   val addRestriction = "Do you need to add a restriction to this company?"
   val companyAccountingPeriodSameAsGroup = "Is this company’s accounting period the same as the group’s period of account?"
@@ -24,7 +25,7 @@ object PageTitles {
   val consentingCompany = "Is this a consenting company?"
   val netTaxInterestIncomeOrExpense: String => String = name => s"Which net tax-interest does $name have?"
   val partnershipSAUTR: String => String = name => s"Enter $name’${if (name.last.toLower != 's') 's'} Self Assessment Unique Taxpayer Reference"
-  val isUkPartnership: String => String = name => s"Is $name a UK Partnership?"
+  val isUkPartnership = "Is this a UK Partnership?"
   val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if (i > 1) 's'} added"
   val investmentsReviewAnswersList: Int => String = i => s"$i investsment${if (i > 1) 's'} added for Interest Allowance (non-consolidated investments) election"
   val partnershipName = "Enter the name of the partnership"
@@ -67,10 +68,10 @@ object PageTitles {
   val reportingCompanyRequired = "You need to appoint a reporting company"
   val confirmation = "Return submitted"
   val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
-  val deemedParent = "Does the group have a ‘deemed’ parent company?"
+  val deemedParent = "Is the ultimate parent a 'deemed' parent?"
   val parentCompanyName = "Enter the name of the ultimate parent"
   val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
-  val reportingCompanySameAsParent: String => String = name => s"Is $name also the parent company?"
+  val reportingCompanySameAsParent = "Is the reporting company also the ultimate parent of the worldwide group?"
   val parentCompanySAUTR = "Parent company Self Assessment Unique Taxpayer Reference"
   val parentCompanyCTUTR = "Parent Company Corporation Unique Taxpayer Reference"
   val savedReturn = "Your return has been saved"

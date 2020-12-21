@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.aboutReturn
 
-object CheckAnswersAboutReturnMessages {
+import javax.inject.Inject
 
-  val title = "Check answers"
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  val reportingCompanyAppointed = "Appointed a reporting company"
-  val agentAppointed = "Agent"
-  val agentName = "Agent name"
-  val fullOrAbbreviatedReturn = "Full or abbreviated return"
-  val name = "Name"
-  val ctutr = "Reporting company Corporation Tax Unique Taxpayer Reference"
-  val accountingPeriodStart = "Worldwide period of account start date"
-  val accountingPeriodEnd = "Worldwide period of account end date"
-  val revisingReturn = "Revised return"
+class TellUsWhatHasChangedFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[String] =
+    Form(
+      "value" -> text("tellUsWhatHasChanged.error.required")
+        .verifying(maxLength(5000, "tellUsWhatHasChanged.error.length"))
+    )
 }

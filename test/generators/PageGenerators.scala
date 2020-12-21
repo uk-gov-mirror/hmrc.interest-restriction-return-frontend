@@ -28,6 +28,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryTellUsWhatHasChangedPage: Arbitrary[TellUsWhatHasChangedPage.type] =
+    Arbitrary(TellUsWhatHasChangedPage)
+
   implicit lazy val arbitraryRestrictionAmountSameAPPage: Arbitrary[RestrictionAmountSameAPPage.type] =
     Arbitrary(RestrictionAmountSameAPPage)
 

@@ -91,7 +91,7 @@ helloWorldYesNo.error.required = Select yes if you want to say Hello World
 # ----------------------------------------------------------
 reportingCompanyCTUTR.title = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
 reportingCompanyCTUTR.heading = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
-reportingCompanyCTUTR.checkYourAnswersLabel = CTUTR
+reportingCompanyCTUTR.checkYourAnswersLabel = Reporting company Corporation Tax Unique Taxpayer Reference
 reportingCompanyCTUTR.label = Enter the Corporation Tax Unique Taxpayer Reference for the reporting company
 reportingCompanyCTUTR.error.required = Enter UK Tax reference - CT UTR
 reportingCompanyCTUTR.error.regexp = UK Tax reference - CT UTR must be 10 numbers
@@ -116,7 +116,7 @@ reportingCompanyName.error.length = Reporting company name must be 160 character
 # ----------------------------------------------------------
 reportingCompanyAppointed.title = Has the group appointed a reporting company?
 reportingCompanyAppointed.heading = Has the group appointed a reporting company?
-reportingCompanyAppointed.checkYourAnswersLabel = Reporting company appointed
+reportingCompanyAppointed.checkYourAnswersLabel = Appointed a reporting company
 reportingCompanyAppointed.error.required = Select yes if the reporting company been appointed
 
 
@@ -181,7 +181,7 @@ fullOrAbbreviatedReturn.title = Are you submitting a full or abbreviated return?
 fullOrAbbreviatedReturn.heading = Are you submitting a full or abbreviated return?
 fullOrAbbreviatedReturn.full = Full return
 fullOrAbbreviatedReturn.abbreviated = Abbreviated return
-fullOrAbbreviatedReturn.checkYourAnswersLabel = Type of return
+fullOrAbbreviatedReturn.checkYourAnswersLabel = Full or abbreviated return
 fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 
 
@@ -189,7 +189,7 @@ fullOrAbbreviatedReturn.error.required = Select full or abbreviated return
 # ----------------------------------------------------------
 revisingReturn.title = Are you revising a return that has already been submitted?
 revisingReturn.heading = Are you revising a return that has already been submitted?
-revisingReturn.checkYourAnswersLabel = Are you revising a return you have already submitted?
+revisingReturn.checkYourAnswersLabel = Revised return
 revisingReturn.error.required = Select yes if you are revising a return that has already been submitted?
 
 
@@ -285,11 +285,13 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 
 # DeemedParentPage Messages
 # ----------------------------------------------------------
-hasDeemedParent.title = Does the group have a ‘deemed’ parent company?
-hasDeemedParent.heading = Does the group have a ‘deemed’ parent company?
+hasDeemedParent.title = Is the ultimate parent a ''deemed'' parent?
+hasDeemedParent.heading = Is the ultimate parent a ''deemed'' parent?
 hasDeemedParent.checkYourAnswersLabel = Deemed Parent
 hasDeemedParent.error.required = Select yes if the group has a ‘deemed’ parent company
 
+hasDeemedParent.p1 = A ’deemed’ parent can consist of up to 3 stapled entities who came together
+hasDeemedParent.p2 = to act as the ultimate parent for the group.
 
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
@@ -355,13 +357,12 @@ registeredCompaniesHouse.heading = Is the parent company registered with compani
 registeredCompaniesHouse.checkYourAnswersLabel = Registered with Companies House
 registeredCompaniesHouse.error.required = Select yes if the parent company is registered with companies house
 
-
 # ReportingCompanySameAsParent Messages
 # ----------------------------------------------------------
-reportingCompanySameAsParent.title = Is {0} also the parent company?
-reportingCompanySameAsParent.heading = Is {0} also the parent company?
+reportingCompanySameAsParent.title = Is the reporting company also the ultimate parent of the worldwide group?
+reportingCompanySameAsParent.heading = Is the reporting company also the ultimate parent of the worldwide group?
 reportingCompanySameAsParent.checkYourAnswersLabel = Same as reporting company
-reportingCompanySameAsParent.error.required = Select yes if {0} is also the parent company
+reportingCompanySameAsParent.error.required = Select yes if the reporting company is also the ultimate parent of the worldwide group?
 
 
 # registeredForTaxInAnotherCountryPage Messages
@@ -397,7 +398,7 @@ countryOfIncorporation.heading = Where is {0} registered for tax?
 countryOfIncorporation.checkYourAnswersLabel = Registered for tax in
 countryOfIncorporation.label= Where is {0} registered for tax?
 countryOfIncorporation.error.invalid = Enter a valid country
-countryOfIncorporation.hint = (Optional)
+countryOfIncorporation.error.required = Enter a country
 
 # CheckAnswersGroupStructurePage Messages
 # ----------------------------------------------------------
@@ -561,10 +562,10 @@ partnershipName.error.length = Name of the partnership must be 160 characters or
 
 # IsUkPartnershipPage Messages
 # ----------------------------------------------------------
-isUkPartnership.title = Is {0} a UK Partnership?
-isUkPartnership.heading = Is {0} a UK Partnership?
+isUkPartnership.title = Is this a UK Partnership?
+isUkPartnership.heading = Is this a UK Partnership?
 isUkPartnership.checkYourAnswersLabel = Is {0} a UK Partnership?
-isUkPartnership.error.required = Select yes if Is {0} a UK Partnership?
+isUkPartnership.error.required = Select yes if Is this a UK Partnership?
 
 # PartnershipSAUTRPage Messages
 # ----------------------------------------------------------
@@ -785,16 +786,16 @@ reviewNetTaxInterest.checkYourAnswers.expense = expense
 accountingPeriod.title = Worldwide group’s period of account
 accountingPeriod.heading = Worldwide group’s period of account
 accountingPeriod.start.legend = Start date
-accountingPeriod.start.checkYourAnswersLabel = When does the worldwide period of account start?
+accountingPeriod.start.checkYourAnswersLabel = Worldwide period of account start date
 accountingPeriod.start.error.required = You must enter a valid date
 accountingPeriod.start.error.invalid = You must enter a valid date
 accountingPeriod.start.error.required.two = You must enter a valid date
 accountingPeriod.start.error.required.all = You must enter a valid date
 accountingPeriod.start.error.range.above = Start Date can’t be in the future
-accountingPeriod.start.error.range.below = Start Date can’t be before 01 01 2000
+accountingPeriod.start.error.range.below = Start Date can’t be before 01 10 2016
 accountingPeriod.start.hint = For example, 27 3 2019
 accountingPeriod.end.legend = End date
-accountingPeriod.end.checkYourAnswersLabel = When does the worldwide period of account end?
+accountingPeriod.end.checkYourAnswersLabel = Worldwide period of account end date
 accountingPeriod.end.error.required = You must enter a valid date
 accountingPeriod.end.error.invalid = You must enter a valid date
 accountingPeriod.end.error.required.two = You must enter a valid date
@@ -880,3 +881,12 @@ restrictionAmountSameAP.error.nonNumeric = Enter the restriction amount using nu
 restrictionAmountSameAP.error.required = Enter the restriction amount for this company
 restrictionAmountSameAP.error.invalidNumeric = The restriction amount must be valid decimal or whole number
 restrictionAmountSameAP.error.outOfRange = The restriction amount must be between {0} and {1}
+
+# TellUsWhatHasChangedPage Messages
+# ----------------------------------------------------------
+tellUsWhatHasChanged.title = Tell us what has changed
+tellUsWhatHasChanged.heading = Tell us what has changed
+tellUsWhatHasChanged.checkYourAnswersLabel = tellUsWhatHasChanged
+tellUsWhatHasChanged.label= Tell us what has changed
+tellUsWhatHasChanged.error.required = Enter what has changed
+tellUsWhatHasChanged.error.length = Tell us what has changed must be 5000 characters or less
