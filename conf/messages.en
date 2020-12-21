@@ -285,12 +285,12 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 
 # DeemedParentPage Messages
 # ----------------------------------------------------------
-hasDeemedParent.title = Is the ultimate parent a ‘deemed’ parent?
-hasDeemedParent.heading = Is the ultimate parent a ‘deemed’ parent?
+hasDeemedParent.title = Is the ultimate parent a ''deemed'' parent?
+hasDeemedParent.heading = Is the ultimate parent a ''deemed'' parent?
 hasDeemedParent.checkYourAnswersLabel = Deemed Parent
 hasDeemedParent.error.required = Select yes if the group has a ‘deemed’ parent company
 
-hasDeemedParent.p1 = A ''deemed'' parent can consist of up to 3 stapled entities who came together
+hasDeemedParent.p1 = A ’deemed’ parent can consist of up to 3 stapled entities who came together
 hasDeemedParent.p2 = to act as the ultimate parent for the group.
 
 # PayTaxInUkPage Messages
@@ -356,7 +356,6 @@ registeredCompaniesHouse.title = Is the parent company registered with companies
 registeredCompaniesHouse.heading = Is the parent company registered with companies house?
 registeredCompaniesHouse.checkYourAnswersLabel = Registered with Companies House
 registeredCompaniesHouse.error.required = Select yes if the parent company is registered with companies house
-
 
 # ReportingCompanySameAsParent Messages
 # ----------------------------------------------------------
