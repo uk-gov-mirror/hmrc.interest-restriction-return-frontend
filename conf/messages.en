@@ -304,11 +304,11 @@ payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference
 
 # ParentCompanyNamePage Messages
 # ----------------------------------------------------------
-parentCompanyName.title = Enter the name of the parent company
-parentCompanyName.heading = Enter the name of the parent company
+parentCompanyName.title = Enter the name of the ultimate parent
+parentCompanyName.heading = Enter the name of the ultimate parent
 parentCompanyName.checkYourAnswersLabel = Name
-parentCompanyName.label = Enter the name of the parent company
-parentCompanyName.error.required = Enter the name of the parent company
+parentCompanyName.label = Enter the name of the ultimate parent
+parentCompanyName.error.required = Enter the name of the ultimate parent
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 
 
