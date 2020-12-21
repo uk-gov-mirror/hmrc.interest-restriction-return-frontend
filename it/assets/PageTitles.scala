@@ -70,7 +70,7 @@ object PageTitles {
   val continueSavedReturn = "Do you want to start a new return or continue working on a saved return?"
   val deemedParent = "Does the group have a ‘deemed’ parent company?"
   val parentCompanyName = "Enter the name of the parent company"
-  val payTaxInUk: String => String = name => s"Does $name have a Unique Taxpayer Reference?"
+  val payTaxInUk: String = "Does the ultimate parent have a Unique Taxpayer Reference?"
   val reportingCompanySameAsParent = "Is the reporting company also the ultimate parent of the worldwide group?"
   val parentCompanySAUTR = "Parent company Self Assessment Unique Taxpayer Reference"
   val parentCompanyCTUTR = "Parent Company Corporation Unique Taxpayer Reference"
