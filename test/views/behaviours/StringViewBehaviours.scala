@@ -29,7 +29,8 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
                  expectedFormAction: String,
                  expectedHintKey: Option[String] = None,
                  section: Option[String] = None,
-                 headingArgs: Seq[String] = Seq()
+                 headingArgs: Seq[String] = Seq(),
+                 textArea: Boolean = false
                 ) = {
 
     "behave like a page with a string value field" when {
@@ -55,7 +56,8 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
         "include the form's value in the value input" in {
 
           val doc = asDocument(createView(form.fill(answer)))
-          doc.getElementById("value").attr("value") mustBe answer
+          if (textArea) doc.getElementById("value").text mustBe answer
+          else doc.getElementById("value").attr("value") mustBe answer
         }
       }
 
@@ -82,4 +84,5 @@ trait StringViewBehaviours extends QuestionViewBehaviours[String] {
       }
     }
   }
+
 }

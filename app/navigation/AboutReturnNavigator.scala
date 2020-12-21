@@ -44,10 +44,11 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     AgentNamePage -> (_ => aboutReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(NormalMode)),
     FullOrAbbreviatedReturnPage -> (_ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)),
     RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(true) => aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(NormalMode)
       case Some(false) => aboutReturnRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     }),
+    TellUsWhatHasChangedPage -> (_ => aboutReturnRoutes.ReportingCompanyNameController.onPageLoad(NormalMode)),
     ReportingCompanyNamePage -> (_ => aboutReturnRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
     ReportingCompanyCTUTRPage -> (_ => aboutReturnRoutes.AccountingPeriodController.onPageLoad(NormalMode)),
     AccountingPeriodPage -> (_ => checkAnswers),
