@@ -886,7 +886,7 @@ restrictionAmountSameAP.error.outOfRange = The restriction amount must be betwee
 # ----------------------------------------------------------
 tellUsWhatHasChanged.title = Tell us what has changed
 tellUsWhatHasChanged.heading = Tell us what has changed
-tellUsWhatHasChanged.checkYourAnswersLabel = tellUsWhatHasChanged
+tellUsWhatHasChanged.checkYourAnswersLabel = What has changed
 tellUsWhatHasChanged.label= Tell us what has changed
 tellUsWhatHasChanged.error.required = Enter what has changed
 tellUsWhatHasChanged.error.length = Tell us what has changed must be 5000 characters or less

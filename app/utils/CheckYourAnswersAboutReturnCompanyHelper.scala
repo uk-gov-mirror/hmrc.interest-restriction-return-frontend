@@ -68,12 +68,16 @@ class CheckYourAnswersAboutReturnCompanyHelper(val userAnswers: UserAnswers)
   def revisingReturn: Option[SummaryListRow] =
     answer(RevisingReturnPage, aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode))
 
+  def whatHasChanged: Option[SummaryListRow] =
+    answer(TellUsWhatHasChangedPage, aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode))
+
   val rows: Seq[SummaryListRow] = Seq(
     reportingCompanyAppointed,
     agentActingOnBehalfOfCompany,
     agentName,
     fullOrAbbreviatedReturn,
     revisingReturn,
+    whatHasChanged,
     reportingCompanyName,
     reportingCompanyCTUTR,
     accountingPeriodStart,
