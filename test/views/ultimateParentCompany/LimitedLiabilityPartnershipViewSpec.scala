@@ -41,21 +41,19 @@ class LimitedLiabilityPartnershipViewSpec extends YesNoViewBehaviours with BaseC
     behave like normalPage(
       view = applyView(form),
       messageKeyPrefix = messageKeyPrefix,
-      section = section,
-      headingArgs = Seq(companyNameModel.name)
+      section = Some(companyNameModel.name)
     )
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ultimateParentCompany)
+    behave like pageWithSubHeading(applyView(form), companyNameModel.name)
 
     behave like yesNoPage(
       form = form,
       createView = applyView,
       messageKeyPrefix = messageKeyPrefix,
       expectedFormAction = onwardRoute.url,
-      section = section,
-      headingArgs = Seq(companyNameModel.name)
+      section = Some(companyNameModel.name)
     )
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
