@@ -54,27 +54,29 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
       Future.successful(Ok(view(
         form = deemedParentModel.sautr.map(_.utr).fold(form)(form.fill),
         mode = mode,
+        companyName = deemedParentModel.companyName.name,
         postAction = routes.ParentCompanySAUTRController.onSubmit(idx, mode))
       ))
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(
-          form = formWithErrors,
-          mode = mode,
-          postAction = routes.ParentCompanySAUTRController.onSubmit(idx, mode)
-        ))),
-      value => {
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            mode = mode,
+            companyName = deemedParentModel.companyName.name,
+            postAction = routes.ParentCompanySAUTRController.onSubmit(idx, mode)
+          ))),
+        value => {
           val updatedModel = deemedParentModel.copy(sautr = Some(UTRModel(value)))
           save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
             Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, userAnswers, Some(idx)))
           }
         }
-      }
-    )
+      )
+    }
   }
 }
