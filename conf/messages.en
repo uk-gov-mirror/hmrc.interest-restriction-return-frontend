@@ -375,10 +375,10 @@ registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registere
 
 # LimitedLiabilityPartnershipPage Messages
 # ----------------------------------------------------------
-limitedLiabilityPartnership.title = Is {0} a Limited Liability Partnership?
-limitedLiabilityPartnership.heading = Is {0} a Limited Liability Partnership?
+limitedLiabilityPartnership.title = Is the ultimate parent a Limited Liability Partnership?
+limitedLiabilityPartnership.heading = Is the ultimate parent a Limited Liability Partnership?
 limitedLiabilityPartnership.checkYourAnswersLabel = LLP
-limitedLiabilityPartnership.error.required = Select yes if {0} is a Limited Liability Partnership?
+limitedLiabilityPartnership.error.required = Select yes the ultimate parent is a Limited Liability Partnership?
 
 
 # LocalRegistrationNumberPage Messages

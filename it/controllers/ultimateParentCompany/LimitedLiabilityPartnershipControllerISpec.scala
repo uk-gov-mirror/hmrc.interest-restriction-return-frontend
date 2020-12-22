@@ -48,7 +48,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.limitedLiabilityPartnership(parentCompanyName.name))
+                titleOf(PageTitles.limitedLiabilityPartnership)
               )
             }
           }
@@ -192,7 +192,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.limitedLiabilityPartnership(parentCompanyName.name))
+                titleOf(PageTitles.limitedLiabilityPartnership)
               )
             }
           }
