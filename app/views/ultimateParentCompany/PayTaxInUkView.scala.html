@@ -39,9 +39,9 @@
 
         @errorSummary(form.errors)
 
-        @subheading("section.ultimateParentCompany")
+        @subheading(companyName)
 
-        @yesNoRadio(form, "payTaxInUk.heading", Some("payTaxInUk.hint"), Seq(companyName))
+        @yesNoRadio(form, "payTaxInUk.heading", Some("payTaxInUk.hint"))
 
         @button("site.saveAndContinue")
 

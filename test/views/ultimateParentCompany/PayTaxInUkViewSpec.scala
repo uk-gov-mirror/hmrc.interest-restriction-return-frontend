@@ -32,7 +32,7 @@ class PayTaxInUkViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "payTaxInUk"
 
-  val companyName = "My Company Ltd."
+  val companyName = "Ultimate parent company"
   val section = Some(messages("section.ultimateParentCompany"))
 
   val form = new PayTaxInUkFormProvider()()

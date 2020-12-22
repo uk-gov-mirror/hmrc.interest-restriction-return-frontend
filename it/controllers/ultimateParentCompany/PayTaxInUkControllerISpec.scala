@@ -48,7 +48,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.payTaxInUk(parentCompanyName.name))
+                titleOf(PageTitles.payTaxInUk)
               )
             }
           }
@@ -211,7 +211,7 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.payTaxInUk(parentCompanyName.name))
+                titleOf(PageTitles.payTaxInUk)
               )
             }
           }

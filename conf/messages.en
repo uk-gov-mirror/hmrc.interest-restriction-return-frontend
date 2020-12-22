@@ -295,11 +295,11 @@ hasDeemedParent.p2 = to act as the ultimate parent for the group.
 
 # PayTaxInUkPage Messages
 # ----------------------------------------------------------
-payTaxInUk.title = Does {0} have a Unique Taxpayer Reference?
-payTaxInUk.heading = Does {0} have a Unique Taxpayer Reference?
+payTaxInUk.title = Does the ultimate parent have a Unique Taxpayer Reference?
+payTaxInUk.heading = Does the ultimate parent have a Unique Taxpayer Reference?
 payTaxInUk.hint = This could be for paying Corporation Tax or completing Self Assessment in the UK.
 payTaxInUk.checkYourAnswersLabel = UK Taxpayer
-payTaxInUk.error.required = Select yes if {0} has a Unique Taxpayer Reference
+payTaxInUk.error.required = Select yes if the ultimate parent has a Unique Taxpayer Reference
 
 
 # ParentCompanyNamePage Messages
