@@ -31,7 +31,7 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
   object Selectors extends BaseSelectors
 
   val messageKeyPrefix = "parentCompanySAUTR"
-
+  val companyName = "Company AA"
   val form = new ParentCompanySAUTRFormProvider()()
   val section = Some(messages("section.ultimateParentCompany"))
 
@@ -39,7 +39,7 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCompanySAUTRView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyName, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
@@ -48,7 +48,7 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
 
     behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ultimateParentCompany)
+    behave like pageWithSubHeading(applyView(form), companyName)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

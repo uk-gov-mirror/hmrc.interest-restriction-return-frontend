@@ -64,6 +64,7 @@ class ParentCompanySAUTRControllerSpec extends SpecBase with FeatureSwitching wi
       contentAsString(result) mustEqual view(
         form = form,
         mode = NormalMode,
+        companyName = deemedParentModelMin.companyName.name,
         postAction = routes.ParentCompanySAUTRController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString
     }

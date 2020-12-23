@@ -29,15 +29,15 @@
         saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "parentCompanySAUTR.title", Some("section.ultimateParentCompany")))) {
+@govukLayout(pageTitle = Some(title(form, "parentCompanySAUTR.title", Some("section.ultimateParentCompany"), Seq(companyName)))) {
 
     @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ultimateParentCompany")
+        @subheading(companyName)
 
         @inputNumber(
             form,
@@ -57,5 +57,5 @@
 
 @hint = {
     @messages("parentCompanySAUTR.hint")
-    <a href="@appConfig.findLostUTRUrl">@messages("parentCompanySAUTR.findUtr")</a>.
+    <a href="@appConfig.findLostUTRUrl" target="_blank">@messages("parentCompanySAUTR.findUtr")</a>.
 }
