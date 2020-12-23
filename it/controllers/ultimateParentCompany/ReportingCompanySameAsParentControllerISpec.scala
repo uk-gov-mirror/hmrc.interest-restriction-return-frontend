@@ -29,7 +29,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
   "in Normal mode" when {
 
     "GET /ultimate-parent-company/reporting-company-same-as-parent" when {
-it
+
       "user is authorised" should {
 
         "user answer for parent company name exists" should {

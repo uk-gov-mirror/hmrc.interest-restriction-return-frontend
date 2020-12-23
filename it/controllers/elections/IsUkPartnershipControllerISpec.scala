@@ -19,7 +19,7 @@ package controllers.elections
 import assets.{BaseITConstants, PageTitles}
 import assets.PartnershipsITConstants._
 import models.NormalMode
-import pages.elections.{PartnershipNamePage, PartnershipsPage}
+import pages.elections.PartnershipsPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub

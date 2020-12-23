@@ -24,7 +24,7 @@ object CheckAnswersAboutReturnMessages {
   val agentAppointed = "Agent"
   val agentName = "Agent name"
   val fullOrAbbreviatedReturn = "Full or abbreviated return"
-  val name = "Name"
+  val name = "Reporting company name"
   val ctutr = "Reporting company Corporation Tax Unique Taxpayer Reference"
   val accountingPeriodStart = "Worldwide period of account start date"
   val accountingPeriodEnd = "Worldwide period of account end date"
