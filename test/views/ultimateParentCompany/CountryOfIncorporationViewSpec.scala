@@ -48,7 +48,7 @@ class CountryOfIncorporationViewSpec extends AutocompleteViewBehaviours with Bas
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ultimateParentCompany)
+    behave like pageWithSubHeading(applyView(form), companyNameModel.name)
 
     behave like selectPage(form,
                            applyView,

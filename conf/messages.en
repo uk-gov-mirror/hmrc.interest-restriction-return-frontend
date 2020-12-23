@@ -393,10 +393,10 @@ localRegistrationNumber.hint = (optional)
 
 # CountryOfIncorporationPage Messages
 # ----------------------------------------------------------
-countryOfIncorporation.title = Where is {0} registered for tax?
-countryOfIncorporation.heading = Where is {0} registered for tax?
+countryOfIncorporation.title = Which country is the ultimate parent incorporated in?
+countryOfIncorporation.heading = Which country is the ultimate parent incorporated in?
 countryOfIncorporation.checkYourAnswersLabel = Registered for tax in
-countryOfIncorporation.label= Where is {0} registered for tax?
+countryOfIncorporation.label= Which country is the ultimate parent incorporated in?
 countryOfIncorporation.error.invalid = Enter a valid country
 countryOfIncorporation.error.required = Enter a country
 
