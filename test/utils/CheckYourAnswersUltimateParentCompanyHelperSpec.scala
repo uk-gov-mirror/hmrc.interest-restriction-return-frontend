@@ -40,7 +40,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.reportingCompanySameAsParent mustBe Some(summaryListRow(
+        helper.reportingCompanySameAsParent mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.reportingCompanySameAsParent,
           BaseMessages.no,
           ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
@@ -52,7 +52,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.deemedParent mustBe Some(summaryListRow(
+        helper.deemedParent mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.deemedParent,
           BaseMessages.no,
           ultimateParentCompanyRoutes.HasDeemedParentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
@@ -64,7 +64,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCompanyName(1) mustBe Some(summaryListRow(
+        helper.parentCompanyName(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.parentCompanyName,
           companyNameModel.name,
           ultimateParentCompanyRoutes.ParentCompanyNameController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
@@ -76,7 +76,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.payTaxInUk(1) mustBe Some(summaryListRow(
+        helper.payTaxInUk(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.payTaxInUk,
           BaseMessages.yes,
           ultimateParentCompanyRoutes.PayTaxInUkController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
@@ -88,7 +88,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.limitedLiabilityPartnership(1) mustBe Some(summaryListRow(
+        helper.limitedLiabilityPartnership(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.limitedLiabilityPartnership,
           BaseMessages.yes,
           ultimateParentCompanyRoutes.LimitedLiabilityPartnershipController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
@@ -100,7 +100,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCompanyCTUTR(1) mustBe Some(summaryListRow(
+        helper.parentCompanyCTUTR(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.parentCompanyCTUTR,
           ctutrModel.utr,
           ultimateParentCompanyRoutes.ParentCompanyCTUTRController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
@@ -112,7 +112,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.parentCompanySAUTR(1) mustBe Some(summaryListRow(
+        helper.parentCompanySAUTR(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.parentCompanySAUTR,
           sautrModel.utr,
           ultimateParentCompanyRoutes.ParentCompanySAUTRController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
@@ -124,7 +124,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
 
       "have a correctly formatted summary list row" in {
 
-        helper.countryOfIncorporation(1) mustBe Some(summaryListRow(
+        helper.countryOfIncorporation(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.registeredCountry,
           nonUkCountryCode.country,
           ultimateParentCompanyRoutes.CountryOfIncorporationController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
