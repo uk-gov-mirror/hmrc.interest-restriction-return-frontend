@@ -106,7 +106,7 @@ reportingCompanyCTUTR.p4 = find a lost UTR number (opens in a new window or tab)
 # ----------------------------------------------------------
 reportingCompanyName.title = Enter the name of the reporting company
 reportingCompanyName.heading = Enter the name of the reporting company
-reportingCompanyName.checkYourAnswersLabel = Name
+reportingCompanyName.checkYourAnswersLabel = Reporting company name
 reportingCompanyName.label = Enter the name of the reporting company
 reportingCompanyName.error.required = Enter Reporting company name
 reportingCompanyName.error.length = Reporting company name must be 160 characters or less
