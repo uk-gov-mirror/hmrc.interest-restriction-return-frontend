@@ -47,7 +47,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.countryOfIncorporation(parentCompanyName.name))
+                titleOf(PageTitles.countryOfIncorporation)
               )
             }
           }
@@ -179,7 +179,7 @@ class CountryOfIncorporationControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(OK),
-                titleOf(PageTitles.countryOfIncorporation(parentCompanyName.name))
+                titleOf(PageTitles.countryOfIncorporation)
               )
             }
           }

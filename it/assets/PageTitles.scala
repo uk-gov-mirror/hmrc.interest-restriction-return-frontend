@@ -76,7 +76,7 @@ object PageTitles {
   val parentCompanyCTUTR = "Parent Company Corporation Unique Taxpayer Reference"
   val savedReturn = "Your return has been saved"
   val limitedLiabilityPartnership = "Is the ultimate parent a Limited Liability Partnership?"
-  val countryOfIncorporation: String => String = name => s"Where is $name registered for tax?"
+  val countryOfIncorporation = "Which country is the ultimate parent incorporated in?"
   val checkAnswersElections = "Check your answers for this section"
   val companyTaxEBITDA = "Enter company’s Tax-EBITDA"
   val ukCompaniesReviewAnswersList: Int => String = {
