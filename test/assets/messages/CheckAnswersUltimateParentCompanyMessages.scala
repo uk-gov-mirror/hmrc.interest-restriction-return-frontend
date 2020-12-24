@@ -27,9 +27,9 @@ object CheckAnswersUltimateParentCompanyMessages {
   val limitedLiabilityPartnership = "Limited Liability Partnership"
   val parentCompanyCTUTR = "Corporation Tax Unique Taxpayer Reference"
   val registeredWithCompaniesHouse = "Registered with Companies House"
-  val parentCompanySAUTR = "UTR"
+  val parentCompanySAUTR = "Self Assessment Unique Taxpayer Reference"
   val parentCRN = "CRN"
   val registeredForTaxInAnotherCountry = "Registered for tax in another country"
-  val registeredCountry = "Registered for tax in"
+  val registeredCountry = "Country of incorporation"
   val localCRN = "Local Registration Number"
 }
