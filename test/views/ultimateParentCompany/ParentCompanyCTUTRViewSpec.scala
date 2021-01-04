@@ -16,6 +16,7 @@
 
 package views.ultimateParentCompany
 
+import assets.constants.BaseConstants
 import assets.messages.ultimateParentCompany.ParentCompanyCTUTRMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.ultimateParentCompany.routes
@@ -27,7 +28,7 @@ import views.BaseSelectors
 import views.behaviours.StringViewBehaviours
 import views.html.ultimateParentCompany.ParentCompanyCTUTRView
 
-class ParentCompanyCTUTRViewSpec extends StringViewBehaviours {
+class ParentCompanyCTUTRViewSpec extends StringViewBehaviours with BaseConstants {
 
   object Selectors extends BaseSelectors
 
@@ -39,20 +40,20 @@ class ParentCompanyCTUTRViewSpec extends StringViewBehaviours {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCompanyCTUTRView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, companyNameModel.name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+    behave like normalPage(applyView(form), messageKeyPrefix, section = Some(companyNameModel.name))
 
     behave like pageWithBackLink(applyView(form))
 
-    behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ultimateParentCompany)
+    behave like pageWithSubHeading(applyView(form), companyNameModel.name)
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     behave like pageWithSaveForLater(applyView(form))
 
-    behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section)
+    behave like stringPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = Some(companyNameModel.name))
 
     lazy val document = asDocument(applyView(form))
 

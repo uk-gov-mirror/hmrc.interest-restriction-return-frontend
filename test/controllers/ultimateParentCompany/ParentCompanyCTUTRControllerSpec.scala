@@ -62,6 +62,7 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(
         form = form,
+        companyName = deemedParentModelMin.companyName.name,
         mode = NormalMode,
         postAction = routes.ParentCompanyCTUTRController.onSubmit(1, NormalMode)
       )(fakeRequest, messages, frontendAppConfig).toString

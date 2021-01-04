@@ -325,10 +325,10 @@ parentCRN.hint = A company registration number (CRN) is a unique combination of 
 
 # ParentCompanyCTUTRPage Messages
 # ----------------------------------------------------------
-parentCompanyCTUTR.title = Parent Company Corporation Unique Taxpayer Reference
-parentCompanyCTUTR.heading = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.title = Enter the Corporation Tax Unique Taxpayer Reference
+parentCompanyCTUTR.heading = Enter the Corporation Tax Unique Taxpayer Reference
 parentCompanyCTUTR.checkYourAnswersLabel = UTR
-parentCompanyCTUTR.label = Parent Company Corporation Unique Taxpayer Reference
+parentCompanyCTUTR.label = Enter the Corporation Tax Unique Taxpayer Reference
 parentCompanyCTUTR.error.required = Enter the Corporation Unique Taxpayer Reference for the Parent Company
 parentCompanyCTUTR.error.regexp = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
 parentCompanyCTUTR.error.checksum = Corporation Unique Taxpayer Reference for the Parent Company entered is invalid
