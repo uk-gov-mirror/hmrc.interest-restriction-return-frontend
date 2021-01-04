@@ -287,7 +287,7 @@ confirmation.whatDoYouThink.time = (takes 30 seconds)
 # ----------------------------------------------------------
 hasDeemedParent.title = Is the ultimate parent a ''deemed'' parent?
 hasDeemedParent.heading = Is the ultimate parent a ''deemed'' parent?
-hasDeemedParent.checkYourAnswersLabel = Deemed Parent
+hasDeemedParent.checkYourAnswersLabel = Is the ultimate parent a ''deemed'' parent?
 hasDeemedParent.error.required = Select yes if the group has a ‘deemed’ parent company
 
 hasDeemedParent.p1 = A ’deemed’ parent can consist of up to 3 stapled entities who came together
@@ -306,7 +306,7 @@ payTaxInUk.error.required = Select yes if the ultimate parent has a Unique Taxpa
 # ----------------------------------------------------------
 parentCompanyName.title = Enter the name of the ultimate parent
 parentCompanyName.heading = Enter the name of the ultimate parent
-parentCompanyName.checkYourAnswersLabel = Name
+parentCompanyName.checkYourAnswersLabel = Ultimate parent name
 parentCompanyName.label = Enter the name of the ultimate parent
 parentCompanyName.error.required = Enter the name of the ultimate parent
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
@@ -327,7 +327,7 @@ parentCRN.hint = A company registration number (CRN) is a unique combination of 
 # ----------------------------------------------------------
 parentCompanyCTUTR.title = Enter the Corporation Tax Unique Taxpayer Reference
 parentCompanyCTUTR.heading = Enter the Corporation Tax Unique Taxpayer Reference
-parentCompanyCTUTR.checkYourAnswersLabel = UTR
+parentCompanyCTUTR.checkYourAnswersLabel = Corporation Tax Unique Taxpayer Reference
 parentCompanyCTUTR.label = Enter the Corporation Tax Unique Taxpayer Reference
 parentCompanyCTUTR.error.required = Enter the Corporation Unique Taxpayer Reference for the Parent Company
 parentCompanyCTUTR.error.regexp = A Parent Company Corporation Unique Taxpayer Reference must be 10 digits long
@@ -361,7 +361,7 @@ registeredCompaniesHouse.error.required = Select yes if the parent company is re
 # ----------------------------------------------------------
 reportingCompanySameAsParent.title = Is the reporting company also the ultimate parent of the worldwide group?
 reportingCompanySameAsParent.heading = Is the reporting company also the ultimate parent of the worldwide group?
-reportingCompanySameAsParent.checkYourAnswersLabel = Same as reporting company
+reportingCompanySameAsParent.checkYourAnswersLabel = Is the reporting company also the ultimate parent of the worldwide group?
 reportingCompanySameAsParent.error.required = Select yes if the reporting company is also the ultimate parent of the worldwide group?
 
 
@@ -377,7 +377,7 @@ registeredForTaxInAnotherCountry.error.required = Select yes if {0} is registere
 # ----------------------------------------------------------
 limitedLiabilityPartnership.title = Is the ultimate parent a Limited Liability Partnership?
 limitedLiabilityPartnership.heading = Is the ultimate parent a Limited Liability Partnership?
-limitedLiabilityPartnership.checkYourAnswersLabel = LLP
+limitedLiabilityPartnership.checkYourAnswersLabel = Limited Liability Partnership
 limitedLiabilityPartnership.error.required = Select yes the ultimate parent is a Limited Liability Partnership?
 
 
@@ -402,8 +402,8 @@ countryOfIncorporation.error.required = Enter a country
 
 # CheckAnswersGroupStructurePage Messages
 # ----------------------------------------------------------
-ultimateParentCompany.checkYourAnswers.title = Check parent company details
-ultimateParentCompany.checkYourAnswers.heading = Check parent company details
+ultimateParentCompany.checkYourAnswers.title = Check ultimate parent details
+ultimateParentCompany.checkYourAnswers.heading = Check ultimate parent details
 ultimateParentCompany.checkYourAnswers.subheading = Ultimate parent company
 
 # GroupRatioElectionPage Messages

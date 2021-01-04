@@ -18,14 +18,14 @@ package assets.messages
 
 object CheckAnswersUltimateParentCompanyMessages {
 
-  val title = "Check parent company details"
+  val title = "Check ultimate parent details"
 
-  val reportingCompanySameAsParent = "Same as reporting company"
-  val deemedParent = "Deemed Parent"
-  val parentCompanyName = "Name"
+  val reportingCompanySameAsParent = "Is the reporting company also the ultimate parent of the worldwide group?"
+  val deemedParent = "Is the ultimate parent a 'deemed' parent?"
+  val parentCompanyName = "Ultimate parent name"
   val payTaxInUk = "UK Taxpayer"
-  val limitedLiabilityPartnership = "LLP"
-  val parentCompanyCTUTR = "UTR"
+  val limitedLiabilityPartnership = "Limited Liability Partnership"
+  val parentCompanyCTUTR = "Corporation Tax Unique Taxpayer Reference"
   val registeredWithCompaniesHouse = "Registered with Companies House"
   val parentCompanySAUTR = "UTR"
   val parentCRN = "CRN"

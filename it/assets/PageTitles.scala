@@ -44,7 +44,7 @@ object PageTitles {
   val electedGroupEBITDABefore = "Has the group made a group-EBITDA (chargeable gains) election in any previous returns?"
   val groupRatioBlendedElection = "Are you making a blended group ratio election?"
   val enterQNGIE = "Enter the qualifying net group-interest expense (QNGIE)"
-  val checkAnswersGroupStructure = "Check parent company details"
+  val checkAnswersGroupStructure = "Check ultimate parent details"
   val reviewNetTaxInterest = "Review the net tax-interest for companies in the group"
   val reviewTaxEBITDA = "Review the Tax-EBITDA for companies in the group"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"

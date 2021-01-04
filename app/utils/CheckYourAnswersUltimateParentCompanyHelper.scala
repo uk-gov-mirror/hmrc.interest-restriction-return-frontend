@@ -107,7 +107,7 @@ class CheckYourAnswersUltimateParentCompanyHelper(val userAnswers: UserAnswers)
                             answerIsMsgKey: Boolean = false,
                             headingMessageArgs: Seq[String] = Seq())
                            (implicit messages: Messages, conversion: A => String): SummaryListRow =
-    summaryListRow(
+    summaryListRowWideKey(
       label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
       value = if (answerIsMsgKey) messages(s"$page.$value") else value,
       changeLinkCall -> messages("site.edit")

@@ -27,11 +27,11 @@
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@(answers: Seq[SummaryListRow], section: String, postAction: Call, headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.submitAndContinue")(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow], section: String, postAction: Call, headingMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.submitAndContinue", subheader: Option[String] = None)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(s"$section.checkYourAnswers.subheading"), headingMsgArgs))) {
 
-    @subheading(s"$section.checkYourAnswers.subheading")
+    @subheading(subheader.getOrElse(s"$section.checkYourAnswers.subheading"))
 
     @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
 
