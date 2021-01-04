@@ -448,10 +448,10 @@ enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must
 
 # GroupRatioBlendedElectionPage Messages
 # ----------------------------------------------------------
-groupRatioBlendedElection.title = Are you making a blended group ratio election?
-groupRatioBlendedElection.heading = Are you making a blended group ratio election?
+groupRatioBlendedElection.title = Do you want to make a blended group ratio election?
+groupRatioBlendedElection.heading = Do you want to make a blended group ratio election?
 groupRatioBlendedElection.checkYourAnswersLabel = Elect group ratio (blended)
-groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
+groupRatioBlendedElection.error.required = Select yes if you want to make a blended group ratio election?
 
 # ElectedGroupEBITDABeforePage Messages
 # ----------------------------------------------------------
