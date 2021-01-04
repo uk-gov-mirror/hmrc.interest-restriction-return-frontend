@@ -31,10 +31,10 @@ class CheckYourAnswersUltimateParentCompanyHelper(val userAnswers: UserAnswers)
   private def deemedParentModel(idx: Int): Option[DeemedParentModel] = userAnswers.get(DeemedParentPage, Some(idx))
 
   def reportingCompanySameAsParent: Option[SummaryListRow] =
-    answer(ReportingCompanySameAsParentPage, ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
+    answerWideKey(ReportingCompanySameAsParentPage, ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode))
 
   def deemedParent: Option[SummaryListRow] =
-    answer(HasDeemedParentPage, ultimateParentCompanyRoutes.HasDeemedParentController.onPageLoad(CheckMode))
+    answerWideKey(HasDeemedParentPage, ultimateParentCompanyRoutes.HasDeemedParentController.onPageLoad(CheckMode))
 
   def countryOfIncorporation(idx: Int): Option[SummaryListRow] =
     deemedParentModel(idx).flatMap(_.countryOfIncorporation.map(countryOfIncorporation =>
@@ -107,7 +107,7 @@ class CheckYourAnswersUltimateParentCompanyHelper(val userAnswers: UserAnswers)
                             answerIsMsgKey: Boolean = false,
                             headingMessageArgs: Seq[String] = Seq())
                            (implicit messages: Messages, conversion: A => String): SummaryListRow =
-    summaryListRow(
+    summaryListRowWideKey(
       label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
       value = if (answerIsMsgKey) messages(s"$page.$value") else value,
       changeLinkCall -> messages("site.edit")

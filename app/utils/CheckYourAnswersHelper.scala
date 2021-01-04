@@ -44,6 +44,21 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       )
     }
 
+  def answerWideKey[A](page: QuestionPage[A],
+                changeLinkCall: Call,
+                answerIsMsgKey: Boolean = false,
+                headingMessageArgs: Seq[String] = Seq(),
+                answerIsMonetary: Boolean = false,
+                idx: Option[Int] = None)
+               (implicit messages: Messages, reads: Reads[A], conversion: A => String): Option[SummaryListRow] =
+    userAnswers.get(page, idx) map { ans =>
+      summaryListRowWideKey(
+        label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
+        value = if (answerIsMsgKey) messages(s"$page.$ans") else ans,
+        changeLinkCall -> messages("site.edit")
+      )
+    }
+
   def monetaryAnswer(page: QuestionPage[BigDecimal],
                      changeLinkCall: Call,
                      headingMessageArgs: Seq[String] = Seq(),

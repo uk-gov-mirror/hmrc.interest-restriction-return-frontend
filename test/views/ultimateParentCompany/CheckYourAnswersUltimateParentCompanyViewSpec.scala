@@ -37,8 +37,13 @@ class CheckYourAnswersUltimateParentCompanyViewSpec extends ViewBehaviours with 
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  def applyView(checkYourAnswersHelper: CheckYourAnswersUltimateParentCompanyHelper)(): HtmlFormat.Appendable = {
-    view.apply(checkYourAnswersHelper.rows(1), UltimateParentCompany, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+  def applyView(checkYourAnswersHelper: CheckYourAnswersUltimateParentCompanyHelper, subheading: Option[String] = None)(): HtmlFormat.Appendable = {
+    view.apply(
+      answers = checkYourAnswersHelper.rows(1), 
+      section = UltimateParentCompany, 
+      postAction = onwardRoute,
+      subheader = subheading
+    )(fakeRequest, messages, frontendAppConfig)
   }
 
   "CheckYourAnswer view" when {
@@ -123,6 +128,35 @@ class CheckYourAnswersUltimateParentCompanyViewSpec extends ViewBehaviours with 
           CheckAnswersUltimateParentCompanyMessages.parentCompanyName -> deemedParentModelNonUkCompany.companyName.name,
           CheckAnswersUltimateParentCompanyMessages.payTaxInUk -> "No" ,
           CheckAnswersUltimateParentCompanyMessages.registeredCountry -> deemedParentModelNonUkCompany.countryOfIncorporation.get.country
+        )
+      }
+
+
+    "a subheading is passed in" must {
+
+        val checkYourAnswersHelper = new CheckYourAnswersUltimateParentCompanyHelper(userAnswersUKCompany)
+
+        behave like normalPage(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), messageKeyPrefix, section = Some(SectionHeaderMessages.ultimateParentCompany))
+
+        behave like pageWithBackLink(applyView(checkYourAnswersHelper, Some("Manual Subheading"))())
+
+        behave like pageWithSubHeading(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), "Manual Subheading")
+
+        behave like pageWithHeading(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), ultimateParentCompanyHeading)
+
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), saveAndContinue)
+
+        behave like pageWithSaveForLater(applyView(checkYourAnswersHelper, Some("Manual Subheading"))())
+
+        implicit lazy val document = asDocument(applyView(checkYourAnswersHelper, Some("Manual Subheading"))())
+
+        checkYourAnswersRowChecks(
+          CheckAnswersUltimateParentCompanyMessages.reportingCompanySameAsParent -> "No",
+          CheckAnswersUltimateParentCompanyMessages.deemedParent -> "No",
+          CheckAnswersUltimateParentCompanyMessages.parentCompanyName -> deemedParentModelUkCompany.companyName.name,
+          CheckAnswersUltimateParentCompanyMessages.payTaxInUk -> "Yes",
+          CheckAnswersUltimateParentCompanyMessages.limitedLiabilityPartnership -> "No",
+          CheckAnswersUltimateParentCompanyMessages.parentCompanyCTUTR -> deemedParentModelUkCompany.ctutr.get.utr
         )
       }
   }
