@@ -540,14 +540,14 @@ investorRatioMethod.error.required = Select which ratio you want to elect for th
 
 # OtherInvestorGroupElectionsPage Messages
 # ----------------------------------------------------------
-otherInvestorGroupElections.title = Which other elections apply to this investor group?
-otherInvestorGroupElections.heading = Which other elections apply to this investor group?
+otherInvestorGroupElections.title = Which elections are being treated as if they have been made by the investor group?
+otherInvestorGroupElections.heading = Which elections are being treated as if they have been made by the investor group?
 otherInvestorGroupElections.groupRatioBlended = Group ratio (blended)
 otherInvestorGroupElections.groupEBITDA = Group EBITDA (chargeable gains)
 otherInvestorGroupElections.interestAllowanceAlternativeCalculation = Interest allowance (alternative calculation)
 otherInvestorGroupElections.interestAllowanceNonConsolidatedInvestment = Interest allowance (non-consolidated investment)
 otherInvestorGroupElections.interestAllowanceConsolidatedPartnership = Interest allowance (Consolidated partnership)
-otherInvestorGroupElections.hint = Select all that apply.
+otherInvestorGroupElections.hint = Select all that apply (Optional).
 otherInvestorGroupElections.checkYourAnswersLabel = Which other elections apply to this investor group?
 otherInvestorGroupElections.error.invalid = Select any of the valid options below that apply
 
