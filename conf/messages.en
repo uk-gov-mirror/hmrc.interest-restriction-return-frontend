@@ -448,10 +448,10 @@ enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must
 
 # GroupRatioBlendedElectionPage Messages
 # ----------------------------------------------------------
-groupRatioBlendedElection.title = Are you making a blended group ratio election?
-groupRatioBlendedElection.heading = Are you making a blended group ratio election?
+groupRatioBlendedElection.title = Do you want to make a blended group ratio election?
+groupRatioBlendedElection.heading = Do you want to make a blended group ratio election?
 groupRatioBlendedElection.checkYourAnswersLabel = Elect group ratio (blended)
-groupRatioBlendedElection.error.required = Select yes if you are making a blended group ratio election?
+groupRatioBlendedElection.error.required = Select yes if you want to make a blended group ratio election
 
 # ElectedGroupEBITDABeforePage Messages
 # ----------------------------------------------------------
@@ -540,14 +540,14 @@ investorRatioMethod.error.required = Select which ratio you want to elect for th
 
 # OtherInvestorGroupElectionsPage Messages
 # ----------------------------------------------------------
-otherInvestorGroupElections.title = Which other elections apply to this investor group?
-otherInvestorGroupElections.heading = Which other elections apply to this investor group?
+otherInvestorGroupElections.title = Which elections are being treated as if they have been made by the investor group?
+otherInvestorGroupElections.heading = Which elections are being treated as if they have been made by the investor group?
 otherInvestorGroupElections.groupRatioBlended = Group ratio (blended)
 otherInvestorGroupElections.groupEBITDA = Group EBITDA (chargeable gains)
 otherInvestorGroupElections.interestAllowanceAlternativeCalculation = Interest allowance (alternative calculation)
 otherInvestorGroupElections.interestAllowanceNonConsolidatedInvestment = Interest allowance (non-consolidated investment)
 otherInvestorGroupElections.interestAllowanceConsolidatedPartnership = Interest allowance (Consolidated partnership)
-otherInvestorGroupElections.hint = Select all that apply.
+otherInvestorGroupElections.hint = Select all that apply (Optional).
 otherInvestorGroupElections.checkYourAnswersLabel = Which other elections apply to this investor group?
 otherInvestorGroupElections.error.invalid = Select any of the valid options below that apply
 
