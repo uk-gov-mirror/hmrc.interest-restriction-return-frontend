@@ -48,7 +48,7 @@ object PageTitles {
   val reviewNetTaxInterest = "Review the net tax-interest for companies in the group"
   val reviewTaxEBITDA = "Review the Tax-EBITDA for companies in the group"
   val enterANGIE = "Enter the adjusted net group-interest expense (ANGIE)"
-  val groupRatioElection = "Do you want to make a group ration election?"
+  val groupRatioElection = "Do you want to make a group ratio election?"
   val checkAnswersAboutReturn = "Check answers - About the return"
   val reportingCompanyCTUTR = "Enter the Corporation Tax Unique Taxpayer Reference for the reporting company"
   val reportingCompanyName = "Enter the name of the reporting company"
