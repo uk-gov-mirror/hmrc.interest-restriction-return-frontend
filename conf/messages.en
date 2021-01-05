@@ -408,8 +408,8 @@ ultimateParentCompany.checkYourAnswers.subheading = Ultimate parent company
 
 # GroupRatioElectionPage Messages
 # ----------------------------------------------------------
-groupRatioElection.title = Are you making a group ratio election?
-groupRatioElection.heading = Are you making a group ratio election?
+groupRatioElection.title = Do you want to make a group ratio election?
+groupRatioElection.heading = Do you want to make a group ratio election?
 groupRatioElection.checkYourAnswersLabel = Elect group ratio
 groupRatioElection.error.required = Select yes if you are making a group ratio election?
 
