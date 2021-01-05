@@ -17,12 +17,13 @@
 package controllers.ultimateParentCompany
 
 import assets.messages.{CheckAnswersUltimateParentCompanyMessages, SectionHeaderMessages}
+import assets.constants.DeemedParentConstants.deemedParentModelMin
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
-import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, HasDeemedParentPage}
+import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, HasDeemedParentPage, DeemedParentPage}
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
@@ -47,9 +48,12 @@ class CheckAnswersUltimateParentCompanyControllerSpec extends SpecBase with Feat
 
     "calling the onPageLoad() method" must {
 
-      "return a OK (200) when given empty answers" in {
+      "return a OK (200)" in {
 
-        mockGetAnswers(Some(emptyUserAnswers))
+        val userAnswers = emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelMin, Some(1)).success.value
+
+        mockGetAnswers(Some(userAnswers))
 
         val result = Controller.onPageLoad(1)(fakeRequest)
 

@@ -29,16 +29,16 @@
         saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "parentCompanyCTUTR.title", Some("section.ultimateParentCompany")))) {
+    pageTitle = Some(title(form, "parentCompanyCTUTR.title", Some(companyName)))) {
 
     @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ultimateParentCompany")
+        @subheading(companyName)
 
         @inputText(
             form,

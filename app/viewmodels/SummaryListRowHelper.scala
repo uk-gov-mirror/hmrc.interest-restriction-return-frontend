@@ -23,10 +23,18 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 trait SummaryListRowHelper {
 
   def summaryListRow(label: String, value: String, actions: (Call, String)*): SummaryListRow = {
+    summaryListRowSpecifyingClass(label, value, "govuk-!-width-one-third", actions: _*)
+  }
+
+  def summaryListRowWideKey(label: String, value: String, actions: (Call, String)*): SummaryListRow = {
+    summaryListRowSpecifyingClass(label, value, "govuk-!-width-two-thirds", actions: _*)
+  }
+
+  private def summaryListRowSpecifyingClass(label: String, value: String, keyClass: String, actions: (Call, String)*): SummaryListRow = {
     SummaryListRow(
       key = Key(
         content = Text(label),
-        classes = "govuk-!-width-one-third"
+        classes = keyClass
       ),
       value = Value(
         content = HtmlContent(value),

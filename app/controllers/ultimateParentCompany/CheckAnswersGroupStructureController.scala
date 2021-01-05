@@ -23,13 +23,15 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import models.NormalMode
 import models.Section.UltimateParentCompany
 import navigation.UltimateParentCompanyNavigator
-import pages.ultimateParentCompany.CheckAnswersGroupStructurePage
+import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParentPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import services.{QuestionDeletionLookupService, UpdateSectionStateService}
 import utils.CheckYourAnswersUltimateParentCompanyHelper
 import views.html.CheckYourAnswersView
+import handlers.ErrorHandler
+import scala.concurrent.Future
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
                                                      override val sessionRepository: SessionRepository,
@@ -41,13 +43,21 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      view: CheckYourAnswersView
-                                                    )(implicit appConfig: FrontendAppConfig)
+                                                    )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends BaseNavigationController {
 
-  def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData) {
-    implicit request =>
-      val checkYourAnswersHelper = new CheckYourAnswersUltimateParentCompanyHelper(request.userAnswers)
-      Ok(view(checkYourAnswersHelper.rows(idx), UltimateParentCompany, controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onSubmit(idx)))
+  def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {implicit request =>
+    val checkYourAnswersHelper = new CheckYourAnswersUltimateParentCompanyHelper(request.userAnswers)
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      Future.successful(
+        Ok(view(
+          answers = checkYourAnswersHelper.rows(idx), 
+          section = UltimateParentCompany, 
+          postAction = controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onSubmit(idx),
+          subheader = Some(deemedParentModel.companyName.name)
+        ))
+      )
+    }
   }
 
   def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {

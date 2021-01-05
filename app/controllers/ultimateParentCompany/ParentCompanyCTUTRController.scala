@@ -53,6 +53,7 @@ class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesA
     answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(Ok(view(
         form = deemedParentModel.ctutr.map(_.utr).fold(form)(form.fill),
+        companyName = deemedParentModel.companyName.name,
         mode = mode,
         postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode))
       ))
@@ -60,21 +61,22 @@ class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesA
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(
-          form = formWithErrors,
-          mode = mode,
-          postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode)
-        ))),
-      value => {
-        answerFor(DeemedParentPage, idx) { deemedParentModel =>
+    answerFor(DeemedParentPage, idx) { deemedParentModel =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            companyName = deemedParentModel.companyName.name,
+            mode = mode,
+            postAction = routes.ParentCompanyCTUTRController.onSubmit(idx, mode)
+          ))),
+        value => {
           val updatedModel = deemedParentModel.copy(ctutr = Some(UTRModel(value)))
           save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
             Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, userAnswers, Some(idx)))
           }
         }
-      }
-    )
+      )
+    }
   }
 }

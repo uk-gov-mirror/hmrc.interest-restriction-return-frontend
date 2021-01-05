@@ -36,6 +36,10 @@ class CheckAnswersUltimateParentCompanyControllerISpec extends IntegrationSpecBa
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(
+            emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+          )
+
 
           val res = getRequest("/ultimate-parent-company/1/check-answers")()
 
