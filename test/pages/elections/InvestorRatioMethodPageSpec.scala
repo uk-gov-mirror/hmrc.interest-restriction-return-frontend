@@ -16,17 +16,16 @@
 
 package pages.elections
 
-import models.InvestorRatioMethod
 import pages.behaviours.PageBehaviours
 
 class InvestorRatioMethodPageSpec extends PageBehaviours {
 
   "InvestorRatioMethodPage" must {
 
-    beRetrievable[InvestorRatioMethod](InvestorRatioMethodPage)
+    beRetrievable[Boolean](InvestorRatioMethodPage)
 
-    beSettable[InvestorRatioMethod](InvestorRatioMethodPage)
+    beSettable[Boolean](InvestorRatioMethodPage)
 
-    beRemovable[InvestorRatioMethod](InvestorRatioMethodPage)
+    beRemovable[Boolean](InvestorRatioMethodPage)
   }
 }

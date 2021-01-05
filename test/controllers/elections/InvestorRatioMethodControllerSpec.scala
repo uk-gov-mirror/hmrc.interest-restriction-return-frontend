@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.elections.InvestorRatioMethodFormProvider
-import models.{InvestorRatioMethod, NormalMode}
+import models.NormalMode
 import navigation.FakeNavigators.FakeElectionsNavigator
 import pages.elections.InvestorGroupsPage
 import play.api.test.Helpers._
@@ -64,7 +64,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
           status(result) mustEqual OK
           contentAsString(result) mustEqual view(
-            form, routes.InvestorRatioMethodController.onSubmit(1, NormalMode)
+            form, investorGroupsGroupRatioModel.investorName, routes.InvestorRatioMethodController.onSubmit(1, NormalMode)
           )(fakeRequest, messages, frontendAppConfig).toString
         }
       }
@@ -106,7 +106,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
             mockGetAnswers(Some(userAnswers))
             mockSetAnswers
 
-            val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
+            val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
             val result = Controller.onSubmit(1, NormalMode)(request)
 
@@ -136,7 +136,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
         "return ISE (500)" in {
 
-          val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
           mockGetAnswers(Some(emptyUserAnswers))
 
@@ -149,7 +149,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
       "redirect to Session Expired for a POST if no existing data is found" in {
 
-        val request = fakeRequest.withFormUrlEncodedBody(("value", InvestorRatioMethod.values.head.toString))
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         mockGetAnswers(None)
 

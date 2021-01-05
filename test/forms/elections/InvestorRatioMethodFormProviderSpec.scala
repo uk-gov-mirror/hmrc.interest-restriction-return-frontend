@@ -16,11 +16,10 @@
 
 package forms.elections
 
-import forms.behaviours.OptionFieldBehaviours
-import models.InvestorRatioMethod
+import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class InvestorRatioMethodFormProviderSpec extends OptionFieldBehaviours {
+class InvestorRatioMethodFormProviderSpec extends BooleanFieldBehaviours {
 
   val form = new InvestorRatioMethodFormProvider()()
 
@@ -29,11 +28,10 @@ class InvestorRatioMethodFormProviderSpec extends OptionFieldBehaviours {
     val fieldName = "value"
     val requiredKey = "investorRatioMethod.error.required"
 
-    behave like optionsField[InvestorRatioMethod](
+    behave like booleanField(
       form,
       fieldName,
-      validValues  = InvestorRatioMethod.values,
-      invalidError = FormError(fieldName, "error.invalid")
+      invalidError = FormError(fieldName, "error.boolean")
     )
 
     behave like mandatoryField(

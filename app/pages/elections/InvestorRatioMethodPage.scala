@@ -16,10 +16,9 @@
 
 package pages.elections
 import pages.QuestionPage
-import models.InvestorRatioMethod
 import play.api.libs.json.JsPath
 
-case object InvestorRatioMethodPage extends QuestionPage[InvestorRatioMethod] {
+case object InvestorRatioMethodPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
