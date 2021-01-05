@@ -41,7 +41,7 @@ object PageTitles {
   val interestAllowanceAlternativeCalcElection = "Do you want to make an interest allowance (alternative calculation) election for this return?"
   val electedInterestAllowanceAlternativeCalcBefore = "Has the group made an interest allowance (alternative calculation) election in any previous returns?"
   val groupEBITDAChargeableGainsElection = "Do you want to make a group-EBITDA (chargeable gains) election for this return?"
-  val electedGroupEBITDABefore = "Has the group made a group-EBITDA (chargeable gains) election in any previous returns?"
+  val electedGroupEBITDABefore = "Has the group made a group-EBITDA (chargeable gains) election before?"
   val groupRatioBlendedElection = "Do you want to make a blended group ratio election?"
   val enterQNGIE = "Enter the qualifying net group-interest expense (QNGIE)"
   val checkAnswersGroupStructure = "Check ultimate parent details"
