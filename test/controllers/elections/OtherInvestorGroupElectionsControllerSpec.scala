@@ -66,7 +66,7 @@ class OtherInvestorGroupElectionsControllerSpec extends SpecBase with FeatureSwi
 
           status(result) mustEqual OK
           contentAsString(result) mustEqual view(
-            form, routes.OtherInvestorGroupElectionsController.onSubmit(1, NormalMode), GroupRatioMethod
+            form, investorGroupsGroupRatioModel.investorName, routes.OtherInvestorGroupElectionsController.onSubmit(1, NormalMode), GroupRatioMethod
           )(fakeRequest, messages, frontendAppConfig).toString
         }
       }

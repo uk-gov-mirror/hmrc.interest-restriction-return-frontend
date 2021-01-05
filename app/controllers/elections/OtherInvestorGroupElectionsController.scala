@@ -60,6 +60,7 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
       getRatioMethod(investorGroups, idx, mode) { ratioMethod =>
         Future.successful(Ok(view(
           form = investorGroups.otherInvestorGroupElections.fold(form)(form.fill),
+          investorGroupName = investorGroups.investorName,
           postAction = routes.OtherInvestorGroupElectionsController.onSubmit(idx, mode),
           ratioMethod
         )))
@@ -74,6 +75,7 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
           formWithErrors =>
             Future.successful(BadRequest(view(
               form = formWithErrors,
+              investorGroupName = investorGroups.investorName,
               postAction = routes.OtherInvestorGroupElectionsController.onSubmit(idx, mode),
               ratioMethod
             ))),

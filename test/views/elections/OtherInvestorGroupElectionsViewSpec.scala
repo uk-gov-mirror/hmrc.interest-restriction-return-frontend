@@ -16,6 +16,7 @@
 
 package views.elections
 
+import assets.constants.BaseConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.elections.OtherInvestorGroupElectionsFormProvider
 import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod}
@@ -28,12 +29,13 @@ import views.html.elections.OtherInvestorGroupElectionsView
 class OtherInvestorGroupElectionsViewSpec extends CheckboxViewBehaviours[OtherInvestorGroupElections] {
 
   val messageKeyPrefix = "otherInvestorGroupElections"
-  val section = Some(messages("section.elections"))
+  val investorGroupName = "Investor Group"
+  val section = Some(investorGroupName)
   val form = new OtherInvestorGroupElectionsFormProvider()()
-    val view = viewFor[OtherInvestorGroupElectionsView]()
+  val view = viewFor[OtherInvestorGroupElectionsView]()
 
   def applyView(ratioMethod: InvestorRatioMethod)(form: Form[Set[OtherInvestorGroupElections]]): HtmlFormat.Appendable =
-    view.apply(form, onwardRoute, ratioMethod)(fakeRequest, messages, frontendAppConfig)
+    view.apply(form, investorGroupName, onwardRoute, ratioMethod)(fakeRequest, messages, frontendAppConfig)
 
   for (ratioMethod <- Seq(FixedRatioMethod, GroupRatioMethod)) {
 
@@ -43,7 +45,7 @@ class OtherInvestorGroupElectionsViewSpec extends CheckboxViewBehaviours[OtherIn
 
       behave like pageWithBackLink(applyView(ratioMethod)(form))
 
-      behave like pageWithSubHeading(applyView(ratioMethod)(form), SectionHeaderMessages.elections)
+      behave like pageWithSubHeading(applyView(ratioMethod)(form), investorGroupName)
 
       behave like checkboxPage(form,
         applyView(ratioMethod),
