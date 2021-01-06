@@ -40,8 +40,17 @@ final case class UserAnswers(
     page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
-    setData(path(page, idx), value).map {
-      d => copy(data = d, lastPageSaved = Some(page))
+    val updatedData = data.setObject(page.path, Json.toJson(value)) match {
+      case JsSuccess(jsValue, _) =>
+        Success(jsValue)
+      case JsError(errors) =>
+        Failure(JsResultException(errors))
+    }
+
+    updatedData.flatMap {
+      d =>
+        val updatedAnswers = copy(data = d)
+        page.cleanup(Some(value), updatedAnswers)
     }
   }
 
@@ -69,7 +78,11 @@ final case class UserAnswers(
         Success(data)
     }
 
-    updatedData.map { d => copy(data = d) }
+    updatedData.flatMap {
+      d =>
+        val updatedAnswers = copy(data = d)
+        page.cleanup(None, updatedAnswers)
+    }
   }
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)

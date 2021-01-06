@@ -16,12 +16,27 @@
 
 package pages.groupLevelInformation
 
+import models.UserAnswers
 import pages.QuestionPage
+import pages.aboutReturn.TellUsWhatHasChangedPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object RevisingReturnPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "revisingReturn"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
+    value match {
+      case Some(false) => {
+        userAnswers.remove(TellUsWhatHasChangedPage)
+      }
+      case _ => {
+        super.cleanup(value, userAnswers)
+      }
+    }
+  }
 }

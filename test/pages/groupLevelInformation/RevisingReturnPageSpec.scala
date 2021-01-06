@@ -16,7 +16,10 @@
 
 package pages.groupLevelInformation
 
+import models.UserAnswers
 import pages.behaviours.PageBehaviours
+import org.scalacheck.Arbitrary.arbitrary
+import pages.aboutReturn.{AgentNamePage, TellUsWhatHasChangedPage}
 
 class RevisingReturnPageSpec extends PageBehaviours {
 
@@ -27,5 +30,26 @@ class RevisingReturnPageSpec extends PageBehaviours {
     beSettable[Boolean](RevisingReturnPage)
 
     beRemovable[Boolean](RevisingReturnPage)
+  }
+
+  "Cleanup" must {
+    "remove TellUsWhatHasChangedPage when there is a change of the answer to 'No'" in {
+      forAll(arbitrary[UserAnswers]) {
+        userAnswers =>
+          val result = userAnswers
+            .set(AgentNamePage, "Bob")
+            .success
+            .value
+            .set(TellUsWhatHasChangedPage,"Agent not working with us")
+            .success
+            .value
+            .set(RevisingReturnPage,false)
+            .success
+            .value
+
+          result.get(TellUsWhatHasChangedPage) must not be defined
+      }
+
+    }
   }
 }
