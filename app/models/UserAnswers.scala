@@ -40,23 +40,20 @@ final case class UserAnswers(
     page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
-    val updatedData = data.setObject(page.path, Json.toJson(value)) match {
-      case JsSuccess(jsValue, _) =>
-        Success(jsValue)
-      case JsError(errors) =>
-        Failure(JsResultException(errors))
-    }
-
-    updatedData.flatMap {
-      d =>
-        val updatedAnswers = copy(data = d)
+    setData(path(page, idx), value).flatMap {
+      d => {
+        val updatedAnswers = copy(data = d, lastPageSaved = Some(page))
         page.cleanup(Some(value), updatedAnswers)
+      }
     }
   }
 
   def appendList[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], rds: Reads[A]): Try[UserAnswers] = {
-    setData(page.path, getList(page).+:(value)).map {
-      d => copy (data = d, lastPageSaved = Some(page))
+    setData(page.path, getList(page).+:(value)).flatMap {
+      d => {
+        val updatedAnswers = copy(data = d, lastPageSaved = Some(page))
+        page.cleanup(Some(value), updatedAnswers)
+      }
     }
   }
 
