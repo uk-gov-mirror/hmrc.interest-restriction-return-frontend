@@ -469,8 +469,8 @@ groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to
 
 # ElectedInterestAllowanceAlternativeCalcBeforePage Messages
 # ----------------------------------------------------------
-electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election in any previous returns?
-electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election in any previous returns?
+electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election before?
+electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election before?
 electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Elected interest allowance (alternative calculation) before
 electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
 
