@@ -18,6 +18,6 @@ package assets.messages.elections
 
 object InvestmentsReviewAnswersListMessages {
 
-  val title: Int => String = amount => s"$amount investsment${if(amount > 1) "s" else ""} added for Interest Allowance (non-consolidated investments) election"
+  val title: Int => String = amount => s"$amount investment${if(amount > 1) "s" else ""} added"
   val addParent = "Do you need to add another investment?"
 }

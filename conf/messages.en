@@ -629,10 +629,10 @@ investmentName.error.length = Investment name must be 160 characters or less
 
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
-investmentsReviewAnswersList.plural.title = {0} investsments added for Interest Allowance (non-consolidated investments) election
-investmentsReviewAnswersList.singular.title = {0} investsment added for Interest Allowance (non-consolidated investments) election
-investmentsReviewAnswersList.plural.heading = {0} investsments added for Interest Allowance (non-consolidated investments) election
-investmentsReviewAnswersList.singular.heading = {0} investsment added for Interest Allowance (non-consolidated investments) election
+investmentsReviewAnswersList.plural.title = {0} investments added
+investmentsReviewAnswersList.singular.title = {0} investment added
+investmentsReviewAnswersList.plural.heading = {0} investments added
+investmentsReviewAnswersList.singular.heading = {0} investment added
 investmentsReviewAnswersList.addAnother = Do you need to add another investment?
 investmentsReviewAnswersList.error.required = Select yes if you need to add another investment
 
