@@ -37,19 +37,11 @@ class RevisingReturnPageSpec extends PageBehaviours {
       forAll(arbitrary[UserAnswers]) {
         userAnswers =>
           val result = userAnswers
-            .set(AgentNamePage, "Bob")
-            .success
-            .value
-            .set(TellUsWhatHasChangedPage,"Agent not working with us")
-            .success
-            .value
-            .set(RevisingReturnPage,false)
-            .success
-            .value
+            .set(TellUsWhatHasChangedPage,"Agent not working with us").success.value
+            .set(RevisingReturnPage,false).success.value
 
           result.get(TellUsWhatHasChangedPage) must not be defined
       }
-
     }
   }
 }
