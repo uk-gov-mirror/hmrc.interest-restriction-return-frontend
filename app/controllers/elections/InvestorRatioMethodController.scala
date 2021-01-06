@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.elections.InvestorRatioMethodFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.{Mode, NormalMode, InvestorRatioMethod}
 import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi
@@ -53,27 +53,29 @@ class InvestorRatioMethodController @Inject()(
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(InvestorGroupsPage, idx) { investorGroups =>
       Future.successful(Ok(view(
-        form = investorGroups.ratioMethod.fold(form)(form.fill),
+        form = investorGroups.ratioMethod.fold(form)(x => form.fill(x.isGroupRatioMethod)),
+        investorGroupName = investorGroups.investorName,
         postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
       )))
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(
-          form = formWithErrors,
-          postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
-        ))),
-      value => {
-        answerFor(InvestorGroupsPage, idx) { investorGroups =>
-          val updatedModel = investorGroups.copy(ratioMethod = Some(value))
+    answerFor(InvestorGroupsPage, idx) { investorGroups =>
+      form.bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            investorGroupName = investorGroups.investorName,
+            postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
+          ))),
+        value => {
+          val updatedModel = investorGroups.copy(ratioMethod = Some(InvestorRatioMethod.fromBoolean(value)))
           save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
             Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, userAnswers, Some(idx)))
           }
         }
-      }
-    )
+      )
+    }
   }
 }

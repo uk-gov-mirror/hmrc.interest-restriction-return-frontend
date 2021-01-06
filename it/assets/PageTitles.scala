@@ -29,7 +29,7 @@ object PageTitles {
   val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if (i > 1) 's'} added"
   val investmentsReviewAnswersList: Int => String = i => s"$i investsment${if (i > 1) 's'} added for Interest Allowance (non-consolidated investments) election"
   val partnershipName = "Enter the name of the partnership"
-  val investorRatioMethod = "Which ratio do you want to elect for this investor group?"
+  val investorRatioMethod = "Do you want to treat the investor group as if they have made the group ratio election?"
   val investorGroupName = "Enter the name of the investor group"
   val addInvestorGroup = "Do you want to add an investor group?"
   val otherInvestorGroupElections = "Which elections are being treated as if they have been made by the investor group?"

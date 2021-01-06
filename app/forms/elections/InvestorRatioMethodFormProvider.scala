@@ -20,12 +20,11 @@ import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
-import models.InvestorRatioMethod
 
 class InvestorRatioMethodFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[InvestorRatioMethod] =
+  def apply(): Form[Boolean] =
     Form(
-      "value" -> enumerable[InvestorRatioMethod]("investorRatioMethod.error.required")
+      "value" -> boolean("investorRatioMethod.error.required")
     )
 }

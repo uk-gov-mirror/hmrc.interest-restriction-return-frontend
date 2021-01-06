@@ -531,12 +531,12 @@ investorGroupName.error.length = Investor group name must be 160 characters or l
 
 # InvestorRatioMethodPage Messages
 # ----------------------------------------------------------
-investorRatioMethod.title = Which ratio do you want to elect for this investor group?
-investorRatioMethod.heading = Which ratio do you want to elect for this investor group?
+investorRatioMethod.title = Do you want to treat the investor group as if they have made the group ratio election?
+investorRatioMethod.heading = Do you want to treat the investor group as if they have made the group ratio election?
 investorRatioMethod.groupRatioMethod = Group Ratio
 investorRatioMethod.fixedRatioMethod = Fixed Ratio
 investorRatioMethod.checkYourAnswersLabel = Investor group ratio
-investorRatioMethod.error.required = Select which ratio you want to elect for this investor group
+investorRatioMethod.error.required = Select yes if you want to treat the investor group as if they have made the group ratio election
 
 # OtherInvestorGroupElectionsPage Messages
 # ----------------------------------------------------------
