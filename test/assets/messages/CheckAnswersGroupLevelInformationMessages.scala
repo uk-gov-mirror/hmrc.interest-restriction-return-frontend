@@ -20,7 +20,7 @@ object CheckAnswersGroupLevelInformationMessages {
 
   val title = "Check parent company details"
 
-  val returnContainEstimates = "Does the return contains estimates?"
+  val returnContainEstimates = "Will you be submitting estimated figures?"
   val groupInterestAllowance = "Group interest allowance"
   val groupInterestCapacity = "Group interest capacity"
   val groupSubjectToRestrictions = "Is the group subject to restrictions?"

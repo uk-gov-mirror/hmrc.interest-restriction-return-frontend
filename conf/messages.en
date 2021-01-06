@@ -238,11 +238,10 @@ interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be bet
 
 # ReturnContainEstimatesPage Messages
 # ----------------------------------------------------------
-returnContainEstimates.title = Does the return contain estimates?
-returnContainEstimates.heading = Does the return contain estimates?
-returnContainEstimates.checkYourAnswersLabel = Does the return contains estimates?
-returnContainEstimates.error.required = Select yes if the return contains estimates?
-
+returnContainEstimates.title = Will you be submitting estimated figures?
+returnContainEstimates.heading = Will you be submitting estimated figures?
+returnContainEstimates.checkYourAnswersLabel = Will you be submitting estimated figures?
+returnContainEstimates.error.required = Select yes if you will be submitting estimated figures
 
 # SavedReturnPage Messages
 # ----------------------------------------------------------
