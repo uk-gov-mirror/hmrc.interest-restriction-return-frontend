@@ -20,7 +20,13 @@ import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
-sealed trait InvestorRatioMethod
+sealed trait InvestorRatioMethod {
+  val isGroupRatioMethod: Boolean = 
+    this match {
+      case InvestorRatioMethod.GroupRatioMethod => true
+      case InvestorRatioMethod.FixedRatioMethod => false
+    }
+}
 
 object InvestorRatioMethod extends Enumerable.Implicits {
 
@@ -40,4 +46,11 @@ object InvestorRatioMethod extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[InvestorRatioMethod] =
     Enumerable(values.map(v => v.toString -> v): _*)
+
+  def fromBoolean(bool: Boolean): InvestorRatioMethod = 
+    bool match {
+      case true => GroupRatioMethod
+      case false => FixedRatioMethod
+    }
+
 }

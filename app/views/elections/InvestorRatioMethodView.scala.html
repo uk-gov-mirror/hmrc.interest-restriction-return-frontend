@@ -23,14 +23,14 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    inputRadio: components.inputRadio,
+    yesNoRadio: components.yesNoRadio,
     subheading: components.subheading,
     button: components.button,
     link: components.link,
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], investorGroupName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(pageTitle = Some(title(form, "investorRatioMethod.title", Some("section.elections")))) {
 
@@ -38,14 +38,9 @@
 
         @errorSummary(form.errors)
 
-        @subheading("section.elections")
+        @subheading(investorGroupName)
 
-        @inputRadio(
-            form = form,
-            legend = messages("investorRatioMethod.heading"),
-            items = InvestorRatioMethod.options(form),
-            inline = true
-        )
+        @yesNoRadio(form, "investorRatioMethod.heading")
 
         @button("site.saveAndContinue")
 
