@@ -17,7 +17,7 @@
 package assets.messages.elections
 
 object InvestorGroupsReviewAnswersListMessages {
-  val title: Int => String = amount => s"$amount Investor group${if(amount > 1) "s" else ""} added for Group ratio (blended) election"
+  val title: Int => String = amount => s"$amount Investor group${if(amount > 1) "s" else ""} added"
   val addParent = "Do you need to add another investor group?"
   val groupRatio = "Group Ratio"
   val fixedRatio = "Fixed Ratio"

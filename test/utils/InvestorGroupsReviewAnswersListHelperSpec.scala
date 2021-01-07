@@ -42,21 +42,21 @@ class InvestorGroupsReviewAnswersListHelperSpec extends SpecBase with SummaryLis
         )
 
         helper.rows mustBe Seq(
-          summaryListRow(
+          summaryListRowWideKey(
             investorGroupsGroupRatioModel.investorName,
-            InvestorGroupsReviewAnswersListMessages.groupRatio,
+            "",
             routes.InvestorGroupNameController.onPageLoad(1, NormalMode) -> BaseMessages.changeLink,
             routes.InvestorGroupsDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
-          summaryListRow(
+          summaryListRowWideKey(
             investorGroupsFixedRatioModel.investorName,
-            InvestorGroupsReviewAnswersListMessages.fixedRatio,
+            "",
             routes.InvestorGroupNameController.onPageLoad(2, NormalMode) -> BaseMessages.changeLink,
             routes.InvestorGroupsDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
-          summaryListRow(
+          summaryListRowWideKey(
             investorGroupsFixedRatioModel.investorName,
-            InvestorGroupsReviewAnswersListMessages.fixedRatio,
+            "",
             routes.InvestorGroupNameController.onPageLoad(3, NormalMode) -> BaseMessages.changeLink,
             routes.InvestorGroupsDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )
