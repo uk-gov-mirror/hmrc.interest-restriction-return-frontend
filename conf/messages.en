@@ -568,15 +568,20 @@ isUkPartnership.error.required = Select yes if Is this a UK Partnership?
 
 # PartnershipSAUTRPage Messages
 # ----------------------------------------------------------
-partnershipSAUTR.title = Enter {0} Self Assessment Unique Taxpayer Reference
-partnershipSAUTR.heading = Enter {0} Self Assessment Unique Taxpayer Reference
-partnershipSAUTR.checkYourAnswersLabel = Enter {0} Self Assessment Unique Taxpayer Reference
-partnershipSAUTR.label= Enter {0} Self Assessment Unique Taxpayer Reference
-partnershipSAUTR.error.required = Enter Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.title = Enter the Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.heading = Enter the Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.checkYourAnswersLabel = Enter the Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.label= Enter the Self Assessment Unique Taxpayer Reference
+partnershipSAUTR.error.required = Enter the Self Assessment Unique Taxpayer Reference
 partnershipSAUTR.error.regexp = Self Assessment Unique Taxpayer Reference must be 10 characters or less
 partnershipSAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
-# CheckAnswersElectionsPage Messages
+partnershipSAUTR.p1 = This is 10 numbers, for example 1234567890.
+partnershipSAUTR.p2 = It will be on tax returns and other letters about Self Assessment.
+partnershipSAUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''. You can
+partnershipSAUTR.p4 = find a lost UTR number.
+
+# CheckAnswersElectionsPage MessagesF
 # ----------------------------------------------------------
 elections.checkYourAnswers.title = Check your answers for this section
 elections.checkYourAnswers.heading = Check your answers for this section

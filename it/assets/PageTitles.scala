@@ -24,7 +24,7 @@ object PageTitles {
   val ukCompaniesDeletionConfirmation: String => String = name => s"Are you sure you want to delete company ‘$name’?"
   val consentingCompany = "Is this a consenting company?"
   val netTaxInterestIncomeOrExpense: String => String = name => s"Which net tax-interest does $name have?"
-  val partnershipSAUTR: String => String = name => s"Enter $name’${if (name.last.toLower != 's') 's'} Self Assessment Unique Taxpayer Reference"
+  val partnershipSAUTR = "Enter the Self Assessment Unique Taxpayer Reference"
   val isUkPartnership = "Is this a UK Partnership?"
   val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if (i > 1) 's'} added"
   val investmentsReviewAnswersList: Int => String = i => s"$i investment${if (i > 1) 's'} added"
