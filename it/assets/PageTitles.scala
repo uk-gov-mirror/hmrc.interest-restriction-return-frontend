@@ -27,7 +27,7 @@ object PageTitles {
   val partnershipSAUTR: String => String = name => s"Enter $name’${if (name.last.toLower != 's') 's'} Self Assessment Unique Taxpayer Reference"
   val isUkPartnership = "Is this a UK Partnership?"
   val deemedParentReviewAnswersList: Int => String = i => s"$i deemed parent${if (i > 1) 's'} added"
-  val investmentsReviewAnswersList: Int => String = i => s"$i investsment${if (i > 1) 's'} added for Interest Allowance (non-consolidated investments) election"
+  val investmentsReviewAnswersList: Int => String = i => s"$i investment${if (i > 1) 's'} added"
   val partnershipName = "Enter the name of the partnership"
   val investorRatioMethod = "Do you want to treat the investor group as if they have made the group ratio election?"
   val investorGroupName = "Enter the name of the investor group"
