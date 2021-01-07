@@ -42,8 +42,7 @@ final case class UserAnswers(
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
     setData(path(page, idx), value).flatMap {
       d => {
-        val updatedAnswers = copy(data = d, lastPageSaved = Some(page))
-        page.cleanup(Some(value), updatedAnswers)
+        cleanUpData(page, value, d)
       }
     }
   }
@@ -51,10 +50,14 @@ final case class UserAnswers(
   def appendList[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], rds: Reads[A]): Try[UserAnswers] = {
     setData(page.path, getList(page).+:(value)).flatMap {
       d => {
-        val updatedAnswers = copy(data = d, lastPageSaved = Some(page))
-        page.cleanup(Some(value), updatedAnswers)
+        cleanUpData(page, value, d)
       }
     }
+  }
+
+  private def cleanUpData[A](page: QuestionPage[A], value: A, d: JsObject) = {
+    val updatedAnswers = copy(data = d, lastPageSaved = Some(page))
+    page.cleanup(Some(value), updatedAnswers)
   }
 
   private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] = {
