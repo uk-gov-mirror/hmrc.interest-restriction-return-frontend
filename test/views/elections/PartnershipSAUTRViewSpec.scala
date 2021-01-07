@@ -32,6 +32,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
   val messageKeyPrefix = "partnershipSAUTR"
   val section = Some(messages("section.elections"))
   val form = new PartnershipSAUTRFormProvider()()
+  val companyName: String = "Company Name ltd"
 
     "PartnershipSAUTRView" must {
 
@@ -48,7 +49,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.elections)
+      behave like pageWithSubHeading(applyView(form), companyName)
 
       behave like stringPage(form = form,
         createView = applyView,

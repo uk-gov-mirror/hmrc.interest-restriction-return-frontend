@@ -38,7 +38,7 @@
 
         @errorSummary(form.errors)
 
-        @subheading("section.elections")
+        @subheading(partnershipName)
 
             @inputText(
               form,
@@ -46,7 +46,7 @@
               name = "value",
               label = "partnershipSAUTR.label",
               isPageHeading = true,
-              headingMessageArgs = Seq(addPossessive(partnershipName)),
+              hint = Some(hint),
               classes = Some("govuk-input--width-10")
             )
 
@@ -54,4 +54,11 @@
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @messages("partnershipSAUTR.p1")
+    @messages("partnershipSAUTR.p2")
+    @messages("partnershipSAUTR.p3")
+    <a href="@appConfig.findLostUTRUrl" target="_blank">@messages("partnershipSAUTR.p4")</a>
 }

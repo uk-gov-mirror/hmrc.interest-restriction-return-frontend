@@ -45,7 +45,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.partnershipSAUTR(partnerName))
+              titleOf(PageTitles.partnershipSAUTR)
             )
           }
         }
@@ -132,7 +132,7 @@ class PartnershipSAUTRControllerISpec extends IntegrationSpecBase with CreateReq
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.partnershipSAUTR(partnerName))
+              titleOf(PageTitles.partnershipSAUTR)
             )
           }
         }
