@@ -40,15 +40,24 @@ final case class UserAnswers(
     page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None)(implicit writes: Writes[A]): Try[UserAnswers] = {
-    setData(path(page, idx), value).map {
-      d => copy(data = d, lastPageSaved = Some(page))
+    setData(path(page, idx), value).flatMap {
+      d => {
+        cleanUpData(page, value, d)
+      }
     }
   }
 
   def appendList[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], rds: Reads[A]): Try[UserAnswers] = {
-    setData(page.path, getList(page).+:(value)).map {
-      d => copy (data = d, lastPageSaved = Some(page))
+    setData(page.path, getList(page).+:(value)).flatMap {
+      d => {
+        cleanUpData(page, value, d)
+      }
     }
+  }
+
+  private def cleanUpData[A](page: QuestionPage[A], value: A, d: JsObject) = {
+    val updatedAnswers = copy(data = d, lastPageSaved = Some(page))
+    page.cleanup(Some(value), updatedAnswers)
   }
 
   private def setData[A](path: JsPath, value: A)(implicit writes: Writes[A]): Try[JsObject] = {
@@ -69,7 +78,11 @@ final case class UserAnswers(
         Success(data)
     }
 
-    updatedData.map { d => copy(data = d) }
+    updatedData.flatMap {
+      d =>
+        val updatedAnswers = copy(data = d)
+        page.cleanup(None, updatedAnswers)
+    }
   }
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
