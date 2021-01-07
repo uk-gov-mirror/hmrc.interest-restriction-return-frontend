@@ -59,7 +59,7 @@ object PageTitles {
   val infrastructureCompanyElection = "Has the group made the Infrastructure company election?"
   val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
   val interestReactivationsCap = "What is the group reactivation cap?"
-  val returnContainEstimates = "Does the return contain estimates?"
+  val returnContainEstimates = "Will you be submitting estimated figures?"
   val revisingReturn = "Are you revising a return that has already been submitted?"
   val agentActingOnBehalfOfCompany = "Are you an agent?"
   val agentName = "Enter the name of the agent"
