@@ -38,7 +38,6 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
-    questionDeletionLookupService = questionDeletionLookupService,
     navigator = FakeUkCompaniesNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

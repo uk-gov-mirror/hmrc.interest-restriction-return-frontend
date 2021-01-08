@@ -29,7 +29,7 @@ import pages.ultimateParentCompany.{DeemedParentPage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.PayTaxInUkView
 
 import scala.concurrent.Future
@@ -37,7 +37,6 @@ import scala.concurrent.Future
 class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
                                      override val sessionRepository: SessionRepository,
                                      override val navigator: UltimateParentCompanyNavigator,
-                                     override val questionDeletionLookupService: QuestionDeletionLookupService,
                                      override val updateSectionService: UpdateSectionStateService,
                                      identify: IdentifierAction,
                                      getData: DataRetrievalAction,

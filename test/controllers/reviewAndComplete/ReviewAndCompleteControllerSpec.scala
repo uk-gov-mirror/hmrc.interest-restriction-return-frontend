@@ -38,7 +38,6 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     view = view,
     sessionRepository = mockSessionRepository,
     navigator = FakeReviewAndCompleteNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService
   )
 

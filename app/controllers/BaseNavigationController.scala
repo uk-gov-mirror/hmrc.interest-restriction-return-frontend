@@ -24,7 +24,7 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.libs.json.Writes
 import play.api.mvc.Result
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 
 import scala.concurrent.Future
 
@@ -32,7 +32,6 @@ trait BaseNavigationController extends BaseController {
 
   val sessionRepository: SessionRepository
   val navigator: Navigator
-  val questionDeletionLookupService: QuestionDeletionLookupService
   val updateSectionService: UpdateSectionStateService
 
   def saveAndRedirect[A](page: QuestionPage[A], answer: A, mode: Mode, idx: Int)
@@ -67,10 +66,8 @@ trait BaseNavigationController extends BaseController {
 
   def updateState(page: Page, mode: Mode, userAnswers: UserAnswers) = {
     val reviewModel = updateSectionService.updateState(userAnswers, page)
-    val pagesToDelete = questionDeletionLookupService.getPagesToRemove(page)(userAnswers)
     for {
-      cleanedAnswers <- Future.fromTry(userAnswers.remove(pagesToDelete))
-      updatedSectionAnswers <- Future.fromTry(cleanedAnswers.set(ReviewAndCompletePage, reviewModel))
+      updatedSectionAnswers <- Future.fromTry(userAnswers.set(ReviewAndCompletePage, reviewModel))
       _ <- sessionRepository.set(updatedSectionAnswers)
     } yield updatedSectionAnswers
   }

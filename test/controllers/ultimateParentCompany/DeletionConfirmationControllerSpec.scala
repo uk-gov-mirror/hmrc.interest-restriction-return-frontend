@@ -37,7 +37,6 @@ class DeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching 
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUltimateParentCompanyNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

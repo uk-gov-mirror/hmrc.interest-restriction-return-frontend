@@ -29,7 +29,7 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import utils.UkCompaniesReviewAnswersListHelper
 import views.html.ukCompanies.UkCompaniesReviewAnswersListView
 
@@ -38,7 +38,6 @@ import scala.concurrent.Future
 class UkCompaniesReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
                                                        override val sessionRepository: SessionRepository,
                                                        override val navigator: UkCompaniesNavigator,
-                                                       override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                        override val updateSectionService: UpdateSectionStateService,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,

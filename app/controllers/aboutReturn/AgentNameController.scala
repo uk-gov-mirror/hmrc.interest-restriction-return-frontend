@@ -28,7 +28,7 @@ import pages.aboutReturn.AgentNamePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import views.html.aboutReturn.AgentNameView
 
 import scala.concurrent.Future
@@ -36,7 +36,6 @@ import scala.concurrent.Future
 class AgentNameController @Inject()(override val messagesApi: MessagesApi,
                                     override val sessionRepository: SessionRepository,
                                     override val navigator: AboutReturnNavigator,
-                                    override val questionDeletionLookupService: QuestionDeletionLookupService,
                                     override val updateSectionService: UpdateSectionStateService,
                                     identify: IdentifierAction,
                                     getData: DataRetrievalAction,

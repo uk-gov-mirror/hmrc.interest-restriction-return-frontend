@@ -29,14 +29,13 @@ import views.html.elections.InvestorGroupsDeletionConfirmationView
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class InvestorGroupsDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                                              override val sessionRepository: SessionRepository,
                                                              override val navigator: ElectionsNavigator,
-                                                             override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                              override val updateSectionService: UpdateSectionStateService,
                                                              identify: IdentifierAction,
                                                              getData: DataRetrievalAction,

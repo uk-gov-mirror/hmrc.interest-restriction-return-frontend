@@ -34,7 +34,6 @@ class CheckAnswersAboutReturnControllerSpec extends SpecBase with FeatureSwitchi
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

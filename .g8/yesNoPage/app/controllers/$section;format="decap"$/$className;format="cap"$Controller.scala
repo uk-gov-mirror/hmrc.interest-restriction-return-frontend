@@ -14,7 +14,7 @@ import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 
 class $className;format="cap"$Controller @Inject()(

@@ -28,7 +28,7 @@ import pages.groupLevelInformation.GroupSubjectToReactivationsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import views.html.groupLevelInformation.GroupSubjectToReactivationsView
 
 import scala.concurrent.Future
@@ -36,7 +36,6 @@ import scala.concurrent.Future
 class GroupSubjectToReactivationsController @Inject()(override val messagesApi: MessagesApi,
                                                       override val sessionRepository: SessionRepository,
                                                       override val navigator: GroupLevelInformationNavigator,
-                                                      override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                       override val updateSectionService: UpdateSectionStateService,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,

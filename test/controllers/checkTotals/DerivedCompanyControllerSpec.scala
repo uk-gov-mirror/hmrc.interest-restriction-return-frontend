@@ -37,7 +37,6 @@ class DerivedCompanyControllerSpec extends SpecBase with FeatureSwitching with M
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = checkTotalsNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

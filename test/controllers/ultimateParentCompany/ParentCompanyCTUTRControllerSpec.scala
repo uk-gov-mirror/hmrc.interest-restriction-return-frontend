@@ -38,7 +38,6 @@ class ParentCompanyCTUTRControllerSpec extends SpecBase with FeatureSwitching wi
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUltimateParentCompanyNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

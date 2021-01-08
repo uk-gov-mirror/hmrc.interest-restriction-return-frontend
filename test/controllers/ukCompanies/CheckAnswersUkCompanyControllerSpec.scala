@@ -35,7 +35,6 @@ class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching
   object Controller extends CheckAnswersUkCompanyController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     navigator = FakeUkCompaniesNavigator,
     identify = FakeIdentifierAction,

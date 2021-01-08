@@ -38,7 +38,6 @@ class GroupInterestAllowanceControllerSpec extends SpecBase with FeatureSwitchin
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeGroupLevelInformationNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

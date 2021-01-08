@@ -37,7 +37,6 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeGroupLevelInformationNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

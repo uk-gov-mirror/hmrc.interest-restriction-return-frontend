@@ -30,14 +30,13 @@ import views.html.ukCompanies.AddRestrictionView
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
                                          override val sessionRepository: SessionRepository,
                                          override val navigator: UkCompaniesNavigator,
-                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
                                          override val updateSectionService: UpdateSectionStateService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,

@@ -38,7 +38,6 @@ class InterestReactivationsCapControllerSpec extends SpecBase with FeatureSwitch
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeGroupLevelInformationNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

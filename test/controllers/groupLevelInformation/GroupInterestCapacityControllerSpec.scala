@@ -38,7 +38,6 @@ class GroupInterestCapacityControllerSpec extends SpecBase with FeatureSwitching
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeGroupLevelInformationNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

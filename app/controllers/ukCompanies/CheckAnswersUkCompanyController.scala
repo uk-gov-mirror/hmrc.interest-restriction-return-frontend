@@ -29,7 +29,7 @@ import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.CheckYourAnswersUkCompanyHelper
 import views.ViewUtils._
@@ -40,7 +40,6 @@ import scala.concurrent.Future
 class CheckAnswersUkCompanyController @Inject()(override val messagesApi: MessagesApi,
                                                 override val sessionRepository: SessionRepository,
                                                 override val navigator: UkCompaniesNavigator,
-                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                 override val updateSectionService: UpdateSectionStateService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,

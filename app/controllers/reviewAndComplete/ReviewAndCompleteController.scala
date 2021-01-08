@@ -28,7 +28,7 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
@@ -37,7 +37,6 @@ import scala.concurrent.Future
 class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesApi,
                                             override val navigator: ReviewAndCompleteNavigator,
                                             override val sessionRepository: SessionRepository,
-                                            override val questionDeletionLookupService: QuestionDeletionLookupService,
                                             override val updateSectionService: UpdateSectionStateService,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
