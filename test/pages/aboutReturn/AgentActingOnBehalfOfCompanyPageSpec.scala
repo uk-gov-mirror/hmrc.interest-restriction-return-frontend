@@ -16,6 +16,8 @@
 
 package pages.aboutReturn
 
+import models.UserAnswers
+import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 
 class AgentActingOnBehalfOfCompanyPageSpec extends PageBehaviours {
@@ -27,5 +29,18 @@ class AgentActingOnBehalfOfCompanyPageSpec extends PageBehaviours {
     beSettable[Boolean](AgentActingOnBehalfOfCompanyPage)
 
     beRemovable[Boolean](AgentActingOnBehalfOfCompanyPage)
+  }
+
+  "Cleanup" must {
+    "remove AgentNamePage when there is a change of the answer to 'No'" in {
+      forAll(arbitrary[UserAnswers]) {
+        userAnswers =>
+          val result = userAnswers
+            .set(AgentNamePage,"John Doe").success.value
+            .set(AgentActingOnBehalfOfCompanyPage,false).success.value
+
+          result.get(AgentNamePage) must not be defined
+      }
+    }
   }
 }
