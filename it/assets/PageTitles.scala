@@ -55,7 +55,7 @@ object PageTitles {
   val groupInterestAllowance = "What is the group interest allowance for the period?"
   val groupInterestCapacity = "What is the group interest capacity for the period?"
   val groupSubjectToReactivations = "Is the group subject to reactivations?"
-  val groupSubjectToRestrictions = "Is the group subject to restrictions?"
+  val groupSubjectToRestrictions = "Is the group subject to interest restrictions?"
   val infrastructureCompanyElection = "Has the group made the Infrastructure company election?"
   val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
   val interestReactivationsCap = "What is the group reactivation cap?"

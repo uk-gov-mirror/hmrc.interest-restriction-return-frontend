@@ -207,10 +207,10 @@ groupInterestCapacity.error.outOfRange = Group interest capacity must be between
 
 # GroupSubjectToRestrictionsPage Messages
 # ----------------------------------------------------------
-groupSubjectToRestrictions.title = Is the group subject to restrictions?
-groupSubjectToRestrictions.heading = Is the group subject to restrictions?
-groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to restrictions?
-groupSubjectToRestrictions.error.required = Select yes if the group subject to restrictions
+groupSubjectToRestrictions.title = Is the group subject to interest restrictions?
+groupSubjectToRestrictions.heading = Is the group subject to interest restrictions?
+groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to interest restrictions?
+groupSubjectToRestrictions.error.required = Select yes if the group subject to interest restrictions
 
 # GroupInterestAllowancePage Messages
 # ----------------------------------------------------------
