@@ -37,7 +37,6 @@ class PartnershipDeletionConfirmationControllerSpec extends SpecBase with Featur
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
-    questionDeletionLookupService = questionDeletionLookupService,
     navigator = FakeElectionsNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

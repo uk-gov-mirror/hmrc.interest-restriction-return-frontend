@@ -29,7 +29,7 @@ import pages.elections.{InvestorGroupsPage, OtherInvestorGroupElectionsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import views.html.elections.OtherInvestorGroupElectionsView
 
 import scala.concurrent.Future
@@ -37,7 +37,6 @@ import scala.concurrent.Future
 class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: MessagesApi,
                                                       override val sessionRepository: SessionRepository,
                                                       override val navigator: ElectionsNavigator,
-                                                      override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                       override val updateSectionService: UpdateSectionStateService,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,

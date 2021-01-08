@@ -31,7 +31,7 @@ import config.featureSwitch.FeatureSwitching
 
 import scala.concurrent.Future
 import navigation.AboutReturnNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 
 class TellUsWhatHasChangedController @Inject()(
@@ -39,7 +39,6 @@ class TellUsWhatHasChangedController @Inject()(
                                        override val updateSectionService: UpdateSectionStateService,
                                        val sessionRepository: SessionRepository,
                                        val navigator: AboutReturnNavigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,

@@ -28,21 +28,19 @@ import pages.elections.{PartnershipNamePage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import views.html.elections.PartnershipNameView
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.QuestionDeletionLookupService
 import controllers.BaseNavigationController
 import models.returnModels.PartnershipModel
 
 class PartnershipNameController @Inject()(override val messagesApi: MessagesApi,
                                           override val sessionRepository: SessionRepository,
                                           override val navigator: ElectionsNavigator,
-                                          override val questionDeletionLookupService: QuestionDeletionLookupService,
                                           override val updateSectionService: UpdateSectionStateService,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,

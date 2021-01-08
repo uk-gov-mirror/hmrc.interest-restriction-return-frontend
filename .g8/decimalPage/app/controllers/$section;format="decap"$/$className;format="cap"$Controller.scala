@@ -16,7 +16,7 @@ import play.api.data.Form
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 
 class $className;format="cap"$Controller @Inject()(

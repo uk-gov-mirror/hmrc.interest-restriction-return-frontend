@@ -27,14 +27,13 @@ import pages.aboutReturn.CheckAnswersReportingCompanyPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import utils.CheckYourAnswersAboutReturnCompanyHelper
 import views.html.CheckYourAnswersView
 
 class CheckAnswersAboutReturnController @Inject()(override val messagesApi: MessagesApi,
                                                   override val sessionRepository: SessionRepository,
                                                   override val navigator: AboutReturnNavigator,
-                                                  override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                   override val updateSectionService: UpdateSectionStateService,
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,

@@ -28,7 +28,7 @@ import pages.aboutReturn.ReportingCompanyNamePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import views.html.aboutReturn.ReportingCompanyNameView
 
 import scala.concurrent.Future
@@ -36,7 +36,6 @@ import scala.concurrent.Future
 class ReportingCompanyNameController @Inject()(override val messagesApi: MessagesApi,
                                                override val sessionRepository: SessionRepository,
                                                override val navigator: AboutReturnNavigator,
-                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                override val updateSectionService: UpdateSectionStateService,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,

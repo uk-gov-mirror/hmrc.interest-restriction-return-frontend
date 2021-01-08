@@ -27,14 +27,13 @@ import pages.elections.CheckAnswersElectionsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import utils.CheckYourAnswersElectionsHelper
 import views.html.CheckYourAnswersView
 
 class CheckAnswersElectionsController @Inject()(override val messagesApi: MessagesApi,
                                                 override val sessionRepository: SessionRepository,
                                                 override val navigator: ElectionsNavigator,
-                                                override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                 override val updateSectionService: UpdateSectionStateService,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,

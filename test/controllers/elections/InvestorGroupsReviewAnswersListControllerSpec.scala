@@ -39,7 +39,6 @@ class InvestorGroupsReviewAnswersListControllerSpec extends SpecBase with Featur
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
-    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

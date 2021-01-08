@@ -16,12 +16,27 @@
 
 package pages.aboutReturn
 
+import models.UserAnswers
+import pages.Page.allQuestionPages
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object ReportingCompanyAppointedPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "reportingCompanyAppointed"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
+    value match {
+      case Some(false) => {
+        userAnswers.remove(allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage))
+      }
+      case _ => {
+        super.cleanup(value, userAnswers)
+      }
+    }
+  }
 }

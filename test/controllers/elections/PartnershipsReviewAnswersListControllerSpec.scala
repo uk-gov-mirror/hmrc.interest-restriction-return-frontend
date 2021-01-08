@@ -39,7 +39,6 @@ class PartnershipsReviewAnswersListControllerSpec extends SpecBase with FeatureS
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
-    questionDeletionLookupService = questionDeletionLookupService,
     navigator = FakeElectionsNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

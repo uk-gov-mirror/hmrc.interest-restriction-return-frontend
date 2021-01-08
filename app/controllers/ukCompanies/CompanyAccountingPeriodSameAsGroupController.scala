@@ -30,7 +30,7 @@ import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
@@ -38,7 +38,6 @@ class CompanyAccountingPeriodSameAsGroupController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          override val sessionRepository: SessionRepository,
                                          override val navigator: UkCompaniesNavigator,
-                                         override val questionDeletionLookupService: QuestionDeletionLookupService,
                                          override val updateSectionService: UpdateSectionStateService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,

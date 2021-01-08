@@ -39,7 +39,6 @@ class TellUsWhatHasChangedControllerSpec extends SpecBase with FeatureSwitching 
     sessionRepository = mockSessionRepository,
     updateSectionService = updateSectionService,
     navigator = FakeAboutReturnNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

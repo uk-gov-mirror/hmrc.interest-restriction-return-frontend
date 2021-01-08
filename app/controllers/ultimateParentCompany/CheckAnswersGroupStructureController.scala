@@ -27,7 +27,7 @@ import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParent
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import utils.CheckYourAnswersUltimateParentCompanyHelper
 import views.html.CheckYourAnswersView
 import handlers.ErrorHandler
@@ -36,7 +36,6 @@ import scala.concurrent.Future
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
                                                      override val sessionRepository: SessionRepository,
                                                      override val navigator: UltimateParentCompanyNavigator,
-                                                     override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                      override val updateSectionService: UpdateSectionStateService,
                                                      identify: IdentifierAction,
                                                      getData: DataRetrievalAction,

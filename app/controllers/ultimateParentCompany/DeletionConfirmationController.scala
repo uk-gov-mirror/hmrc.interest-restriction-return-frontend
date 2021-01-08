@@ -30,14 +30,13 @@ import views.html.ultimateParentCompany.DeletionConfirmationView
 
 import scala.concurrent.Future
 import navigation.UltimateParentCompanyNavigator
-import services.{QuestionDeletionLookupService, UpdateSectionStateService}
+import services.UpdateSectionStateService
 import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class DeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                                override val sessionRepository: SessionRepository,
                                                override val navigator: UltimateParentCompanyNavigator,
-                                               override val questionDeletionLookupService: QuestionDeletionLookupService,
                                                override val updateSectionService: UpdateSectionStateService,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,

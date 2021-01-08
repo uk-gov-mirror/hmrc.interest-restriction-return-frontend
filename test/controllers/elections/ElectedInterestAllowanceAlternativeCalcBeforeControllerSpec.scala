@@ -37,7 +37,6 @@ class ElectedInterestAllowanceAlternativeCalcBeforeControllerSpec extends SpecBa
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
-    questionDeletionLookupService = questionDeletionLookupService,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
