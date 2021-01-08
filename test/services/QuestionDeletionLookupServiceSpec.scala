@@ -56,31 +56,6 @@ class QuestionDeletionLookupServiceSpec extends SpecBase with MockCRNValidationC
           }
         }
       }
-
-      "called with the Agent Acting on Behalf of Client Page" when {
-
-        "the answer for the page is true" must {
-
-          "return no pages to delete" in {
-
-            val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, true).get
-
-            val result = TestQuestionDeletionLookupService.getPagesToRemove(AgentActingOnBehalfOfCompanyPage)(userAnswers)
-            result mustBe List()
-          }
-        }
-
-        "the answer for the page is false" must {
-
-          "return the Agent Name page to delete" in {
-
-            val userAnswers = emptyUserAnswers.set(AgentActingOnBehalfOfCompanyPage, false).get
-
-            val result = TestQuestionDeletionLookupService.getPagesToRemove(AgentActingOnBehalfOfCompanyPage)(userAnswers)
-            result mustBe List(AgentNamePage)
-          }
-        }
-      }
     }
   }
 }

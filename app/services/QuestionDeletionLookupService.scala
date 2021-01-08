@@ -29,10 +29,6 @@ class QuestionDeletionLookupService @Inject()() {
     ReportingCompanyAppointedPage -> (_.get(ReportingCompanyAppointedPage) match {
       case Some(false) => allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage)
       case _ => List()
-    }),
-    AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
-      case Some(false) => List(AgentNamePage)
-      case _ => List()
     })
   )
 
