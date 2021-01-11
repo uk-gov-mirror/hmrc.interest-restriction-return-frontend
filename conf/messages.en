@@ -501,6 +501,8 @@ interestAllowanceConsolidatedPshipElection.heading = Do you want to make an inte
 interestAllowanceConsolidatedPshipElection.checkYourAnswersLabel = Elect interest allowance (consolidated partnerships)
 interestAllowanceConsolidatedPshipElection.error.required = Select yes if you want to make an interest allowance election for consolidated partnerships
 
+interestAllowanceConsolidatedPshipElection.p1 = This election is irrevocable
+
 # GroupEBITDAPage Messages
 # ----------------------------------------------------------
 groupEBITDA.title = Enter the group-EBITDA
