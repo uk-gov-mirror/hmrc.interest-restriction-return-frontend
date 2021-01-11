@@ -34,6 +34,9 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
   def electedInterestAllowanceConsolidatedPshipBefore: Option[SummaryListRow] =
     answer(ElectedInterestAllowanceConsolidatedPshipBeforePage, electionsRoutes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(CheckMode))
 
+  def qicElection: Option[SummaryListRow] =
+    answer(QICElectionPage, electionsRoutes.QICElectionPageController.onPageLoad(CheckMode))
+
   def groupRatioPercentage: Option[SummaryListRow] =
     percentageAnswer(GroupRatioPercentagePage, electionsRoutes.GroupRatioPercentageController.onPageLoad(CheckMode))
 
@@ -118,6 +121,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     nonConsolidatedInvestmentsRow,
     electedInterestAllowanceConsolidatedPshipBefore,
     interestAllowanceConsolidatedPshipElection,
+    qicElection,
     consolidatedPartnershipsRow
   ).flatten
 }

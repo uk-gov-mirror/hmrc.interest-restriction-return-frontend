@@ -898,3 +898,10 @@ tellUsWhatHasChanged.checkYourAnswersLabel = What has changed
 tellUsWhatHasChanged.label= Tell us what has changed
 tellUsWhatHasChanged.error.required = Enter what has changed
 tellUsWhatHasChanged.error.length = Tell us what has changed must be 5000 characters or less
+
+# QICElectionPagePage Messages
+# ----------------------------------------------------------
+qICElectionPage.title = Has a company made a qualifying infrastructure company (QIC) election for the return period?
+qICElectionPage.heading = Has a company made a qualifying infrastructure company (QIC) election for the return period?
+qICElectionPage.checkYourAnswersLabel = Qualified Infrastructure Election
+qICElectionPage.error.required = Select yes if Has a company made a qualifying infrastructure company (QIC) election for the return period?

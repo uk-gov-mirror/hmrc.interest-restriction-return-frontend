@@ -28,6 +28,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryQICElectionPagePage: Arbitrary[QICElectionPage.type] =
+    Arbitrary(QICElectionPage)
+
   implicit lazy val arbitraryTellUsWhatHasChangedPage: Arbitrary[TellUsWhatHasChangedPage.type] =
     Arbitrary(TellUsWhatHasChangedPage)
 

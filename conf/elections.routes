@@ -183,3 +183,10 @@ POST       /partnerships/review                          controllers.elections.P
 GET        /partnership/:idx/deletion-confirmation                          controllers.elections.PartnershipDeletionConfirmationController.onPageLoad(idx: Int)
 POST       /partnership/:idx/deletion-confirmation                          controllers.elections.PartnershipDeletionConfirmationController.onSubmit(idx: Int)
 
+
+### QICElectionPage Controller
+### ----------------------------------------
+GET        /qic-election-page                          controllers.elections.QICElectionPageController.onPageLoad(mode: Mode = NormalMode)
+POST       /qic-election-page                          controllers.elections.QICElectionPageController.onSubmit(mode: Mode = NormalMode)
+GET        /qic-election-page/change                   controllers.elections.QICElectionPageController.onPageLoad(mode: Mode = CheckMode)
+POST       /qic-election-page/change                   controllers.elections.QICElectionPageController.onSubmit(mode: Mode = CheckMode)

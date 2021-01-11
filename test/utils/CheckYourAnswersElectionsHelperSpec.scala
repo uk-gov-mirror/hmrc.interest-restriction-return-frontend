@@ -258,6 +258,18 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
+    "For QIC Election" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.qicElection mustBe Some(summaryListRow(
+          CheckAnswersElectionsMessages.qicElection,
+          BaseMessages.yes,
+          electionsRoutes.QICElectionPageController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
     "For the Consolidated Partnerships listed" must {
 
       "have a correctly formatted summary list row when one added" in {

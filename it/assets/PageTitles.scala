@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val qICElectionPage = "Has a company made a qualifying infrastructure company (QIC) election for the return period?"
   val tellUsWhatHasChanged = "Tell us what has changed"
   val restrictionAmountSameAP = "Enter the restriction amount for this company"
   val addRestriction = "Do you need to add a restriction to this company?"
