@@ -55,6 +55,7 @@ site.govuk = GOV.UK
 site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.submitReturn = Submit a Corporate Interest Restriction return
+site.warning = Warning:
 
 
 # Timeout Messages
