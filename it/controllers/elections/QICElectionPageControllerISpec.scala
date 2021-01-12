@@ -27,14 +27,14 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
   "in Normal mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /elections/qic-election" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest("/elections/qic-election")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest("/elections/qic-election")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
       }
     }
 
-    "POST /ROUTING_PLACEHOLDER" when {
+    "POST /elections/qic-election" when {
 
       "user is authorised" when {
 
@@ -73,7 +73,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
             AuthStub.authorised()
 
-            val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+            val res = postRequest("/elections/qic-election", Json.obj("value" -> 1))()
 //TODO: Implement
 //            whenReady(res) { result =>
 //              result should have(
@@ -91,7 +91,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+          val res = postRequest("/elections/qic-election", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +106,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
   "in Change mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /elections/qic-election" when {
 
       "user is authorised" should {
 
@@ -114,7 +114,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.authorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest("/elections/qic-election/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +131,7 @@ class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequ
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest("/elections/qic-election/change")()
 
           whenReady(res) { result =>
             result should have(

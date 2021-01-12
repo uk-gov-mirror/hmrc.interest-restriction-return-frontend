@@ -3,190 +3,190 @@
 
 ### GroupRatioElection Controller
 ### ----------------------------------------
-GET        /group-ratio-election                                                controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ratio-election                                                controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ratio-election/change                                         controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ratio-election/change                                         controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = CheckMode)
+GET         /group-ratio-election                                                   controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = NormalMode)
+POST        /group-ratio-election                                                   controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = NormalMode)
+GET         /group-ratio-election/change                                            controllers.elections.GroupRatioElectionController.onPageLoad(mode: Mode = CheckMode)
+POST        /group-ratio-election/change                                            controllers.elections.GroupRatioElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### EnterANGIE Controller
 ### ----------------------------------------
-GET        /enter-angie                                                         controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-angie                                                         controllers.elections.EnterANGIEController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-angie/change                                                  controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-angie/change                                                  controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
+GET         /enter-angie                                                            controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)
+POST        /enter-angie                                                            controllers.elections.EnterANGIEController.onSubmit(mode: Mode = NormalMode)
+GET         /enter-angie/change                                                     controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
+POST        /enter-angie/change                                                     controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
 
 ### GroupRatioPercentage Controller
 ### ----------------------------------------
-GET        /group-ratio-percentage                                              controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ratio-percentage                                              controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ratio-percentage/change                                       controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ratio-percentage/change                                       controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = CheckMode)
+GET         /group-ratio-percentage                                                 controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = NormalMode)
+POST        /group-ratio-percentage                                                 controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = NormalMode)
+GET         /group-ratio-percentage/change                                          controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = CheckMode)
+POST        /group-ratio-percentage/change                                          controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = CheckMode)
 
 ### EnterQNGIE Controller
 ### ----------------------------------------
-GET        /enter-qngie                                                         controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
-POST       /enter-qngie                                                         controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
-GET        /enter-qngie/change                                                  controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
-POST       /enter-qngie/change                                                  controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
+GET         /enter-qngie                                                            controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
+POST        /enter-qngie                                                            controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
+GET         /enter-qngie/change                                                     controllers.elections.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
+POST        /enter-qngie/change                                                     controllers.elections.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
 
 ### GroupRatioBlendedElection Controller
 ### ----------------------------------------
-GET        /group-ratio-blended-election                                        controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ratio-blended-election                                        controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ratio-blended-election/change                                 controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ratio-blended-election/change                                 controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = CheckMode)
+GET         /group-ratio-blended-election                                           controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = NormalMode)
+POST        /group-ratio-blended-election                                           controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = NormalMode)
+GET         /group-ratio-blended-election/change                                    controllers.elections.GroupRatioBlendedElectionController.onPageLoad(mode: Mode = CheckMode)
+POST        /group-ratio-blended-election/change                                    controllers.elections.GroupRatioBlendedElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### ElectedGroupEBITDABefore Controller
 ### ----------------------------------------
-GET        /elected-group-ebitda-before                                         controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = NormalMode)
-POST       /elected-group-ebitda-before                                         controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = NormalMode)
-GET        /elected-group-ebitda-before/change                                  controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = CheckMode)
-POST       /elected-group-ebitda-before/change                                  controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = CheckMode)
+GET         /elected-group-ebitda-before                                            controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = NormalMode)
+POST        /elected-group-ebitda-before                                            controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = NormalMode)
+GET         /elected-group-ebitda-before/change                                     controllers.elections.ElectedGroupEBITDABeforeController.onPageLoad(mode: Mode = CheckMode)
+POST        /elected-group-ebitda-before/change                                     controllers.elections.ElectedGroupEBITDABeforeController.onSubmit(mode: Mode = CheckMode)
 
 ### GroupEBITDAChargeableGainsElection Controller
 ### ----------------------------------------
-GET        /group-ebitda-chargeable-gains-election                              controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ebitda-chargeable-gains-election                              controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ebitda-chargeable-gains-election/change                       controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ebitda-chargeable-gains-election/change                       controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = CheckMode)
+GET         /group-ebitda-chargeable-gains-election                                 controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = NormalMode)
+POST        /group-ebitda-chargeable-gains-election                                 controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = NormalMode)
+GET         /group-ebitda-chargeable-gains-election/change                          controllers.elections.GroupEBITDAChargeableGainsElectionController.onPageLoad(mode: Mode = CheckMode)
+POST        /group-ebitda-chargeable-gains-election/change                          controllers.elections.GroupEBITDAChargeableGainsElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### ElectedInterestAllowanceAlternativeCalcBefore Controller
 ### ----------------------------------------
-GET        /elected-interest-allowance-alternative-calc-before                  controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = NormalMode)
-POST       /elected-interest-allowance-alternative-calc-before                  controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = NormalMode)
-GET        /elected-interest-allowance-alternative-calc-before/change           controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = CheckMode)
-POST       /elected-interest-allowance-alternative-calc-before/change           controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = CheckMode)
+GET         /elected-interest-allowance-alternative-calc-before                     controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = NormalMode)
+POST        /elected-interest-allowance-alternative-calc-before                     controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = NormalMode)
+GET         /elected-interest-allowance-alternative-calc-before/change              controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(mode: Mode = CheckMode)
+POST        /elected-interest-allowance-alternative-calc-before/change              controllers.elections.ElectedInterestAllowanceAlternativeCalcBeforeController.onSubmit(mode: Mode = CheckMode)
 
 ### InterestAllowanceAlternativeCalcElection Controller
 ### ----------------------------------------
-GET        /interest-allowance-alternative-calc-election                        controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /interest-allowance-alternative-calc-election                        controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /interest-allowance-alternative-calc-election/change                 controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /interest-allowance-alternative-calc-election/change                 controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = CheckMode)
+GET         /interest-allowance-alternative-calc-election                           controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = NormalMode)
+POST        /interest-allowance-alternative-calc-election                           controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = NormalMode)
+GET         /interest-allowance-alternative-calc-election/change                    controllers.elections.InterestAllowanceAlternativeCalcElectionController.onPageLoad(mode: Mode = CheckMode)
+POST        /interest-allowance-alternative-calc-election/change                    controllers.elections.InterestAllowanceAlternativeCalcElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### InterestAllowanceNonConsolidatedInvestmentsElection Controller
 ### ----------------------------------------
-GET        /interest-allowance-non-consolidated-investments-election            controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /interest-allowance-non-consolidated-investments-election            controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /interest-allowance-non-consolidated-investments-election/change     controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /interest-allowance-non-consolidated-investments-election/change     controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onSubmit(mode: Mode = CheckMode)
+GET         /interest-allowance-non-consolidated-investments-election               controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(mode: Mode = NormalMode)
+POST        /interest-allowance-non-consolidated-investments-election               controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onSubmit(mode: Mode = NormalMode)
+GET         /interest-allowance-non-consolidated-investments-election/change        controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(mode: Mode = CheckMode)
+POST        /interest-allowance-non-consolidated-investments-election/change        controllers.elections.InterestAllowanceNonConsolidatedInvestmentsElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### ElectedInterestAllowanceConsolidatedPshipBefore Controller
 ### ----------------------------------------
-GET        /elected-interest-allowance-consolidated-pship-before                controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(mode: Mode = NormalMode)
-POST       /elected-interest-allowance-consolidated-pship-before                controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onSubmit(mode: Mode = NormalMode)
-GET        /elected-interest-allowance-consolidated-pship-before/change         controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(mode: Mode = CheckMode)
-POST       /elected-interest-allowance-consolidated-pship-before/change         controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onSubmit(mode: Mode = CheckMode)
+GET         /elected-interest-allowance-consolidated-pship-before                   controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(mode: Mode = NormalMode)
+POST        /elected-interest-allowance-consolidated-pship-before                   controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onSubmit(mode: Mode = NormalMode)
+GET         /elected-interest-allowance-consolidated-pship-before/change            controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(mode: Mode = CheckMode)
+POST        /elected-interest-allowance-consolidated-pship-before/change            controllers.elections.ElectedInterestAllowanceConsolidatedPshipBeforeController.onSubmit(mode: Mode = CheckMode)
 
 ### InterestAllowanceConsolidatedPshipElection Controller
 ### ----------------------------------------
-GET        /interest-allowance-consolidated-pship-election                      controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /interest-allowance-consolidated-pship-election                      controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /interest-allowance-consolidated-pship-election/change               controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /interest-allowance-consolidated-pship-election/change               controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onSubmit(mode: Mode = CheckMode)
+GET         /interest-allowance-consolidated-pship-election                         controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(mode: Mode = NormalMode)
+POST        /interest-allowance-consolidated-pship-election                         controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onSubmit(mode: Mode = NormalMode)
+GET         /interest-allowance-consolidated-pship-election/change                  controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(mode: Mode = CheckMode)
+POST        /interest-allowance-consolidated-pship-election/change                  controllers.elections.InterestAllowanceConsolidatedPshipElectionController.onSubmit(mode: Mode = CheckMode)
 
 ### GroupEBITDA Controller
 ### ----------------------------------------
-GET        /group-ebitda                                                        controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ebitda                                                        controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ebitda/change                                                 controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ebitda/change                                                 controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)
+GET         /group-ebitda                                                           controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)
+POST        /group-ebitda                                                           controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
+GET         /group-ebitda/change                                                    controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
+POST        /group-ebitda/change                                                    controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)
 
 ### AddInvestorGroup Controller
 ### ----------------------------------------
-GET        /add-investor-group                                                  controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-investor-group                                                  controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = NormalMode)
-GET        /add-investor-group/change                                           controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-investor-group/change                                           controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = CheckMode)
+GET         /add-investor-group                                                     controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = NormalMode)
+POST        /add-investor-group                                                     controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = NormalMode)
+GET         /add-investor-group/change                                              controllers.elections.AddInvestorGroupController.onPageLoad(mode: Mode = CheckMode)
+POST        /add-investor-group/change                                              controllers.elections.AddInvestorGroupController.onSubmit(mode: Mode = CheckMode)
 
 ### InvestorGroupName Controller
 ### ----------------------------------------
-GET        /investor-group/:idx/name                                            controllers.elections.InvestorGroupNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /investor-group/:idx/name                                            controllers.elections.InvestorGroupNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /investor-group/:idx/name/change                                     controllers.elections.InvestorGroupNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /investor-group/:idx/name/change                                     controllers.elections.InvestorGroupNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /investor-group/:idx/name                                               controllers.elections.InvestorGroupNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /investor-group/:idx/name                                               controllers.elections.InvestorGroupNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /investor-group/:idx/name/change                                        controllers.elections.InvestorGroupNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /investor-group/:idx/name/change                                        controllers.elections.InvestorGroupNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### InvestorRatioMethod Controller
 ### ----------------------------------------
-GET        /investor-group/:idx/ratio-method                                    controllers.elections.InvestorRatioMethodController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /investor-group/:idx/ratio-method                                    controllers.elections.InvestorRatioMethodController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /investor-group/:idx/ratio-method/change                             controllers.elections.InvestorRatioMethodController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /investor-group/:idx/ratio-method/change                             controllers.elections.InvestorRatioMethodController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /investor-group/:idx/ratio-method                                       controllers.elections.InvestorRatioMethodController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /investor-group/:idx/ratio-method                                       controllers.elections.InvestorRatioMethodController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /investor-group/:idx/ratio-method/change                                controllers.elections.InvestorRatioMethodController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /investor-group/:idx/ratio-method/change                                controllers.elections.InvestorRatioMethodController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### OtherInvestorGroupElections Controller
 ### ----------------------------------------
-GET        /investor-group/:idx/other-elections                                 controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /investor-group/:idx/other-elections                                 controllers.elections.OtherInvestorGroupElectionsController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /investor-group/:idx/other-elections/change                          controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /investor-group/:idx/other-elections/change                          controllers.elections.OtherInvestorGroupElectionsController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /investor-group/:idx/other-elections                                    controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /investor-group/:idx/other-elections                                    controllers.elections.OtherInvestorGroupElectionsController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /investor-group/:idx/other-elections/change                             controllers.elections.OtherInvestorGroupElectionsController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /investor-group/:idx/other-elections/change                             controllers.elections.OtherInvestorGroupElectionsController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### InvestmentorGroups Controller
 ### ----------------------------------------
-GET        /investor-groups                                                     controllers.elections.InvestorGroupsReviewAnswersListController.onPageLoad()
-POST       /investor-groups                                                     controllers.elections.InvestorGroupsReviewAnswersListController.onSubmit()
+GET         /investor-groups                                                        controllers.elections.InvestorGroupsReviewAnswersListController.onPageLoad()
+POST        /investor-groups                                                        controllers.elections.InvestorGroupsReviewAnswersListController.onSubmit()
 
 ### PartnershipName Controller
 ### ----------------------------------------
-GET        /partnership/:idx/name                                                    controllers.elections.PartnershipNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /partnership/:idx/name                                                    controllers.elections.PartnershipNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /partnership/:idx/name/change                                             controllers.elections.PartnershipNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /partnership/:idx/name/change                                             controllers.elections.PartnershipNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /partnership/:idx/name                                                  controllers.elections.PartnershipNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /partnership/:idx/name                                                  controllers.elections.PartnershipNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /partnership/:idx/name/change                                           controllers.elections.PartnershipNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /partnership/:idx/name/change                                           controllers.elections.PartnershipNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### IsUkPartnership Controller
 ### ----------------------------------------
-GET        /partnership/:idx/is-uk                                                   controllers.elections.IsUkPartnershipController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /partnership/:idx/is-uk                                                   controllers.elections.IsUkPartnershipController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /partnership/:idx/is-uk/change                                            controllers.elections.IsUkPartnershipController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /partnership/:idx/is-uk/change                                            controllers.elections.IsUkPartnershipController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /partnership/:idx/is-uk                                                 controllers.elections.IsUkPartnershipController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /partnership/:idx/is-uk                                                 controllers.elections.IsUkPartnershipController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /partnership/:idx/is-uk/change                                          controllers.elections.IsUkPartnershipController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /partnership/:idx/is-uk/change                                          controllers.elections.IsUkPartnershipController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### PartnershipSAUTR Controller
 ### ----------------------------------------
-GET        /partnership/:idx/sautr                                                   controllers.elections.PartnershipSAUTRController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /partnership/:idx/sautr                                                   controllers.elections.PartnershipSAUTRController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /partnership/:idx/sautr/change                                            controllers.elections.PartnershipSAUTRController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /partnership/:idx/sautr/change                                            controllers.elections.PartnershipSAUTRController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /partnership/:idx/sautr                                                 controllers.elections.PartnershipSAUTRController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /partnership/:idx/sautr                                                 controllers.elections.PartnershipSAUTRController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /partnership/:idx/sautr/change                                          controllers.elections.PartnershipSAUTRController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /partnership/:idx/sautr/change                                          controllers.elections.PartnershipSAUTRController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### Check Answers Controller
 ### ----------------------------------------
-GET        /check-answers                                                       controllers.elections.CheckAnswersElectionsController.onPageLoad()
-POST       /check-answers                                                       controllers.elections.CheckAnswersElectionsController.onSubmit()
+GET         /check-answers                                                          controllers.elections.CheckAnswersElectionsController.onPageLoad()
+POST        /check-answers                                                          controllers.elections.CheckAnswersElectionsController.onSubmit()
 
 ### InvestmentName Controller
 ### ----------------------------------------
-GET        /investment/:idx/name                                                controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
-POST       /investment/:idx/name                                                controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
-GET        /investment/:idx/name/change                                         controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
-POST       /investment/:idx/name/change                                         controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
+GET         /investment/:idx/name                                                   controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST        /investment/:idx/name                                                   controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET         /investment/:idx/name/change                                            controllers.elections.InvestmentNameController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST        /investment/:idx/name/change                                            controllers.elections.InvestmentNameController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
 ### Investments Controller
 ### ----------------------------------------
-GET        /investments                                                         controllers.elections.InvestmentsReviewAnswersListController.onPageLoad()
-POST       /investments                                                         controllers.elections.InvestmentsReviewAnswersListController.onSubmit()
+GET         /investments                                                            controllers.elections.InvestmentsReviewAnswersListController.onPageLoad()
+POST        /investments                                                            controllers.elections.InvestmentsReviewAnswersListController.onSubmit()
 
 ### InvestmentsDeletionConfirmation Controller
 ### ----------------------------------------
-GET        /investment/:idx/deletion-confirmation                               controllers.elections.InvestmentsDeletionConfirmationController.onPageLoad(idx: Int)
-POST       /investment/:idx/deletion-confirmation                               controllers.elections.InvestmentsDeletionConfirmationController.onSubmit(idx: Int)
+GET         /investment/:idx/deletion-confirmation                                  controllers.elections.InvestmentsDeletionConfirmationController.onPageLoad(idx: Int)
+POST        /investment/:idx/deletion-confirmation                                  controllers.elections.InvestmentsDeletionConfirmationController.onSubmit(idx: Int)
 
 ### InvestorGroupsDeletionConfirmation Controller
 ### ----------------------------------------
-GET        /investor-groups/:idx/deletion-confirmation                          controllers.elections.InvestorGroupsDeletionConfirmationController.onPageLoad(idx: Int)
-POST       /investor-groups/:idx/deletion-confirmation                          controllers.elections.InvestorGroupsDeletionConfirmationController.onSubmit(idx: Int)
+GET         /investor-groups/:idx/deletion-confirmation                             controllers.elections.InvestorGroupsDeletionConfirmationController.onPageLoad(idx: Int)
+POST        /investor-groups/:idx/deletion-confirmation                             controllers.elections.InvestorGroupsDeletionConfirmationController.onSubmit(idx: Int)
 
 ### PartnershipsReviewAnswersList Controller
 ### ----------------------------------------
-GET        /partnerships/review                          controllers.elections.PartnershipsReviewAnswersListController.onPageLoad()
-POST       /partnerships/review                          controllers.elections.PartnershipsReviewAnswersListController.onSubmit()
+GET         /partnerships/review                                                    controllers.elections.PartnershipsReviewAnswersListController.onPageLoad()
+POST        /partnerships/review                                                    controllers.elections.PartnershipsReviewAnswersListController.onSubmit()
 
 ### PartnershipDeletionConfirmation Controller
 ### ----------------------------------------
-GET        /partnership/:idx/deletion-confirmation                          controllers.elections.PartnershipDeletionConfirmationController.onPageLoad(idx: Int)
-POST       /partnership/:idx/deletion-confirmation                          controllers.elections.PartnershipDeletionConfirmationController.onSubmit(idx: Int)
+GET         /partnership/:idx/deletion-confirmation                                 controllers.elections.PartnershipDeletionConfirmationController.onPageLoad(idx: Int)
+POST        /partnership/:idx/deletion-confirmation                                 controllers.elections.PartnershipDeletionConfirmationController.onSubmit(idx: Int)
 
 
 ### QICElectionPage Controller
 ### ----------------------------------------
-GET        /qic-election-page                          controllers.elections.QICElectionPageController.onPageLoad(mode: Mode = NormalMode)
-POST       /qic-election-page                          controllers.elections.QICElectionPageController.onSubmit(mode: Mode = NormalMode)
-GET        /qic-election-page/change                   controllers.elections.QICElectionPageController.onPageLoad(mode: Mode = CheckMode)
-POST       /qic-election-page/change                   controllers.elections.QICElectionPageController.onSubmit(mode: Mode = CheckMode)
+GET         /qic-election                                                           controllers.elections.QICElectionPageController.onPageLoad(mode: Mode = NormalMode)
+POST        /qic-election                                                           controllers.elections.QICElectionPageController.onSubmit(mode: Mode = NormalMode)
+GET         /qic-election/change                                                    controllers.elections.QICElectionPageController.onPageLoad(mode: Mode = CheckMode)
+POST        /qic-election/change                                                    controllers.elections.QICElectionPageController.onSubmit(mode: Mode = CheckMode)
