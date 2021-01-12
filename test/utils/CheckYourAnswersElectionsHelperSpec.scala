@@ -46,6 +46,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
     .set(InvestmentNamePage, investmentName, Some(1)).get
     .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, false).get
     .set(InterestAllowanceConsolidatedPshipElectionPage, true).get
+    .set(QICElectionPage, true).get
     .set(PartnershipsPage, partnershipModelUK, Some(1)).get
 
   val helper = new CheckYourAnswersElectionsHelper(userAnswers)

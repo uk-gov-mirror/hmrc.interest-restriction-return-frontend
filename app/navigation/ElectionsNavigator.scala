@@ -69,7 +69,10 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case Some(false) => routes.QICElectionPageController.onPageLoad(NormalMode)
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
-    QICElectionPage -> (_ => checkYourAnswers),
+    QICElectionPage -> (_.get(QICElectionPage) match {
+      case Some(_) => checkYourAnswers
+      case _ => routes.QICElectionPageController.onPageLoad(NormalMode)
+    }),
     PartnershipsReviewAnswersListPage -> (_ => routes.QICElectionPageController.onPageLoad(NormalMode)),
     PartnershipDeletionConfirmationPage -> (_ => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
@@ -112,7 +115,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
   def addInvestorGroup(idx: Int): Call = routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode)
 
   def addPartnership(idx: Int): Call = routes.PartnershipNameController.onPageLoad(idx + 1, NormalMode)
-
 
   def nextSection(mode: Mode): Call = controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
 
