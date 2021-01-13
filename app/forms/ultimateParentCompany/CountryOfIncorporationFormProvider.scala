@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import forms.mappings.Mappings
 import javax.inject.Inject
 import play.api.data.Form
-import play.api.data.Forms.optional
 
 class CountryOfIncorporationFormProvider @Inject()(appConfig: FrontendAppConfig) extends Mappings {
 

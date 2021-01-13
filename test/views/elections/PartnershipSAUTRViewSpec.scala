@@ -24,10 +24,10 @@ import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.ViewUtils.addPossessive
-import views.behaviours.StringViewBehaviours
+import views.behaviours.OptionalStringViewBehaviours
 import views.html.elections.PartnershipSAUTRView
 
-class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
+class PartnershipSAUTRViewSpec extends OptionalStringViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "partnershipSAUTR"
   val section = Some(messages("section.elections"))
@@ -51,7 +51,7 @@ class PartnershipSAUTRViewSpec extends StringViewBehaviours with BaseConstants {
 
       behave like pageWithSubHeading(applyView(form), companyName)
 
-      behave like stringPage(form = form,
+      behave like optionalStringPage(form = form,
         createView = applyView,
         messageKeyPrefix = messageKeyPrefix,
         expectedFormAction = routes.PartnershipSAUTRController.onSubmit(1, NormalMode).url,

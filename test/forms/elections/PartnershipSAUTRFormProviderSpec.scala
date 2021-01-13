@@ -37,10 +37,9 @@ class PartnershipSAUTRFormProviderSpec extends StringFieldBehaviours {
       stringsWithMaxLength(maxLength)
     )
 
-    behave like mandatoryField(
+    behave like optionalField(
       form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      fieldName
     )
   }
 }

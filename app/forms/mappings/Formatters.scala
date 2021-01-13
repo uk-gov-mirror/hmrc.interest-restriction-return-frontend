@@ -120,4 +120,5 @@ trait Formatters {
       override def unbind(key: String, value: A): Map[String, String] =
         baseFormatter.unbind(key, value.toString)
     }
+
 }

@@ -53,7 +53,7 @@ class PartnershipSAUTRController @Inject()(override val messagesApi: MessagesApi
     answerFor(PartnershipsPage, idx) { partnership =>
       Future.successful(
         Ok(view(
-          form = partnership.sautr.map(_.utr).fold(form)(form.fill),
+          form = form.fill(partnership.sautr.map(_.utr)),
           postAction = routes.PartnershipSAUTRController.onSubmit(idx, mode),
           partnershipName = partnership.name
         ))
@@ -73,8 +73,7 @@ class PartnershipSAUTRController @Inject()(override val messagesApi: MessagesApi
             ))
           ),
         value => {
-          val updatedModel = partnership.copy(sautr = Some(UTRModel((value)))
-          )
+          val updatedModel = partnership.copy(sautr = value.map(UTRModel(_)))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(PartnershipsPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
