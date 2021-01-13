@@ -53,5 +53,4 @@ trait Mappings extends Formatters with Constraints {
                            requiredKey: String,
                            args: Seq[String] = Seq.empty): FieldMapping[LocalDate] =
     of(new LocalDateFormatter(invalidKey, allRequiredKey, twoRequiredKey, requiredKey, args))
-
 }
