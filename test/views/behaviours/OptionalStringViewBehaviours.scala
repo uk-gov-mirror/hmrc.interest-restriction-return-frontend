@@ -21,7 +21,8 @@ import play.twirl.api.HtmlFormat
 
 trait OptionalStringViewBehaviours extends QuestionViewBehaviours[Option[String]] {
 
-  val answer = Some("answer")
+  val answer = "answer"
+  val SomeAnswer = Some("answer")
 
   def optionalStringPage(form: Form[Option[String]],
                  createView: Form[Option[String]] => HtmlFormat.Appendable,
@@ -55,7 +56,7 @@ trait OptionalStringViewBehaviours extends QuestionViewBehaviours[Option[String]
 
         "include the form's value in the value input" in {
 
-          val doc = asDocument(createView(form.fill(answer)))
+          val doc = asDocument(createView(form.fill(SomeAnswer)))
           if (textArea) doc.getElementById("value").text mustBe answer
           else doc.getElementById("value").attr("value") mustBe answer
         }
