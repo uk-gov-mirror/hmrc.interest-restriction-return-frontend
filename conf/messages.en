@@ -55,6 +55,7 @@ site.govuk = GOV.UK
 site.signOut = Sign out
 site.getHelpWithThisPage = Get help with this page
 site.submitReturn = Submit a Corporate Interest Restriction return
+site.warning = Warning:
 
 
 # Timeout Messages
@@ -500,6 +501,8 @@ interestAllowanceConsolidatedPshipElection.title = Do you want to make an intere
 interestAllowanceConsolidatedPshipElection.heading = Do you want to make an interest allowance election for consolidated partnerships?
 interestAllowanceConsolidatedPshipElection.checkYourAnswersLabel = Elect interest allowance (consolidated partnerships)
 interestAllowanceConsolidatedPshipElection.error.required = Select yes if you want to make an interest allowance election for consolidated partnerships
+
+interestAllowanceConsolidatedPshipElection.p1 = This election is irrevocable
 
 # GroupEBITDAPage Messages
 # ----------------------------------------------------------

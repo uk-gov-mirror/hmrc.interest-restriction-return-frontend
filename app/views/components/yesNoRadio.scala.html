@@ -24,7 +24,8 @@
         hintKey: Option[String] = None,
         headingMessageArgs: Seq[String] = Seq(),
         isPageHeading: Boolean = true,
-        classes: String = "govuk-fieldset__legend--xl"
+        classes: String = "govuk-fieldset__legend--xl",
+        hintHtml: Option[Html] = None
 )(implicit messages: Messages)
 
 @govukRadios(Radios(
@@ -38,9 +39,10 @@
             classes = classes
         ))
     )),
-    hint = hintKey.map { hint => Hint(
-        content = Text(messages(hint))
-    )},
+    hint = hintKey match {
+        case Some(key) => Some(Hint(content = Text(messages(key))))
+        case None => hintHtml.map(html => Hint(content = HtmlContent(html)))
+    },
     items = Seq(
         RadioItem(id = Some("value"),
                   value = Some("true"),
