@@ -17,7 +17,9 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
+import models.FullOrAbbreviatedReturn.Full
 import models.NormalMode
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import play.api.http.Status._
 import play.api.libs.json.JsString
 import stubs.AuthStub
@@ -70,9 +72,13 @@ class CheckAnswersElectionsControllerISpec extends IntegrationSpecBase with Crea
 
         "enters a valid answer" when {
 
-          "redirect to Return Contain Estimates page" in {
+          "redirect to Return Contain subject to restriction page" in {
 
             AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(FullOrAbbreviatedReturnPage, Full).success.value
+            )
 
             val res = postRequest("/elections/check-answers", JsString(""))()
 
