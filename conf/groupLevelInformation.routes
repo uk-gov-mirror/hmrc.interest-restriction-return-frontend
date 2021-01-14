@@ -9,14 +9,6 @@ GET        /group-subject-to-reactivations/change           controllers.groupLev
 POST       /group-subject-to-reactivations/change           controllers.groupLevelInformation.GroupSubjectToReactivationsController.onSubmit(mode: Mode = CheckMode)
 
 
-### InfrastructureCompanyElection Controller
-### ----------------------------------------
-GET        /infrastructure-company-election                 controllers.groupLevelInformation.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = NormalMode)
-POST       /infrastructure-company-election                 controllers.groupLevelInformation.InfrastructureCompanyElectionController.onSubmit(mode: Mode = NormalMode)
-GET        /infrastructure-company-election/change          controllers.groupLevelInformation.InfrastructureCompanyElectionController.onPageLoad(mode: Mode = CheckMode)
-POST       /infrastructure-company-election/change          controllers.groupLevelInformation.InfrastructureCompanyElectionController.onSubmit(mode: Mode = CheckMode)
-
-
 ### InterestAllowanceBroughtForward Controller
 ### ----------------------------------------
 GET        /interest-allowance-brought-forward              controllers.groupLevelInformation.InterestAllowanceBroughtForwardController.onPageLoad(mode: Mode = NormalMode)

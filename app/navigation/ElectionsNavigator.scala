@@ -17,9 +17,12 @@
 package navigation
 
 import controllers.elections.routes
+
 import javax.inject.{Inject, Singleton}
 import models._
+import models.FullOrAbbreviatedReturn._
 import pages._
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.elections.{PartnershipNamePage, _}
 import play.api.mvc.Call
 
@@ -82,7 +85,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
     }),
     OtherInvestorGroupElectionsPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad()),
     InvestorGroupsPage -> (_ => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)),
-    CheckAnswersElectionsPage -> (_ => nextSection(NormalMode)),
+    CheckAnswersElectionsPage -> (userAnswers => nextSection(NormalMode, userAnswers)),
     InvestmentsReviewAnswersListPage -> (_ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)),
     InvestmentsDeletionConfirmationPage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     InvestorGroupsDeletionConfirmationPage -> (_ => routes.InvestorGroupsReviewAnswersListController.onPageLoad())
@@ -116,7 +119,12 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
   def addPartnership(idx: Int): Call = routes.PartnershipNameController.onPageLoad(idx + 1, NormalMode)
 
-  def nextSection(mode: Mode): Call = controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
+  def nextSection(mode: Mode, userAnswers: UserAnswers): Call =
+    userAnswers.get(FullOrAbbreviatedReturnPage) match {
+      case Some(Full) => controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+      case Some(Abbreviated) => controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
+      case _ => controllers.routes.UnderConstructionController.onPageLoad() // TODO not sure what should happen in this instance
+    }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))

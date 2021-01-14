@@ -31,11 +31,6 @@ import play.api.mvc.Call
 class GroupLevelInformationNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    InfrastructureCompanyElectionPage -> (_.get(FullOrAbbreviatedReturnPage) match {
-      case Some(Full) => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
-      case Some(Abbreviated) => routes.UnderConstructionController.onPageLoad() //TODO Link to abbreviated return section when implemented
-      case _ => groupLevelInformationRoutes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
-    }),
     ReturnContainEstimatesPage -> (_ => groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
     GroupSubjectToRestrictionsPage -> (_.get(GroupSubjectToRestrictionsPage) match {
       case Some(true) => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)

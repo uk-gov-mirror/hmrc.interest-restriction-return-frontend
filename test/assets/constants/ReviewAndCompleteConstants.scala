@@ -19,7 +19,6 @@ package assets.constants
 import models.SectionStatus
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.GroupRatioBlendedElectionPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.libs.json.{JsObject, Json}

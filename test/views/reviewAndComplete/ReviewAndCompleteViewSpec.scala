@@ -19,7 +19,6 @@ package views.reviewAndComplete
 import assets.messages.BaseMessages
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.GroupRatioBlendedElectionPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import utils.ReviewAndCompleteHelper

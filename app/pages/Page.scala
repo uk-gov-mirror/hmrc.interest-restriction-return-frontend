@@ -55,7 +55,6 @@ object Page {
     GroupInterestCapacityPage,
     GroupSubjectToReactivationsPage,
     GroupSubjectToRestrictionsPage,
-    InfrastructureCompanyElectionPage,
     InterestAllowanceBroughtForwardPage,
     InterestReactivationsCapPage,
     ReturnContainEstimatesPage
