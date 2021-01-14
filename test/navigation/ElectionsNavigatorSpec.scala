@@ -510,7 +510,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
 
           navigator.nextPage(CheckAnswersElectionsPage, NormalMode, userAnswers) mustBe
-            controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+            controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
         }
       }
 
