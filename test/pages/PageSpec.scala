@@ -54,7 +54,7 @@ class PageSpec extends SpecBase {
         GroupInterestCapacityPage.toString -> GroupInterestCapacityPage,
         GroupSubjectToReactivationsPage.toString -> GroupSubjectToReactivationsPage,
         GroupSubjectToRestrictionsPage.toString -> GroupSubjectToRestrictionsPage,
-        InfrastructureCompanyElectionPage.toString -> InfrastructureCompanyElectionPage,
+        QICElectionPage.toString -> QICElectionPage,
         InterestAllowanceBroughtForwardPage.toString -> InterestAllowanceBroughtForwardPage,
         InterestReactivationsCapPage.toString -> InterestReactivationsCapPage,
         ReturnContainEstimatesPage.toString -> ReturnContainEstimatesPage,

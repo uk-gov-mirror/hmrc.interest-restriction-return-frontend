@@ -20,6 +20,8 @@ import base.SpecBase
 import assets.constants.PartnershipsConstants._
 import controllers.elections.routes
 import models._
+import models.FullOrAbbreviatedReturn._
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.elections._
 
 class ElectionsNavigatorSpec extends SpecBase {
@@ -495,10 +497,20 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the CheckAnswersElections page" should {
 
-        "go to the ReturnContainEstimates page" in {
+        "go to the GroupSubjectToRestrictions page on full return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).success.value
 
-          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
+          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, userAnswers) mustBe
+            controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+        }
+
+        "go to the AboutAddingUKCompanies page on abbreviated return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
+
+          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, userAnswers) mustBe
+            controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
         }
       }
 

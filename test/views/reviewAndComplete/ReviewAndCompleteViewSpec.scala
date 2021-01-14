@@ -20,6 +20,7 @@ import assets.messages.BaseMessages
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
 import pages.elections.GroupRatioBlendedElectionPage
+import pages.groupLevelInformation.GroupSubjectToRestrictionsPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import utils.ReviewAndCompleteHelper
 import viewmodels.TaskListRow
@@ -32,7 +33,7 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
     ReviewAndCompleteModel(
       aboutReturn = SectionState(NotStarted, None),
       elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-      groupLevelInformation = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
+      groupLevelInformation = SectionState(Completed, Some(GroupSubjectToRestrictionsPage)),
       ultimateParentCompany = SectionState(NotStarted, None),
       ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
       checkTotals = SectionState(Completed, Some(DerivedCompanyPage))

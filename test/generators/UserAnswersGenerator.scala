@@ -94,10 +94,8 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(GroupSubjectToReactivationsPage.type, JsValue)] ::
     arbitrary[(FullOrAbbreviatedReturnPage.type, JsValue)] ::
     arbitrary[(RevisingReturnPage.type, JsValue)] ::
-    arbitrary[(InfrastructureCompanyElectionPage.type, JsValue)] ::
     arbitrary[(AgentNamePage.type, JsValue)] ::
     arbitrary[(AgentActingOnBehalfOfCompanyPage.type, JsValue)] ::
-    arbitrary[(InfrastructureCompanyElectionPage.type, JsValue)] ::
     Nil
 
   implicit lazy val arbitraryUserData: Arbitrary[UserAnswers] = {
