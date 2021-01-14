@@ -29,6 +29,14 @@ trait UTRFormValidation {
     }
   }
 
+  def optionalChecksum(errorKey: String): Constraint[Option[String]] = {
+    Constraint {
+      case Some(str) if validateCheckSum(str) => Valid
+      case None => Valid
+      case _ => Invalid(errorKey)
+    }
+  }
+
   private def validateCheckSum(utr: String) = Try {
     val utrInts = utr.map(_.asDigit)
     val utrSum = (utrInts(1) * 6) + (utrInts(2) * 7) + (utrInts(3) * 8) + (utrInts(4) * 9) + (utrInts(5) * 10) + (utrInts(6) * 5) + (utrInts(7) * 4) + (utrInts(8) * 3) + (utrInts(9) * 2)

@@ -19,7 +19,9 @@ package forms
 import forms.mappings.Mappings
 import pages.Page
 import play.api.data.Form
+import play.api.data.Forms
 import utils.RemoveWhitespace
+import play.api.data.Forms.optional
 
 trait UTRForm extends Mappings with UTRFormValidation with RemoveWhitespace {
 
@@ -32,5 +34,16 @@ trait UTRForm extends Mappings with UTRFormValidation with RemoveWhitespace {
         )
         .verifying(regexp("^[0-9]{10}$", s"${page.toString}.error.regexp"))
         .verifying(checksum(s"${page.toString}.error.checksum"))
+    )
+
+  def optionalUtrForm(page: Page, value: String = "value"): Form[Option[String]] =
+    Form(
+      s"$value" -> optional(Forms.text)
+        .transform(
+          (value: Option[String]) => value.map(removeWhitespace),
+          (x: Option[String]) => x
+        )
+        .verifying(optionalRegExp("^[0-9]{10}$", s"${page.toString}.error.regexp"))
+        .verifying(optionalChecksum(s"${page.toString}.error.checksum"))
     )
 }

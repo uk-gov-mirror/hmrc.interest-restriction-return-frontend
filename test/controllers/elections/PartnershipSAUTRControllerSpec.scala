@@ -110,7 +110,7 @@ class PartnershipSAUTRControllerSpec extends SpecBase with FeatureSwitching with
           ),
           Some(1)).success.value
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "failure"))
 
       mockGetAnswers(Some(userAnswers))
 
