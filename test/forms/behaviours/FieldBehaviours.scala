@@ -54,4 +54,21 @@ trait FieldBehaviours extends FormSpec with ScalaCheckPropertyChecks with Genera
       result.errors.headOption mustEqual Some(requiredError)
     }
   }
+
+  def optionalField(form: Form[_],
+                    fieldName: String): Unit = {
+
+    s"bind when key is not present at all for field $fieldName" in {
+
+      val result = form.bind(emptyForm).apply(fieldName)
+      result.value mustBe None
+    }
+
+    s"bind blank values for field $fieldName" in {
+
+      val result = form.bind(Map(fieldName -> "")).apply(fieldName)
+      result.value.value mustBe ""
+    }
+  }
+
 }

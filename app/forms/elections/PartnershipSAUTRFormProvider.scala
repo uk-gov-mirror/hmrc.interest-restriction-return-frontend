@@ -23,6 +23,6 @@ import play.api.data.Form
 
 class PartnershipSAUTRFormProvider @Inject() extends UTRForm {
 
-  def apply(): Form[String] =
-    utrForm(PartnershipSAUTRPage)
+  def apply(): Form[Option[String]] =
+    optionalUtrForm(PartnershipSAUTRPage)
 }
