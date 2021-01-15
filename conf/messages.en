@@ -213,16 +213,17 @@ groupSubjectToRestrictions.heading = Is the group subject to interest restrictio
 groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to interest restrictions?
 groupSubjectToRestrictions.error.required = Select yes if the group subject to interest restrictions
 
+
 # GroupInterestAllowancePage Messages
 # ----------------------------------------------------------
-groupInterestAllowance.title = What is the group interest allowance for the period?
-groupInterestAllowance.heading = What is the group interest allowance for the period?
-groupInterestAllowance.label = What is the group interest allowance for the period?
+groupInterestAllowance.title = Enter the total interest allowance for the return period
+groupInterestAllowance.heading = Enter the total interest allowance for the return period
+groupInterestAllowance.label = Enter the total interest allowance for the return period
 groupInterestAllowance.checkYourAnswersLabel = Group interest allowance
-groupInterestAllowance.error.nonNumeric = Enter your group interest allowance using numbers
-groupInterestAllowance.error.required = Enter your group interest allowance
-groupInterestAllowance.error.invalidNumeric = The group interest allowance must be valid decimal or whole number
-groupInterestAllowance.error.outOfRange = Group interest allowance must be between {0} and {1}
+groupInterestAllowance.error.nonNumeric = Enter the total interest allowance using numbers
+groupInterestAllowance.error.required = Enter the total interest allowance for the return period
+groupInterestAllowance.error.invalidNumeric = The total interest allowance must be valid decimal or whole number
+groupInterestAllowance.error.outOfRange = Total interest allowance must be between {0} and {1}
 
 
 # InterestReactivationsCapPage Messages
@@ -243,6 +244,7 @@ returnContainEstimates.title = Will you be submitting estimated figures?
 returnContainEstimates.heading = Will you be submitting estimated figures?
 returnContainEstimates.checkYourAnswersLabel = Will you be submitting estimated figures?
 returnContainEstimates.error.required = Select yes if you will be submitting estimated figures
+
 
 # SavedReturnPage Messages
 # ----------------------------------------------------------
