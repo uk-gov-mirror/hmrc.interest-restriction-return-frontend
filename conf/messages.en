@@ -162,10 +162,10 @@ interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForwa
 
 # GroupSubjectToReactivationsPage Messages
 # ----------------------------------------------------------
-groupSubjectToReactivations.title = Is the group subject to reactivations?
-groupSubjectToReactivations.heading = Is the group subject to reactivations?
+groupSubjectToReactivations.title = Is the group subject to interest reactivations?
+groupSubjectToReactivations.heading = Is the group subject to interest reactivations?
 groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reactivations?
-groupSubjectToReactivations.error.required = Select yes if you are a group subject to reactivations
+groupSubjectToReactivations.error.required = Select yes if you are a group subject to interest reactivations
 
 
 # InfrastructureCompanyElectionPage Messages
