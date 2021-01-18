@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.groupLevelInformation.routes._
+@import controllers.elections.routes._
 @import models.Mode
 @import views.ViewUtils._
 @import config.FrontendAppConfig
@@ -26,21 +26,21 @@
     yesNoRadio: components.yesNoRadio,
     button: components.button,
     subheading: components.subheading,
+    link: components.link,
     saveForLater: components.saveForLater
 )
 
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(
-    pageTitle = Some(title(form, "infrastructureCompanyElection.title", Some("section.groupLevelInformation")))) {
+@govukLayout(pageTitle = Some(title(form, "qICElectionPage.title", Some("section.elections")))) {
 
-    @formHelper(action = InfrastructureCompanyElectionController.onSubmit(mode), args = 'novalidate -> "novalidate") {
+    @formHelper(action = QICElectionPageController.onSubmit(mode)) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.groupLevelInformation")
+        @subheading("section.elections")
 
-        @yesNoRadio(form, "infrastructureCompanyElection.heading")
+        @yesNoRadio(form, "qICElectionPage.heading")
 
         @button("site.saveAndContinue")
 

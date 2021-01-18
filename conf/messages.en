@@ -168,14 +168,6 @@ groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reac
 groupSubjectToReactivations.error.required = Select yes if you are a group subject to interest reactivations
 
 
-# InfrastructureCompanyElectionPage Messages
-# ----------------------------------------------------------
-infrastructureCompanyElection.title = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.heading = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.checkYourAnswersLabel = Has the group made the Infrastructure company election?
-infrastructureCompanyElection.error.required = Select yes if the group has made the Infrastructure company election
-
-
 # FullOrAbbreviatedReturnPage Messages
 # ----------------------------------------------------------
 fullOrAbbreviatedReturn.title = Are you submitting a full or abbreviated return?
@@ -898,3 +890,10 @@ tellUsWhatHasChanged.checkYourAnswersLabel = What has changed
 tellUsWhatHasChanged.label= Tell us what has changed
 tellUsWhatHasChanged.error.required = Enter what has changed
 tellUsWhatHasChanged.error.length = Tell us what has changed must be 5000 characters or less
+
+# QICElectionPagePage Messages
+# ----------------------------------------------------------
+qICElectionPage.title = Has a company made a qualifying infrastructure company (QIC) election for the return period?
+qICElectionPage.heading = Has a company made a qualifying infrastructure company (QIC) election for the return period?
+qICElectionPage.checkYourAnswersLabel = Qualified Infrastructure Election
+qICElectionPage.error.required = Select yes if Has a company made a qualifying infrastructure company (QIC) election for the return period?

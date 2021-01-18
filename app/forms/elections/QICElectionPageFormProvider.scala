@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
+package forms.elections
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import javax.inject.Inject
 
-case object InfrastructureCompanyElectionPage extends QuestionPage[Boolean] {
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  override def path: JsPath = JsPath \ toString
+class QICElectionPageFormProvider @Inject() extends Mappings {
 
-  override def toString: String = "infrastructureCompanyElection"
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("qICElectionPage.error.required")
+    )
 }

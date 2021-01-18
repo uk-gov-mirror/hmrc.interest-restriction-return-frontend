@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val qICElectionPage = "Has a company made a qualifying infrastructure company (QIC) election for the return period?"
   val tellUsWhatHasChanged = "Tell us what has changed"
   val restrictionAmountSameAP = "Enter the restriction amount for this company"
   val addRestriction = "Do you need to add a restriction to this company?"
@@ -56,7 +57,6 @@ object PageTitles {
   val groupInterestCapacity = "What is the group interest capacity for the period?"
   val groupSubjectToReactivations = "Is the group subject to interest reactivations?"
   val groupSubjectToRestrictions = "Is the group subject to interest restrictions?"
-  val infrastructureCompanyElection = "Has the group made the Infrastructure company election?"
   val interestAllowanceBroughtForward = "Enter the amount of interest allowance the group is bringing forward"
   val interestReactivationsCap = "What is the group reactivation cap?"
   val returnContainEstimates = "Will you be submitting estimated figures?"

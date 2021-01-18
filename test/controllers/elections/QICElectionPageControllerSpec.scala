@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package controllers.groupLevelInformation
+package controllers.elections
 
+import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import controllers.errors
-import forms.groupLevelInformation.InfrastructureCompanyElectionFormProvider
+import forms.elections.QICElectionPageFormProvider
 import models.NormalMode
-import navigation.FakeNavigators.FakeGroupLevelInformationNavigator
-import pages.groupLevelInformation.InfrastructureCompanyElectionPage
+import pages.elections.QICElectionPage
 import play.api.test.Helpers._
-import views.html.groupLevelInformation.InfrastructureCompanyElectionView
+import views.html.elections.QICElectionPageView
+import navigation.FakeNavigators.FakeElectionsNavigator
 
-class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class QICElectionPageControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[InfrastructureCompanyElectionView]
-  val formProvider = injector.instanceOf[InfrastructureCompanyElectionFormProvider]
+  val view = injector.instanceOf[QICElectionPageView]
+  val formProvider = injector.instanceOf[QICElectionPageFormProvider]
   val form = formProvider()
 
-  object Controller extends InfrastructureCompanyElectionController(
+  object Controller extends QICElectionPageController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = FakeGroupLevelInformationNavigator,
+    navigator = FakeElectionsNavigator,
     updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
@@ -46,30 +46,16 @@ class InfrastructureCompanyElectionControllerSpec extends SpecBase with FeatureS
     view = view
   )
 
-  "InfrastructureCompanyElection Controller" must {
+  "QICElectionPage Controller" must {
 
-    "If rendering using the Twirl templating engine" must {
+    "return OK and the correct view for a GET" in {
 
-      "return OK and the correct view for a GET" in {
-
-        mockGetAnswers(Some(emptyUserAnswers))
-
-        val result = Controller.onPageLoad(NormalMode)(fakeRequest)
-
-        status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-      }
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      val userAnswers = emptyUserAnswers.set(InfrastructureCompanyElectionPage, true).success.value
-
-      mockGetAnswers(Some(userAnswers))
+      mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {

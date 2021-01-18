@@ -55,7 +55,6 @@ object Page {
     GroupInterestCapacityPage,
     GroupSubjectToReactivationsPage,
     GroupSubjectToRestrictionsPage,
-    InfrastructureCompanyElectionPage,
     InterestAllowanceBroughtForwardPage,
     InterestReactivationsCapPage,
     ReturnContainEstimatesPage
@@ -106,7 +105,8 @@ object Page {
     GroupRatioElectionPage,
     PartnershipsPage,
     PartnershipDeletionConfirmationPage,
-    PartnershipsReviewAnswersListPage
+    PartnershipsReviewAnswersListPage,
+    QICElectionPage
   )
 
   val ultimateParentCompanySectionPages: Seq[Page] = List(

@@ -20,6 +20,8 @@ import base.SpecBase
 import assets.constants.PartnershipsConstants._
 import controllers.elections.routes
 import models._
+import models.FullOrAbbreviatedReturn._
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.elections._
 
 class ElectionsNavigatorSpec extends SpecBase {
@@ -228,12 +230,12 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
 
-        "go to the Partnerships Review Answers List page when answer is true" in {
+        "go to the QIC Election page when answer is true" in {
 
           val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
-            routes.PartnershipsReviewAnswersListController.onPageLoad()
+            routes.QICElectionPageController.onPageLoad(NormalMode)
         }
 
         "go to the Elected Interest Allowance Consolidated Partnership Before page when answer there's no answer" in {
@@ -258,12 +260,12 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is false" should {
 
-          "go to the check answers page" in {
+          "go to QIC Election page" in {
 
             val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, false).success.value
 
             navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
-              routes.CheckAnswersElectionsController.onPageLoad()
+              routes.QICElectionPageController.onPageLoad(NormalMode)
           }
         }
 
@@ -273,6 +275,40 @@ class ElectionsNavigatorSpec extends SpecBase {
 
             navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, emptyUserAnswers) mustBe
               routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
+          }
+        }
+      }
+
+      "from the QICElection page" when {
+
+        "the answer is true" should {
+
+          "go to the check your answers page" in {
+
+            val userAnswers = emptyUserAnswers.set(QICElectionPage, true).success.value
+
+            navigator.nextPage(QICElectionPage, NormalMode, userAnswers) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+        }
+
+        "the answer is false" should {
+
+          "go to the check your answers page" in {
+
+            val userAnswers = emptyUserAnswers.set(QICElectionPage, false).success.value
+
+            navigator.nextPage(QICElectionPage, NormalMode, userAnswers) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+        }
+
+        "no answer is given" should {
+
+          "go to the QICElection page" in {
+
+            navigator.nextPage(QICElectionPage, NormalMode, emptyUserAnswers) mustBe
+              routes.QICElectionPageController.onPageLoad(NormalMode)
           }
         }
       }
@@ -444,7 +480,7 @@ class ElectionsNavigatorSpec extends SpecBase {
               value = false).success.value
 
             navigator.nextPage(PartnershipsReviewAnswersListPage, NormalMode, userAnswers) mustBe
-              routes.CheckAnswersElectionsController.onPageLoad()
+              routes.QICElectionPageController.onPageLoad(NormalMode)
           }
         }
 
@@ -461,10 +497,20 @@ class ElectionsNavigatorSpec extends SpecBase {
 
       "from the CheckAnswersElections page" should {
 
-        "go to the ReturnContainEstimates page" in {
+        "go to the GroupSubjectToRestrictions page on full return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).success.value
 
-          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.groupLevelInformation.routes.InfrastructureCompanyElectionController.onPageLoad(NormalMode)
+          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, userAnswers) mustBe
+            controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+        }
+
+        "go to the AboutAddingUKCompanies page on abbreviated return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
+
+          navigator.nextPage(CheckAnswersElectionsPage, NormalMode, userAnswers) mustBe
+            controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
         }
       }
 

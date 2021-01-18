@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
+package pages.elections
 
 import pages.behaviours.PageBehaviours
 
-class InfrastructureCompanyElectionPageSpec extends PageBehaviours {
+class QICElectionPageSpec extends PageBehaviours {
 
-  "InfrastructureCompanyElectionPage" must {
+  "QICElectionPagePage" must {
 
-    beRetrievable[Boolean](InfrastructureCompanyElectionPage)
+    beRetrievable[Boolean](QICElectionPage)
 
-    beSettable[Boolean](InfrastructureCompanyElectionPage)
+    beSettable[Boolean](QICElectionPage)
 
-    beRemovable[Boolean](InfrastructureCompanyElectionPage)
+    beRemovable[Boolean](QICElectionPage)
   }
 }

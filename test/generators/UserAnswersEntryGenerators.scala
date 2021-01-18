@@ -30,6 +30,14 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryQICElectionPageUserAnswersEntry: Arbitrary[(QICElectionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[QICElectionPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryTellUsWhatHasChangedUserAnswersEntry: Arbitrary[(TellUsWhatHasChangedPage.type, JsValue)] =
     Arbitrary {
       for {
@@ -515,14 +523,6 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
     Arbitrary {
       for {
         page  <- arbitrary[AgentActingOnBehalfOfCompanyPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryInfrastructureCompanyElectionUserAnswersEntry: Arbitrary[(InfrastructureCompanyElectionPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[InfrastructureCompanyElectionPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }

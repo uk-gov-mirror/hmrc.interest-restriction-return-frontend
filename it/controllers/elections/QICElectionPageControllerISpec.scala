@@ -14,36 +14,32 @@
  * limitations under the License.
  */
 
-package controllers.groupLevelInformation
+package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.NormalMode
-import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import play.api.http.Status._
 import play.api.libs.json.Json
-import play.api.test.Helpers._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-
-class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class QICElectionPageControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-level-information/infrastructure-company-election" when {
+    "GET /elections/qic-election" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/group-level-information/infrastructure-company-election")()
+          val res = getRequest("/elections/qic-election")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.infrastructureCompanyElection)
+              titleOf(PageTitles.qICElectionPage)
             )
           }
         }
@@ -55,7 +51,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-level-information/infrastructure-company-election")()
+          val res = getRequest("/elections/qic-election")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,40 +63,24 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
       }
     }
 
-    "POST /group-level-information/infrastructure-company-election" when {
+    "POST /elections/qic-election" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "on a Full journey redirect to ReturnContainEstimates page" in {
+          "redirect to QICElectionPage page" in {
 
             AuthStub.authorised()
-            setAnswers(FullOrAbbreviatedReturnPage, Full)
 
-            val res = postRequest("/group-level-information/infrastructure-company-election", Json.obj("value" -> "true"))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.ReturnContainEstimatesController.onPageLoad(NormalMode).url)
-              )
-            }
-          }
-
-          "on a Abbreviated journey redirect to UnderConstruction page" in {
-
-            AuthStub.authorised()
-            setAnswers(FullOrAbbreviatedReturnPage, Abbreviated)
-
-            val res = postRequest("/group-level-information/infrastructure-company-election", Json.obj("value" -> "true"))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
-              )
-            }
+            val res = postRequest("/elections/qic-election", Json.obj("value" -> 1))()
+//TODO: Implement
+//            whenReady(res) { result =>
+//              result should have(
+//                httpStatus(SEE_OTHER),
+//                redirectLocation(controllers.elections.routes.QICElectionPageController.onPageLoad(NormalMode).url)
+//              )
+//            }
           }
         }
       }
@@ -111,7 +91,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-level-information/infrastructure-company-election", Json.obj("value" -> "true"))()
+          val res = postRequest("/elections/qic-election", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -126,7 +106,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
   "in Change mode" when {
 
-    "GET /group-level-information/infrastructure-company-election" when {
+    "GET /elections/qic-election" when {
 
       "user is authorised" should {
 
@@ -134,12 +114,12 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-level-information/infrastructure-company-election/change")()
+          val res = getRequest("/elections/qic-election/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.infrastructureCompanyElection)
+              titleOf(PageTitles.qICElectionPage)
             )
           }
         }
@@ -151,7 +131,7 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-level-information/infrastructure-company-election/change")()
+          val res = getRequest("/elections/qic-election/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -162,7 +142,5 @@ class InfrastructureCompanyElectionControllerISpec extends IntegrationSpecBase w
         }
       }
     }
-
-    //TODO: Add Check Your Answers tests
   }
 }

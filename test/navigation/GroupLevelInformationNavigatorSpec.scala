@@ -33,26 +33,6 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "from the Infrastructure Company Election page" should {
-
-        "go to the Return Contains Estimates page when Full Return is being submitted" in {
-
-          val fullOrAbbreviatedAnswer = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Full).get
-
-          navigator.nextPage(InfrastructureCompanyElectionPage, NormalMode, fullOrAbbreviatedAnswer) mustBe
-            groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
-        }
-
-        //TODO: Update in future story once abbreviated return journey is implemented
-        "go to the abbreviated return section when Abbreviated Return is being submitted" in {
-
-          val fullOrAbbreviatedAnswer = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, Abbreviated).get
-
-          navigator.nextPage(InfrastructureCompanyElectionPage, NormalMode, fullOrAbbreviatedAnswer) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
-        }
-      }
-
       "from the Return Contains Estimates page" should {
 
         "go to the Group Subject to Restrictions page" in {
