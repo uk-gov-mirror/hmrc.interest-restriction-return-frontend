@@ -228,12 +228,12 @@ groupInterestAllowance.error.outOfRange = Total interest allowance must be betwe
 
 # InterestReactivationsCapPage Messages
 # ----------------------------------------------------------
-interestReactivationsCap.title = What is the group reactivation cap?
-interestReactivationsCap.heading = What is the group reactivation cap?
-interestReactivationsCap.label = What is the group reactivation cap?
+interestReactivationsCap.title = Enter the group''s interest reactivation cap?
+interestReactivationsCap.heading = Enter the group''s interest reactivation cap?
+interestReactivationsCap.label = Enter the group''s interest reactivation cap?
 interestReactivationsCap.checkYourAnswersLabel = Interest Reactivations Cap
-interestReactivationsCap.error.nonNumeric = Enter your interestReactivationsCap using numbers
-interestReactivationsCap.error.required = Enter your interestReactivationsCap
+interestReactivationsCap.error.nonNumeric = Enter your group''s interestReactivationsCap using numbers
+interestReactivationsCap.error.required = Enter your group''s interestReactivationsCap
 interestReactivationsCap.error.invalidNumeric = The interestReactivationsCap must be valid decimal or whole number
 interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be between {0} and {1}
 
