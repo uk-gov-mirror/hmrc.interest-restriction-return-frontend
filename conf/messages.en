@@ -903,3 +903,15 @@ qICElectionPage.title = Has a company made a qualifying infrastructure company (
 qICElectionPage.heading = Has a company made a qualifying infrastructure company (QIC) election for the return period?
 qICElectionPage.checkYourAnswersLabel = Qualified Infrastructure Election
 qICElectionPage.error.required = Select yes if Has a company made a qualifying infrastructure company (QIC) election for the return period?
+
+
+# DisallowedAmountPage Messages
+# ----------------------------------------------------------
+disallowedAmount.title = Enter the total disallowed amount for the group
+disallowedAmount.heading = Enter the total disallowed amount for the group
+disallowedAmount.label = Enter the total disallowed amount for the group
+disallowedAmount.checkYourAnswersLabel = Disallowed amount
+disallowedAmount.error.nonNumeric = Enter the total disallowed amount for the group using numbers
+disallowedAmount.error.required = Enter the total disallowed amount for the group
+disallowedAmount.error.invalidNumeric = The disallowed amount for the group must be valid decimal or whole number
+disallowedAmount.error.outOfRange = The total disallowed amount for the group must be between {0} and {1}

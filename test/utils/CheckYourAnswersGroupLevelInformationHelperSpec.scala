@@ -34,6 +34,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
       .set(GroupSubjectToRestrictionsPage, true).get
       .set(InterestReactivationsCapPage, interestReactivationCap).get
       .set(GroupSubjectToReactivationsPage, false).get
+      .set(DisallowedAmountPage, disallowedAmount).get
       .set(InterestAllowanceBroughtForwardPage, interestAllowanceBroughtForward).get
   )
 
@@ -107,6 +108,18 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
           CheckAnswersGroupLevelInformationMessages.groupSubjectToReactivations,
           BaseMessages.no,
           groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the DisallowedAmount answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.disallowedAmount mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.disallowedAmount,
+          currencyFormat(disallowedAmount),
+          groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

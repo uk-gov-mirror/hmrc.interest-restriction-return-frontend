@@ -33,7 +33,7 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     ReturnContainEstimatesPage -> (_ => groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
     GroupSubjectToRestrictionsPage -> (_.get(GroupSubjectToRestrictionsPage) match {
-      case Some(true) => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
+      case Some(true) => groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(NormalMode)
       case Some(false) => groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
       case _ => groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
     }),
@@ -43,6 +43,7 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
       case _ => groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
     }),
     InterestReactivationsCapPage -> (_ => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
+    DisallowedAmountPage -> (_ => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => groupLevelInformationRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => groupLevelInformationRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
     GroupInterestCapacityPage -> (_ => nextSection(NormalMode))

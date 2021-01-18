@@ -35,6 +35,7 @@ class PageSpec extends SpecBase {
 
       val expected = Map(
     QICElectionPage.toString -> QICElectionPage,
+    DisallowedAmountPage.toString -> DisallowedAmountPage,
     TellUsWhatHasChangedPage.toString -> TellUsWhatHasChangedPage,
     RestrictionAmountSameAPPage.toString -> RestrictionAmountSameAPPage,
     CompanyAccountingPeriodSameAsGroupPage.toString -> CompanyAccountingPeriodSameAsGroupPage,

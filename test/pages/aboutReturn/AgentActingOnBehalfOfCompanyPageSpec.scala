@@ -38,7 +38,6 @@ class AgentActingOnBehalfOfCompanyPageSpec extends PageBehaviours {
           val result = userAnswers
             .set(AgentNamePage,"John Doe").success.value
             .set(AgentActingOnBehalfOfCompanyPage,false).success.value
-
           result.get(AgentNamePage) must not be defined
       }
     }

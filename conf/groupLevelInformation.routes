@@ -54,3 +54,10 @@ GET        /return-contain-estimates                        controllers.groupLev
 POST       /return-contain-estimates                        controllers.groupLevelInformation.ReturnContainEstimatesController.onSubmit(mode: Mode = NormalMode)
 GET        /return-contain-estimates/change                 controllers.groupLevelInformation.ReturnContainEstimatesController.onPageLoad(mode: Mode = CheckMode)
 POST       /return-contain-estimates/change                 controllers.groupLevelInformation.ReturnContainEstimatesController.onSubmit(mode: Mode = CheckMode)
+
+### DisallowedAmount Controller
+### ----------------------------------------
+GET        /disallowed-amount                          controllers.groupLevelInformation.DisallowedAmountController.onPageLoad(mode: Mode = NormalMode)
+POST       /disallowed-amount                          controllers.groupLevelInformation.DisallowedAmountController.onSubmit(mode: Mode = NormalMode)
+GET        /disallowed-amount/change                   controllers.groupLevelInformation.DisallowedAmountController.onPageLoad(mode: Mode = CheckMode)
+POST       /disallowed-amount/change                   controllers.groupLevelInformation.DisallowedAmountController.onSubmit(mode: Mode = CheckMode)

@@ -23,24 +23,23 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class DisallowedAmountControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-level-information/group-subject-to-restrictions" when {
+    "GET /group-level-information/disallowed-amount" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-
-          val res = getRequest("/group-level-information/group-subject-to-restrictions")()
+          val res = getRequest("/group-level-information/disallowed-amount")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.groupSubjectToRestrictions)
+              titleOf(PageTitles.disallowedAmount)
             )
           }
         }
@@ -52,7 +51,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-level-information/group-subject-to-restrictions")()
+          val res = getRequest("/group-level-information/disallowed-amount")()
 
           whenReady(res) { result =>
             result should have(
@@ -64,22 +63,22 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
       }
     }
 
-    "POST /group-level-information/group-subject-to-restrictions" when {
+    "POST /group-level-information/disallowed-amount" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to GroupSubjectToReactivations page" in {
+          "redirect to DisallowedAmount page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-level-information/group-subject-to-restrictions", Json.obj("value" -> "true"))()
+            val res = postRequest("/group-level-information/disallowed-amount", Json.obj("value" -> 1))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.DisallowedAmountController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.groupLevelInformation.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -92,7 +91,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-level-information/group-subject-to-restrictions", Json.obj("value" -> "true"))()
+          val res = postRequest("/group-level-information/disallowed-amount", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -107,7 +106,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
   "in Change mode" when {
 
-    "GET /group-level-information/group-subject-to-restrictions" when {
+    "GET /group-level-information/disallowed-amount" when {
 
       "user is authorised" should {
 
@@ -115,12 +114,12 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.authorised()
 
-          val res = getRequest("/group-level-information/group-subject-to-restrictions/change")()
+          val res = getRequest("/group-level-information/disallowed-amount/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.groupSubjectToRestrictions)
+              titleOf(PageTitles.disallowedAmount)
             )
           }
         }
@@ -132,7 +131,7 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-level-information/group-subject-to-restrictions/change")()
+          val res = getRequest("/group-level-information/disallowed-amount/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -143,7 +142,5 @@ class GroupSubjectToRestrictionsControllerISpec extends IntegrationSpecBase with
         }
       }
     }
-
-    //TODO: Add Check Your Answers tests
   }
 }

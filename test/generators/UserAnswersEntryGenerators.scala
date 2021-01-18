@@ -38,6 +38,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryDisallowedAmountUserAnswersEntry: Arbitrary[(DisallowedAmountPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[DisallowedAmountPage.type]
+        value <- arbitrary[Int].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryTellUsWhatHasChangedUserAnswersEntry: Arbitrary[(TellUsWhatHasChangedPage.type, JsValue)] =
     Arbitrary {
       for {
