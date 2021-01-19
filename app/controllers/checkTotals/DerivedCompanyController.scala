@@ -18,8 +18,9 @@ package controllers.checkTotals
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.{BaseController, BaseNavigationController}
 import controllers.actions._
+
 import javax.inject.Inject
 import models.NormalMode
 import navigation.CheckTotalsNavigator
@@ -31,6 +32,8 @@ import repositories.SessionRepository
 import services.UpdateSectionStateService
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
+
+import scala.concurrent.Future
 
 class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
                                          override val sessionRepository: SessionRepository,
@@ -53,9 +56,7 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => updateState(DerivedCompanyPage, NormalMode, request.userAnswers).map{ userAnswers =>
-      Redirect(navigator.nextPage(DerivedCompanyPage, NormalMode, userAnswers))
-    }
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    Future.successful(Redirect(navigator.nextPage(DerivedCompanyPage, NormalMode, request.userAnswers)))
   }
 }
