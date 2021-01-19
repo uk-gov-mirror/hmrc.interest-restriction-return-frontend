@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package forms.groupLevelInformation
+package forms.elections
 
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class InfrastructureCompanyElectionFormProviderSpec extends BooleanFieldBehaviours {
+class QICElectionPageFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "infrastructureCompanyElection.error.required"
+  val requiredKey = "qICElectionPage.error.required"
   val invalidKey = "error.boolean"
 
-  val form = new InfrastructureCompanyElectionFormProvider()()
+  val form = new QICElectionPageFormProvider()()
 
   ".value" must {
 

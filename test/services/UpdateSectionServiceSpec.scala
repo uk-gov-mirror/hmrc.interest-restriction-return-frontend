@@ -23,9 +23,9 @@ import connectors.mocks.MockCRNValidationConnector
 import models.SectionStatus.{Completed, InProgress}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
 import pages.aboutReturn.{CheckAnswersReportingCompanyPage, ReportingCompanyNamePage}
-import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.checkTotals.ReviewNetTaxInterestPage
 import pages.elections.{CheckAnswersElectionsPage, IsUkPartnershipPage}
+import pages.groupLevelInformation.GroupSubjectToRestrictionsPage
 import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParentPage, HasDeemedParentPage, LimitedLiabilityPartnershipPage, ReportingCompanySameAsParentPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ukCompanies.{CheckAnswersUkCompanyPage, ConsentingCompanyPage, DerivedCompanyPage, UkCompaniesPage}
@@ -130,10 +130,10 @@ class UpdateSectionServiceSpec extends SpecBase with MockCRNValidationConnector 
 
           val userAnswers = emptyUserAnswers
             .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
-            .set(InfrastructureCompanyElectionPage, true).get
+            .set(GroupSubjectToRestrictionsPage, true).get
 
-          val result = TestUpdateSectionStateService.updateState(userAnswers, InfrastructureCompanyElectionPage)
-          result mustBe ReviewAndCompleteModel(groupLevelInformation = SectionState(InProgress, Some(InfrastructureCompanyElectionPage)))
+          val result = TestUpdateSectionStateService.updateState(userAnswers, GroupSubjectToRestrictionsPage)
+          result mustBe ReviewAndCompleteModel(groupLevelInformation = SectionState(InProgress, Some(GroupSubjectToRestrictionsPage)))
         }
       }
     }

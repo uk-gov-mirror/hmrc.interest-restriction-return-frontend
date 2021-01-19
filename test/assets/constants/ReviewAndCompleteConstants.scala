@@ -19,8 +19,8 @@ package assets.constants
 import models.SectionStatus
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.groupLevelInformation.InfrastructureCompanyElectionPage
 import pages.elections.GroupRatioBlendedElectionPage
+import pages.groupLevelInformation.GroupInterestCapacityPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.libs.json.{JsObject, Json}
 
@@ -29,7 +29,7 @@ object ReviewAndCompleteConstants {
   val reviewAndCompleteModel: ReviewAndCompleteModel = ReviewAndCompleteModel(
     aboutReturn = SectionState(NotStarted, None),
     elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-    groupLevelInformation = SectionState(Completed, Some(InfrastructureCompanyElectionPage)),
+    groupLevelInformation = SectionState(Completed, Some(GroupInterestCapacityPage)),
     ultimateParentCompany = SectionState(NotStarted, None),
     ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
     checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
@@ -45,7 +45,7 @@ object ReviewAndCompleteConstants {
     ),
     "groupLevelInformation" -> Json.obj(
       "status" -> SectionStatus.Completed.toString,
-      "lastPageSaved" -> InfrastructureCompanyElectionPage.toString
+      "lastPageSaved" -> GroupInterestCapacityPage.toString
     ),
     "ultimateParentCompany" -> Json.obj(
       "status" -> SectionStatus.NotStarted.toString
