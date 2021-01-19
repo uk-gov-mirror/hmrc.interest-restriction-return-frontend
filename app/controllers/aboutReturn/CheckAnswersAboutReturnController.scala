@@ -31,6 +31,8 @@ import services.UpdateSectionStateService
 import utils.CheckYourAnswersAboutReturnCompanyHelper
 import views.html.CheckYourAnswersView
 
+import scala.concurrent.Future
+
 class CheckAnswersAboutReturnController @Inject()(override val messagesApi: MessagesApi,
                                                   override val sessionRepository: SessionRepository,
                                                   override val navigator: AboutReturnNavigator,
@@ -48,7 +50,7 @@ class CheckAnswersAboutReturnController @Inject()(override val messagesApi: Mess
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    saveAndRedirect(CheckAnswersReportingCompanyPage, NormalMode)
+    Future.successful(Redirect(navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, request.userAnswers)))
   }
 }
 

@@ -54,7 +54,10 @@ class AccountingPeriodController @Inject()(override val messagesApi: MessagesApi
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(AccountingPeriodPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(AccountingPeriodPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(AccountingPeriodPage, mode, updatedAnswers))
     )
   }
 }

@@ -54,7 +54,10 @@ class FullOrAbbreviatedReturnController @Inject()(override val messagesApi: Mess
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(FullOrAbbreviatedReturnPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(FullOrAbbreviatedReturnPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(FullOrAbbreviatedReturnPage, mode, updatedAnswers))
     )
   }
 }

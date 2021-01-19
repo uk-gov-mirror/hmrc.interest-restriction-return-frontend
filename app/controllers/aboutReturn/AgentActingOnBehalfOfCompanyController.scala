@@ -24,7 +24,7 @@ import forms.aboutReturn.AgentActingOnBehalfOfCompanyFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
-import pages.aboutReturn.AgentActingOnBehalfOfCompanyPage
+import pages.aboutReturn.{AccountingPeriodPage, AgentActingOnBehalfOfCompanyPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -54,7 +54,10 @@ class AgentActingOnBehalfOfCompanyController @Inject()(override val messagesApi:
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(AgentActingOnBehalfOfCompanyPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(AgentActingOnBehalfOfCompanyPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(AgentActingOnBehalfOfCompanyPage, mode, updatedAnswers))
     )
   }
 }

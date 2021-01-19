@@ -56,7 +56,10 @@ class TellUsWhatHasChangedController @Inject()(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(TellUsWhatHasChangedPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(TellUsWhatHasChangedPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(TellUsWhatHasChangedPage, mode, updatedAnswers))
     )
   }
 }

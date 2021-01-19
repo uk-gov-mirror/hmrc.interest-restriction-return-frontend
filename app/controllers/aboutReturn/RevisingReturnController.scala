@@ -54,7 +54,10 @@ class RevisingReturnController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(RevisingReturnPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(RevisingReturnPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(RevisingReturnPage, mode, updatedAnswers))
     )
   }
 }

@@ -54,7 +54,10 @@ class ReportingCompanyAppointedController @Inject()(override val messagesApi: Me
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(ReportingCompanyAppointedPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanyAppointedPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ReportingCompanyAppointedPage, mode, updatedAnswers))
     )
   }
 }
