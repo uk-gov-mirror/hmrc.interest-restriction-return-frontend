@@ -55,9 +55,9 @@ class InvestmentNameController @Inject()(override val messagesApi: MessagesApi,
         Future.successful(BadRequest(view(formWithErrors, mode, routes.InvestmentNameController.onSubmit(idx, mode)))),
       value =>
         for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestmentNamePage, value))
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestmentNamePage, value, Some(idx)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(InvestmentNamePage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(InvestmentNamePage, mode, request.userAnswers, Some(idx)))
     )
   }
 }

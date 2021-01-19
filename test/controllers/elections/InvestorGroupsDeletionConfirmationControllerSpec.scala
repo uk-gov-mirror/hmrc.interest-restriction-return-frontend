@@ -102,6 +102,7 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
             .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
+          mockSetAnswers()
 
           val result = Controller.onSubmit(idx = 2)(request)
 
