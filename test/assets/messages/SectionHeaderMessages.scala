@@ -22,6 +22,6 @@ object SectionHeaderMessages {
   val ultimateParentCompany = "Ultimate parent company"
   val elections = "Elections"
   val groupLevelInformation = "Group level information"
-  val ukCompanies = "The companies involved"
+  val ukCompanies = "About the companies involved"
   val checkTotals = "Check totals"
 }
