@@ -16,8 +16,6 @@
 
 package pages.groupLevelInformation
 
-import models.UserAnswers
-import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 
 class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
@@ -31,17 +29,4 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
     beRemovable[Boolean](GroupSubjectToReactivationsPage)
   }
 
-  "Cleanup" must {
-    "remove subject to restrictions and reactivation cap when there is a change of the answer to 'Yes'" in {
-      forAll(arbitrary[UserAnswers]) {
-        userAnswers =>
-          val result = userAnswers
-            .set(GroupSubjectToReactivationsPage,true).success.value
-            .set(InterestReactivationsCapPage, BigDecimal(1.23)).success.value
-            .set(GroupSubjectToRestrictionsPage, true).success.value
-          result.get(GroupSubjectToReactivationsPage) must not be defined
-          result.get(InterestReactivationsCapPage) must not be defined
-      }
-    }
-  }
 }
