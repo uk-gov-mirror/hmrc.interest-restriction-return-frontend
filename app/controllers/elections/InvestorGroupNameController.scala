@@ -59,9 +59,11 @@ class InvestorGroupNameController @Inject()(override val messagesApi: MessagesAp
         Future.successful(BadRequest(view(formWithErrors, routes.InvestorGroupNameController.onSubmit(idx, mode)))),
       value => {
         val investorGroup = getAnswer(InvestorGroupsPage, idx).fold(InvestorGroupModel(value))(_.copy(investorName = value))
-        save(InvestorGroupsPage, investorGroup, NormalMode, Some(idx)).map{ userAnswers =>
-          Redirect(navigator.nextPage(InvestorGroupNamePage, mode, userAnswers, Some(idx)))
-        }
+
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, investorGroup, Some(idx)))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InvestorGroupNamePage, mode, request.userAnswers, Some(idx)))
       }
     )
   }

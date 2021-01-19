@@ -70,9 +70,11 @@ class InvestorRatioMethodController @Inject()(
           ))),
         value => {
           val updatedModel = investorGroups.copy(ratioMethod = Some(InvestorRatioMethod.fromBoolean(value)))
-          save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, request.userAnswers, Some(idx)))
         }
       )
     }

@@ -55,7 +55,10 @@ class InterestAllowanceNonConsolidatedInvestmentsElectionController @Inject()(ov
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(InterestAllowanceNonConsolidatedInvestmentsElectionPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, mode, updatedAnswers))
     )
   }
 }

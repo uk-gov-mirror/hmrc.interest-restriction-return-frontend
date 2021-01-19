@@ -67,7 +67,7 @@ class InvestorGroupsDeletionConfirmationController @Inject()(override val messag
           ))),
         {
           case true =>
-            remove(InvestorGroupsPage, NormalMode, Some(idx)).map{ userAnswers =>
+            Future.fromTry(request.userAnswers.remove(InvestorGroupsPage,Some(idx))).map { userAnswers =>
               Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, userAnswers))
             }
           case false =>

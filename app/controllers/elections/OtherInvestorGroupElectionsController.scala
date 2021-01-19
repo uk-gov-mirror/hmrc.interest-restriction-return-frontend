@@ -80,9 +80,11 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
             ))),
           value => {
             val updatedModel = investorGroups.copy(otherInvestorGroupElections = Some(value))
-            save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-              Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, userAnswers))
-            }
+
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, updatedAnswers))
           }
         )
       }

@@ -68,7 +68,7 @@ class InvestmentsReviewAnswersListController @Inject()(override val messagesApi:
       ,
       {
         case true => Future.successful(Redirect(navigator.addInvestment(investments.length)))
-        case false => saveAndRedirect(InvestmentsReviewAnswersListPage, NormalMode)
+        case false => Future.successful(Redirect(navigator.nextPage(InvestmentsReviewAnswersListPage,NormalMode,request.userAnswers)))
       }
     )
   }

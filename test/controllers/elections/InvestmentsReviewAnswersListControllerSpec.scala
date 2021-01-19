@@ -101,7 +101,6 @@ class InvestmentsReviewAnswersListControllerSpec extends SpecBase with FeatureSw
         "redirect to the Next Page route" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
-          mockSetAnswers
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 

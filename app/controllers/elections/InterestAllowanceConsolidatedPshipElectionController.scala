@@ -55,7 +55,10 @@ class InterestAllowanceConsolidatedPshipElectionController @Inject()(override va
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(InterestAllowanceConsolidatedPshipElectionPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, mode, updatedAnswers))
     )
   }
 }

@@ -54,7 +54,10 @@ class EnterANGIEController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(EnterANGIEPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(EnterANGIEPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(EnterANGIEPage, mode, updatedAnswers))
     )
   }
 }

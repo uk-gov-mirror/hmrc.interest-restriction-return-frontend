@@ -54,7 +54,10 @@ class GroupRatioPercentageController @Inject()(override val messagesApi: Message
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(GroupRatioPercentagePage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupRatioPercentagePage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(GroupRatioPercentagePage, mode, updatedAnswers))
     )
   }
 }

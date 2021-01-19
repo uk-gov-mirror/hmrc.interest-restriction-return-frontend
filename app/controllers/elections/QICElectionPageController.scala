@@ -55,7 +55,10 @@ class QICElectionPageController @Inject()(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(QICElectionPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(QICElectionPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(QICElectionPage, mode, updatedAnswers))
     )
   }
 }

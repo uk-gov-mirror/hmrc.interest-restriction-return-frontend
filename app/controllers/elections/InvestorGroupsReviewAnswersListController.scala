@@ -68,7 +68,7 @@ class InvestorGroupsReviewAnswersListController @Inject()(override val messagesA
       ,
       {
         case true => Future.successful(Redirect(navigator.addInvestorGroup(investorGroups.length)))
-        case false => saveAndRedirect(InvestorGroupsPage, NormalMode)
+        case false => Future.successful(Redirect(navigator.nextPage(InvestorGroupsPage,NormalMode,request.userAnswers)))
       }
     )
   }

@@ -54,7 +54,10 @@ class GroupRatioElectionController @Inject()(override val messagesApi: MessagesA
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(GroupRatioElectionPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupRatioElectionPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(GroupRatioElectionPage, mode, updatedAnswers))
     )
   }
 }

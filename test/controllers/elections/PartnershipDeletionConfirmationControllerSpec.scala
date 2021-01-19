@@ -106,7 +106,6 @@ class PartnershipDeletionConfirmationControllerSpec extends SpecBase with Featur
             .set(PartnershipsPage, partnershipModelNonUk, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers
 
           val result = Controller.onSubmit(idx = 2)(request)
 

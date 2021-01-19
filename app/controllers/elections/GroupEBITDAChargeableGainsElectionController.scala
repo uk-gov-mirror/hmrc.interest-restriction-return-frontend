@@ -54,7 +54,10 @@ class GroupEBITDAChargeableGainsElectionController @Inject()(override val messag
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(GroupEBITDAChargeableGainsElectionPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupEBITDAChargeableGainsElectionPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(GroupEBITDAChargeableGainsElectionPage, mode, updatedAnswers))
     )
   }
 }

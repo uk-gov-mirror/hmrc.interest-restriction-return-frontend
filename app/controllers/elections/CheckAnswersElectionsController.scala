@@ -31,6 +31,8 @@ import services.UpdateSectionStateService
 import utils.CheckYourAnswersElectionsHelper
 import views.html.CheckYourAnswersView
 
+import scala.concurrent.Future
+
 class CheckAnswersElectionsController @Inject()(override val messagesApi: MessagesApi,
                                                 override val sessionRepository: SessionRepository,
                                                 override val navigator: ElectionsNavigator,
@@ -51,6 +53,6 @@ class CheckAnswersElectionsController @Inject()(override val messagesApi: Messag
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => saveAndRedirect(CheckAnswersElectionsPage, NormalMode)
+    implicit request => Future.successful(Redirect(navigator.nextPage(CheckAnswersElectionsPage,NormalMode,request.userAnswers)))
   }
 }

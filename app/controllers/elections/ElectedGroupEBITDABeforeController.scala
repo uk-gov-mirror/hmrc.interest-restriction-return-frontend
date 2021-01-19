@@ -54,7 +54,10 @@ class ElectedGroupEBITDABeforeController @Inject()(override val messagesApi: Mes
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(ElectedGroupEBITDABeforePage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ElectedGroupEBITDABeforePage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ElectedGroupEBITDABeforePage, mode, updatedAnswers))
     )
   }
 }
