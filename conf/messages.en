@@ -404,7 +404,7 @@ ultimateParentCompany.checkYourAnswers.subheading = Ultimate parent company
 # ----------------------------------------------------------
 groupRatioElection.title = Do you want to make a group ratio election?
 groupRatioElection.heading = Do you want to make a group ratio election?
-groupRatioElection.checkYourAnswersLabel = Elect group ratio
+groupRatioElection.checkYourAnswersLabel = Group ratio election
 groupRatioElection.error.required = Select yes if you are making a group ratio election?
 
 # EnterANGIEPage Messages
@@ -444,28 +444,28 @@ enterQNGIE.error.outOfRange = qualifying net group-interest expense (QNGIE) must
 # ----------------------------------------------------------
 groupRatioBlendedElection.title = Do you want to make a blended group ratio election?
 groupRatioBlendedElection.heading = Do you want to make a blended group ratio election?
-groupRatioBlendedElection.checkYourAnswersLabel = Elect group ratio (blended)
+groupRatioBlendedElection.checkYourAnswersLabel = Blended group ratio election
 groupRatioBlendedElection.error.required = Select yes if you want to make a blended group ratio election
 
 # ElectedGroupEBITDABeforePage Messages
 # ----------------------------------------------------------
 electedGroupEBITDABefore.title = Has the group made a group-EBITDA (chargeable gains) election before?
 electedGroupEBITDABefore.heading = Has the group made a group-EBITDA (chargeable gains) election before?
-electedGroupEBITDABefore.checkYourAnswersLabel = Elected group EBITDA (chargeable gains) before
+electedGroupEBITDABefore.checkYourAnswersLabel = Previous group-EBITDA (chargeable gains) election
 electedGroupEBITDABefore.error.required = Select yes if the group made a group-EBITDA (chargeable gains) election in any previous returns
 
 # GroupEBITDAChargeableGainsElectionPage Messages
 # ----------------------------------------------------------
 groupEBITDAChargeableGainsElection.title = Do you want to make a group-EBITDA (chargeable gains) election for this return?
 groupEBITDAChargeableGainsElection.heading = Do you want to make a group-EBITDA (chargeable gains) election for this return?
-groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Elect group EBITDA (chargeable gains)
+groupEBITDAChargeableGainsElection.checkYourAnswersLabel = Make group-EBITDA (chargeable gains) election
 groupEBITDAChargeableGainsElection.error.required = Select yes if Do you want to make a group-EBITDA (chargeable gains) election for this return?
 
 # ElectedInterestAllowanceAlternativeCalcBeforePage Messages
 # ----------------------------------------------------------
 electedInterestAllowanceAlternativeCalcBefore.title = Has the group made an interest allowance (alternative calculation) election before?
 electedInterestAllowanceAlternativeCalcBefore.heading = Has the group made an interest allowance (alternative calculation) election before?
-electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Elected interest allowance (alternative calculation) before
+electedInterestAllowanceAlternativeCalcBefore.checkYourAnswersLabel = Make interest allowance (alternative calculation) election
 electedInterestAllowanceAlternativeCalcBefore.error.required = Select yes if the group has made an interest allowance (alternative calculation) election in any previous returns
 
 # InterestAllowanceAlternativeCalcElectionPage Messages
@@ -585,10 +585,10 @@ elections.checkYourAnswers.title = Check your answers for this section
 elections.checkYourAnswers.heading = Check your answers for this section
 elections.checkYourAnswers.subheading = Elections
 
-investorGroupsAdded.checkYourAnswers.label = Group ratio (blended) investor groups
+investorGroupsAdded.checkYourAnswers.label = Investor Groups
 investorGroupsAdded.checkYourAnswers.value.singular = {0} investor group added
 investorGroupsAdded.checkYourAnswers.value.plural = {0} investor groups added
-investorGroupsAdded.checkYourAnswers.review = Review investor groups
+investorGroupsAdded.checkYourAnswers.review = Review
 investorGroupsAdded.checkYourAnswers.subheading = Elections
 
 consolidatedPartnershipsAdded.checkYourAnswers.label = Consolidated partnerships
