@@ -69,9 +69,10 @@ class PartnershipDeletionConfirmationController @Inject()(override val messagesA
           ))),
         {
           case true =>
-            Future.fromTry(request.userAnswers.remove(PartnershipsPage,Some(idx))).map { userAnswers =>
-              Redirect(navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, userAnswers))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(PartnershipsPage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, updatedAnswers))
           case false =>
             Future.successful(Redirect(navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

@@ -68,9 +68,10 @@ class InvestmentsDeletionConfirmationController @Inject()(
           ))),
         {
           case true =>
-            Future.fromTry(request.userAnswers.remove(InvestmentNamePage,Some(idx))).map { userAnswers =>
-              Redirect(navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, userAnswers))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(InvestmentNamePage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, updatedAnswers))
           case false =>
             Future.successful(Redirect(navigator.nextPage(InvestmentsDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }
