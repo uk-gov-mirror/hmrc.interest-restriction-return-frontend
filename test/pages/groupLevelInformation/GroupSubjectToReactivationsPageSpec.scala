@@ -28,5 +28,5 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
 
     beRemovable[Boolean](GroupSubjectToReactivationsPage)
   }
-
+  
 }
