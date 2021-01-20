@@ -69,7 +69,7 @@ class CompanyDetailsController @Inject()(override val messagesApi: MessagesApi,
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, ukCompanyModel, Some(idx)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(CompanyDetailsPage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(CompanyDetailsPage, mode, updatedAnswers,Some(idx)))
       }
     )
   }
