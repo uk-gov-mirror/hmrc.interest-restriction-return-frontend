@@ -18,6 +18,7 @@ package controllers.ultimateParentCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.UltimateParentCompany
@@ -29,19 +30,19 @@ import repositories.SessionRepository
 import utils.CheckYourAnswersUltimateParentCompanyHelper
 import views.html.CheckYourAnswersView
 import handlers.ErrorHandler
+
 import scala.concurrent.Future
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
-                                                     override val sessionRepository: SessionRepository,
-                                                     override val navigator: UltimateParentCompanyNavigator,
-                                                     override val updateSectionService: UpdateSectionStateService,
+                                                     sessionRepository: SessionRepository,
+                                                     navigator: UltimateParentCompanyNavigator,
                                                      identify: IdentifierAction,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      view: CheckYourAnswersView
                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController {
+  extends BaseController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {implicit request =>
     val checkYourAnswersHelper = new CheckYourAnswersUltimateParentCompanyHelper(request.userAnswers)

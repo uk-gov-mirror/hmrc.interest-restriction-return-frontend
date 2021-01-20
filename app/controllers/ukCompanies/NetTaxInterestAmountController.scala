@@ -18,9 +18,11 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ukCompanies.NetTaxInterestAmountFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
@@ -33,16 +35,15 @@ import views.html.ukCompanies.NetTaxInterestAmountView
 import scala.concurrent.Future
 
 class NetTaxInterestAmountController @Inject()(override val messagesApi: MessagesApi,
-                                               override val sessionRepository: SessionRepository,
-                                               override val navigator: UkCompaniesNavigator,
-                                               override val updateSectionService: UpdateSectionStateService,
+                                               sessionRepository: SessionRepository,
+                                               navigator: UkCompaniesNavigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,
                                                formProvider: NetTaxInterestAmountFormProvider,
                                                val controllerComponents: MessagesControllerComponents,
                                                view: NetTaxInterestAmountView
-                                              )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                              )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>

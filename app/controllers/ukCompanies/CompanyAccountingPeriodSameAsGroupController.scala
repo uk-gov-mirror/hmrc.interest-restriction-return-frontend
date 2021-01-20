@@ -19,10 +19,12 @@ package controllers.ukCompanies
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import pages.ukCompanies.{CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -34,16 +36,15 @@ import handlers.ErrorHandler
 
 class CompanyAccountingPeriodSameAsGroupController @Inject()(
                                          override val messagesApi: MessagesApi,
-                                         override val sessionRepository: SessionRepository,
-                                         override val navigator: UkCompaniesNavigator,
-                                         override val updateSectionService: UpdateSectionStateService,
+                                         sessionRepository: SessionRepository,
+                                         navigator: UkCompaniesNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          formProvider: CompanyAccountingPeriodSameAsGroupFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: CompanyAccountingPeriodSameAsGroupView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>

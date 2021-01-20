@@ -18,8 +18,10 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.DeemedParentFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.UltimateParentCompanyNavigator
@@ -32,16 +34,15 @@ import views.html.ultimateParentCompany.DeemedParentView
 import scala.concurrent.Future
 
 class HasDeemedParentController @Inject()(override val messagesApi: MessagesApi,
-                                          override val sessionRepository: SessionRepository,
-                                          override val navigator: UltimateParentCompanyNavigator,
-                                          override val updateSectionService: UpdateSectionStateService,
+                                          sessionRepository: SessionRepository,
+                                          navigator: UltimateParentCompanyNavigator,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: DeemedParentFormProvider,
                                           val controllerComponents: MessagesControllerComponents,
                                           view: DeemedParentView
-                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                      )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(HasDeemedParentPage, formProvider()), mode, routes.HasDeemedParentController.onSubmit(mode)))

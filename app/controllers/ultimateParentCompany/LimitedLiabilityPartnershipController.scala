@@ -18,9 +18,11 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.LimitedLiabilityPartnershipFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import navigation.UltimateParentCompanyNavigator
@@ -33,16 +35,15 @@ import views.html.ultimateParentCompany.LimitedLiabilityPartnershipView
 import scala.concurrent.Future
 
 class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: MessagesApi,
-                                                      override val sessionRepository: SessionRepository,
-                                                      override val navigator: UltimateParentCompanyNavigator,
-                                                      override val updateSectionService: UpdateSectionStateService,
+                                                      sessionRepository: SessionRepository,
+                                                      navigator: UltimateParentCompanyNavigator,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
                                                       formProvider: LimitedLiabilityPartnershipFormProvider,
                                                       val controllerComponents: MessagesControllerComponents,
                                                       view: LimitedLiabilityPartnershipView
-                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(DeemedParentPage, idx) { deemedParentModel =>

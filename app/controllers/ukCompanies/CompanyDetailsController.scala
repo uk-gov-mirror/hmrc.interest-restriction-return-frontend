@@ -18,8 +18,10 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ukCompanies.CompanyDetailsFormProvider
+
 import javax.inject.Inject
 import models.returnModels.fullReturn.UkCompanyModel
 import models.{CompanyDetailsModel, Mode}
@@ -33,16 +35,15 @@ import views.html.ukCompanies.CompanyDetailsView
 import scala.concurrent.Future
 
 class CompanyDetailsController @Inject()(override val messagesApi: MessagesApi,
-                                         override val sessionRepository: SessionRepository,
-                                         override val navigator: UkCompaniesNavigator,
-                                         override val updateSectionService: UpdateSectionStateService,
+                                         sessionRepository: SessionRepository,
+                                         navigator: UkCompaniesNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          formProvider: CompanyDetailsFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: CompanyDetailsView
-                                        )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                        )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()

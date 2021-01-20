@@ -18,9 +18,11 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
@@ -33,9 +35,8 @@ import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
 import scala.concurrent.Future
 
 class NetTaxInterestIncomeOrExpenseController @Inject()(override val messagesApi: MessagesApi,
-                                                        override val sessionRepository: SessionRepository,
-                                                        override val navigator: UkCompaniesNavigator,
-                                                        override val updateSectionService: UpdateSectionStateService,
+                                                        sessionRepository: SessionRepository,
+                                                        navigator: UkCompaniesNavigator,
                                                         identify: IdentifierAction,
                                                         getData: DataRetrievalAction,
                                                         requireData: DataRequiredAction,
@@ -43,7 +44,7 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(override val messagesApi
                                                         val controllerComponents: MessagesControllerComponents,
                                                         view: NetTaxInterestIncomeOrExpenseView
                                                        )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>

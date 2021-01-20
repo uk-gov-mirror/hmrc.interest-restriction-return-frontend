@@ -18,9 +18,11 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanySAUTRFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.returnModels.UTRModel
@@ -34,16 +36,15 @@ import views.html.ultimateParentCompany.ParentCompanySAUTRView
 import scala.concurrent.Future
 
 class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesApi,
-                                             override val sessionRepository: SessionRepository,
-                                             override val navigator: UltimateParentCompanyNavigator,
-                                             override val updateSectionService: UpdateSectionStateService,
+                                             sessionRepository: SessionRepository,
+                                             navigator: UltimateParentCompanyNavigator,
                                              identify: IdentifierAction,
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
                                              formProvider: ParentCompanySAUTRFormProvider,
                                              val controllerComponents: MessagesControllerComponents,
                                              view: ParentCompanySAUTRView
-                                            )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                            )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()

@@ -17,9 +17,11 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
+import controllers.BaseController
 import controllers.actions._
 import forms.ukCompanies.UkCompaniesDeletionConfirmationFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.NormalMode
 import navigation.UkCompaniesNavigator
@@ -32,16 +34,15 @@ import views.html.ukCompanies.UkCompaniesDeletionConfirmationView
 import scala.concurrent.Future
 
 class UkCompaniesDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                                          override val sessionRepository: SessionRepository,
-                                                          override val navigator: UkCompaniesNavigator,
-                                                          override val updateSectionService: UpdateSectionStateService,
+                                                          sessionRepository: SessionRepository,
+                                                          navigator: UkCompaniesNavigator,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
                                                           formProvider: UkCompaniesDeletionConfirmationFormProvider,
                                                           val controllerComponents: MessagesControllerComponents,
                                                           view: UkCompaniesDeletionConfirmationView
-                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
+                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>

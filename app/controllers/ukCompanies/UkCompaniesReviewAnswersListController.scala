@@ -18,6 +18,7 @@ package controllers.ukCompanies
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.ukCompanies.UkCompaniesReviewAnswersListFormProvider
 import models.requests.DataRequest
@@ -27,23 +28,20 @@ import pages.ukCompanies.UkCompaniesPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
 import utils.UkCompaniesReviewAnswersListHelper
 import views.html.ukCompanies.UkCompaniesReviewAnswersListView
 
 import scala.concurrent.Future
 
 class UkCompaniesReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
-                                                       override val sessionRepository: SessionRepository,
-                                                       override val navigator: UkCompaniesNavigator,
-                                                       override val updateSectionService: UpdateSectionStateService,
+                                                       navigator: UkCompaniesNavigator,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        formProvider: UkCompaniesReviewAnswersListFormProvider,
                                                        view: UkCompaniesReviewAnswersListView
-                                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController {
+                                                    )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   private def ukCompanies(implicit request: DataRequest[_]) = new UkCompaniesReviewAnswersListHelper(request.userAnswers).rows
 

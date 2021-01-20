@@ -17,9 +17,11 @@
 package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.returnModels.CountryCodeModel
@@ -33,16 +35,15 @@ import views.html.ultimateParentCompany.CountryOfIncorporationView
 import scala.concurrent.Future
 
 class CountryOfIncorporationController @Inject()(override val messagesApi: MessagesApi,
-                                                 override val sessionRepository: SessionRepository,
-                                                 override val navigator: UltimateParentCompanyNavigator,
-                                                 override val updateSectionService: UpdateSectionStateService,
+                                                 sessionRepository: SessionRepository,
+                                                 navigator: UltimateParentCompanyNavigator,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: CountryOfIncorporationFormProvider,
                                                  val controllerComponents: MessagesControllerComponents,
                                                  view: CountryOfIncorporationView
-                                                )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
+                                                )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()

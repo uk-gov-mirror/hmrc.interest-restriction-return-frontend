@@ -18,8 +18,10 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
@@ -33,16 +35,15 @@ import views.html.ultimateParentCompany.ParentCompanyNameView
 import scala.concurrent.Future
 
 class ParentCompanyNameController @Inject()(override val messagesApi: MessagesApi,
-                                            override val sessionRepository: SessionRepository,
-                                            override val navigator: UltimateParentCompanyNavigator,
-                                            override val updateSectionService: UpdateSectionStateService,
+                                            sessionRepository: SessionRepository,
+                                            navigator: UltimateParentCompanyNavigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: ParentCompanyNameFormProvider,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ParentCompanyNameView
-                                           )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                           )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val companyName = getAnswer(DeemedParentPage, idx).map(_.companyName.name)
