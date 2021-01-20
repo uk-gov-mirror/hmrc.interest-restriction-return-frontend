@@ -39,7 +39,6 @@ DeemedParentReviewAnswersListControllerSpec extends SpecBase with FeatureSwitchi
 
   object Controller extends DeemedParentReviewAnswersListController(
     messagesApi = messagesApi,
-    sessionRepository = mockSessionRepository,
     navigator = FakeUltimateParentCompanyNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
