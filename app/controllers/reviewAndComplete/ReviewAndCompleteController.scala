@@ -24,6 +24,7 @@ import handlers.ErrorHandler
 
 import javax.inject.Inject
 import models.NormalMode
+import models.returnModels.ReviewAndCompleteModel
 import navigation.ReviewAndCompleteNavigator
 import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -45,14 +46,14 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
 
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     val reviewAndCompleteHelper = new ReviewAndCompleteHelper()
-    answerFor(ReviewAndCompletePage) { reviewAndCompleteModel =>
+    val reviewAndCompleteModel2 = ReviewAndCompleteModel()
+
       Future.successful(Ok(view(
-        taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel, request.userAnswers),
+        taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel2, request.userAnswers),
         postAction = routes.ReviewAndCompleteController.onSubmit()
       )))
-    }
+
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
