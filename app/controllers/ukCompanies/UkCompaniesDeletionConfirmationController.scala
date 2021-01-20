@@ -69,7 +69,7 @@ class UkCompaniesDeletionConfirmationController @Inject()(override val messagesA
             for {
               updatedAnswers <- Future.fromTry(request.userAnswers.remove(UkCompaniesPage,Some(idx)))
               _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, updatedAnswers))
+            } yield Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, updatedAnswers, Some(idx)))
           case false =>
             Future.successful(Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

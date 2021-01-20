@@ -73,7 +73,7 @@ class ConsentingCompanyController @Inject()(override val messagesApi: MessagesAp
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ConsentingCompanyPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ConsentingCompanyPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

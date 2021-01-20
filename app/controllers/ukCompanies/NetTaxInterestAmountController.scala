@@ -80,7 +80,7 @@ class NetTaxInterestAmountController @Inject()(override val messagesApi: Message
               for {
                 updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
                 _              <- sessionRepository.set(updatedAnswers)
-              } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers))
+              } yield Redirect(navigator.nextPage(NetTaxInterestAmountPage, mode, updatedAnswers, Some(idx)))
             }
           )
         case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))

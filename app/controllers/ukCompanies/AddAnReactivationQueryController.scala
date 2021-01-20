@@ -76,7 +76,7 @@ class AddAnReactivationQueryController @Inject()(
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

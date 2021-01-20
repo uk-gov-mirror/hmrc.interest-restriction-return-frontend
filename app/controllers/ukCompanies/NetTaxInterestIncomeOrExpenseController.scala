@@ -77,7 +77,7 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(override val messagesApi
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, updatedAnswers, Some(idx)))
         }
       )
     }
