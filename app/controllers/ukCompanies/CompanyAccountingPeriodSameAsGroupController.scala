@@ -30,8 +30,6 @@ import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class CompanyAccountingPeriodSameAsGroupController @Inject()(

@@ -18,7 +18,7 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.Elections
@@ -26,24 +26,20 @@ import navigation.ElectionsNavigator
 import pages.elections.CheckAnswersElectionsPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.CheckYourAnswersElectionsHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
 class CheckAnswersElectionsController @Inject()(override val messagesApi: MessagesApi,
-                                                override val sessionRepository: SessionRepository,
-                                                override val navigator: ElectionsNavigator,
-                                                override val updateSectionService: UpdateSectionStateService,
+                                                navigator: ElectionsNavigator,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
                                                 val controllerComponents: MessagesControllerComponents,
                                                 view: CheckYourAnswersView
                                                )(implicit appConfig: FrontendAppConfig)
-  extends BaseNavigationController {
+  extends BaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request => {

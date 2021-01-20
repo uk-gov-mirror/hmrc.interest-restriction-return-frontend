@@ -18,7 +18,7 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.elections.InvestmentsReviewAnswersListFormProvider
 import models.NormalMode
@@ -28,17 +28,13 @@ import pages.elections.InvestmentsReviewAnswersListPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.InvestmentsReviewAnswersListHelper
 import views.html.elections.InvestmentsReviewAnswersListView
 
 import scala.concurrent.Future
 
 class InvestmentsReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
-                                                       override val sessionRepository: SessionRepository,
-                                                       override val navigator: ElectionsNavigator,
-                                                       override val updateSectionService: UpdateSectionStateService,
+                                                       navigator: ElectionsNavigator,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
@@ -46,7 +42,7 @@ class InvestmentsReviewAnswersListController @Inject()(override val messagesApi:
                                                        formProvider: InvestmentsReviewAnswersListFormProvider,
                                                        view: InvestmentsReviewAnswersListView
                                                     )(implicit appConfig: FrontendAppConfig)
-  extends BaseNavigationController {
+  extends BaseController {
 
   private def investments(implicit request: DataRequest[_]) = new InvestmentsReviewAnswersListHelper(request.userAnswers).rows
 

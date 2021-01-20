@@ -18,7 +18,6 @@ package controllers.ultimateParentCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.UltimateParentCompany
@@ -27,7 +26,6 @@ import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParent
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.CheckYourAnswersUltimateParentCompanyHelper
 import views.html.CheckYourAnswersView
 import handlers.ErrorHandler

@@ -18,7 +18,7 @@ package controllers.aboutReturn
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.AboutReturn
@@ -27,22 +27,20 @@ import pages.aboutReturn.CheckAnswersReportingCompanyPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.CheckYourAnswersAboutReturnCompanyHelper
 import views.html.CheckYourAnswersView
 
 import scala.concurrent.Future
 
 class CheckAnswersAboutReturnController @Inject()(override val messagesApi: MessagesApi,
-                                                  override val sessionRepository: SessionRepository,
-                                                  override val navigator: AboutReturnNavigator,
-                                                  override val updateSectionService: UpdateSectionStateService,
+                                                  sessionRepository: SessionRepository,
+                                                  navigator: AboutReturnNavigator,
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
                                                   val controllerComponents: MessagesControllerComponents,
                                                   view: CheckYourAnswersView
-                                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController {
+                                                      )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val checkAnswersHelper = new CheckYourAnswersAboutReturnCompanyHelper(request.userAnswers)

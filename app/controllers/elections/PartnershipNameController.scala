@@ -18,9 +18,9 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.PartnershipNameFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.ElectionsNavigator
@@ -28,27 +28,25 @@ import pages.elections.{PartnershipNamePage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.PartnershipNameView
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import controllers.BaseNavigationController
 import models.returnModels.PartnershipModel
 
 class PartnershipNameController @Inject()(override val messagesApi: MessagesApi,
-                                          override val sessionRepository: SessionRepository,
-                                          override val navigator: ElectionsNavigator,
-                                          override val updateSectionService: UpdateSectionStateService,
+                                          sessionRepository: SessionRepository,
+                                          navigator: ElectionsNavigator,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: PartnershipNameFormProvider,
                                           val controllerComponents: MessagesControllerComponents,
                                           view: PartnershipNameView
-                                         )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                         )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private val form = formProvider()
 

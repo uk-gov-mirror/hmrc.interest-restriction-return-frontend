@@ -18,7 +18,6 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.{BaseNavigationController}
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
 import javax.inject.Inject
@@ -29,7 +28,6 @@ import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.ParentCompanyNameView
 
 import scala.concurrent.Future

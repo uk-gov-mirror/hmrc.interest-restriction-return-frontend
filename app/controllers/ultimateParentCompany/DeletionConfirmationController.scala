@@ -30,8 +30,6 @@ import views.html.ultimateParentCompany.DeletionConfirmationView
 
 import scala.concurrent.Future
 import navigation.UltimateParentCompanyNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class DeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,

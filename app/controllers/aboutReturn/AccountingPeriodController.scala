@@ -19,7 +19,7 @@ package controllers.aboutReturn
 import javax.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.aboutReturn.AccountingPeriodFormProvider
 import models.Mode
@@ -28,22 +28,20 @@ import pages.aboutReturn.AccountingPeriodPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.aboutReturn.AccountingPeriodView
 
 import scala.concurrent.Future
 
 class AccountingPeriodController @Inject()(override val messagesApi: MessagesApi,
-                                                override val sessionRepository: SessionRepository,
-                                                override val navigator: AboutReturnNavigator,
-                                                override val updateSectionService: UpdateSectionStateService,
+                                                sessionRepository: SessionRepository,
+                                                navigator: AboutReturnNavigator,
                                                 identify: IdentifierAction,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
                                                 formProvider: AccountingPeriodFormProvider,
                                                 val controllerComponents: MessagesControllerComponents,
                                                 view: AccountingPeriodView
-                                               )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                               )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(AccountingPeriodPage, formProvider()), mode))

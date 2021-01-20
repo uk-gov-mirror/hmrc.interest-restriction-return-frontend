@@ -18,7 +18,6 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.aboutReturn.AgentNameFormProvider
 import javax.inject.Inject
@@ -27,23 +26,22 @@ import navigation.AboutReturnNavigator
 import pages.aboutReturn.AgentNamePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
+import controllers.BaseController
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.aboutReturn.AgentNameView
 
 import scala.concurrent.Future
 
 class AgentNameController @Inject()(override val messagesApi: MessagesApi,
-                                    override val sessionRepository: SessionRepository,
-                                    override val navigator: AboutReturnNavigator,
-                                    override val updateSectionService: UpdateSectionStateService,
+                                    sessionRepository: SessionRepository,
+                                    navigator: AboutReturnNavigator,
                                     identify: IdentifierAction,
                                     getData: DataRetrievalAction,
                                     requireData: DataRequiredAction,
                                     formProvider: AgentNameFormProvider,
                                     val controllerComponents: MessagesControllerComponents,
                                     view: AgentNameView
-                                   )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                   )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(AgentNamePage, formProvider()), mode))

@@ -18,7 +18,6 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.PartnershipDeletionConfirmationFormProvider
 import handlers.ErrorHandler
@@ -29,7 +28,6 @@ import pages.elections.{PartnershipDeletionConfirmationPage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.PartnershipDeletionConfirmationView
 
 import scala.concurrent.Future

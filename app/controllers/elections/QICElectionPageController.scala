@@ -22,29 +22,26 @@ import forms.elections.QICElectionPageFormProvider
 import javax.inject.Inject
 import models.Mode
 import pages.elections.QICElectionPage
-import config.featureSwitch.{FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.elections.QICElectionPageView
-import play.api.data.Form
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class QICElectionPageController @Inject()(
                                          override val messagesApi: MessagesApi,
-                                         override val sessionRepository: SessionRepository,
-                                         override val navigator: ElectionsNavigator,
-                                         override val updateSectionService: UpdateSectionStateService,
+                                         sessionRepository: SessionRepository,
+                                         navigator: ElectionsNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          formProvider: QICElectionPageFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: QICElectionPageView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(QICElectionPage, formProvider()), mode))

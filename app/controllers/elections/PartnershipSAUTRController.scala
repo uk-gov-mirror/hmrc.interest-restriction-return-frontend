@@ -18,10 +18,11 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.PartnershipSAUTRFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.Mode
 import models.returnModels.UTRModel
@@ -30,22 +31,20 @@ import pages.elections.{PartnershipSAUTRPage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.PartnershipSAUTRView
 
 import scala.concurrent.Future
 
 class PartnershipSAUTRController @Inject()(override val messagesApi: MessagesApi,
-                                           override val sessionRepository: SessionRepository,
-                                           override val navigator: ElectionsNavigator,
-                                           override val updateSectionService: UpdateSectionStateService,
+                                           sessionRepository: SessionRepository,
+                                           navigator: ElectionsNavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: PartnershipSAUTRFormProvider,
                                            val controllerComponents: MessagesControllerComponents,
                                            view: PartnershipSAUTRView
-                                          )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                          )(implicit errorHandler: ErrorHandler, appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private val form = formProvider()
 

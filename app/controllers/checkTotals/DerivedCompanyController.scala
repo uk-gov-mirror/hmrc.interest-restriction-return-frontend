@@ -18,7 +18,7 @@ package controllers.checkTotals
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.{BaseController, BaseNavigationController}
+import controllers.BaseController
 import controllers.actions._
 
 import javax.inject.Inject
@@ -29,16 +29,13 @@ import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
 
 import scala.concurrent.Future
 
 class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
-                                         override val sessionRepository: SessionRepository,
-                                         override val navigator: CheckTotalsNavigator,
-                                         override val updateSectionService: UpdateSectionStateService,
+                                         navigator: CheckTotalsNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -46,7 +43,7 @@ class DerivedCompanyController @Inject()(override val messagesApi: MessagesApi,
                                          view: DerivedCompanyView,
                                          checkTotalsHelper: CheckTotalsHelper
                                         )(implicit appConfig: FrontendAppConfig)
-  extends FeatureSwitching with BaseNavigationController with Logging {
+  extends FeatureSwitching with BaseController with Logging {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     request.userAnswers.getList(UkCompaniesPage) match {

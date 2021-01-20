@@ -14,7 +14,6 @@ import repositories.SessionRepository
 import play.api.data.Form
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import navigation.$section;format="cap"$Navigator
-import controllers.BaseNavigationController
 import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(

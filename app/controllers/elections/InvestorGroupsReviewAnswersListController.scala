@@ -18,7 +18,7 @@ package controllers.elections
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.elections.InvestorGroupsReviewAnswersListFormProvider
 import models.NormalMode
@@ -29,16 +29,13 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.InvestorGroupsReviewAnswersListHelper
 import views.html.elections.InvestorGroupsReviewAnswersListView
 
 import scala.concurrent.Future
 
 class InvestorGroupsReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
-                                                          override val sessionRepository: SessionRepository,
-                                                          override val navigator: ElectionsNavigator,
-                                                          override val updateSectionService: UpdateSectionStateService,
+                                                          navigator: ElectionsNavigator,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
@@ -46,7 +43,7 @@ class InvestorGroupsReviewAnswersListController @Inject()(override val messagesA
                                                           formProvider: InvestorGroupsReviewAnswersListFormProvider,
                                                           view: InvestorGroupsReviewAnswersListView
                                                     )(implicit appConfig: FrontendAppConfig)
-  extends BaseNavigationController {
+  extends BaseController {
 
   private def investorGroups(implicit request: DataRequest[_]) = new InvestorGroupsReviewAnswersListHelper(request.userAnswers).rows
 

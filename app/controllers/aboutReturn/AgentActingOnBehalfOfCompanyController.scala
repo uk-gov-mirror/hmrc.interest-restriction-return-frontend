@@ -18,32 +18,30 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
+import controllers.BaseController
 import forms.aboutReturn.AgentActingOnBehalfOfCompanyFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.AboutReturnNavigator
-import pages.aboutReturn.{AccountingPeriodPage, AgentActingOnBehalfOfCompanyPage}
+import pages.aboutReturn.{AgentActingOnBehalfOfCompanyPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.aboutReturn.AgentActingOnBehalfOfCompanyView
 
 import scala.concurrent.Future
 
 class AgentActingOnBehalfOfCompanyController @Inject()(override val messagesApi: MessagesApi,
-                                                       override val sessionRepository: SessionRepository,
-                                                       override val navigator: AboutReturnNavigator,
-                                                       override val updateSectionService: UpdateSectionStateService,
+                                                       sessionRepository: SessionRepository,
+                                                       navigator: AboutReturnNavigator,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        formProvider: AgentActingOnBehalfOfCompanyFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: AgentActingOnBehalfOfCompanyView
-                                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                                      )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(AgentActingOnBehalfOfCompanyPage, formProvider()), mode))

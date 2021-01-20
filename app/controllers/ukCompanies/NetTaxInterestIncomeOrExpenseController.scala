@@ -18,7 +18,6 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ukCompanies.NetTaxInterestIncomeOrExpenseFormProvider
 import handlers.ErrorHandler
@@ -29,7 +28,6 @@ import pages.ukCompanies.{NetTaxInterestIncomeOrExpensePage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ukCompanies.NetTaxInterestIncomeOrExpenseView
 
 import scala.concurrent.Future

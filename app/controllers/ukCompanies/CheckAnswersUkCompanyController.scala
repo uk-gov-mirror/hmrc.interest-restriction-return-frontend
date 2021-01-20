@@ -18,7 +18,6 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import handlers.ErrorHandler
 import javax.inject.Inject
@@ -29,7 +28,6 @@ import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.CheckYourAnswersUkCompanyHelper
 import views.ViewUtils._

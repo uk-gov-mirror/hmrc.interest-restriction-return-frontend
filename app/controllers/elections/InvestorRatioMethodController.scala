@@ -18,34 +18,33 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.InvestorRatioMethodFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
-import models.{Mode, NormalMode, InvestorRatioMethod}
+import models.{InvestorRatioMethod, Mode, NormalMode}
 import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.InvestorRatioMethodView
 
 import scala.concurrent.Future
 
 class InvestorRatioMethodController @Inject()(
                                                override val messagesApi: MessagesApi,
-                                               override val sessionRepository: SessionRepository,
-                                               override val navigator: ElectionsNavigator,
-                                               override val updateSectionService: UpdateSectionStateService,
+                                               sessionRepository: SessionRepository,
+                                               navigator: ElectionsNavigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,
                                                formProvider: InvestorRatioMethodFormProvider,
                                                val controllerComponents: MessagesControllerComponents,
                                                view: InvestorRatioMethodView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   private val form = formProvider()
 

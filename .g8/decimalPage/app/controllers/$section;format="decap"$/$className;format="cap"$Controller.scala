@@ -16,8 +16,6 @@ import play.api.data.Form
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,

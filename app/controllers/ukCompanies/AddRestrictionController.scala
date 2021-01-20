@@ -30,8 +30,6 @@ import views.html.ukCompanies.AddRestrictionView
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,

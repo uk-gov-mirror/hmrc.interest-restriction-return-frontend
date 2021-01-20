@@ -18,10 +18,11 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.InvestmentsDeletionConfirmationFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.NormalMode
 import navigation.ElectionsNavigator
@@ -29,23 +30,21 @@ import pages.elections.{InvestmentNamePage, InvestmentsDeletionConfirmationPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.InvestmentsDeletionConfirmationView
 
 import scala.concurrent.Future
 
 class InvestmentsDeletionConfirmationController @Inject()(
                                                            override val messagesApi: MessagesApi,
-                                                           override val sessionRepository: SessionRepository,
-                                                           override val navigator: ElectionsNavigator,
-                                                           override val updateSectionService: UpdateSectionStateService,
+                                                           sessionRepository: SessionRepository,
+                                                           navigator: ElectionsNavigator,
                                                            identify: IdentifierAction,
                                                            getData: DataRetrievalAction,
                                                            requireData: DataRequiredAction,
                                                            formProvider: InvestmentsDeletionConfirmationFormProvider,
                                                            val controllerComponents: MessagesControllerComponents,
                                                            view: InvestmentsDeletionConfirmationView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(InvestmentNamePage, idx) { investment =>

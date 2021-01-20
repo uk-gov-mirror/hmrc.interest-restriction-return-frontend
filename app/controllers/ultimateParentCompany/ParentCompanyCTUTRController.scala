@@ -18,7 +18,6 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyCTUTRFormProvider
 import handlers.ErrorHandler
@@ -30,7 +29,6 @@ import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyCTUTRPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.ParentCompanyCTUTRView
 
 import scala.concurrent.Future

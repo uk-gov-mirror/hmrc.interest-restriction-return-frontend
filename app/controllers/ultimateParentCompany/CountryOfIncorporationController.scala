@@ -17,7 +17,6 @@
 package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ultimateParentCompany.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
@@ -29,7 +28,6 @@ import pages.ultimateParentCompany.{CountryOfIncorporationPage, DeemedParentPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.CountryOfIncorporationView
 
 import scala.concurrent.Future

@@ -18,7 +18,6 @@ package controllers.ultimateParentCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.ultimateParentCompany.DeemedParentReviewAnswersListFormProvider
 import models.NormalMode
@@ -29,7 +28,6 @@ import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.DeemedParentReviewAnswersListHelper
 import views.html.ultimateParentCompany.DeemedParentReviewAnswersListView
 
