@@ -47,10 +47,10 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val reviewAndCompleteHelper = new ReviewAndCompleteHelper()
-    val reviewAndCompleteModel2 = ReviewAndCompleteModel()
+    val reviewAndCompleteModel = ReviewAndCompleteModel()
 
       Future.successful(Ok(view(
-        taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel2, request.userAnswers),
+        taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel, request.userAnswers),
         postAction = routes.ReviewAndCompleteController.onSubmit()
       )))
 
