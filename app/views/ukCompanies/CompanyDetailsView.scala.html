@@ -58,6 +58,7 @@
               name = "ctutrValue",
               label = "companyDetails.ctutr.label",
               isPageHeading = false,
+              hint = Some(hint),
               value = "ctutrValue",
               classes = Some("govuk-input--width-10")
             )
@@ -66,4 +67,12 @@
 
         @saveForLater()
     }
+}
+
+@hint = {
+    <p>
+        @messages("companyDetails.p1")
+        @messages("companyDetails.p2")
+        @messages("companyDetails.p3")
+    </p>
 }

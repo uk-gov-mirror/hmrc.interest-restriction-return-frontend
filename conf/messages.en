@@ -719,6 +719,10 @@ companyDetails.ctutr.error.required = A Corporation Tax Unique Taxpayer Referenc
 companyDetails.ctutr.error.regexp = Corporation Tax Unique Taxpayer Reference must be must be 10 characters or less
 companyDetails.ctutr.error.checksum = Corporation Tax Unique Taxpayer Reference entered is invalid
 
+companyDetails.p1 = This is 10 numbers, for example 1234567890.
+companyDetails.p2 = It will be on tax returns and other letters about Corporation Tax.
+companyDetails.p3 = It may be called ''reference'', ''UTR'' or ''official use''.
+
 # InvestmentsReviewAnswersListPage Messages
 # ----------------------------------------------------------
 ukCompaniesReviewAnswersList.singular.title = {0} company added
