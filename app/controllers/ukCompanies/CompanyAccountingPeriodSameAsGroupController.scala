@@ -72,9 +72,11 @@ class CompanyAccountingPeriodSameAsGroupController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(accountPeriodSameAsGroup = Some(value))
-          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, mode, cleanedAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, mode, updatedAnswers))
         }
       )
     }

@@ -74,9 +74,11 @@ class ReactivationAmountController @Inject()(override val messagesApi: MessagesA
           ),
         value => {
           val updatedModel = ukCompany.copy(allocatedReactivations = Some(value))
-          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(ReactivationAmountPage, mode, cleanedAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ReactivationAmountPage, mode, updatedAnswers))
         }
       )
     }

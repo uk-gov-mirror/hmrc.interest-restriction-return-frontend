@@ -66,7 +66,7 @@ class UkCompaniesReviewAnswersListController @Inject()(override val messagesApi:
         Future.successful(BadRequest(renderView(formWithErrors))),
       {
         case true => Future.successful(Redirect(navigator.addCompany(ukCompanies.length)))
-        case false => saveAndRedirect(UkCompaniesPage, NormalMode)
+        case false => Future.successful(Redirect(navigator.nextPage(UkCompaniesPage,NormalMode,request.userAnswers)))
       }
     )
   }

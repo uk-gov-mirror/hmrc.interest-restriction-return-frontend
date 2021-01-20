@@ -74,9 +74,11 @@ class NetTaxInterestIncomeOrExpenseController @Inject()(override val messagesApi
           ),
         value => {
           val updatedModel = ukCompany.copy(netTaxInterestIncomeOrExpense = Some(value))
-          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, cleanedAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(NetTaxInterestIncomeOrExpensePage, mode, updatedAnswers))
         }
       )
     }

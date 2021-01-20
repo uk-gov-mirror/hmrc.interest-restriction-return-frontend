@@ -74,9 +74,11 @@ class AddAnReactivationQueryController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(reactivation = Some(value))
-          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, cleanedAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, updatedAnswers))
         }
       )
     }

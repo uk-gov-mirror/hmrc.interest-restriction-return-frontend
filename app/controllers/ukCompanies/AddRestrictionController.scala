@@ -71,9 +71,11 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
           ),
         value => {
           val updatedModel = ukCompany.copy(restriction = Some(value))
-          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(AddRestrictionPage, mode, cleanedAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(AddRestrictionPage, mode, updatedAnswers))
         }
       )
     }

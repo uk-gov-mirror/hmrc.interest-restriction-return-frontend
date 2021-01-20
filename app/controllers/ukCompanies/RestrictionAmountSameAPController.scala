@@ -75,9 +75,11 @@ class RestrictionAmountSameAPController @Inject()(
           value => {
             val updatedRestrictions = ukCompany.allocatedRestrictions.map(_.setRestriction(1, groupAccountPeriod.endDate, value))
             val updatedModel = ukCompany.copy(allocatedRestrictions = updatedRestrictions)
-            save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-              Redirect(navigator.nextPage(RestrictionAmountSameAPPage, mode, cleanedAnswers, Some(idx)))
-            }
+
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(RestrictionAmountSameAPPage, mode, updatedAnswers))
           }
         )
       }
