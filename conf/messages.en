@@ -591,16 +591,16 @@ investorGroupsAdded.checkYourAnswers.value.plural = {0} investor groups added
 investorGroupsAdded.checkYourAnswers.review = Review
 investorGroupsAdded.checkYourAnswers.subheading = Elections
 
-consolidatedPartnershipsAdded.checkYourAnswers.label = Consolidated partnerships
+consolidatedPartnershipsAdded.checkYourAnswers.label = Partnerships
 consolidatedPartnershipsAdded.checkYourAnswers.value.singular = {0} partnership added
 consolidatedPartnershipsAdded.checkYourAnswers.value.plural = {0} partnerships added
-consolidatedPartnershipsAdded.checkYourAnswers.review = Review partnerships
+consolidatedPartnershipsAdded.checkYourAnswers.review = Review
 consolidatedPartnershipsAdded.checkYourAnswers.subheading = Elections
 
-nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Non-consolidated investments
+nonConsolidatedInvestmentsAdded.checkYourAnswers.label = Investments
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.singular = {0} investment added
 nonConsolidatedInvestmentsAdded.checkYourAnswers.value.plural = {0} investments added
-nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review investments
+nonConsolidatedInvestmentsAdded.checkYourAnswers.review = Review
 nonConsolidatedInvestmentsAdded.checkYourAnswers.subheading = Elections
 
 # AboutAddingUKCompaniesPage Messages

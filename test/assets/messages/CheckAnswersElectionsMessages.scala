@@ -30,14 +30,14 @@ object CheckAnswersElectionsMessages {
   val electedInterestAllowanceAlternativeCalcBefore = "Make interest allowance (alternative calculation) election"
   val interestAllowanceAlternativeCalcElection = "Elect interest allowance (alternative calculation)"
   val interestAllowanceNonConsolidatedElection = "Elect interest allowance (non-consolidated investments)"
-  val nonConsolidatedInvestmentsHeading = "Non-consolidated investments"
+  val nonConsolidatedInvestmentsHeading = "Investments"
   val nonConsolidatedInvestmentsValue: Int => String = i =>  s"$i investment${if(i > 1) "s" else ""} added"
-  val nonConsolidatedInvestmentsReview = "Review investments"
+  val nonConsolidatedInvestmentsReview = "Review"
   val electedInterestAllowanceConsolidatedPshipBefore = "Elected interest allowance (consolidated partnerships) before"
   val interestAllowanceConsolidatedPshipElection = "Elect interest allowance (consolidated partnerships)"
   val qicElection = "Qualified Infrastructure Election"
-  val consolidatedPartnershipsHeading = "Consolidated partnerships"
+  val consolidatedPartnershipsHeading = "Partnerships"
   val consolidatedPartnershipsValue: Int => String = i =>  s"$i partnership${if(i > 1) "s" else ""} added"
-  val consolidatedPartnershipsReview = "Review partnerships"
+  val consolidatedPartnershipsReview = "Review"
 
 }
