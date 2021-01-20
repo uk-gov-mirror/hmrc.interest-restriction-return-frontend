@@ -38,7 +38,6 @@ class InvestmentsReviewAnswersListControllerSpec extends SpecBase with FeatureSw
   object Controller extends InvestmentsReviewAnswersListController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

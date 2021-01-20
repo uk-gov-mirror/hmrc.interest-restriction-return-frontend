@@ -40,7 +40,6 @@ class EnterCompanyTaxEBITDAControllerSpec extends SpecBase with FeatureSwitching
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

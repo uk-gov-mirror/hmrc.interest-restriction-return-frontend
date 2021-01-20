@@ -39,9 +39,7 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
 
   object Controller extends UkCompaniesReviewAnswersListController(
     messagesApi = messagesApi,
-    sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

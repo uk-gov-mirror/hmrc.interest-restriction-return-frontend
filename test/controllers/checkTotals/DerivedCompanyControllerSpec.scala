@@ -35,9 +35,7 @@ class DerivedCompanyControllerSpec extends SpecBase with FeatureSwitching with M
 
   object Controller extends DerivedCompanyController(
     messagesApi = messagesApi,
-    sessionRepository = mockSessionRepository,
     navigator = checkTotalsNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

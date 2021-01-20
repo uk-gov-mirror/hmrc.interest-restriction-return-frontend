@@ -37,7 +37,6 @@ class InterestAllowanceConsolidatedPshipElectionControllerSpec extends SpecBase 
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

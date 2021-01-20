@@ -37,7 +37,6 @@ class InterestAllowanceAlternativeCalcElectionControllerSpec extends SpecBase wi
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

@@ -38,7 +38,6 @@ class CompanyAccountingPeriodSameAsGroupControllerSpec extends SpecBase with Fea
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

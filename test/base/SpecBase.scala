@@ -37,7 +37,6 @@ import play.api.test.CSRFTokenHelper._
 import play.api.test.FakeRequest
 import repositories.DefaultSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
-
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
@@ -80,8 +79,6 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with Sca
   implicit lazy val errorHandler = injector.instanceOf[ErrorHandler]
 
   lazy val dataRequiredAction = injector.instanceOf[DataRequiredActionImpl]
-
-  lazy val updateSectionService = injector.instanceOf[UpdateSectionStateService]
 
   implicit val hc = HeaderCarrier()
 
