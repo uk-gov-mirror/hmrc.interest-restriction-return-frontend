@@ -54,7 +54,10 @@ class GroupInterestAllowanceController @Inject()(override val messagesApi: Messa
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(GroupInterestAllowancePage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupInterestAllowancePage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(GroupInterestAllowancePage, mode, updatedAnswers))
     )
   }
 }

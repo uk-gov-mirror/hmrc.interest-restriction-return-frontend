@@ -55,7 +55,10 @@ class GroupSubjectToRestrictionsController @Inject()(override val messagesApi: M
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors, mode))),
         value =>
-          saveAndRedirect(GroupSubjectToRestrictionsPage, value, mode)
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupSubjectToRestrictionsPage, value))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(GroupSubjectToRestrictionsPage, mode, updatedAnswers))
       )
   }
 }

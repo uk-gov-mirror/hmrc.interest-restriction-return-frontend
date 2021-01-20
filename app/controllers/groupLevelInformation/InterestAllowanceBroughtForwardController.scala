@@ -54,7 +54,10 @@ class InterestAllowanceBroughtForwardController @Inject()(override val messagesA
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(InterestAllowanceBroughtForwardPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InterestAllowanceBroughtForwardPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InterestAllowanceBroughtForwardPage, mode, updatedAnswers))
     )
   }
 }

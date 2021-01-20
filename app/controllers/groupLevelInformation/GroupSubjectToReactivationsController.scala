@@ -54,7 +54,10 @@ class GroupSubjectToReactivationsController @Inject()(override val messagesApi: 
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(GroupSubjectToReactivationsPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupSubjectToReactivationsPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(GroupSubjectToReactivationsPage, mode, updatedAnswers))
     )
   }
 }

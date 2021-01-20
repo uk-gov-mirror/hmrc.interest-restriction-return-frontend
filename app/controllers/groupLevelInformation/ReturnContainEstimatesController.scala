@@ -54,7 +54,10 @@ class ReturnContainEstimatesController @Inject()(override val messagesApi: Messa
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(ReturnContainEstimatesPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ReturnContainEstimatesPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ReturnContainEstimatesPage, mode, updatedAnswers))
     )
   }
 }

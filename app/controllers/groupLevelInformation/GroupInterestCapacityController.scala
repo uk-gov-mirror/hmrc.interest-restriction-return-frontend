@@ -54,7 +54,10 @@ class GroupInterestCapacityController @Inject()(override val messagesApi: Messag
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(GroupInterestCapacityPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(GroupInterestCapacityPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(GroupInterestCapacityPage, mode, updatedAnswers))
     )
   }
 }

@@ -54,7 +54,10 @@ class InterestReactivationsCapController @Inject()(override val messagesApi: Mes
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(InterestReactivationsCapPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InterestReactivationsCapPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InterestReactivationsCapPage, mode, updatedAnswers))
     )
   }
 }
