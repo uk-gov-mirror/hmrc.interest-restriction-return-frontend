@@ -29,20 +29,20 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.elections.PartnershipDeletionConfirmationView
+import controllers.BaseController
 
 import scala.concurrent.Future
 
 class PartnershipDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                                          override val sessionRepository: SessionRepository,
-                                                          override val navigator: ElectionsNavigator,
-                                                          override val updateSectionService: UpdateSectionStateService,
+                                                          sessionRepository: SessionRepository,
+                                                          navigator: ElectionsNavigator,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
                                                           formProvider: PartnershipDeletionConfirmationFormProvider,
                                                           val controllerComponents: MessagesControllerComponents,
                                                           view: PartnershipDeletionConfirmationView
-                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   val form = formProvider()
 
