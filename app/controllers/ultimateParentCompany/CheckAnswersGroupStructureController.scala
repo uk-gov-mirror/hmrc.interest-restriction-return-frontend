@@ -60,6 +60,6 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
   }
 
   def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => saveAndRedirect(CheckAnswersGroupStructurePage, NormalMode, Some(idx))
+    implicit request => Future.successful(Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers,Some(idx))))
   }
 }

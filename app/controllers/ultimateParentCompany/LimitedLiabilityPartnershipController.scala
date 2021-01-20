@@ -71,9 +71,11 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value))
-          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(LimitedLiabilityPartnershipPage, mode, updatedAnswers))
         }
       )
     }

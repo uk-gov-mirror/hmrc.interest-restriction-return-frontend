@@ -54,7 +54,10 @@ class HasDeemedParentController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode, routes.HasDeemedParentController.onSubmit(mode)))),
       value =>
-        saveAndRedirect(HasDeemedParentPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(HasDeemedParentPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(HasDeemedParentPage, mode, updatedAnswers))
     )
   }
 }

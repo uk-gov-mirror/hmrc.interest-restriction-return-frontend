@@ -59,9 +59,11 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
       value => {
         val companyName = CompanyNameModel(value)
         val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
-        save(DeemedParentPage, deemedParentModel, NormalMode, Some(idx)).map { userAnswers =>
-          Redirect(navigator.nextPage(ParentCompanyNamePage, mode, userAnswers, Some(idx)))
-        }
+
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers))
       }
     )
   }

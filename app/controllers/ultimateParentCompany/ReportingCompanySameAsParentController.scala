@@ -63,7 +63,10 @@ class ReportingCompanySameAsParentController @Inject()(override val messagesApi:
           Future.successful(BadRequest(view(formWithErrors, mode, name, routes.ReportingCompanySameAsParentController.onSubmit(mode))))
         },
       value =>
-        saveAndRedirect(ReportingCompanySameAsParentPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanySameAsParentPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ReportingCompanySameAsParentPage, mode, updatedAnswers))
     )
   }
 }

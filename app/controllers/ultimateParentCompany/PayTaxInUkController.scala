@@ -71,9 +71,11 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(payTaxInUk = Some(value))
-          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(PayTaxInUkPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers))
         }
       )
     }

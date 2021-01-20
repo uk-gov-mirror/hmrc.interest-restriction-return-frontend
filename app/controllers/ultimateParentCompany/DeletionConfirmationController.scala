@@ -65,9 +65,10 @@ class DeletionConfirmationController @Inject()(override val messagesApi: Message
         ,
         {
           case true =>
-            remove(DeemedParentPage, NormalMode, Some(idx)).map{ userAnswers =>
-              Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, userAnswers, Some(idx)))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(DeemedParentPage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, updatedAnswers))
           case false =>
             Future.successful(Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, request.userAnswers, Some(idx))))
         }

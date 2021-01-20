@@ -71,9 +71,11 @@ class ParentCompanySAUTRController @Inject()(override val messagesApi: MessagesA
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(sautr = Some(UTRModel(value)))
-          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCompanySAUTRPage, mode, updatedAnswers))
         }
       )
     }

@@ -73,9 +73,11 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
         value => {
           val countryModel = if(value.isEmpty) None else Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value))
           val updatedModel = deemedParentModel.copy(countryOfIncorporation = countryModel)
-          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers))
         }
       )
     }
