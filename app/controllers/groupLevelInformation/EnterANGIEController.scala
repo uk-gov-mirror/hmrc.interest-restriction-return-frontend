@@ -20,8 +20,6 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
-import forms.elections.EnterANGIEFormProvider
-
 import forms.groupLevelInformation.EnterANGIEFormProvider
 import javax.inject.Inject
 import models.Mode
@@ -29,13 +27,11 @@ import pages.groupLevelInformation.EnterANGIEPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.elections.EnterANGIEView
+import views.html.groupLevelInformation.EnterANGIEView
 
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.GroupLevelInformationNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class EnterANGIEController @Inject()(override val messagesApi: MessagesApi,
                                      sessionRepository: SessionRepository,

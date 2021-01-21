@@ -34,7 +34,6 @@ class CheckAnswersGroupLevelControllerSpec extends SpecBase with FeatureSwitchin
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeGroupLevelInformationNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -61,7 +60,6 @@ class CheckAnswersGroupLevelControllerSpec extends SpecBase with FeatureSwitchin
         "redirect to the next page in the navigator" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
-          mockSetAnswers
 
           val result = Controller.onSubmit()(fakeRequest)
 

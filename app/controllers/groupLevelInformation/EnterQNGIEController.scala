@@ -35,8 +35,6 @@ import play.api.data.Form
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.GroupLevelInformationNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class EnterQNGIEController @Inject()(override val messagesApi: MessagesApi,
                                      sessionRepository: SessionRepository,

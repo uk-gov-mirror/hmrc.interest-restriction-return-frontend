@@ -18,7 +18,7 @@ package controllers.groupLevelInformation
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.GroupLevelInformation
@@ -26,21 +26,21 @@ import navigation.GroupLevelInformationNavigator
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.CheckYourAnswersGroupLevelInformationHelper
 import views.html.CheckYourAnswersView
 import pages.groupLevelInformation.CheckAnswersGroupLevelPage
 
+import scala.concurrent.Future
+
 class CheckAnswersGroupLevelController @Inject()(override val messagesApi: MessagesApi,
-                                                  override val sessionRepository: SessionRepository,
-                                                  override val navigator: GroupLevelInformationNavigator,
-                                                  override val updateSectionService: UpdateSectionStateService,
+                                                  val sessionRepository: SessionRepository,
+                                                  val navigator: GroupLevelInformationNavigator,
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
                                                   val controllerComponents: MessagesControllerComponents,
                                                   view: CheckYourAnswersView
-                                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController {
+                                                      )(implicit appConfig: FrontendAppConfig) extends BaseController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val checkAnswersHelper = new CheckYourAnswersGroupLevelInformationHelper(request.userAnswers)
@@ -48,7 +48,7 @@ class CheckAnswersGroupLevelController @Inject()(override val messagesApi: Messa
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    saveAndRedirect(CheckAnswersGroupLevelPage, NormalMode)
+    Future.successful(Redirect(navigator.nextPage(CheckAnswersGroupLevelPage, NormalMode, request.userAnswers)))
   }
 }
 

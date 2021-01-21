@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
-import forms.elections.GroupRatioPercentageFormProvider
 
 import forms.groupLevelInformation.GroupRatioPercentageFormProvider
 import javax.inject.Inject
@@ -29,7 +28,6 @@ import pages.groupLevelInformation.GroupRatioPercentagePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.elections.GroupRatioPercentageView
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.groupLevelInformation.GroupRatioPercentageView
 import config.FrontendAppConfig
@@ -38,8 +36,6 @@ import play.api.data.Form
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.GroupLevelInformationNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class GroupRatioPercentageController @Inject()(override val messagesApi: MessagesApi,
                                                sessionRepository: SessionRepository,

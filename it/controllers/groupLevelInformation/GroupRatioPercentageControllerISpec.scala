@@ -27,7 +27,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
   "in Normal mode" when {
 
-    "GET /group-level-information/group-ratio-percentage" when {
+    "GET /groupLevelInformation/group-ratio-percentage" when {
 
       "user is authorised" should {
 
@@ -63,7 +63,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /group-level-information/group-ratio-percentage" when {
+    "POST /groupLevelInformation/group-ratio-percentage" when {
 
       "user is authorised" when {
 
@@ -77,7 +77,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.ReturnContainEstimatesController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.groupLevelInformation.routes.GroupRatioPercentageController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -95,7 +95,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+              redirectLocation(controllers.errors.routes.ReturnContainEstimatesController.onPageLoad().url)
             )
           }
         }
@@ -105,7 +105,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
   "in Change mode" when {
 
-    "GET /group-level-information/group-ratio-percentage" when {
+    "GET /groupLevelInformation/group-ratio-percentage" when {
 
       "user is authorised" should {
 
