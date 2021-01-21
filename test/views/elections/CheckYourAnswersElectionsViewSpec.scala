@@ -59,10 +59,6 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       checkYourAnswersRowChecks(
         CheckAnswersElectionsMessages.groupRatioElection -> "Yes",
-        CheckAnswersElectionsMessages.angie -> currency(angie),
-        CheckAnswersElectionsMessages.qngie -> currency(qngie),
-        CheckAnswersElectionsMessages.ebitda -> currency(ebitda),
-        CheckAnswersElectionsMessages.groupRatioPercentage -> s"$groupRatioPercentage%",
         CheckAnswersElectionsMessages.groupRatioBlended -> "Yes",
         CheckAnswersElectionsMessages.investorGroupsHeading -> CheckAnswersElectionsMessages.investorGroupsValue(2),
         CheckAnswersElectionsMessages.electedGroupEBITDABefore -> "No",
@@ -97,7 +93,6 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       checkYourAnswersRowChecks(
         CheckAnswersElectionsMessages.groupRatioElection -> "No",
-        CheckAnswersElectionsMessages.angie -> currency(angie),
         CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore -> "Yes",
         CheckAnswersElectionsMessages.interestAllowanceNonConsolidatedElection -> "No",
         CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore -> "Yes"

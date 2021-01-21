@@ -65,54 +65,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
       }
     }
 
-    "For the EnterANGIE answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.enterANGIE mustBe Some(summaryListRow(
-          CheckAnswersElectionsMessages.angie,
-          currencyFormat(angie),
-          electionsRoutes.EnterANGIEController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the EnterQNGIE answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.enterQNGIE mustBe Some(summaryListRow(
-          CheckAnswersElectionsMessages.qngie,
-          currencyFormat(qngie),
-          electionsRoutes.EnterQNGIEController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the GroupEBITDA answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.groupEBITDA mustBe Some(summaryListRow(
-          CheckAnswersElectionsMessages.ebitda,
-          currencyFormat(ebitda),
-          electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For the GroupRatioPercentage answer" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.groupRatioPercentage mustBe Some(summaryListRow(
-          CheckAnswersElectionsMessages.groupRatioPercentage,
-          s"$groupRatioPercentage%",
-          electionsRoutes.GroupRatioPercentageController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
     "For the GroupRatioBlendedElection answer" must {
 
       "have a correctly formatted summary list row" in {

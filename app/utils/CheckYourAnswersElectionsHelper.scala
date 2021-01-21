@@ -107,10 +107,6 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
 
    val rows: Seq[SummaryListRow] = Seq(
     groupRatioElection,
-    enterANGIE,
-    enterQNGIE,
-    groupEBITDA,
-    groupRatioPercentage,
     groupRatioBlendedElection,
     investorGroupsRow,
     electedGroupEBITDABefore,
