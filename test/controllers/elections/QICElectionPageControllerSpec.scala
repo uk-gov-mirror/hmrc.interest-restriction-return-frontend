@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.elections.QICElectionPageFormProvider
 import models.NormalMode
-import pages.elections.QICElectionPage
 import play.api.test.Helpers._
 import views.html.elections.QICElectionPageView
 import navigation.FakeNavigators.FakeElectionsNavigator

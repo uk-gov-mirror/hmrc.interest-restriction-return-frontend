@@ -29,21 +29,19 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.GroupLevelInformationNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
+import controllers.BaseController
 
 class DisallowedAmountController @Inject()(
                                        override val messagesApi: MessagesApi,
-                                       override val sessionRepository: SessionRepository,
-                                       override val navigator: GroupLevelInformationNavigator,
-                                       override val updateSectionService: UpdateSectionStateService,
+                                       val sessionRepository: SessionRepository,
+                                       val navigator: GroupLevelInformationNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: DisallowedAmountFormProvider,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: DisallowedAmountView
-                                     )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                     )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(DisallowedAmountPage, formProvider()), mode))
@@ -54,7 +52,10 @@ class DisallowedAmountController @Inject()(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(DisallowedAmountPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(DisallowedAmountPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(DisallowedAmountPage, mode, updatedAnswers))
     )
   }
 }
