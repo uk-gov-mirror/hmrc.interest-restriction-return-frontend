@@ -1,8 +1,6 @@
 package assets
 
 object PageTitles {
-  val groupEBITDA = "Enter the group-EBITDA"
-  val groupRatioPercentage = "Enter the group ratio percentage"
   val qICElectionPage = "Has a company made a qualifying infrastructure company (QIC) election for the return period?"
   val disallowedAmount = "Enter the total disallowed amount for the group"
   val tellUsWhatHasChanged = "Tell us what has changed"
@@ -86,6 +84,7 @@ object PageTitles {
     case x if x > 1 => s"$x companies added"
     case _ => "1 company added"
   }
+  val checkAnswersGroupLevel = "Check your answers for this section"
 
 
 }

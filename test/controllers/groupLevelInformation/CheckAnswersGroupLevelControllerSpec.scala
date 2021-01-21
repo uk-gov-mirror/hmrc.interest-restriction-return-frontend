@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.groupLevelInformation
 
-import assets.messages.{CheckAnswersAboutReturnMessages, SectionHeaderMessages}
+import assets.messages.{CheckAnswersGroupLevelInformationMessages, SectionHeaderMessages}
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
-import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.CheckAnswersAboutReturnPage
+import navigation.FakeNavigators.FakeGroupLevelInformationNavigator
+import pages.groupLevelInformation.CheckAnswersGroupLevelPage
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
-class CheckAnswersAboutReturnControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class CheckAnswersGroupLevelControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  object Controller extends CheckAnswersAboutReturnController(
+  object Controller extends CheckAnswersGroupLevelController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = FakeAboutReturnNavigator,
+    navigator = FakeGroupLevelInformationNavigator,
+    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -52,7 +53,7 @@ class CheckAnswersAboutReturnControllerSpec extends SpecBase with FeatureSwitchi
         val result = Controller.onPageLoad()(fakeRequest)
 
         status(result) mustEqual OK
-        titleOf(contentAsString(result)) mustEqual title(CheckAnswersAboutReturnMessages.title, Some(SectionHeaderMessages.aboutReturn))
+        titleOf(contentAsString(result)) mustEqual title(CheckAnswersGroupLevelInformationMessages.title, Some(SectionHeaderMessages.groupLevelInformation))
       }
 
       "calling the onSubmit() method" must {
@@ -60,12 +61,13 @@ class CheckAnswersAboutReturnControllerSpec extends SpecBase with FeatureSwitchi
         "redirect to the next page in the navigator" in {
 
           mockGetAnswers(Some(emptyUserAnswers))
+          mockSetAnswers
 
           val result = Controller.onSubmit()(fakeRequest)
 
           status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(FakeAboutReturnNavigator.nextPage(
-            page = CheckAnswersAboutReturnPage,
+          redirectLocation(result) mustBe Some(FakeGroupLevelInformationNavigator.nextPage(
+            page = CheckAnswersGroupLevelPage,
             mode = NormalMode,
             userAnswers = emptyUserAnswers,
             id = Some(1)

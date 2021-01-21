@@ -28,6 +28,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryCheckAnswersGroupLevelPage: Arbitrary[CheckAnswersGroupLevelPage.type] =
+    Arbitrary(CheckAnswersGroupLevelPage)
+
   implicit lazy val arbitraryGroupEBITDAPage: Arbitrary[GroupEBITDAPage.type] =
     Arbitrary(GroupEBITDAPage)
 
@@ -178,8 +181,8 @@ trait PageGenerators {
   implicit lazy val arbitraryContinueSavedReturnPage: Arbitrary[ContinueSavedReturnPage.type] =
     Arbitrary(ContinueSavedReturnPage)
 
-  implicit lazy val arbitraryCheckAnswersReportingCompanyPage: Arbitrary[CheckAnswersReportingCompanyPage.type] =
-    Arbitrary(CheckAnswersReportingCompanyPage)
+  implicit lazy val arbitraryCheckAnswersAboutReturnPage: Arbitrary[CheckAnswersAboutReturnPage.type] =
+    Arbitrary(CheckAnswersAboutReturnPage)
 
   implicit lazy val arbitraryReturnContainEstimatesPage: Arbitrary[ReturnContainEstimatesPage.type] =
     Arbitrary(ReturnContainEstimatesPage)

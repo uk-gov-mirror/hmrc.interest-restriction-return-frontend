@@ -14,41 +14,41 @@
  * limitations under the License.
  */
 
-package controllers.aboutReturn
+package controllers.groupLevelInformation
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
-import models.Section.AboutReturn
-import navigation.AboutReturnNavigator
-import pages.aboutReturn.CheckAnswersAboutReturnPage
+import models.Section.GroupLevelInformation
+import navigation.GroupLevelInformationNavigator
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
-import utils.CheckYourAnswersAboutReturnCompanyHelper
+import services.UpdateSectionStateService
+import utils.CheckYourAnswersGroupLevelInformationHelper
 import views.html.CheckYourAnswersView
+import pages.groupLevelInformation.CheckAnswersGroupLevelPage
 
-import scala.concurrent.Future
-
-class CheckAnswersAboutReturnController @Inject()(override val messagesApi: MessagesApi,
-                                                  sessionRepository: SessionRepository,
-                                                  navigator: AboutReturnNavigator,
+class CheckAnswersGroupLevelController @Inject()(override val messagesApi: MessagesApi,
+                                                  override val sessionRepository: SessionRepository,
+                                                  override val navigator: GroupLevelInformationNavigator,
+                                                  override val updateSectionService: UpdateSectionStateService,
                                                   identify: IdentifierAction,
                                                   getData: DataRetrievalAction,
                                                   requireData: DataRequiredAction,
                                                   val controllerComponents: MessagesControllerComponents,
                                                   view: CheckYourAnswersView
-                                                      )(implicit appConfig: FrontendAppConfig) extends BaseController {
+                                                      )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val checkAnswersHelper = new CheckYourAnswersAboutReturnCompanyHelper(request.userAnswers)
-    Ok(view(checkAnswersHelper.rows, AboutReturn, controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onSubmit()))
+    val checkAnswersHelper = new CheckYourAnswersGroupLevelInformationHelper(request.userAnswers)
+    Ok(view(checkAnswersHelper.rows, GroupLevelInformation, controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onSubmit()))
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    Future.successful(Redirect(navigator.nextPage(CheckAnswersAboutReturnPage, NormalMode, request.userAnswers)))
+    saveAndRedirect(CheckAnswersGroupLevelPage, NormalMode)
   }
 }
 

@@ -19,9 +19,14 @@ package navigation
 import base.SpecBase
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
+<<<<<<< HEAD
 import models.{CheckMode, NormalMode, UserAnswers}
 import pages.Page
+=======
+import models.{CheckMode, NormalMode}
+>>>>>>> CIR-903 CIR-941 CIR-942 CIR-932 CIR-931 CIR-1186 CIR-1187 - Add CYA and nav
 import pages.groupLevelInformation._
+import pages.elections.GroupRatioElectionPage
 
 class GroupLevelInformationNavigatorSpec extends SpecBase {
 
@@ -30,15 +35,6 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
   "GroupLevelInformationNavigator" when {
 
     "in Normal mode" must {
-
-      "from the Return Contains Estimates page" should {
-
-        "go to the Group Subject to Restrictions page" in {
-
-          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, emptyUserAnswers) mustBe
-            groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
-        }
-      }
 
       "from the Group Subject to Restrictions page" should {
 
@@ -119,17 +115,75 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
         "go to the next section page" in {
 
           navigator.nextPage(GroupInterestCapacityPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.EnterANGIEController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the ANGIE page" when {
+        "group ratio election page was set to true" should {
+          "go to the next section page" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).get
+            navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
+              groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(NormalMode)
+          }
+        }
+
+        "group ratio election page was set to false" should {
+          "go to the next section page" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).get
+            navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
+              groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
+          }
+        }
+
+      }
+
+      "from the QNGIE page" should {
+        "go to the next section page" in {
+          navigator.nextPage(EnterQNGIEPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the GroupEBITDA page" should {
+        "go to the next section page" in {
+          navigator.nextPage(GroupEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Group Ratio Percentage page" should {
+        "go to the next section page" in {
+          navigator.nextPage(GroupRatioPercentagePage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Return Contains Estimates page" should {
+        "go to the Check Answers page" in {
+          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+        }
+      }
+
+      "from the Check Answers page" should {
+
+        "go to the Adding UK Companies page" in {
+          navigator.nextPage(CheckAnswersGroupLevelPage, NormalMode, emptyUserAnswers) mustBe
             ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
         }
       }
 
       "in Check mode" must {
 
-        "go to CheckYourAnswers from a page that doesn't exist in the edit route map" ignore {
+        "from GroupSubjectToRestrictionsPage go to normal mode routes" in {
+          navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, emptyUserAnswers) mustBe
+            navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, emptyUserAnswers)
+        }
 
-          case object UnknownPage extends Page
-          navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe
-            ??? //TODO: Add Check Your Answers for section (future story)
+        "from GroupSubjectToReactivationsPage go to normal mode routes" in {
+          navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, emptyUserAnswers) mustBe
+            navigator.nextPage(GroupSubjectToReactivationsPage, NormalMode, emptyUserAnswers)
         }
       }
     }

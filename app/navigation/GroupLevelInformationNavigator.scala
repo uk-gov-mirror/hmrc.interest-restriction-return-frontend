@@ -53,12 +53,17 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
     EnterQNGIEPage -> (_ => groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(NormalMode)),
     GroupEBITDAPage -> (_ => groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(NormalMode)),  
     GroupRatioPercentagePage -> (_ => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)),  
-    ReturnContainEstimatesPage -> (_ => nextSection(NormalMode))
+    ReturnContainEstimatesPage -> (_ => checkAnswers),
+    CheckAnswersGroupLevelPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] =
-    Map().withDefaultValue(_ => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Add Check Your Answers)
+    Map[Page, UserAnswers => Call](
+      GroupSubjectToRestrictionsPage -> normalRoutes(GroupSubjectToRestrictionsPage),
+      GroupSubjectToReactivationsPage -> normalRoutes(GroupSubjectToReactivationsPage)
+    ).withDefaultValue(_ => checkAnswers)
 
+  private def checkAnswers = groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
   private def nextSection(mode: Mode): Call = ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {

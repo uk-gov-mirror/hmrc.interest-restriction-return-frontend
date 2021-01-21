@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package pages.aboutReturn
+package pages.groupLevelInformation
 
-import pages.behaviours.PageBehaviours
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
+case object CheckAnswersGroupLevelPage extends QuestionPage[String] {
 
-class CheckAnswersReportingCompanyHelperPageSpec extends PageBehaviours {
+  override def path: JsPath = JsPath \ toString
 
-  "CheckAnswersReportingCompanyPage" must {
-
-    beRetrievable[String](CheckAnswersReportingCompanyPage)
-
-    beSettable[String](CheckAnswersReportingCompanyPage)
-
-    beRemovable[String](CheckAnswersReportingCompanyPage)
-  }
+  override def toString: String = "checkAnswersGroupLevel"
 }

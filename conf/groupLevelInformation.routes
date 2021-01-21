@@ -85,8 +85,12 @@ POST       /group-ratio-percentage/change                   controllers.groupLev
 
 ### GroupEBITDA Controller
 ### ----------------------------------------
-GET        /group-ebitda                          controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)
-POST       /group-ebitda                          controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
-GET        /group-ebitda/change                   controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
-POST       /group-ebitda/change                   controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)
+GET        /group-ebitda                                    controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ebitda                                    controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ebitda/change                             controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ebitda/change                             controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)
 
+### Check Answers Controller
+### ----------------------------------------
+GET         /check-answers                                  controllers.groupLevelInformation.CheckAnswersGroupLevelController.onPageLoad()
+POST        /check-answers                                  controllers.groupLevelInformation.CheckAnswersGroupLevelController.onSubmit()

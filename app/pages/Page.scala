@@ -45,7 +45,7 @@ object Page {
     ReportingCompanyCTUTRPage,
     RevisingReturnPage,
     IndexPage,
-    CheckAnswersReportingCompanyPage,
+    CheckAnswersAboutReturnPage,
     TellUsWhatHasChangedPage
   )
 
@@ -61,7 +61,8 @@ object Page {
     EnterANGIEPage,
     EnterQNGIEPage,
     GroupRatioPercentagePage,
-    GroupEBITDAPage
+    GroupEBITDAPage,
+    CheckAnswersGroupLevelPage
   )
 
 

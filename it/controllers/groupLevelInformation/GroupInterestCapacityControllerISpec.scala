@@ -78,7 +78,7 @@ class GroupInterestCapacityControllerISpec extends IntegrationSpecBase with Crea
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad().url)
+                redirectLocation(controllers.groupLevelInformation.routes.EnterANGIEController.onPageLoad(NormalMode).url)
               )
             }
           }

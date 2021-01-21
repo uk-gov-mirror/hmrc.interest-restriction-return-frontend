@@ -27,14 +27,14 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
   "in Normal mode" when {
 
-    "GET /groupLevelInformation/group-ratio-percentage" when {
+    "GET /group-level-information/group-ratio-percentage" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/groupLevelInformation/group-ratio-percentage")()
+          val res = getRequest("/group-level-information/group-ratio-percentage")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupLevelInformation/group-ratio-percentage")()
+          val res = getRequest("/group-level-information/group-ratio-percentage")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +63,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "POST /groupLevelInformation/group-ratio-percentage" when {
+    "POST /group-level-information/group-ratio-percentage" when {
 
       "user is authorised" when {
 
@@ -73,14 +73,13 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
             AuthStub.authorised()
 
-            val res = postRequest("/groupLevelInformation/group-ratio-percentage", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.groupLevelInformation.routes.GroupRatioPercentageController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/group-level-information/group-ratio-percentage", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupLevelInformation.routes.ReturnContainEstimatesController.onPageLoad(NormalMode).url)
+              )
+            }
           }
         }
       }
@@ -91,7 +90,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/groupLevelInformation/group-ratio-percentage", Json.obj("value" -> 1))()
+          val res = postRequest("/group-level-information/group-ratio-percentage", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +105,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
   "in Change mode" when {
 
-    "GET /groupLevelInformation/group-ratio-percentage" when {
+    "GET /group-level-information/group-ratio-percentage" when {
 
       "user is authorised" should {
 
@@ -114,7 +113,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
 
-          val res = getRequest("/groupLevelInformation/group-ratio-percentage/change")()
+          val res = getRequest("/group-level-information/group-ratio-percentage/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +130,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupLevelInformation/group-ratio-percentage/change")()
+          val res = getRequest("/group-level-information/group-ratio-percentage/change")()
 
           whenReady(res) { result =>
             result should have(

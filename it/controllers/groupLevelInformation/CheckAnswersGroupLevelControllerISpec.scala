@@ -17,29 +17,31 @@
 package controllers.groupLevelInformation
 
 import assets.{BaseITConstants, PageTitles}
+import controllers.ukCompanies.{routes => ukCompaniesRoutes}
 import models.NormalMode
 import play.api.http.Status._
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class CheckAnswersGroupLevelControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /group-level-information/group-ebitda" when {
+    "GET /group-level-information/check-answers" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/group-level-information/group-ebitda")()
+
+          val res = getRequest("/group-level-information/check-answers")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.groupEBITDA)
+              titleOf(PageTitles.checkAnswersGroupLevel)
             )
           }
         }
@@ -51,7 +53,7 @@ class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestH
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/group-level-information/group-ebitda")()
+          val res = getRequest("/group-level-information/check-answers")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,21 +65,22 @@ class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestH
       }
     }
 
-    "POST /group-level-information/group-ebitda" when {
+    "POST /group-level-information/check-answers" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to GroupRatioPercentage page" in {
+          "redirect to Revising Return page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/group-level-information/group-ebitda", Json.obj("value" -> 1))()
+            val res = postRequest("/group-level-information/check-answers", JsString(""))()
+
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.GroupRatioPercentageController.onPageLoad(NormalMode).url)
+                redirectLocation(ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad().url)
               )
             }
           }
@@ -90,47 +93,7 @@ class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestH
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/group-level-information/group-ebitda", Json.obj("value" -> 1))()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
-            )
-          }
-        }
-      }
-    }
-  }
-
-  "in Change mode" when {
-
-    "GET /group-level-information/group-ebitda" when {
-
-      "user is authorised" should {
-
-        "return OK (200)" in {
-
-          AuthStub.authorised()
-
-          val res = getRequest("/group-level-information/group-ebitda/change")()
-
-          whenReady(res) { result =>
-            result should have(
-              httpStatus(OK),
-              titleOf(PageTitles.groupEBITDA)
-            )
-          }
-        }
-      }
-
-      "user not authorised" should {
-
-        "return SEE_OTHER (303)" in {
-
-          AuthStub.unauthorised()
-
-          val res = getRequest("/group-level-information/group-ebitda/change")()
+          val res = postRequest("/group-level-information/check-answers", JsString(""))()
 
           whenReady(res) { result =>
             result should have(

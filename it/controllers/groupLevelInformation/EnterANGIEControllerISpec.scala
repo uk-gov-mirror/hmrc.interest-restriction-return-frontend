@@ -22,6 +22,7 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import pages.elections.GroupRatioElectionPage
 
 class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -34,7 +35,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/groupLevelInformation/enter-angie")()
+          val res = getRequest("/group-level-information/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +52,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupLevelInformation/enter-angie")()
+          val res = getRequest("/group-level-information/enter-angie")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,20 +68,43 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters true" when {
 
-          "redirect to EnterANGIE page" in {
+          "redirect to EnterQNGIE page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/groupLevelInformation/enter-angie", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.groupLevelInformation.routes.EnterANGIEController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            setAnswers(emptyUserAnswers
+              .set(GroupRatioElectionPage, true).success.value
+            )
+
+            val res = postRequest("/group-level-information/enter-angie", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupLevelInformation.routes.EnterQNGIEController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters false" when {
+
+          "redirect to ReturnContainEstimates page" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(GroupRatioElectionPage, false).success.value
+            )
+
+            val res = postRequest("/group-level-information/enter-angie", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupLevelInformation.routes.ReturnContainEstimatesController.onPageLoad(NormalMode).url)
+              )
+            }
           }
         }
       }
@@ -91,7 +115,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/groupLevelInformation/enter-angie", Json.obj("value" -> 1))()
+          val res = postRequest("/group-level-information/enter-angie", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -114,7 +138,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.authorised()
 
-          val res = getRequest("/groupLevelInformation/enter-angie/change")()
+          val res = getRequest("/group-level-information/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +155,7 @@ class EnterANGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupLevelInformation/enter-angie/change")()
+          val res = getRequest("/group-level-information/enter-angie/change")()
 
           whenReady(res) { result =>
             result should have(

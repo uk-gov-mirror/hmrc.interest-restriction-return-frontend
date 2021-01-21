@@ -16,12 +16,17 @@
 
 package pages.aboutReturn
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-case object CheckAnswersReportingCompanyPage extends QuestionPage[String] {
 
-  override def path: JsPath = JsPath \ toString
+class CheckAnswersAboutReturnHelperPageSpec extends PageBehaviours {
 
-  override def toString: String = "checkAnswersReportingCompany"
+  "CheckAnswersAboutReturnPage" must {
+
+    beRetrievable[String](CheckAnswersAboutReturnPage)
+
+    beSettable[String](CheckAnswersAboutReturnPage)
+
+    beRemovable[String](CheckAnswersAboutReturnPage)
+  }
 }

@@ -182,7 +182,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
       "go to CheckYourAnswers from a page that doesn't exist in the edit route map" ignore {
 
         case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe ??? //TODO: Update as part of future Check Answers Story
+        navigator.nextPage(UnknownPage, CheckMode, emptyUserAnswers) mustBe aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
       }
     }
   }
@@ -236,16 +236,16 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "from the AccountingPeriodPage" should {
 
-        "go to the CheckAnswersReportingCompany" in {
+        "go to the CheckAnswersAboutReturnPage" in {
           navigator.nextPage(AccountingPeriodPage, NormalMode, emptyUserAnswers) mustBe
             aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
 
-      "from the CheckAnswersReportingCompanyPage" should {
+      "from the CheckAnswersAboutReturnPage" should {
 
         "go to the next section" in {
-          navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, emptyUserAnswers) mustBe
+          navigator.nextPage(CheckAnswersAboutReturnPage, NormalMode, emptyUserAnswers) mustBe
             ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
         }
       }
@@ -269,7 +269,7 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
           val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
 
-          navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe controllers.routes.UnderConstructionController.onPageLoad()
+          navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode)
         }
 
         "go to Reporting Company CheckYourAnswers" in {

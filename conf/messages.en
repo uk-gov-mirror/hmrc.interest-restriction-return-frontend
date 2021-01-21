@@ -152,7 +152,7 @@ agentName.error.length = The agent’s name must be 160 characters or less
 interestAllowanceBroughtForward.title = Enter the amount of interest allowance the group is bringing forward
 interestAllowanceBroughtForward.heading = Enter the amount of interest allowance the group is bringing forward
 interestAllowanceBroughtForward.label = Enter the amount of interest allowance the group is bringing forward
-interestAllowanceBroughtForward.checkYourAnswersLabel = What is the group interest allowance brought forward?
+interestAllowanceBroughtForward.checkYourAnswersLabel = Interest allowance brought forward
 interestAllowanceBroughtForward.error.nonNumeric = Enter the amount of interest allowance the group is bringing forward using numbers
 interestAllowanceBroughtForward.error.required = Enter the amount of interest allowance the group is bringing forward
 interestAllowanceBroughtForward.error.invalidNumeric = The amount of interest allowance brought forward must be valid decimal or whole number
@@ -163,7 +163,7 @@ interestAllowanceBroughtForward.error.outOfRange = InterestAllowanceBroughtForwa
 # ----------------------------------------------------------
 groupSubjectToReactivations.title = Is the group subject to interest reactivations?
 groupSubjectToReactivations.heading = Is the group subject to interest reactivations?
-groupSubjectToReactivations.checkYourAnswersLabel = Is the group subject to reactivations?
+groupSubjectToReactivations.checkYourAnswersLabel = Subject to reactivations
 groupSubjectToReactivations.error.required = Select yes if you are a group subject to interest reactivations
 
 
@@ -190,7 +190,7 @@ revisingReturn.error.required = Select yes if you are revising a return that has
 groupInterestCapacity.title = Enter the total interest capacity for the return period
 groupInterestCapacity.heading = Enter the total interest capacity for the return period
 groupInterestCapacity.label = Enter the total interest capacity for the return period
-groupInterestCapacity.checkYourAnswersLabel = Group interest capacity
+groupInterestCapacity.checkYourAnswersLabel = Interest capacity for return period
 groupInterestCapacity.error.nonNumeric = Enter your group interest capacity using numbers
 groupInterestCapacity.error.required = Enter your group interest capacity
 groupInterestCapacity.error.invalidNumeric = The group interest capacity must be valid decimal or whole number
@@ -201,7 +201,7 @@ groupInterestCapacity.error.outOfRange = Group interest capacity must be between
 # ----------------------------------------------------------
 groupSubjectToRestrictions.title = Is the group subject to interest restrictions?
 groupSubjectToRestrictions.heading = Is the group subject to interest restrictions?
-groupSubjectToRestrictions.checkYourAnswersLabel = Is the group subject to interest restrictions?
+groupSubjectToRestrictions.checkYourAnswersLabel = Subject to restrictions
 groupSubjectToRestrictions.error.required = Select yes if the group subject to interest restrictions
 
 
@@ -210,7 +210,7 @@ groupSubjectToRestrictions.error.required = Select yes if the group subject to i
 groupInterestAllowance.title = Enter the total interest allowance for the return period
 groupInterestAllowance.heading = Enter the total interest allowance for the return period
 groupInterestAllowance.label = Enter the total interest allowance for the return period
-groupInterestAllowance.checkYourAnswersLabel = Group interest allowance
+groupInterestAllowance.checkYourAnswersLabel = Interest allowance for return period
 groupInterestAllowance.error.nonNumeric = Enter the total interest allowance using numbers
 groupInterestAllowance.error.required = Enter the total interest allowance for the return period
 groupInterestAllowance.error.invalidNumeric = The total interest allowance must be valid decimal or whole number
@@ -222,7 +222,7 @@ groupInterestAllowance.error.outOfRange = Total interest allowance must be betwe
 interestReactivationsCap.title = Enter the group''s interest reactivation cap
 interestReactivationsCap.heading = Enter the group''s interest reactivation cap
 interestReactivationsCap.label = Enter the group''s interest reactivation cap
-interestReactivationsCap.checkYourAnswersLabel = Interest Reactivations Cap
+interestReactivationsCap.checkYourAnswersLabel = Reactivation Cap
 interestReactivationsCap.error.nonNumeric = Enter your group''s interestReactivationsCap using numbers
 interestReactivationsCap.error.required = Enter your group''s interestReactivationsCap
 interestReactivationsCap.error.invalidNumeric = The interestReactivationsCap must be valid decimal or whole number
@@ -233,7 +233,7 @@ interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be bet
 # ----------------------------------------------------------
 returnContainEstimates.title = Will you be submitting estimated figures?
 returnContainEstimates.heading = Will you be submitting estimated figures?
-returnContainEstimates.checkYourAnswersLabel = Will you be submitting estimated figures?
+returnContainEstimates.checkYourAnswersLabel = Contains Estimates
 returnContainEstimates.error.required = Select yes if you will be submitting estimated figures
 
 
@@ -423,7 +423,7 @@ enterANGIE.error.outOfRange = Adjusted net group-interest expense (ANGIE) must b
 groupRatioPercentage.title = Enter the group ratio percentage
 groupRatioPercentage.heading = Enter the group ratio percentage
 groupRatioPercentage.label= Enter the group ratio percentage
-groupRatioPercentage.checkYourAnswersLabel = Group ratio percentage
+groupRatioPercentage.checkYourAnswersLabel = Group Ratio Percentage
 groupRatioPercentage.error.nonNumeric = Enter the group ratio percentage using numbers
 groupRatioPercentage.error.required = Enter the group ratio percentage
 groupRatioPercentage.error.invalidNumeric = The group ratio percentage must be valid decimal (2dp) or whole number
@@ -904,7 +904,6 @@ qICElectionPage.heading = Has a company made a qualifying infrastructure company
 qICElectionPage.checkYourAnswersLabel = Qualified Infrastructure Election
 qICElectionPage.error.required = Select yes if Has a company made a qualifying infrastructure company (QIC) election for the return period?
 
-
 # DisallowedAmountPage Messages
 # ----------------------------------------------------------
 disallowedAmount.title = Enter the total disallowed amount for the group
@@ -915,3 +914,10 @@ disallowedAmount.error.nonNumeric = Enter the total disallowed amount for the gr
 disallowedAmount.error.required = Enter the total disallowed amount for the group
 disallowedAmount.error.invalidNumeric = The disallowed amount for the group must be valid decimal or whole number
 disallowedAmount.error.outOfRange = The total disallowed amount for the group must be between {0} and {1}
+
+# CheckAnswersGroupLevelPage Messages
+# ----------------------------------------------------------
+groupLevelInformation.checkYourAnswers.title = Check your answers for this section
+groupLevelInformation.checkYourAnswers.heading = Check your answers for this section
+groupLevelInformation.checkYourAnswers.subheading = Group level information
+

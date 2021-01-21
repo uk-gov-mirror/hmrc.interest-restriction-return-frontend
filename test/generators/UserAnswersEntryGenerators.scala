@@ -415,10 +415,18 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryCheckAnswersReportingCompanyUserAnswersEntry: Arbitrary[(CheckAnswersReportingCompanyPage.type, JsValue)] =
+  implicit lazy val arbitraryCheckAnswersAboutReturnUserAnswersEntry: Arbitrary[(CheckAnswersAboutReturnPage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[CheckAnswersReportingCompanyPage.type]
+        page  <- arbitrary[CheckAnswersAboutReturnPage.type]
+        value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryCheckAnswersGroupLevelUserAnswersEntry: Arbitrary[(CheckAnswersGroupLevelPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[CheckAnswersGroupLevelPage.type]
         value <- arbitrary[String].suchThat(_.nonEmpty).map(Json.toJson(_))
       } yield (page, value)
     }

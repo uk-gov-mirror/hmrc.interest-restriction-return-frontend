@@ -27,14 +27,14 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Normal mode" when {
 
-    "GET /groupLevelInformation/enter-qngie" when {
+    "GET /group-level-information/enter-qngie" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/groupLevelInformation/enter-qngie")()
+          val res = getRequest("/group-level-information/enter-qngie")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +51,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupLevelInformation/enter-qngie")()
+          val res = getRequest("/group-level-information/enter-qngie")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,24 +63,23 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "POST /groupLevelInformation/enter-qngie" when {
+    "POST /group-level-information/enter-qngie" when {
 
       "user is authorised" when {
 
         "enters a valid answer" when {
 
-          "redirect to EnterQNGIE page" in {
+          "redirect to GroupEBIDTA page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/groupLevelInformation/enter-qngie", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.groupLevelInformation.routes.EnterQNGIEController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/group-level-information/enter-qngie", Json.obj("value" -> 1))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupLevelInformation.routes.GroupEBITDAController.onPageLoad(NormalMode).url)
+              )
+            }
           }
         }
       }
@@ -91,7 +90,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/groupLevelInformation/enter-qngie", Json.obj("value" -> 1))()
+          val res = postRequest("/group-level-information/enter-qngie", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,7 +105,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
   "in Change mode" when {
 
-    "GET /groupLevelInformation/enter-qngie" when {
+    "GET /group-level-information/enter-qngie" when {
 
       "user is authorised" should {
 
@@ -114,7 +113,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.authorised()
 
-          val res = getRequest("/groupLevelInformation/enter-qngie/change")()
+          val res = getRequest("/group-level-information/enter-qngie/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +130,7 @@ class EnterQNGIEControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/groupLevelInformation/enter-qngie/change")()
+          val res = getRequest("/group-level-information/enter-qngie/change")()
 
           whenReady(res) { result =>
             result should have(

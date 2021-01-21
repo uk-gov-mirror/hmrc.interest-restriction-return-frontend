@@ -34,6 +34,7 @@ class PageSpec extends SpecBase {
     "Have a mapping between all possible pages (as String) to pages" in {
 
       val expected = Map(
+        CheckAnswersGroupLevelPage.toString -> CheckAnswersGroupLevelPage,
     GroupEBITDAPage.toString -> GroupEBITDAPage,
     GroupRatioPercentagePage.toString -> GroupRatioPercentagePage,
     QICElectionPage.toString -> QICElectionPage,
@@ -50,7 +51,7 @@ class PageSpec extends SpecBase {
         AccountingPeriodPage.toString -> AccountingPeriodPage,
         ReportingCompanyNamePage.toString -> ReportingCompanyNamePage,
         ReportingCompanyCTUTRPage.toString -> ReportingCompanyCTUTRPage,
-        CheckAnswersReportingCompanyPage.toString -> CheckAnswersReportingCompanyPage,
+        CheckAnswersAboutReturnPage.toString -> CheckAnswersAboutReturnPage,
         RevisingReturnPage.toString -> RevisingReturnPage,
         IndexPage.toString -> IndexPage,
         GroupInterestAllowancePage.toString -> GroupInterestAllowancePage,

@@ -18,14 +18,18 @@ package assets.messages
 
 object CheckAnswersGroupLevelInformationMessages {
 
-  val title = "Check parent company details"
+  val title = "Check your answers for this section"
 
-  val returnContainEstimates = "Will you be submitting estimated figures?"
-  val groupInterestAllowance = "Group interest allowance"
-  val groupInterestCapacity = "Group interest capacity"
-  val groupSubjectToRestrictions = "Is the group subject to interest restrictions?"
-  val interestReactivationsCap = "Interest Reactivations Cap"
-  val groupSubjectToReactivations = "Is the group subject to reactivations?"
-  val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
+  val returnContainEstimates = "Contains Estimates"
+  val groupInterestAllowance = "Interest allowance for return period"
+  val groupInterestCapacity = "Interest capacity for return period"
+  val groupSubjectToRestrictions = "Subject to restrictions"
+  val interestReactivationsCap = "Reactivation Cap"
+  val groupSubjectToReactivations = "Subject to reactivations"
+  val interestAllowanceBroughtForward = "Interest allowance brought forward"
+  val angie = "ANGIE"
+  val qngie = "QNGIE"
+  val groupEBITDA = "Group EBITDA"
+  val groupRatioPercentage = "Group Ratio Percentage"
   val disallowedAmount = "Disallowed amount"
 }

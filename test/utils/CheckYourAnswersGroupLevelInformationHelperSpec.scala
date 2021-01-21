@@ -36,18 +36,58 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
       .set(GroupSubjectToReactivationsPage, false).get
       .set(DisallowedAmountPage, disallowedAmount).get
       .set(InterestAllowanceBroughtForwardPage, interestAllowanceBroughtForward).get
+      .set(EnterANGIEPage, angie).get
+      .set(EnterQNGIEPage, qngie).get
+      .set(GroupEBITDAPage, ebitda).get
+      .set(GroupRatioPercentagePage, groupRatioPercentage).get
   )
 
   "Check Your Answers Helper" must {
 
-    "For the ReturnContainEstimates answer" must {
+    "For the GroupSubjectToRestrictions answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        helper.returnContainEstimates mustBe Some(summaryListRow(
-          CheckAnswersGroupLevelInformationMessages.returnContainEstimates,
+        helper.groupSubjectToRestrictions mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.groupSubjectToRestrictions,
+          BaseMessages.yes,
+          groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the GroupSubjectToReactivations answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.groupSubjectToReactivations mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.groupSubjectToReactivations,
           BaseMessages.no,
-          groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+          groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the InterestReactivationsCap answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.interestReactivationsCap mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.interestReactivationsCap,
+          currencyFormat(interestReactivationCap),
+          groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the InterestAllowanceBroughtForward answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.interestAllowanceBroughtForward mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.interestAllowanceBroughtForward,
+          currencyFormat(interestAllowanceBroughtForward),
+          groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -76,38 +116,38 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
       }
     }
 
-    "For the GroupSubjectToRestrictions answer" must {
+    "For the ANGIE answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        helper.groupSubjectToRestrictions mustBe Some(summaryListRow(
-          CheckAnswersGroupLevelInformationMessages.groupSubjectToRestrictions,
-          BaseMessages.yes,
-          groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        helper.angie mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.angie,
+          currencyFormat(angie),
+          groupLevelInformationRoutes.EnterANGIEController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
 
-    "For the InterestReactivationsCap answer" must {
+    "For the QNGIE answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        helper.interestReactivationsCap mustBe Some(summaryListRow(
-          CheckAnswersGroupLevelInformationMessages.interestReactivationsCap,
-          currencyFormat(interestReactivationCap),
-          groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        helper.qngie mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.qngie,
+          currencyFormat(qngie),
+          groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
 
-    "For the GroupSubjectToReactivations answer" must {
+    "For the GroupEBITDA answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        helper.groupSubjectToReactivations mustBe Some(summaryListRow(
-          CheckAnswersGroupLevelInformationMessages.groupSubjectToReactivations,
-          BaseMessages.no,
-          groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        helper.groupEBITDA mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.groupEBITDA,
+          currencyFormat(ebitda),
+          groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
@@ -124,14 +164,26 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
       }
     }
 
-    "For the InterestAllowanceBroughtForward answer" must {
+    "For the Group Ratio Percentage answer" must {
 
       "have a correctly formatted summary list row" in {
 
-        helper.interestAllowanceBroughtForward mustBe Some(summaryListRow(
-          CheckAnswersGroupLevelInformationMessages.interestAllowanceBroughtForward,
-          currencyFormat(interestAllowanceBroughtForward),
-          groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        helper.groupRatioPercentage mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.groupRatioPercentage,
+          groupRatioPercentage.toString,
+          groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the ReturnContainEstimates answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.returnContainEstimates mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.returnContainEstimates,
+          BaseMessages.no,
+          groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
