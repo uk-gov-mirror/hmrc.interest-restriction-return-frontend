@@ -28,6 +28,12 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryGroupEBITDAPage: Arbitrary[GroupEBITDAPage.type] =
+    Arbitrary(GroupEBITDAPage)
+
+  implicit lazy val arbitraryGroupRatioPercentagePage: Arbitrary[GroupRatioPercentagePage.type] =
+    Arbitrary(GroupRatioPercentagePage)
+
   implicit lazy val arbitraryQICElectionPagePage: Arbitrary[QICElectionPage.type] =
     Arbitrary(QICElectionPage)
 
@@ -115,9 +121,6 @@ trait PageGenerators {
   implicit lazy val arbitraryOtherInvestorGroupElectionsPage: Arbitrary[OtherInvestorGroupElectionsPage.type] =
     Arbitrary(OtherInvestorGroupElectionsPage)
 
-  implicit lazy val arbitraryGroupEBITDAPage: Arbitrary[GroupEBITDAPage.type] =
-    Arbitrary(GroupEBITDAPage)
-
   implicit lazy val arbitraryInterestAllowanceConsolidatedPshipElectionPage: Arbitrary[InterestAllowanceConsolidatedPshipElectionPage.type] =
     Arbitrary(InterestAllowanceConsolidatedPshipElectionPage)
 
@@ -126,9 +129,6 @@ trait PageGenerators {
 
   implicit lazy val arbitraryInterestAllowanceNonConsolidatedInvestmentsElectionPage: Arbitrary[InterestAllowanceNonConsolidatedInvestmentsElectionPage.type] =
     Arbitrary(InterestAllowanceNonConsolidatedInvestmentsElectionPage)
-
-  implicit lazy val arbitraryGroupRatioPercentagePage: Arbitrary[GroupRatioPercentagePage.type] =
-    Arbitrary(GroupRatioPercentagePage)
 
   implicit lazy val arbitraryInterestAllowanceAlternativeCalcElectionPage: Arbitrary[InterestAllowanceAlternativeCalcElectionPage.type] =
     Arbitrary(InterestAllowanceAlternativeCalcElectionPage)

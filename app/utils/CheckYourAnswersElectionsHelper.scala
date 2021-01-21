@@ -25,9 +25,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
                                      (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def groupEBITDA: Option[SummaryListRow] =
-    monetaryAnswer(GroupEBITDAPage, electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode))
-
   def interestAllowanceConsolidatedPshipElection: Option[SummaryListRow] =
     answer(InterestAllowanceConsolidatedPshipElectionPage, electionsRoutes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(CheckMode))
 
@@ -36,9 +33,6 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
 
   def qicElection: Option[SummaryListRow] =
     answer(QICElectionPage, electionsRoutes.QICElectionPageController.onPageLoad(CheckMode))
-
-  def groupRatioPercentage: Option[SummaryListRow] =
-    percentageAnswer(GroupRatioPercentagePage, electionsRoutes.GroupRatioPercentageController.onPageLoad(CheckMode))
 
   def interestAllowanceNonConsolidatedInvestmentsElection: Option[SummaryListRow] =
     answer(InterestAllowanceNonConsolidatedInvestmentsElectionPage, electionsRoutes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(CheckMode))
@@ -57,12 +51,6 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
 
   def groupRatioBlendedElection: Option[SummaryListRow] =
     answer(GroupRatioBlendedElectionPage, electionsRoutes.GroupRatioBlendedElectionController.onPageLoad(CheckMode))
-
-  def enterQNGIE: Option[SummaryListRow] =
-    monetaryAnswer(EnterQNGIEPage, electionsRoutes.EnterQNGIEController.onPageLoad(CheckMode))
-
-  def enterANGIE: Option[SummaryListRow] =
-    monetaryAnswer(EnterANGIEPage, electionsRoutes.EnterANGIEController.onPageLoad(CheckMode))
 
   def groupRatioElection: Option[SummaryListRow] =
     answer(GroupRatioElectionPage, electionsRoutes.GroupRatioElectionController.onPageLoad(CheckMode))

@@ -57,7 +57,11 @@ object Page {
     InterestAllowanceBroughtForwardPage,
     InterestReactivationsCapPage,
     ReturnContainEstimatesPage,
-    DisallowedAmountPage
+    DisallowedAmountPage,
+    EnterANGIEPage,
+    EnterQNGIEPage,
+    GroupRatioPercentagePage,
+    GroupEBITDAPage
   )
 
 
@@ -81,12 +85,8 @@ object Page {
     ElectedGroupEBITDABeforePage,
     ElectedInterestAllowanceAlternativeCalcBeforePage,
     ElectedInterestAllowanceConsolidatedPshipBeforePage,
-    EnterQNGIEPage,
-    EnterANGIEPage,
     GroupEBITDAChargeableGainsElectionPage,
-    GroupEBITDAPage,
     GroupRatioBlendedElectionPage,
-    GroupRatioPercentagePage,
     InterestAllowanceAlternativeCalcElectionPage,
     InterestAllowanceConsolidatedPshipElectionPage,
     InterestAllowanceNonConsolidatedInvestmentsElectionPage,

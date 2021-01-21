@@ -18,3 +18,48 @@ disallowedAmount.error.nonNumeric = Enter your disallowedAmount using numbers
 disallowedAmount.error.required = Enter your disallowedAmount using numbers
 disallowedAmount.error.invalidNumeric = The disallowedAmount must be valid decimal or whole number
 disallowedAmount.error.outOfRange = DisallowedAmount must be between {0} and {1}
+
+# EnterANGIEPage Messages
+# ----------------------------------------------------------
+enterANGIE.title = EnterANGIE
+enterANGIE.heading = EnterANGIE
+enterANGIE.label=Enter the adjusted net group-interest expense (ANGIE)
+enterANGIE.checkYourAnswersLabel = EnterANGIE
+enterANGIE.error.nonNumeric = Enter your enterANGIE using numbers
+enterANGIE.error.required = Enter your enterANGIE
+enterANGIE.error.invalidNumeric = The enterANGIE must be valid decimal or whole number
+enterANGIE.error.outOfRange = EnterANGIE must be between {0} and {1}
+
+# EnterQNGIEPage Messages
+# ----------------------------------------------------------
+enterQNGIE.title = EnterQNGIE
+enterQNGIE.heading = EnterQNGIE
+enterQNGIE.label=Enter the qualifying net group-interest expense (QNGIE)
+enterQNGIE.checkYourAnswersLabel = EnterQNGIE
+enterQNGIE.error.nonNumeric = Enter your enterQNGIE using numbers
+enterQNGIE.error.required = Enter your enterQNGIE
+enterQNGIE.error.invalidNumeric = The enterQNGIE must be valid decimal or whole number
+enterQNGIE.error.outOfRange = EnterQNGIE must be between {0} and {1}
+
+# GroupRatioPercentagePage Messages
+# ----------------------------------------------------------
+groupRatioPercentage.title = GroupRatioPercentage
+groupRatioPercentage.heading = GroupRatioPercentage
+groupRatioPercentage.label=Enter the group ratio percentage
+groupRatioPercentage.checkYourAnswersLabel = GroupRatioPercentage
+groupRatioPercentage.error.nonNumeric = Enter your groupRatioPercentage using numbers
+groupRatioPercentage.error.required = Enter your groupRatioPercentage
+groupRatioPercentage.error.invalidNumeric = The groupRatioPercentage must be valid decimal or whole number
+groupRatioPercentage.error.outOfRange = GroupRatioPercentage must be between {0} and {1}
+
+# GroupEBITDAPage Messages
+# ----------------------------------------------------------
+groupEBITDA.title = GroupEBITDA
+groupEBITDA.heading = GroupEBITDA
+groupEBITDA.label=Enter the group-EBITDA
+groupEBITDA.checkYourAnswersLabel = GroupEBITDA
+groupEBITDA.error.nonNumeric = Enter your groupEBITDA using numbers
+groupEBITDA.error.required = Enter your groupEBITDA
+groupEBITDA.error.invalidNumeric = The groupEBITDA must be valid decimal or whole number
+groupEBITDA.error.outOfRange = GroupEBITDA must be between {0} and {1}
+

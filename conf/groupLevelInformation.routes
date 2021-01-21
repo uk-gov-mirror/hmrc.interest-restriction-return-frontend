@@ -61,3 +61,32 @@ GET        /disallowed-amount                          controllers.groupLevelInf
 POST       /disallowed-amount                          controllers.groupLevelInformation.DisallowedAmountController.onSubmit(mode: Mode = NormalMode)
 GET        /disallowed-amount/change                   controllers.groupLevelInformation.DisallowedAmountController.onPageLoad(mode: Mode = CheckMode)
 POST       /disallowed-amount/change                   controllers.groupLevelInformation.DisallowedAmountController.onSubmit(mode: Mode = CheckMode)
+
+### EnterANGIE Controller
+### ----------------------------------------
+GET        /enter-angie                                     controllers.groupLevelInformation.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-angie                                     controllers.groupLevelInformation.EnterANGIEController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-angie/change                              controllers.groupLevelInformation.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-angie/change                              controllers.groupLevelInformation.EnterANGIEController.onSubmit(mode: Mode = CheckMode)
+
+### EnterQNGIE Controller
+### ----------------------------------------
+GET        /enter-qngie                          controllers.groupLevelInformation.EnterQNGIEController.onPageLoad(mode: Mode = NormalMode)
+POST       /enter-qngie                          controllers.groupLevelInformation.EnterQNGIEController.onSubmit(mode: Mode = NormalMode)
+GET        /enter-qngie/change                   controllers.groupLevelInformation.EnterQNGIEController.onPageLoad(mode: Mode = CheckMode)
+POST       /enter-qngie/change                   controllers.groupLevelInformation.EnterQNGIEController.onSubmit(mode: Mode = CheckMode)
+
+### GroupRatioPercentage Controller
+### ----------------------------------------
+GET        /group-ratio-percentage                          controllers.groupLevelInformation.GroupRatioPercentageController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ratio-percentage                          controllers.groupLevelInformation.GroupRatioPercentageController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ratio-percentage/change                   controllers.groupLevelInformation.GroupRatioPercentageController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ratio-percentage/change                   controllers.groupLevelInformation.GroupRatioPercentageController.onSubmit(mode: Mode = CheckMode)
+
+### GroupEBITDA Controller
+### ----------------------------------------
+GET        /group-ebitda                          controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)
+POST       /group-ebitda                          controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)
+GET        /group-ebitda/change                   controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)
+POST       /group-ebitda/change                   controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)
+

@@ -19,8 +19,10 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
+import controllers.routes
 import models._
 import pages._
+import pages.elections.GroupRatioElectionPage
 import pages.groupLevelInformation._
 import play.api.mvc.Call
 
@@ -28,7 +30,6 @@ import play.api.mvc.Call
 class GroupLevelInformationNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    ReturnContainEstimatesPage -> (_ => groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
     GroupSubjectToRestrictionsPage -> (_.get(GroupSubjectToRestrictionsPage) match {
       case Some(true) => groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(NormalMode)
       case Some(false) => groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
@@ -43,7 +44,16 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
     DisallowedAmountPage -> (_ => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => groupLevelInformationRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => groupLevelInformationRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
+    GroupInterestCapacityPage -> (_ => groupLevelInformationRoutes.EnterANGIEController.onPageLoad(NormalMode)),
+    EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
+      case Some(true) => groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(NormalMode)
+      case Some(false) => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
+      case _ => routes.UnderConstructionController.onPageLoad()
+    }),
+    EnterQNGIEPage -> (_ => groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(NormalMode)),
+    GroupEBITDAPage -> (_ => groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(NormalMode)),  
+    GroupRatioPercentagePage -> (_ => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)),  
+    ReturnContainEstimatesPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] =

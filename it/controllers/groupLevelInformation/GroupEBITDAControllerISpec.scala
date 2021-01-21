@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.elections
+package controllers.groupLevelInformation
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
@@ -23,23 +23,23 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
-class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class GroupEBITDAControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /elections/group-ratio-election" when {
+    "GET /groupLevelInformation/group-ebitda" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/elections/group-ratio-election")()
+          val res = getRequest("/groupLevelInformation/group-ebitda")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.groupRatioElection)
+              titleOf(PageTitles.groupEBITDA)
             )
           }
         }
@@ -51,7 +51,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/group-ratio-election")()
+          val res = getRequest("/groupLevelInformation/group-ebitda")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,41 +63,24 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
       }
     }
 
-    "POST /elections/group-ratio-election" when {
+    "POST /groupLevelInformation/group-ebitda" when {
 
       "user is authorised" when {
 
-        "enters true" when {
+        "enters a valid answer" when {
 
-          "redirect to ANGIE page" in {
-
-            AuthStub.authorised()
-
-            val res = postRequest("/elections/group-ratio-election", Json.obj("value" -> true))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode).url)
-              )
-            }
-          }
-        }
-
-        "enters false" when {
-
-          "redirect to ANGIE page" in {
+          "redirect to GroupEBITDA page" in {
 
             AuthStub.authorised()
 
-            val res = postRequest("/elections/group-ratio-election", Json.obj("value" -> false))()
-
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
-              )
-            }
+            val res = postRequest("/groupLevelInformation/group-ebitda", Json.obj("value" -> 1))()
+//TODO: Implement
+//            whenReady(res) { result =>
+//              result should have(
+//                httpStatus(SEE_OTHER),
+//                redirectLocation(controllers.groupLevelInformation.routes.GroupEBITDAController.onPageLoad(NormalMode).url)
+//              )
+//            }
           }
         }
       }
@@ -108,7 +91,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/elections/group-ratio-election", Json.obj("value" -> true))()
+          val res = postRequest("/groupLevelInformation/group-ebitda", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -123,7 +106,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
   "in Change mode" when {
 
-    "GET /elections/group-ratio-election" when {
+    "GET /groupLevelInformation/group-ebitda" when {
 
       "user is authorised" should {
 
@@ -131,12 +114,12 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.authorised()
 
-          val res = getRequest("/elections/group-ratio-election/change")()
+          val res = getRequest("/groupLevelInformation/group-ebitda/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.groupRatioElection)
+              titleOf(PageTitles.groupEBITDA)
             )
           }
         }
@@ -148,7 +131,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/group-ratio-election/change")()
+          val res = getRequest("/groupLevelInformation/group-ebitda/change")()
 
           whenReady(res) { result =>
             result should have(

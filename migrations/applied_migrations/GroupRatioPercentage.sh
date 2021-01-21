@@ -5,14 +5,14 @@ echo "Applying migration GroupRatioPercentage"
 
 echo "Adding routes to conf/app.routes"
 
-echo "" >> ../conf/app.routes
-echo "### GroupRatioPercentage Controller" >> ../conf/app.routes
-echo "### ----------------------------------------" >> ../conf/app.routes
+echo "" >> ../conf/groupLevelInformation.routes
+echo "### GroupRatioPercentage Controller" >> ../conf/groupLevelInformation.routes
+echo "### ----------------------------------------" >> ../conf/groupLevelInformation.routes
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "GroupRatioPercentage" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName                          controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /$kebabClassName/change                   controllers.elections.GroupRatioPercentageController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName/change                   controllers.elections.GroupRatioPercentageController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName                          controllers.groupLevelInformation.GroupRatioPercentageController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/groupLevelInformation.routes
+echo "POST       /$kebabClassName                          controllers.groupLevelInformation.GroupRatioPercentageController.onSubmit(mode: Mode = NormalMode)" >> ../conf/groupLevelInformation.routes
+echo "GET        /$kebabClassName/change                   controllers.groupLevelInformation.GroupRatioPercentageController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/groupLevelInformation.routes
+echo "POST       /$kebabClassName/change                   controllers.groupLevelInformation.GroupRatioPercentageController.onSubmit(mode: Mode = CheckMode)" >> ../conf/groupLevelInformation.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -71,7 +71,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def groupRatioPercentage: Option[SummaryListRow] = answer(GroupRatioPercentagePage, routes.GroupRatioPercentageController.onPageLoad(CheckMode))";\
+     print "  def groupRatioPercentage: Option[SummaryListRow] = answer(GroupRatioPercentagePage, groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Adding to Pages map"
@@ -94,6 +94,6 @@ awk '/object PageTitles/ {\
 
 echo "adding route to integration test"
 
-sed -i "s|ROUTING_PLACEHOLDER|elections\/${kebabClassName}|g" ../generated-it/controllers/GroupRatioPercentageControllerISpec.scala
+sed -i "" "s|ROUTING_PLACEHOLDER|groupLevelInformation\/${kebabClassName}|g" ../generated-it/controllers/groupLevelInformation/GroupRatioPercentageControllerISpec.scala
 
 echo "Migration GroupRatioPercentage completed"
