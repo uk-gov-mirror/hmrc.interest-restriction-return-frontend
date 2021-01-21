@@ -72,7 +72,7 @@ section.aboutReturn = About the return
 section.ultimateParentCompany = Ultimate parent company
 section.elections = Elections
 section.groupLevelInformation = Group level information
-section.ukCompanies = The companies involved
+section.ukCompanies = About the companies involved
 section.checkTotals = Check totals
 
 feedback.before = This is a new service - your
@@ -744,13 +744,13 @@ netTaxInterestAmount.expense.error.required = Enter {0} total net-tax interest e
 netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be valid decimal or whole number
 netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
-netTaxInterestAmount.income.title = What is the {0} total net-tax interest income?
-netTaxInterestAmount.income.heading = What is the {0} total net-tax interest income?
-netTaxInterestAmount.income.label = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.title = Enter the company''s total net-tax interest income
+netTaxInterestAmount.income.heading = Enter the company''s total net-tax interest income
+netTaxInterestAmount.income.label = Enter the company''s total net-tax interest income
 netTaxInterestAmount.income.subheading = {0}
 netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
-netTaxInterestAmount.income.error.required = Enter {0} total net-tax interest income?
+netTaxInterestAmount.income.error.required = Enter the company''s total net-tax interest income
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
 
@@ -762,7 +762,7 @@ netTaxInterestAmount.expense = Expense
 # ----------------------------------------------------------
 ukCompanies.checkYourAnswers.title = Check {0} details
 ukCompanies.checkYourAnswers.heading = Check {0} details
-ukCompanies.checkYourAnswers.subheading = The companies involved
+ukCompanies.checkYourAnswers.subheading = About the companies involved
 ukCompanies.checkYourAnswers.button = Confirm company
 
 
