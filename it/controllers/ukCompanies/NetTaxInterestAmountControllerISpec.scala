@@ -51,7 +51,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyDetails.companyName))
+              titleOf(PageTitles.netTaxInterestAmount)
             )
           }
         }
@@ -147,7 +147,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyDetails.companyName))
+              titleOf(PageTitles.netTaxInterestAmount)
             )
           }
         }
@@ -243,7 +243,7 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.netTaxInterestAmount(ukCompanyModelMin.companyDetails.companyName))
+              titleOf(PageTitles.netTaxInterestAmount)
             )
           }
         }
