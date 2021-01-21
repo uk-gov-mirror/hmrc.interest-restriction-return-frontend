@@ -15,18 +15,12 @@
  */
 
 package pages.groupLevelInformation
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import pages.behaviours.PageBehaviours
+case object DisallowedAmountPage extends QuestionPage[BigDecimal] {
 
-class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
+  override def path: JsPath = JsPath \ toString
 
-  "GroupSubjectToReactivationsPage" must {
-
-    beRetrievable[Boolean](GroupSubjectToReactivationsPage)
-
-    beSettable[Boolean](GroupSubjectToReactivationsPage)
-
-    beRemovable[Boolean](GroupSubjectToReactivationsPage)
-  }
-  
+  override def toString: String = "disallowedAmount"
 }

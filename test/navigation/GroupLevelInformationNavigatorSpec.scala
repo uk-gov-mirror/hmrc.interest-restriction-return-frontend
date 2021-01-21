@@ -44,12 +44,12 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
 
       "from the Group Subject to Restrictions page" should {
 
-        "if user answer is Yes/True go to the Interest Allowance Brought Forwards page" in {
+        "if user answer is Yes/True go to the Disallowed Amount page" in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, value = true).get
 
           navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, userAnswers) mustBe
-            groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
+            groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(NormalMode)
         }
 
         "if user answer is No/False go to the Group Subject to Reactivations page" in {
@@ -85,6 +85,15 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
         "go to the Interest Allowance Brought Forwards page" in {
 
           navigator.nextPage(InterestReactivationsCapPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Disallowed Amount page" should {
+
+        "go to the Interest Allowance Brought Forwards page" in {
+
+          navigator.nextPage(DisallowedAmountPage, NormalMode, emptyUserAnswers) mustBe
             groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
         }
       }

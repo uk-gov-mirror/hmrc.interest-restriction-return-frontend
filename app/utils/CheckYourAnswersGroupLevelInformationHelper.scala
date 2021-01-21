@@ -46,6 +46,9 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
   def interestAllowanceBroughtForward: Option[SummaryListRow] =
     monetaryAnswer(InterestAllowanceBroughtForwardPage, routes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode))
 
+  def disallowedAmount: Option[SummaryListRow] =
+    monetaryAnswer(DisallowedAmountPage, routes.DisallowedAmountController.onPageLoad(CheckMode))
+
   val rows: Seq[SummaryListRow] = Seq(
     returnContainEstimates,
     groupInterestAllowance,
@@ -53,6 +56,7 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
     groupSubjectToRestrictions,
     interestReactivationsCap,
     groupSubjectToReactivations,
+    disallowedAmount,
     interestAllowanceBroughtForward
   ).flatten
 }

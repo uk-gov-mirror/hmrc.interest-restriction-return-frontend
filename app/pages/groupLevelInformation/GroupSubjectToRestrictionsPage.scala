@@ -16,12 +16,27 @@
 
 package pages.groupLevelInformation
 
+import models.UserAnswers
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object GroupSubjectToRestrictionsPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "groupSubjectToRestrictions"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
+    value match {
+      case Some(false) => userAnswers.remove(DisallowedAmountPage)
+      case Some(true) => 
+        for {
+          newUa <- userAnswers.remove(GroupSubjectToReactivationsPage)
+          finalUa <- newUa.remove(InterestReactivationsCapPage)
+        } yield finalUa
+      case _ => super.cleanup(value, userAnswers)
+    }
+  }
 }

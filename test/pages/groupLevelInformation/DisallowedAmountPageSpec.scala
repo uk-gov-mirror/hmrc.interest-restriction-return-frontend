@@ -18,15 +18,14 @@ package pages.groupLevelInformation
 
 import pages.behaviours.PageBehaviours
 
-class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
+class DisallowedAmountPageSpec extends PageBehaviours {
 
-  "GroupSubjectToReactivationsPage" must {
+  "DisallowedAmountPage" must {
 
-    beRetrievable[Boolean](GroupSubjectToReactivationsPage)
+    beRetrievable[BigDecimal](DisallowedAmountPage)
 
-    beSettable[Boolean](GroupSubjectToReactivationsPage)
+    beSettable[BigDecimal](DisallowedAmountPage)
 
-    beRemovable[Boolean](GroupSubjectToReactivationsPage)
+    beRemovable[BigDecimal](DisallowedAmountPage)
   }
-  
 }

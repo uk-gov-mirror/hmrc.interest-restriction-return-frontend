@@ -27,4 +27,5 @@ object CheckAnswersGroupLevelInformationMessages {
   val interestReactivationsCap = "Interest Reactivations Cap"
   val groupSubjectToReactivations = "Is the group subject to reactivations?"
   val interestAllowanceBroughtForward = "What is the group interest allowance brought forward?"
+  val disallowedAmount = "Disallowed amount"
 }

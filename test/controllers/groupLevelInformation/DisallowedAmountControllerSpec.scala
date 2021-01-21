@@ -14,28 +14,31 @@
  * limitations under the License.
  */
 
-package controllers.elections
+package controllers.groupLevelInformation
 
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.elections.QICElectionPageFormProvider
+import forms.groupLevelInformation.DisallowedAmountFormProvider
 import models.NormalMode
+import pages.groupLevelInformation.DisallowedAmountPage
 import play.api.test.Helpers._
-import views.html.elections.QICElectionPageView
-import navigation.FakeNavigators.FakeElectionsNavigator
+import views.html.groupLevelInformation.DisallowedAmountView
+import navigation.FakeNavigators.FakeGroupLevelInformationNavigator
 
-class QICElectionPageControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class DisallowedAmountControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[QICElectionPageView]
-  val formProvider = injector.instanceOf[QICElectionPageFormProvider]
+  val view = injector.instanceOf[DisallowedAmountView]
+  val formProvider = injector.instanceOf[DisallowedAmountFormProvider]
   val form = formProvider()
 
-  object Controller extends QICElectionPageController(
+  val validAnswer = 0
+
+  object Controller extends DisallowedAmountController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = FakeElectionsNavigator,
+    navigator = FakeGroupLevelInformationNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -44,7 +47,7 @@ class QICElectionPageControllerSpec extends SpecBase with FeatureSwitching with 
     view = view
   )
 
-  "QICElectionPage Controller" must {
+  "DisallowedAmount Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -58,26 +61,27 @@ class QICElectionPageControllerSpec extends SpecBase with FeatureSwitching with 
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "01"))
 
       mockGetAnswers(Some(emptyUserAnswers))
       mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustEqual SEE_OTHER
+      status(result) mustBe SEE_OTHER
+
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "a"))
 
       mockGetAnswers(Some(emptyUserAnswers))
 
       val result = Controller.onSubmit(NormalMode)(request)
 
-      status(result) mustEqual BAD_REQUEST
+      status(result) mustBe BAD_REQUEST
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -86,14 +90,13 @@ class QICElectionPageControllerSpec extends SpecBase with FeatureSwitching with 
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustEqual SEE_OTHER
-
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "2"))
 
       mockGetAnswers(None)
 
@@ -101,7 +104,7 @@ class QICElectionPageControllerSpec extends SpecBase with FeatureSwitching with 
 
       status(result) mustEqual SEE_OTHER
 
-      redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
 }

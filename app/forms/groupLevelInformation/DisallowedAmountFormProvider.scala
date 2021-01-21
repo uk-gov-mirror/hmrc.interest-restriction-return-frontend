@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
+package forms.groupLevelInformation
 
-import pages.behaviours.PageBehaviours
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
+class DisallowedAmountFormProvider @Inject() extends Mappings {
 
-  "GroupSubjectToReactivationsPage" must {
-
-    beRetrievable[Boolean](GroupSubjectToReactivationsPage)
-
-    beSettable[Boolean](GroupSubjectToReactivationsPage)
-
-    beRemovable[Boolean](GroupSubjectToReactivationsPage)
-  }
-  
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "disallowedAmount.error.required",
+        "disallowedAmount.error.invalidNumeric",
+        "disallowedAmount.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "disallowedAmount.error.outOfRange"))
+    )
 }

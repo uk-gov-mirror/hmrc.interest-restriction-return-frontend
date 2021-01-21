@@ -17,7 +17,6 @@
 package pages
 
 import models.Section
-import pages.aboutReturn._
 import pages.groupLevelInformation._
 import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.elections.{IsUkPartnershipPage, _}
@@ -57,7 +56,8 @@ object Page {
     GroupSubjectToRestrictionsPage,
     InterestAllowanceBroughtForwardPage,
     InterestReactivationsCapPage,
-    ReturnContainEstimatesPage
+    ReturnContainEstimatesPage,
+    DisallowedAmountPage
   )
 
 

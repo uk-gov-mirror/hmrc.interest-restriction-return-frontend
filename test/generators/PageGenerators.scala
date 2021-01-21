@@ -31,6 +31,9 @@ trait PageGenerators {
   implicit lazy val arbitraryQICElectionPagePage: Arbitrary[QICElectionPage.type] =
     Arbitrary(QICElectionPage)
 
+  implicit lazy val arbitraryDisallowedAmountPage: Arbitrary[DisallowedAmountPage.type] =
+    Arbitrary(DisallowedAmountPage)
+
   implicit lazy val arbitraryTellUsWhatHasChangedPage: Arbitrary[TellUsWhatHasChangedPage.type] =
     Arbitrary(TellUsWhatHasChangedPage)
 
