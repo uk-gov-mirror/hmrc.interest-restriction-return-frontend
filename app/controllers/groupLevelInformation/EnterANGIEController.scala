@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
+
 import forms.groupLevelInformation.EnterANGIEFormProvider
 import javax.inject.Inject
 import models.Mode

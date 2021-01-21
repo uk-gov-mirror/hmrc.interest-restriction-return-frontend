@@ -77,7 +77,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.GroupRatioPercentageController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.groupLevelInformation.routes.ReturnContainEstimatesController.onPageLoad(NormalMode).url)
               )
             }
           }
@@ -95,7 +95,7 @@ class GroupRatioPercentageControllerISpec extends IntegrationSpecBase with Creat
           whenReady(res) { result =>
             result should have(
               httpStatus(SEE_OTHER),
-              redirectLocation(controllers.errors.routes.ReturnContainEstimatesController.onPageLoad().url)
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
             )
           }
         }

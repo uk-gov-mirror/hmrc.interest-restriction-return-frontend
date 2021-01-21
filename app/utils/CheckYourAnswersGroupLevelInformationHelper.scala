@@ -60,12 +60,11 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
 
   def groupRatioPercentage: Option[SummaryListRow] =
     answer(GroupRatioPercentagePage, routes.GroupRatioPercentageController.onPageLoad(CheckMode))
->>>>>>> CIR-903 CIR-941 CIR-942 CIR-932 CIR-931 CIR-1186 CIR-1187 - Add CYA and nav
 
   val rows: Seq[SummaryListRow] = Seq(
     groupSubjectToRestrictions,
     groupSubjectToReactivations,
-    interestAllowanceBroughtForward
+    interestAllowanceBroughtForward,
     interestReactivationsCap,
     disallowedAmount,
     interestAllowanceBroughtForward,

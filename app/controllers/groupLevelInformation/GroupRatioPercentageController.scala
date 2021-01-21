@@ -28,8 +28,8 @@ import pages.groupLevelInformation.GroupRatioPercentagePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.groupLevelInformation.GroupRatioPercentageView
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import config.FrontendAppConfig
 import play.api.data.Form
 
