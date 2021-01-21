@@ -77,7 +77,7 @@ object PageTitles {
   val savedReturn = "Your return has been saved"
   val limitedLiabilityPartnership = "Is the ultimate parent a Limited Liability Partnership?"
   val countryOfIncorporation = "Which country is the ultimate parent incorporated in?"
-  val checkAnswersElections = "Check your answers for this section"
+  val checkAnswersElections = "Check Elections"
   val companyTaxEBITDA = "Enter company’s Tax-EBITDA"
   val ukCompaniesReviewAnswersList: Int => String = {
     case x if x > 1 => s"$x companies added"

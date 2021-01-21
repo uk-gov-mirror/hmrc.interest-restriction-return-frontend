@@ -18,7 +18,7 @@ package assets.messages
 
 object CheckAnswersElectionsMessages {
 
-  val heading = "Check your answers for this section"
+  val heading = "Check Elections"
 
   val groupRatioElection = "Group ratio election"
   val groupRatioBlended = "Blended group ratio election"

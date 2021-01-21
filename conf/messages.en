@@ -581,8 +581,8 @@ partnershipSAUTR.p5 = (Optional)
 
 # CheckAnswersElectionsPage MessagesF
 # ----------------------------------------------------------
-elections.checkYourAnswers.title = Check your answers for this section
-elections.checkYourAnswers.heading = Check your answers for this section
+elections.checkYourAnswers.title = Check Elections
+elections.checkYourAnswers.heading = Check Elections
 elections.checkYourAnswers.subheading = Elections
 
 investorGroupsAdded.checkYourAnswers.label = Investor Groups
