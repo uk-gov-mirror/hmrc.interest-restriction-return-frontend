@@ -18,10 +18,11 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.PayTaxInUkFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import navigation.UltimateParentCompanyNavigator
@@ -29,22 +30,20 @@ import pages.ultimateParentCompany.{DeemedParentPage, PayTaxInUkPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.PayTaxInUkView
 
 import scala.concurrent.Future
 
 class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
-                                     override val sessionRepository: SessionRepository,
-                                     override val navigator: UltimateParentCompanyNavigator,
-                                     override val updateSectionService: UpdateSectionStateService,
+                                     sessionRepository: SessionRepository,
+                                     navigator: UltimateParentCompanyNavigator,
                                      identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      formProvider: PayTaxInUkFormProvider,
                                      val controllerComponents: MessagesControllerComponents,
                                      view: PayTaxInUkView
-                                    )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                    )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()
@@ -71,9 +70,11 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
           ))),
         value => {
           val updatedModel = deemedParentModel.copy(payTaxInUk = Some(value))
-          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(PayTaxInUkPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers))
         }
       )
     }

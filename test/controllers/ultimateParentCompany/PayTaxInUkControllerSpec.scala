@@ -39,7 +39,6 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUltimateParentCompanyNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

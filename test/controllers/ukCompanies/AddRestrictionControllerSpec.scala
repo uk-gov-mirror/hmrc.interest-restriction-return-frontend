@@ -38,7 +38,6 @@ class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with M
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

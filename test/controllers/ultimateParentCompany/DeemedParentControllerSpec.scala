@@ -37,7 +37,6 @@ class DeemedParentControllerSpec extends SpecBase with FeatureSwitching with Moc
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUltimateParentCompanyNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

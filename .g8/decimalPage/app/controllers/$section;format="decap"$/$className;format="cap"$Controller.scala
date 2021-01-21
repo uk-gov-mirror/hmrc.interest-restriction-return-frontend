@@ -16,13 +16,11 @@ import play.api.data.Form
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
-                                       override val sessionRepository: SessionRepository,
-                                       override val navigator: $section;format="cap"$Navigator,
+                                       sessionRepository: SessionRepository,
+                                       navigator: $section;format="cap"$Navigator,
                                        override val questionDeletionLookupService: QuestionDeletionLookupService,
                                        override val updateSectionService: UpdateSectionStateService,
                                        identify: IdentifierAction,
@@ -31,7 +29,7 @@ class $className;format="cap"$Controller @Inject()(
                                        formProvider: $className;format="cap"$FormProvider,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: $className;format="cap"$View
-                                     )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                     )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm($className;format="cap"$Page, formProvider()), mode))
@@ -42,7 +40,10 @@ class $className;format="cap"$Controller @Inject()(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect($className;format="cap"$Page, value, mode)
+          for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set($className;format="cap"$Page, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage($className;format="cap"$Page, mode, updatedAnswers))
     )
   }
 }

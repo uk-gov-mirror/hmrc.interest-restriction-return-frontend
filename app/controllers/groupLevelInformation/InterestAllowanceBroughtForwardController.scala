@@ -18,9 +18,10 @@ package controllers.groupLevelInformation
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.groupLevelInformation.InterestAllowanceBroughtForwardFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupLevelInformationNavigator
@@ -28,22 +29,20 @@ import pages.groupLevelInformation.InterestAllowanceBroughtForwardPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.groupLevelInformation.InterestAllowanceBroughtForwardView
 
 import scala.concurrent.Future
 
 class InterestAllowanceBroughtForwardController @Inject()(override val messagesApi: MessagesApi,
-                                                          override val sessionRepository: SessionRepository,
-                                                          override val navigator: GroupLevelInformationNavigator,
-                                                          override val updateSectionService: UpdateSectionStateService,
+                                                          sessionRepository: SessionRepository,
+                                                          navigator: GroupLevelInformationNavigator,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
                                                           formProvider: InterestAllowanceBroughtForwardFormProvider,
                                                           val controllerComponents: MessagesControllerComponents,
                                                           view: InterestAllowanceBroughtForwardView
-                                                         )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                                         )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(InterestAllowanceBroughtForwardPage, formProvider()), mode))
@@ -54,7 +53,10 @@ class InterestAllowanceBroughtForwardController @Inject()(override val messagesA
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(InterestAllowanceBroughtForwardPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InterestAllowanceBroughtForwardPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InterestAllowanceBroughtForwardPage, mode, updatedAnswers))
     )
   }
 }

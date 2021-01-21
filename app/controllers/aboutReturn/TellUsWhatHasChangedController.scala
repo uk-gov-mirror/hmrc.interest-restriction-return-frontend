@@ -28,24 +28,21 @@ import repositories.SessionRepository
 import views.html.aboutReturn.TellUsWhatHasChangedView
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-
+import controllers.BaseController
 import scala.concurrent.Future
 import navigation.AboutReturnNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 
 class TellUsWhatHasChangedController @Inject()(
                                        override val messagesApi: MessagesApi,
-                                       override val updateSectionService: UpdateSectionStateService,
-                                       val sessionRepository: SessionRepository,
-                                       val navigator: AboutReturnNavigator,
+                                       sessionRepository: SessionRepository,
+                                       navigator: AboutReturnNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: TellUsWhatHasChangedFormProvider,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: TellUsWhatHasChangedView
-                                    )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                    )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(TellUsWhatHasChangedPage, formProvider()), mode))
@@ -56,7 +53,10 @@ class TellUsWhatHasChangedController @Inject()(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(TellUsWhatHasChangedPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(TellUsWhatHasChangedPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(TellUsWhatHasChangedPage, mode, updatedAnswers))
     )
   }
 }

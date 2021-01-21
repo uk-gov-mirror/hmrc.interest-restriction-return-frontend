@@ -18,6 +18,7 @@ package controllers.elections
 
 import controllers.actions._
 import forms.elections.InvestorGroupNameFormProvider
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import pages.elections.{InvestorGroupNamePage, InvestorGroupsPage}
@@ -27,24 +28,22 @@ import repositories.SessionRepository
 import views.html.elections.InvestorGroupNameView
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import models.returnModels.InvestorGroupModel
 
 class InvestorGroupNameController @Inject()(override val messagesApi: MessagesApi,
-                                            override val sessionRepository: SessionRepository,
-                                            override val navigator: ElectionsNavigator,
-                                            override val updateSectionService: UpdateSectionStateService,
+                                            sessionRepository: SessionRepository,
+                                            navigator: ElectionsNavigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: InvestorGroupNameFormProvider,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: InvestorGroupNameView
-                                           )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                           )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   private val form = formProvider()
 
@@ -59,9 +58,11 @@ class InvestorGroupNameController @Inject()(override val messagesApi: MessagesAp
         Future.successful(BadRequest(view(formWithErrors, routes.InvestorGroupNameController.onSubmit(idx, mode)))),
       value => {
         val investorGroup = getAnswer(InvestorGroupsPage, idx).fold(InvestorGroupModel(value))(_.copy(investorName = value))
-        save(InvestorGroupsPage, investorGroup, NormalMode, Some(idx)).map{ userAnswers =>
-          Redirect(navigator.nextPage(InvestorGroupNamePage, mode, userAnswers, Some(idx)))
-        }
+
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, investorGroup, Some(idx)))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InvestorGroupNamePage, mode, request.userAnswers, Some(idx)))
       }
     )
   }

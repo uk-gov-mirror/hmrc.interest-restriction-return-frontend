@@ -17,10 +17,11 @@
 package controllers.elections
 
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.OtherInvestorGroupElectionsFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.returnModels.InvestorGroupModel
 import models.{InvestorRatioMethod, Mode, NormalMode}
@@ -29,22 +30,20 @@ import pages.elections.{InvestorGroupsPage, OtherInvestorGroupElectionsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.OtherInvestorGroupElectionsView
 
 import scala.concurrent.Future
 
 class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: MessagesApi,
-                                                      override val sessionRepository: SessionRepository,
-                                                      override val navigator: ElectionsNavigator,
-                                                      override val updateSectionService: UpdateSectionStateService,
+                                                      sessionRepository: SessionRepository,
+                                                      navigator: ElectionsNavigator,
                                                       identify: IdentifierAction,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
                                                       formProvider: OtherInvestorGroupElectionsFormProvider,
                                                       val controllerComponents: MessagesControllerComponents,
                                                       view: OtherInvestorGroupElectionsView
-                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
+                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   private val form = formProvider()
 
@@ -80,9 +79,11 @@ class OtherInvestorGroupElectionsController @Inject()(override val messagesApi: 
             ))),
           value => {
             val updatedModel = investorGroups.copy(otherInvestorGroupElections = Some(value))
-            save(InvestorGroupsPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-              Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, userAnswers))
-            }
+
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(OtherInvestorGroupElectionsPage, mode, updatedAnswers))
           }
         )
       }

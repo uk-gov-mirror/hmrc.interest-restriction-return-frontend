@@ -36,7 +36,6 @@ class PartnershipDeletionConfirmationControllerSpec extends SpecBase with Featur
   object Controller extends PartnershipDeletionConfirmationController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    updateSectionService = updateSectionService,
     navigator = FakeElectionsNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
@@ -106,7 +105,7 @@ class PartnershipDeletionConfirmationControllerSpec extends SpecBase with Featur
             .set(PartnershipsPage, partnershipModelNonUk, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers
+          mockSetAnswers()
 
           val result = Controller.onSubmit(idx = 2)(request)
 

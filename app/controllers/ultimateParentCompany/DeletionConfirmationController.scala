@@ -19,10 +19,12 @@ package controllers.ultimateParentCompany
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.ultimateParentCompany.DeletionConfirmationFormProvider
+
 import javax.inject.Inject
 import models.NormalMode
 import pages.ultimateParentCompany.{DeemedParentPage, DeletionConfirmationPage}
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -30,14 +32,11 @@ import views.html.ultimateParentCompany.DeletionConfirmationView
 
 import scala.concurrent.Future
 import navigation.UltimateParentCompanyNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class DeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                               override val sessionRepository: SessionRepository,
-                                               override val navigator: UltimateParentCompanyNavigator,
-                                               override val updateSectionService: UpdateSectionStateService,
+                                               sessionRepository: SessionRepository,
+                                               navigator: UltimateParentCompanyNavigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,
@@ -45,7 +44,7 @@ class DeletionConfirmationController @Inject()(override val messagesApi: Message
                                                val controllerComponents: MessagesControllerComponents,
                                                view: DeletionConfirmationView
                                               )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(DeemedParentPage, idx) { deemedParent =>
@@ -65,9 +64,10 @@ class DeletionConfirmationController @Inject()(override val messagesApi: Message
         ,
         {
           case true =>
-            remove(DeemedParentPage, NormalMode, Some(idx)).map{ userAnswers =>
-              Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, userAnswers, Some(idx)))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(DeemedParentPage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, updatedAnswers))
           case false =>
             Future.successful(Redirect(navigator.nextPage(DeletionConfirmationPage, NormalMode, request.userAnswers, Some(idx))))
         }

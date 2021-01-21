@@ -18,10 +18,11 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.ukCompanies.RestrictionAmountSameAPFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.Mode
 import navigation.UkCompaniesNavigator
@@ -30,23 +31,21 @@ import pages.ukCompanies.{RestrictionAmountSameAPPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ukCompanies.RestrictionAmountSameAPView
 
 import scala.concurrent.Future
 
 class RestrictionAmountSameAPController @Inject()(
                                        override val messagesApi: MessagesApi,
-                                       override val sessionRepository: SessionRepository,
-                                       override val navigator: UkCompaniesNavigator,
-                                       override val updateSectionService: UpdateSectionStateService,
+                                       sessionRepository: SessionRepository,
+                                       navigator: UkCompaniesNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: RestrictionAmountSameAPFormProvider,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: RestrictionAmountSameAPView
-                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
@@ -75,9 +74,11 @@ class RestrictionAmountSameAPController @Inject()(
           value => {
             val updatedRestrictions = ukCompany.allocatedRestrictions.map(_.setRestriction(1, groupAccountPeriod.endDate, value))
             val updatedModel = ukCompany.copy(allocatedRestrictions = updatedRestrictions)
-            save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-              Redirect(navigator.nextPage(RestrictionAmountSameAPPage, mode, cleanedAnswers, Some(idx)))
-            }
+
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(RestrictionAmountSameAPPage, mode, updatedAnswers, Some(idx)))
           }
         )
       }

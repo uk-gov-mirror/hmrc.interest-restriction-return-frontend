@@ -19,10 +19,12 @@ package controllers.ukCompanies
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.ukCompanies.CompanyAccountingPeriodSameAsGroupFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import pages.ukCompanies.{CompanyAccountingPeriodSameAsGroupPage, UkCompaniesPage}
 import config.featureSwitch.FeatureSwitching
+import controllers.BaseController
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -30,22 +32,19 @@ import views.html.ukCompanies.CompanyAccountingPeriodSameAsGroupView
 
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class CompanyAccountingPeriodSameAsGroupController @Inject()(
                                          override val messagesApi: MessagesApi,
-                                         override val sessionRepository: SessionRepository,
-                                         override val navigator: UkCompaniesNavigator,
-                                         override val updateSectionService: UpdateSectionStateService,
+                                         sessionRepository: SessionRepository,
+                                         navigator: UkCompaniesNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          formProvider: CompanyAccountingPeriodSameAsGroupFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: CompanyAccountingPeriodSameAsGroupView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
@@ -72,9 +71,11 @@ class CompanyAccountingPeriodSameAsGroupController @Inject()(
           ),
         value => {
           val updatedModel = ukCompany.copy(accountPeriodSameAsGroup = Some(value))
-          save(UkCompaniesPage, updatedModel, mode, Some(idx)).map { cleanedAnswers =>
-            Redirect(navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, mode, cleanedAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

@@ -18,9 +18,10 @@ package controllers.groupLevelInformation
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.groupLevelInformation.ReturnContainEstimatesFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.GroupLevelInformationNavigator
@@ -28,22 +29,20 @@ import pages.groupLevelInformation.ReturnContainEstimatesPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.groupLevelInformation.ReturnContainEstimatesView
 
 import scala.concurrent.Future
 
 class ReturnContainEstimatesController @Inject()(override val messagesApi: MessagesApi,
-                                                 override val sessionRepository: SessionRepository,
-                                                 override val navigator: GroupLevelInformationNavigator,
-                                                 override val updateSectionService: UpdateSectionStateService,
+                                                 sessionRepository: SessionRepository,
+                                                 navigator: GroupLevelInformationNavigator,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: ReturnContainEstimatesFormProvider,
                                                  val controllerComponents: MessagesControllerComponents,
                                                  view: ReturnContainEstimatesView
-                                                )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                                )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(ReturnContainEstimatesPage, formProvider()), mode))
@@ -54,7 +53,10 @@ class ReturnContainEstimatesController @Inject()(override val messagesApi: Messa
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(ReturnContainEstimatesPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ReturnContainEstimatesPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ReturnContainEstimatesPage, mode, updatedAnswers))
     )
   }
 }

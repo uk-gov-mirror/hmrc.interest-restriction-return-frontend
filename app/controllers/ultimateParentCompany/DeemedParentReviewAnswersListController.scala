@@ -18,7 +18,7 @@ package controllers.ultimateParentCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.ultimateParentCompany.DeemedParentReviewAnswersListFormProvider
 import models.NormalMode
@@ -28,17 +28,13 @@ import pages.ultimateParentCompany.DeemedParentPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.DeemedParentReviewAnswersListHelper
 import views.html.ultimateParentCompany.DeemedParentReviewAnswersListView
 
 import scala.concurrent.Future
 
 class DeemedParentReviewAnswersListController @Inject()(override val messagesApi: MessagesApi,
-                                                        override val sessionRepository: SessionRepository,
-                                                        override val navigator: UltimateParentCompanyNavigator,
-                                                        override val updateSectionService: UpdateSectionStateService,
+                                                        navigator: UltimateParentCompanyNavigator,
                                                         identify: IdentifierAction,
                                                         getData: DataRetrievalAction,
                                                         requireData: DataRequiredAction,
@@ -46,7 +42,7 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
                                                         formProvider: DeemedParentReviewAnswersListFormProvider,
                                                         view: DeemedParentReviewAnswersListView
                                                     )(implicit appConfig: FrontendAppConfig)
-  extends BaseNavigationController {
+  extends BaseController {
 
   private def deemedParents(implicit request: DataRequest[_]) = new DeemedParentReviewAnswersListHelper(request.userAnswers).rows
 
@@ -69,11 +65,11 @@ class DeemedParentReviewAnswersListController @Inject()(override val messagesApi
         ,
         {
           case true => Future.successful(Redirect(navigator.addParent(deemedParents.length)))
-          case false => saveAndRedirect(DeemedParentPage, NormalMode)
+          case false => Future.successful(Redirect(navigator.nextPage(DeemedParentPage,NormalMode,request.userAnswers)))
         }
       )
     } else {
-      saveAndRedirect(DeemedParentPage, NormalMode)
+      Future.successful(Redirect(navigator.nextPage(DeemedParentPage,NormalMode,request.userAnswers)))
     }
   }
 }

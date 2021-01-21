@@ -17,8 +17,10 @@
 package controllers.elections
 
 import config.FrontendAppConfig
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.InvestorGroupsDeletionConfirmationFormProvider
+
 import javax.inject.Inject
 import models.NormalMode
 import pages.elections.{InvestorGroupsDeletionConfirmationPage, InvestorGroupsPage}
@@ -29,14 +31,11 @@ import views.html.elections.InvestorGroupsDeletionConfirmationView
 
 import scala.concurrent.Future
 import navigation.ElectionsNavigator
-import services.UpdateSectionStateService
-import controllers.BaseNavigationController
 import handlers.ErrorHandler
 
 class InvestorGroupsDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                                             override val sessionRepository: SessionRepository,
-                                                             override val navigator: ElectionsNavigator,
-                                                             override val updateSectionService: UpdateSectionStateService,
+                                                             sessionRepository: SessionRepository,
+                                                             navigator: ElectionsNavigator,
                                                              identify: IdentifierAction,
                                                              getData: DataRetrievalAction,
                                                              requireData: DataRequiredAction,
@@ -44,7 +43,7 @@ class InvestorGroupsDeletionConfirmationController @Inject()(override val messag
                                                              val controllerComponents: MessagesControllerComponents,
                                                              view: InvestorGroupsDeletionConfirmationView
                                                             )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController {
+  extends BaseController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(InvestorGroupsPage, idx) { investorGroup =>
@@ -67,9 +66,10 @@ class InvestorGroupsDeletionConfirmationController @Inject()(override val messag
           ))),
         {
           case true =>
-            remove(InvestorGroupsPage, NormalMode, Some(idx)).map{ userAnswers =>
-              Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, userAnswers))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(InvestorGroupsPage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, updatedAnswers))
           case false =>
             Future.successful(Redirect(navigator.nextPage(InvestorGroupsDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

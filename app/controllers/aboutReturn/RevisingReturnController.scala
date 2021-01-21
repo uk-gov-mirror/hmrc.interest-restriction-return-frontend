@@ -18,7 +18,7 @@ package controllers.aboutReturn
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.groupLevelInformation.RevisingReturnFormProvider
 import javax.inject.Inject
@@ -28,22 +28,19 @@ import pages.groupLevelInformation.RevisingReturnPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.aboutReturn.RevisingReturnView
-
 import scala.concurrent.Future
 
 class RevisingReturnController @Inject()(override val messagesApi: MessagesApi,
-                                         override val sessionRepository: SessionRepository,
-                                         override val navigator: AboutReturnNavigator,
-                                         override val updateSectionService: UpdateSectionStateService,
+                                         sessionRepository: SessionRepository,
+                                         navigator: AboutReturnNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          formProvider: RevisingReturnFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: RevisingReturnView
-                                        )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                        )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(RevisingReturnPage, formProvider()), mode))
@@ -54,7 +51,10 @@ class RevisingReturnController @Inject()(override val messagesApi: MessagesApi,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(RevisingReturnPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(RevisingReturnPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(RevisingReturnPage, mode, updatedAnswers))
     )
   }
 }

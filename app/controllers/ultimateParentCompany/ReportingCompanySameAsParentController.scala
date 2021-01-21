@@ -18,10 +18,11 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.ReportingCompanySameAsParentFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.Mode
 import navigation.UltimateParentCompanyNavigator
@@ -30,15 +31,13 @@ import pages.ultimateParentCompany.ReportingCompanySameAsParentPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.ReportingCompanySameAsParentView
 
 import scala.concurrent.Future
 
 class ReportingCompanySameAsParentController @Inject()(override val messagesApi: MessagesApi,
-                                                       override val sessionRepository: SessionRepository,
-                                                       override val navigator: UltimateParentCompanyNavigator,
-                                                       override val updateSectionService: UpdateSectionStateService,
+                                                       sessionRepository: SessionRepository,
+                                                       navigator: UltimateParentCompanyNavigator,
                                                        identify: IdentifierAction,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
@@ -46,7 +45,7 @@ class ReportingCompanySameAsParentController @Inject()(override val messagesApi:
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: ReportingCompanySameAsParentView
                                                       )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(ReportingCompanyNamePage) { name =>
@@ -63,7 +62,10 @@ class ReportingCompanySameAsParentController @Inject()(override val messagesApi:
           Future.successful(BadRequest(view(formWithErrors, mode, name, routes.ReportingCompanySameAsParentController.onSubmit(mode))))
         },
       value =>
-        saveAndRedirect(ReportingCompanySameAsParentPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ReportingCompanySameAsParentPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ReportingCompanySameAsParentPage, mode, updatedAnswers))
     )
   }
 }

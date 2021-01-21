@@ -17,10 +17,11 @@
 package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.returnModels.CountryCodeModel
@@ -29,22 +30,20 @@ import pages.ultimateParentCompany.{CountryOfIncorporationPage, DeemedParentPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.CountryOfIncorporationView
 
 import scala.concurrent.Future
 
 class CountryOfIncorporationController @Inject()(override val messagesApi: MessagesApi,
-                                                 override val sessionRepository: SessionRepository,
-                                                 override val navigator: UltimateParentCompanyNavigator,
-                                                 override val updateSectionService: UpdateSectionStateService,
+                                                 sessionRepository: SessionRepository,
+                                                 navigator: UltimateParentCompanyNavigator,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: CountryOfIncorporationFormProvider,
                                                  val controllerComponents: MessagesControllerComponents,
                                                  view: CountryOfIncorporationView
-                                                )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
+                                                )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val form = formProvider()
@@ -73,9 +72,11 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
         value => {
           val countryModel = if(value.isEmpty) None else Some(CountryCodeModel(appConfig.countryCodeMap.map(_.swap).apply(value), value))
           val updatedModel = deemedParentModel.copy(countryOfIncorporation = countryModel)
-          save(DeemedParentPage, updatedModel, NormalMode, Some(idx)).map { userAnswers =>
-            Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, userAnswers, Some(idx)))
-          }
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers))
         }
       )
     }

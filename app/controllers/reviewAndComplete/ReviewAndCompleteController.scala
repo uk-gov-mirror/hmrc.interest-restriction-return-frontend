@@ -18,44 +18,42 @@ package controllers.reviewAndComplete
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.NormalMode
+import models.returnModels.ReviewAndCompleteModel
 import navigation.ReviewAndCompleteNavigator
 import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
-import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
 import scala.concurrent.Future
 
 class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesApi,
-                                            override val navigator: ReviewAndCompleteNavigator,
-                                            override val sessionRepository: SessionRepository,
-                                            override val updateSectionService: UpdateSectionStateService,
+                                            navigator: ReviewAndCompleteNavigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ReviewAndCompleteView
                                            )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController with I18nSupport with FeatureSwitching {
+  extends BaseController with I18nSupport with FeatureSwitching {
 
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
     val reviewAndCompleteHelper = new ReviewAndCompleteHelper()
-    answerFor(ReviewAndCompletePage) { reviewAndCompleteModel =>
+    val reviewAndCompleteModel = ReviewAndCompleteModel()
+
       Future.successful(Ok(view(
         taskListRows = reviewAndCompleteHelper.rows(reviewAndCompleteModel, request.userAnswers),
         postAction = routes.ReviewAndCompleteController.onSubmit()
       )))
-    }
+
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

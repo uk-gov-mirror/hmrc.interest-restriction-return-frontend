@@ -34,8 +34,6 @@ class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching
 
   object Controller extends CheckAnswersUkCompanyController(
     messagesApi = messagesApi,
-    sessionRepository = mockSessionRepository,
-    updateSectionService = updateSectionService,
     navigator = FakeUkCompaniesNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
@@ -70,7 +68,6 @@ class CheckAnswersUkCompanyControllerSpec extends SpecBase with FeatureSwitching
           lazy val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1)).success.value
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers
 
           val result = Controller.onSubmit(1)(fakeRequest)
 

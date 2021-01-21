@@ -37,7 +37,6 @@ class AgentNameControllerSpec extends SpecBase with FeatureSwitching with MockDa
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeAboutReturnNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

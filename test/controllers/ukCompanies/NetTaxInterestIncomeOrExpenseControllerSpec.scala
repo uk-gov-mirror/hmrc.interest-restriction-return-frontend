@@ -39,7 +39,6 @@ class NetTaxInterestIncomeOrExpenseControllerSpec extends SpecBase with FeatureS
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

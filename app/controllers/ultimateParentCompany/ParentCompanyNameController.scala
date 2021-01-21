@@ -18,9 +18,10 @@ package controllers.ultimateParentCompany
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.{BaseNavigationController}
+import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
+
 import javax.inject.Inject
 import models.{Mode, NormalMode}
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
@@ -29,22 +30,20 @@ import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ultimateParentCompany.ParentCompanyNameView
 
 import scala.concurrent.Future
 
 class ParentCompanyNameController @Inject()(override val messagesApi: MessagesApi,
-                                            override val sessionRepository: SessionRepository,
-                                            override val navigator: UltimateParentCompanyNavigator,
-                                            override val updateSectionService: UpdateSectionStateService,
+                                            sessionRepository: SessionRepository,
+                                            navigator: UltimateParentCompanyNavigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: ParentCompanyNameFormProvider,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ParentCompanyNameView
-                                           )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                           )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     val companyName = getAnswer(DeemedParentPage, idx).map(_.companyName.name)
@@ -59,9 +58,11 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
       value => {
         val companyName = CompanyNameModel(value)
         val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
-        save(DeemedParentPage, deemedParentModel, NormalMode, Some(idx)).map { userAnswers =>
-          Redirect(navigator.nextPage(ParentCompanyNamePage, mode, userAnswers, Some(idx)))
-        }
+
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers))
       }
     )
   }

@@ -38,7 +38,6 @@ class ConsentingCompanyControllerSpec extends SpecBase with FeatureSwitching wit
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

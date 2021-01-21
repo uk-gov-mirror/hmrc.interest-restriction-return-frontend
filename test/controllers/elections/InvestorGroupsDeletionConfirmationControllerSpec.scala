@@ -37,7 +37,6 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -102,7 +101,7 @@ class InvestorGroupsDeletionConfirmationControllerSpec extends SpecBase with Fea
             .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).get
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers
+          mockSetAnswers()
 
           val result = Controller.onSubmit(idx = 2)(request)
 

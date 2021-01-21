@@ -39,7 +39,6 @@ class EnterANGIEControllerSpec extends SpecBase with FeatureSwitching with MockD
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

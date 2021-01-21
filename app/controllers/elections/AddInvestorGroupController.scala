@@ -18,9 +18,10 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.AddInvestorGroupFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.ElectionsNavigator
@@ -28,22 +29,20 @@ import pages.elections.AddInvestorGroupPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.AddInvestorGroupView
 
 import scala.concurrent.Future
 
 class AddInvestorGroupController @Inject()(override val messagesApi: MessagesApi,
-                                           override val sessionRepository: SessionRepository,
-                                           override val navigator: ElectionsNavigator,
-                                           override val updateSectionService: UpdateSectionStateService,
+                                           sessionRepository: SessionRepository,
+                                           navigator: ElectionsNavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: AddInvestorGroupFormProvider,
                                            val controllerComponents: MessagesControllerComponents,
                                            view: AddInvestorGroupView
-                                          )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                          )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(AddInvestorGroupPage, formProvider()), mode))
@@ -54,7 +53,10 @@ class AddInvestorGroupController @Inject()(override val messagesApi: MessagesApi
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(AddInvestorGroupPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(AddInvestorGroupPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(AddInvestorGroupPage, mode, updatedAnswers))
     )
   }
 }

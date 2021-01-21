@@ -37,7 +37,6 @@ class TellUsWhatHasChangedControllerSpec extends SpecBase with FeatureSwitching 
   object Controller extends TellUsWhatHasChangedController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    updateSectionService = updateSectionService,
     navigator = FakeAboutReturnNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,

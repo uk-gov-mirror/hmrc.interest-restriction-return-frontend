@@ -18,9 +18,10 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.ElectedInterestAllowanceConsolidatedPshipBeforeFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.ElectionsNavigator
@@ -28,15 +29,13 @@ import pages.elections.ElectedInterestAllowanceConsolidatedPshipBeforePage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.ElectedInterestAllowanceConsolidatedPshipBeforeView
 
 import scala.concurrent.Future
 
 class ElectedInterestAllowanceConsolidatedPshipBeforeController @Inject()(override val messagesApi: MessagesApi,
-                                                                          override val sessionRepository: SessionRepository,
-                                                                          override val navigator: ElectionsNavigator,
-                                                                          override val updateSectionService: UpdateSectionStateService,
+                                                                          sessionRepository: SessionRepository,
+                                                                          navigator: ElectionsNavigator,
                                                                           identify: IdentifierAction,
                                                                           getData: DataRetrievalAction,
                                                                           requireData: DataRequiredAction,
@@ -44,7 +43,7 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeController @Inject()(overri
                                                                           val controllerComponents: MessagesControllerComponents,
                                                                           view: ElectedInterestAllowanceConsolidatedPshipBeforeView
                                                                          )(implicit appConfig: FrontendAppConfig)
-  extends BaseNavigationController with FeatureSwitching {
+  extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(ElectedInterestAllowanceConsolidatedPshipBeforePage, formProvider()), mode))
@@ -55,7 +54,10 @@ class ElectedInterestAllowanceConsolidatedPshipBeforeController @Inject()(overri
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(ElectedInterestAllowanceConsolidatedPshipBeforePage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, mode, updatedAnswers))
     )
   }
 }

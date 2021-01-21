@@ -37,7 +37,6 @@ class UkCompaniesDeletionConfirmationControllerSpec extends SpecBase with Featur
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

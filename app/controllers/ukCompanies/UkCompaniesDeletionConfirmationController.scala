@@ -17,10 +17,11 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.ukCompanies.UkCompaniesDeletionConfirmationFormProvider
 import handlers.ErrorHandler
+
 import javax.inject.Inject
 import models.NormalMode
 import navigation.UkCompaniesNavigator
@@ -28,22 +29,20 @@ import pages.ukCompanies.{UkCompaniesDeletionConfirmationPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.ukCompanies.UkCompaniesDeletionConfirmationView
 
 import scala.concurrent.Future
 
 class UkCompaniesDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                                          override val sessionRepository: SessionRepository,
-                                                          override val navigator: UkCompaniesNavigator,
-                                                          override val updateSectionService: UpdateSectionStateService,
+                                                          sessionRepository: SessionRepository,
+                                                          navigator: UkCompaniesNavigator,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
                                                           formProvider: UkCompaniesDeletionConfirmationFormProvider,
                                                           val controllerComponents: MessagesControllerComponents,
                                                           view: UkCompaniesDeletionConfirmationView
-                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController {
+                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
@@ -67,9 +66,10 @@ class UkCompaniesDeletionConfirmationController @Inject()(override val messagesA
         ,
         {
           case true =>
-            remove(UkCompaniesPage, NormalMode, Some(idx)).map { userAnswers =>
-              Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, userAnswers))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(UkCompaniesPage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, updatedAnswers, Some(idx)))
           case false =>
             Future.successful(Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

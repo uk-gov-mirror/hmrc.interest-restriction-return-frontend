@@ -18,9 +18,10 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions._
 import forms.elections.InterestAllowanceAlternativeCalcElectionFormProvider
+
 import javax.inject.Inject
 import models.Mode
 import navigation.ElectionsNavigator
@@ -28,22 +29,20 @@ import pages.elections.InterestAllowanceAlternativeCalcElectionPage
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.InterestAllowanceAlternativeCalcElectionView
 
 import scala.concurrent.Future
 
 class InterestAllowanceAlternativeCalcElectionController @Inject()(override val messagesApi: MessagesApi,
-                                                                   override val sessionRepository: SessionRepository,
-                                                                   override val navigator: ElectionsNavigator,
-                                                                   override val updateSectionService: UpdateSectionStateService,
+                                                                   sessionRepository: SessionRepository,
+                                                                   navigator: ElectionsNavigator,
                                                                    identify: IdentifierAction,
                                                                    getData: DataRetrievalAction,
                                                                    requireData: DataRequiredAction,
                                                                    formProvider: InterestAllowanceAlternativeCalcElectionFormProvider,
                                                                    val controllerComponents: MessagesControllerComponents,
                                                                    view: InterestAllowanceAlternativeCalcElectionView
-                                                                  )(implicit appConfig: FrontendAppConfig) extends BaseNavigationController with FeatureSwitching {
+                                                                  )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(InterestAllowanceAlternativeCalcElectionPage, formProvider()), mode))
@@ -54,7 +53,10 @@ class InterestAllowanceAlternativeCalcElectionController @Inject()(override val 
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
-        saveAndRedirect(InterestAllowanceAlternativeCalcElectionPage, value, mode)
+        for {
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(InterestAllowanceAlternativeCalcElectionPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
+        } yield Redirect(navigator.nextPage(InterestAllowanceAlternativeCalcElectionPage, mode, updatedAnswers))
     )
   }
 }

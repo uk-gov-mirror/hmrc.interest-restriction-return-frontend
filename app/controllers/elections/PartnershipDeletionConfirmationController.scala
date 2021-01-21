@@ -18,7 +18,6 @@ package controllers.elections
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.BaseNavigationController
 import controllers.actions._
 import forms.elections.PartnershipDeletionConfirmationFormProvider
 import handlers.ErrorHandler
@@ -29,22 +28,21 @@ import pages.elections.{PartnershipDeletionConfirmationPage, PartnershipsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import views.html.elections.PartnershipDeletionConfirmationView
+import controllers.BaseController
 
 import scala.concurrent.Future
 
 class PartnershipDeletionConfirmationController @Inject()(override val messagesApi: MessagesApi,
-                                                          override val sessionRepository: SessionRepository,
-                                                          override val navigator: ElectionsNavigator,
-                                                          override val updateSectionService: UpdateSectionStateService,
+                                                          sessionRepository: SessionRepository,
+                                                          navigator: ElectionsNavigator,
                                                           identify: IdentifierAction,
                                                           getData: DataRetrievalAction,
                                                           requireData: DataRequiredAction,
                                                           formProvider: PartnershipDeletionConfirmationFormProvider,
                                                           val controllerComponents: MessagesControllerComponents,
                                                           view: PartnershipDeletionConfirmationView
-                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseNavigationController with FeatureSwitching {
+                                                         )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   val form = formProvider()
 
@@ -69,9 +67,10 @@ class PartnershipDeletionConfirmationController @Inject()(override val messagesA
           ))),
         {
           case true =>
-            remove(PartnershipsPage, NormalMode, Some(idx)).map{ userAnswers =>
-              Redirect(navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, userAnswers))
-            }
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(PartnershipsPage,Some(idx)))
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, updatedAnswers))
           case false =>
             Future.successful(Redirect(navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }

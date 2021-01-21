@@ -37,7 +37,6 @@ class InvestorGroupNameControllerSpec extends SpecBase with FeatureSwitching wit
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeElectionsNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,

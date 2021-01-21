@@ -18,7 +18,7 @@ package controllers.ultimateParentCompany
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import controllers.BaseNavigationController
+import controllers.BaseController
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.Section.UltimateParentCompany
@@ -27,23 +27,22 @@ import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, DeemedParent
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import services.UpdateSectionStateService
 import utils.CheckYourAnswersUltimateParentCompanyHelper
 import views.html.CheckYourAnswersView
 import handlers.ErrorHandler
+
 import scala.concurrent.Future
 
 class CheckAnswersGroupStructureController @Inject()(override val messagesApi: MessagesApi,
-                                                     override val sessionRepository: SessionRepository,
-                                                     override val navigator: UltimateParentCompanyNavigator,
-                                                     override val updateSectionService: UpdateSectionStateService,
+                                                     sessionRepository: SessionRepository,
+                                                     navigator: UltimateParentCompanyNavigator,
                                                      identify: IdentifierAction,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      view: CheckYourAnswersView
                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
-  extends BaseNavigationController {
+  extends BaseController {
 
   def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {implicit request =>
     val checkYourAnswersHelper = new CheckYourAnswersUltimateParentCompanyHelper(request.userAnswers)
@@ -60,6 +59,6 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
   }
 
   def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => saveAndRedirect(CheckAnswersGroupStructurePage, NormalMode, Some(idx))
+    implicit request => Future.successful(Redirect(navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, request.userAnswers,Some(idx))))
   }
 }

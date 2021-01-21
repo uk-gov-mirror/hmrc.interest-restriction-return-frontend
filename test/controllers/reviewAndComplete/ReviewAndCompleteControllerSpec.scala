@@ -36,9 +36,7 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
     view = view,
-    sessionRepository = mockSessionRepository,
-    navigator = FakeReviewAndCompleteNavigator,
-    updateSectionService = updateSectionService
+    navigator = FakeReviewAndCompleteNavigator
   )
 
   "ReviewAndComplete Controller" must {

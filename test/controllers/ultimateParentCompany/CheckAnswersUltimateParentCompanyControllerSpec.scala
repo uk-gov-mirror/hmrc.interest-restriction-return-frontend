@@ -35,7 +35,6 @@ class CheckAnswersUltimateParentCompanyControllerSpec extends SpecBase with Feat
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUltimateParentCompanyNavigator,
-    updateSectionService = updateSectionService,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -70,7 +69,6 @@ class CheckAnswersUltimateParentCompanyControllerSpec extends SpecBase with Feat
           lazy val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
 
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers
 
           val result = Controller.onSubmit(1)(fakeRequest)
 
@@ -90,7 +88,6 @@ class CheckAnswersUltimateParentCompanyControllerSpec extends SpecBase with Feat
 
           val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
           mockGetAnswers(Some(userAnswers))
-          mockSetAnswers
 
           val result = Controller.onSubmit(1)(fakeRequest)
 
