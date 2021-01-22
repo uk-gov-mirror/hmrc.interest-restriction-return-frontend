@@ -62,7 +62,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
         for {
           updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
           _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers))
+        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers, Some(idx)))
       }
     )
   }

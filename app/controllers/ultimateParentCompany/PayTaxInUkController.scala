@@ -74,7 +74,7 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(PayTaxInUkPage, mode, updatedAnswers,Some(idx)))
         }
       )
     }

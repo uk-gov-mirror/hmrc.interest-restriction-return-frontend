@@ -74,7 +74,7 @@ class ParentCompanyCTUTRController @Inject()(override val messagesApi: MessagesA
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(ParentCompanyCTUTRPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }
