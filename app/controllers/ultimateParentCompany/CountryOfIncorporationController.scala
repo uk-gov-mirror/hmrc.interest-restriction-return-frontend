@@ -76,7 +76,7 @@ class CountryOfIncorporationController @Inject()(override val messagesApi: Messa
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(CountryOfIncorporationPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }
