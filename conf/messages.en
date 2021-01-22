@@ -337,12 +337,13 @@ parentCompanySAUTR.title = Enter the Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.heading = Enter the Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.label = Enter the Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.checkYourAnswersLabel = Self Assessment Unique Taxpayer Reference
-parentCompanySAUTR.hint = This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Self Assessment. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can
-parentCompanySAUTR.findUtr = find a lost UTR number
 parentCompanySAUTR.error.required = Enter your Self Assessment Unique Taxpayer Reference
 parentCompanySAUTR.error.regexp = Self Assessment Unique Taxpayer Reference must be 10 numbers
 parentCompanySAUTR.error.checksum = Self Assessment Unique Taxpayer Reference entered is invalid
 
+parentCompanySAUTR.p1 = This is 10 numbers, for example 1234567890.
+parentCompanySAUTR.p2 = It will be on tax returns and other letters about Self Assessment.
+parentCompanySAUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''.
 
 # RegisteredCompaniesHousePage Messages
 # ----------------------------------------------------------

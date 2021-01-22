@@ -63,19 +63,6 @@ class ParentCompanySAUTRViewSpec extends StringViewBehaviours  {
       "has the correct text" in {
         hint.text mustBe ParentCompanySAUTRMessages.hint
       }
-
-      "has a link to find a lost UTR" which {
-
-        val hintLink = hint.select("a")
-
-        "has the correct URL" in {
-          hintLink.attr("href") mustBe frontendAppConfig.findLostUTRUrl
-        }
-
-        "has the correct link text" in {
-          hintLink.text mustBe ParentCompanySAUTRMessages.hintLink
-        }
-      }
     }
   }
 }
