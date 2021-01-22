@@ -79,7 +79,7 @@ object PageTitles {
   val limitedLiabilityPartnership = "Is the ultimate parent a Limited Liability Partnership?"
   val countryOfIncorporation = "Which country is the ultimate parent incorporated in?"
   val checkAnswersElections = "Check Elections"
-  val companyTaxEBITDA = "Enter company’s Tax-EBITDA"
+  val companyTaxEBITDA = "Enter the tax-EBITDA for this company"
   val ukCompaniesReviewAnswersList: Int => String = {
     case x if x > 1 => s"$x companies added"
     case _ => "1 company added"

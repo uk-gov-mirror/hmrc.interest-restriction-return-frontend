@@ -610,15 +610,15 @@ aboutAddingUKCompanies.heading = In this section you will need to tell us about 
 
 # EnterCompanyTaxEBITDAPage Messages
 # ----------------------------------------------------------
-enterCompanyTaxEBITDA.title = Enter company’s Tax-EBITDA
-enterCompanyTaxEBITDA.heading = Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.title = Enter the tax-EBITDA for this company
+enterCompanyTaxEBITDA.heading = Enter the tax-EBITDA for this company
 enterCompanyTaxEBITDA.subheading = {0}
-enterCompanyTaxEBITDA.label= Enter company’s Tax-EBITDA
+enterCompanyTaxEBITDA.label = Enter the tax-EBITDA for this company
 enterCompanyTaxEBITDA.checkYourAnswersLabel = Tax-EBITDA
-enterCompanyTaxEBITDA.error.nonNumeric = Enter the company’s Tax-EBITDA using numbers
-enterCompanyTaxEBITDA.error.required = Enter the company’s Tax-EBITDA
-enterCompanyTaxEBITDA.error.invalidNumeric = The company’s Tax-EBITDA must be valid decimal or whole number
-enterCompanyTaxEBITDA.error.outOfRange = The company’s Tax-EBITDA must be between {0} and {1}
+enterCompanyTaxEBITDA.error.nonNumeric = Enter the tax-EBITDA for this company using numbers
+enterCompanyTaxEBITDA.error.required = Enter the tax-EBITDA for this company
+enterCompanyTaxEBITDA.error.invalidNumeric = The tax-EBITDA for this company must be valid decimal or whole number
+enterCompanyTaxEBITDA.error.outOfRange = The Tax-EBITDA for this company must be between {0} and {1}
 
 # InvestmentNamePage Messages
 # ----------------------------------------------------------
