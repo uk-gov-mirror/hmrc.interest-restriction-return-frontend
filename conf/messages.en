@@ -99,9 +99,8 @@ reportingCompanyCTUTR.error.regexp = UK Tax reference - CT UTR must be 10 number
 reportingCompanyCTUTR.error.checksum = UK Tax reference - CT UTR has invalid check sum
 
 reportingCompanyCTUTR.p1 = This is 10 numbers, for example 1234567890.
-reportingCompanyCTUTR.p2 = It will be on tax returns and other letters about Self Assessment.
-reportingCompanyCTUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''. You can
-reportingCompanyCTUTR.p4 = find a lost UTR number (opens in a new window or tab).
+reportingCompanyCTUTR.p2 = It will be on tax returns and other letters about Corporation Tax.
+reportingCompanyCTUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''.
 
 # ReportingCompanyNamePage Messages
 # ----------------------------------------------------------
