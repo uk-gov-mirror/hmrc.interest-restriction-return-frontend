@@ -29,7 +29,7 @@ object CheckAnswersGroupLevelInformationMessages {
   val interestAllowanceBroughtForward = "Interest allowance brought forward"
   val angie = "ANGIE"
   val qngie = "QNGIE"
-  val groupEBITDA = "Group-Tax EBITDA"
+  val groupEBITDA = "Group Tax-EBITDA"
   val groupRatioPercentage = "Group Ratio Percentage"
   val disallowedAmount = "Disallowed amount"
 }
