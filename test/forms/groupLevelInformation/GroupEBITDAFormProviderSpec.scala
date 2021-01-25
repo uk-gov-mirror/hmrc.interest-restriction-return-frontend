@@ -27,7 +27,7 @@ class GroupEBITDAFormProviderSpec extends DecimalFieldBehaviours {
 
     val fieldName = "value"
 
-    val minimum = 0
+    val minimum = -999999999999999.99
     val maximum = 999999999999999.99
 
     val validDataGenerator = decimalInRangeWithCommas(minimum, maximum)

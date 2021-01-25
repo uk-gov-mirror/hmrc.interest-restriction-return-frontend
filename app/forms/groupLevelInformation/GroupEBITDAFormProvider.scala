@@ -28,6 +28,6 @@ class GroupEBITDAFormProvider @Inject() extends Mappings {
         "groupEBITDA.error.required",
         "groupEBITDA.error.invalidNumeric",
         "groupEBITDA.error.nonNumeric")
-        .verifying(inRange[BigDecimal](0, 999999999999999.99, "groupEBITDA.error.outOfRange"))
+        .verifying(inRange[BigDecimal](-999999999999999.99, 999999999999999.99, "groupEBITDA.error.outOfRange"))
     )
 }
