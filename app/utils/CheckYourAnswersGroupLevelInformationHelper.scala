@@ -64,7 +64,6 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
   val rows: Seq[SummaryListRow] = Seq(
     groupSubjectToRestrictions,
     groupSubjectToReactivations,
-    interestAllowanceBroughtForward,
     interestReactivationsCap,
     disallowedAmount,
     interestAllowanceBroughtForward,
