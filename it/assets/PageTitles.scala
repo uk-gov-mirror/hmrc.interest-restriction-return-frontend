@@ -55,7 +55,7 @@ object PageTitles {
   val reportingCompanyCTUTR = "Enter the Corporation Tax Unique Taxpayer Reference for the reporting company"
   val reportingCompanyName = "Enter the name of the reporting company"
   val groupInterestAllowance = "Enter the total interest allowance for the return period"
-  val groupInterestCapacity = "What is the group interest capacity for the period?"
+  val groupInterestCapacity = "Enter the total interest capacity for the return period"
   val groupSubjectToReactivations = "Is the group subject to interest reactivations?"
   val groupSubjectToRestrictions = "Is the group subject to interest restrictions?"
   val interestAllowanceBroughtForward = "Enter the amount of interest allowance the group is bringing forward"

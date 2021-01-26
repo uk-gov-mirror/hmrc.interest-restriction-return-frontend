@@ -187,9 +187,9 @@ revisingReturn.error.required = Select yes if you are revising a return that has
 
 # GroupInterestCapacityPage Messages
 # ----------------------------------------------------------
-groupInterestCapacity.title = What is the group interest capacity for the period?
-groupInterestCapacity.heading = What is the group interest capacity for the period?
-groupInterestCapacity.label = What is the group interest capacity for the period?
+groupInterestCapacity.title = Enter the total interest capacity for the return period
+groupInterestCapacity.heading = Enter the total interest capacity for the return period
+groupInterestCapacity.label = Enter the total interest capacity for the return period
 groupInterestCapacity.checkYourAnswersLabel = Group interest capacity
 groupInterestCapacity.error.nonNumeric = Enter your group interest capacity using numbers
 groupInterestCapacity.error.required = Enter your group interest capacity
