@@ -896,7 +896,7 @@ tellUsWhatHasChanged.heading = Tell us what has changed
 tellUsWhatHasChanged.checkYourAnswersLabel = What has changed
 tellUsWhatHasChanged.label= Tell us what has changed
 tellUsWhatHasChanged.error.required = Enter what has changed
-tellUsWhatHasChanged.error.regexp = Error TBC
+tellUsWhatHasChanged.error.regexp = Tell us what has changed has invalid characters
 tellUsWhatHasChanged.error.length = Tell us what has changed must be 5000 characters or less
 
 # QICElectionPagePage Messages
