@@ -27,5 +27,14 @@ class TellUsWhatHasChangedFormProvider @Inject() extends Mappings {
     Form(
       "value" -> text("tellUsWhatHasChanged.error.required")
         .verifying(maxLength(5000, "tellUsWhatHasChanged.error.length"))
+        .verifying(regexp("^[ -~¢-¥©®±×÷‐₠-₿−-∝≈≠≣-≥]{1,5000}$", s"tellUsWhatHasChanged.error.regexp"))
     )
 }
+/*
+    "explanatoryNotesShort": {
+      "description": "",
+      "type": "string",
+      "pattern": "^[ -~¢-¥©®±×÷‐₠-₿−-∝≈≠≣-≥]{1,5000}$",
+      "title": ""
+    },
+ */
