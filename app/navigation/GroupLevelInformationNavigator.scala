@@ -59,16 +59,8 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
 
   val checkRouteMap: Map[Page, UserAnswers => Call] =
     Map[Page, UserAnswers => Call](
-      GroupSubjectToRestrictionsPage -> (ua => (ua.get(GroupSubjectToRestrictionsPage), ua.get(DisallowedAmountPage)) match {
-          case (Some(false), Some(_)) => normalRoutes(GroupSubjectToRestrictionsPage)(ua)
-          case (Some(true), None) => normalRoutes(GroupSubjectToRestrictionsPage)(ua)
-          case _ => checkAnswers
-        }),
-      GroupSubjectToReactivationsPage -> (ua => (ua.get(GroupSubjectToReactivationsPage), ua.get(InterestReactivationsCapPage)) match {
-          case (Some(false), Some(_)) => normalRoutes(GroupSubjectToReactivationsPage)(ua)
-          case (Some(true), None) => normalRoutes(GroupSubjectToReactivationsPage)(ua)
-          case _ => checkAnswers
-        }),
+      GroupSubjectToRestrictionsPage -> (groupSubjectToRestrictionsCheckRoute(_)),
+      GroupSubjectToReactivationsPage -> (groupSubjectToReactivationsCheckRoute(_))
     ).withDefaultValue(_ => checkAnswers)
 
   private def checkAnswers = groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
@@ -78,5 +70,27 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
     case ReviewMode => normalRoutes(page)(userAnswers)
+  }
+
+  def groupSubjectToRestrictionsCheckRoute(userAnswers: UserAnswers): Call = {
+    val groupSubjectToRestrictionsPage = userAnswers.get(GroupSubjectToRestrictionsPage)
+    val groupSubjectToReactivationsNotPopulated = !userAnswers.get(GroupSubjectToReactivationsPage).isDefined
+    val disallowedAmountNotPopulated = !userAnswers.get(DisallowedAmountPage).isDefined
+
+    groupSubjectToRestrictionsPage match {
+      case Some(true) if disallowedAmountNotPopulated => groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(CheckMode)
+      case Some(false) if groupSubjectToReactivationsNotPopulated => groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode)
+      case _ => checkAnswers
+    }
+  }
+
+  def groupSubjectToReactivationsCheckRoute(userAnswers: UserAnswers): Call = {
+    val groupSubjectToReactivationsPage = userAnswers.get(GroupSubjectToReactivationsPage)
+    val interestReactivationsCapNotPopulated = !userAnswers.get(InterestReactivationsCapPage).isDefined
+
+    groupSubjectToReactivationsPage match {
+      case Some(true) if interestReactivationsCapNotPopulated => groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode)
+      case _ => checkAnswers
+    }
   }
 }

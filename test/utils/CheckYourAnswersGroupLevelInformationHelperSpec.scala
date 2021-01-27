@@ -32,8 +32,8 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
       .set(GroupInterestAllowancePage, groupInterestAllowance).get
       .set(GroupInterestCapacityPage, groupInterestCapacity).get
       .set(GroupSubjectToRestrictionsPage, true).get
-      .set(InterestReactivationsCapPage, interestReactivationCap).get
       .set(GroupSubjectToReactivationsPage, false).get
+      .set(InterestReactivationsCapPage, interestReactivationCap).get
       .set(DisallowedAmountPage, disallowedAmount).get
       .set(InterestAllowanceBroughtForwardPage, interestAllowanceBroughtForward).get
       .set(EnterANGIEPage, angie).get
