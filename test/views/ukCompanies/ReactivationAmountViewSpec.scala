@@ -113,8 +113,8 @@ class ReactivationAmountViewSpec extends QuestionViewBehaviours[AllocatedReactiv
           doc.select("input").hasClass("govuk-currency-input__inner__input") mustBe true
         }
 
-        "has a span for the currency unit with a pound sign" in {
-          doc.select("span.govuk-currency-input__inner__unit").text mustBe "£"
+        "has a div for the currency unit with a pound sign" in {
+          doc.select("div.govuk-input__prefix").text mustBe "£"
         }
       }
 

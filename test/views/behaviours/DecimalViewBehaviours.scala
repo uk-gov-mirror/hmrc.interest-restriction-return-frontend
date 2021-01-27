@@ -90,8 +90,8 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
         doc.select("input").hasClass("govuk-currency-input__inner__input") mustBe true
       }
 
-      "has a span for the currency unit with a pound sign" in {
-        doc.select("span.govuk-currency-input__inner__unit").text mustBe "£"
+      "has a div for the currency unit with a pound sign" in {
+        doc.select("div.govuk-input__prefix").text mustBe "£"
       }
     }
   }
@@ -106,8 +106,8 @@ trait DecimalViewBehaviours extends QuestionViewBehaviours[BigDecimal] {
         doc.select("input").hasClass("govuk-percentage-input__inner__input") mustBe true
       }
 
-      "has a span for the percentage unit with a percent sign" in {
-        doc.select("span.govuk-percentage-input__inner__unit").text mustBe "%"
+      "has a div for the percentage unit with a percent sign" in {
+        doc.select("div.govuk-input__suffix").text mustBe "%"
       }
     }
   }
