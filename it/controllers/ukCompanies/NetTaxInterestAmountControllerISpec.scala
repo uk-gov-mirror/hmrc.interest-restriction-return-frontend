@@ -16,7 +16,7 @@
 
 package controllers.ukCompanies
 
-import assets.UkCompanyITConstants.{ukCompanyModelMax, ukCompanyModelMin}
+import assets.UkCompanyITConstants.ukCompanyModelMin
 import assets.{BaseITConstants, PageTitles}
 import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
 import models.NormalMode

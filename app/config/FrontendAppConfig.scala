@@ -23,7 +23,7 @@ import models.returnModels.CountryCodeModel
 import play.api.Environment
 import play.api.libs.json.{JsSuccess, Json}
 import play.api.mvc.{Call, RequestHeader}
-import uk.gov.hmrc.play.binders.ContinueUrl
+import uk.gov.hmrc.play.bootstrap.binders.SafeRedirectUrl
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
 @Singleton
@@ -40,7 +40,7 @@ class FrontendAppConfig @Inject()(val servicesConfig: ServicesConfig, environmen
   val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
 
-  private def requestUri(implicit request: RequestHeader) = ContinueUrl(host + request.uri).encodedUrl
+  private def requestUri(implicit request: RequestHeader) = SafeRedirectUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: RequestHeader): String =
     s"$contactHost/contact/beta-feedback?service=$contactFormServiceIdentifier&backUrl=$requestUri"
 

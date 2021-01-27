@@ -17,7 +17,6 @@
 package forms.elections
 
 import forms.behaviours.StringFieldBehaviours
-import play.api.data.FormError
 
 class PartnershipSAUTRFormProviderSpec extends StringFieldBehaviours {
 

@@ -18,7 +18,6 @@ package utils
 
 import assets.constants.InvestorGroupConstants._
 import assets.messages.BaseMessages
-import assets.messages.elections.InvestorGroupsReviewAnswersListMessages
 import base.SpecBase
 import controllers.elections.routes
 import models.NormalMode

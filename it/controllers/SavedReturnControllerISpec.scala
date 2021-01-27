@@ -17,8 +17,6 @@
 package controllers
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
-import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.http.Status._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}

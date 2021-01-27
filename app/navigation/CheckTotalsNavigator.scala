@@ -36,7 +36,7 @@ class CheckTotalsNavigator @Inject()() extends Navigator {
   )
 
   //TODO update with CYA call
-  private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
+  //private def checkYourAnswers: Call = controllers.routes.UnderConstructionController.onPageLoad()
 
   //TODO update with Next Section call
   private def nextSection: Call = controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()

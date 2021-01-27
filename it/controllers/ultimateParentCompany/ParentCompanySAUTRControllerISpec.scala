@@ -23,7 +23,6 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
-import models.NormalMode
 import pages.ultimateParentCompany.DeemedParentPage
 
 class ParentCompanySAUTRControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {

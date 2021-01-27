@@ -16,8 +16,6 @@
 
 package pages.aboutReturn
 
-import models.UserAnswers
-import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 
 

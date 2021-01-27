@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.groupLevelInformation.DisallowedAmountFormProvider
 import models.NormalMode
-import pages.groupLevelInformation.DisallowedAmountPage
 import play.api.test.Helpers._
 import views.html.groupLevelInformation.DisallowedAmountView
 import navigation.FakeNavigators.FakeGroupLevelInformationNavigator

@@ -18,7 +18,6 @@ package controllers.ultimateParentCompany
 
 import assets.{BaseITConstants, PageTitles}
 import assets.DeemedParentITConstants._
-import models.NormalMode
 import pages.ultimateParentCompany.{DeemedParentPage, HasDeemedParentPage}
 import play.api.http.Status._
 import play.api.libs.json.Json

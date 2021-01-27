@@ -24,7 +24,7 @@ import forms.ultimateParentCompany.LimitedLiabilityPartnershipFormProvider
 import handlers.ErrorHandler
 
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.{DeemedParentPage, LimitedLiabilityPartnershipPage}
 import play.api.i18n.MessagesApi

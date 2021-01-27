@@ -28,7 +28,6 @@ import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.Logging
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
 import utils.CheckTotalsHelper
 import views.html.checkTotals.DerivedCompanyView
 

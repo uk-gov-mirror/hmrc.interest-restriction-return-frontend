@@ -20,7 +20,6 @@ import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
-import handlers.ErrorHandler
 
 import javax.inject.Inject
 import models.NormalMode
@@ -41,7 +40,7 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ReviewAndCompleteView
-                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                           )(implicit appConfig: FrontendAppConfig)
   extends BaseController with I18nSupport with FeatureSwitching {
 
 
