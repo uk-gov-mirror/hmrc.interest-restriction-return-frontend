@@ -30,7 +30,6 @@ import pages.elections.PartnershipsReviewAnswersListPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.PartnershipsReviewAnswersListHelper
 import views.html.elections.PartnershipsReviewAnswersListView

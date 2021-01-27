@@ -24,7 +24,7 @@ import forms.elections.InvestorRatioMethodFormProvider
 import handlers.ErrorHandler
 
 import javax.inject.Inject
-import models.{InvestorRatioMethod, Mode, NormalMode}
+import models.{InvestorRatioMethod, Mode}
 import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi

@@ -19,11 +19,8 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import controllers.routes
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
-import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.groupLevelInformation._
 import play.api.mvc.Call
 
@@ -57,5 +54,6 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
+    case ReviewMode => normalRoutes(page)(userAnswers)
   }
 }

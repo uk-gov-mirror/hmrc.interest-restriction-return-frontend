@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
 
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
 import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyNamePage}

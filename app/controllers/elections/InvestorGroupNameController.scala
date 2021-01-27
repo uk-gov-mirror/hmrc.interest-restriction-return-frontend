@@ -20,7 +20,7 @@ import controllers.actions._
 import forms.elections.InvestorGroupNameFormProvider
 
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import pages.elections.{InvestorGroupNamePage, InvestorGroupsPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._

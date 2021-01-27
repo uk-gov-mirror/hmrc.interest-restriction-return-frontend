@@ -28,7 +28,6 @@ import pages.elections.InvestorGroupsPage
 import play.api.data.Form
 import play.api.i18n.MessagesApi
 import play.api.mvc._
-import repositories.SessionRepository
 import utils.InvestorGroupsReviewAnswersListHelper
 import views.html.elections.InvestorGroupsReviewAnswersListView
 

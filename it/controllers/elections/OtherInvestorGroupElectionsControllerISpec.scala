@@ -18,10 +18,8 @@ package controllers.elections
 
 import assets.InvestorGroupITConstants.{investorGroupsFixedRatioModel, investorGroupsGroupRatioModel}
 import assets.{BaseITConstants, PageTitles}
-import models.InvestorRatioMethod.FixedRatioMethod
-import models.NormalMode
 import models.OtherInvestorGroupElections.GroupEBITDA
-import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
+import pages.elections.InvestorGroupsPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
