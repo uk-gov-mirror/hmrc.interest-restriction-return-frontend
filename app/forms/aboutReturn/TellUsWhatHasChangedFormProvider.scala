@@ -30,11 +30,3 @@ class TellUsWhatHasChangedFormProvider @Inject() extends Mappings {
         .verifying(regexp("^[ -~¢-¥©®±×÷‐₠-₿−-∝≈≠≣-≥]{1,5000}$", s"tellUsWhatHasChanged.error.regexp"))
     )
 }
-/*
-    "explanatoryNotesShort": {
-      "description": "",
-      "type": "string",
-      "pattern": "^[ -~¢-¥©®±×÷‐₠-₿−-∝≈≠≣-≥]{1,5000}$",
-      "title": ""
-    },
- */
