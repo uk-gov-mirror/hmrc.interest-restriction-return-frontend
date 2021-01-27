@@ -59,8 +59,16 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
 
   val checkRouteMap: Map[Page, UserAnswers => Call] =
     Map[Page, UserAnswers => Call](
-      GroupSubjectToRestrictionsPage -> normalRoutes(GroupSubjectToRestrictionsPage),
-      GroupSubjectToReactivationsPage -> normalRoutes(GroupSubjectToReactivationsPage)
+      GroupSubjectToRestrictionsPage -> (ua => (ua.get(GroupSubjectToRestrictionsPage), ua.get(DisallowedAmountPage)) match {
+          case (Some(false), Some(_)) => normalRoutes(GroupSubjectToRestrictionsPage)(ua)
+          case (Some(true), None) => normalRoutes(GroupSubjectToRestrictionsPage)(ua)
+          case _ => checkAnswers
+        }),
+      GroupSubjectToReactivationsPage -> (ua => (ua.get(GroupSubjectToReactivationsPage), ua.get(InterestReactivationsCapPage)) match {
+          case (Some(false), Some(_)) => normalRoutes(GroupSubjectToReactivationsPage)(ua)
+          case (Some(true), None) => normalRoutes(GroupSubjectToReactivationsPage)(ua)
+          case _ => checkAnswers
+        }),
     ).withDefaultValue(_ => checkAnswers)
 
   private def checkAnswers = groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()

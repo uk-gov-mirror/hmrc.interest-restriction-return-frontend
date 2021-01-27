@@ -176,14 +176,78 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
 
       "in Check mode" must {
 
-        "from GroupSubjectToRestrictionsPage go to normal mode routes" in {
-          navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, emptyUserAnswers) mustBe
-            navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, emptyUserAnswers)
+        "from GroupSubjectToRestrictionsPage" should {
+
+          "go back to the CYA page when set to true and DisallowedAmountPage already set (so unchanged value)" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+              finalUa <- ua.set(DisallowedAmountPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "go back to the CYA page when set to false and DisallowedAmountPage already not set (so unchanged value)" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "go to normal mode routes when set to true and DisallowedAmountPage not already set (so changed value)" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, userAnswers.get)
+          }
+
+          "go to normal mode routes when set to false and DisallowedAmountPage already set (so changed value)" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+              finalUa <- ua.set(DisallowedAmountPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              navigator.nextPage(GroupSubjectToRestrictionsPage, NormalMode, userAnswers.get)
+          }
         }
 
-        "from GroupSubjectToReactivationsPage go to normal mode routes" in {
-          navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, emptyUserAnswers) mustBe
-            navigator.nextPage(GroupSubjectToReactivationsPage, NormalMode, emptyUserAnswers)
+        "from GroupSubjectToReactivationsPage" should {
+
+          "go back to the CYA page when set to true and DisallowedAmountPage already set (so unchanged value)" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
+              finalUa <- ua.set(InterestReactivationsCapPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "go back to the CYA page when set to false and DisallowedAmountPage already not set (so unchanged value)" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "go to normal mode routes when set to true and DisallowedAmountPage not already set (so changed value)" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              navigator.nextPage(GroupSubjectToReactivationsPage, NormalMode, userAnswers.get)
+          }
+
+          "go to normal mode routes when set to false and DisallowedAmountPage already set (so changed value)" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
+              finalUa <- ua.set(InterestReactivationsCapPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              navigator.nextPage(GroupSubjectToReactivationsPage, NormalMode, userAnswers.get)
+          }
         }
       }
     }
