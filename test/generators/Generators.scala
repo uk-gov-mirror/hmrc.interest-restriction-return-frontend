@@ -85,12 +85,12 @@ trait Generators extends UserAnswersGenerator with PageGenerators with ModelGene
 
   def nonBooleans: Gen[String] =
     arbitrary[String]
-      .suchThat (_.nonEmpty)
+      .suchThat (_.trim.length != 0)
       .suchThat (_ != "true")
       .suchThat (_ != "false")
 
   def nonEmptyString: Gen[String] =
-    arbitrary[String] suchThat (_.nonEmpty)
+    arbitrary[String] suchThat (_.trim.length != 0)
 
   def stringsWithMaxLength(maxLength: Int): Gen[String] =
     for {

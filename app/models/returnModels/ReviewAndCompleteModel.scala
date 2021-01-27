@@ -42,6 +42,9 @@ case class ReviewAndCompleteModel(aboutReturn: SectionState = SectionState(),
     case Section.UltimateParentCompany => this.copy(ultimateParentCompany = SectionState(sectionStatus, Some(page)))
     case Section.UkCompanies => this.copy(ukCompanies = SectionState(sectionStatus, Some(page)))
     case Section.CheckTotals => this.copy(checkTotals = SectionState(sectionStatus, Some(page)))
+    case Section.ReviewTaxEBITDA => throw new Exception("Not yet implemented")
+    case Section.ReviewReactivations => throw new Exception("Not yet implemented")
+    case Section.ReviewAndComplete => throw new Exception("Not yet implemented")
   }
 }
 

@@ -23,11 +23,11 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 class SignOutController @Inject()(val controllerComponents: MessagesControllerComponents,
                                   appConfig: FrontendAppConfig) extends BaseController {
 
-  def signOut: Action[AnyContent] = Action { implicit request =>
+  def signOut: Action[AnyContent] = Action { _ =>
     Redirect(appConfig.signOutUrl, Map("continue" -> Seq(appConfig.exitSurveyUrl)))
   }
 
-  def signOutNoSurvey: Action[AnyContent] = Action { implicit request =>
+  def signOutNoSurvey: Action[AnyContent] = Action { _ =>
     Redirect(appConfig.signOutUrl, Map("continue" -> Seq(appConfig.host + controllers.errors.routes.SessionExpiredController.onPageLoad().url)))
   }
 }

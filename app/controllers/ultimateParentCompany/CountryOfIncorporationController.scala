@@ -23,7 +23,7 @@ import forms.ultimateParentCompany.CountryOfIncorporationFormProvider
 import handlers.ErrorHandler
 
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import models.returnModels.CountryCodeModel
 import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.{CountryOfIncorporationPage, DeemedParentPage}

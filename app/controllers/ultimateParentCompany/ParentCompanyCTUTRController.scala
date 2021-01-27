@@ -24,7 +24,7 @@ import forms.ultimateParentCompany.ParentCompanyCTUTRFormProvider
 import handlers.ErrorHandler
 
 import javax.inject.Inject
-import models.{Mode, NormalMode}
+import models.Mode
 import models.returnModels.UTRModel
 import navigation.UltimateParentCompanyNavigator
 import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyCTUTRPage}

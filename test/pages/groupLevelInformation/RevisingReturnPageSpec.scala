@@ -19,7 +19,7 @@ package pages.groupLevelInformation
 import models.UserAnswers
 import pages.behaviours.PageBehaviours
 import org.scalacheck.Arbitrary.arbitrary
-import pages.aboutReturn.{AgentNamePage, TellUsWhatHasChangedPage}
+import pages.aboutReturn.TellUsWhatHasChangedPage
 
 class RevisingReturnPageSpec extends PageBehaviours {
 

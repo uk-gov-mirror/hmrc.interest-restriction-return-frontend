@@ -7,7 +7,6 @@ import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatest.{TryValues, _}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import pages.QuestionPage
-import play.api.http.Status.OK
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.{Json, Reads, Writes}
 import play.api.{Application, Environment, Mode}
@@ -16,7 +15,6 @@ import stubs.AuthStub
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.util.Try
 
 trait IntegrationSpecBase extends WordSpec
   with GivenWhenThen with TestSuite with ScalaFutures with IntegrationPatience with Matchers
@@ -48,7 +46,7 @@ trait IntegrationSpecBase extends WordSpec
   def setAnswers(userAnswers: UserAnswers)(implicit timeout: Duration): Unit = Await.result(mongo.set(userAnswers), timeout)
   def getAnswers(id: String)(implicit timeout: Duration): Option[UserAnswers] = Await.result(mongo.get(id), timeout)
 
-  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], timeout: Duration): Unit =
+  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Unit =
     setAnswers(emptyUserAnswers.set(page, value).success.value)
 
   def appendList[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], rds: Reads[A]): Unit = {

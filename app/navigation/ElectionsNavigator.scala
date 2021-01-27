@@ -129,5 +129,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))
     case CheckMode => checkRouteMap(page)(userAnswers)
+    case ReviewMode => id.fold(normalRoutes(page)(userAnswers))(idx => idxRoutes(page)(idx, userAnswers))
   }
 }

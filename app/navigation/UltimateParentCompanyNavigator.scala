@@ -69,5 +69,6 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
     case CheckMode => checkRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
+    case ReviewMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
   }
 }

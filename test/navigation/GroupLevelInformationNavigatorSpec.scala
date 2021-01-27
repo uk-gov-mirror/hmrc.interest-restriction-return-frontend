@@ -19,10 +19,8 @@ package navigation
 import base.SpecBase
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.{CheckMode, NormalMode, UserAnswers}
 import pages.Page
-import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.groupLevelInformation._
 
 class GroupLevelInformationNavigatorSpec extends SpecBase {
