@@ -23,7 +23,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import models.NormalMode
 import models.Section.AboutReturn
 import navigation.AboutReturnNavigator
-import pages.aboutReturn.CheckAnswersReportingCompanyPage
+import pages.aboutReturn.CheckAnswersAboutReturnPage
 import play.api.i18n.MessagesApi
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
@@ -48,7 +48,7 @@ class CheckAnswersAboutReturnController @Inject()(override val messagesApi: Mess
   }
 
   def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    Future.successful(Redirect(navigator.nextPage(CheckAnswersReportingCompanyPage, NormalMode, request.userAnswers)))
+    Future.successful(Redirect(navigator.nextPage(CheckAnswersAboutReturnPage, NormalMode, request.userAnswers)))
   }
 }
 

@@ -5,14 +5,14 @@ echo "Applying migration EnterANGIE"
 
 echo "Adding routes to conf/app.routes"
 
-echo "" >> ../conf/app.routes
-echo "### EnterANGIE Controller" >> ../conf/app.routes
-echo "### ----------------------------------------" >> ../conf/app.routes
+echo "" >> ../conf/groupLevelInformation.routes
+echo "### EnterANGIE Controller" >> ../conf/groupLevelInformation.routes
+echo "### ----------------------------------------" >> ../conf/groupLevelInformation.routes
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "EnterANGIE" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName                          controllers.elections.EnterANGIEController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "GET        /$kebabClassName/change                   controllers.elections.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /$kebabClassName/change                   controllers.elections.EnterANGIEController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /$kebabClassName                          controllers.groupLevelInformation.EnterANGIEController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/groupLevelInformation.routes
+echo "POST       /$kebabClassName                          controllers.groupLevelInformation.EnterANGIEController.onSubmit(mode: Mode = NormalMode)" >> ../conf/groupLevelInformation.routes
+echo "GET        /$kebabClassName/change                   controllers.groupLevelInformation.EnterANGIEController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/groupLevelInformation.routes
+echo "POST       /$kebabClassName/change                   controllers.groupLevelInformation.EnterANGIEController.onSubmit(mode: Mode = CheckMode)" >> ../conf/groupLevelInformation.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -71,7 +71,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def enterANGIE: Option[SummaryListRow] = answer(EnterANGIEPage, routes.EnterANGIEController.onPageLoad(CheckMode))";\
+     print "  def enterANGIE: Option[SummaryListRow] = answer(EnterANGIEPage, groupLevelInformationRoutes.EnterANGIEController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Adding to Pages map"
@@ -94,6 +94,6 @@ awk '/object PageTitles/ {\
 
 echo "adding route to integration test"
 
-sed -i "s|ROUTING_PLACEHOLDER|elections\/${kebabClassName}|g" ../generated-it/controllers/EnterANGIEControllerISpec.scala
+sed -i "" "s|ROUTING_PLACEHOLDER|groupLevelInformation\/${kebabClassName}|g" ../generated-it/controllers/groupLevelInformation/EnterANGIEControllerISpec.scala
 
 echo "Migration EnterANGIE completed"

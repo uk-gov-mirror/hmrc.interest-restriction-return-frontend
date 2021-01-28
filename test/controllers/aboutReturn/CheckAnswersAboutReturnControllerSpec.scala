@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import models.NormalMode
 import navigation.FakeNavigators.FakeAboutReturnNavigator
-import pages.aboutReturn.CheckAnswersReportingCompanyPage
+import pages.aboutReturn.CheckAnswersAboutReturnPage
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
@@ -65,7 +65,7 @@ class CheckAnswersAboutReturnControllerSpec extends SpecBase with FeatureSwitchi
 
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(FakeAboutReturnNavigator.nextPage(
-            page = CheckAnswersReportingCompanyPage,
+            page = CheckAnswersAboutReturnPage,
             mode = NormalMode,
             userAnswers = emptyUserAnswers,
             id = Some(1)

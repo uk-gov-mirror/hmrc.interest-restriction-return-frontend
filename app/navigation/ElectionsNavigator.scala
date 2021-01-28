@@ -31,15 +31,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
   val normalRoutes: Map[Page, (UserAnswers => Call)] = Map(
-    GroupRatioElectionPage -> (_ => routes.EnterANGIEController.onPageLoad(NormalMode)),
-    EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
-      case Some(true) => routes.EnterQNGIEController.onPageLoad(NormalMode)
+    GroupRatioElectionPage -> (_.get(GroupRatioElectionPage) match {
+      case Some(true) => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
       case Some(false) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
-      case None => routes.GroupRatioElectionController.onPageLoad(NormalMode)
+      case _ => routes.GroupRatioElectionController.onPageLoad(NormalMode)
     }),
-    EnterQNGIEPage -> (_ => routes.GroupEBITDAController.onPageLoad(NormalMode)),
-    GroupEBITDAPage -> (_ => routes.GroupRatioPercentageController.onPageLoad(NormalMode)),
-    GroupRatioPercentagePage -> (_ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)),
     GroupRatioBlendedElectionPage -> (_.get(GroupRatioBlendedElectionPage) match {
       case Some(true) => routes.AddInvestorGroupController.onPageLoad(NormalMode)
       case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)

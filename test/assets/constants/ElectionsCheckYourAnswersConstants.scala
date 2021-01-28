@@ -26,10 +26,6 @@ trait ElectionsCheckYourAnswersConstants extends ViewBehaviours with BaseConstan
 
   val allElections = emptyUserAnswers
     .set(GroupRatioElectionPage, true).get
-    .set(EnterANGIEPage, angie).get
-    .set(EnterQNGIEPage, qngie).get
-    .set(GroupEBITDAPage, ebitda).get
-    .set(GroupRatioPercentagePage, groupRatioPercentage).get
     .set(GroupRatioBlendedElectionPage, true).get
     .set(AddInvestorGroupPage, true).get
     .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get
@@ -52,7 +48,6 @@ trait ElectionsCheckYourAnswersConstants extends ViewBehaviours with BaseConstan
 
   val minElections = emptyUserAnswers
     .set(GroupRatioElectionPage, false).get
-    .set(EnterANGIEPage, angie).get
     .set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).get
     .set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, false).get
     .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).get
