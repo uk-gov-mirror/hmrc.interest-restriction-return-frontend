@@ -5,14 +5,14 @@ echo "Applying migration GroupEBITDA"
 
 echo "Adding routes to conf/app.routes"
 
-echo "" >> ../conf/elections.routes
-echo "### GroupEBITDA Controller" >> ../conf/elections.routes
-echo "### ----------------------------------------" >> ../conf/elections.routes
+echo "" >> ../conf/groupLevelInformation.routes
+echo "### GroupEBITDA Controller" >> ../conf/groupLevelInformation.routes
+echo "### ----------------------------------------" >> ../conf/groupLevelInformation.routes
 export kebabClassName=$(sed -e 's/\([^A-Z]\)\([A-Z0-9]\)/\1-\2/g' -e 's/\([A-Z0-9]\)\([A-Z0-9]\)\([^A-Z]\)/\1-\2\3/g' <<< "GroupEBITDA" | tr '[:upper:]' '[:lower:]')
-echo "GET        /$kebabClassName                          controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/elections.routes
-echo "POST       /$kebabClassName                          controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)" >> ../conf/elections.routes
-echo "GET        /$kebabClassName/change                   controllers.elections.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/elections.routes
-echo "POST       /$kebabClassName/change                   controllers.elections.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)" >> ../conf/elections.routes
+echo "GET        /$kebabClassName                          controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/groupLevelInformation.routes
+echo "POST       /$kebabClassName                          controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = NormalMode)" >> ../conf/groupLevelInformation.routes
+echo "GET        /$kebabClassName/change                   controllers.groupLevelInformation.GroupEBITDAController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/groupLevelInformation.routes
+echo "POST       /$kebabClassName/change                   controllers.groupLevelInformation.GroupEBITDAController.onSubmit(mode: Mode = CheckMode)" >> ../conf/groupLevelInformation.routes
 
 echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
@@ -71,7 +71,7 @@ echo "Adding helper method to CheckYourAnswersHelper"
 awk '/class/ {\
      print;\
      print "";\
-     print "  def groupEBITDA: Option[SummaryListRow] = answer(GroupEBITDAPage, electionsRoutes.GroupEBITDAController.onPageLoad(CheckMode))";\
+     print "  def groupEBITDA: Option[SummaryListRow] = answer(GroupEBITDAPage, groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(CheckMode))";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Adding to Pages map"
@@ -94,6 +94,6 @@ awk '/object PageTitles/ {\
 
 echo "adding route to integration test"
 
-sed -i "" "s|ROUTING_PLACEHOLDER|elections\/${kebabClassName}|g" ../generated-it/controllers/elections/GroupEBITDAControllerISpec.scala
+sed -i "" "s|ROUTING_PLACEHOLDER|groupLevelInformation\/${kebabClassName}|g" ../generated-it/controllers/groupLevelInformation/GroupEBITDAControllerISpec.scala
 
 echo "Migration GroupEBITDA completed"

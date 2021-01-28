@@ -19,8 +19,10 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
+import controllers.routes
 import models._
 import pages._
+import pages.elections.GroupRatioElectionPage
 import pages.groupLevelInformation._
 import play.api.mvc.Call
 
@@ -28,7 +30,6 @@ import play.api.mvc.Call
 class GroupLevelInformationNavigator @Inject()() extends Navigator {
 
   val normalRoutes: Map[Page, UserAnswers => Call] = Map(
-    ReturnContainEstimatesPage -> (_ => groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)),
     GroupSubjectToRestrictionsPage -> (_.get(GroupSubjectToRestrictionsPage) match {
       case Some(true) => groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(NormalMode)
       case Some(false) => groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
@@ -43,17 +44,53 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
     DisallowedAmountPage -> (_ => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)),
     InterestAllowanceBroughtForwardPage -> (_ => groupLevelInformationRoutes.GroupInterestAllowanceController.onPageLoad(NormalMode)),
     GroupInterestAllowancePage -> (_ => groupLevelInformationRoutes.GroupInterestCapacityController.onPageLoad(NormalMode)),
-    GroupInterestCapacityPage -> (_ => nextSection(NormalMode))
+    GroupInterestCapacityPage -> (_ => groupLevelInformationRoutes.EnterANGIEController.onPageLoad(NormalMode)),
+    EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
+      case Some(true) => groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(NormalMode)
+      case Some(false) => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
+      case _ => routes.UnderConstructionController.onPageLoad()
+    }),
+    EnterQNGIEPage -> (_ => groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(NormalMode)),
+    GroupEBITDAPage -> (_ => groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(NormalMode)),  
+    GroupRatioPercentagePage -> (_ => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)),  
+    ReturnContainEstimatesPage -> (_ => checkAnswers),
+    CheckAnswersGroupLevelPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] =
-    Map().withDefaultValue(_ => controllers.routes.UnderConstructionController.onPageLoad()) //TODO: Add Check Your Answers)
+    Map[Page, UserAnswers => Call](
+      GroupSubjectToRestrictionsPage -> (groupSubjectToRestrictionsCheckRoute(_)),
+      GroupSubjectToReactivationsPage -> (groupSubjectToReactivationsCheckRoute(_))
+    ).withDefaultValue(_ => checkAnswers)
 
+  private def checkAnswers = groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
   private def nextSection(mode: Mode): Call = ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, id: Option[Int] = None): Call = mode match {
     case NormalMode => normalRoutes(page)(userAnswers)
     case CheckMode => checkRouteMap(page)(userAnswers)
     case ReviewMode => normalRoutes(page)(userAnswers)
+  }
+
+  def groupSubjectToRestrictionsCheckRoute(userAnswers: UserAnswers): Call = {
+    val groupSubjectToRestrictionsPage = userAnswers.get(GroupSubjectToRestrictionsPage)
+    val groupSubjectToReactivationsNotPopulated = !userAnswers.get(GroupSubjectToReactivationsPage).isDefined
+    val disallowedAmountNotPopulated = !userAnswers.get(DisallowedAmountPage).isDefined
+
+    groupSubjectToRestrictionsPage match {
+      case Some(true) if disallowedAmountNotPopulated => groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(CheckMode)
+      case Some(false) if groupSubjectToReactivationsNotPopulated => groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode)
+      case _ => checkAnswers
+    }
+  }
+
+  def groupSubjectToReactivationsCheckRoute(userAnswers: UserAnswers): Call = {
+    val groupSubjectToReactivationsPage = userAnswers.get(GroupSubjectToReactivationsPage)
+    val interestReactivationsCapNotPopulated = !userAnswers.get(InterestReactivationsCapPage).isDefined
+
+    groupSubjectToReactivationsPage match {
+      case Some(true) if interestReactivationsCapNotPopulated => groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode)
+      case _ => checkAnswers
+    }
   }
 }

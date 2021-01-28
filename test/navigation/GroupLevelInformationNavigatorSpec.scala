@@ -19,9 +19,9 @@ package navigation
 import base.SpecBase
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import models.{CheckMode, NormalMode, UserAnswers}
-import pages.Page
+import models.{CheckMode, NormalMode}
 import pages.groupLevelInformation._
+import pages.elections.GroupRatioElectionPage
 
 class GroupLevelInformationNavigatorSpec extends SpecBase {
 
@@ -30,15 +30,6 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
   "GroupLevelInformationNavigator" when {
 
     "in Normal mode" must {
-
-      "from the Return Contains Estimates page" should {
-
-        "go to the Group Subject to Restrictions page" in {
-
-          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, emptyUserAnswers) mustBe
-            groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
-        }
-      }
 
       "from the Group Subject to Restrictions page" should {
 
@@ -119,17 +110,139 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
         "go to the next section page" in {
 
           navigator.nextPage(GroupInterestCapacityPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.EnterANGIEController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the ANGIE page" when {
+        "group ratio election page was set to true" should {
+          "go to the next section page" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).get
+            navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
+              groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(NormalMode)
+          }
+        }
+
+        "group ratio election page was set to false" should {
+          "go to the next section page" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).get
+            navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
+              groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
+          }
+        }
+
+      }
+
+      "from the QNGIE page" should {
+        "go to the next section page" in {
+          navigator.nextPage(EnterQNGIEPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the GroupEBITDA page" should {
+        "go to the next section page" in {
+          navigator.nextPage(GroupEBITDAPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Group Ratio Percentage page" should {
+        "go to the next section page" in {
+          navigator.nextPage(GroupRatioPercentagePage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
+        }
+      }
+
+      "from the Return Contains Estimates page" should {
+        "go to the Check Answers page" in {
+          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, emptyUserAnswers) mustBe
+            groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+        }
+      }
+
+      "from the Check Answers page" should {
+
+        "go to the Adding UK Companies page" in {
+          navigator.nextPage(CheckAnswersGroupLevelPage, NormalMode, emptyUserAnswers) mustBe
             ukCompaniesRoutes.AboutAddingUKCompaniesController.onPageLoad()
         }
       }
 
       "in Check mode" must {
 
-        "go to CheckYourAnswers from a page that doesn't exist in the edit route map" ignore {
+        "from GroupSubjectToRestrictionsPage" should {
 
-          case object UnknownPage extends Page
-          navigator.nextPage(UnknownPage, CheckMode, UserAnswers("id")) mustBe
-            ??? //TODO: Add Check Your Answers for section (future story)
+          "when set to true and DisallowedAmountPage already set go back to the CYA page " in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+              finalUa <- ua.set(DisallowedAmountPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "when set to false and GroupSubjectToReactivationsPage already set go back to the CYA page" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+              finalUa <- ua.set(GroupSubjectToReactivationsPage, true)
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "when set to true and DisallowedAmountPage not already set go to DisallowedAmountPage" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(CheckMode)
+          }
+
+          "when set to false and GroupSubjectToReactivationsPage not already set go to GroupSubjectToReactivationsPage" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+
+            navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode)
+          }
+        }
+
+        "from GroupSubjectToReactivationsPage" should {
+
+          "when set to true and InterestReactivationsCapPage not already set go to the InterestReactivationsCapPage" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode)
+          }
+
+          "when set to true and InterestReactivationsCapPage already set go back to the CYA page" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
+              finalUa <- ua.set(InterestReactivationsCapPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "when set to false and InterestReactivationsCapPage already set go back to the CYA page" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
+              finalUa <- ua.set(InterestReactivationsCapPage, BigDecimal(123))
+            } yield finalUa
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "when set to true and InterestReactivationsCapPage not already set go back to the CYA page" in {
+            val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
         }
       }
     }

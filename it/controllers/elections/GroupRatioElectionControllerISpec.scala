@@ -67,7 +67,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters true" when {
 
           "redirect to ANGIE page" in {
 
@@ -78,7 +78,24 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.EnterANGIEController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters false" when {
+
+          "redirect to ANGIE page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/group-ratio-election", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
               )
             }
           }

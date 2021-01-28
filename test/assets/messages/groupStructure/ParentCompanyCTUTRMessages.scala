@@ -17,8 +17,5 @@
 package assets.messages.ultimateParentCompany
 
 object ParentCompanyCTUTRMessages {
-
-  val hintLink = "find a lost UTR number"
-  val hint = s"This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called ‘reference’, ‘UTR’ or ‘official use’. You can $hintLink."
-
+  val hint = s"This is 10 numbers, for example 1234567890. It will be on tax returns and other letters about Corporation Tax. It may be called 'reference', 'UTR' or 'official use'."
 }

@@ -31,10 +31,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
 
   val userAnswers = UserAnswers("id")
     .set(GroupRatioElectionPage, true).get
-    .set(EnterANGIEPage, angie).get
-    .set(EnterQNGIEPage, qngie).get
-    .set(GroupEBITDAPage, ebitda).get
-    .set(GroupRatioPercentagePage, groupRatioPercentage).get
     .set(GroupRatioBlendedElectionPage, true).get
     .set(AddInvestorGroupPage, true).get
     .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).get

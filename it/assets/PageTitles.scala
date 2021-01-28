@@ -84,6 +84,7 @@ object PageTitles {
     case x if x > 1 => s"$x companies added"
     case _ => "1 company added"
   }
+  val checkAnswersGroupLevel = "Check your answers for this section"
 
 
 }
