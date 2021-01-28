@@ -117,7 +117,6 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     nonConsolidatedInvestmentsRow,
     electedInterestAllowanceConsolidatedPshipBefore,
     interestAllowanceConsolidatedPshipElection,
-    qicElection,
     consolidatedPartnershipsRow
   ).flatten
 }
