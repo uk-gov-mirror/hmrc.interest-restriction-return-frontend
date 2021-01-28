@@ -26,7 +26,7 @@ trait TellUsWhatHasChangedBehaviours extends FieldBehaviours with RemoveWhitespa
                                  fieldRegexpKey: String
                                ) : Unit = {
     s"$fieldName" must {
-      val validRegexp: String = "^[ -~¢-¥©®±×÷‐₠-₿−-∝≈≠≣-≥]{1,5000}$"
+      val validRegexp: String = "^[ -~¢-¥©®±×÷‐₠-₿−-∝≈≠≣-≥]{1,}$"
       val invalidRegexp: String = "This¬is invalid¬¬"
       val validText: String = "This is valid"
 
