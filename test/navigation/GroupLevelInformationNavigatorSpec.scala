@@ -19,12 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-<<<<<<< HEAD
-import models.{CheckMode, NormalMode, UserAnswers}
-import pages.Page
-=======
 import models.{CheckMode, NormalMode}
->>>>>>> CIR-903 CIR-941 CIR-942 CIR-932 CIR-931 CIR-1186 CIR-1187 - Add CYA and nav
 import pages.groupLevelInformation._
 import pages.elections.GroupRatioElectionPage
 
