@@ -46,7 +46,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
     .set(InvestmentNamePage, investmentName, Some(1)).get
     .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, false).get
     .set(InterestAllowanceConsolidatedPshipElectionPage, true).get
-    .set(QICElectionPage, true).get
     .set(PartnershipsPage, partnershipModelUK, Some(1)).get
 
   val helper = new CheckYourAnswersElectionsHelper(userAnswers)
@@ -207,18 +206,6 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
           CheckAnswersElectionsMessages.interestAllowanceConsolidatedPshipElection,
           BaseMessages.yes,
           electionsRoutes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
-        ))
-      }
-    }
-
-    "For QIC Election" must {
-
-      "have a correctly formatted summary list row" in {
-
-        helper.qicElection mustBe Some(summaryListRow(
-          CheckAnswersElectionsMessages.qicElection,
-          BaseMessages.yes,
-          electionsRoutes.QICElectionPageController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
