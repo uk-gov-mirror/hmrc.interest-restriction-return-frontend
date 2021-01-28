@@ -33,6 +33,9 @@ trait UserAnswersGenerator extends TryValues {
   self: Generators =>
 
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
+    arbitrary[(CheckAnswersGroupLevelPage.type, JsValue)] ::
+    arbitrary[(GroupEBITDAPage.type, JsValue)] ::
+    arbitrary[(GroupRatioPercentagePage.type, JsValue)] ::
     arbitrary[(QICElectionPage.type, JsValue)] ::
     arbitrary[(DisallowedAmountPage.type, JsValue)] ::
     arbitrary[(TellUsWhatHasChangedPage.type, JsValue)] ::
@@ -60,11 +63,9 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(InvestorGroupNamePage.type, JsValue)] ::
     arbitrary[(AddInvestorGroupPage.type, JsValue)] ::
     arbitrary[(OtherInvestorGroupElectionsPage.type, JsValue)] ::
-    arbitrary[(GroupEBITDAPage.type, JsValue)] ::
     arbitrary[(InterestAllowanceConsolidatedPshipElectionPage.type, JsValue)] ::
     arbitrary[(ElectedInterestAllowanceConsolidatedPshipBeforePage.type, JsValue)] ::
     arbitrary[(InterestAllowanceNonConsolidatedInvestmentsElectionPage.type, JsValue)] ::
-    arbitrary[(GroupRatioPercentagePage.type, JsValue)] ::
     arbitrary[(InterestAllowanceAlternativeCalcElectionPage.type, JsValue)] ::
     arbitrary[(ElectedInterestAllowanceAlternativeCalcBeforePage.type, JsValue)] ::
     arbitrary[(GroupEBITDAChargeableGainsElectionPage.type, JsValue)] ::
@@ -81,7 +82,7 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(ParentCompanyNamePage.type, JsValue)] ::
     arbitrary[(HasDeemedParentPage.type, JsValue)] ::
     arbitrary[(ContinueSavedReturnPage.type, JsValue)] ::
-    arbitrary[(CheckAnswersReportingCompanyPage.type, JsValue)] ::
+    arbitrary[(CheckAnswersAboutReturnPage.type, JsValue)] ::
     arbitrary[(ReturnContainEstimatesPage.type, JsValue)] ::
     arbitrary[(GroupInterestAllowancePage.type, JsValue)] ::
     arbitrary[(GroupInterestCapacityPage.type, JsValue)] ::

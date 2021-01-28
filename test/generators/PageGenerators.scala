@@ -28,6 +28,15 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryCheckAnswersGroupLevelPage: Arbitrary[CheckAnswersGroupLevelPage.type] =
+    Arbitrary(CheckAnswersGroupLevelPage)
+
+  implicit lazy val arbitraryGroupEBITDAPage: Arbitrary[GroupEBITDAPage.type] =
+    Arbitrary(GroupEBITDAPage)
+
+  implicit lazy val arbitraryGroupRatioPercentagePage: Arbitrary[GroupRatioPercentagePage.type] =
+    Arbitrary(GroupRatioPercentagePage)
+
   implicit lazy val arbitraryQICElectionPagePage: Arbitrary[QICElectionPage.type] =
     Arbitrary(QICElectionPage)
 
@@ -115,9 +124,6 @@ trait PageGenerators {
   implicit lazy val arbitraryOtherInvestorGroupElectionsPage: Arbitrary[OtherInvestorGroupElectionsPage.type] =
     Arbitrary(OtherInvestorGroupElectionsPage)
 
-  implicit lazy val arbitraryGroupEBITDAPage: Arbitrary[GroupEBITDAPage.type] =
-    Arbitrary(GroupEBITDAPage)
-
   implicit lazy val arbitraryInterestAllowanceConsolidatedPshipElectionPage: Arbitrary[InterestAllowanceConsolidatedPshipElectionPage.type] =
     Arbitrary(InterestAllowanceConsolidatedPshipElectionPage)
 
@@ -126,9 +132,6 @@ trait PageGenerators {
 
   implicit lazy val arbitraryInterestAllowanceNonConsolidatedInvestmentsElectionPage: Arbitrary[InterestAllowanceNonConsolidatedInvestmentsElectionPage.type] =
     Arbitrary(InterestAllowanceNonConsolidatedInvestmentsElectionPage)
-
-  implicit lazy val arbitraryGroupRatioPercentagePage: Arbitrary[GroupRatioPercentagePage.type] =
-    Arbitrary(GroupRatioPercentagePage)
 
   implicit lazy val arbitraryInterestAllowanceAlternativeCalcElectionPage: Arbitrary[InterestAllowanceAlternativeCalcElectionPage.type] =
     Arbitrary(InterestAllowanceAlternativeCalcElectionPage)
@@ -178,8 +181,8 @@ trait PageGenerators {
   implicit lazy val arbitraryContinueSavedReturnPage: Arbitrary[ContinueSavedReturnPage.type] =
     Arbitrary(ContinueSavedReturnPage)
 
-  implicit lazy val arbitraryCheckAnswersReportingCompanyPage: Arbitrary[CheckAnswersReportingCompanyPage.type] =
-    Arbitrary(CheckAnswersReportingCompanyPage)
+  implicit lazy val arbitraryCheckAnswersAboutReturnPage: Arbitrary[CheckAnswersAboutReturnPage.type] =
+    Arbitrary(CheckAnswersAboutReturnPage)
 
   implicit lazy val arbitraryReturnContainEstimatesPage: Arbitrary[ReturnContainEstimatesPage.type] =
     Arbitrary(ReturnContainEstimatesPage)

@@ -79,7 +79,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode).url)
+                redirectLocation(controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onPageLoad().url)
               )
             }
           }

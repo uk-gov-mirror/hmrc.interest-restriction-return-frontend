@@ -32,64 +32,28 @@ class ElectionsNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "from the GroupRatioElectionPage" should {
+      "from the GroupRatioElectionPage" when {
 
-        "go to the Enter ANGIE page" in {
+        "the answer is false" should {
 
-          navigator.nextPage(GroupRatioElectionPage, NormalMode, emptyUserAnswers) mustBe
-            routes.EnterANGIEController.onPageLoad(NormalMode)
-        }
-      }
+          "go to the ElectedInterestAllowanceAlternativeCalcBeforePage" in {
 
-      "from the EnterANGIEPage" should {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
 
-        "go to the Enter QNGIE page when Group Ratio is elected" in {
-
-          val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).success.value
-
-          navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
-            routes.EnterQNGIEController.onPageLoad(NormalMode)
+            navigator.nextPage(GroupRatioElectionPage, NormalMode, userAnswers) mustBe
+              routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+          }
         }
 
-        "go to the Elected Interest Allowance Alternative Calc Before page when Group Ratio is NOT elected" in {
+        "the answer is true" should {
 
-          val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
+          "go to the GroupRatioBlendedElectionPage" in {
 
-          navigator.nextPage(EnterANGIEPage, NormalMode, userAnswers) mustBe
-            routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
-        }
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).success.value
 
-        "go to the Group Ratio Election page when there is no answer for Group Ratio Election" in {
-
-          navigator.nextPage(EnterANGIEPage, NormalMode, emptyUserAnswers) mustBe
-            routes.GroupRatioElectionController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the EnterQNGIEPage" should {
-
-        "go to the GroupEBITDA page" in {
-
-          navigator.nextPage(EnterQNGIEPage, NormalMode, emptyUserAnswers) mustBe
-            routes.GroupEBITDAController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the GroupEBITDAPage" should {
-
-        "go to the GroupRatioPercentage page" in {
-
-          navigator.nextPage(GroupEBITDAPage, NormalMode, emptyUserAnswers) mustBe
-            routes.GroupRatioPercentageController.onPageLoad(NormalMode)
-        }
-      }
-
-      "from the GroupRatioPercentage page" should {
-
-        "go to the Group Ratio Blended Election page" in {
-
-          navigator.nextPage(GroupRatioPercentagePage, NormalMode, emptyUserAnswers) mustBe
-            routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+            navigator.nextPage(GroupRatioElectionPage, NormalMode, userAnswers) mustBe
+              routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+          }
         }
       }
 

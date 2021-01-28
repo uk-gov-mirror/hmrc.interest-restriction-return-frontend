@@ -52,7 +52,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     ReportingCompanyNamePage -> (_ => aboutReturnRoutes.ReportingCompanyCTUTRController.onPageLoad(NormalMode)),
     ReportingCompanyCTUTRPage -> (_ => aboutReturnRoutes.AccountingPeriodController.onPageLoad(NormalMode)),
     AccountingPeriodPage -> (_ => checkAnswers),
-    CheckAnswersReportingCompanyPage -> (_ => nextSection(NormalMode))
+    CheckAnswersAboutReturnPage -> (_ => nextSection(NormalMode))
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
@@ -63,7 +63,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
       case _ => aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
     }),
     RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => routes.UnderConstructionController.onPageLoad() //TODO: Link to Revision Information Page when implemented
+      case Some(true) => aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode)
       case Some(false) => checkAnswers
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     })

@@ -49,14 +49,30 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
   def disallowedAmount: Option[SummaryListRow] =
     monetaryAnswer(DisallowedAmountPage, routes.DisallowedAmountController.onPageLoad(CheckMode))
 
+  def angie: Option[SummaryListRow] =
+    monetaryAnswer(EnterANGIEPage, routes.EnterANGIEController.onPageLoad(CheckMode))
+
+  def qngie: Option[SummaryListRow] =
+    monetaryAnswer(EnterQNGIEPage, routes.EnterQNGIEController.onPageLoad(CheckMode))
+
+  def groupEBITDA: Option[SummaryListRow] =
+    monetaryAnswer(GroupEBITDAPage, routes.GroupEBITDAController.onPageLoad(CheckMode))
+
+  def groupRatioPercentage: Option[SummaryListRow] =
+    answer(GroupRatioPercentagePage, routes.GroupRatioPercentageController.onPageLoad(CheckMode))
+
   val rows: Seq[SummaryListRow] = Seq(
-    returnContainEstimates,
+    groupSubjectToRestrictions,
+    groupSubjectToReactivations,
+    interestReactivationsCap,
+    disallowedAmount,
+    interestAllowanceBroughtForward,
     groupInterestAllowance,
     groupInterestCapacity,
-    groupSubjectToRestrictions,
-    interestReactivationsCap,
-    groupSubjectToReactivations,
-    disallowedAmount,
-    interestAllowanceBroughtForward
+    angie,
+    qngie,
+    groupEBITDA,
+    groupRatioPercentage,
+    returnContainEstimates
   ).flatten
 }
