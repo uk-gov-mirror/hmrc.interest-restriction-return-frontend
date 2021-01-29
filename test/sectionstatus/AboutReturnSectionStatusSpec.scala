@@ -16,12 +16,19 @@
 
 package sectionstatus
 
+import java.time.LocalDate
+
 import base.SpecBase
 import models.SectionStatus._
 import pages.aboutReturn._
+import pages.groupLevelInformation.RevisingReturnPage
 import pages.Page._
+import assets.constants.BaseConstants
+import models.UserAnswers
+import models.returnModels.AccountingPeriodModel
+import models.FullOrAbbreviatedReturn._
 
-class AboutReturnSectionStatusSpec extends SpecBase {
+class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
 
   "aboutReturnSectionStatus" must {
     "return NotStarted" when {
@@ -35,27 +42,90 @@ class AboutReturnSectionStatusSpec extends SpecBase {
         val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, true).get
         AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual InProgress
       }
+
+      "agent bool is set to true and the agent name isn't populated (and all other data is)" in {
+        val date = LocalDate.of(2020,1,1)
+        
+        val userAnswers = UserAnswers("id")
+          .set(ReportingCompanyAppointedPage, true).get
+          .set(AgentActingOnBehalfOfCompanyPage, true).get
+          .set(FullOrAbbreviatedReturnPage, Full).get
+          .set(RevisingReturnPage, true).get
+          .set(TellUsWhatHasChangedPage, "Something has changed").get
+          .set(ReportingCompanyNamePage, companyNameModel.name).get
+          .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
+          .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
+
+        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual InProgress
+      }
+
+      "Revising return is set to true and what has changed is not set" in {
+        val date = LocalDate.of(2020,1,1)
+        
+        val userAnswers = UserAnswers("id")
+          .set(ReportingCompanyAppointedPage, true).get
+          .set(AgentActingOnBehalfOfCompanyPage, true).get
+          .set(AgentNamePage, agentName).get
+          .set(FullOrAbbreviatedReturnPage, Full).get
+          .set(RevisingReturnPage, true).get
+          .set(ReportingCompanyNamePage, companyNameModel.name).get
+          .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
+          .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
+
+        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual InProgress
+      }
     }
     
     "return Completed" when {
-      "has all data been entered from " in {
-        aboutReturnSectionPages
-        val userAnswers = emptyUserAnswers
-          .set(AgentActingOnBehalfOfCompanyPage, true).get
-          .set(AgentNamePage, "true").get
-          .set(FullOrAbbreviatedReturnPage, true).get
+      "has all data been entered for a normal journey" in {
+        val date = LocalDate.of(2020,1,1)
+        
+        val userAnswers = UserAnswers("id")
           .set(ReportingCompanyAppointedPage, true).get
-          .set(ReportingCompanyRequiredPage, true).get
-          .set(AccountingPeriodPage, true).get
-          .set(ReportingCompanyNamePage, true).get
-          .set(ReportingCompanyCTUTRPage, true).get
+          .set(AgentActingOnBehalfOfCompanyPage, true).get
+          .set(AgentNamePage, agentName).get
+          .set(FullOrAbbreviatedReturnPage, Full).get
           .set(RevisingReturnPage, true).get
-          //.set(IndexPage, true).get
-          //.set(CheckAnswersAboutReturnPage, true).get
-          .set(TellUsWhatHasChangedPage, true).get
-          
+          .set(TellUsWhatHasChangedPage, "Something has changed").get
+          .set(ReportingCompanyNamePage, companyNameModel.name).get
+          .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
+          .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
+
         AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual Completed
       }
+
+      "agent bool is set to false but the agent name isn't populated (and all other data is)" in {
+        val date = LocalDate.of(2020,1,1)
+        
+        val userAnswers = UserAnswers("id")
+          .set(ReportingCompanyAppointedPage, true).get
+          .set(AgentActingOnBehalfOfCompanyPage, false).get
+          .set(FullOrAbbreviatedReturnPage, Full).get
+          .set(RevisingReturnPage, true).get
+          .set(TellUsWhatHasChangedPage, "Something has changed").get
+          .set(ReportingCompanyNamePage, companyNameModel.name).get
+          .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
+          .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
+
+        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual Completed
+      }
+
+      "Revising return is set to false and what has changed is not set" in {
+        val date = LocalDate.of(2020,1,1)
+        
+        val userAnswers = UserAnswers("id")
+          .set(ReportingCompanyAppointedPage, true).get
+          .set(AgentActingOnBehalfOfCompanyPage, true).get
+          .set(AgentNamePage, agentName).get
+          .set(FullOrAbbreviatedReturnPage, Full).get
+          .set(RevisingReturnPage, false).get
+          .set(ReportingCompanyNamePage, companyNameModel.name).get
+          .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
+          .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
+
+        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual Completed
+      }
+      
     }
   }
 }

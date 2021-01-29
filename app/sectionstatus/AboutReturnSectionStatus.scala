@@ -18,14 +18,41 @@ package sectionstatus
 
 import models.SectionStatus._
 import models.{SectionStatus, UserAnswers}
-import pages.aboutReturn.ReportingCompanyAppointedPage
+import pages.aboutReturn._
+import pages.groupLevelInformation.RevisingReturnPage
 
 object AboutReturnSectionStatus {
   
-  def aboutReturnSectionStatus(userAnswers: UserAnswers): SectionStatus = 
-    userAnswers.get(ReportingCompanyAppointedPage) match {
-      case Some(x) => InProgress
-      case _ => NotStarted
-    }
+  def aboutReturnSectionStatus(userAnswers: UserAnswers): SectionStatus = {
+
+    val requiredPages = List(
+      userAnswers.get(ReportingCompanyAppointedPage),
+      userAnswers.get(AgentActingOnBehalfOfCompanyPage),
+      userAnswers.get(FullOrAbbreviatedReturnPage),
+      userAnswers.get(RevisingReturnPage),
+      userAnswers.get(ReportingCompanyNamePage),
+      userAnswers.get(ReportingCompanyCTUTRPage),
+      userAnswers.get(AccountingPeriodPage)
+    ) 
     
+    val optionalAgentPages = 
+      userAnswers.get(AgentActingOnBehalfOfCompanyPage) match {
+        case Some(true) => Seq(userAnswers.get(AgentNamePage))
+        case _ => Nil
+      }
+
+    val optionalRevisionPages = 
+      userAnswers.get(RevisingReturnPage) match {
+        case Some(true) => Seq(userAnswers.get(TellUsWhatHasChangedPage))
+        case _ => Nil
+      }
+
+    val pages = requiredPages ++ optionalAgentPages ++ optionalRevisionPages
+
+    pages.flatten match {
+      case result if result.isEmpty => NotStarted
+      case result if result.size == pages.size => Completed
+      case _ => InProgress
+    }
+  } 
 }
