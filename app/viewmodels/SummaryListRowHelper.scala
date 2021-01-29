@@ -22,15 +22,15 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 trait SummaryListRowHelper {
 
-  def summaryListRow(label: String, value: String, actions: (Call, String)*): SummaryListRow = {
-    summaryListRowSpecifyingClass(label, value, "govuk-!-width-one-third", actions: _*)
+  def summaryListRow(label: String, value: String, visuallyHiddenText: Option[String], actions: (Call, String)*): SummaryListRow = {
+    summaryListRowSpecifyingClass(label, value, "govuk-!-width-one-third", visuallyHiddenText, actions: _*)
   }
 
-  def summaryListRowWideKey(label: String, value: String, actions: (Call, String)*): SummaryListRow = {
-    summaryListRowSpecifyingClass(label, value, "govuk-!-width-two-thirds", actions: _*)
+  def summaryListRowWideKey(label: String, value: String, visuallyHiddenText: Option[String], actions: (Call, String)*): SummaryListRow = {
+    summaryListRowSpecifyingClass(label, value, "govuk-!-width-two-thirds", visuallyHiddenText, actions: _*)
   }
 
-  private def summaryListRowSpecifyingClass(label: String, value: String, keyClass: String, actions: (Call, String)*): SummaryListRow = {
+  private def summaryListRowSpecifyingClass(label: String, value: String, keyClass: String, visuallyHiddenText: Option[String], actions: (Call, String)*): SummaryListRow = {
     SummaryListRow(
       key = Key(
         content = Text(label),
@@ -43,10 +43,18 @@ trait SummaryListRowHelper {
       actions = Some(Actions(
         items = actions.map { case (call, linkText) => ActionItem(
           href = call.url,
-          content = Text(linkText)
+          content = Text(linkText),
+          visuallyHiddenText = Some(defaultVisuallyHiddenText(label, visuallyHiddenText))
         )},
         classes = "govuk-!-width-one-third")
       )
     )
   }
+
+  def defaultVisuallyHiddenText(label: String, visuallyHiddenText: Option[String]): String = 
+    visuallyHiddenText match {
+      case Some(text) => text
+      case None => label
+    }
+
 }

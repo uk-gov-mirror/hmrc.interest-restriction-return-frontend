@@ -43,16 +43,19 @@ class ReviewReactivationsHelperSpec extends SpecBase with SummaryListRowHelper w
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.allocatedReactivations.fold[BigDecimal](0)(_.reactivation)),
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(1, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.allocatedReactivations.fold[BigDecimal](0)(_.reactivation)),
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(2, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.allocatedReactivations.fold[BigDecimal](0)(_.reactivation)),
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(3, ReviewMode) -> BaseMessages.changeLink
           )
         )

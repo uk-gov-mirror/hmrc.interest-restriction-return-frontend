@@ -28,6 +28,7 @@ class PartnershipsReviewAnswersListHelper(val userAnswers: UserAnswers)
     case (partnership, idx) => summaryListRow(
       partnership.name,
       value = "",
+      visuallyHiddenText = None,
       controllers.elections.routes.PartnershipNameController.onPageLoad(idx + 1, NormalMode) -> messages("site.edit"),
       controllers.elections.routes.PartnershipDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )

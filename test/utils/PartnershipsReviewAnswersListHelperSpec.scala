@@ -44,18 +44,21 @@ class PartnershipsReviewAnswersListHelperSpec extends SpecBase with SummaryListR
           summaryListRow(
             partnershipModelUK.name,
             value = "",
+            visuallyHiddenText = None,
             routes.PartnershipNameController.onPageLoad(1, NormalMode) -> BaseMessages.changeLink,
             routes.PartnershipDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             partnershipModelNonUk.name,
             value = "",
+            visuallyHiddenText = None,
             routes.PartnershipNameController.onPageLoad(2, NormalMode) -> BaseMessages.changeLink,
             routes.PartnershipDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             partnershipModelUK.name,
             value = "",
+            visuallyHiddenText = None,
             routes.PartnershipNameController.onPageLoad(3, NormalMode) -> BaseMessages.changeLink,
             routes.PartnershipDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )

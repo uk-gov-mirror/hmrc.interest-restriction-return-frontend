@@ -28,6 +28,7 @@ class DeemedParentReviewAnswersListHelper(val userAnswers: UserAnswers)
     case (model, idx) => summaryListRow(
       model.companyName.name,
       model.utr.fold("")(_.utr),
+      visuallyHiddenText = None,
       controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(idx + 1) -> messages("site.review"),
       controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )

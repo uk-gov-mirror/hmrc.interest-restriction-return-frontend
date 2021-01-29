@@ -33,6 +33,7 @@ class ReviewReactivationsHelper(val userAnswers: UserAnswers)
         summaryListRow(
           label = model.companyDetails.companyName,
           value = currencyFormat(amount),
+          visuallyHiddenText = None,
           actions = controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(idx + 1, ReviewMode) -> messages("site.edit")
         )
       }

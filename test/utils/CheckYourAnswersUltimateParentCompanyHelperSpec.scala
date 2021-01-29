@@ -43,6 +43,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.reportingCompanySameAsParent mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.reportingCompanySameAsParent,
           BaseMessages.no,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -55,6 +56,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.deemedParent mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.deemedParent,
           BaseMessages.no,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.HasDeemedParentController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -67,6 +69,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.parentCompanyName(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.parentCompanyName,
           companyNameModel.name,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.ParentCompanyNameController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -79,6 +82,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.payTaxInUk(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.payTaxInUk,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.PayTaxInUkController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -91,6 +95,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.limitedLiabilityPartnership(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.limitedLiabilityPartnership,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.LimitedLiabilityPartnershipController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -103,6 +108,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.parentCompanyCTUTR(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.parentCompanyCTUTR,
           ctutrModel.utr,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.ParentCompanyCTUTRController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -115,6 +121,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.parentCompanySAUTR(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.parentCompanySAUTR,
           sautrModel.utr,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.ParentCompanySAUTRController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -127,6 +134,7 @@ class CheckYourAnswersUltimateParentCompanyHelperSpec extends SpecBase with Base
         helper.countryOfIncorporation(1) mustBe Some(summaryListRowWideKey(
           CheckAnswersUltimateParentCompanyMessages.registeredCountry,
           nonUkCountryCode.country,
+          visuallyHiddenText = None,
           ultimateParentCompanyRoutes.CountryOfIncorporationController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }

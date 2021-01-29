@@ -28,6 +28,7 @@ class InvestorGroupsReviewAnswersListHelper(val userAnswers: UserAnswers)
     case (model, idx) => summaryListRowWideKey(
       model.investorName,
       "",
+      visuallyHiddenText = None,
       controllers.elections.routes.InvestorGroupNameController.onPageLoad(idx + 1, NormalMode) -> messages("site.edit"),
       controllers.elections.routes.InvestorGroupsDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )

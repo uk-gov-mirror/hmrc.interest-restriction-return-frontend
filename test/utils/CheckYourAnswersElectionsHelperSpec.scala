@@ -55,6 +55,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.groupRatioElection mustBe Some(summaryListRow(
           messages("groupRatioElection.checkYourAnswersLabel"),
           BaseMessages.yes,
+          visuallyHiddenText = None,
           electionsRoutes.GroupRatioElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -67,6 +68,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.groupRatioBlendedElection mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.groupRatioBlended,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           electionsRoutes.GroupRatioBlendedElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -79,6 +81,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.investorGroupsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.investorGroupsHeading,
           CheckAnswersElectionsMessages.investorGroupsValue(1),
+          visuallyHiddenText = None,
           electionsRoutes.InvestorGroupsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
         ))
       }
@@ -92,6 +95,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.investorGroupsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.investorGroupsHeading,
           CheckAnswersElectionsMessages.investorGroupsValue(3),
+          visuallyHiddenText = None,
           electionsRoutes.InvestorGroupsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.investorGroupsReview
         ))
       }
@@ -104,6 +108,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.electedGroupEBITDABefore mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.electedGroupEBITDABefore,
           BaseMessages.no,
+          visuallyHiddenText = None,
           electionsRoutes.ElectedGroupEBITDABeforeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -116,6 +121,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.groupEBITDAChargeableGainsElection mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.groupEBITDAElection,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           electionsRoutes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -128,6 +134,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.electedInterestAllowanceAlternativeCalcBefore mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.electedInterestAllowanceAlternativeCalcBefore,
           BaseMessages.no,
+          visuallyHiddenText = None,
           electionsRoutes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -140,6 +147,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.interestAllowanceAlternativeCalcElection mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.interestAllowanceAlternativeCalcElection,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           electionsRoutes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -152,6 +160,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.interestAllowanceNonConsolidatedInvestmentsElection mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.interestAllowanceNonConsolidatedElection,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           electionsRoutes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -164,6 +173,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.nonConsolidatedInvestmentsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading,
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(1),
+          visuallyHiddenText = None,
           electionsRoutes.InvestmentsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
         ))
       }
@@ -177,6 +187,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.nonConsolidatedInvestmentsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsHeading,
           CheckAnswersElectionsMessages.nonConsolidatedInvestmentsValue(3),
+          visuallyHiddenText = None,
           electionsRoutes.InvestmentsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.nonConsolidatedInvestmentsReview
         ))
       }
@@ -189,6 +200,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.electedInterestAllowanceConsolidatedPshipBefore mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.electedInterestAllowanceConsolidatedPshipBefore,
           BaseMessages.no,
+          visuallyHiddenText = None,
           electionsRoutes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -201,6 +213,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.interestAllowanceConsolidatedPshipElection mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.interestAllowanceConsolidatedPshipElection,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           electionsRoutes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -213,6 +226,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.consolidatedPartnershipsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
           CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1),
+          visuallyHiddenText = None,
           electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
         ))
       }
@@ -226,6 +240,7 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
         helper.consolidatedPartnershipsRow mustBe Some(summaryListRow(
           CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
           CheckAnswersElectionsMessages.consolidatedPartnershipsValue(3),
+          visuallyHiddenText = None,
           electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
         ))
       }
