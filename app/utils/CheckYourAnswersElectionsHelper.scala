@@ -31,9 +31,6 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
   def electedInterestAllowanceConsolidatedPshipBefore: Option[SummaryListRow] =
     answer(ElectedInterestAllowanceConsolidatedPshipBeforePage, electionsRoutes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(CheckMode))
 
-  def qicElection: Option[SummaryListRow] =
-    answer(QICElectionPage, electionsRoutes.QICElectionPageController.onPageLoad(CheckMode))
-
   def interestAllowanceNonConsolidatedInvestmentsElection: Option[SummaryListRow] =
     answer(InterestAllowanceNonConsolidatedInvestmentsElectionPage, electionsRoutes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(CheckMode))
 
@@ -105,7 +102,6 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
     nonConsolidatedInvestmentsRow,
     electedInterestAllowanceConsolidatedPshipBefore,
     interestAllowanceConsolidatedPshipElection,
-    qicElection,
     consolidatedPartnershipsRow
   ).flatten
 }
