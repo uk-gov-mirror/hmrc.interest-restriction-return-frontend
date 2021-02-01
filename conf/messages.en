@@ -576,9 +576,7 @@ partnershipSAUTR.error.checksum = Self Assessment Unique Taxpayer Reference ente
 
 partnershipSAUTR.p1 = This is 10 numbers, for example 1234567890.
 partnershipSAUTR.p2 = It will be on tax returns and other letters about Self Assessment.
-partnershipSAUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''. You can
-partnershipSAUTR.p4 = find a lost UTR number (opens in a new window or tab).
-partnershipSAUTR.p5 = (Optional)
+partnershipSAUTR.p3 = It may be called ''reference'', ''UTR'' or ''official use''. Yeppers
 
 # CheckAnswersElectionsPage MessagesF
 # ----------------------------------------------------------
