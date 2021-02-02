@@ -17,6 +17,7 @@
 package forms.elections
 
 import forms.behaviours.StringFieldBehaviours
+import play.api.data.FormError
 
 class PartnershipSAUTRFormProviderSpec extends StringFieldBehaviours {
 
@@ -36,9 +37,10 @@ class PartnershipSAUTRFormProviderSpec extends StringFieldBehaviours {
       stringsWithMaxLength(maxLength)
     )
 
-    behave like optionalField(
+    behave like mandatoryField(
       form,
-      fieldName
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
     )
   }
 }
