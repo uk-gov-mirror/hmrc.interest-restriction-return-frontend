@@ -36,14 +36,15 @@ case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedRe
     value match {
       case Some(Full) => {
         answerTest match {
-          case Some(Abbreviated) =>{
-            userAnswers.remove(allPagesWithoutAboutSection)
-          }
+          case Some(Abbreviated) =>userAnswers.remove(allPagesWithoutAboutSection)
           case _ => super.cleanup(value, userAnswers)
         }
       }
       case _ => {
-        super.cleanup(value, userAnswers)
+        answerTest match {
+          case Some(Full) => userAnswers.remove(allPagesWithoutAboutSection)
+          case _ => super.cleanup(value, userAnswers)
+        }
       }
     }
   }
