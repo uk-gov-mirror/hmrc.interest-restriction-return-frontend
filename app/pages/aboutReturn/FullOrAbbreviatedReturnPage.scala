@@ -16,13 +16,35 @@
 
 package pages.aboutReturn
 
-import models.FullOrAbbreviatedReturn
+import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
+import models.{FullOrAbbreviatedReturn, UserAnswers}
+import pages.Page.allPagesWithoutAboutSection
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedReturn] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "fullOrAbbreviatedReturn"
+
+  override def cleanup(value: Option[FullOrAbbreviatedReturn], userAnswers: UserAnswers): Try[UserAnswers] = {
+    val answerTest = userAnswers.get(FullOrAbbreviatedReturnPage)
+
+    value match {
+      case Some(Full) => {
+        answerTest match {
+          case Some(Abbreviated) =>{
+            userAnswers.remove(allPagesWithoutAboutSection)
+          }
+          case _ => super.cleanup(value, userAnswers)
+        }
+      }
+      case _ => {
+        super.cleanup(value, userAnswers)
+      }
+    }
+  }
 }

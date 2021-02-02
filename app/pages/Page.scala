@@ -24,6 +24,7 @@ import pages.ultimateParentCompany._
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.aboutReturn._
 import pages.ukCompanies._
+import pages.Page.pages
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
 import scala.language.implicitConversions
@@ -152,11 +153,16 @@ object Page {
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
   )
 
-  val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
+  val allPagesWithoutAboutSection = toQuestionPages(pages.--(aboutReturnSectionPages.map(p => p.toString)))
+  val allQuestionPages = toQuestionPages(pages)
 
   def apply(page: String): Page = pages(page)
 
   def unapply(arg: Page): String = pages.map(_.swap).apply(arg)
+
+  private def toQuestionPages(pages: Map[String,Page]): List[QuestionPage[_]] = {
+    pages.values.collect{ case a: QuestionPage[_] => a}.toList
+  }
 
   implicit val reads: Reads[Page] = JsPath.read[String].map(apply)
   implicit val writes: Writes[Page] = Writes { page => JsString(unapply(page)) }
