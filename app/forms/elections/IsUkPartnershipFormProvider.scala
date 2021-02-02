@@ -17,14 +17,13 @@
 package forms.elections
 
 import javax.inject.Inject
-
 import forms.mappings.Mappings
 import play.api.data.Form
 
 class IsUkPartnershipFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Boolean] =
+  def apply(): Form[Option[Boolean]] =
     Form(
-      "value" -> boolean("isUkPartnership.error.required")
+      "value" -> optionalBoolean("isUkPartnership.error.required")
     )
 }
