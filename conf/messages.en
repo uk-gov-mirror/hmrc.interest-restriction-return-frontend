@@ -427,7 +427,7 @@ groupRatioPercentage.label= Enter the group ratio percentage
 groupRatioPercentage.checkYourAnswersLabel = Group Ratio Percentage
 groupRatioPercentage.error.nonNumeric = Enter the group ratio percentage using numbers
 groupRatioPercentage.error.required = Enter the group ratio percentage
-groupRatioPercentage.error.invalidNumeric = The group ratio percentage must be valid decimal (2dp) or whole number
+groupRatioPercentage.error.invalidNumeric = The group ratio percentage must be valid decimal (5dp) or whole number
 groupRatioPercentage.error.outOfRange = The group ratio percentage must be between {0} and {1}
 
 # EnterQNGIEPage Messages
