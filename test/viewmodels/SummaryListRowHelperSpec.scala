@@ -17,11 +17,8 @@
 package viewmodels
 
 import base.SpecBase
-import play.api.mvc._
-import play.api.mvc.Responses._
-import play.api.i18n.MessagesApi
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
 class SummaryListRowHelperSpec extends SpecBase {
   
@@ -45,21 +42,21 @@ class SummaryListRowHelperSpec extends SpecBase {
 
   "summaryListRowSpecifyingClass" must  {
 
-    val action = Action { Ok() } 
+    val action = controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad()
 
     "default to the label text where hidden text is not passed in" in {
       val label = "Label"
       val visuallyHiddenText = None
       val expectedActions = Actions(
         items = Seq(ActionItem(
-          href = "Some URL",
+          href = "/interest-restriction-return/check-totals/review-net-tax-interest",
           content = Text("Change"),
           visuallyHiddenText = Some("Label")
         )),
         classes = "govuk-!-width-one-third"
       )
       val summaryListRowResult = TestHelper.summaryListRow(label, "value", visuallyHiddenText, action -> "Change")
-      summaryListRowResult.actions mustEqual expectedActions
+      summaryListRowResult.actions mustEqual Some(expectedActions)
     }
 
     "return the hidden text where it is passed in" in {
@@ -67,14 +64,14 @@ class SummaryListRowHelperSpec extends SpecBase {
       val visuallyHiddenText = Some("Hidden text")
       val expectedActions = Actions(
         items = Seq(ActionItem(
-          href = "Some URL",
+          href = "/interest-restriction-return/check-totals/review-net-tax-interest",
           content = Text("Change"),
           visuallyHiddenText = Some("Hidden text")
         )),
         classes = "govuk-!-width-one-third"
       )
       val summaryListRowResult = TestHelper.summaryListRow(label, "value", visuallyHiddenText, action -> "Change")
-      summaryListRowResult.actions mustEqual expectedActions
+      summaryListRowResult.actions mustEqual Some(expectedActions)
     }  
   }
 
