@@ -144,8 +144,7 @@ object Page {
     Section.ReviewAndComplete -> reviewAndCompleteSectionPages,
     Section.UltimateParentCompany -> ultimateParentCompanySectionPages
   )
-
-
+  
   val pages: Map[String, Page] = sections.flatMap{
     section => section._2.map(page => page.toString -> page)
   } ++ Map(
@@ -153,15 +152,11 @@ object Page {
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
   )
 
-  val allQuestionPages = toQuestionPages(pages)
+  val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
 
   def apply(page: String): Page = pages(page)
 
   def unapply(arg: Page): String = pages.map(_.swap).apply(arg)
-
-  private def toQuestionPages(pages: Map[String,Page]): List[QuestionPage[_]] = {
-    pages.values.collect{ case a: QuestionPage[_] => a}.toList
-  }
 
   implicit val reads: Reads[Page] = JsPath.read[String].map(apply)
   implicit val writes: Writes[Page] = Writes { page => JsString(unapply(page)) }
