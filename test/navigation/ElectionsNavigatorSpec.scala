@@ -194,18 +194,18 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
 
-        "go to the QIC Election page when answer is true" in {
+        "go to the Interest Allowance Consolidated Partnership Election page when answer is true" in {
 
           val userAnswers = emptyUserAnswers.set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).success.value
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, userAnswers) mustBe
-            routes.QICElectionPageController.onPageLoad(NormalMode)
+            routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
 
-        "go to the Elected Interest Allowance Consolidated Partnership Before page when answer there's no answer" in {
+        "go to the Interest Allowance Consolidated Partnership Election page when answer there's no answer" in {
 
           navigator.nextPage(ElectedInterestAllowanceConsolidatedPshipBeforePage, NormalMode, emptyUserAnswers) mustBe
-            routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
+            routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
         }
       }
 

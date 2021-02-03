@@ -58,11 +58,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case Some(false) => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
       case _ => routes.InterestAllowanceNonConsolidatedInvestmentsElectionController.onPageLoad(NormalMode)
     }),
-    ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_.get(ElectedInterestAllowanceConsolidatedPshipBeforePage) match {
-      case Some(true) => routes.QICElectionPageController.onPageLoad(NormalMode)
-      case Some(false) => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
-      case _ => routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode)
-    }),
+    ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)),
     InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
       case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case Some(false) => routes.QICElectionPageController.onPageLoad(NormalMode)
