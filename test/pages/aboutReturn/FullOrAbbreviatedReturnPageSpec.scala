@@ -38,7 +38,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
 
   "Cleanup" when {
     "A user has selected `Full` return" when {
-      "When they revisit the page but do not change the answer" should {
+      "They revisit the page but do not change the answer" should {
         "Not delete any data" in {
           forAll(arbitrary[UserAnswers]) {
             userAnswers =>
@@ -65,15 +65,16 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
       }
     }
 
-    "When they revisit the page and change the answer to `Abbreviated`" should {
+    "They revisit the page and change the answer to `Abbreviated`" should {
       "remove all answers from 'FullOrAbbreviatedReturnPage' onwards" in {
         forAll(arbitrary[UserAnswers]) {
           userAnswers =>
             val result = userAnswers
               .set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.values.last).success.value
-              .set(RevisingReturnPage,false).success.value
-              .set(AgentNamePage,"John Doe").success.value
               .set(ReportingCompanyAppointedPage,true).success.value
+              .set(AgentActingOnBehalfOfCompanyPage, true).success.value
+              .set(AgentNamePage,"John Doe").success.value
+              .set(RevisingReturnPage,false).success.value
               .set(GroupInterestAllowancePage,BigDecimal(3.324234234)).success.value
               .set(ConsentingCompanyPage,true).success.value
               .set(AddInvestorGroupPage,true).success.value
@@ -82,8 +83,10 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
 
 
             result.get(ReportingCompanyAppointedPage) mustBe defined
-            result.get(RevisingReturnPage) mustBe defined
             result.get(AgentNamePage) mustBe defined
+            result.get(AgentActingOnBehalfOfCompanyPage) mustBe defined
+            result.get(FullOrAbbreviatedReturnPage) mustBe defined
+            result.get(RevisingReturnPage) must not be defined
             result.get(GroupInterestAllowancePage) must not be defined
             result.get(ConsentingCompanyPage) must not be defined
             result.get(AddInvestorGroupPage) must not be defined
@@ -126,9 +129,10 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
             userAnswers =>
               val result = userAnswers
                 .set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.values.head).success.value
-                .set(RevisingReturnPage,false).success.value
-                .set(AgentNamePage,"John Doe").success.value
                 .set(ReportingCompanyAppointedPage,true).success.value
+                .set(AgentActingOnBehalfOfCompanyPage, true).success.value
+                .set(AgentNamePage,"John Doe").success.value
+                .set(RevisingReturnPage,false).success.value
                 .set(GroupInterestAllowancePage,BigDecimal(3.324234234)).success.value
                 .set(ConsentingCompanyPage,true).success.value
                 .set(AddInvestorGroupPage,true).success.value
@@ -137,8 +141,10 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
 
 
               result.get(ReportingCompanyAppointedPage) mustBe defined
-              result.get(RevisingReturnPage) mustBe defined
               result.get(AgentNamePage) mustBe defined
+              result.get(AgentActingOnBehalfOfCompanyPage) mustBe defined
+              result.get(FullOrAbbreviatedReturnPage) mustBe defined
+              result.get(RevisingReturnPage) must not be defined
               result.get(GroupInterestAllowancePage) must not be defined
               result.get(ConsentingCompanyPage) must not be defined
               result.get(AddInvestorGroupPage) must not be defined
