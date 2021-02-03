@@ -18,12 +18,13 @@ package forms.elections
 
 import javax.inject.Inject
 import forms.mappings.Mappings
+import models.IsUKPartnershipOrPreferNotToAnswer
 import play.api.data.Form
 
 class IsUkPartnershipFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Option[Boolean]] =
+  def apply(): Form[IsUKPartnershipOrPreferNotToAnswer] =
     Form(
-      "value" -> optionalBoolean("isUkPartnership.error.required")
+      "value" -> enumerable[IsUKPartnershipOrPreferNotToAnswer]("isUkPartnership.error.required")
     )
 }

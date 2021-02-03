@@ -51,7 +51,7 @@ class IsUkPartnershipController @Inject()(override val messagesApi: MessagesApi,
     answerFor(PartnershipsPage, idx) { partnership =>
       Future.successful(
         Ok(view(
-          form = form.fill(partnership.isUkPartnership),
+          form = partnership.isUkPartnership.fold(form)(form.fill),
           postAction = routes.IsUkPartnershipController.onSubmit(idx, mode),
           partnershipName = partnership.name
         ))
@@ -71,7 +71,7 @@ class IsUkPartnershipController @Inject()(override val messagesApi: MessagesApi,
             ))
           ),
         value => {
-          val updatedModel = partnership.copy(isUkPartnership = value)
+          val updatedModel = partnership.copy(isUkPartnership = Some(value))
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(PartnershipsPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)

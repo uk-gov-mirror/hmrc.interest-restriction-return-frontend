@@ -54,28 +54,6 @@ trait Formatters {
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
     }
 
-  private[mappings] def optionalBooleanFormatter(requiredKey: String, invalidKey: String): Formatter[Option[Boolean]] =
-    new Formatter[Option[Boolean]] {
-
-      private val baseFormatter = stringFormatter(requiredKey)
-
-      override def bind(key: String, data: Map[String, String]) =
-        baseFormatter
-          .bind(key, data)
-          .right.flatMap {
-          case "true" => Right(Some(true))
-          case "false" => Right(Some(false))
-          case "noAnswer" => Right(None)
-          case _ => Left(Seq(FormError(key, invalidKey)))
-        }
-
-      def unbind(key: String, value: Option[Boolean]) =
-        value match {
-          case Some(x) => Map(key -> x.toString)
-          case None => Map(key -> "noAnswer")
-        }
-    }
-
   private[mappings] def intFormatter(requiredKey: String, wholeNumberKey: String, nonNumericKey: String, args: Seq[String] = Seq.empty): Formatter[Int] =
     new Formatter[Int] {
 
@@ -126,7 +104,6 @@ trait Formatters {
       override def unbind(key: String, value: BigDecimal) =
         baseFormatter.unbind(key, value.toString)
     }
-
 
   private[mappings] def enumerableFormatter[A](requiredKey: String, invalidKey: String)(implicit ev: Enumerable[A]): Formatter[A] =
     new Formatter[A] {

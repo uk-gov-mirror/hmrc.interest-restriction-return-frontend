@@ -16,10 +16,11 @@
 
 package models.returnModels
 
+import models.IsUKPartnershipOrPreferNotToAnswer
 import play.api.libs.json.Json
 
 case class PartnershipModel(name: String,
-                            isUkPartnership: Option[Boolean] = None,
+                            isUkPartnership: Option[IsUKPartnershipOrPreferNotToAnswer] = None,
                             sautr: Option[UTRModel] = None)
 
 object PartnershipModel {

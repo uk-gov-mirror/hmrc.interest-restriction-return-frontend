@@ -17,6 +17,7 @@
 package assets.constants
 
 import models.returnModels.PartnershipModel
+import models.IsUKPartnershipOrPreferNotToAnswer
 import play.api.libs.json.Json
 
 object PartnershipsConstants extends  BaseConstants {
@@ -25,12 +26,12 @@ object PartnershipsConstants extends  BaseConstants {
 
   val partnershipModelUK = PartnershipModel(
     name = partnerName,
-    isUkPartnership = Some(true),
+    isUkPartnership = Some(IsUKPartnershipOrPreferNotToAnswer.IsUkPartnership),
     sautr = Some(sautrModel)
   )
   val partnershipModelNonUk = PartnershipModel(
     name = partnerName,
-    isUkPartnership = Some(false)
+    isUkPartnership = Some(IsUKPartnershipOrPreferNotToAnswer.IsNotUkPartnership)
   )
 
   val partnershipJsonUk = Json.obj(

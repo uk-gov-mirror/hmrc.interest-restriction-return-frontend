@@ -94,7 +94,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
     IsUkPartnershipPage -> ((idx, userAnswers) => userAnswers.get(PartnershipsPage, Some(idx)) match {
       case Some(partnership) =>
         partnership.isUkPartnership match {
-          case Some(isUk) if isUk => routes.PartnershipSAUTRController.onPageLoad(idx, NormalMode)
+          case Some(isUk) if isUk == IsUKPartnershipOrPreferNotToAnswer.IsUkPartnership => routes.PartnershipSAUTRController.onPageLoad(idx, NormalMode)
           case _ => routes.PartnershipsReviewAnswersListController.onPageLoad()
         }
       case Some(_) => routes.PartnershipsReviewAnswersListController.onPageLoad()
