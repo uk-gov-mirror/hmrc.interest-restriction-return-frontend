@@ -53,9 +53,7 @@ final case class UserAnswers(
     page.cleanup(Some(value),this).flatMap {
       cleanedUserAnswers => {
         cleanedUserAnswers.setData(page.path, getList(page).+:(value)).flatMap {
-          d => {
-            Try(copy(data = d, lastPageSaved = Some(page)))
-          }
+          d => Try(copy(data = d, lastPageSaved = Some(page)))
         }
       }
     }
