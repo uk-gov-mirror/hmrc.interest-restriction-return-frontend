@@ -24,7 +24,6 @@ import pages.ultimateParentCompany._
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.aboutReturn._
 import pages.ukCompanies._
-import pages.Page.pages
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
 
 import scala.language.implicitConversions
@@ -144,6 +143,8 @@ object Page {
     Section.ReviewAndComplete -> reviewAndCompleteSectionPages,
     Section.UltimateParentCompany -> ultimateParentCompanySectionPages
   )
+
+
   
   val pages: Map[String, Page] = sections.flatMap{
     section => section._2.map(page => page.toString -> page)
