@@ -78,10 +78,10 @@ trait Formatters {
         baseFormatter.unbind(key, value.toString)
     }
 
-  private[mappings] def numericFormatter(requiredKey: String, invalidNumericKey: String, nonNumericKey: String, args: Seq[String] = Seq.empty): Formatter[BigDecimal] =
+  private[mappings] def numericFormatter(requiredKey: String, invalidNumericKey: String, nonNumericKey: String, decimalCount: Int,
+                                         args: Seq[String] = Seq.empty) : Formatter[BigDecimal] =
     new Formatter[BigDecimal] {
-
-      val is2dp = """(^-?\d*$)|(^-?\d*\.\d{1,2}$)"""
+      val isdp = """(^-?\d*$)|(^-?\d*\.\d{1,""" + decimalCount + """}$)"""
       val validNumeric = """(^-?\d*$)|(^-?\d*\.\d*$)"""
 
       private val baseFormatter = stringFormatter(requiredKey)
@@ -93,7 +93,7 @@ trait Formatters {
           .right.flatMap {
           case s if !s.matches(validNumeric) =>
             Left(Seq(FormError(key, nonNumericKey, args)))
-          case s if !s.matches(is2dp) =>
+          case s if !s.matches(isdp) =>
             Left(Seq(FormError(key, invalidNumericKey, args)))
           case s =>
             nonFatalCatch
@@ -104,7 +104,6 @@ trait Formatters {
       override def unbind(key: String, value: BigDecimal) =
         baseFormatter.unbind(key, value.toString)
     }
-
 
   private[mappings] def enumerableFormatter[A](requiredKey: String, invalidKey: String)(implicit ev: Enumerable[A]): Formatter[A] =
     new Formatter[A] {
