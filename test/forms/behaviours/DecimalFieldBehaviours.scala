@@ -34,6 +34,16 @@ trait DecimalFieldBehaviours extends FieldBehaviours {
       }
     }
 
+    "not bind invalid decimals (over 2dp)" in {
+      val result = form.bind(Map(fieldName -> "12.123")).apply(fieldName)
+      result.errors mustEqual Seq(invalidNumericError)
+    }
+  }
+
+  def fivePlaceDecimalField(form: Form[BigDecimal],
+                   fieldName: String,
+                   invalidNumericError: FormError): Unit = {
+
     "not bind invalid decimals (over 5dp)" in {
       val result = form.bind(Map(fieldName -> "12.123123")).apply(fieldName)
       result.errors mustEqual Seq(invalidNumericError)
