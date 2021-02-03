@@ -40,6 +40,7 @@ class GroupRatioPercentageFormProviderSpec extends DecimalFieldBehaviours {
     behave like fivePlaceDecimalField(
       form,
       fieldName,
+      nonNumericError  = FormError(fieldName, "groupRatioPercentage.error.nonNumeric"),
       invalidNumericError = FormError(fieldName, "groupRatioPercentage.error.invalidNumeric")
     )
 
