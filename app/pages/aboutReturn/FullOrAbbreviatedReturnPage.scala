@@ -16,9 +16,8 @@
 
 package pages.aboutReturn
 
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.{FullOrAbbreviatedReturn, UserAnswers}
-import pages.Page.allPagesWithoutAboutSection
+import pages.Page.{allQuestionPages}
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
@@ -31,21 +30,19 @@ case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedRe
   override def toString: String = "fullOrAbbreviatedReturn"
 
   override def cleanup(value: Option[FullOrAbbreviatedReturn], userAnswers: UserAnswers): Try[UserAnswers] = {
-    val answerTest = userAnswers.get(FullOrAbbreviatedReturnPage)
+    val currentAnswer = userAnswers.get(FullOrAbbreviatedReturnPage)
 
-    value match {
-      case Some(Full) => {
-        answerTest match {
-          case Some(Abbreviated) =>userAnswers.remove(allPagesWithoutAboutSection)
-          case _ => super.cleanup(value, userAnswers)
-        }
-      }
-      case _ => {
-        answerTest match {
-          case Some(Full) => userAnswers.remove(allPagesWithoutAboutSection)
-          case _ => super.cleanup(value, userAnswers)
-        }
-      }
+    if (currentAnswer == value) {
+      super.cleanup(value, userAnswers)
+    } else {
+      userAnswers.remove(allPagesFromFullOrAbbreviated)
     }
+  }
+
+  private def allPagesFromFullOrAbbreviated: Seq[QuestionPage[_]] = {
+    allQuestionPages.filterNot(p => p == ReportingCompanyAppointedPage ||
+      p == AgentActingOnBehalfOfCompanyPage ||
+      p == AgentNamePage ||
+      p == FullOrAbbreviatedReturnPage)
   }
 }

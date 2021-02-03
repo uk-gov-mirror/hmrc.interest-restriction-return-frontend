@@ -153,7 +153,6 @@ object Page {
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
   )
 
-  val allPagesWithoutAboutSection = toQuestionPages(pages.--(aboutReturnSectionPages.map(p => p.toString)))
   val allQuestionPages = toQuestionPages(pages)
 
   def apply(page: String): Page = pages(page)
