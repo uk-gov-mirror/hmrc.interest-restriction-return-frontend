@@ -23,10 +23,10 @@ import forms.elections.IsUkPartnershipFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.YesNoPreferNotToAnswerViewBehaviours
 import views.html.elections.IsUkPartnershipView
 
-class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
+class IsUkPartnershipViewSpec extends YesNoPreferNotToAnswerViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "isUkPartnership"
   val section = Some(messages("section.elections"))
@@ -49,7 +49,7 @@ class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(
+      behave like yesNoPreferNotToAnswerPage(
         form = form,
         createView = applyView,
         messageKeyPrefix = messageKeyPrefix,

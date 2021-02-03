@@ -19,15 +19,15 @@ package views.behaviours
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 
-trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
+trait YesNoPreferNotToAnswerViewBehaviours extends QuestionViewBehaviours[Option[Boolean]] {
 
-  def yesNoPage(form: Form[Boolean],
-                createView: Form[Boolean] => HtmlFormat.Appendable,
+  def yesNoPreferNotToAnswerPage(form: Form[Option[Boolean]],
+                createView: Form[Option[Boolean]] => HtmlFormat.Appendable,
                 messageKeyPrefix: String,
                 expectedFormAction: String,
                 headingArgs: Seq[String] = Seq(),
                 section: Option[String] = None): Unit = {
-    "behave like a page with a Yes/No question" when {
+    "behave like a page with a Yes/No/Prefer not to answer question" when {
       "rendered" must {
         "contain a legend for the question" in {
           val doc = asDocument(createView(form))
@@ -55,11 +55,11 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
       }
 
       "rendered with a value of true" must {
-        behave like answeredYesNoPage(createView, true)
+        behave like answeredYesNoPage(createView, Some(true))
       }
 
       "rendered with a value of false" must {
-        behave like answeredYesNoPage(createView, false)
+        behave like answeredYesNoPage(createView, Some(false))
       }
 
       "rendered with an error" must {
@@ -84,13 +84,13 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
     }
   }
 
-  def answeredYesNoPage(createView: Form[Boolean] => HtmlFormat.Appendable, answer: Boolean): Unit = {
+  def answeredYesNoPage(createView: Form[Option[Boolean]] => HtmlFormat.Appendable, answer: Option[Boolean]): Unit = {
 
     "have only the correct value checked" in {
 
       val doc = asDocument(createView(form.fill(answer)))
-      assert(doc.select("input[value='true']").hasAttr("checked") == answer)
-      assert(doc.select("input[value='false']").hasAttr("checked") != answer)
+      assert(doc.select("input[value='true']").hasAttr("checked") == answer.get)
+      assert(doc.select("input[value='false']").hasAttr("checked") != answer.get)
     }
 
     "not render an error summary" in {
