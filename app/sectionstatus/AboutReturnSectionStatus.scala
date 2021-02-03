@@ -23,7 +23,7 @@ import pages.groupLevelInformation.RevisingReturnPage
 
 object AboutReturnSectionStatus {
   
-  def aboutReturnSectionStatus(userAnswers: UserAnswers): SectionStatus = {
+  def getStatus(userAnswers: UserAnswers): SectionStatus = {
 
     val requiredPages = List(
       userAnswers.get(ReportingCompanyAppointedPage),

@@ -34,13 +34,13 @@ class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
     "return NotStarted" when {
       "no data from the section has been entered" in {
         val userAnswers = emptyUserAnswers
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual NotStarted
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual NotStarted
       }
     }
     "return InProgress" when {
       "has some data been entered" in {
         val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, true).get
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual InProgress
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual InProgress
       }
 
       "agent bool is set to true and the agent name isn't populated (and all other data is)" in {
@@ -56,7 +56,7 @@ class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
           .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
           .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
 
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual InProgress
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual InProgress
       }
 
       "Revising return is set to true and what has changed is not set" in {
@@ -72,7 +72,7 @@ class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
           .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
           .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
 
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual InProgress
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual InProgress
       }
     }
     
@@ -91,7 +91,7 @@ class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
           .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
           .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
 
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual Completed
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual Completed
       }
 
       "agent bool is set to false but the agent name isn't populated (and all other data is)" in {
@@ -107,7 +107,7 @@ class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
           .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
           .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
 
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual Completed
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual Completed
       }
 
       "Revising return is set to false and what has changed is not set" in {
@@ -123,7 +123,7 @@ class AboutReturnSectionStatusSpec extends SpecBase with BaseConstants {
           .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
           .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
 
-        AboutReturnSectionStatus.aboutReturnSectionStatus(userAnswers) mustEqual Completed
+        AboutReturnSectionStatus.getStatus(userAnswers) mustEqual Completed
       }
       
     }
