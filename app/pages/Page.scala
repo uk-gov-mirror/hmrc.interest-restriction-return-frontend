@@ -144,7 +144,6 @@ object Page {
     Section.UltimateParentCompany -> ultimateParentCompanySectionPages
   )
 
-
   
   val pages: Map[String, Page] = sections.flatMap{
     section => section._2.map(page => page.toString -> page)
