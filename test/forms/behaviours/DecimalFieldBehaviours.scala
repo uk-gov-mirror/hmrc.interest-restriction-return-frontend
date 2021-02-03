@@ -40,6 +40,26 @@ trait DecimalFieldBehaviours extends FieldBehaviours {
     }
   }
 
+  def fivePlaceDecimalField(form: Form[BigDecimal],
+                   fieldName: String,
+                   nonNumericError: FormError,
+                   invalidNumericError: FormError): Unit = {
+
+    "not bind non-numeric numbers" in {
+
+      forAll(nonNumerics -> "nonNumeric") {
+        nonNumeric =>
+          val result = form.bind(Map(fieldName -> nonNumeric)).apply(fieldName)
+          result.errors mustEqual Seq(nonNumericError)
+      }
+    }
+
+    "not bind invalid decimals (over 5dp)" in {
+      val result = form.bind(Map(fieldName -> "12.123123")).apply(fieldName)
+      result.errors mustEqual Seq(invalidNumericError)
+    }
+  }
+
   def decimalFieldWithMinimum(form: Form[BigDecimal],
                               fieldName: String,
                               minimum: BigDecimal,

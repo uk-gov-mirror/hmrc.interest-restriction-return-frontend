@@ -26,7 +26,6 @@ class GroupRatioPercentageFormProviderSpec extends DecimalFieldBehaviours {
   ".value" must {
 
     val fieldName = "value"
-
     val minimum = 0
     val maximum = 100
 
@@ -38,7 +37,7 @@ class GroupRatioPercentageFormProviderSpec extends DecimalFieldBehaviours {
       validDataGenerator
     )
 
-    behave like decimalField(
+    behave like fivePlaceDecimalField(
       form,
       fieldName,
       nonNumericError  = FormError(fieldName, "groupRatioPercentage.error.nonNumeric"),

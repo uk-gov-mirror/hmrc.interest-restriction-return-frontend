@@ -22,12 +22,14 @@ import play.api.data.Form
 
 class GroupRatioPercentageFormProvider @Inject() extends Mappings {
 
+  val decimalCount: Int  = 5;
+
   def apply(): Form[BigDecimal] =
     Form(
       "value" -> numeric(
         "groupRatioPercentage.error.required",
         "groupRatioPercentage.error.invalidNumeric",
-        "groupRatioPercentage.error.nonNumeric")
+        "groupRatioPercentage.error.nonNumeric", decimalCount = decimalCount)
         .verifying(inRange[BigDecimal](0, 100, "groupRatioPercentage.error.outOfRange"))
     )
 }
