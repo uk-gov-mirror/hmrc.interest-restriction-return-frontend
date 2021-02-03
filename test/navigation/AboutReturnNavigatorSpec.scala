@@ -22,7 +22,7 @@ import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import models._
 import pages.Page
 import pages.aboutReturn._
-import pages.groupLevelInformation.RevisingReturnPage
+import pages.groupLevelInformation.{DisallowedAmountPage, GroupSubjectToRestrictionsPage, RevisingReturnPage}
 
 class AboutReturnNavigatorSpec extends SpecBase {
 
@@ -161,6 +161,27 @@ class AboutReturnNavigatorSpec extends SpecBase {
             aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
       }
+
+      "from the Full or Abbreviated Return page" should {
+        "go to the Check Your Answers page when there is no changes in the answer" in {
+          val userAnswers = for {
+            fullOrReturnPage <- emptyUserAnswers.set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.Full)
+            revisingReturnPage <- fullOrReturnPage.set(RevisingReturnPage, true)
+          } yield revisingReturnPage
+
+          navigator.nextPage(FullOrAbbreviatedReturnPage, CheckMode, userAnswers.get) mustBe
+            aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
+        }
+
+        "go down the normal route if there has been changes in the answer" in {
+          val userAnswers = emptyUserAnswers.set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.Full)
+            .map(fullOrReturnPage => fullOrReturnPage)
+
+          navigator.nextPage(FullOrAbbreviatedReturnPage, CheckMode, userAnswers.get) mustBe
+            aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
+        }
+      }
+
 
       "from the Reporting Company UTR page" should {
 
