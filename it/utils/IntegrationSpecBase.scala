@@ -45,6 +45,7 @@ trait IntegrationSpecBase extends WordSpec
 
   def setAnswers(userAnswers: UserAnswers)(implicit timeout: Duration): Unit = Await.result(mongo.set(userAnswers), timeout)
   def getAnswers(id: String)(implicit timeout: Duration): Option[UserAnswers] = Await.result(mongo.get(id), timeout)
+  def getAnswersFuture(id: String) = mongo.get(id)
 
   def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Unit =
     setAnswers(emptyUserAnswers.set(page, value).success.value)
