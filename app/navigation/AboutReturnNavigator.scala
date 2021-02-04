@@ -20,6 +20,7 @@ import javax.inject.{Inject, Singleton}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import controllers.routes
+import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
 import pages.aboutReturn._
@@ -57,6 +58,7 @@ class AboutReturnNavigator @Inject()() extends Navigator {
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
     ReportingCompanyAppointedPage -> normalRoutes(ReportingCompanyAppointedPage),
+    FullOrAbbreviatedReturnPage -> (fullOrAbbreviatedReturnCheckRoute(_)),
     AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
       case Some(true) => aboutReturnRoutes.AgentNameController.onPageLoad(CheckMode)
       case Some(false) => checkAnswers
@@ -68,6 +70,14 @@ class AboutReturnNavigator @Inject()() extends Navigator {
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     })
   ).withDefaultValue(_ => checkAnswers)
+
+  def fullOrAbbreviatedReturnCheckRoute(userAnswers: UserAnswers): Call = {
+    if (userAnswers.get(RevisingReturnPage).isDefined) {
+      checkAnswers
+    } else {
+      aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
+    }
+  }
 
   private def checkAnswers = aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
   private def nextSection(mode: Mode): Call = ultimateParentCompanyRoutes.ReportingCompanySameAsParentController.onPageLoad(mode)
