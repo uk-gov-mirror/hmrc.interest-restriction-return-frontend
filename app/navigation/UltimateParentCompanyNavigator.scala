@@ -58,7 +58,12 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
     DeletionConfirmationPage -> ((_, _) => routes.DeemedParentReviewAnswersListController.onPageLoad())
   )
 
-  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int,UserAnswers) => Call](
+    ReportingCompanySameAsParentPage -> ((idx,userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
+      case Some(true) =>nextSection(NormalMode)
+      case _ => checkYourAnswers(idx)
+    })
+  ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 
