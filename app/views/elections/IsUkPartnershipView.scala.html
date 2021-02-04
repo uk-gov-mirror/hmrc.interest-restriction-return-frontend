@@ -22,7 +22,7 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
+    inputRadio: components.inputRadio,
     button: components.button,
     subheading: components.subheading,
     link: components.link,
@@ -39,7 +39,11 @@
 
         @subheading(partnershipName)
 
-        @yesNoRadio(form, "isUkPartnership.heading", None)
+        @inputRadio(
+            form = form,
+            legend = messages("isUkPartnership.heading"),
+            items = IsUKPartnershipOrPreferNotToAnswer.options(form)
+        )
 
         @button("site.saveAndContinue")
 

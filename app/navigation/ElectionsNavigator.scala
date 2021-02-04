@@ -92,7 +92,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestorRatioMethodPage -> ((idx, _) => routes.OtherInvestorGroupElectionsController.onPageLoad(idx, NormalMode)),
     PartnershipNamePage -> ((idx, _) => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)),
     IsUkPartnershipPage -> ((idx, userAnswers) => userAnswers.get(PartnershipsPage, Some(idx)) match {
-      case Some(partnership) if partnership.isUkPartnership.get => routes.PartnershipSAUTRController.onPageLoad(idx, NormalMode)
+      case Some(partnership) =>
+        partnership.isUkPartnership match {
+          case Some(isUk) if isUk == IsUKPartnershipOrPreferNotToAnswer.IsUkPartnership => routes.PartnershipSAUTRController.onPageLoad(idx, NormalMode)
+          case _ => routes.PartnershipsReviewAnswersListController.onPageLoad()
+        }
       case Some(_) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case _ => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)
     }),

@@ -375,7 +375,7 @@ class ElectionsNavigatorSpec extends SpecBase {
               page = PartnershipsPage,
               value = partnershipModelUK.copy(
                 name = partnerName,
-                isUkPartnership = Some(true),
+                isUkPartnership = Some(IsUKPartnershipOrPreferNotToAnswer.IsUkPartnership),
                 sautr = None
               ),
               idx = Some(1)).success.value
@@ -393,7 +393,7 @@ class ElectionsNavigatorSpec extends SpecBase {
               page = PartnershipsPage,
               value = partnershipModelUK.copy(
                 name = partnerName,
-                isUkPartnership = Some(false),
+                isUkPartnership = Some(IsUKPartnershipOrPreferNotToAnswer.IsNotUkPartnership),
                 sautr = None
               ),
               idx = Some(1)).success.value

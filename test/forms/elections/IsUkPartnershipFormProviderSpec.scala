@@ -16,13 +16,14 @@
 
 package forms.elections
 
-import forms.behaviours.BooleanFieldBehaviours
+import forms.behaviours.OptionFieldBehaviours
+import models.IsUKPartnershipOrPreferNotToAnswer
 import play.api.data.FormError
 
-class IsUkPartnershipFormProviderSpec extends BooleanFieldBehaviours {
+class IsUkPartnershipFormProviderSpec extends OptionFieldBehaviours {
 
   val requiredKey = "isUkPartnership.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.invalid"
 
   val form = new IsUkPartnershipFormProvider()()
 
@@ -30,9 +31,10 @@ class IsUkPartnershipFormProviderSpec extends BooleanFieldBehaviours {
 
     val fieldName = "value"
 
-    behave like booleanField(
+    behave like optionsField[IsUKPartnershipOrPreferNotToAnswer](
       form,
       fieldName,
+      validValues  = IsUKPartnershipOrPreferNotToAnswer.values,
       invalidError = FormError(fieldName, invalidKey)
     )
 

@@ -561,6 +561,9 @@ partnershipName.error.length = Name of the partnership must be 160 characters or
 # ----------------------------------------------------------
 isUkPartnership.title = Is this a UK Partnership?
 isUkPartnership.heading = Is this a UK Partnership?
+isUkPartnership.true = Yes
+isUkPartnership.false = No
+isUkPartnership.noAnswer = I don''t want to provide this information
 isUkPartnership.checkYourAnswersLabel = Is {0} a UK Partnership?
 isUkPartnership.error.required = Select yes if Is this a UK Partnership?
 
