@@ -36,12 +36,12 @@ object PartnershipsConstants extends  BaseConstants {
 
   val partnershipJsonUk = Json.obj(
     "name" -> partnerName,
-    "isUkPartnership" -> true,
+    "isUkPartnership" -> "true",
     "sautr" -> sautrModel
   )
 
   val partnershipJsonNonUk = Json.obj(
     "name" -> partnerName,
-    "isUkPartnership" -> false
+    "isUkPartnership" -> "false"
   )
 }
