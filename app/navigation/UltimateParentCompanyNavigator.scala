@@ -61,6 +61,11 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int,UserAnswers) => Call](
     ReportingCompanySameAsParentPage -> ((idx,userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
       case Some(true) =>nextSection(NormalMode)
+      case Some(false) => {
+        val hasDeemedParentPage = userAnswers.get(HasDeemedParentPage)
+
+        if (hasDeemedParentPage.isDefined) checkYourAnswers(idx) else routes.HasDeemedParentController.onPageLoad(NormalMode)
+      }
       case _ => checkYourAnswers(idx)
     })
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))

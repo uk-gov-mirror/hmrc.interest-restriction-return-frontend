@@ -19,6 +19,7 @@ package controllers.ultimateParentCompany
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
 import pages.aboutReturn.ReportingCompanyNamePage
+import pages.ultimateParentCompany.HasDeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -227,9 +228,11 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page when the answer is `false`" in {
+          "redirect to CheckYourAnswers page when the answer is `false` and we have deemed parent data" in {
 
             AuthStub.authorised()
+            setAnswers(HasDeemedParentPage, true)
+
 
             val res = postRequest("/ultimate-parent-company/reporting-company-same-as-parent/change", Json.obj("value" -> "false"))()
 
@@ -237,6 +240,20 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
               result should have(
                 httpStatus(SEE_OTHER),
                 redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to Has Deemed Parent page when the answer is `false` and don't have any deemed parent data" in {
+            AuthStub.authorised()
+
+
+            val res = postRequest("/ultimate-parent-company/reporting-company-same-as-parent/change", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.HasDeemedParentController.onPageLoad(NormalMode).url)
               )
             }
           }
