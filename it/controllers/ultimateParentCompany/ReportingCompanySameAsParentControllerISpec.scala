@@ -227,7 +227,21 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to CheckYourAnswers page when the answer is `false`" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/ultimate-parent-company/reporting-company-same-as-parent/change", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to Group Ratio Election page when the answer is `true`" in {
 
             AuthStub.authorised()
 
@@ -236,7 +250,7 @@ class ReportingCompanySameAsParentControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+                redirectLocation(controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode).url)
               )
             }
           }
