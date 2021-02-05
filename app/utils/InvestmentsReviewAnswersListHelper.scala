@@ -28,6 +28,7 @@ class InvestmentsReviewAnswersListHelper(val userAnswers: UserAnswers)
     case (name, idx) => summaryListRow(
       name,
       "",
+      visuallyHiddenText = None,
       controllers.elections.routes.InvestmentNameController.onPageLoad(idx + 1, CheckMode) -> messages("site.edit"),
       controllers.elections.routes.InvestmentsDeletionConfirmationController.onPageLoad(idx + 1) -> messages("site.delete")
     )

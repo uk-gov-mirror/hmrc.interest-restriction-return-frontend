@@ -42,18 +42,21 @@ class DeemedParentReviewAnswersListHelperSpec extends SpecBase with SummaryListR
           summaryListRow(
             deemedParentModelUkCompany.companyName.name,
             deemedParentModelUkCompany.utr.get.utr,
+            visuallyHiddenText = None,
             controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1) -> BaseMessages.review,
             controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             deemedParentModelUkPartnership.companyName.name,
             deemedParentModelUkPartnership.utr.get.utr,
+            visuallyHiddenText = None,
             controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(2) -> BaseMessages.review,
             controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             deemedParentModelNonUkCompany.companyName.name,
             "",
+            visuallyHiddenText = None,
             controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(3) -> BaseMessages.review,
             controllers.ultimateParentCompany.routes.DeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )

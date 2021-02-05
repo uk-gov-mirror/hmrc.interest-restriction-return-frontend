@@ -59,6 +59,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
       Some(summaryListRow(
         Messages("investorGroupsAdded.checkYourAnswers.label"),
         Messages(s"investorGroupsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfInvestorGroupsAdded),
+        visuallyHiddenText = None,
         electionsRoutes.InvestorGroupsReviewAnswersListController.onPageLoad() -> Messages("investorGroupsAdded.checkYourAnswers.review")
       ))
     }
@@ -73,6 +74,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
       Some(summaryListRow(
         Messages("consolidatedPartnershipsAdded.checkYourAnswers.label"),
         Messages(s"consolidatedPartnershipsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfPartnershipsAdded),
+        visuallyHiddenText = None,
         electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> Messages("consolidatedPartnershipsAdded.checkYourAnswers.review")
       ))
     }
@@ -85,6 +87,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
       Some(summaryListRow(
         Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.label"),
         Messages(s"nonConsolidatedInvestmentsAdded.checkYourAnswers.value.$valueMsgSuffix", numberOfInvestmentsAdded),
+        visuallyHiddenText = None,
         electionsRoutes.InvestmentsReviewAnswersListController.onPageLoad() -> Messages("nonConsolidatedInvestmentsAdded.checkYourAnswers.review")
       ))
     }

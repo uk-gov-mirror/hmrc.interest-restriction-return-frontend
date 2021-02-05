@@ -42,6 +42,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
         helper.companyName(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.companyName,
           companyNameModel.name,
+          visuallyHiddenText = None,
           ukCompaniesRoutes.CompanyDetailsController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -54,6 +55,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
         helper.ctutr(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.companyCTUTR,
           ctutrModel.utr,
+          visuallyHiddenText = None,
           ukCompaniesRoutes.CompanyDetailsController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -66,6 +68,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
         helper.consentingCompany(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.consenting,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           ukCompaniesRoutes.ConsentingCompanyController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -78,6 +81,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
         helper.enterCompanyTaxEBITDA(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.taxEBITDA,
           currencyFormat(taxEBITDA),
+          visuallyHiddenText = None,
           ukCompaniesRoutes.EnterCompanyTaxEBITDAController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -90,6 +94,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
         helper.netTaxInterestAmount(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.netTaxInterest,
           currencyFormat(netTaxInterestIncome) + " Expense",
+          visuallyHiddenText = None,
           ukCompaniesRoutes.NetTaxInterestAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -102,6 +107,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
         helper.companyReactivationAmount(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.reactivationAmount,
           currencyFormat(reactivation),
+          visuallyHiddenText = None,
           ukCompaniesRoutes.ReactivationAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }

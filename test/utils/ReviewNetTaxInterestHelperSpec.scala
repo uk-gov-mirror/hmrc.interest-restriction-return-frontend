@@ -44,16 +44,19 @@ class ReviewNetTaxInterestHelperSpec extends SpecBase with SummaryListRowHelper 
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(1, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelReactivationMaxExpense.companyDetails.companyName,
             s"${currencyFormat(netTaxInterestExpense)} $NetTaxInterestExpense",
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(2, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMin.companyDetails.companyName,
             s"${currencyFormat(netTaxInterestIncome)} $NetTaxInterestIncome",
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.NetTaxInterestAmountController.onPageLoad(3, ReviewMode) -> BaseMessages.changeLink
           )
         )

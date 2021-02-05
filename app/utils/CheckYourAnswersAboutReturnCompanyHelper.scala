@@ -50,6 +50,7 @@ class CheckYourAnswersAboutReturnCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("accountingPeriod.start.checkYourAnswersLabel", Seq()),
         value = accountingPage.startDate,
+        visuallyHiddenText = None,
         (aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode), messages("site.edit"))
       )
     }
@@ -60,6 +61,7 @@ class CheckYourAnswersAboutReturnCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("accountingPeriod.end.checkYourAnswersLabel", Seq()),
         value = accountingPage.endDate,
+        visuallyHiddenText = None,
         (aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode), messages("site.edit"))
       )
     }
