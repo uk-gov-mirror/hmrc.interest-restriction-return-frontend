@@ -51,6 +51,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.groupSubjectToRestrictions mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.groupSubjectToRestrictions,
           BaseMessages.yes,
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.GroupSubjectToRestrictionsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -63,6 +64,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.groupSubjectToReactivations mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.groupSubjectToReactivations,
           BaseMessages.no,
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -75,6 +77,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.interestReactivationsCap mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.interestReactivationsCap,
           currencyFormat(interestReactivationCap),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -87,6 +90,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.interestAllowanceBroughtForward mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.interestAllowanceBroughtForward,
           currencyFormat(interestAllowanceBroughtForward),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -99,6 +103,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.groupInterestAllowance mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.groupInterestAllowance,
           currencyFormat(groupInterestAllowance),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.GroupInterestAllowanceController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -111,6 +116,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.groupInterestCapacity mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.groupInterestCapacity,
           currencyFormat(groupInterestCapacity),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.GroupInterestCapacityController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -123,6 +129,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.angie mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.angie,
           currencyFormat(angie),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.EnterANGIEController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -135,6 +142,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.qngie mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.qngie,
           currencyFormat(qngie),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -147,6 +155,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.groupEBITDA mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.groupEBITDA,
           currencyFormat(ebitda),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -159,6 +168,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.disallowedAmount mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.disallowedAmount,
           currencyFormat(disallowedAmount),
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -171,6 +181,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.groupRatioPercentage mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.groupRatioPercentage,
           groupRatioPercentage.toString,
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
@@ -183,6 +194,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
         helper.returnContainEstimates mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.returnContainEstimates,
           BaseMessages.no,
+          visuallyHiddenText = None,
           groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }

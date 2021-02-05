@@ -44,18 +44,21 @@ class InvestorGroupsReviewAnswersListHelperSpec extends SpecBase with SummaryLis
           summaryListRowWideKey(
             investorGroupsGroupRatioModel.investorName,
             "",
+            visuallyHiddenText = None,
             routes.InvestorGroupNameController.onPageLoad(1, NormalMode) -> BaseMessages.changeLink,
             routes.InvestorGroupsDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRowWideKey(
             investorGroupsFixedRatioModel.investorName,
             "",
+            visuallyHiddenText = None,
             routes.InvestorGroupNameController.onPageLoad(2, NormalMode) -> BaseMessages.changeLink,
             routes.InvestorGroupsDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRowWideKey(
             investorGroupsFixedRatioModel.investorName,
             "",
+            visuallyHiddenText = None,
             routes.InvestorGroupNameController.onPageLoad(3, NormalMode) -> BaseMessages.changeLink,
             routes.InvestorGroupsDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )

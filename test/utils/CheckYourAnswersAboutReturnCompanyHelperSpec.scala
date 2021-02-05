@@ -50,51 +50,61 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
   val expectedReportingCompanyAppointed = summaryListRow(
     messages("reportingCompanyAppointed.checkYourAnswersLabel"),
     "Yes",
+    visuallyHiddenText = None,
     aboutReturnRoutes.ReportingCompanyAppointedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedAgentActingOnBehalfOfCompany = summaryListRow(
     messages("agentActingOnBehalfOfCompany.checkYourAnswersLabel"),
     "Yes",
+    visuallyHiddenText = None,
     aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedAgentName = summaryListRow(
     messages("agentName.checkYourAnswersLabel"),
     agentName,
+    visuallyHiddenText = None,
     aboutReturnRoutes.AgentNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedFullOrAbbreviatedReturn = summaryListRow(
     messages("fullOrAbbreviatedReturn.checkYourAnswersLabel"),
     messages("fullOrAbbreviatedReturn.full"),
+    visuallyHiddenText = None,
     aboutReturnRoutes.FullOrAbbreviatedReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedRevisingReturn = summaryListRow(
     CheckAnswersAboutReturnMessages.revisingReturn,
     BaseMessages.yes,
+    visuallyHiddenText = None,
     aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedWhatHasChanged = summaryListRow(
     messages("tellUsWhatHasChanged.checkYourAnswersLabel"),
     "Something has changed",
+    visuallyHiddenText = None,
     aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedReportingCompanyName = summaryListRow(
     messages("reportingCompanyName.checkYourAnswersLabel"),
     companyNameModel.name,
+    visuallyHiddenText = None,
     aboutReturnRoutes.ReportingCompanyNameController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedReportingCompanyCTUTR = summaryListRow(
     messages("reportingCompanyCTUTR.checkYourAnswersLabel"),
     ctutrModel.utr,
+    visuallyHiddenText = None,
     aboutReturnRoutes.ReportingCompanyCTUTRController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedAccountingPeriodStart = summaryListRow(
     messages("accountingPeriod.start.checkYourAnswersLabel"),
     "1 January 2020",
+    visuallyHiddenText = None,
     aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
   val expectedAccountingPeriodEnd = summaryListRow(
     messages("accountingPeriod.end.checkYourAnswersLabel"),
     "1 February 2020",
+    visuallyHiddenText = None,
     aboutReturnRoutes.AccountingPeriodController.onPageLoad(CheckMode) -> BaseMessages.changeLink
   )
 
@@ -197,6 +207,7 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
         summaryListRow(
           CheckAnswersAboutReturnMessages.revisingReturn,
           BaseMessages.no,
+          visuallyHiddenText = None,
           aboutReturnRoutes.RevisingReturnController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ),
         expectedReportingCompanyName,

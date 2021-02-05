@@ -44,18 +44,21 @@ class InvestmentsReviewAnswersListHelperSpec extends SpecBase with SummaryListRo
           summaryListRow(
             investmentName,
             "",
+            visuallyHiddenText = None,
             routes.InvestmentNameController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink,
             routes.InvestmentsDeletionConfirmationController.onPageLoad(1) -> BaseMessages.delete
           ),
           summaryListRow(
             investmentName,
             "",
+            visuallyHiddenText = None,
             routes.InvestmentNameController.onPageLoad(2, CheckMode) -> BaseMessages.changeLink,
             routes.InvestmentsDeletionConfirmationController.onPageLoad(2) -> BaseMessages.delete
           ),
           summaryListRow(
             investmentName,
             "",
+            visuallyHiddenText = None,
             routes.InvestmentNameController.onPageLoad(3, CheckMode) -> BaseMessages.changeLink,
             routes.InvestmentsDeletionConfirmationController.onPageLoad(3) -> BaseMessages.delete
           )

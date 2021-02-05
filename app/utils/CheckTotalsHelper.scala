@@ -26,25 +26,46 @@ class CheckTotalsHelper extends SummaryListRowHelper with CurrencyFormatter {
 
   def constructTotalsTable(ukCompanies: Seq[UkCompanyModel])(implicit messages: Messages): Seq[SummaryListRow] = {
     val derivedData = calculateSums(ukCompanies)
-    val numberOfUkCompanies = Some(summaryListRow(messages("derivedCompany.t1"),
-      derivedData.ukCompaniesLength.toString,(controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),messages("site.review"))))
-    val aggregateTaxEBITDA = Some(summaryListRow(messages("derivedCompany.t2"),
-      currencyFormat(derivedData.aggregateEbitda),(controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad(),messages("site.review"))))
+
+    val numberOfUkCompanies = Some(summaryListRow(
+      messages("derivedCompany.t1"),
+      derivedData.ukCompaniesLength.toString,
+      visuallyHiddenText = None,
+      (controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),messages("site.review"))))
+
+    val aggregateTaxEBITDA = Some(summaryListRow(
+      messages("derivedCompany.t2"),
+      currencyFormat(derivedData.aggregateEbitda),
+      visuallyHiddenText = None,
+      (controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad(),messages("site.review"))))
+
     val aggregateNetTaxInterest = if(derivedData.aggregateInterest>=0){
-      Some(summaryListRow(messages("derivedCompany.t3-income"),currencyFormat(derivedData.aggregateInterest),
+      Some(summaryListRow(
+        messages("derivedCompany.t3-income"),
+        currencyFormat(derivedData.aggregateInterest),
+        visuallyHiddenText = None,
         (controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
     } else {
-      Some(summaryListRow(messages("derivedCompany.t3-expense"),currencyFormat(derivedData.aggregateInterest.abs),
+      Some(summaryListRow(
+        messages("derivedCompany.t3-expense"),
+        currencyFormat(derivedData.aggregateInterest.abs),
+        visuallyHiddenText = None,
         (controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad(),messages("site.review"))))
     }
     val aggregateAllocatedRestrictions = derivedData.restrictions match {
-      case Some(r) => Some(summaryListRow(messages("derivedCompany.t4"),
-        currencyFormat(r),(controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
+      case Some(r) => Some(summaryListRow(
+        messages("derivedCompany.t4"),
+        currencyFormat(r),
+        visuallyHiddenText = None,
+        (controllers.routes.UnderConstructionController.onPageLoad(),messages("site.review"))))
       case None => None
     }
     val aggregateAllocatedReactivations = derivedData.reactivations match {
-      case Some(r) => Some(summaryListRow(messages("derivedCompany.t5"),
-        currencyFormat(r),(controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad(),messages("site.review"))))
+      case Some(r) => Some(summaryListRow(
+        messages("derivedCompany.t5"),
+        currencyFormat(r),
+        visuallyHiddenText = None,
+        (controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad(),messages("site.review"))))
       case None => None
     }
     Seq(numberOfUkCompanies,aggregateTaxEBITDA,aggregateNetTaxInterest,aggregateAllocatedRestrictions,aggregateAllocatedReactivations).flatten

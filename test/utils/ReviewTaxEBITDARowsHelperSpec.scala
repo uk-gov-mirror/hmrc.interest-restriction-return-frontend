@@ -43,16 +43,19 @@ class ReviewTaxEBITDARowsHelperSpec extends SpecBase with SummaryListRowHelper w
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(1, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(2, ReviewMode) -> BaseMessages.changeLink
           ),
           summaryListRow(
             ukCompanyModelMax.companyDetails.companyName,
             currencyFormat(ukCompanyModelMax.taxEBITDA.getOrElse(0)),
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(3, ReviewMode) -> BaseMessages.changeLink
           )
         )

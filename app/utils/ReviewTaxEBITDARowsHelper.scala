@@ -29,6 +29,7 @@ class ReviewTaxEBITDARowsHelper(val userAnswers: UserAnswers)
         summaryListRow(
           model.companyDetails.companyName,
           currencyFormat(ebitda),
+          visuallyHiddenText = None,
           controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx + 1, ReviewMode) -> messages("site.edit")
       )
     }

@@ -40,6 +40,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = if (answerIsMsgKey) messages(s"$page.$ans") else ans,
+        visuallyHiddenText = None,
         changeLinkCall -> messages("site.edit")
       )
     }
@@ -55,6 +56,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       summaryListRowWideKey(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = if (answerIsMsgKey) messages(s"$page.$ans") else ans,
+        visuallyHiddenText = None,
         changeLinkCall -> messages("site.edit")
       )
     }
@@ -68,6 +70,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = currencyFormat(ans),
+        visuallyHiddenText = None,
         changeLinkCall -> messages("site.edit")
       )
     }
@@ -81,6 +84,7 @@ trait CheckYourAnswersHelper extends ImplicitDateFormatter with SummaryListRowHe
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
         value = s"$ans%",
+        visuallyHiddenText = None,
         changeLinkCall -> messages("site.edit")
       )
     }

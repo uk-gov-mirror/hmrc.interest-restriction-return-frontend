@@ -110,6 +110,7 @@ class CheckYourAnswersUltimateParentCompanyHelper(val userAnswers: UserAnswers)
     summaryListRowWideKey(
       label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
       value = if (answerIsMsgKey) messages(s"$page.$value") else value,
+      visuallyHiddenText = None,
       changeLinkCall -> messages("site.edit")
     )
 }

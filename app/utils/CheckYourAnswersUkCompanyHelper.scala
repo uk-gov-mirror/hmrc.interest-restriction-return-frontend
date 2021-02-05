@@ -43,6 +43,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     summaryListRow(
       label = messages("companyDetails.companyName.checkYourAnswersLabel", Seq()),
       value = companyName,
+      visuallyHiddenText = None,
       (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
     )
   )
@@ -51,6 +52,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("companyDetails.ctutr.checkYourAnswersLabel", Seq()),
         value = ctutr,
+        visuallyHiddenText = None,
         (ukCompanyRoutes.CompanyDetailsController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     )
@@ -69,6 +71,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("enterCompanyTaxEBITDA.checkYourAnswersLabel", Seq()),
         value = currencyFormat(taxEBITDA),
+        visuallyHiddenText = None,
         (ukCompanyRoutes.EnterCompanyTaxEBITDAController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
@@ -78,6 +81,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("netTaxInterestAmount.checkYourAnswersLabel", Seq()),
         value = s"${currencyFormat(netTaxInterest)} ${incomeOrExpense(idx)}",
+        visuallyHiddenText = None,
         (ukCompanyRoutes.NetTaxInterestAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
@@ -87,6 +91,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       summaryListRow(
         label = messages("reactivationAmount.checkYourAnswersLabel", Seq()),
         value = currencyFormat(reactivationModel.reactivation),
+        visuallyHiddenText = None,
         (ukCompanyRoutes.ReactivationAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
@@ -111,6 +116,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     summaryListRow(
       label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
       value = if (answerIsMsgKey) messages(s"$page.$value") else value,
+      visuallyHiddenText = None,
       changeLinkCall -> messages("site.edit")
     )
 }

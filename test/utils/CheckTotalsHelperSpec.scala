@@ -146,26 +146,31 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
           summaryListRow(
             CheckTotalsMessages.t1,
             "1",
+            visuallyHiddenText = None,
             controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad() -> BaseMessages.review
           ),
           summaryListRow(
             CheckTotalsMessages.t2,
             currencyFormat(taxEBITDA),
+            visuallyHiddenText = None,
             controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad() -> BaseMessages.review
           ),
           summaryListRow(
             CheckTotalsMessages.t3Expense,
             currencyFormat(netTaxInterestExpense),
+            visuallyHiddenText = None,
             controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad() -> BaseMessages.review
           ),
           summaryListRow(
             CheckTotalsMessages.t4,
             currencyFormat(totalDisallowances),
+            visuallyHiddenText = None,
             controllers.routes.UnderConstructionController.onPageLoad() -> BaseMessages.review
           ),
           summaryListRow(
             CheckTotalsMessages.t5,
             currencyFormat(reactivation),
+            visuallyHiddenText = None,
             controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad() -> BaseMessages.review
           )
         )
