@@ -18,6 +18,7 @@ package navigation
 
 import assets.constants.DeemedParentConstants._
 import base.SpecBase
+import controllers.elections.routes
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import models._
 import pages.ultimateParentCompany._
@@ -209,6 +210,30 @@ class ultimateParentCompanyNavigatorSpec extends SpecBase {
       }
 
       "in Check mode" must {
+
+        "from the Reporting Company Same As Parent page" should {
+          "go to the Check Your Answers page when the user says `no`" in {
+            val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, false).success.value
+              .set(HasDeemedParentPage, true).success.value
+
+            navigator.nextPage(ReportingCompanySameAsParentPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
+          }
+
+          "go down the normal flow if the user says `no` and we have no data" in {
+            val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, false).success.value
+
+            navigator.nextPage(ReportingCompanySameAsParentPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.HasDeemedParentController.onPageLoad(NormalMode)
+          }
+
+          "go down the normal route if the user says `yes`" in {
+            val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, true)
+              .map(reportingCompanySame => reportingCompanySame)
+
+            navigator.nextPage(ReportingCompanySameAsParentPage, CheckMode, userAnswers.get) mustBe
+              routes.GroupRatioElectionController.onPageLoad(NormalMode)          }
+        }
 
         "go to group structure check your answers" in {
 
