@@ -20,13 +20,13 @@ import assets.constants.BaseConstants
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import controllers.elections.routes
 import forms.elections.IsUkPartnershipFormProvider
-import models.NormalMode
+import models.{IsUKPartnershipOrPreferNotToAnswer, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.ViewBehaviours
 import views.html.elections.IsUkPartnershipView
 
-class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
+class IsUkPartnershipViewSpec extends ViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "isUkPartnership"
   val section = Some(messages("section.elections"))
@@ -49,16 +49,30 @@ class IsUkPartnershipViewSpec extends YesNoViewBehaviours with BaseConstants {
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(
-        form = form,
-        createView = applyView,
-        messageKeyPrefix = messageKeyPrefix,
-        expectedFormAction = routes.IsUkPartnershipController.onSubmit(1, NormalMode).url,
-        section = section
-      )
-
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
       behave like pageWithSaveForLater(applyView(form))
+
+      IsUKPartnershipOrPreferNotToAnswer.options(form).zipWithIndex.foreach { case (option, i) =>
+
+        val id = if (i == 0) "value" else s"value-${i + 1}"
+
+        s"contain radio buttons for the value '${option.value.get}'" in {
+
+          val doc = asDocument(applyView(form))
+          assertContainsRadioButton(doc, id, "value", option.value.get, false)
+        }
+
+        s"rendered with a value of '${option.value.get}'" must {
+
+          s"have the '${option.value.get}' radio button selected" in {
+
+            val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
+            val doc = asDocument(applyView(formWithData))
+
+            assertContainsRadioButton(doc, id, "value", option.value.get, true)
+          }
+        }
+      }
     }
   }

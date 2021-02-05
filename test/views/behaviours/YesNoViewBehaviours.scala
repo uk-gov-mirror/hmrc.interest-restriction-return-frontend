@@ -27,60 +27,48 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
                 expectedFormAction: String,
                 headingArgs: Seq[String] = Seq(),
                 section: Option[String] = None): Unit = {
-
     "behave like a page with a Yes/No question" when {
-
       "rendered" must {
-
         "contain a legend for the question" in {
-
           val doc = asDocument(createView(form))
           val legends = doc.getElementsByTag("legend")
           legends.size mustBe 1
-          legends.first.text mustBe messages(s"$messageKeyPrefix.heading", headingArgs:_*)
+          legends.first.text mustBe messages(s"$messageKeyPrefix.heading", headingArgs: _*)
         }
 
         "contain an input for the value" in {
-
           val doc = asDocument(createView(form))
           assertRenderedByCssSelector(doc, "input[value='true']")
           assertRenderedByCssSelector(doc, "input[value='false']")
         }
 
         "have no values checked when rendered with no form" in {
-
           val doc = asDocument(createView(form))
           assert(!doc.select("input[value='true']").hasAttr("checked"))
           assert(!doc.select("input[value='false']").hasAttr("checked"))
         }
 
         "not render an error summary" in {
-
           val doc = asDocument(createView(form))
           assertNotRenderedById(doc, "error-summary_header")
         }
       }
 
       "rendered with a value of true" must {
-
         behave like answeredYesNoPage(createView, true)
       }
 
       "rendered with a value of false" must {
-
         behave like answeredYesNoPage(createView, false)
       }
 
       "rendered with an error" must {
-
         "show an error summary" in {
-
           val doc = asDocument(createView(form.withError(error)))
           assertRenderedById(doc, "error-summary-title")
         }
 
         "show an error associated with the value field" in {
-
           val doc = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementsByClass("govuk-error-message").first
 
@@ -89,14 +77,12 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         }
 
         "show an error prefix in the browser title" in {
-
           val doc = asDocument(createView(form.withError(error)))
-          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs:_*), section)}""")
+          assertEqualsValue(doc, "title", s"""${messages("error.browser.title.prefix")} ${title(messages(s"$messageKeyPrefix.title", headingArgs: _*), section)}""")
         }
       }
     }
   }
-
 
   def answeredYesNoPage(createView: Form[Boolean] => HtmlFormat.Appendable, answer: Boolean): Unit = {
 

@@ -34,13 +34,13 @@ trait Mappings extends Formatters with Constraints {
 
   protected def numeric(requiredKey: String = "error.required",
                         invalidNumeric: String = "error.invalidNumeric",
-                        nonNumericKey: String = "error.nonNumeric"): FieldMapping[BigDecimal] =
-    of(numericFormatter(requiredKey, invalidNumeric, nonNumericKey))
+                        nonNumericKey: String = "error.nonNumeric",
+                        decimalCount: Int = 2): FieldMapping[BigDecimal] =
+    of(numericFormatter(requiredKey, invalidNumeric, nonNumericKey, decimalCount))
 
   protected def boolean(requiredKey: String = "error.required",
                         invalidKey: String = "error.boolean"): FieldMapping[Boolean] =
     of(booleanFormatter(requiredKey, invalidKey))
-
 
   protected def enumerable[A](requiredKey: String = "error.required",
                               invalidKey: String = "error.invalid")(implicit ev: Enumerable[A]): FieldMapping[A] =
