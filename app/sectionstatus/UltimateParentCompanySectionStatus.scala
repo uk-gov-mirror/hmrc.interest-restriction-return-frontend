@@ -16,45 +16,52 @@
 
 package sectionstatus
 
-import models.SectionStatus._
-import models.{SectionStatus, UserAnswers}
+import models.UserAnswers
 import pages.ultimateParentCompany._
 import models.returnModels.DeemedParentModel
+import models.sections.UltimateParentCompanySectionModel
+import pages.Page._
 
-object UltimateParentCompanySectionStatus {
-  
-  def getStatus(userAnswers: UserAnswers): SectionStatus = {
+object UltimateParentCompanySectionStatus extends CurrentSectionStatus[UltimateParentCompanySectionModel] {
 
-    val initialPage = userAnswers.get(ReportingCompanySameAsParentPage)
+  val pages = ultimateParentCompanySectionPages
 
-    val pages = Seq(initialPage) ++ (initialPage match {
-      case Some(false) => userAnswers.get(HasDeemedParentPage) match {
-        case Some(false) => Seq(companySectionCompleted(userAnswers, 1))
-        case Some(true) => Seq(companySectionCompleted(userAnswers, 1), companySectionCompleted(userAnswers, 2)) ++ companySectionCompletedIfStarted(userAnswers, 3)
-        case None => Seq(None)
-      }
-      case _ => Nil
-    })
-
-    pages.flatten match {
-      case result if result.isEmpty => NotStarted
-      case result if result.size == pages.size => Completed
-      case _ => InProgress
+  def isComplete(section: UltimateParentCompanySectionModel): Boolean = 
+    section match {
+      case UltimateParentCompanySectionModel(sameAsParent @ true, _, _) => true
+      case UltimateParentCompanySectionModel(sameAsParent @ false, hasDeemed @ Some(false), ultimateParent :: Nil) => 
+        companySectionCompleted(ultimateParent)
+      case UltimateParentCompanySectionModel(sameAsParent @ false, hasDeemed @ Some(true), deemedParent1 :: deemedParent2 :: Nil) =>
+        companySectionCompleted(deemedParent1) && companySectionCompleted(deemedParent2) 
+      case UltimateParentCompanySectionModel(sameAsParent @ false, hasDeemed @ Some(true), deemedParent1 :: deemedParent2 :: deemedParent3 :: Nil) =>
+        companySectionCompleted(deemedParent1) && companySectionCompleted(deemedParent2) && companySectionCompleted(deemedParent3) 
+      case _ => false
     }
-  }
 
-  def companySectionCompletedIfStarted(userAnswers: UserAnswers, idx: Int): Seq[Option[Any]] = 
-    userAnswers.get(DeemedParentPage, Some(idx)) match {
-      case Some(_) => Seq(companySectionCompleted(userAnswers, idx))
-      case None => Nil
+  def companySectionCompleted(parentCompany: DeemedParentModel): Boolean = 
+    parentCompany match {
+      case DeemedParentModel(_, ctutr @ Some(_), sautr @ _, country @ _, llp @ Some(false), taxInUk @ Some(true), _) => true
+      case DeemedParentModel(_, ctutr @ _, sautr @ Some(_), country @ _, llp @ Some(true), taxInUk @ Some(true), _) => true
+      case DeemedParentModel(_, ctutr @ _, sautr @ _, country @ Some(_), llp @ _, taxInUk @ Some(false), _) => true
+      case _ => false
     }
   
-  def companySectionCompleted(userAnswers: UserAnswers, idx: Int): Option[Any] = 
-    userAnswers.get(DeemedParentPage, Some(idx)) match {
-      case result @ Some(DeemedParentModel(_, ctutr @ Some(_), sautr @ _, country @ _, llp @ Some(false), taxInUk @ Some(true), _)) => result
-      case result @ Some(DeemedParentModel(_, ctutr @ _, sautr @ Some(_), country @ _, llp @ Some(true), taxInUk @ Some(true), _)) => result
-      case result @ Some(DeemedParentModel(_, ctutr @ _, sautr @ _, country @ Some(_), llp @ _, taxInUk @ Some(false), _)) => result
-      case _ => None
+  def currentSection(userAnswers: UserAnswers): Option[UltimateParentCompanySectionModel] = 
+    for {
+      reportingCompanySameAsParent <- userAnswers.get(ReportingCompanySameAsParentPage)
+    } yield {
+
+      val parentCompanies = Seq(
+        userAnswers.get(DeemedParentPage, Some(1)),
+        userAnswers.get(DeemedParentPage, Some(2)),
+        userAnswers.get(DeemedParentPage, Some(3))
+      ).flatten
+
+      UltimateParentCompanySectionModel(
+        reportingCompanySameAsParent = reportingCompanySameAsParent,
+        hasDeemedParent = userAnswers.get(HasDeemedParentPage),
+        parentCompanies = parentCompanies
+      )
     }
 
 }

@@ -25,4 +25,7 @@ case object PartnershipsPage extends QuestionPage[PartnershipModel] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "partnershipGroups"
+
+  val reads = implicitly
+  val writes = implicitly
 }

@@ -17,7 +17,10 @@
 package pages
 
 import queries.{Gettable, Settable}
+import play.api.libs.json.{Reads, Writes}
 
 trait QuestionPage[A] extends Page with Gettable[A] with Settable[A] {
   type Data = A
+  def reads: Reads[A]
+  def writes: Writes[A]
 }

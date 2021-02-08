@@ -24,4 +24,7 @@ case object InterestAllowanceAlternativeCalcElectionPage extends QuestionPage[Bo
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "interestAllowanceAlternativeCalcElection"
+
+  val reads = implicitly
+  val writes = implicitly
 }

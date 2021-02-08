@@ -23,4 +23,7 @@ case object AddAnReactivationQueryPage extends QuestionPage[Boolean] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "addAnReactivationQuery"
+
+  val reads = implicitly
+  val writes = implicitly
 }

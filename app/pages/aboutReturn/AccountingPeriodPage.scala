@@ -25,4 +25,7 @@ case object AccountingPeriodPage extends QuestionPage[AccountingPeriodModel] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "accountingPeriod"
+
+  val reads = implicitly
+  val writes = implicitly
 }

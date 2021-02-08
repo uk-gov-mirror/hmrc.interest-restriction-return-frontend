@@ -24,4 +24,7 @@ case object ElectedInterestAllowanceAlternativeCalcBeforePage extends QuestionPa
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "electedInterestAllowanceAlternativeCalcBefore"
+
+  val reads = implicitly
+  val writes = implicitly
 }

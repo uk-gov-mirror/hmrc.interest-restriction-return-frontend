@@ -24,4 +24,7 @@ case object NetTaxInterestIncomeOrExpensePage extends QuestionPage[NetTaxInteres
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "netTaxInterestIncomeOrExpense"
+
+  val reads = implicitly
+  val writes = implicitly
 }

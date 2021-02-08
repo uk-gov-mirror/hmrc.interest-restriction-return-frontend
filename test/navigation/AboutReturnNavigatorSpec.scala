@@ -22,7 +22,7 @@ import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import models._
 import pages.Page
 import pages.aboutReturn._
-import pages.groupLevelInformation.{DisallowedAmountPage, GroupSubjectToRestrictionsPage, RevisingReturnPage}
+import pages.groupLevelInformation.RevisingReturnPage
 
 class AboutReturnNavigatorSpec extends SpecBase {
 

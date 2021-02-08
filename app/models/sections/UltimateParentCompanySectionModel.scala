@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package pages.ultimateParentCompany
+package models.sections
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import models.returnModels.DeemedParentModel
 
-case object CheckAnswersGroupStructurePage extends QuestionPage[String] {
-
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "checkAnswersGroupStructure"
-
-  val reads = implicitly
-  val writes = implicitly
-}
+case class UltimateParentCompanySectionModel(
+    reportingCompanySameAsParent: Boolean,
+    hasDeemedParent: Option[Boolean],
+    parentCompanies: Seq[DeemedParentModel]
+)

@@ -45,4 +45,7 @@ case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedRe
       p == AgentNamePage ||
       p == FullOrAbbreviatedReturnPage)
   }
+
+  val reads = implicitly
+  val writes = implicitly
 }

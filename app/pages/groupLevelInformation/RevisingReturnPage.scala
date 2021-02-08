@@ -39,4 +39,7 @@ case object RevisingReturnPage extends QuestionPage[Boolean] {
       }
     }
   }
+
+  val reads = implicitly
+  val writes = implicitly
 }

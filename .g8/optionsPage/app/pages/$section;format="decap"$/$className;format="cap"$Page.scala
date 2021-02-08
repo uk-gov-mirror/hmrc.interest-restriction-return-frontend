@@ -8,4 +8,7 @@ case object $className;format="cap"$Page extends QuestionPage[$className;format=
   override def path: JsPath = JsPath \ toString
   
   override def toString: String = "$className;format="decap"$"
+
+  val reads = implicitly
+  val writes = implicitly
 }

@@ -24,4 +24,7 @@ case object OtherInvestorGroupElectionsPage extends QuestionPage[Set[OtherInvest
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "otherInvestorGroupElections"
+
+  val reads = implicitly
+  val writes = implicitly
 }

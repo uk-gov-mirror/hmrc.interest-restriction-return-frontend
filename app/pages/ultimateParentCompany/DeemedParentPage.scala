@@ -25,4 +25,7 @@ case object DeemedParentPage extends QuestionPage[DeemedParentModel] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "deemedParent"
+
+  val reads = implicitly
+  val writes = implicitly
 }

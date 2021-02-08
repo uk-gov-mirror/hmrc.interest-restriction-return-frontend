@@ -39,4 +39,7 @@ case object GroupSubjectToRestrictionsPage extends QuestionPage[Boolean] {
       case _ => super.cleanup(value, userAnswers)
     }
   }
+
+  val reads = implicitly
+  val writes = implicitly
 }

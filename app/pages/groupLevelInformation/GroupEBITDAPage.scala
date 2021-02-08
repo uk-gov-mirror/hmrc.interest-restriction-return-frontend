@@ -23,4 +23,7 @@ case object GroupEBITDAPage extends QuestionPage[BigDecimal] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "groupEBITDA"
+
+  val reads = implicitly
+  val writes = implicitly
 }

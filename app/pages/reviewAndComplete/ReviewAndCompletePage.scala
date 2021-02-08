@@ -24,4 +24,7 @@ case object ReviewAndCompletePage extends QuestionPage[ReviewAndCompleteModel]{
   override def toString: String = "reviewAndComplete"
 
   override def path: JsPath = JsPath \ toString
+
+  val reads = implicitly
+  val writes = implicitly
 }

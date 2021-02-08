@@ -23,4 +23,7 @@ case object RestrictionAmountSameAPPage extends QuestionPage[BigDecimal] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "restrictionAmountSameAP"
+
+  val reads = implicitly
+  val writes = implicitly
 }

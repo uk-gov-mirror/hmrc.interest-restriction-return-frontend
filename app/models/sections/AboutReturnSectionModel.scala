@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package pages.ultimateParentCompany
+package models.sections
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import models.returnModels._
+import models.FullOrAbbreviatedReturn
 
-case object CheckAnswersGroupStructurePage extends QuestionPage[String] {
-
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "checkAnswersGroupStructure"
-
-  val reads = implicitly
-  val writes = implicitly
-}
+case class AboutReturnSectionModel(
+  appointedReportingCompany: Boolean,
+  agentDetails: AgentDetailsModel,
+  fullOrAbbreviatedReturn: FullOrAbbreviatedReturn,
+  isRevisingReturn: Boolean,
+  revisedReturnDetails: Option[String],
+  companyName: CompanyNameModel,
+  ctutr: UTRModel,
+  periodOfAccount: AccountingPeriodModel
+)

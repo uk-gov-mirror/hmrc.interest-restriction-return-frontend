@@ -23,4 +23,7 @@ case object ReactivationAmountPage extends QuestionPage[BigDecimal] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "reactivationAmount"
+
+  val reads = implicitly
+  val writes = implicitly
 }

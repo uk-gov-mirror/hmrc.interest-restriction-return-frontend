@@ -24,4 +24,7 @@ case object ReturnContainEstimatesPage extends QuestionPage[Boolean] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "returnContainEstimates"
+
+  val reads = implicitly
+  val writes = implicitly
 }

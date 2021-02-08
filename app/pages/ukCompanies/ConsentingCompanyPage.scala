@@ -23,4 +23,7 @@ case object ConsentingCompanyPage extends QuestionPage[Boolean] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "consentingCompany"
+
+  val reads = implicitly
+  val writes = implicitly
 }

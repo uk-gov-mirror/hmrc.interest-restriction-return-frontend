@@ -23,4 +23,7 @@ case object DeletionConfirmationPage extends QuestionPage[Boolean] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "deletionConfirmation"
+
+  val reads = implicitly
+  val writes = implicitly
 }

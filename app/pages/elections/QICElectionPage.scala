@@ -23,4 +23,7 @@ case object QICElectionPage extends QuestionPage[Boolean] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "qICElectionPage"
+
+  val reads = implicitly
+  val writes = implicitly
 }
