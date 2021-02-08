@@ -16,10 +16,10 @@
 
 package forms.aboutReturn
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.{StringFieldBehaviours, TellUsWhatHasChangedBehaviours}
 import play.api.data.FormError
 
-class TellUsWhatHasChangedFormProviderSpec extends StringFieldBehaviours {
+class TellUsWhatHasChangedFormProviderSpec extends StringFieldBehaviours with TellUsWhatHasChangedBehaviours {
 
   val requiredKey = "tellUsWhatHasChanged.error.required"
   val lengthKey = "tellUsWhatHasChanged.error.length"
@@ -48,6 +48,10 @@ class TellUsWhatHasChangedFormProviderSpec extends StringFieldBehaviours {
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
+    )
+
+    behave like validTellUsWhatHasChanged(
+      form,fieldName,"tellUsWhatHasChanged.error.regexp"
     )
   }
 }
