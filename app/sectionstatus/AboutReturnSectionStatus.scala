@@ -33,15 +33,15 @@ object AboutReturnSectionStatus {
       userAnswers.get(ReportingCompanyNamePage),
       userAnswers.get(ReportingCompanyCTUTRPage),
       userAnswers.get(AccountingPeriodPage)
-    ) 
+    )
     
-    val optionalAgentPages = 
+    val optionalAgentPages =
       userAnswers.get(AgentActingOnBehalfOfCompanyPage) match {
         case Some(true) => Seq(userAnswers.get(AgentNamePage))
         case _ => Nil
       }
 
-    val optionalRevisionPages = 
+    val optionalRevisionPages =
       userAnswers.get(RevisingReturnPage) match {
         case Some(true) => Seq(userAnswers.get(TellUsWhatHasChangedPage))
         case _ => Nil
@@ -54,5 +54,5 @@ object AboutReturnSectionStatus {
       case result if result.size == pages.size => Completed
       case _ => InProgress
     }
-  } 
+  }
 }

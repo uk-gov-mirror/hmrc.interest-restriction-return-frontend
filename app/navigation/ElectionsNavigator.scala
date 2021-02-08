@@ -65,7 +65,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
     }),
     InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
       case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
-      case Some(false) => routes.QICElectionPageController.onPageLoad(NormalMode)
+      case Some(false) => routes.CheckAnswersElectionsController.onPageLoad()
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
     QICElectionPage -> (_.get(QICElectionPage) match {
