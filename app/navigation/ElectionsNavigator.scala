@@ -72,7 +72,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case Some(_) => checkYourAnswers
       case _ => routes.QICElectionPageController.onPageLoad(NormalMode)
     }),
-    PartnershipsReviewAnswersListPage -> (_ => routes.QICElectionPageController.onPageLoad(NormalMode)),
+    PartnershipsReviewAnswersListPage -> (_ => routes.CheckAnswersElectionsController.onPageLoad()),
     PartnershipDeletionConfirmationPage -> (_ => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
       case Some(true) => routes.InvestorGroupsReviewAnswersListController.onPageLoad()

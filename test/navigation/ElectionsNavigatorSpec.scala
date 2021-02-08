@@ -444,7 +444,7 @@ class ElectionsNavigatorSpec extends SpecBase {
               value = false).success.value
 
             navigator.nextPage(PartnershipsReviewAnswersListPage, NormalMode, userAnswers) mustBe
-              routes.QICElectionPageController.onPageLoad(NormalMode)
+              routes.CheckAnswersElectionsController.onPageLoad()
           }
         }
 

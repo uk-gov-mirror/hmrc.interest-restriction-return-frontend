@@ -135,7 +135,7 @@ class PartnershipsReviewAnswersListControllerISpec extends IntegrationSpecBase w
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.QICElectionPageController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
               )
             }
           }
