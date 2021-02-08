@@ -18,7 +18,6 @@ package sectionstatus
 
 import base.SpecBase
 import models.SectionStatus._
-import pages.elections._
 import assets.constants.BaseConstants
 import models.UserAnswers
 import models.returnModels._
@@ -44,19 +43,7 @@ class ElectionsSectionStatusSpec extends SpecBase with BaseConstants {
           ratioMethod = Some(InvestorRatioMethod.GroupRatioMethod), 
           otherInvestorGroupElections = Some(Set(OtherInvestorGroupElections.GroupRatioBlended))
         )
-      val userAnswers = UserAnswers("id").set(InvestorGroupsPage, investorGroup, Some(1)).get
-      ElectionsSectionStatus.isInvestorGroupComplete(userAnswers, 1) mustEqual true
-    }
-
-    "return false where the OtherInvestorGroupElections is missing" in {
-      val investorGroup = 
-        InvestorGroupModel(
-          investorName = "name", 
-          ratioMethod = Some(InvestorRatioMethod.GroupRatioMethod), 
-          otherInvestorGroupElections = None
-        )
-      val userAnswers = UserAnswers("id").set(InvestorGroupsPage, investorGroup, Some(1)).get
-      ElectionsSectionStatus.isInvestorGroupComplete(userAnswers, 1) mustEqual false
+      ElectionsSectionStatus.isInvestorGroupComplete(investorGroup) mustEqual true
     }
 
     "return false where the ratioMethod and otherInvestorGroupElections is missing" in {
@@ -66,8 +53,7 @@ class ElectionsSectionStatusSpec extends SpecBase with BaseConstants {
           ratioMethod = None, 
           otherInvestorGroupElections = None
         )
-      val userAnswers = UserAnswers("id").set(InvestorGroupsPage, investorGroup, Some(1)).get
-      ElectionsSectionStatus.isInvestorGroupComplete(userAnswers, 1) mustEqual false
+      ElectionsSectionStatus.isInvestorGroupComplete(investorGroup) mustEqual false
     }
   }
 
@@ -79,9 +65,7 @@ class ElectionsSectionStatusSpec extends SpecBase with BaseConstants {
           isUkPartnership = Some(PreferNotToAnswer),
           sautr = None
         )
-      
-      val userAnswers = UserAnswers("id").set(PartnershipsPage, partnership, Some(1)).get
-      ElectionsSectionStatus.isPartnershipComplete(userAnswers, 1) mustEqual true
+      ElectionsSectionStatus.isPartnershipComplete(partnership) mustEqual true
     }
 
     "return true where isUkPartnership is answered and sautr is populated" in {
@@ -91,9 +75,7 @@ class ElectionsSectionStatusSpec extends SpecBase with BaseConstants {
           isUkPartnership = Some(IsUkPartnership),
           sautr = Some(UTRModel("1111111111"))
         )
-      
-      val userAnswers = UserAnswers("id").set(PartnershipsPage, partnership, Some(1)).get
-      ElectionsSectionStatus.isPartnershipComplete(userAnswers, 1) mustEqual true
+      ElectionsSectionStatus.isPartnershipComplete(partnership) mustEqual true
     }
 
     "return false where isUkPartnership is answered and sautr is not populated" in {
@@ -103,14 +85,8 @@ class ElectionsSectionStatusSpec extends SpecBase with BaseConstants {
           isUkPartnership = Some(IsUkPartnership),
           sautr = None
         )
-      
-      val userAnswers = UserAnswers("id").set(PartnershipsPage, partnership, Some(1)).get
-      ElectionsSectionStatus.isPartnershipComplete(userAnswers, 1) mustEqual false
+      ElectionsSectionStatus.isPartnershipComplete(partnership) mustEqual false
     }
 
-    "return false where the partnership is not populated" in {
-      val userAnswers = UserAnswers("id")
-      ElectionsSectionStatus.isPartnershipComplete(userAnswers, 1) mustEqual false
-    }
   }
 }
