@@ -26,6 +26,4 @@ case object AccountingPeriodPage extends QuestionPage[AccountingPeriodModel] {
 
   override def toString: String = "accountingPeriod"
 
-  val reads = implicitly
-  val writes = implicitly
 }

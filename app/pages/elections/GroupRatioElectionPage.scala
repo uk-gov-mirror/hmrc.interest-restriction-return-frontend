@@ -25,6 +25,4 @@ case object GroupRatioElectionPage extends QuestionPage[Boolean] {
 
   override def toString: String = "groupRatioElection"
 
-  val reads = implicitly
-  val writes = implicitly
 }

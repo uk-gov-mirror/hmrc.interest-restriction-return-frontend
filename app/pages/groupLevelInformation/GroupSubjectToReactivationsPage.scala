@@ -35,6 +35,4 @@ case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
     }
   }
 
-  val reads = implicitly
-  val writes = implicitly
 }

@@ -25,6 +25,4 @@ case object ElectedInterestAllowanceConsolidatedPshipBeforePage extends Question
 
   override def toString: String = "electedInterestAllowanceConsolidatedPshipBefore"
 
-  val reads = implicitly
-  val writes = implicitly
 }

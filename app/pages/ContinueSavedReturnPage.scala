@@ -25,6 +25,4 @@ case object ContinueSavedReturnPage extends QuestionPage[ContinueSavedReturn] {
 
   override def toString: String = "continueSavedReturn"
 
-  val reads = implicitly
-  val writes = implicitly
 }

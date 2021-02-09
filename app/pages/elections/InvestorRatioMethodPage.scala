@@ -24,6 +24,4 @@ case object InvestorRatioMethodPage extends QuestionPage[Boolean] {
 
   override def toString: String = "investorRatioMethod"
 
-  val reads = implicitly
-  val writes = implicitly
 }

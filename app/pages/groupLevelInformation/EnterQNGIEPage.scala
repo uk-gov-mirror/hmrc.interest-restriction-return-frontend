@@ -24,6 +24,4 @@ case object EnterQNGIEPage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "enterQNGIE"
 
-  val reads = implicitly
-  val writes = implicitly
 }

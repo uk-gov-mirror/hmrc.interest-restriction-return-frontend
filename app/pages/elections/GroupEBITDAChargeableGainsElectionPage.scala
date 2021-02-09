@@ -25,6 +25,4 @@ case object GroupEBITDAChargeableGainsElectionPage extends QuestionPage[Boolean]
 
   override def toString: String = "groupEBITDAChargeableGainsElection"
 
-  val reads = implicitly
-  val writes = implicitly
 }

@@ -25,6 +25,4 @@ case object ReviewTaxEBITDAPage extends QuestionPage[String] {
 
   override def toString: String = "reviewTaxEBITDA"
 
-  val reads = implicitly
-  val writes = implicitly
 }

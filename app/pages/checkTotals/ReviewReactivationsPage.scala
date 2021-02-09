@@ -25,6 +25,4 @@ case object ReviewReactivationsPage extends QuestionPage[String] {
 
   override def toString: String = "reviewReactivations"
 
-  val reads = implicitly
-  val writes = implicitly
 }

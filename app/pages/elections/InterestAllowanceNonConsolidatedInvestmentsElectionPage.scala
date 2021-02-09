@@ -25,6 +25,4 @@ case object InterestAllowanceNonConsolidatedInvestmentsElectionPage extends Ques
 
   override def toString: String = "interestAllowanceNonConsolidatedInvestmentsElection"
 
-  val reads = implicitly
-  val writes = implicitly
 }

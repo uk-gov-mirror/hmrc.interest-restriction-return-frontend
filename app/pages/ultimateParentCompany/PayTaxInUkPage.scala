@@ -25,6 +25,6 @@ case object PayTaxInUkPage extends QuestionPage[Boolean] {
 
   override def toString: String = "payTaxInUk"
 
-    val reads = implicitly
-  val writes = implicitly
+    
+  
 }

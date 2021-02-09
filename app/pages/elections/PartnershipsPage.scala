@@ -26,6 +26,4 @@ case object PartnershipsPage extends QuestionPage[PartnershipModel] {
 
   override def toString: String = "partnershipGroups"
 
-  val reads = implicitly
-  val writes = implicitly
 }

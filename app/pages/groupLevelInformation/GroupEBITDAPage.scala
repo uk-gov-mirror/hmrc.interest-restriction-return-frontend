@@ -24,6 +24,4 @@ case object GroupEBITDAPage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "groupEBITDA"
 
-  val reads = implicitly
-  val writes = implicitly
 }

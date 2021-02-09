@@ -40,6 +40,4 @@ case object ReportingCompanyAppointedPage extends QuestionPage[Boolean] {
     }
   }
 
-  val reads = implicitly
-  val writes = implicitly
 }

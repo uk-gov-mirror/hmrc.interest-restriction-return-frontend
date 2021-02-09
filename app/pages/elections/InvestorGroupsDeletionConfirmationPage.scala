@@ -24,6 +24,4 @@ case object InvestorGroupsDeletionConfirmationPage extends QuestionPage[Boolean]
 
   override def toString: String = "investorGroupsDeletionConfirmation"
 
-  val reads = implicitly
-  val writes = implicitly
 }

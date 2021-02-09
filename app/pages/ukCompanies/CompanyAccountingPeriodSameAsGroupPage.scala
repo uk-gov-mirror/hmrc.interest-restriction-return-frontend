@@ -24,6 +24,4 @@ case object CompanyAccountingPeriodSameAsGroupPage extends QuestionPage[Boolean]
 
   override def toString: String = "companyAccountingPeriodSameAsGroup"
 
-  val reads = implicitly
-  val writes = implicitly
 }

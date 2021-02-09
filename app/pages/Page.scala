@@ -25,16 +25,20 @@ import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
+import models._
 
 import scala.language.implicitConversions
 
 trait Page
 
 object Page {
+  
+  implicit val reads: Reads[Page] = JsPath.read[String].map(apply)
+  implicit val writes: Writes[Page] = Writes { page => JsString(unapply(page)) }
 
   implicit def toString(page: Page): String = page.toString
 
-  val aboutReturnSectionPages: Seq[Page] = List(
+  lazy val aboutReturnSectionPages: Seq[Page] = List(
     AgentActingOnBehalfOfCompanyPage,
     AgentNamePage,
     FullOrAbbreviatedReturnPage,
@@ -49,7 +53,7 @@ object Page {
     TellUsWhatHasChangedPage
   )
 
-  val groupLevelInformationSectionPages: Seq[Page] = List(
+  lazy val groupLevelInformationSectionPages: Seq[Page] = List(
     GroupInterestAllowancePage,
     GroupInterestCapacityPage,
     GroupSubjectToReactivationsPage,
@@ -66,7 +70,7 @@ object Page {
   )
 
 
-  val ukCompaniesSectionPages: Seq[Page] = List(
+  lazy val ukCompaniesSectionPages: Seq[Page] = List(
     UkCompaniesPage,
     CheckAnswersUkCompanyPage,
     CompanyDetailsPage,
@@ -81,7 +85,7 @@ object Page {
     RestrictionAmountSameAPPage
   )
 
-  val electionsSectionPages: Seq[Page] = List(
+  lazy val electionsSectionPages: Seq[Page] = List(
     AddInvestorGroupPage,
     ElectedGroupEBITDABeforePage,
     ElectedInterestAllowanceAlternativeCalcBeforePage,
@@ -110,7 +114,7 @@ object Page {
     QICElectionPage
   )
 
-  val ultimateParentCompanySectionPages: Seq[Page] = List(
+  lazy val ultimateParentCompanySectionPages: Seq[Page] = List(
     CheckAnswersGroupStructurePage,
     DeletionConfirmationPage,
     CountryOfIncorporationPage,
@@ -124,17 +128,17 @@ object Page {
     DeemedParentPage
   )
 
-  val checkTotalsSectionPages: Seq[Page] = List(
+  lazy val checkTotalsSectionPages: Seq[Page] = List(
     DerivedCompanyPage,
     ReviewTaxEBITDAPage,
     ReviewNetTaxInterestPage
   )
 
-  val reviewAndCompleteSectionPages: Seq[Page] = List(
+  lazy val reviewAndCompleteSectionPages: Seq[Page] = List(
     ReviewAndCompletePage
   )
 
-  val sections = Map(
+  lazy val sections = Map(
     Section.AboutReturn -> aboutReturnSectionPages,
     Section.GroupLevelInformation -> groupLevelInformationSectionPages,
     Section.UkCompanies -> ukCompaniesSectionPages,
@@ -145,19 +149,17 @@ object Page {
   )
 
   
-  val pages: Map[String, Page] = sections.flatMap{
+  lazy val pages: Map[String, Page] = sections.flatMap{
     section => section._2.map(page => page.toString -> page)
   } ++ Map(
     ConfirmationPage.toString -> ConfirmationPage,
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
   )
 
-  val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
+  lazy val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
 
   def apply(page: String): Page = pages(page)
 
   def unapply(arg: Page): String = pages.map(_.swap).apply(arg)
 
-  implicit val reads: Reads[Page] = JsPath.read[String].map(apply)
-  implicit val writes: Writes[Page] = Writes { page => JsString(unapply(page)) }
 }

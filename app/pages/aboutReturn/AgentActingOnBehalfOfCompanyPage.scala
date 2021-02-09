@@ -39,6 +39,4 @@ case object AgentActingOnBehalfOfCompanyPage extends QuestionPage[Boolean] {
     }
   }
 
-  val reads = implicitly
-  val writes = implicitly
 }

@@ -46,6 +46,4 @@ case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedRe
       p == FullOrAbbreviatedReturnPage)
   }
 
-  val reads = implicitly
-  val writes = implicitly
 }

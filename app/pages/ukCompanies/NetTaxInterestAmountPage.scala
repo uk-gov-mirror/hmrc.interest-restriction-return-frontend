@@ -24,6 +24,4 @@ case object NetTaxInterestAmountPage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "netTaxInterestAmount"
 
-  val reads = implicitly
-  val writes = implicitly
 }

@@ -25,6 +25,4 @@ case object HasDeemedParentPage extends QuestionPage[Boolean] {
 
   override def toString: String = "hasDeemedParent"
 
-  val reads = implicitly
-  val writes = implicitly
 }

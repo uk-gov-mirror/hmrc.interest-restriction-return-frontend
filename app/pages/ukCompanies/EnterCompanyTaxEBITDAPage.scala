@@ -24,6 +24,4 @@ case object EnterCompanyTaxEBITDAPage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "enterCompanyTaxEBITDA"
 
-  val reads = implicitly
-  val writes = implicitly
 }

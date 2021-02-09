@@ -24,6 +24,4 @@ case object AddRestrictionPage extends QuestionPage[Boolean] {
 
   override def toString: String = "addRestriction"
 
-  val reads = implicitly
-  val writes = implicitly
 }

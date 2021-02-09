@@ -24,6 +24,4 @@ case object DisallowedAmountPage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "disallowedAmount"
 
-  val reads = implicitly
-  val writes = implicitly
 }

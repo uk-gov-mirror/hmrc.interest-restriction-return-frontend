@@ -25,6 +25,4 @@ case object InterestAllowanceBroughtForwardPage extends QuestionPage[BigDecimal]
 
   override def toString: String = "interestAllowanceBroughtForward"
 
-  val reads = implicitly
-  val writes = implicitly
 }

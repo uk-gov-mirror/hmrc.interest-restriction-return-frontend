@@ -24,6 +24,4 @@ case object EnterANGIEPage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "enterANGIE"
 
-  val reads = implicitly
-  val writes = implicitly
 }

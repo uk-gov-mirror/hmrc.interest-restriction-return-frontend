@@ -25,6 +25,4 @@ case object ElectedInterestAllowanceAlternativeCalcBeforePage extends QuestionPa
 
   override def toString: String = "electedInterestAllowanceAlternativeCalcBefore"
 
-  val reads = implicitly
-  val writes = implicitly
 }

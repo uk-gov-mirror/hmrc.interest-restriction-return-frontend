@@ -9,6 +9,4 @@ case object $className;format="cap"$Page extends QuestionPage[Set[$className;for
   
   override def toString: String = "$className;format="decap"$"
 
-  val reads = implicitly
-  val writes = implicitly
 }

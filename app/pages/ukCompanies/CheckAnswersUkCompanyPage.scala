@@ -24,6 +24,4 @@ case object CheckAnswersUkCompanyPage extends QuestionPage[String] {
 
   override def toString: String = "checkAnswersUkCompany"
 
-  val reads = implicitly
-  val writes = implicitly
 }

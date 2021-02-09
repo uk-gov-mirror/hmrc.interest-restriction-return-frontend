@@ -24,6 +24,4 @@ case object TellUsWhatHasChangedPage extends QuestionPage[String] {
 
   override def toString: String = "tellUsWhatHasChanged"
 
-  val reads = implicitly
-  val writes = implicitly
 }

@@ -24,6 +24,4 @@ case object GroupRatioPercentagePage extends QuestionPage[BigDecimal] {
 
   override def toString: String = "groupRatioPercentage"
 
-  val reads = implicitly
-  val writes = implicitly
 }

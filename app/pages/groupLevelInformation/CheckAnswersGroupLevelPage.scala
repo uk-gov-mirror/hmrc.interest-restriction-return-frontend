@@ -25,6 +25,4 @@ case object CheckAnswersGroupLevelPage extends QuestionPage[String] {
 
   override def toString: String = "checkAnswersGroupLevel"
 
-  val reads = implicitly
-  val writes = implicitly
 }
