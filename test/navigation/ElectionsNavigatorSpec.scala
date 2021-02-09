@@ -224,12 +224,12 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is false" should {
 
-          "go to QIC Election page" in {
+          "go to the check your answers page" in {
 
             val userAnswers = emptyUserAnswers.set(InterestAllowanceConsolidatedPshipElectionPage, false).success.value
 
             navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
-              routes.QICElectionPageController.onPageLoad(NormalMode)
+              routes.CheckAnswersElectionsController.onPageLoad()
           }
         }
 
