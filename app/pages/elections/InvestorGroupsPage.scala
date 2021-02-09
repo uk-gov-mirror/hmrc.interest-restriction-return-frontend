@@ -25,5 +25,4 @@ case object InvestorGroupsPage extends QuestionPage[InvestorGroupModel] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "investorGroups"
-
 }

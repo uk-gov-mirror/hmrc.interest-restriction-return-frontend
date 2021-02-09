@@ -38,5 +38,4 @@ case object AgentActingOnBehalfOfCompanyPage extends QuestionPage[Boolean] {
       }
     }
   }
-
 }

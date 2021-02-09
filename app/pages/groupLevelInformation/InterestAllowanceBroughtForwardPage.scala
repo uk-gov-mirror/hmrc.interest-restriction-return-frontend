@@ -24,5 +24,4 @@ case object InterestAllowanceBroughtForwardPage extends QuestionPage[BigDecimal]
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "interestAllowanceBroughtForward"
-
 }

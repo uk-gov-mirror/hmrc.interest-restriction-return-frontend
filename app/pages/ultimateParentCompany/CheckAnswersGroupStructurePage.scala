@@ -24,5 +24,4 @@ case object CheckAnswersGroupStructurePage extends QuestionPage[String] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "checkAnswersGroupStructure"
-
 }

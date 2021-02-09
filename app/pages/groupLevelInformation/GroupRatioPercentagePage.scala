@@ -23,5 +23,4 @@ case object GroupRatioPercentagePage extends QuestionPage[BigDecimal] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "groupRatioPercentage"
-
 }

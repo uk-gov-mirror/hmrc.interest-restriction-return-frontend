@@ -23,5 +23,4 @@ case object NetTaxInterestAmountPage extends QuestionPage[BigDecimal] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "netTaxInterestAmount"
-
 }

@@ -24,5 +24,4 @@ case object ElectedInterestAllowanceConsolidatedPshipBeforePage extends Question
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "electedInterestAllowanceConsolidatedPshipBefore"
-
 }

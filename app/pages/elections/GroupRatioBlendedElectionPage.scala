@@ -24,5 +24,4 @@ case object GroupRatioBlendedElectionPage extends QuestionPage[Boolean] {
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "groupRatioBlendedElection"
-
 }
