@@ -34,17 +34,17 @@ final case class UserAnswers(
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
   def get[A](page: QuestionPage[A], idx: Option[Int] = None): Option[A] = {
-    implicit val reads = page.reads
+    implicit val reads: Reads[A] = page.reads
     path(page, idx).readNullable[A].reads(data).getOrElse(None)
   }
 
   def getList[A](page: QuestionPage[A]): Seq[A] = {
-    implicit val reads = page.reads
+    implicit val reads: Reads[A] = page.reads
     page.path.read[Seq[A]].reads(data).getOrElse(Seq.empty)
   }
 
   def set[A](page: QuestionPage[A], value: A, idx: Option[Int] = None): Try[UserAnswers] = {
-    implicit val writes = page.writes
+    implicit val writes: Writes[A] = page.writes
     page.cleanup(Some(value),this).flatMap {
       cleanedUserAnswers => {
         cleanedUserAnswers.setData(path(page,idx),value).flatMap {
@@ -55,7 +55,7 @@ final case class UserAnswers(
   }
 
   def appendList[A](page: QuestionPage[A], value: A): Try[UserAnswers] = {
-    implicit val writes = page.writes
+    implicit val writes: Writes[A] = page.writes
     page.cleanup(Some(value),this).flatMap {
       cleanedUserAnswers => {
         cleanedUserAnswers.setData(page.path, getList(page).+:(value)).flatMap {
