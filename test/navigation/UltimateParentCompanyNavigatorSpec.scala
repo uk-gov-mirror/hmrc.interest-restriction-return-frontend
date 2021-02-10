@@ -23,7 +23,7 @@ import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import models._
 import pages.ultimateParentCompany._
 
-class ultimateParentCompanyNavigatorSpec extends SpecBase {
+class UltimateParentCompanyNavigatorSpec extends SpecBase {
 
   val navigator = new UltimateParentCompanyNavigator
 
@@ -232,13 +232,29 @@ class ultimateParentCompanyNavigatorSpec extends SpecBase {
               .map(reportingCompanySame => reportingCompanySame)
 
             navigator.nextPage(ReportingCompanySameAsParentPage, CheckMode, userAnswers.get) mustBe
-              routes.GroupRatioElectionController.onPageLoad(NormalMode)          }
+              routes.GroupRatioElectionController.onPageLoad(NormalMode)
+          }
         }
 
-        "go to group structure check your answers" in {
+        "from the Has Deemed Parent page" should {
+          "go down the Check Yoour Answer page when there is no changes in the answer" in {
+            val userAnswers = for {
+              hasDeemedParentPage <- emptyUserAnswers.set(HasDeemedParentPage, false)
+              parentCompanyNamePage <- hasDeemedParentPage.set(ParentCompanyNamePage, "company name")
+            } yield parentCompanyNamePage
+            val idx = 1
 
-          navigator.nextPage(HasDeemedParentPage, CheckMode, emptyUserAnswers) mustBe
-            ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
+            navigator.nextPage(HasDeemedParentPage, CheckMode, userAnswers.get, Some(idx)) mustBe
+              ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(idx)
+          }
+
+          "go down the normal flow if the user changes in the answer" in {
+            val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false)
+            val idx = 1
+
+            navigator.nextPage(HasDeemedParentPage, CheckMode, userAnswers.get, Some(idx)) mustBe
+              ultimateParentCompanyRoutes.ParentCompanyNameController.onPageLoad(idx, NormalMode)
+          }
         }
       }
     }

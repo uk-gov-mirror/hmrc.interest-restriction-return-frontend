@@ -16,12 +16,25 @@
 
 package pages.ultimateParentCompany
 
+import models.UserAnswers
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object HasDeemedParentPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "hasDeemedParent"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
+    val currentAnswer = userAnswers.get(HasDeemedParentPage)
+
+    if (currentAnswer == value) {
+      super.cleanup(value, userAnswers)
+    } else {
+      userAnswers.remove(DeemedParentPage)
+    }
+  }
 }

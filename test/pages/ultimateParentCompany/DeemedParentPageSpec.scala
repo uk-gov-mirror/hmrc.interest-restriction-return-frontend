@@ -16,6 +16,9 @@
 
 package pages.ultimateParentCompany
 
+import models.UserAnswers
+import models.returnModels.{CompanyNameModel, DeemedParentModel}
+import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 
 class DeemedParentPageSpec extends PageBehaviours {
@@ -27,5 +30,104 @@ class DeemedParentPageSpec extends PageBehaviours {
     beSettable[Boolean](HasDeemedParentPage)
 
     beRemovable[Boolean](HasDeemedParentPage)
+  }
+
+  "Cleanup" when {
+    "a user has selected yes" when {
+      "they revisit the page but do not change the answer" should {
+        "not delete any data" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val result = userAnswers
+                .set(HasDeemedParentPage, true).success.value
+                .set(ParentCompanyNamePage, "company name").success.value
+                .set(PayTaxInUkPage, true).success.value
+                .set(LimitedLiabilityPartnershipPage, true).success.value
+                .set(ParentCompanyCTUTRPage, "111111111").success.value
+                .set(ParentCompanySAUTRPage, "222222222").success.value
+                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(HasDeemedParentPage, true).success.value
+
+              result.get(HasDeemedParentPage) mustBe defined
+              result.get(PayTaxInUkPage) mustBe defined
+              result.get(LimitedLiabilityPartnershipPage) mustBe defined
+              result.get(ParentCompanyCTUTRPage) mustBe defined
+              result.get(ParentCompanySAUTRPage) mustBe defined
+              result.get(CountryOfIncorporationPage) mustBe defined
+          }
+        }
+      }
+      "they revisit the page and change the answer to no" should {
+        "delete any data in this section after has deemed parent" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val result = userAnswers
+                .set(HasDeemedParentPage, true).success.value
+                .set(ParentCompanyNamePage, "company name").success.value
+                .set(PayTaxInUkPage, true).success.value
+                .set(LimitedLiabilityPartnershipPage, true).success.value
+                .set(ParentCompanyCTUTRPage, "111111111").success.value
+                .set(ParentCompanySAUTRPage, "222222222").success.value
+                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(HasDeemedParentPage, false).success.value
+
+              result.get(HasDeemedParentPage) mustBe defined
+              result.get(PayTaxInUkPage) must not be defined
+              result.get(LimitedLiabilityPartnershipPage) must not be defined
+              result.get(ParentCompanyCTUTRPage) must not be defined
+              result.get(ParentCompanySAUTRPage) must not be defined
+              result.get(CountryOfIncorporationPage) must not be defined
+          }
+        }
+      }
+    }
+    "a user has selected no" when {
+      "they revisit the page but do not change the answer" should {
+        "not delete any data" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val result = userAnswers
+                .set(HasDeemedParentPage, false).success.value
+                .set(ParentCompanyNamePage, "company name").success.value
+                .set(PayTaxInUkPage, true).success.value
+                .set(LimitedLiabilityPartnershipPage, true).success.value
+                .set(ParentCompanyCTUTRPage, "111111111").success.value
+                .set(ParentCompanySAUTRPage, "222222222").success.value
+                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(HasDeemedParentPage, false).success.value
+
+              result.get(ParentCompanyNamePage) mustBe defined
+              result.get(PayTaxInUkPage) mustBe defined
+              result.get(LimitedLiabilityPartnershipPage) mustBe defined
+              result.get(ParentCompanyCTUTRPage) mustBe defined
+              result.get(ParentCompanySAUTRPage) mustBe defined
+              result.get(CountryOfIncorporationPage) mustBe defined
+          }
+        }
+      }
+      "they revisit the page and change the answer to yes" should {
+        "delete any data in this section after has deemed parent" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val result = userAnswers
+                .set(HasDeemedParentPage, false).success.value
+                .set(ParentCompanyNamePage, "company name").success.value
+                .set(PayTaxInUkPage, true).success.value
+                .set(LimitedLiabilityPartnershipPage, true).success.value
+                .set(ParentCompanyCTUTRPage, "111111111").success.value
+                .set(ParentCompanySAUTRPage, "222222222").success.value
+                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(HasDeemedParentPage, true).success.value
+
+              result.get(HasDeemedParentPage) mustBe defined
+              result.get(PayTaxInUkPage) must not be defined
+              result.get(LimitedLiabilityPartnershipPage) must not be defined
+              result.get(ParentCompanyCTUTRPage) must not be defined
+              result.get(ParentCompanySAUTRPage) must not be defined
+              result.get(CountryOfIncorporationPage) must not be defined
+          }
+        }
+      }
+    }
   }
 }

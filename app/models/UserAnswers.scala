@@ -17,9 +17,9 @@
 package models
 
 import java.time.LocalDateTime
-
 import pages._
 import play.api.libs.json._
+import play.api.Logging
 
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}
@@ -29,7 +29,7 @@ final case class UserAnswers(
                               data: JsObject = Json.obj(),
                               lastUpdated: LocalDateTime = LocalDateTime.now,
                               lastPageSaved: Option[Page] = None
-                            ) {
+                            ) extends Logging {
 
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
 
@@ -90,13 +90,15 @@ final case class UserAnswers(
     }
   }
 
-  def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
+  def remove(pages: Seq[QuestionPage[_]], idx: Option[Int]): Try[UserAnswers] = recursivelyClearQuestions(pages, this, idx)
+
+  def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this, None)
 
   @tailrec
-  private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] = {
+  private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers, idx: Option[Int]): Try[UserAnswers] = {
     if (pages.isEmpty) Success(userAnswers) else {
-      userAnswers.remove(pages.head) match {
-        case Success(answers) => recursivelyClearQuestions(pages.tail, answers)
+      userAnswers.remove(pages.head, idx) match {
+        case Success(answers) => recursivelyClearQuestions(pages.tail, answers, idx)
         case failure@Failure(_) => failure
       }
     }
