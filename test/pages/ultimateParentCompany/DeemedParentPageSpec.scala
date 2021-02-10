@@ -17,11 +17,21 @@
 package pages.ultimateParentCompany
 
 import models.UserAnswers
-import models.returnModels.{CompanyNameModel, DeemedParentModel}
+import models.returnModels.{CompanyNameModel, CountryCodeModel, DeemedParentModel, UTRModel}
 import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 
 class DeemedParentPageSpec extends PageBehaviours {
+
+  private val deemedParentModel = new DeemedParentModel(
+    companyName = CompanyNameModel("company name"),
+    ctutr = Some(UTRModel("111111111")),
+    sautr = Some(UTRModel("222222222")),
+    countryOfIncorporation = Some(CountryCodeModel("US", "United States of America")),
+    limitedLiabilityPartnership = Some(true),
+    payTaxInUk = Some(true),
+    reportingCompanySameAsParent = Some(true)
+  )
 
   "DeemedParentPage" must {
 
@@ -40,20 +50,17 @@ class DeemedParentPageSpec extends PageBehaviours {
             userAnswers =>
               val result = userAnswers
                 .set(HasDeemedParentPage, true).success.value
-                .set(ParentCompanyNamePage, "company name").success.value
-                .set(PayTaxInUkPage, true).success.value
-                .set(LimitedLiabilityPartnershipPage, true).success.value
-                .set(ParentCompanyCTUTRPage, "111111111").success.value
-                .set(ParentCompanySAUTRPage, "222222222").success.value
-                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(DeemedParentPage, deemedParentModel).success.value
                 .set(HasDeemedParentPage, true).success.value
 
               result.get(HasDeemedParentPage) mustBe defined
-              result.get(PayTaxInUkPage) mustBe defined
-              result.get(LimitedLiabilityPartnershipPage) mustBe defined
-              result.get(ParentCompanyCTUTRPage) mustBe defined
-              result.get(ParentCompanySAUTRPage) mustBe defined
-              result.get(CountryOfIncorporationPage) mustBe defined
+              val deemedParentPage = result.get(DeemedParentPage)
+              deemedParentPage mustBe defined
+              deemedParentPage.get.payTaxInUk mustBe defined
+              deemedParentPage.get.limitedLiabilityPartnership mustBe defined
+              deemedParentPage.get.ctutr mustBe defined
+              deemedParentPage.get.sautr mustBe defined
+              deemedParentPage.get.countryOfIncorporation mustBe defined
           }
         }
       }
@@ -63,20 +70,12 @@ class DeemedParentPageSpec extends PageBehaviours {
             userAnswers =>
               val result = userAnswers
                 .set(HasDeemedParentPage, true).success.value
-                .set(ParentCompanyNamePage, "company name").success.value
-                .set(PayTaxInUkPage, true).success.value
-                .set(LimitedLiabilityPartnershipPage, true).success.value
-                .set(ParentCompanyCTUTRPage, "111111111").success.value
-                .set(ParentCompanySAUTRPage, "222222222").success.value
-                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(DeemedParentPage, deemedParentModel).success.value
                 .set(HasDeemedParentPage, false).success.value
 
               result.get(HasDeemedParentPage) mustBe defined
-              result.get(PayTaxInUkPage) must not be defined
-              result.get(LimitedLiabilityPartnershipPage) must not be defined
-              result.get(ParentCompanyCTUTRPage) must not be defined
-              result.get(ParentCompanySAUTRPage) must not be defined
-              result.get(CountryOfIncorporationPage) must not be defined
+              val deemedParentPage = result.get(DeemedParentPage)
+              deemedParentPage must not be defined
           }
         }
       }
@@ -88,20 +87,17 @@ class DeemedParentPageSpec extends PageBehaviours {
             userAnswers =>
               val result = userAnswers
                 .set(HasDeemedParentPage, false).success.value
-                .set(ParentCompanyNamePage, "company name").success.value
-                .set(PayTaxInUkPage, true).success.value
-                .set(LimitedLiabilityPartnershipPage, true).success.value
-                .set(ParentCompanyCTUTRPage, "111111111").success.value
-                .set(ParentCompanySAUTRPage, "222222222").success.value
-                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(DeemedParentPage, deemedParentModel).success.value
                 .set(HasDeemedParentPage, false).success.value
 
-              result.get(ParentCompanyNamePage) mustBe defined
-              result.get(PayTaxInUkPage) mustBe defined
-              result.get(LimitedLiabilityPartnershipPage) mustBe defined
-              result.get(ParentCompanyCTUTRPage) mustBe defined
-              result.get(ParentCompanySAUTRPage) mustBe defined
-              result.get(CountryOfIncorporationPage) mustBe defined
+              result.get(HasDeemedParentPage) mustBe defined
+              val deemedParentPage = result.get(DeemedParentPage)
+              deemedParentPage mustBe defined
+              deemedParentPage.get.payTaxInUk mustBe defined
+              deemedParentPage.get.limitedLiabilityPartnership mustBe defined
+              deemedParentPage.get.ctutr mustBe defined
+              deemedParentPage.get.sautr mustBe defined
+              deemedParentPage.get.countryOfIncorporation mustBe defined
           }
         }
       }
@@ -111,20 +107,12 @@ class DeemedParentPageSpec extends PageBehaviours {
             userAnswers =>
               val result = userAnswers
                 .set(HasDeemedParentPage, false).success.value
-                .set(ParentCompanyNamePage, "company name").success.value
-                .set(PayTaxInUkPage, true).success.value
-                .set(LimitedLiabilityPartnershipPage, true).success.value
-                .set(ParentCompanyCTUTRPage, "111111111").success.value
-                .set(ParentCompanySAUTRPage, "222222222").success.value
-                .set(CountryOfIncorporationPage, "Germany").success.value
+                .set(DeemedParentPage, deemedParentModel).success.value
                 .set(HasDeemedParentPage, true).success.value
 
               result.get(HasDeemedParentPage) mustBe defined
-              result.get(PayTaxInUkPage) must not be defined
-              result.get(LimitedLiabilityPartnershipPage) must not be defined
-              result.get(ParentCompanyCTUTRPage) must not be defined
-              result.get(ParentCompanySAUTRPage) must not be defined
-              result.get(CountryOfIncorporationPage) must not be defined
+              val deemedParentPage = result.get(DeemedParentPage)
+              deemedParentPage must not be defined
           }
         }
       }
