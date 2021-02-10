@@ -34,4 +34,5 @@ case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
       case _ => super.cleanup(value, userAnswers)
     }
   }
+
 }

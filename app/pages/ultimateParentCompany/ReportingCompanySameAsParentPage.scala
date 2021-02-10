@@ -38,4 +38,8 @@ case object ReportingCompanySameAsParentPage extends QuestionPage[Boolean] {
       }
     }
   }
+
+  
+  
+
 }

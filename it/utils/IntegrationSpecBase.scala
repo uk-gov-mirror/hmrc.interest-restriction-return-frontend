@@ -8,7 +8,7 @@ import org.scalatest.{TryValues, _}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import pages.QuestionPage
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.json.{Json, Reads, Writes}
+import play.api.libs.json.Json
 import play.api.{Application, Environment, Mode}
 import repositories.SessionRepository
 import stubs.AuthStub
@@ -45,11 +45,12 @@ trait IntegrationSpecBase extends WordSpec
 
   def setAnswers(userAnswers: UserAnswers)(implicit timeout: Duration): Unit = Await.result(mongo.set(userAnswers), timeout)
   def getAnswers(id: String)(implicit timeout: Duration): Option[UserAnswers] = Await.result(mongo.get(id), timeout)
+  def getAnswersFuture(id: String) = mongo.get(id)
 
-  def setAnswers[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A]): Unit =
+  def setAnswers[A](page: QuestionPage[A], value: A): Unit =
     setAnswers(emptyUserAnswers.set(page, value).success.value)
 
-  def appendList[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A], rds: Reads[A]): Unit = {
+  def appendList[A](page: QuestionPage[A], value: A): Unit = {
     setAnswers(emptyUserAnswers.appendList(page, value).success.value)
   }
 

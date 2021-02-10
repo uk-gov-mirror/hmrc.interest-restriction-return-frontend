@@ -39,4 +39,5 @@ case object ReportingCompanyAppointedPage extends QuestionPage[Boolean] {
       }
     }
   }
+
 }

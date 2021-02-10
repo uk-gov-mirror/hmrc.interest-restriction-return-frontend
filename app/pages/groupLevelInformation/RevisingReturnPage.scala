@@ -39,4 +39,5 @@ case object RevisingReturnPage extends QuestionPage[Boolean] {
       }
     }
   }
+
 }

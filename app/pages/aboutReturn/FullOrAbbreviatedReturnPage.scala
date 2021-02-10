@@ -45,4 +45,5 @@ case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedRe
       p == AgentNamePage ||
       p == FullOrAbbreviatedReturnPage)
   }
+
 }

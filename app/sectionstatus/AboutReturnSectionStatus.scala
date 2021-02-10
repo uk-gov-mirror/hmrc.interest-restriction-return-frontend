@@ -16,43 +16,59 @@
 
 package sectionstatus
 
-import models.SectionStatus._
-import models.{SectionStatus, UserAnswers}
+import models.sections.AboutReturnSectionModel
+import models._
+import models.returnModels._
 import pages.aboutReturn._
 import pages.groupLevelInformation.RevisingReturnPage
+import pages.Page._
 
-object AboutReturnSectionStatus {
+object AboutReturnSectionStatus extends CurrentSectionStatus[AboutReturnSectionModel] {
+
+  val pages = aboutReturnSectionPages
+
+  def isComplete(section: AboutReturnSectionModel) = 
+    agentDetailsComplete(section.agentDetails) && revisedReturnDetailsComplete(section.isRevisingReturn, section.revisedReturnDetails)
   
-  def aboutReturnSectionStatus(userAnswers: UserAnswers): SectionStatus = {
-
-    val requiredPages = List(
-      userAnswers.get(ReportingCompanyAppointedPage),
-      userAnswers.get(AgentActingOnBehalfOfCompanyPage),
-      userAnswers.get(FullOrAbbreviatedReturnPage),
-      userAnswers.get(RevisingReturnPage),
-      userAnswers.get(ReportingCompanyNamePage),
-      userAnswers.get(ReportingCompanyCTUTRPage),
-      userAnswers.get(AccountingPeriodPage)
-    )
-    
-    val optionalAgentPages =
-      userAnswers.get(AgentActingOnBehalfOfCompanyPage) match {
-        case Some(true) => Seq(userAnswers.get(AgentNamePage))
-        case _ => Nil
-      }
-
-    val optionalRevisionPages =
-      userAnswers.get(RevisingReturnPage) match {
-        case Some(true) => Seq(userAnswers.get(TellUsWhatHasChangedPage))
-        case _ => Nil
-      }
-
-    val pages = requiredPages ++ optionalAgentPages ++ optionalRevisionPages
-
-    pages.flatten match {
-      case result if result.isEmpty => NotStarted
-      case result if result.size == pages.size => Completed
-      case _ => InProgress
+  def agentDetailsComplete(agentDetails: AgentDetailsModel): Boolean = 
+    agentDetails match {
+      case AgentDetailsModel(true, Some(_)) => true
+      case AgentDetailsModel(false, _) => true
+      case _ => false
     }
-  }
+
+  def revisedReturnDetailsComplete(isRevisingReturn: Boolean, revisedReturnDetails: Option[String]): Boolean = 
+    (isRevisingReturn, revisedReturnDetails) match {
+      case (true, Some(_)) => true
+      case (false, _) => true
+      case (_, _) => false
+    }
+  
+  def currentSection(userAnswers: UserAnswers): Option[AboutReturnSectionModel] = 
+    for {
+      appointedReportingCompany     <- userAnswers.get(ReportingCompanyAppointedPage)
+      agentActingOnBehalfOfCompany  <- userAnswers.get(AgentActingOnBehalfOfCompanyPage)
+      fullOrAbbreviatedReturn       <- userAnswers.get(FullOrAbbreviatedReturnPage)
+      isRevisingReturn              <- userAnswers.get(RevisingReturnPage)
+      companyName                   <- userAnswers.get(ReportingCompanyNamePage)
+      ctutr                         <- userAnswers.get(ReportingCompanyCTUTRPage)
+      periodOfAccount               <- userAnswers.get(AccountingPeriodPage)
+    } yield {
+
+      val agentDetailsModel = AgentDetailsModel(
+        agentActingOnBehalfOfCompany  = agentActingOnBehalfOfCompany,
+        agentName                     = userAnswers.get(AgentNamePage)
+      )
+
+      AboutReturnSectionModel(
+        appointedReportingCompany     = appointedReportingCompany,
+        agentDetails                  = agentDetailsModel,
+        fullOrAbbreviatedReturn       = fullOrAbbreviatedReturn,
+        isRevisingReturn              = isRevisingReturn,
+        revisedReturnDetails          = userAnswers.get(TellUsWhatHasChangedPage),
+        companyName                   = CompanyNameModel(companyName),
+        ctutr                         = UTRModel(ctutr),
+        periodOfAccount               = periodOfAccount
+      )
+    }
 }
