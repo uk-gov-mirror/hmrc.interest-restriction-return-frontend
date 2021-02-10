@@ -31,7 +31,7 @@ case object GroupSubjectToRestrictionsPage extends QuestionPage[Boolean] {
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
     value match {
       case Some(false) => userAnswers.remove(DisallowedAmountPage)
-      case Some(true) => 
+      case Some(true) =>
         for {
           newUa <- userAnswers.remove(GroupSubjectToReactivationsPage)
           finalUa <- newUa.remove(InterestReactivationsCapPage)
