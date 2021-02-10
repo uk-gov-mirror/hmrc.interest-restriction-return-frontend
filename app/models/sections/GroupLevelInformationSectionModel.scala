@@ -30,12 +30,12 @@ case class RestrictionReactivationJourneyModel(
   subjectToRestrictions: Boolean,
   totalDisallowedAmount: Option[BigDecimal],
   subjectToReactivations: Option[Boolean],
-  reactivationCap: Option[BigDecimal],
+  reactivationCap: Option[BigDecimal]
 )
 
 case class GroupRatioJourneyModel(
   angie: BigDecimal,
   qngie: Option[BigDecimal],
   groupEBITDA: Option[BigDecimal],
-  groupRatioPercentage: Option[BigDecimal],
+  groupRatioPercentage: Option[BigDecimal]
 )

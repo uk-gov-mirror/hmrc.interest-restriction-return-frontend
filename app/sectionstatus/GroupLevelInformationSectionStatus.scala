@@ -37,13 +37,12 @@ object GroupLevelInformationSectionStatus extends CurrentSectionStatus[GroupLeve
     case _ => false
   }
 
-  def isGroupRatioJourneyComplete(groupRatioElection: Boolean, journey: GroupRatioJourneyModel): Boolean = {
+  def isGroupRatioJourneyComplete(groupRatioElection: Boolean, journey: GroupRatioJourneyModel): Boolean =
     (groupRatioElection, journey) match {
       case (true, GroupRatioJourneyModel(angie @ _, qngie @ Some(_), groupEBITDA @ Some(_), groupRatioPercentage @ Some(_))) => true
       case (false, GroupRatioJourneyModel(angie @ _, qngie @ _, groupEBITDA @ _, groupRatioPercentage @ _)) => true
       case (_, _) => false
     }
-  }
   
   def currentSection(userAnswers: UserAnswers): Option[GroupLevelInformationSectionModel] = 
     for {
