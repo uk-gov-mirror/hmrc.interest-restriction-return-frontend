@@ -18,7 +18,7 @@ package views.reviewAndComplete
 
 import assets.messages.BaseMessages
 import models.SectionStatus.{Completed, InProgress, NotStarted}
-import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import models.returnModels.ReviewAndCompleteModel
 import pages.elections.GroupRatioBlendedElectionPage
 import pages.groupLevelInformation.GroupSubjectToRestrictionsPage
 import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
@@ -31,12 +31,12 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
 
   val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows(
     ReviewAndCompleteModel(
-      aboutReturn = SectionState(NotStarted),
-      elections = SectionState(InProgress),
-      groupLevelInformation = SectionState(Completed),
-      ultimateParentCompany = SectionState(NotStarted),
-      ukCompanies = SectionState(InProgress),
-      checkTotals = SectionState(Completed)
+      aboutReturnStatus = NotStarted,
+      electionsStatus = InProgress,
+      groupLevelInformationStatus = Completed,
+      ultimateParentCompanyStatus = NotStarted,
+      ukCompaniesStatus = InProgress,
+      checkTotalsStatus = Completed
     ),
     emptyUserAnswers
   )

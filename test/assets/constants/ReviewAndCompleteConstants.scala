@@ -18,39 +18,27 @@ package assets.constants
 
 import models.SectionStatus
 import models.SectionStatus.{Completed, InProgress, NotStarted}
-import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import models.returnModels.ReviewAndCompleteModel
 import play.api.libs.json.{JsObject, Json}
 
 object ReviewAndCompleteConstants {
 
   val reviewAndCompleteModel: ReviewAndCompleteModel = ReviewAndCompleteModel(
-    aboutReturn = SectionState(NotStarted),
-    elections = SectionState(InProgress),
-    groupLevelInformation = SectionState(Completed),
-    ultimateParentCompany = SectionState(NotStarted),
-    ukCompanies = SectionState(InProgress),
-    checkTotals = SectionState(Completed)
+    aboutReturnStatus = NotStarted,
+    electionsStatus = InProgress,
+    groupLevelInformationStatus = Completed,
+    ultimateParentCompanyStatus = NotStarted,
+    ukCompaniesStatus = InProgress,
+    checkTotalsStatus = Completed
   )
 
   val reviewAndCompleteJson: JsObject = Json.obj(
-    "aboutReturn" -> Json.obj(
-      "status" -> SectionStatus.NotStarted.toString
-    ),
-    "elections" -> Json.obj(
-      "status" -> SectionStatus.InProgress.toString
-    ),
-    "groupLevelInformation" -> Json.obj(
-      "status" -> SectionStatus.Completed.toString
-    ),
-    "ultimateParentCompany" -> Json.obj(
-      "status" -> SectionStatus.NotStarted.toString
-    ),
-    "ukCompanies" -> Json.obj(
-      "status" -> SectionStatus.InProgress.toString
-    ),
-    "checkTotals" -> Json.obj(
-      "status" -> SectionStatus.Completed.toString
-    )
+    "aboutReturnStatus" -> SectionStatus.NotStarted.toString,
+    "electionsStatus" -> SectionStatus.InProgress.toString,
+    "groupLevelInformationStatus" -> SectionStatus.Completed.toString,
+    "ultimateParentCompanyStatus" -> SectionStatus.NotStarted.toString,
+    "ukCompaniesStatus" -> SectionStatus.InProgress.toString,
+    "checkTotalsStatus" -> SectionStatus.Completed.toString
   )
 
 }

@@ -20,7 +20,7 @@ import assets.messages.{ReviewAndCompleteMessages, SectionHeaderMessages}
 import base.SpecBase
 import models.NormalMode
 import models.SectionStatus.{Completed, InProgress, NotStarted}
-import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import models.returnModels.ReviewAndCompleteModel
 import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import viewmodels.{SummaryListRowHelper, TaskListRow}
 
@@ -28,12 +28,12 @@ import viewmodels.{SummaryListRowHelper, TaskListRow}
 class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
   lazy val reviewAndCompleteModel =   ReviewAndCompleteModel(
-    aboutReturn = SectionState(NotStarted),
-    elections = SectionState(InProgress),
-    groupLevelInformation = SectionState(NotStarted),
-    ultimateParentCompany = SectionState(Completed),
-    ukCompanies = SectionState(InProgress),
-    checkTotals = SectionState(Completed)
+    aboutReturnStatus = NotStarted,
+    electionsStatus = InProgress,
+    groupLevelInformationStatus = NotStarted,
+    ultimateParentCompanyStatus = Completed,
+    ukCompaniesStatus = InProgress,
+    checkTotalsStatus = Completed
   )
 
   "ReviewAndCompleteHelper().rows" when {

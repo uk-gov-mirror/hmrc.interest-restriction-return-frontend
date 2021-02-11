@@ -16,24 +16,18 @@
 
 package models.returnModels
 
-import models.SectionStatus.NotStarted
 import models.SectionStatus
-import play.api.libs.json.{Format, Json}
+import models.SectionStatus.NotStarted
+import play.api.libs.json.Json
 import sectionstatus._
 import models.UserAnswers
 
-case class SectionState(status: SectionStatus = NotStarted)
-
-object SectionState {
-  implicit val fmt: Format[SectionState] = Json.format[SectionState]
-}
-
-case class ReviewAndCompleteModel(aboutReturn: SectionState = SectionState(),
-                                  elections: SectionState = SectionState(),
-                                  groupLevelInformation: SectionState = SectionState(),
-                                  ultimateParentCompany: SectionState = SectionState(),
-                                  ukCompanies: SectionState = SectionState(),
-                                  checkTotals: SectionState = SectionState()) {
+case class ReviewAndCompleteModel(aboutReturnStatus: SectionStatus = NotStarted,
+                                  electionsStatus: SectionStatus = NotStarted,
+                                  groupLevelInformationStatus: SectionStatus = NotStarted,
+                                  ultimateParentCompanyStatus: SectionStatus = NotStarted,
+                                  ukCompaniesStatus: SectionStatus = NotStarted,
+                                  checkTotalsStatus: SectionStatus = NotStarted) {
 }
 
 object ReviewAndCompleteModel {
@@ -45,15 +39,16 @@ object ReviewAndCompleteModel {
     val electionsStatus = ElectionsSectionStatus.getStatus(userAnswers)
     val groupLevelInformationStatus = GroupLevelInformationSectionStatus.getStatus(userAnswers)
     val ultimateParentCompanyStatus = UltimateParentCompanySectionStatus.getStatus(userAnswers)
-    val ukCompaniesStatus = UltimateParentCompanySectionStatus.getStatus(userAnswers)
+    val ukCompaniesStatus = UkCompaniesSectionStatus.getStatus(userAnswers)
+    val checkTotalsStatus = CheckTotalsSectionStatus.getStatus(userAnswers)
 
     ReviewAndCompleteModel(
-      aboutReturn = SectionState(aboutReturnStatus),
-      elections = SectionState(electionsStatus),
-      groupLevelInformation = SectionState(groupLevelInformationStatus),
-      ultimateParentCompany = SectionState(ultimateParentCompanyStatus),
-      ukCompanies = SectionState(ukCompaniesStatus),
-      checkTotals = SectionState()
+      aboutReturnStatus = aboutReturnStatus,
+      electionsStatus = electionsStatus,
+      groupLevelInformationStatus = groupLevelInformationStatus,
+      ultimateParentCompanyStatus = ultimateParentCompanyStatus,
+      ukCompaniesStatus = ukCompaniesStatus,
+      checkTotalsStatus = checkTotalsStatus
     )
   }
 }

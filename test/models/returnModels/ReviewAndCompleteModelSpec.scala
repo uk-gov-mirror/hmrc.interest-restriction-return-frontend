@@ -16,11 +16,22 @@
 
 package models.returnModels
 
+import java.time.LocalDate
 import assets.constants.ReviewAndCompleteConstants._
 import org.scalatest.{MustMatchers, WordSpec}
 import play.api.libs.json.Json
+import pages.aboutReturn._
+import pages.groupLevelInformation._
+import pages.ultimateParentCompany._
+import pages.elections._
+import pages.groupLevelInformation._
+import pages.ukCompanies._
+import models.SectionStatus._
+import models.FullOrAbbreviatedReturn.Full
+import models.{CompanyDetailsModel, UserAnswers}
+import assets.constants.BaseConstants
 
-class ReviewAndCompleteModelSpec extends WordSpec with MustMatchers {
+class ReviewAndCompleteModelSpec extends WordSpec with MustMatchers with BaseConstants {
 
   "ReviewAndCompleteModel" must {
 
@@ -40,9 +51,53 @@ class ReviewAndCompleteModelSpec extends WordSpec with MustMatchers {
       actualValue mustBe expectedValue
     }
 
+    "determine current statuses as not started when instantiated at the start of the journey" in {
+
+      val userAnswers = UserAnswers("id")
+
+      val expectedModel = ReviewAndCompleteModel(
+        aboutReturnStatus = NotStarted,
+        electionsStatus = NotStarted,
+        groupLevelInformationStatus = NotStarted,
+        ultimateParentCompanyStatus = NotStarted,
+        ukCompaniesStatus = NotStarted,
+        checkTotalsStatus = NotStarted
+      )
+
+      ReviewAndCompleteModel(userAnswers) mustBe expectedModel
+
+    }
+
     "determine current statuses when instantiated" in {
 
-      1 mustBe 2
+      val companyDetails = CompanyDetailsModel(companyName = "name", ctutr = "1234567890")
+      val date = LocalDate.of(2020,1,1)
+
+      val userAnswers = UserAnswers("id")
+        .set(ReportingCompanyAppointedPage, true).get
+        .set(AgentActingOnBehalfOfCompanyPage, true).get
+        .set(AgentNamePage, agentName).get
+        .set(FullOrAbbreviatedReturnPage, Full).get
+        .set(RevisingReturnPage, true).get
+        .set(TellUsWhatHasChangedPage, "Something has changed").get
+        .set(ReportingCompanyNamePage, companyNameModel.name).get
+        .set(ReportingCompanyCTUTRPage, ctutrModel.utr).get
+        .set(AccountingPeriodPage, AccountingPeriodModel(date, date.plusMonths(1))).get
+        .set(ReportingCompanySameAsParentPage, true).get
+        .set(GroupRatioElectionPage, true).get
+        .set(GroupSubjectToRestrictionsPage, true).get
+        .set(CompanyDetailsPage, companyDetails).get
+
+      val expectedModel = ReviewAndCompleteModel(
+        aboutReturnStatus = Completed,
+        electionsStatus = InProgress,
+        groupLevelInformationStatus = InProgress,
+        ultimateParentCompanyStatus = Completed,
+        ukCompaniesStatus = InProgress,
+        checkTotalsStatus = NotStarted
+      )
+
+      ReviewAndCompleteModel(userAnswers) mustBe expectedModel
 
     }
   }

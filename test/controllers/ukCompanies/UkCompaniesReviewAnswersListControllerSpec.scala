@@ -23,7 +23,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.UkCompaniesReviewAnswersListFormProvider
-import models.returnModels.{ReviewAndCompleteModel, SectionState}
+import models.returnModels.ReviewAndCompleteModel
 import models.{NormalMode, SectionStatus}
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
 import pages.reviewAndComplete.ReviewAndCompletePage
@@ -101,7 +101,7 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
         "redirect to the Next Page route" in {
 
           mockGetAnswers(Some(emptyUserAnswers
-            .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress))).get
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompaniesStatus = SectionStatus.InProgress)).get
           ))
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
