@@ -900,13 +900,6 @@ tellUsWhatHasChanged.error.required = Enter what has changed
 tellUsWhatHasChanged.error.regexp = Tell us what has changed must only include letters, numbers and common characters
 tellUsWhatHasChanged.error.length = Tell us what has changed must be 5000 characters or less
 
-# QICElectionPagePage Messages
-# ----------------------------------------------------------
-qICElectionPage.title = Has a company made a qualifying infrastructure company (QIC) election for the return period?
-qICElectionPage.heading = Has a company made a qualifying infrastructure company (QIC) election for the return period?
-qICElectionPage.checkYourAnswersLabel = Qualified Infrastructure Election
-qICElectionPage.error.required = Select yes if Has a company made a qualifying infrastructure company (QIC) election for the return period?
-
 # DisallowedAmountPage Messages
 # ----------------------------------------------------------
 disallowedAmount.title = Enter the total disallowed amount for the group

@@ -110,8 +110,7 @@ object Page {
     GroupRatioElectionPage,
     PartnershipsPage,
     PartnershipDeletionConfirmationPage,
-    PartnershipsReviewAnswersListPage,
-    QICElectionPage
+    PartnershipsReviewAnswersListPage
   )
 
   lazy val ultimateParentCompanySectionPages: Seq[Page] = List(

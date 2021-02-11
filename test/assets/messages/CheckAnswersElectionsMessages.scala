@@ -35,7 +35,6 @@ object CheckAnswersElectionsMessages {
   val nonConsolidatedInvestmentsReview = "Review"
   val electedInterestAllowanceConsolidatedPshipBefore = "Elected interest allowance (consolidated partnerships) before"
   val interestAllowanceConsolidatedPshipElection = "Elect interest allowance (consolidated partnerships)"
-  val qicElection = "Qualified Infrastructure Election"
   val consolidatedPartnershipsHeading = "Partnerships"
   val consolidatedPartnershipsValue: Int => String = i =>  s"$i partnership${if(i > 1) "s" else ""} added"
   val consolidatedPartnershipsReview = "Review"

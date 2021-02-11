@@ -37,9 +37,6 @@ trait PageGenerators {
   implicit lazy val arbitraryGroupRatioPercentagePage: Arbitrary[GroupRatioPercentagePage.type] =
     Arbitrary(GroupRatioPercentagePage)
 
-  implicit lazy val arbitraryQICElectionPagePage: Arbitrary[QICElectionPage.type] =
-    Arbitrary(QICElectionPage)
-
   implicit lazy val arbitraryDisallowedAmountPage: Arbitrary[DisallowedAmountPage.type] =
     Arbitrary(DisallowedAmountPage)
 

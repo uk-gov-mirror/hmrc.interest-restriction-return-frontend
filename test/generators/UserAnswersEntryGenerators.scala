@@ -46,14 +46,6 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryQICElectionPageUserAnswersEntry: Arbitrary[(QICElectionPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[QICElectionPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
   implicit lazy val arbitraryDisallowedAmountUserAnswersEntry: Arbitrary[(DisallowedAmountPage.type, JsValue)] =
     Arbitrary {
       for {
