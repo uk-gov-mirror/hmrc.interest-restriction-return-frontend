@@ -243,40 +243,6 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the QICElection page" when {
-
-        "the answer is true" should {
-
-          "go to the check your answers page" in {
-
-            val userAnswers = emptyUserAnswers.set(QICElectionPage, true).success.value
-
-            navigator.nextPage(QICElectionPage, NormalMode, userAnswers) mustBe
-              routes.CheckAnswersElectionsController.onPageLoad()
-          }
-        }
-
-        "the answer is false" should {
-
-          "go to the check your answers page" in {
-
-            val userAnswers = emptyUserAnswers.set(QICElectionPage, false).success.value
-
-            navigator.nextPage(QICElectionPage, NormalMode, userAnswers) mustBe
-              routes.CheckAnswersElectionsController.onPageLoad()
-          }
-        }
-
-        "no answer is given" should {
-
-          "go to the QICElection page" in {
-
-            navigator.nextPage(QICElectionPage, NormalMode, emptyUserAnswers) mustBe
-              routes.QICElectionPageController.onPageLoad(NormalMode)
-          }
-        }
-      }
-
       "from the AddInvestorGroup page" when {
 
         "the answer is true" should {

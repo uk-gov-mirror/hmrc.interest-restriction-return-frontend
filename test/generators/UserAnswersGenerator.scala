@@ -36,7 +36,6 @@ trait UserAnswersGenerator extends TryValues {
     arbitrary[(CheckAnswersGroupLevelPage.type, JsValue)] ::
     arbitrary[(GroupEBITDAPage.type, JsValue)] ::
     arbitrary[(GroupRatioPercentagePage.type, JsValue)] ::
-    arbitrary[(QICElectionPage.type, JsValue)] ::
     arbitrary[(DisallowedAmountPage.type, JsValue)] ::
     arbitrary[(TellUsWhatHasChangedPage.type, JsValue)] ::
     arbitrary[(RestrictionAmountSameAPPage.type, JsValue)] ::
