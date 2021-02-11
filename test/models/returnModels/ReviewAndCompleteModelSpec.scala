@@ -39,5 +39,11 @@ class ReviewAndCompleteModelSpec extends WordSpec with MustMatchers {
 
       actualValue mustBe expectedValue
     }
+
+    "determine current statuses when instantiated" in {
+
+      1 mustBe 2
+
+    }
   }
 }

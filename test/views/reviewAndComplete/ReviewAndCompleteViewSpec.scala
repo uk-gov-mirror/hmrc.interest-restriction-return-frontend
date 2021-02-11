@@ -31,12 +31,12 @@ class ReviewAndCompleteViewSpec extends ViewBehaviours {
 
   val taskListRows: Seq[TaskListRow] = new ReviewAndCompleteHelper().rows(
     ReviewAndCompleteModel(
-      aboutReturn = SectionState(NotStarted, None),
-      elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-      groupLevelInformation = SectionState(Completed, Some(GroupSubjectToRestrictionsPage)),
-      ultimateParentCompany = SectionState(NotStarted, None),
-      ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
-      checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
+      aboutReturn = SectionState(NotStarted),
+      elections = SectionState(InProgress),
+      groupLevelInformation = SectionState(Completed),
+      ultimateParentCompany = SectionState(NotStarted),
+      ukCompanies = SectionState(InProgress),
+      checkTotals = SectionState(Completed)
     ),
     emptyUserAnswers
   )

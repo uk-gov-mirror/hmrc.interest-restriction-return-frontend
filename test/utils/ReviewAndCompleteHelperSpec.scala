@@ -21,21 +21,19 @@ import base.SpecBase
 import models.NormalMode
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.elections.GroupRatioBlendedElectionPage
-import pages.ultimateParentCompany.{CheckAnswersGroupStructurePage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
-import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
+import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import viewmodels.{SummaryListRowHelper, TaskListRow}
 
 
 class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
   lazy val reviewAndCompleteModel =   ReviewAndCompleteModel(
-    aboutReturn = SectionState(NotStarted, None),
-    elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-    groupLevelInformation = SectionState(NotStarted, None),
-    ultimateParentCompany = SectionState(Completed, Some(CheckAnswersGroupStructurePage)),
-    ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
-    checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
+    aboutReturn = SectionState(NotStarted),
+    elections = SectionState(InProgress),
+    groupLevelInformation = SectionState(NotStarted),
+    ultimateParentCompany = SectionState(Completed),
+    ukCompanies = SectionState(InProgress),
+    checkTotals = SectionState(Completed)
   )
 
   "ReviewAndCompleteHelper().rows" when {

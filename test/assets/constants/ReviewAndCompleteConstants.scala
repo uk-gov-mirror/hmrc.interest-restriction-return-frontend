@@ -19,20 +19,17 @@ package assets.constants
 import models.SectionStatus
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.elections.GroupRatioBlendedElectionPage
-import pages.groupLevelInformation.GroupInterestCapacityPage
-import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
 import play.api.libs.json.{JsObject, Json}
 
 object ReviewAndCompleteConstants {
 
   val reviewAndCompleteModel: ReviewAndCompleteModel = ReviewAndCompleteModel(
-    aboutReturn = SectionState(NotStarted, None),
-    elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-    groupLevelInformation = SectionState(Completed, Some(GroupInterestCapacityPage)),
-    ultimateParentCompany = SectionState(NotStarted, None),
-    ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
-    checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
+    aboutReturn = SectionState(NotStarted),
+    elections = SectionState(InProgress),
+    groupLevelInformation = SectionState(Completed),
+    ultimateParentCompany = SectionState(NotStarted),
+    ukCompanies = SectionState(InProgress),
+    checkTotals = SectionState(Completed)
   )
 
   val reviewAndCompleteJson: JsObject = Json.obj(
@@ -40,23 +37,19 @@ object ReviewAndCompleteConstants {
       "status" -> SectionStatus.NotStarted.toString
     ),
     "elections" -> Json.obj(
-      "status" -> SectionStatus.InProgress.toString,
-      "lastPageSaved" -> GroupRatioBlendedElectionPage.toString
+      "status" -> SectionStatus.InProgress.toString
     ),
     "groupLevelInformation" -> Json.obj(
-      "status" -> SectionStatus.Completed.toString,
-      "lastPageSaved" -> GroupInterestCapacityPage.toString
+      "status" -> SectionStatus.Completed.toString
     ),
     "ultimateParentCompany" -> Json.obj(
       "status" -> SectionStatus.NotStarted.toString
     ),
     "ukCompanies" -> Json.obj(
-      "status" -> SectionStatus.InProgress.toString,
-      "lastPageSaved" -> UkCompaniesPage.toString
+      "status" -> SectionStatus.InProgress.toString
     ),
     "checkTotals" -> Json.obj(
-      "status" -> SectionStatus.Completed.toString,
-      "lastPageSaved" -> DerivedCompanyPage.toString
+      "status" -> SectionStatus.Completed.toString
     )
   )
 

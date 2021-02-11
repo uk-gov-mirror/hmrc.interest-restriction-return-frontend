@@ -101,7 +101,7 @@ class UkCompaniesReviewAnswersListControllerSpec extends SpecBase with FeatureSw
         "redirect to the Next Page route" in {
 
           mockGetAnswers(Some(emptyUserAnswers
-            .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress, Some(ReviewAndCompletePage)))).get
+            .set(ReviewAndCompletePage, ReviewAndCompleteModel(ukCompanies = SectionState(SectionStatus.InProgress))).get
           ))
 
           val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
