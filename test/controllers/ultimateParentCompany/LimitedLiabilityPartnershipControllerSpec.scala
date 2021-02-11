@@ -132,5 +132,13 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
+
+    "When proceding to CTUTR, SAUTR is removed." in {
+
+    }
+
+    "When proceding to SAUTR, CTUTR  is removed." in {
+
+    }
   }
 }

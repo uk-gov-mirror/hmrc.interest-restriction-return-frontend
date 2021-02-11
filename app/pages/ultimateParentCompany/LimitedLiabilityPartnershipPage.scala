@@ -31,14 +31,14 @@ case object LimitedLiabilityPartnershipPage extends QuestionPage[Boolean] {
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
     val currentAnswer = userAnswers.get(LimitedLiabilityPartnershipPage)
 
-    if (currentAnswer == value){
+    if (currentAnswer == value) {
       super.cleanup(value, userAnswers)
-    }
-
-    value match {
-      case Some(false) => userAnswers.remove(ParentCompanySAUTRPage)
-      case Some(true) => userAnswers.remove(ParentCompanyCTUTRPage)
-      case _ => super.cleanup(value, userAnswers)
+    } else {
+      value match {
+        case Some(false) => userAnswers.remove(ParentCompanySAUTRPage)
+        case Some(true) => userAnswers.remove(ParentCompanyCTUTRPage)
+        case _ => super.cleanup(value, userAnswers)
+      }
     }
   }
 }
