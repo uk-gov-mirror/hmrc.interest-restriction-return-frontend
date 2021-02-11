@@ -18,7 +18,6 @@ package sectionstatus
 
 import base.SpecBase
 import models.SectionStatus._
-import pages.checkTotals.CompanyDetailsPage
 import assets.constants.BaseConstants
 
 class CheckTotalsSectionStatusSpec extends SpecBase with BaseConstants {
