@@ -21,6 +21,7 @@ import base.SpecBase
 import controllers.elections.routes
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import models._
+import models.returnModels.UTRModel
 import pages.ultimateParentCompany._
 
 class ultimateParentCompanyNavigatorSpec extends SpecBase {
@@ -210,6 +211,39 @@ class ultimateParentCompanyNavigatorSpec extends SpecBase {
       }
 
       "in Check mode" must {
+        "from Limited Liability Partnership page" when {
+          "go down to sautr page if user selects `yes` and we have no `sautr`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(limitedLiabilityPartnership = Some(true),sautr = None), Some(1)).success.value
+
+            navigator.nextPage(LimitedLiabilityPartnershipPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.ParentCompanySAUTRController.onPageLoad(1,CheckMode)
+          }
+
+          "go back to CYA if user selects `yes` and there is already a `sautr`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(limitedLiabilityPartnership = Some(true),sautr = Some(UTRModel("test"))), Some(1)).success.value
+
+            navigator.nextPage(LimitedLiabilityPartnershipPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
+          }
+
+          "go down to ctutr page if user selects `no` and we have no `ctutr`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(limitedLiabilityPartnership = Some(false),ctutr = None), Some(1)).success.value
+
+            navigator.nextPage(LimitedLiabilityPartnershipPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.ParentCompanyCTUTRController.onPageLoad(1,CheckMode)
+          }
+
+          "go back to CYA if user selects `no` and there is already a `ctutr`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(limitedLiabilityPartnership = Some(false),ctutr = Some(UTRModel("test"))), Some(1)).success.value
+
+            navigator.nextPage(LimitedLiabilityPartnershipPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
+          }
+        }
 
         "from the Reporting Company Same As Parent page" should {
           "go to the Check Your Answers page when the user says `no`" in {

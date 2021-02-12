@@ -59,6 +59,25 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int,UserAnswers) => Call](
+    LimitedLiabilityPartnershipPage -> ((idx,userAnswers) => userAnswers.get(DeemedParentPage,Some(idx)) match {
+      case Some(deemedParent) => {
+
+        if (deemedParent.limitedLiabilityPartnership == Some(true)) {
+          if (!deemedParent.sautr.isDefined) {
+            routes.ParentCompanySAUTRController.onPageLoad(idx,CheckMode)
+          } else {
+            checkYourAnswers(idx)
+          }
+        } else {
+          if (!deemedParent.ctutr.isDefined) {
+            routes.ParentCompanyCTUTRController.onPageLoad(idx,CheckMode)
+          } else {
+            checkYourAnswers(idx)
+          }
+        }
+      }
+      case _ => checkYourAnswers(idx)
+    }),
     ReportingCompanySameAsParentPage -> ((idx,userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
       case Some(true) =>nextSection(NormalMode)
       case Some(false) => {
