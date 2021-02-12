@@ -68,8 +68,10 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
             companyName = deemedParentModel.companyName.name,
             postAction = routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode)
           ))),
-        value => {
-          val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value))
+        (value: Boolean) => {
+          val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value),
+            ctutr = if (value) None else deemedParentModel.ctutr,
+            sautr = if (!value) None else deemedParentModel.sautr)
 
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
