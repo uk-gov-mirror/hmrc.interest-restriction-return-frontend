@@ -75,7 +75,7 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
 
           //TODO: Refactor the above to consume Page.cleanup hook - had to do this implementation due to time constraints
           //as the page is not following the `QuestionPage` pattern used in scaffolds. All behaviour tested in `controller` should be
-          //pushed to `LimitedLiabilityPartnershipControllerSpec`
+          //pushed to `LimitedLiabilityPartnershipPageSpec`
 
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
