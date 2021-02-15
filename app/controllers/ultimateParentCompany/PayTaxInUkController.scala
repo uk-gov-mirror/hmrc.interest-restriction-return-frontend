@@ -69,7 +69,15 @@ class PayTaxInUkController @Inject()(override val messagesApi: MessagesApi,
             postAction = routes.PayTaxInUkController.onSubmit(idx, mode)
           ))),
         value => {
-          val updatedModel = deemedParentModel.copy(payTaxInUk = Some(value))
+          //TODO: Refactor the above to consume Page.cleanup hook - had to do this implementation due to time constraints
+          //as the page is not following the `QuestionPage` pattern used in scaffolds. All behaviour tested in `controller` should be
+          //pushed to `PayTaxInUkPageSpec`
+
+          val updatedModel = (value,deemedParentModel.payTaxInUk) match {
+            case (true,Some(false)) => deemedParentModel.copy(payTaxInUk = Some(value),countryOfIncorporation = None)
+            case (false,Some(true)) => deemedParentModel.copy(payTaxInUk = Some(value),sautr = None,limitedLiabilityPartnership = None,ctutr = None)
+            case _ => deemedParentModel.copy(payTaxInUk = Some(value))
+          }
 
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))
