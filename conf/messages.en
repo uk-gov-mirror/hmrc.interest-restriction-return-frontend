@@ -662,13 +662,13 @@ deemedParentReviewAnswersList.maxParentsReached = You can only add a maximum of 
 # ----------------------------------------------------------
 deletionConfirmation.title = Are you sure you want to delete deemed parent ‘{0}’?
 deletionConfirmation.heading = Are you sure you want to delete deemed parent ‘{0}’?
-deletionConfirmation.error.required = Select yes if you want to delete deemed parent ‘{0}’
+deletionConfirmation.error.required = Select yes if you want to delete this deemed parent
 
 # InvestmentsDeletionConfirmationPage Messages
 # ----------------------------------------------------------
 investmentsDeletionConfirmation.title = Are you sure you want to delete investment ‘{0}’?
 investmentsDeletionConfirmation.heading = Are you sure you want to delete investment ‘{0}’?
-investmentsDeletionConfirmation.error.required = Select yes if you want to delete investment ‘{0}’
+investmentsDeletionConfirmation.error.required = Select yes if you want to delete this investment
 
 # DerivedCompanyPage Messages
 # ----------------------------------------------------------
@@ -695,7 +695,7 @@ investorGroupsReviewAnswersList.error.required = Select yes if you need to add a
 # ----------------------------------------------------------
 investorGroupsDeletionConfirmation.title = Are you sure you want to delete investor group ‘{0}’?
 investorGroupsDeletionConfirmation.heading = Are you sure you want to delete investor group ‘{0}’?
-investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete investor group ‘{0}’
+investorGroupsDeletionConfirmation.error.required = Select yes if you want to delete this investor group
 
 # CompanyDetailsPage Messages
 # ----------------------------------------------------------
@@ -772,7 +772,7 @@ ukCompanies.checkYourAnswers.button = Confirm company
 # ----------------------------------------------------------
 ukCompaniesDeletionConfirmation.title = Are you sure you want to delete company ‘{0}’?
 ukCompaniesDeletionConfirmation.heading = Are you sure you want to delete company ‘{0}’?
-ukCompaniesDeletionConfirmation.error.required = Select yes if you want to delete company ‘{0}’
+ukCompaniesDeletionConfirmation.error.required = Select yes if you want to delete this company
 
 # ReviewTaxEBITDA Messages
 # ----------------------------------------------------------
@@ -861,7 +861,7 @@ reviewReactivations.totalReactivations = Total allocated reactivations:
 # ----------------------------------------------------------
 partnershipDeletionConfirmation.title = Are you sure you want to delete partnership ‘{0}’?
 partnershipDeletionConfirmation.heading = Are you sure you want to delete partnership ‘{0}’?
-partnershipDeletionConfirmation.error.required = Select yes if Are you sure you want to delete partnership ‘{0}’?
+partnershipDeletionConfirmation.error.required = Select yes if you want to delete this partnership
 
 # AddRestrictionPage Messages
 # ----------------------------------------------------------
