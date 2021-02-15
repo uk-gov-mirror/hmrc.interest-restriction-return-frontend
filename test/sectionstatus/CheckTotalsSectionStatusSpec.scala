@@ -14,27 +14,25 @@
  * limitations under the License.
  */
 
-package pages.ultimateParentCompany
+package sectionstatus
 
-import models.UserAnswers
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import base.SpecBase
+import models.SectionStatus._
+import assets.constants.BaseConstants
 
-import scala.util.Try
+class CheckTotalsSectionStatusSpec extends SpecBase with BaseConstants {
 
-case object HasDeemedParentPage extends QuestionPage[Boolean] {
-
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "hasDeemedParent"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    val currentAnswer = userAnswers.get(HasDeemedParentPage)
-
-    if (currentAnswer == value) {
-      super.cleanup(value, userAnswers)
-    } else {
-      userAnswers.remove(DeemedParentPage)
+  "aboutReturnSectionStatus" must {
+    "return NotStarted" when {
+      "no data from the section has been entered" in {
+        val userAnswers = emptyUserAnswers
+        CheckTotalsSectionStatus.getStatus(userAnswers) mustEqual NotStarted
+      }
+    }
+    "return InProgress" when {
+    }
+    
+    "return Completed" when {     
     }
   }
 }

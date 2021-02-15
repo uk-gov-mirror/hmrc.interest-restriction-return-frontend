@@ -14,27 +14,18 @@
  * limitations under the License.
  */
 
-package pages.ultimateParentCompany
+package sectionstatus
 
-import models.UserAnswers
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import models.sections.CheckTotalsSectionModel
+import models._
+import pages.Page._
 
-import scala.util.Try
+object CheckTotalsSectionStatus extends CurrentSectionStatus[CheckTotalsSectionModel] {
 
-case object HasDeemedParentPage extends QuestionPage[Boolean] {
+  val pages = checkTotalsSectionPages
 
-  override def path: JsPath = JsPath \ toString
+  def isComplete(section: CheckTotalsSectionModel): Boolean = false
+  
+  def currentSection(userAnswers: UserAnswers): Option[CheckTotalsSectionModel] = None
 
-  override def toString: String = "hasDeemedParent"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    val currentAnswer = userAnswers.get(HasDeemedParentPage)
-
-    if (currentAnswer == value) {
-      super.cleanup(value, userAnswers)
-    } else {
-      userAnswers.remove(DeemedParentPage)
-    }
-  }
 }

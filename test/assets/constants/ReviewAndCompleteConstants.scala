@@ -18,46 +18,27 @@ package assets.constants
 
 import models.SectionStatus
 import models.SectionStatus.{Completed, InProgress, NotStarted}
-import models.returnModels.{ReviewAndCompleteModel, SectionState}
-import pages.elections.GroupRatioBlendedElectionPage
-import pages.groupLevelInformation.GroupInterestCapacityPage
-import pages.ukCompanies.{DerivedCompanyPage, UkCompaniesPage}
+import models.returnModels.ReviewAndCompleteModel
 import play.api.libs.json.{JsObject, Json}
 
 object ReviewAndCompleteConstants {
 
   val reviewAndCompleteModel: ReviewAndCompleteModel = ReviewAndCompleteModel(
-    aboutReturn = SectionState(NotStarted, None),
-    elections = SectionState(InProgress, Some(GroupRatioBlendedElectionPage)),
-    groupLevelInformation = SectionState(Completed, Some(GroupInterestCapacityPage)),
-    ultimateParentCompany = SectionState(NotStarted, None),
-    ukCompanies = SectionState(InProgress, Some(UkCompaniesPage)),
-    checkTotals = SectionState(Completed, Some(DerivedCompanyPage))
+    aboutReturnStatus = NotStarted,
+    electionsStatus = InProgress,
+    groupLevelInformationStatus = Completed,
+    ultimateParentCompanyStatus = NotStarted,
+    ukCompaniesStatus = InProgress,
+    checkTotalsStatus = Completed
   )
 
   val reviewAndCompleteJson: JsObject = Json.obj(
-    "aboutReturn" -> Json.obj(
-      "status" -> SectionStatus.NotStarted.toString
-    ),
-    "elections" -> Json.obj(
-      "status" -> SectionStatus.InProgress.toString,
-      "lastPageSaved" -> GroupRatioBlendedElectionPage.toString
-    ),
-    "groupLevelInformation" -> Json.obj(
-      "status" -> SectionStatus.Completed.toString,
-      "lastPageSaved" -> GroupInterestCapacityPage.toString
-    ),
-    "ultimateParentCompany" -> Json.obj(
-      "status" -> SectionStatus.NotStarted.toString
-    ),
-    "ukCompanies" -> Json.obj(
-      "status" -> SectionStatus.InProgress.toString,
-      "lastPageSaved" -> UkCompaniesPage.toString
-    ),
-    "checkTotals" -> Json.obj(
-      "status" -> SectionStatus.Completed.toString,
-      "lastPageSaved" -> DerivedCompanyPage.toString
-    )
+    "aboutReturnStatus" -> SectionStatus.NotStarted.toString,
+    "electionsStatus" -> SectionStatus.InProgress.toString,
+    "groupLevelInformationStatus" -> SectionStatus.Completed.toString,
+    "ultimateParentCompanyStatus" -> SectionStatus.NotStarted.toString,
+    "ukCompaniesStatus" -> SectionStatus.InProgress.toString,
+    "checkTotalsStatus" -> SectionStatus.Completed.toString
   )
 
 }

@@ -75,8 +75,16 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
         if (hasDeemedParentPage.isDefined) checkYourAnswers(idx) else routes.HasDeemedParentController.onPageLoad(NormalMode)
       }
       case _ => checkYourAnswers(idx)
-    })
+    }),
+    HasDeemedParentPage -> ((idx,userAnswers) => hasDeemedParentCheckRoute(idx, userAnswers))
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))
+
+  private def hasDeemedParentCheckRoute(idx: Int, userAnswers: UserAnswers): Call = {
+    userAnswers.get(ParentCompanyNamePage) match {
+      case Some(_) => checkYourAnswers(idx)
+      case _ => routes.ParentCompanyNameController.onPageLoad(idx, NormalMode)
+    }
+  }
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 
