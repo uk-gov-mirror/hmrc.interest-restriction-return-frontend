@@ -22,12 +22,15 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.ultimateParentCompany.LimitedLiabilityPartnershipFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.LimitedLiabilityPartnershipView
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
 import assets.constants.DeemedParentConstants._
+import models.returnModels.UTRModel
+
+import scala.concurrent.Future
 
 class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
@@ -131,6 +134,44 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+    }
+
+    "Data Cleanup" when {
+      "User selects `yes` then we delete CTUTR" in {
+        val userAnswers = emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelMin.copy(ctutr = Some(UTRModel("Test"))), Some(1)).success.value
+
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        mockGetAnswers(Some(userAnswers))
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
+
+        (mockSessionRepository.set(_: UserAnswers))
+          .expects(emptyUserAnswers
+            .set(DeemedParentPage, deemedParentModelMin.copy(ctutr = None,limitedLiabilityPartnership = Some(true)), Some(1)).success.value)
+          .returns(Future.successful(true))
+
+        status(result) mustEqual SEE_OTHER
+      }
+
+      "User selects `no` then we delete SAUTR" in {
+        val userAnswers = emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelMin.copy(sautr = Some(UTRModel("Test"))), Some(1)).success.value
+
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+        mockGetAnswers(Some(userAnswers))
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
+
+        (mockSessionRepository.set(_: UserAnswers))
+          .expects(emptyUserAnswers
+            .set(DeemedParentPage, deemedParentModelMin.copy(sautr = None,limitedLiabilityPartnership = Some(false)), Some(1)).success.value)
+          .returns(Future.successful(true))
+
+        status(result) mustEqual SEE_OTHER
+      }
     }
   }
 }
