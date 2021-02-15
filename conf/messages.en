@@ -530,8 +530,9 @@ investorGroupName.error.length = Investor group name must be 160 characters or l
 # ----------------------------------------------------------
 investorRatioMethod.title = Do you want to treat the investor group as if they have made the group ratio election?
 investorRatioMethod.heading = Do you want to treat the investor group as if they have made the group ratio election?
-investorRatioMethod.groupRatioMethod = Group Ratio
-investorRatioMethod.fixedRatioMethod = Fixed Ratio
+investorRatioMethod.groupRatioMethod = Yes
+investorRatioMethod.fixedRatioMethod = No
+investorRatioMethod.noAnswer = I don''t want to provide this information
 investorRatioMethod.checkYourAnswersLabel = Investor group ratio
 investorRatioMethod.error.required = Select yes if you want to treat the investor group as if they have made the group ratio election
 

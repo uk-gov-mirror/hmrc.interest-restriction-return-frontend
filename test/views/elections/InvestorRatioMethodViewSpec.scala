@@ -16,17 +16,17 @@
 
 package views.elections
 
-import assets.messages.{BaseMessages, SectionHeaderMessages}
+import assets.constants.BaseConstants
+import assets.messages.BaseMessages
+import controllers.elections.routes
 import forms.elections.InvestorRatioMethodFormProvider
-import models.InvestorRatioMethod
+import models.{InvestorRatioMethod, NormalMode}
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.ViewBehaviours
 import views.html.elections.InvestorRatioMethodView
-import controllers.elections.routes
-import models.NormalMode
 
-class InvestorRatioMethodViewSpec extends YesNoViewBehaviours {
+class InvestorRatioMethodViewSpec extends ViewBehaviours with BaseConstants {
 
   val messageKeyPrefix = "investorRatioMethod"
   val section = Some(messages("section.elections"))
@@ -36,7 +36,7 @@ class InvestorRatioMethodViewSpec extends YesNoViewBehaviours {
 
   "InvestorRatioMethodView" must {
 
-    def applyView(form: Form[Boolean]): HtmlFormat.Appendable = view.apply(form, name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+    def applyView(form: Form[InvestorRatioMethod]): HtmlFormat.Appendable = view.apply(form, name, onwardRoute)(fakeRequest, messages, frontendAppConfig)
 
     behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
@@ -48,7 +48,27 @@ class InvestorRatioMethodViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithSaveForLater(applyView(form))
 
-    behave like yesNoPage(form, applyView, messageKeyPrefix, routes.InvestorRatioMethodController.onSubmit(1, NormalMode).url, section = section)
+    InvestorRatioMethod.options(form).zipWithIndex.foreach { case (option, i) =>
+
+      val id = if (i == 0) "value" else s"value-${i + 1}"
+
+      s"contain radio buttons for the value '${option.value.get}'" in {
+
+        val doc = asDocument(applyView(form))
+        assertContainsRadioButton(doc, id, "value", option.value.get, false)
+      }
+
+      s"rendered with a value of '${option.value.get}'" must {
+
+        s"have the '${option.value.get}' radio button selected" in {
+
+          val formWithData = form.bind(Map("value" -> s"${option.value.get}"))
+          val doc = asDocument(applyView(formWithData))
+
+          assertContainsRadioButton(doc, id, "value", option.value.get, true)
+        }
+      }
+    }
 
   }
 }

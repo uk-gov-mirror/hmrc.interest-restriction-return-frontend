@@ -20,20 +20,15 @@ import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
-sealed trait InvestorRatioMethod {
-  val isGroupRatioMethod: Boolean = 
-    this match {
-      case InvestorRatioMethod.GroupRatioMethod => true
-      case InvestorRatioMethod.FixedRatioMethod => false
-    }
-}
+sealed trait InvestorRatioMethod
 
 object InvestorRatioMethod extends Enumerable.Implicits {
 
   case object GroupRatioMethod extends WithName("groupRatioMethod") with InvestorRatioMethod
   case object FixedRatioMethod extends WithName("fixedRatioMethod") with InvestorRatioMethod
+  case object PreferNotToAnswer extends WithName("noAnswer") with InvestorRatioMethod
 
-  val values: Seq[InvestorRatioMethod] = Seq(GroupRatioMethod, FixedRatioMethod)
+  val values: Seq[InvestorRatioMethod] = Seq(GroupRatioMethod, FixedRatioMethod, PreferNotToAnswer)
 
   def options(form: Form[_])(implicit messages: Messages): Seq[RadioItem] = values.map {
     value =>
@@ -46,11 +41,5 @@ object InvestorRatioMethod extends Enumerable.Implicits {
 
   implicit val enumerable: Enumerable[InvestorRatioMethod] =
     Enumerable(values.map(v => v.toString -> v): _*)
-
-  def fromBoolean(bool: Boolean): InvestorRatioMethod = 
-    bool match {
-      case true => GroupRatioMethod
-      case false => FixedRatioMethod
-    }
 
 }

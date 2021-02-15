@@ -74,7 +74,6 @@ class ReactivationAmountViewSpec extends QuestionViewBehaviours[AllocatedReactiv
           "include the form's value in the value input" in {
 
             val doc = asDocument(applyView(form.fill(allocatedReactivationsModel)))
-            println(doc.getElementById("value"))
             doc.getElementById("value").attr("value") mustBe number.toString
           }
         }
