@@ -68,8 +68,14 @@ class LimitedLiabilityPartnershipController @Inject()(override val messagesApi: 
             companyName = deemedParentModel.companyName.name,
             postAction = routes.LimitedLiabilityPartnershipController.onSubmit(idx, mode)
           ))),
-        value => {
-          val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value))
+        (value: Boolean) => {
+          val updatedModel = deemedParentModel.copy(limitedLiabilityPartnership = Some(value),
+            ctutr = if (value) None else deemedParentModel.ctutr,
+            sautr = if (!value) None else deemedParentModel.sautr)
+
+          //TODO: Refactor the above to consume Page.cleanup hook - had to do this implementation due to time constraints
+          //as the page is not following the `QuestionPage` pattern used in scaffolds. All behaviour tested in `controller` should be
+          //pushed to `LimitedLiabilityPartnershipPageSpec`
 
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, updatedModel, Some(idx)))

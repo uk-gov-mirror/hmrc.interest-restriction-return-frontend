@@ -19,7 +19,8 @@ package controllers.ultimateParentCompany
 import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
 import assets.{BaseITConstants, PageTitles}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
-import models.NormalMode
+import models.{CheckMode, NormalMode}
+import models.returnModels.UTRModel
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -239,7 +240,58 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to CheckYourAnswers page when user selects `yes` and there is a sautr" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany.copy(sautr = Some(UTRModel("test"))), Some(1)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/1/limited-liability-partnership/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to SAUTR page when user selects `yes` and there is no sautr" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/1/limited-liability-partnership/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.ParentCompanySAUTRController.onPageLoad(1,CheckMode).url)
+              )
+            }
+          }
+
+          "redirect to CheckYourAnswers page when user selects `no` and there is a ctutr" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany.copy(ctutr = Some(UTRModel("test"))), Some(1)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/1/limited-liability-partnership/change", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to CTUTR page when user selects `no` and there is no ctutr" in {
 
             AuthStub.authorised()
             setAnswers(
@@ -251,7 +303,7 @@ class LimitedLiabilityPartnershipControllerISpec extends IntegrationSpecBase wit
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+                redirectLocation(controllers.ultimateParentCompany.routes.ParentCompanyCTUTRController.onPageLoad(1,CheckMode).url)
               )
             }
           }
