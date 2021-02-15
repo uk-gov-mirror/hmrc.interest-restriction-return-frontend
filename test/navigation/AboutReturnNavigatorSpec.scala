@@ -300,6 +300,30 @@ class AboutReturnNavigatorSpec extends SpecBase {
           navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe
             aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
+
+        "When set to false present Reporting Company Required" in {
+            val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, false)
+
+            navigator.nextPage(ReportingCompanyAppointedPage, CheckMode, userAnswers.get) mustBe
+              controllers.aboutReturn.routes.ReportingCompanyRequiredController.onPageLoad()
+          }
+
+          "When set to true and the next page exists present CYA" in {
+            val userAnswers = for {
+              ua <- emptyUserAnswers.set(ReportingCompanyAppointedPage, true)
+              finalUa <- ua.set(AgentActingOnBehalfOfCompanyPage, true)
+            } yield finalUa
+
+            navigator.nextPage(ReportingCompanyAppointedPage, CheckMode, userAnswers.get) mustBe
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad()
+          }
+
+          "When set to true and next page does not exist present AgentActingOnBehalfOfCompanyController" in {
+            val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, true)
+
+            navigator.nextPage(ReportingCompanyAppointedPage, CheckMode, userAnswers.get) mustBe
+              controllers.aboutReturn.routes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+          }
       }
     }
   }
