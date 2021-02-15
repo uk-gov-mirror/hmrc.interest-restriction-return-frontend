@@ -16,38 +16,39 @@
 
 package models.returnModels
 
+import models.SectionStatus
 import models.SectionStatus.NotStarted
-import models.{Section, SectionStatus}
-import pages.Page
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.Json
+import sectionstatus._
+import models.UserAnswers
 
-
-case class SectionState(status: SectionStatus = NotStarted, lastPageSaved: Option[Page] = None)
-
-object SectionState {
-  implicit val fmt: Format[SectionState] = Json.format[SectionState]
-}
-
-case class ReviewAndCompleteModel(aboutReturn: SectionState = SectionState(),
-                                  elections: SectionState = SectionState(),
-                                  groupLevelInformation: SectionState = SectionState(),
-                                  ultimateParentCompany: SectionState = SectionState(),
-                                  ukCompanies: SectionState = SectionState(),
-                                  checkTotals: SectionState = SectionState()) {
-
-  def update(section: Section, sectionStatus: SectionStatus, page: Page): ReviewAndCompleteModel = section match {
-    case Section.AboutReturn => this.copy(aboutReturn = SectionState(sectionStatus, Some(page)))
-    case Section.Elections => this.copy(elections = SectionState(sectionStatus, Some(page)))
-    case Section.GroupLevelInformation => this.copy(groupLevelInformation = SectionState(sectionStatus, Some(page)))
-    case Section.UltimateParentCompany => this.copy(ultimateParentCompany = SectionState(sectionStatus, Some(page)))
-    case Section.UkCompanies => this.copy(ukCompanies = SectionState(sectionStatus, Some(page)))
-    case Section.CheckTotals => this.copy(checkTotals = SectionState(sectionStatus, Some(page)))
-    case Section.ReviewTaxEBITDA => throw new Exception("Not yet implemented")
-    case Section.ReviewReactivations => throw new Exception("Not yet implemented")
-    case Section.ReviewAndComplete => throw new Exception("Not yet implemented")
-  }
+case class ReviewAndCompleteModel(aboutReturnStatus: SectionStatus = NotStarted,
+                                  electionsStatus: SectionStatus = NotStarted,
+                                  groupLevelInformationStatus: SectionStatus = NotStarted,
+                                  ultimateParentCompanyStatus: SectionStatus = NotStarted,
+                                  ukCompaniesStatus: SectionStatus = NotStarted,
+                                  checkTotalsStatus: SectionStatus = NotStarted) {
 }
 
 object ReviewAndCompleteModel {
   implicit val format = Json.format[ReviewAndCompleteModel]
+
+  def apply(userAnswers: UserAnswers): ReviewAndCompleteModel = {
+
+    val aboutReturnStatus = AboutReturnSectionStatus.getStatus(userAnswers)
+    val electionsStatus = ElectionsSectionStatus.getStatus(userAnswers)
+    val groupLevelInformationStatus = GroupLevelInformationSectionStatus.getStatus(userAnswers)
+    val ultimateParentCompanyStatus = UltimateParentCompanySectionStatus.getStatus(userAnswers)
+    val ukCompaniesStatus = UkCompaniesSectionStatus.getStatus(userAnswers)
+    val checkTotalsStatus = CheckTotalsSectionStatus.getStatus(userAnswers)
+
+    ReviewAndCompleteModel(
+      aboutReturnStatus = aboutReturnStatus,
+      electionsStatus = electionsStatus,
+      groupLevelInformationStatus = groupLevelInformationStatus,
+      ultimateParentCompanyStatus = ultimateParentCompanyStatus,
+      ukCompaniesStatus = ukCompaniesStatus,
+      checkTotalsStatus = checkTotalsStatus
+    )
+  }
 }

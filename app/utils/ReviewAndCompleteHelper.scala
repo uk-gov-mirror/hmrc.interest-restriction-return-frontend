@@ -36,32 +36,32 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
       TaskListRow(
         messages(s"section.${Section.AboutReturn}"),
         controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturn.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturnStatus}")
       ),
       TaskListRow(
         messages(s"section.${Section.UltimateParentCompany}"),
         ultimateParentLink,
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.ultimateParentCompany.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.ultimateParentCompanyStatus}")
       ),
       TaskListRow(
         messages(s"section.${Section.Elections}"),
         controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.elections.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.electionsStatus}")
       ),
       TaskListRow(
         messages(s"section.${Section.GroupLevelInformation}"),
         controllers.routes.UnderConstructionController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupLevelInformation.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupLevelInformationStatus}")
       ),
       TaskListRow(
         messages(s"section.${Section.UkCompanies}"),
         controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompanies.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompaniesStatus}")
       ),
       TaskListRow(
         messages(s"section.${Section.CheckTotals}"),
         controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.checkTotals.status}")
+        messages(s"reviewAndComplete.${reviewAndCompleteModel.checkTotalsStatus}")
       )
     )
   }
