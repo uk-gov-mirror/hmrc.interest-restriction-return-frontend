@@ -216,6 +216,5 @@ class CheckYourAnswersAboutReturnCompanyHelperSpec extends SpecBase with BaseCon
         expectedAccountingPeriodEnd
       )
     }
-
   }
 }
