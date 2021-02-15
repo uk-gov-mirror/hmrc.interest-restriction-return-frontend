@@ -167,7 +167,7 @@ class HasDeemedParentControllerISpec extends IntegrationSpecBase with CreateRequ
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to ParentCompanyName page" in {
 
             AuthStub.authorised()
 
@@ -176,7 +176,7 @@ class HasDeemedParentControllerISpec extends IntegrationSpecBase with CreateRequ
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+                redirectLocation(controllers.ultimateParentCompany.routes.ParentCompanyNameController.onPageLoad(1, NormalMode).url)
               )
             }
           }
