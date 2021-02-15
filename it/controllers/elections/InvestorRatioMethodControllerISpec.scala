@@ -105,7 +105,7 @@ class InvestorRatioMethodControllerISpec extends IntegrationSpecBase with Create
               .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2)).success.value
             )
 
-            val res = postRequest("/elections/investor-group/1/ratio-method", Json.obj("value" -> "true"))()
+            val res = postRequest("/elections/investor-group/1/ratio-method", Json.obj("value" -> "groupRatioMethod"))()
 
             whenReady(res) { result =>
               result should have(
