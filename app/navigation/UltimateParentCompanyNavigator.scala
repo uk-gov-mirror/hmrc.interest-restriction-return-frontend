@@ -62,20 +62,9 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
     LimitedLiabilityPartnershipPage -> ((idx,userAnswers) =>
       userAnswers.get(DeemedParentPage,Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
         deemedParent.limitedLiabilityPartnership match {
-          case Some(true) => {
-            if (deemedParent.sautr.isEmpty) {
-              routes.ParentCompanySAUTRController.onPageLoad(idx,CheckMode)
-            } else {
-              checkYourAnswers(idx)
-            }
-          }
-          case _ => {
-            if (deemedParent.ctutr.isEmpty) {
-              routes.ParentCompanyCTUTRController.onPageLoad(idx,CheckMode)
-            } else {
-              checkYourAnswers(idx)
-            }
-          }
+          case llp if deemedParent.sautr.isEmpty && llp == Some(true)  => routes.ParentCompanySAUTRController.onPageLoad(idx,CheckMode)
+          case llp if deemedParent.ctutr.isEmpty && llp == Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx,CheckMode)
+          case _ => checkYourAnswers(idx)
         }
       })),
     ReportingCompanySameAsParentPage -> ((idx,userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
