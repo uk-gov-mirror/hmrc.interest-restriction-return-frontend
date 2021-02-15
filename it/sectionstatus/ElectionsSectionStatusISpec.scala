@@ -129,7 +129,7 @@ class ElectionsSectionStatusISpec extends IntegrationSpecBase with CreateRequest
       }
 
     }
-    
+
     "return Completed" when {
       "Not group ratio / Active interest allowance (alt) / No non-con investments / No consolidated partnerships" in {
         AuthStub.authorised()
@@ -243,7 +243,7 @@ class ElectionsSectionStatusISpec extends IntegrationSpecBase with CreateRequest
           _ <- postRequest("/elections/group-ratio-election", Json.obj("value" -> true))()
           _ <- postRequest("/elections/group-ratio-blended-election", Json.obj("value" -> true))()
           _ <- postRequest("/elections/investor-group/1/name", Json.obj("value" -> "Investor Name"))()
-          _ <- postRequest("/elections/investor-group/1/ratio-method", Json.obj("value" -> "true"))()
+          _ <- postRequest("/elections/investor-group/1/ratio-method", Json.obj("value" -> "groupRatioMethod"))()
           _ <- postRequest("/elections/investor-group/1/other-elections", Json.obj("value[0]" -> GroupEBITDA.toString))()
           _ <- postRequest("/elections/elected-group-ebitda-before", Json.obj("value" -> false))()
           _ <- postRequest("/elections/group-ebitda-chargeable-gains-election", Json.obj("value" -> true))()
