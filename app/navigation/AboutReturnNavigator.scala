@@ -57,7 +57,11 @@ class AboutReturnNavigator @Inject()() extends Navigator {
   )
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
-    ReportingCompanyAppointedPage -> normalRoutes(ReportingCompanyAppointedPage),
+    ReportingCompanyAppointedPage -> {userAnswers => userAnswers.get(ReportingCompanyAppointedPage) match {
+      case Some(true) => checkSectionHasContent(userAnswers)
+      case Some(false) => aboutReturnRoutes.ReportingCompanyRequiredController.onPageLoad()
+      case _ => aboutReturnRoutes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
+    }},
     FullOrAbbreviatedReturnPage -> (fullOrAbbreviatedReturnCheckRoute(_)),
     AgentActingOnBehalfOfCompanyPage -> (_.get(AgentActingOnBehalfOfCompanyPage) match {
       case Some(true) => aboutReturnRoutes.AgentNameController.onPageLoad(CheckMode)
@@ -77,6 +81,14 @@ class AboutReturnNavigator @Inject()() extends Navigator {
     } else {
       aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     }
+  }
+
+  def checkSectionHasContent(userAnswers: UserAnswers): Call = {
+      if (userAnswers.get(AgentActingOnBehalfOfCompanyPage).isDefined) {
+        aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
+      } else {
+        aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
+      }
   }
 
   private def checkAnswers = aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
