@@ -73,7 +73,7 @@ class InvestorRatioMethodController @Inject()(
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, request.userAnswers, Some(idx)))
+          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }
