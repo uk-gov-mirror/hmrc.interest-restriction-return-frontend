@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.groupLevelInformation.GroupEBITDAFormProvider
 import models.NormalMode
-import pages.groupLevelInformation.GroupEBITDAPage
 import play.api.test.Helpers._
 import views.html.groupLevelInformation.GroupEBITDAView
 import navigation.FakeNavigators.FakeGroupLevelInformationNavigator

@@ -23,6 +23,7 @@ import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import models.{CheckMode, UserAnswers}
 import pages.groupLevelInformation._
 import viewmodels.SummaryListRowHelper
+import models.EstimatedFigures
 
 class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
 
@@ -40,6 +41,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
       .set(EnterQNGIEPage, qngie).get
       .set(GroupEBITDAPage, ebitda).get
       .set(GroupRatioPercentagePage, groupRatioPercentage).get
+      .set(EstimatedFiguresPage, EstimatedFigures.values.toSet).get
   )
 
   "Check Your Answers Helper" must {
@@ -196,6 +198,19 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
           BaseMessages.no,
           visuallyHiddenText = None,
           groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the EstimatedFigures answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.estimatedFigures mustBe Some(summaryListRow(
+          CheckAnswersGroupLevelInformationMessages.estimatedFigures,
+          "ANGIE<br>QNGIE<br>Group tax EBITDA<br>Reactivation cap<br>Total disallowed amount<br>Interest allowance brought forward<br>Interest allowance for the period of account<br>Interest capacity",
+          visuallyHiddenText = None,
+          groupLevelInformationRoutes.EstimatedFiguresController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

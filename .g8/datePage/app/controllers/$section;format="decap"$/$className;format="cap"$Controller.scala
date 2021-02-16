@@ -10,7 +10,6 @@ import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
 import navigation.$section;format="cap"$Navigator
@@ -20,7 +19,6 @@ class $className;format="cap"$Controller @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
                                          navigator: $section;format="cap"$Navigator,
-                                         val questionDeletionLookupService: QuestionDeletionLookupService,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,

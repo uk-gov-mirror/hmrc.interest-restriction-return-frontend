@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val estimatedFigures = "Tell us which figures have been estimated"
   val disallowedAmount = "Enter the total disallowed amount for the group"
   val tellUsWhatHasChanged = "Tell us what has changed"
   val restrictionAmountSameAP = "Enter the restriction amount for this company"

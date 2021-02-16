@@ -8,7 +8,6 @@ import pages.$section;format="decap"$.$className;format="cap"$Page
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import config.FrontendAppConfig
 import play.api.data.Form
@@ -21,7 +20,6 @@ class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        sessionRepository: SessionRepository,
                                        navigator: $section;format="cap"$Navigator,
-                                       val questionDeletionLookupService: QuestionDeletionLookupService,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,

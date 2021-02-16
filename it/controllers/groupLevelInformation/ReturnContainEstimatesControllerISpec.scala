@@ -70,7 +70,21 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
 
         "enters a valid answer" when {
 
-          "redirect to GroupSubjectToRestrictions page" in {
+          "false is entered redirect to Check your answers page" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/group-level-information/return-contain-estimates", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onPageLoad().url)
+              )
+            }
+          }
+
+          "true is entered redirect to EstimatedFigures page" in {
 
             AuthStub.authorised()
 
@@ -79,7 +93,7 @@ class ReturnContainEstimatesControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onPageLoad().url)
+                redirectLocation(controllers.groupLevelInformation.routes.EstimatedFiguresController.onPageLoad(NormalMode).url)
               )
             }
           }
