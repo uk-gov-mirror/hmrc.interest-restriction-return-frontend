@@ -59,6 +59,16 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int,UserAnswers) => Call](
+    PayTaxInUkPage -> ((idx,userAnswers) =>
+      userAnswers.get(DeemedParentPage,Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
+        deemedParent.payTaxInUk match {
+          case payTaxInUk if deemedParent.limitedLiabilityPartnership.isEmpty && payTaxInUk == Some(true)  =>
+            routes.LimitedLiabilityPartnershipController.onPageLoad(idx,CheckMode)
+          case payTaxInUk if deemedParent.countryOfIncorporation.isEmpty && payTaxInUk == Some(false)  =>
+            routes.CountryOfIncorporationController.onPageLoad(idx,CheckMode)
+          case _ => checkYourAnswers(idx)
+        }
+      })),
     LimitedLiabilityPartnershipPage -> ((idx,userAnswers) =>
       userAnswers.get(DeemedParentPage,Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
         deemedParent.limitedLiabilityPartnership match {

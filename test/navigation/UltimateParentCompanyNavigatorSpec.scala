@@ -21,7 +21,7 @@ import base.SpecBase
 import controllers.elections.routes
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
 import models._
-import models.returnModels.UTRModel
+import models.returnModels.{CountryCodeModel, UTRModel}
 import pages.ultimateParentCompany._
 
 class UltimateParentCompanyNavigatorSpec extends SpecBase {
@@ -211,6 +211,40 @@ class UltimateParentCompanyNavigatorSpec extends SpecBase {
       }
 
       "in Check mode" must {
+        "from Pay Tax In UK Page" when {
+          "go down to Parent/Entity LLP Page if user selects `yes` and we have no `llp`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(payTaxInUk = Some(true),limitedLiabilityPartnership = None,sautr = None), Some(1)).success.value
+
+            navigator.nextPage(PayTaxInUkPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.LimitedLiabilityPartnershipController.onPageLoad(1,CheckMode)
+          }
+
+          "go back to CYA Page if user selects `yes` and we have `llp`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(payTaxInUk = Some(true),limitedLiabilityPartnership = Some(true)), Some(1)).success.value
+
+            navigator.nextPage(PayTaxInUkPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
+          }
+
+          "go down to Country of Incorporation Page if user selects `no` and we have no `country of incorporation`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(payTaxInUk = Some(false),countryOfIncorporation = None), Some(1)).success.value
+
+            navigator.nextPage(PayTaxInUkPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.CountryOfIncorporationController.onPageLoad(1,CheckMode)
+          }
+
+          "go back to CYA if user selects `no` and we have `country of incorporation`" in {
+            val userAnswers = emptyUserAnswers
+              .set(DeemedParentPage, deemedParentModelMin.copy(payTaxInUk = Some(false),countryOfIncorporation = Some(CountryCodeModel("IT","Italy"))), Some(1)).success.value
+
+            navigator.nextPage(PayTaxInUkPage, CheckMode, userAnswers) mustBe
+              ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
+          }
+        }
+
         "from Limited Liability Partnership page" when {
           "go down to sautr page if user selects `yes` and we have no `sautr`" in {
             val userAnswers = emptyUserAnswers

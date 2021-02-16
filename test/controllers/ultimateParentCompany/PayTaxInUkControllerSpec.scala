@@ -23,11 +23,14 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.ultimateParentCompany.PayTaxInUkFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
+import models.returnModels.{CountryCodeModel, UTRModel}
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.PayTaxInUkView
+
+import scala.concurrent.Future
 
 class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction {
 
@@ -177,6 +180,46 @@ class PayTaxInUkControllerSpec extends SpecBase with FeatureSwitching with BaseC
           redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
         }
       }
+    }
+  }
+
+  "Data Cleanup" when {
+    "User has pay tax in UK as `yes` and changes it to `no` then we delete CTUTR,SAUTR and LLP" in {
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin.copy(ctutr = Some(UTRModel("Test")),
+          sautr = Some(UTRModel("Test")),
+          limitedLiabilityPartnership = Some(false),payTaxInUk = Some(true)), Some(1)).success.value
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
+
+      (mockSessionRepository.set(_: UserAnswers))
+        .expects(emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelMin.copy(ctutr = None,limitedLiabilityPartnership = None,sautr = None,payTaxInUk = Some(false)), Some(1)).success.value)
+        .returns(Future.successful(true))
+
+      status(result) mustEqual SEE_OTHER
+    }
+
+    "User has pay tax in UK as `no` and changes it to `yes` then we delete Country of Incorporation" in {
+      val userAnswers = emptyUserAnswers
+        .set(DeemedParentPage, deemedParentModelMin.copy(countryOfIncorporation = Some(CountryCodeModel("IT","Italy")),payTaxInUk = Some(false)), Some(1)).success.value
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
+
+      (mockSessionRepository.set(_: UserAnswers))
+        .expects(emptyUserAnswers
+          .set(DeemedParentPage, deemedParentModelMin.copy(payTaxInUk = Some(true)), Some(1)).success.value)
+        .returns(Future.successful(true))
+
+      status(result) mustEqual SEE_OTHER
     }
   }
 }

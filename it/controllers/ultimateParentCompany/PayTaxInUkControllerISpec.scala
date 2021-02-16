@@ -16,10 +16,10 @@
 
 package controllers.ultimateParentCompany
 
-import assets.DeemedParentITConstants.deemedParentModelNonUkCompany
+import assets.DeemedParentITConstants.{deemedParentModelNonUkCompany, deemedParentModelUkCompany}
 import assets.{BaseITConstants, PageTitles}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
-import models.NormalMode
+import models.{CheckMode, NormalMode}
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -258,14 +258,65 @@ class PayTaxInUkControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
         "enters a valid answer" when {
 
-          "redirect to CheckYourAnswers page" in {
+          "redirect to CheckYourAnswers page when user selects `yes` and already has `llp`" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "redirect to LLP page when user selects `yes` and does not have `llp`" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany.copy(limitedLiabilityPartnership = None), Some(1)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.LimitedLiabilityPartnershipController.onPageLoad(1,CheckMode).url)
+              )
+            }
+          }
+
+          "redirect to Country Of Incorporation page when user selects `no` and does not have `country of incorporation`" in {
+
+            AuthStub.authorised()
+            setAnswers(
+              emptyUserAnswers.set(DeemedParentPage, deemedParentModelUkCompany.copy(countryOfIncorporation = None), Some(1)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.CountryOfIncorporationController.onPageLoad(1,CheckMode).url)
+              )
+            }
+          }
+
+          "redirect to CYA page when user selects `no` and does have `country of incorporation`" in {
 
             AuthStub.authorised()
             setAnswers(
               emptyUserAnswers.set(DeemedParentPage, deemedParentModelNonUkCompany, Some(1)).success.value
             )
 
-            val res = postRequest("/ultimate-parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> "true"))()
+            val res = postRequest("/ultimate-parent-company/1/pay-tax-in-uk/change", Json.obj("value" -> "false"))()
 
             whenReady(res) { result =>
               result should have(
