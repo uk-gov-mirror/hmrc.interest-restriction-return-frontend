@@ -18,13 +18,14 @@ package sectionstatus
 
 import base.SpecBase
 import models.SectionStatus._
-import pages.ukCompanies.CompanyDetailsPage
+import pages.ukCompanies.UkCompaniesPage
 import assets.constants.BaseConstants
 import models.CompanyDetailsModel
+import models.returnModels.fullReturn.UkCompanyModel
 
 class UkCompaniesSectionStatusSpec extends SpecBase with BaseConstants {
 
-  "aboutReturnSectionStatus" must {
+  "getStatus" must {
     "return NotStarted" when {
       "no data from the section has been entered" in {
         val userAnswers = emptyUserAnswers
@@ -34,7 +35,7 @@ class UkCompaniesSectionStatusSpec extends SpecBase with BaseConstants {
     "return InProgress" when {
       "has some data been entered" in {
         val companyDetails = CompanyDetailsModel(companyName = "name", ctutr = "1234567890")
-        val userAnswers = emptyUserAnswers.set(CompanyDetailsPage, companyDetails).get
+        val userAnswers = emptyUserAnswers.set(UkCompaniesPage, UkCompanyModel(companyDetails), Some(1)).get
         UkCompaniesSectionStatus.getStatus(userAnswers) mustEqual InProgress
       }
     }
