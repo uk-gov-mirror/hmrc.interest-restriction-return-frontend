@@ -69,13 +69,17 @@ class InvestorRatioMethodController @Inject()(
             postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
           ))),
         success = value => {
+          //TODO: Refactor the above to consume Page.cleanup hook - had to do this implementation due to time constraints
+          //as the page is not following the `QuestionPage` pattern used in scaffolds. All behaviour tested in `controller` should be
+          //pushed to `InvestorRatioMethodPage`
+
           val updatedModel = {
             if (investorGroups.ratioMethod.contains(value))
               investorGroups.copy(ratioMethod = Some(value))
             else
               investorGroups.copy(ratioMethod = Some(value), otherInvestorGroupElections = None)
           }
-          
+
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
