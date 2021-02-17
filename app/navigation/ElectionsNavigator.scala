@@ -61,10 +61,10 @@ class ElectionsNavigator @Inject()() extends Navigator {
     ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)),
     InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
       case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
-      case Some(false) => routes.CheckAnswersElectionsController.onPageLoad()
+      case Some(false) => checkYourAnswers
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
-    PartnershipsReviewAnswersListPage -> (_ => routes.CheckAnswersElectionsController.onPageLoad()),
+    PartnershipsReviewAnswersListPage -> (_ => checkYourAnswers),
     PartnershipDeletionConfirmationPage -> (_ => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
       case Some(true) => routes.InvestorGroupsReviewAnswersListController.onPageLoad()
