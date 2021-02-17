@@ -51,7 +51,7 @@ class InvestorRatioMethodController @Inject()(
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(InvestorGroupsPage, idx) { investorGroups =>
       Future.successful(Ok(view(
-        form = investorGroups.ratioMethod.fold(form)(x => form.fill(x.isGroupRatioMethod)),
+        form = investorGroups.ratioMethod.fold(form)(x => form.fill(x)),
         investorGroupName = investorGroups.investorName,
         postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
       )))
@@ -68,12 +68,12 @@ class InvestorRatioMethodController @Inject()(
             postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
           ))),
         value => {
-          val updatedModel = investorGroups.copy(ratioMethod = Some(InvestorRatioMethod.fromBoolean(value)))
+          val updatedModel = investorGroups.copy(ratioMethod = Some(value))
 
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, request.userAnswers, Some(idx)))
+          } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

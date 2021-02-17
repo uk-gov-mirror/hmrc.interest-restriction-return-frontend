@@ -65,8 +65,6 @@ class ReactivationAmountFormProviderSpec extends DecimalFieldBehaviours {
     "value is greater than the maximum" in {
 
       val result = form.bind(Map(fieldName -> (maximum + 0.01).toString))
-      println(result)
-      println(maximum + 0.01)
       result.errors mustEqual Seq(outOfRangeError)
     }
 

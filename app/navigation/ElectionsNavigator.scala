@@ -61,10 +61,10 @@ class ElectionsNavigator @Inject()() extends Navigator {
     ElectedInterestAllowanceConsolidatedPshipBeforePage -> (_ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)),
     InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
       case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
-      case Some(false) => routes.CheckAnswersElectionsController.onPageLoad()
+      case Some(false) => checkYourAnswers
       case _ => routes.InterestAllowanceConsolidatedPshipElectionController.onPageLoad(NormalMode)
     }),
-    PartnershipsReviewAnswersListPage -> (_ => routes.CheckAnswersElectionsController.onPageLoad()),
+    PartnershipsReviewAnswersListPage -> (_ => checkYourAnswers),
     PartnershipDeletionConfirmationPage -> (_ => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     AddInvestorGroupPage -> (_.get(AddInvestorGroupPage) match {
       case Some(true) => routes.InvestorGroupsReviewAnswersListController.onPageLoad()
@@ -81,7 +81,15 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
   val idxRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     InvestorGroupNamePage -> ((idx, _) => routes.InvestorRatioMethodController.onPageLoad(idx, NormalMode)),
-    InvestorRatioMethodPage -> ((idx, _) => routes.OtherInvestorGroupElectionsController.onPageLoad(idx, NormalMode)),
+    InvestorRatioMethodPage -> ((idx, userAnswers) => userAnswers.get(InvestorGroupsPage, Some(idx)) match {
+      case Some(investorGroup) =>
+        investorGroup.ratioMethod match {
+          case Some(investorGroup) if investorGroup == InvestorRatioMethod.PreferNotToAnswer => routes.InvestorGroupsReviewAnswersListController.onPageLoad()
+          case Some(_) => routes.OtherInvestorGroupElectionsController.onPageLoad(idx, NormalMode)
+          case _ => routes.InvestorRatioMethodController.onPageLoad(idx, NormalMode)
+        }
+      case _ => routes.InvestorRatioMethodController.onPageLoad(idx, NormalMode)
+    }),
     PartnershipNamePage -> ((idx, _) => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)),
     IsUkPartnershipPage -> ((idx, userAnswers) => userAnswers.get(PartnershipsPage, Some(idx)) match {
       case Some(partnership) =>
@@ -89,7 +97,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
           case Some(isUk) if isUk == IsUKPartnershipOrPreferNotToAnswer.IsUkPartnership => routes.PartnershipSAUTRController.onPageLoad(idx, NormalMode)
           case _ => routes.PartnershipsReviewAnswersListController.onPageLoad()
         }
-      case Some(_) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case _ => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)
     }),
     PartnershipSAUTRPage -> ((_,_) => routes.PartnershipsReviewAnswersListController.onPageLoad()),
@@ -100,7 +107,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad())
   ).withDefaultValue(_ =>
-    routes.CheckAnswersElectionsController.onPageLoad()
+    checkYourAnswers
   )
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
