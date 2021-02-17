@@ -16,6 +16,7 @@
 
 package navigation
 
+import assets.constants.InvestorGroupConstants.{investorGroupsFixedRatioModel, investorGroupsGroupRatioModel}
 import base.SpecBase
 import assets.constants.PartnershipsConstants._
 import controllers.elections.routes
@@ -490,17 +491,41 @@ class ElectionsNavigatorSpec extends SpecBase {
       "from the Investment Name page" should {
 
         "go to the Investments Review Answers List page" in {
-
           navigator.nextPage(InvestmentNamePage, CheckMode, emptyUserAnswers) mustBe
             routes.InvestmentsReviewAnswersListController.onPageLoad()
         }
       }
 
       "go to the Check Answers Elections page" in {
-
         navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, emptyUserAnswers) mustBe
           routes.CheckAnswersElectionsController.onPageLoad()
+      }
+
+      "GroupRatioBlendedElectionPage" when {
+        "go to check your answers if false" in {
+          val userAnswers = UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, false).get
+          navigator.nextPage(GroupRatioBlendedElectionPage, CheckMode, userAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
+        }
+
+        "go to check your answers if true and next page IS populated" in {
+          val userAnswers = for {
+            addInv <- UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, true)
+            finalUa <- addInv.set(AddInvestorGroupPage, true)
+          } yield finalUa
+
+          navigator.nextPage(GroupRatioBlendedElectionPage, CheckMode, userAnswers.get) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad
+        }
+
+        "go to normal routes if true and next page IS NOT populated" in {
+          val userAnswers = UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, true).get
+          navigator.nextPage(GroupRatioBlendedElectionPage, CheckMode, userAnswers) mustBe
+            routes.AddInvestorGroupController.onPageLoad(NormalMode)
+        }
       }
     }
   }
 }
+
+
