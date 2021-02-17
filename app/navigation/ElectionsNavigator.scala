@@ -106,8 +106,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       }
       case _ => checkYourAnswers
     })
-  ).withDefaultValue(_ => routes.CheckAnswersElectionsController.onPageLoad()
-  )
+  ).withDefaultValue(_ => checkYourAnswers)
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
 

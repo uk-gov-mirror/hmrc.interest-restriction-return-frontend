@@ -22,6 +22,7 @@ import assets.constants.PartnershipsConstants._
 import controllers.elections.routes
 import models._
 import models.FullOrAbbreviatedReturn._
+import models.returnModels.InvestorGroupModel
 import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.elections._
 
@@ -287,13 +288,63 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-      "from the InvestorRatioMethod page" should {
+      "from the InvestorRatioMethod page" when {
 
-        "go to the Other Investor Group Elections page" in {
+        "answer is true" should {
 
-          navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
+          "go to the Other Investor Group Elections page" in {
+            val investorGroupModel = InvestorGroupModel("investor name", ratioMethod = Some(InvestorRatioMethod.GroupRatioMethod))
+            val userAnswers = emptyUserAnswers.set(
+              page = InvestorGroupsPage,
+              value = investorGroupModel,
+              idx = Some(1)).success.value
+
+            navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
+          }
+
         }
+
+        "answer is false" should {
+
+          "go to the Other Investor Group Elections page" in {
+            val investorGroupModel = InvestorGroupModel("investor name", ratioMethod = Some(InvestorRatioMethod.FixedRatioMethod))
+            val userAnswers = emptyUserAnswers.set(
+              page = InvestorGroupsPage,
+              value = investorGroupModel,
+              idx = Some(1)).success.value
+
+            navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
+          }
+
+        }
+
+        "answer is prefer not to answer" should {
+
+          "go to the Other Investor Group Elections page" in {
+            val investorGroupModel = InvestorGroupModel("investor name", ratioMethod = Some(InvestorRatioMethod.PreferNotToAnswer))
+            val userAnswers = emptyUserAnswers.set(
+              page = InvestorGroupsPage,
+              value = investorGroupModel,
+              idx = Some(1)).success.value
+
+            navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.InvestorGroupsReviewAnswersListController.onPageLoad()
+          }
+
+        }
+
+        "answer is not given" should {
+
+          "go to the Other Investor Group Elections page" in {
+
+            navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+              routes.InvestorRatioMethodController.onPageLoad(1, NormalMode)
+          }
+
+        }
+
       }
 
       "from the Other Investor Group Elections page" should {

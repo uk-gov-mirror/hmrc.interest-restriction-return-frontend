@@ -104,7 +104,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
             mockGetAnswers(Some(userAnswers))
             mockSetAnswers
 
-            val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+            val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
 
             val result = Controller.onSubmit(1, NormalMode)(request)
 
@@ -134,7 +134,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
         "return ISE (500)" in {
 
-          val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
 
           mockGetAnswers(Some(emptyUserAnswers))
 
@@ -147,7 +147,7 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
       "redirect to Session Expired for a POST if no existing data is found" in {
 
-        val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
 
         mockGetAnswers(None)
 

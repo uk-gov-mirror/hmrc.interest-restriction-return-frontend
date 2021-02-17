@@ -23,7 +23,7 @@
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
-    yesNoRadio: components.yesNoRadio,
+    inputRadio: components.inputRadio,
     subheading: components.subheading,
     button: components.button,
     link: components.link,
@@ -40,7 +40,11 @@
 
         @subheading(investorGroupName)
 
-        @yesNoRadio(form, "investorRatioMethod.heading")
+        @inputRadio(
+            form = form,
+            legend = messages("investorRatioMethod.heading"),
+            items = InvestorRatioMethod.options(form)
+        )
 
         @button("site.saveAndContinue")
 
