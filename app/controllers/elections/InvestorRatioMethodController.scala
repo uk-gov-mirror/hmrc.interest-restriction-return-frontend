@@ -22,6 +22,7 @@ import controllers.BaseController
 import controllers.actions._
 import forms.elections.InvestorRatioMethodFormProvider
 import handlers.ErrorHandler
+import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod, PreferNotToAnswer}
 
 import javax.inject.Inject
 import models.{InvestorRatioMethod, Mode}
@@ -67,12 +68,17 @@ class InvestorRatioMethodController @Inject()(
             investorGroupName = investorGroups.investorName,
             postAction = routes.InvestorRatioMethodController.onSubmit(idx, mode)
           ))),
-        value => {
-          val updatedModel = investorGroups.copy(ratioMethod = Some(value))
-
+        success = value => {
+          val updatedModel = {
+            if (investorGroups.ratioMethod.contains(value))
+              investorGroups.copy(ratioMethod = Some(value))
+            else
+              investorGroups.copy(ratioMethod = Some(value), otherInvestorGroupElections = None)
+          }
+          
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(InvestorGroupsPage, updatedModel, Some(idx)))
-            _              <- sessionRepository.set(updatedAnswers)
+            _ <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextPage(InvestorRatioMethodPage, mode, updatedAnswers, Some(idx)))
         }
       )
