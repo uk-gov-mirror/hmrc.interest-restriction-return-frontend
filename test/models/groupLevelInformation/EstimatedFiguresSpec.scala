@@ -84,7 +84,8 @@ class EstimatedFiguresSpec extends WordSpec with MustMatchers with ScalaCheckPro
         f                 <- e.set(DisallowedAmountPage, BigDecimal(123)) 
         g                 <- f.set(InterestAllowanceBroughtForwardPage, BigDecimal(123))
         h                 <- g.set(GroupInterestAllowancePage, BigDecimal(123))
-        finalUserAnswers  <- h.set(GroupInterestCapacityPage, BigDecimal(123))
+        i                 <- h.set(GroupInterestCapacityPage, BigDecimal(123))
+        finalUserAnswers  <- i.set(GroupRatioPercentagePage, BigDecimal(123))
       } yield finalUserAnswers).get
 
       val result = optionsFilteredByUserAnswers(form, userAnswers)

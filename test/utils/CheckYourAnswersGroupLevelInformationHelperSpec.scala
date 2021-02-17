@@ -208,7 +208,7 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
 
         helper.estimatedFigures mustBe Some(summaryListRow(
           CheckAnswersGroupLevelInformationMessages.estimatedFigures,
-          "ANGIE<br>QNGIE<br>Group tax EBITDA<br>Reactivation cap<br>Total disallowed amount<br>Interest allowance brought forward<br>Interest allowance for the period of account<br>Interest capacity",
+          "ANGIE<br>QNGIE<br>Group tax EBITDA<br>Group ratio percentage<br>Reactivation cap<br>Total disallowed amount<br>Interest allowance brought forward<br>Interest allowance for the period of account<br>Interest capacity",
           visuallyHiddenText = None,
           groupLevelInformationRoutes.EstimatedFiguresController.onPageLoad(CheckMode) -> BaseMessages.changeLink
         ))

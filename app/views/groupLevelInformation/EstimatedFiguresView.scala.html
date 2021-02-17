@@ -42,13 +42,18 @@
         @subheading("section.groupLevelInformation")
 
         @checkboxes(
-                    form = form,
-                    legend = messages("estimatedFigures.heading"),
-                    items = formItems
-                   )
+            form = form,
+            legend = messages("estimatedFigures.heading"),
+            items = formItems,
+            hint = Some(hint)
+        )
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @messages("estimatedFigures.hint")
 }

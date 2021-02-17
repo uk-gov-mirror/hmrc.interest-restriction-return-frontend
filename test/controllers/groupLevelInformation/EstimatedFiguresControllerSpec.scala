@@ -122,7 +122,7 @@ class EstimatedFiguresControllerSpec extends SpecBase with FeatureSwitching with
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(fakeRequest)
+      val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
