@@ -105,7 +105,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
-    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad())
+    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
+    ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
+      case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
+      case _ => checkYourAnswers
+    })
   ).withDefaultValue(_ =>
     checkYourAnswers
   )

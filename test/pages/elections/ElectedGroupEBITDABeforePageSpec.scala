@@ -16,6 +16,8 @@
 
 package pages.elections
 
+import models.UserAnswers
+import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 
 class ElectedGroupEBITDABeforePageSpec extends PageBehaviours {
@@ -27,5 +29,43 @@ class ElectedGroupEBITDABeforePageSpec extends PageBehaviours {
     beSettable[Boolean](ElectedGroupEBITDABeforePage)
 
     beRemovable[Boolean](ElectedGroupEBITDABeforePage)
+
+    "Cleanup" when {
+      "a user has selected yes" when {
+        "they revisit the page and change the answer to no" should {
+          "not delete any data" in {
+            forAll(arbitrary[UserAnswers]) {
+              userAnswers =>
+                val result = userAnswers
+                  .set(ElectedGroupEBITDABeforePage, true).success.value
+                  .set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).success.value
+                  .set(ElectedGroupEBITDABeforePage, false).success.value
+
+                result.get(ElectedGroupEBITDABeforePage) mustBe defined
+                result.get(ElectedInterestAllowanceAlternativeCalcBeforePage) mustBe defined
+            }
+          }
+        }
+      }
+      "a user has selected no" when {
+        "they revisit the page and change the answer to yes" should {
+          "deleted only elect group EBITDA data data" in {
+            forAll(arbitrary[UserAnswers]) {
+              userAnswers =>
+                val result = userAnswers
+                  .set(ElectedGroupEBITDABeforePage, false).success.value
+                  .set(GroupEBITDAChargeableGainsElectionPage, true).success.value
+                  .set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).success.value
+                  .set(ElectedGroupEBITDABeforePage, true).success.value
+
+                result.get(ElectedGroupEBITDABeforePage) mustBe defined
+                result.get(GroupEBITDAChargeableGainsElectionPage) must not be defined
+                result.get(ElectedInterestAllowanceAlternativeCalcBeforePage) mustBe defined
+            }
+          }
+        }
+      }
+    }
+
   }
 }
