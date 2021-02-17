@@ -61,7 +61,5 @@ class GroupRatioBlendedElectionPageSpec extends PageBehaviours {
 
       result mustBe Seq(investorGroupsFixedRatioModel, investorGroupsGroupRatioModel)
     }
-
-
   }
 }
