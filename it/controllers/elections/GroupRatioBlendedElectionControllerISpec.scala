@@ -140,6 +140,56 @@ class GroupRatioBlendedElectionControllerISpec extends IntegrationSpecBase with 
             )
           }
         }
+
+        "user not authorised" should {
+
+          "return SEE_OTHER (303)" in {
+
+            AuthStub.unauthorised()
+
+            val res = getRequest("/elections/group-ratio-blended-election/change")()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+              )
+            }
+          }
+        }
+      }
+    }
+
+    "POST /elections/group-ratio-blended-election" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckYourAnswers page" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/group-ratio-blended-election/change", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url))
+            }
+          }
+
+          "redirect to AddInvestorGroupController page" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/group-ratio-blended-election/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.AddInvestorGroupController.onPageLoad(NormalMode).url))
+            }
+          }
+        }
       }
 
       "user not authorised" should {
@@ -148,7 +198,7 @@ class GroupRatioBlendedElectionControllerISpec extends IntegrationSpecBase with 
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/elections/group-ratio-blended-election/change")()
+          val res = postRequest("/elections/group-ratio-blended-election/change", Json.obj())()
 
           whenReady(res) { result =>
             result should have(
