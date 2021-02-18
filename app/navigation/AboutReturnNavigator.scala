@@ -19,8 +19,6 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
-import controllers.routes
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
 import pages.aboutReturn._

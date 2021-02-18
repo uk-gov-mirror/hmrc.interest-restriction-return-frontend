@@ -61,6 +61,7 @@ object Page {
     InterestAllowanceBroughtForwardPage,
     InterestReactivationsCapPage,
     ReturnContainEstimatesPage,
+    EstimatedFiguresPage,
     DisallowedAmountPage,
     EnterANGIEPage,
     EnterQNGIEPage,

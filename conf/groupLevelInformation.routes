@@ -94,3 +94,10 @@ POST       /group-ebitda/change                             controllers.groupLev
 ### ----------------------------------------
 GET         /check-answers                                  controllers.groupLevelInformation.CheckAnswersGroupLevelController.onPageLoad()
 POST        /check-answers                                  controllers.groupLevelInformation.CheckAnswersGroupLevelController.onSubmit()
+
+### EstimatedFigures Controller
+### ----------------------------------------
+GET        /estimated-figures                          controllers.groupLevelInformation.EstimatedFiguresController.onPageLoad(mode: Mode = NormalMode)
+POST       /estimated-figures                          controllers.groupLevelInformation.EstimatedFiguresController.onSubmit(mode: Mode = NormalMode)
+GET        /estimated-figures/change                   controllers.groupLevelInformation.EstimatedFiguresController.onPageLoad(mode: Mode = CheckMode)
+POST       /estimated-figures/change                   controllers.groupLevelInformation.EstimatedFiguresController.onSubmit(mode: Mode = CheckMode)

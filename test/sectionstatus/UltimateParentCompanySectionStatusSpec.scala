@@ -19,10 +19,8 @@ package sectionstatus
 import base.SpecBase
 import models.SectionStatus._
 import pages.ultimateParentCompany._
-import pages.Page._
 import assets.constants.BaseConstants
 import models.UserAnswers
-import models.FullOrAbbreviatedReturn._
 import models.returnModels.DeemedParentModel
 import models.returnModels._
 

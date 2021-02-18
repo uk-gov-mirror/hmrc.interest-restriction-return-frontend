@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package sectionstatus
+package forms.groupLevelInformation
 
-import models.sections.UkCompaniesSectionModel
-import pages.ukCompanies.UkCompaniesPage
-import models._
-import pages.Page._
+import javax.inject.Inject
 
-object UkCompaniesSectionStatus extends CurrentSectionStatus[UkCompaniesSectionModel] {
+import forms.mappings.Mappings
+import play.api.data.Form
+import play.api.data.Forms.set
+import models.EstimatedFigures
 
-  val pages = ukCompaniesSectionPages
+class EstimatedFiguresFormProvider @Inject() extends Mappings {
 
-  override def isNotStarted(userAnswers: UserAnswers): Boolean = userAnswers.getList(UkCompaniesPage).isEmpty
-
-  def isComplete(section: UkCompaniesSectionModel): Boolean = false
-  
-  def currentSection(userAnswers: UserAnswers): Option[UkCompaniesSectionModel] = None
-
+  def apply(): Form[Set[EstimatedFigures]] =
+    Form(
+      "value" -> set(enumerable[EstimatedFigures]("estimatedFigures.error.required")).verifying(nonEmptySet("estimatedFigures.error.required"))
+    )
 }

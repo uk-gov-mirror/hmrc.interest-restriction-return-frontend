@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.groupLevelInformation.GroupRatioPercentageFormProvider
 import models.NormalMode
-import pages.groupLevelInformation.GroupRatioPercentagePage
 import play.api.test.Helpers._
 import views.html.groupLevelInformation.GroupRatioPercentageView
 import navigation.FakeNavigators.FakeGroupLevelInformationNavigator

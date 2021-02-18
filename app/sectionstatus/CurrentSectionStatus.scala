@@ -29,7 +29,7 @@ trait CurrentSectionStatus[A] {
   def isComplete(section: A): Boolean
 
   def sectionQuestionPages = pages.collect{case page: QuestionPage[_] => page}
-  def isNotStarted(userAnswers: UserAnswers) = sectionQuestionPages.map(userAnswers.get(_)).flatten.isEmpty
+  def isNotStarted(userAnswers: UserAnswers) = sectionQuestionPages.flatMap(userAnswers.get(_)).isEmpty
   
   def getStatus(userAnswers: UserAnswers): SectionStatus = 
     (isNotStarted(userAnswers), currentSection(userAnswers)) match {

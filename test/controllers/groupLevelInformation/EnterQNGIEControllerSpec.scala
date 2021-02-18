@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.groupLevelInformation.EnterQNGIEFormProvider
 import models.NormalMode
-import pages.groupLevelInformation.EnterQNGIEPage
 import play.api.test.Helpers._
 import views.html.groupLevelInformation.EnterQNGIEView
 import navigation.FakeNavigators.FakeGroupLevelInformationNavigator

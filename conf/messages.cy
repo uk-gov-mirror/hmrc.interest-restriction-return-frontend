@@ -63,3 +63,12 @@ groupEBITDA.error.required = Enter your groupEBITDA
 groupEBITDA.error.invalidNumeric = The groupEBITDA must be valid decimal or whole number
 groupEBITDA.error.outOfRange = GroupEBITDA must be between {0} and {1}
 
+
+# EstimatedFiguresPage Messages
+# ----------------------------------------------------------
+estimatedFigures.title = Tell us which figures have been estimated
+estimatedFigures.heading = Tell us which figures have been estimated
+estimatedFigures.aNGIE = ANGIE
+estimatedFigures.qNGIE = QNGIE
+estimatedFigures.checkYourAnswersLabel = Tell us which figures have been estimated
+estimatedFigures.error.required = Select estimatedFigures

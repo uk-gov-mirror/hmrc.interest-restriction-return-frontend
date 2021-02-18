@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package sectionstatus
+package pages.groupLevelInformation
 
-import models.sections.UkCompaniesSectionModel
-import pages.ukCompanies.UkCompaniesPage
-import models._
-import pages.Page._
+import models.EstimatedFigures
+import pages.behaviours.PageBehaviours
 
-object UkCompaniesSectionStatus extends CurrentSectionStatus[UkCompaniesSectionModel] {
+class EstimatedFiguresPageSpec extends PageBehaviours {
 
-  val pages = ukCompaniesSectionPages
+  "EstimatedFiguresPage" must {
 
-  override def isNotStarted(userAnswers: UserAnswers): Boolean = userAnswers.getList(UkCompaniesPage).isEmpty
+    beRetrievable[Set[EstimatedFigures]](EstimatedFiguresPage)
 
-  def isComplete(section: UkCompaniesSectionModel): Boolean = false
-  
-  def currentSection(userAnswers: UserAnswers): Option[UkCompaniesSectionModel] = None
+    beSettable[Set[EstimatedFigures]](EstimatedFiguresPage)
 
+    beRemovable[Set[EstimatedFigures]](EstimatedFiguresPage)
+  }
 }

@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package sectionstatus
+package pages.groupLevelInformation
+import pages.QuestionPage
+import models.EstimatedFigures
+import play.api.libs.json.JsPath
 
-import models.sections.UkCompaniesSectionModel
-import pages.ukCompanies.UkCompaniesPage
-import models._
-import pages.Page._
+case object EstimatedFiguresPage extends QuestionPage[Set[EstimatedFigures]] {
 
-object UkCompaniesSectionStatus extends CurrentSectionStatus[UkCompaniesSectionModel] {
+  override def path: JsPath = JsPath \ toString
 
-  val pages = ukCompaniesSectionPages
-
-  override def isNotStarted(userAnswers: UserAnswers): Boolean = userAnswers.getList(UkCompaniesPage).isEmpty
-
-  def isComplete(section: UkCompaniesSectionModel): Boolean = false
-  
-  def currentSection(userAnswers: UserAnswers): Option[UkCompaniesSectionModel] = None
-
+  override def toString: String = "estimatedFigures"
 }
