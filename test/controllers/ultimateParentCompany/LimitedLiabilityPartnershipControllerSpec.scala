@@ -145,12 +145,12 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
         mockGetAnswers(Some(userAnswers))
 
-        val result = Controller.onSubmit(1, NormalMode)(request)
-
         (mockSessionRepository.set(_: UserAnswers))
           .expects(emptyUserAnswers
             .set(DeemedParentPage, deemedParentModelMin.copy(ctutr = None,limitedLiabilityPartnership = Some(true)), Some(1)).success.value)
           .returns(Future.successful(true))
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
 
         status(result) mustEqual SEE_OTHER
       }
@@ -163,12 +163,12 @@ class LimitedLiabilityPartnershipControllerSpec extends SpecBase with FeatureSwi
 
         mockGetAnswers(Some(userAnswers))
 
-        val result = Controller.onSubmit(1, NormalMode)(request)
-
         (mockSessionRepository.set(_: UserAnswers))
           .expects(emptyUserAnswers
             .set(DeemedParentPage, deemedParentModelMin.copy(sautr = None,limitedLiabilityPartnership = Some(false)), Some(1)).success.value)
           .returns(Future.successful(true))
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
 
         status(result) mustEqual SEE_OTHER
       }
