@@ -17,10 +17,10 @@
 package navigation
 
 import controllers.elections.routes
-
 import javax.inject.{Inject, Singleton}
 import models._
 import models.FullOrAbbreviatedReturn._
+import models.returnModels.GroupRatioBlendedModel
 import pages._
 import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.elections.{PartnershipNamePage, _}
@@ -99,20 +99,26 @@ class ElectionsNavigator @Inject()() extends Navigator {
         }
       case _ => routes.IsUkPartnershipController.onPageLoad(idx, NormalMode)
     }),
-    PartnershipSAUTRPage -> ((_,_) => routes.PartnershipsReviewAnswersListController.onPageLoad()),
+    PartnershipSAUTRPage -> ((_, _) => routes.PartnershipsReviewAnswersListController.onPageLoad()),
     InvestmentNamePage -> ((_, _) => routes.InvestmentsReviewAnswersListController.onPageLoad())
   )
 
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
+    GroupRatioBlendedElectionPage -> (userAnswers => userAnswers.get(GroupRatioBlendedElectionPage) match {
+      case Some(true) => userAnswers.get(AddInvestorGroupPage) match {
+        case Some(_) => checkYourAnswers
+        case None => normalRoutes(GroupRatioBlendedElectionPage)(userAnswers)
+      }
+      case _ => checkYourAnswers
+    }),
+    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
       case _ => checkYourAnswers
     })
-  ).withDefaultValue(_ =>
-    checkYourAnswers
-  )
+  ).withDefaultValue(_ => checkYourAnswers)
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
 

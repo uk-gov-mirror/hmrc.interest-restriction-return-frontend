@@ -16,6 +16,7 @@
 
 package navigation
 
+import assets.constants.InvestorGroupConstants.{investorGroupsFixedRatioModel, investorGroupsGroupRatioModel}
 import base.SpecBase
 import assets.constants.PartnershipsConstants._
 import controllers.elections.routes
@@ -301,7 +302,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
               routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
           }
-
         }
 
         "answer is false" should {
@@ -316,7 +316,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
               routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
           }
-
         }
 
         "answer is prefer not to answer" should {
@@ -331,7 +330,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
               routes.InvestorGroupsReviewAnswersListController.onPageLoad()
           }
-
         }
 
         "answer is not given" should {
@@ -341,9 +339,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
               routes.InvestorRatioMethodController.onPageLoad(1, NormalMode)
           }
-
         }
-
       }
 
       "from the Other Investor Group Elections page" should {
@@ -471,7 +467,6 @@ class ElectionsNavigatorSpec extends SpecBase {
 
             navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
               routes.PartnershipsReviewAnswersListController.onPageLoad()
-
           }
         }
       }
@@ -516,7 +511,6 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-
       "from the InvestmentsDeletionConfirmation page" should {
 
         "go to the InvestmentsReviewAnswersList page" in {
@@ -541,7 +535,6 @@ class ElectionsNavigatorSpec extends SpecBase {
       "from the Investment Name page" should {
 
         "go to the Investments Review Answers List page" in {
-
           navigator.nextPage(InvestmentNamePage, CheckMode, emptyUserAnswers) mustBe
             routes.InvestmentsReviewAnswersListController.onPageLoad()
         }
@@ -556,7 +549,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(ElectedGroupEBITDABeforePage, CheckMode, userAnswers) mustBe
               routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
           }
-
         }
 
         "the answer is true" should {
@@ -566,15 +558,36 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(ElectedGroupEBITDABeforePage, CheckMode, userAnswers) mustBe
               routes.CheckAnswersElectionsController.onPageLoad()
           }
-
         }
-
       }
 
       "go to the Check Answers Elections page" in {
-
         navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, emptyUserAnswers) mustBe
           routes.CheckAnswersElectionsController.onPageLoad()
+      }
+
+      "GroupRatioBlendedElectionPage" when {
+        "go to check your answers if false" in {
+          val userAnswers = UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, false).get
+          navigator.nextPage(GroupRatioBlendedElectionPage, CheckMode, userAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
+        }
+
+        "go to check your answers if true and next page IS populated" in {
+          val userAnswers = for {
+            addInv <- UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, true)
+            finalUa <- addInv.set(AddInvestorGroupPage, true)
+          } yield finalUa
+
+          navigator.nextPage(GroupRatioBlendedElectionPage, CheckMode, userAnswers.get) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad
+        }
+
+        "go to normal routes if true and next page IS NOT populated" in {
+          val userAnswers = UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, true).get
+          navigator.nextPage(GroupRatioBlendedElectionPage, CheckMode, userAnswers) mustBe
+            routes.AddInvestorGroupController.onPageLoad(NormalMode)
+        }
       }
     }
   }

@@ -16,6 +16,8 @@
 
 package pages.elections
 
+import models.UserAnswers
+import assets.constants.InvestorGroupConstants._
 import pages.behaviours.PageBehaviours
 
 class GroupRatioBlendedElectionPageSpec extends PageBehaviours {
@@ -27,5 +29,33 @@ class GroupRatioBlendedElectionPageSpec extends PageBehaviours {
     beSettable[Boolean](GroupRatioBlendedElectionPage)
 
     beRemovable[Boolean](GroupRatioBlendedElectionPage)
+  }
+
+  "Cleanup" when {
+    "GroupRatioBlendedElectionPage" when {
+      "Remove InvestorGroupsPage & AddInvestorGroupPage when there is a change of the answer to 'No'" in {
+        val userAnswers = for {
+          ebaUa <- UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, true)
+          invUa <- ebaUa.set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1))
+          invGr <- invUa.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2))
+          finalUa <- invGr.set(GroupRatioBlendedElectionPage, false)
+        } yield finalUa
+
+        val result = userAnswers.map(_.getList(InvestorGroupsPage)).get
+        result mustBe empty
+      }
+
+      "Do not Remove InvestorGroupsPage & AddInvestorGroupPage when the answer to 'Yes'" in {
+        val userAnswers = for {
+          ebaUa <- UserAnswers(id = "id").set(GroupRatioBlendedElectionPage, true)
+          invUa <- ebaUa.set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1))
+          invGr <- invUa.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(2))
+          finalUa <- invGr.set(GroupRatioBlendedElectionPage, true)
+        } yield finalUa
+
+        val result = userAnswers.map(_.getList(InvestorGroupsPage)).get
+        result mustBe Seq(investorGroupsFixedRatioModel, investorGroupsGroupRatioModel)
+      }
+    }
   }
 }
