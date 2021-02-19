@@ -14,25 +14,19 @@
  * limitations under the License.
  */
 
-package pages.elections
+package forms.groupLevelInformation
 
-import models.UserAnswers
-import pages.QuestionPage
-import play.api.libs.json.JsPath
+import javax.inject.Inject
 
-import scala.util.Try
+import forms.mappings.Mappings
+import play.api.data.Form
+import play.api.data.Forms.set
+import models.EstimatedFigures
 
-case object ElectedGroupEBITDABeforePage extends QuestionPage[Boolean] {
+class EstimatedFiguresFormProvider @Inject() extends Mappings {
 
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "electedGroupEBITDABefore"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-
-    value match {
-      case Some(true) => userAnswers.remove(GroupEBITDAChargeableGainsElectionPage)
-      case _ => super.cleanup(value, userAnswers)
-    }
-  }
+  def apply(): Form[Set[EstimatedFigures]] =
+    Form(
+      "value" -> set(enumerable[EstimatedFigures]("estimatedFigures.error.required")).verifying(nonEmptySet("estimatedFigures.error.required"))
+    )
 }

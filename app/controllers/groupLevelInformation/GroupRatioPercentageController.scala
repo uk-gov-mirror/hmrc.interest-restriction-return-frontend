@@ -31,7 +31,6 @@ import repositories.SessionRepository
 import views.html.groupLevelInformation.GroupRatioPercentageView
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import config.FrontendAppConfig
-import play.api.data.Form
 
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future

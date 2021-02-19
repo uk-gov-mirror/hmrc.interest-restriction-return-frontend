@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,29 @@
  * limitations under the License.
  */
 
-package controllers.$section;format="decap"$
+package controllers.groupLevelInformation
 
-import java.time.{LocalDate, ZoneOffset}
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.$section;format="decap"$.$className;format="cap"$FormProvider
-import models.NormalMode
-import pages.$section;format="decap"$.$className;format="cap"$Page
+import forms.groupLevelInformation.EstimatedFiguresFormProvider
+import models.{EstimatedFigures, NormalMode, UserAnswers}
+import pages.groupLevelInformation._
 import play.api.test.Helpers._
-import views.html.$section;format="decap"$.$className;format="cap"$View
-import navigation.FakeNavigators.Fake$section;format="cap"$Navigator
+import views.html.groupLevelInformation.EstimatedFiguresView
+import navigation.FakeNavigators.FakeGroupLevelInformationNavigator
 
-class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class EstimatedFiguresControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[$className;format="cap"$View]
-  val formProvider = injector.instanceOf[$className;format="cap"$FormProvider]
+  val view = injector.instanceOf[EstimatedFiguresView]
+  val formProvider = injector.instanceOf[EstimatedFiguresFormProvider]
   val form = formProvider()
 
-  val validAnswer = LocalDate.now(ZoneOffset.UTC)
-
-  object Controller extends $className;format="cap"$Controller(
+  object Controller extends EstimatedFiguresController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
-    navigator = Fake$section;format="cap"$Navigator,
+    navigator = FakeGroupLevelInformationNavigator,
     identify = FakeIdentifierAction,
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
@@ -48,22 +45,35 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
     view = view
   )
 
-  "$className;format="cap"$ Controller" must {
+  "EstimatedFigures Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val userAnswers = (for {
+        a                 <- UserAnswers("id").set(EnterANGIEPage, BigDecimal(123))
+        b                 <- a.set(EnterQNGIEPage, BigDecimal(123))
+        c                 <- b.set(EnterQNGIEPage, BigDecimal(123))
+        d                 <- c.set(GroupEBITDAPage, BigDecimal(123))
+        e                 <- d.set(InterestReactivationsCapPage, BigDecimal(123))
+        f                 <- e.set(DisallowedAmountPage, BigDecimal(123)) 
+        g                 <- f.set(InterestAllowanceBroughtForwardPage, BigDecimal(123))
+        h                 <- g.set(GroupInterestAllowancePage, BigDecimal(123))
+        finalUserAnswers  <- h.set(GroupInterestCapacityPage, BigDecimal(123))
+      } yield finalUserAnswers).get
+
+      val checkboxes = EstimatedFigures.optionsFilteredByUserAnswers(form, userAnswers)
+
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-
+      contentAsString(result) mustEqual view(form, NormalMode, checkboxes)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set($className;format="cap"$Page, validAnswer).success.value
+      val userAnswers = emptyUserAnswers.set(EstimatedFiguresPage, EstimatedFigures.values.toSet).success.value
 
       mockGetAnswers(Some(userAnswers))
 
@@ -74,13 +84,10 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
     "redirect to the next page when valid data is submitted" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
-      )
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", EstimatedFigures.values.head.toString))
 
       mockGetAnswers(Some(emptyUserAnswers))
+      mockSetAnswers
 
       val result = Controller.onSubmit(NormalMode)(request)
 
@@ -111,18 +118,13 @@ class $className;format="cap"$ControllerSpec extends SpecBase with FeatureSwitch
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val request = fakeRequest.withFormUrlEncodedBody(
-        "value.day" -> validAnswer.getDayOfMonth.toString,
-        "value.month" -> validAnswer.getMonthValue.toString,
-        "value.year" -> validAnswer.getYear.toString
-      )
+      val request = fakeRequest.withFormUrlEncodedBody(("value[0]", EstimatedFigures.values.head.toString))
 
       mockGetAnswers(None)
 
       val result = Controller.onSubmit(NormalMode)(request)
 
       status(result) mustBe SEE_OTHER
-
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
   }

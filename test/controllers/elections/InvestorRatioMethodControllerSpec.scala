@@ -16,17 +16,22 @@
 
 package controllers.elections
 
+import assets.constants.DeemedParentConstants.deemedParentModelMin
 import assets.constants.InvestorGroupConstants._
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import controllers.errors
 import forms.elections.InvestorRatioMethodFormProvider
-import models.NormalMode
+import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod, PreferNotToAnswer}
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeElectionsNavigator
 import pages.elections.InvestorGroupsPage
+import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.elections.InvestorRatioMethodView
+
+import scala.concurrent.Future
 
 class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -155,6 +160,78 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
         status(result) mustEqual SEE_OTHER
         redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+      }
+    }
+
+    "Cleaning data" should {
+      "Clear `Other Elections`" when {
+        "User selects `I don't want to provide this information`" in {
+          val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
+
+          mockGetAnswers(Some(userAnswers))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "noAnswer"))
+
+          val result = Controller.onSubmit(1, NormalMode)(request)
+
+          (mockSessionRepository.set(_: UserAnswers))
+            .expects(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = Some(PreferNotToAnswer),otherInvestorGroupElections = None), Some(1)).success.value)
+            .returns(Future.successful(true))
+
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
+
+        "User changes answer to `no`" in {
+          val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
+
+          mockGetAnswers(Some(userAnswers))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "fixedRatioMethod"))
+
+          val result = Controller.onSubmit(1, NormalMode)(request)
+
+          (mockSessionRepository.set(_: UserAnswers))
+            .expects(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = Some(FixedRatioMethod),otherInvestorGroupElections = None), Some(1)).success.value)
+            .returns(Future.successful(true))
+
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
+
+        "User changes answer to `yes`" in {
+          val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsFixedRatioModel, Some(1)).success.value
+
+          mockGetAnswers(Some(userAnswers))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
+
+          val result = Controller.onSubmit(1, NormalMode)(request)
+
+          (mockSessionRepository.set(_: UserAnswers))
+            .expects(emptyUserAnswers
+              .set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = Some(GroupRatioMethod),otherInvestorGroupElections = None), Some(1)).success.value)
+            .returns(Future.successful(true))
+
+          redirectLocation(result) mustBe Some(onwardRoute.url)
+        }
+      }
+
+      "Not do anything if user doesn't change the data when page is revisited" in {
+        val userAnswers = emptyUserAnswers.set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value
+
+        mockGetAnswers(Some(userAnswers))
+
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
+
+        (mockSessionRepository.set(_: UserAnswers))
+          .expects(emptyUserAnswers
+            .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value)
+          .returns(Future.successful(true))
+
+        redirectLocation(result) mustBe Some(onwardRoute.url)
       }
     }
   }

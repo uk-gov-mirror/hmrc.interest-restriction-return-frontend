@@ -286,11 +286,21 @@ class AboutReturnNavigatorSpec extends SpecBase {
 
       "from the Revising Return page" should {
 
-        "go to the Revision Information page when yes selected to revising a return" in {
+        "go to the Revision Information page when yes selected to revising a return and it isn't already populated" in {
 
           val userAnswers = emptyUserAnswers.set(RevisingReturnPage, true).get
 
           navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode)
+        }
+
+        "go to CYA page when yes selected to revising a return and the revision details are already populated" in {
+
+          val userAnswers = for {
+            ua <- emptyUserAnswers.set(RevisingReturnPage, true)
+            finalUa <- ua.set(TellUsWhatHasChangedPage, "Something changed")
+          } yield finalUa
+
+          navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers.get) mustBe aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
 
         "go to Reporting Company CheckYourAnswers" in {
@@ -300,6 +310,9 @@ class AboutReturnNavigatorSpec extends SpecBase {
           navigator.nextPage(RevisingReturnPage, CheckMode, userAnswers) mustBe
             aboutReturnRoutes.CheckAnswersAboutReturnController.onPageLoad()
         }
+      }
+
+      "ReportingCompanyAppointedPage" should {
 
         "When set to false present Reporting Company Required" in {
             val userAnswers = emptyUserAnswers.set(ReportingCompanyAppointedPage, false)

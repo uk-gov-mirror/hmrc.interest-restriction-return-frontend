@@ -29,6 +29,7 @@ import pages.ukCompanies._
 import models.SectionStatus._
 import models.FullOrAbbreviatedReturn.Full
 import models.{CompanyDetailsModel, UserAnswers}
+import models.returnModels.fullReturn.UkCompanyModel
 import assets.constants.BaseConstants
 
 class ReviewAndCompleteModelSpec extends WordSpec with MustMatchers with BaseConstants {
@@ -86,7 +87,7 @@ class ReviewAndCompleteModelSpec extends WordSpec with MustMatchers with BaseCon
         .set(ReportingCompanySameAsParentPage, true).get
         .set(GroupRatioElectionPage, true).get
         .set(GroupSubjectToRestrictionsPage, true).get
-        .set(CompanyDetailsPage, companyDetails).get
+        .set(UkCompaniesPage, UkCompanyModel(companyDetails), Some(1)).get
 
       val expectedModel = ReviewAndCompleteModel(
         aboutReturnStatus = Completed,

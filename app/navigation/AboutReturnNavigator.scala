@@ -19,8 +19,6 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import controllers.aboutReturn.{routes => aboutReturnRoutes}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
-import controllers.routes
-import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
 import pages.aboutReturn._
@@ -68,8 +66,11 @@ class AboutReturnNavigator @Inject()() extends Navigator {
       case Some(false) => checkAnswers
       case _ => aboutReturnRoutes.AgentActingOnBehalfOfCompanyController.onPageLoad(NormalMode)
     }),
-    RevisingReturnPage -> (_.get(RevisingReturnPage) match {
-      case Some(true) => aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode)
+    RevisingReturnPage -> (userAnswers => userAnswers.get(RevisingReturnPage) match {
+      case Some(true) => userAnswers.get(TellUsWhatHasChangedPage) match {
+        case None => aboutReturnRoutes.TellUsWhatHasChangedController.onPageLoad(CheckMode)
+        case Some(_) => checkAnswers
+      }
       case Some(false) => checkAnswers
       case _ => aboutReturnRoutes.RevisingReturnController.onPageLoad(NormalMode)
     })

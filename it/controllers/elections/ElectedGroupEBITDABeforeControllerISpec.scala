@@ -17,7 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.{CheckMode, NormalMode}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -158,6 +158,49 @@ class ElectedGroupEBITDABeforeControllerISpec extends IntegrationSpecBase with C
               httpStatus(SEE_OTHER),
               redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
             )
+          }
+        }
+      }
+    }
+
+    "POST /elections/elected-group-ebitda-before" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "the answer is false" should {
+
+            "redirect to Group EBITDA Chargeable Gains Election page" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/elections/elected-group-ebitda-before/change", Json.obj("value" -> false))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode).url)
+                )
+              }
+            }
+          }
+
+          "the answer is true" should {
+
+            "redirect to Elected Interest Allowance Alternative Calcaultion Before page" in {
+
+              AuthStub.authorised()
+
+              val res = postRequest("/elections/elected-group-ebitda-before/change", Json.obj("value" -> true))()
+
+              whenReady(res) { result =>
+                result should have(
+                  httpStatus(SEE_OTHER),
+                  redirectLocation(routes.CheckAnswersElectionsController.onPageLoad().url)
+                )
+              }
+            }
           }
         }
       }

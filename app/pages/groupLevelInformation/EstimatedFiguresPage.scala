@@ -14,25 +14,14 @@
  * limitations under the License.
  */
 
-package pages.elections
-
-import models.UserAnswers
+package pages.groupLevelInformation
 import pages.QuestionPage
+import models.EstimatedFigures
 import play.api.libs.json.JsPath
 
-import scala.util.Try
-
-case object ElectedGroupEBITDABeforePage extends QuestionPage[Boolean] {
+case object EstimatedFiguresPage extends QuestionPage[Set[EstimatedFigures]] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "electedGroupEBITDABefore"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-
-    value match {
-      case Some(true) => userAnswers.remove(GroupEBITDAChargeableGainsElectionPage)
-      case _ => super.cleanup(value, userAnswers)
-    }
-  }
+  override def toString: String = "estimatedFigures"
 }

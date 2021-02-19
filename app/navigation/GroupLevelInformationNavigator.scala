@@ -47,13 +47,16 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
     GroupInterestCapacityPage -> (_ => groupLevelInformationRoutes.EnterANGIEController.onPageLoad(NormalMode)),
     EnterANGIEPage -> (_.get(GroupRatioElectionPage) match {
       case Some(true) => groupLevelInformationRoutes.EnterQNGIEController.onPageLoad(NormalMode)
-      case Some(false) => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
-      case _ => routes.UnderConstructionController.onPageLoad()
+      case _ => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)
     }),
     EnterQNGIEPage -> (_ => groupLevelInformationRoutes.GroupEBITDAController.onPageLoad(NormalMode)),
     GroupEBITDAPage -> (_ => groupLevelInformationRoutes.GroupRatioPercentageController.onPageLoad(NormalMode)),  
     GroupRatioPercentagePage -> (_ => groupLevelInformationRoutes.ReturnContainEstimatesController.onPageLoad(NormalMode)),  
-    ReturnContainEstimatesPage -> (_ => checkAnswers),
+    ReturnContainEstimatesPage -> (_.get(ReturnContainEstimatesPage) match {
+      case Some(true) => groupLevelInformationRoutes.EstimatedFiguresController.onPageLoad(NormalMode)
+      case _ => checkAnswers
+    }),
+    EstimatedFiguresPage -> (_ => checkAnswers),
     CheckAnswersGroupLevelPage -> (_ => nextSection(NormalMode))
   )
 

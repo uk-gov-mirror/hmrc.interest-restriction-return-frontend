@@ -32,4 +32,5 @@ object CheckAnswersGroupLevelInformationMessages {
   val groupEBITDA = "Group Tax-EBITDA"
   val groupRatioPercentage = "Group Ratio Percentage"
   val disallowedAmount = "Disallowed amount"
+  val estimatedFigures = "Type of figures estimated"
 }

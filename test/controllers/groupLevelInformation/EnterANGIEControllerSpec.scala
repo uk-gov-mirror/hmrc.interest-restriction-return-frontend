@@ -22,7 +22,6 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.groupLevelInformation.EnterANGIEFormProvider
 import models.NormalMode
-import pages.groupLevelInformation.EnterANGIEPage
 import play.api.test.Helpers._
 import views.html.groupLevelInformation.EnterANGIEView
 import navigation.FakeNavigators.FakeGroupLevelInformationNavigator

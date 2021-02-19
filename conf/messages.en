@@ -918,3 +918,20 @@ groupLevelInformation.checkYourAnswers.title = Check your answers for this secti
 groupLevelInformation.checkYourAnswers.heading = Check your answers for this section
 groupLevelInformation.checkYourAnswers.subheading = Group level information
 
+
+# EstimatedFiguresPage Messages
+# ----------------------------------------------------------
+estimatedFigures.title = Tell us which figures have been estimated
+estimatedFigures.heading = Tell us which figures have been estimated
+estimatedFigures.angie = ANGIE
+estimatedFigures.qngie = QNGIE
+estimatedFigures.groupTaxEBITDA = Group tax EBITDA
+estimatedFigures.groupRatioPercentage = Group ratio percentage
+estimatedFigures.reactivationCap = Reactivation cap
+estimatedFigures.totalDisallowedAmount = Total disallowed amount
+estimatedFigures.interestAllowanceBroughtForward = Interest allowance brought forward
+estimatedFigures.interestAllowanceForThePeriodOfAccount = Interest allowance for the period of account
+estimatedFigures.interestCapacity = Interest capacity
+estimatedFigures.checkYourAnswersLabel = Type of figures estimated
+estimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
+estimatedFigures.hint = Select all that apply

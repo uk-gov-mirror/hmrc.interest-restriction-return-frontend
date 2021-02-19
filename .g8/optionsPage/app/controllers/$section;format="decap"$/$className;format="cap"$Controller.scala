@@ -20,7 +20,6 @@ class $className;format="cap"$Controller @Inject()(
                                   override val messagesApi: MessagesApi,
                                   sessionRepository: SessionRepository,
                                   navigator: $section;format="cap"$Navigator,
-                                  val questionDeletionLookupService: QuestionDeletionLookupService,
                                   identify: IdentifierAction,
                                   getData: DataRetrievalAction,
                                   requireData: DataRequiredAction,

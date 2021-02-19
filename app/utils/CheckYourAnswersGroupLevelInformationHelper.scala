@@ -25,9 +25,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
                                                  (implicit val messages: Messages) extends CheckYourAnswersHelper {
 
-  def returnContainEstimates: Option[SummaryListRow] =
-    answer(ReturnContainEstimatesPage, routes.ReturnContainEstimatesController.onPageLoad(CheckMode))
-
   def groupInterestAllowance: Option[SummaryListRow] =
     monetaryAnswer(GroupInterestAllowancePage, routes.GroupInterestAllowanceController.onPageLoad(CheckMode))
 
@@ -61,6 +58,19 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
   def groupRatioPercentage: Option[SummaryListRow] =
     answer(GroupRatioPercentagePage, routes.GroupRatioPercentageController.onPageLoad(CheckMode))
 
+  def returnContainEstimates: Option[SummaryListRow] =
+    answer(ReturnContainEstimatesPage, routes.ReturnContainEstimatesController.onPageLoad(CheckMode))
+
+  def estimatedFigures: Option[SummaryListRow] =
+    userAnswers.get(EstimatedFiguresPage) map { ans =>
+      summaryListRow(
+        label = messages("estimatedFigures.checkYourAnswersLabel"),
+        value = ans.toSeq.sorted.map(figure => messages(s"estimatedFigures.${figure.toString}")).mkString("<br>"),
+        visuallyHiddenText = None,
+        routes.EstimatedFiguresController.onPageLoad(CheckMode) -> messages("site.edit")
+      )
+    }
+
   val rows: Seq[SummaryListRow] = Seq(
     groupSubjectToRestrictions,
     groupSubjectToReactivations,
@@ -73,6 +83,7 @@ class CheckYourAnswersGroupLevelInformationHelper(val userAnswers: UserAnswers)
     qngie,
     groupEBITDA,
     groupRatioPercentage,
-    returnContainEstimates
+    returnContainEstimates,
+    estimatedFigures
   ).flatten
 }

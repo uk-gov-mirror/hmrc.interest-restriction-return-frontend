@@ -17,12 +17,15 @@
 package sectionstatus
 
 import models.sections.UkCompaniesSectionModel
+import pages.ukCompanies.UkCompaniesPage
 import models._
 import pages.Page._
 
 object UkCompaniesSectionStatus extends CurrentSectionStatus[UkCompaniesSectionModel] {
 
   val pages = ukCompaniesSectionPages
+
+  override def isNotStarted(userAnswers: UserAnswers): Boolean = userAnswers.getList(UkCompaniesPage).isEmpty
 
   def isComplete(section: UkCompaniesSectionModel): Boolean = false
   
