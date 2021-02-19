@@ -547,6 +547,30 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the group EBITDA chargeable gains before page" when {
+
+        "the answer is false" should {
+
+          "go to the Group EBITDA chargeable gains elect page in CheckMode" in {
+            val userAnswers = emptyUserAnswers.set(ElectedGroupEBITDABeforePage, false).success.value
+            navigator.nextPage(ElectedGroupEBITDABeforePage, CheckMode, userAnswers) mustBe
+              routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
+          }
+
+        }
+
+        "the answer is true" should {
+
+          "go to the Check You Answers page" in {
+            val userAnswers = emptyUserAnswers.set(ElectedGroupEBITDABeforePage, true).success.value
+            navigator.nextPage(ElectedGroupEBITDABeforePage, CheckMode, userAnswers) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+
+        }
+
+      }
+
       "go to the Check Answers Elections page" in {
 
         navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, emptyUserAnswers) mustBe
