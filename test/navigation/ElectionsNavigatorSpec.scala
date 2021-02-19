@@ -302,7 +302,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
               routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
           }
-
         }
 
         "answer is false" should {
@@ -317,7 +316,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
               routes.OtherInvestorGroupElectionsController.onPageLoad(1, NormalMode)
           }
-
         }
 
         "answer is prefer not to answer" should {
@@ -332,7 +330,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, userAnswers, Some(1)) mustBe
               routes.InvestorGroupsReviewAnswersListController.onPageLoad()
           }
-
         }
 
         "answer is not given" should {
@@ -342,9 +339,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(InvestorRatioMethodPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
               routes.InvestorRatioMethodController.onPageLoad(1, NormalMode)
           }
-
         }
-
       }
 
       "from the Other Investor Group Elections page" should {
@@ -472,7 +467,6 @@ class ElectionsNavigatorSpec extends SpecBase {
 
             navigator.nextPage(PartnershipDeletionConfirmationPage, NormalMode, emptyUserAnswers) mustBe
               routes.PartnershipsReviewAnswersListController.onPageLoad()
-
           }
         }
       }
@@ -517,7 +511,6 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-
       "from the InvestmentsDeletionConfirmation page" should {
 
         "go to the InvestmentsReviewAnswersList page" in {
@@ -556,7 +549,6 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(ElectedGroupEBITDABeforePage, CheckMode, userAnswers) mustBe
               routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
           }
-
         }
 
         "the answer is true" should {
@@ -566,9 +558,7 @@ class ElectionsNavigatorSpec extends SpecBase {
             navigator.nextPage(ElectedGroupEBITDABeforePage, CheckMode, userAnswers) mustBe
               routes.CheckAnswersElectionsController.onPageLoad()
           }
-
         }
-
       }
 
       "go to the Check Answers Elections page" in {
@@ -602,5 +592,3 @@ class ElectionsNavigatorSpec extends SpecBase {
     }
   }
 }
-
-
