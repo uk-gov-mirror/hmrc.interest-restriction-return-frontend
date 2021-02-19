@@ -19,7 +19,6 @@ package navigation
 import javax.inject.{Inject, Singleton}
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import controllers.routes
 import models._
 import pages._
 import pages.elections.GroupRatioElectionPage
@@ -63,7 +62,14 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
   val checkRouteMap: Map[Page, UserAnswers => Call] =
     Map[Page, UserAnswers => Call](
       GroupSubjectToRestrictionsPage -> (groupSubjectToRestrictionsCheckRoute(_)),
-      GroupSubjectToReactivationsPage -> (groupSubjectToReactivationsCheckRoute(_))
+      GroupSubjectToReactivationsPage -> (groupSubjectToReactivationsCheckRoute(_)),
+      ReturnContainEstimatesPage -> (userAnswers => userAnswers.get(ReturnContainEstimatesPage) match {
+        case Some(true) => userAnswers.get(EstimatedFiguresPage) match {
+          case None => groupLevelInformationRoutes.EstimatedFiguresController.onPageLoad(CheckMode)
+          case Some(_) => checkAnswers
+        }
+        case _ => checkAnswers
+      })
     ).withDefaultValue(_ => checkAnswers)
 
   private def checkAnswers = groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()

@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import models.{CheckMode, NormalMode}
+import models.{CheckMode, NormalMode, EstimatedFigures}
 import pages.groupLevelInformation._
 import pages.elections.GroupRatioElectionPage
 
@@ -155,9 +155,16 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
       }
 
       "from the Return Contains Estimates page" should {
-        "go to the Check Answers page" in {
-          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, emptyUserAnswers) mustBe
+        "go to the Check Answers page where false" in {
+          val userAnswers = emptyUserAnswers.set(ReturnContainEstimatesPage, false).get
+          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, userAnswers) mustBe
             groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+        }
+
+        "go to the EstimatedFigures page where true" in {
+          val userAnswers = emptyUserAnswers.set(ReturnContainEstimatesPage, true).get
+          navigator.nextPage(ReturnContainEstimatesPage, NormalMode, userAnswers) mustBe
+            groupLevelInformationRoutes.EstimatedFiguresController.onPageLoad(NormalMode)
         }
       }
 
@@ -170,6 +177,30 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
       }
 
       "in Check mode" must {
+
+        "from the Return Contains Estimates page" should {
+          "go to the Check Answers page where false" in {
+            val userAnswers = emptyUserAnswers.set(ReturnContainEstimatesPage, false).get
+            navigator.nextPage(ReturnContainEstimatesPage, CheckMode, userAnswers) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "go to the Check Answers page where true and EstimatedFigures is populated" in {
+            val userAnswers = 
+              for {
+                ua <- emptyUserAnswers.set(ReturnContainEstimatesPage, true)
+                finalUa <- ua.set(EstimatedFiguresPage, EstimatedFigures.values.toSet)
+              } yield finalUa
+            navigator.nextPage(ReturnContainEstimatesPage, CheckMode, userAnswers.get) mustBe
+              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+          }
+
+          "go to the EstimatedFigures page where true and EstimatedFigures is not populated" in {
+            val userAnswers = emptyUserAnswers.set(ReturnContainEstimatesPage, true).get
+            navigator.nextPage(ReturnContainEstimatesPage, CheckMode, userAnswers) mustBe
+              groupLevelInformationRoutes.EstimatedFiguresController.onPageLoad(CheckMode)
+          }
+        }
 
         "from GroupSubjectToRestrictionsPage" should {
 

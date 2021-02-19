@@ -18,6 +18,7 @@ package pages.elections
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+import models.EstimatedFigures
 
 case object GroupRatioElectionPage extends QuestionPage[Boolean] {
 

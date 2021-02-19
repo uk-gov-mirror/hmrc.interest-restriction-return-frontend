@@ -18,10 +18,20 @@ package pages.groupLevelInformation
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+import models.{UserAnswers, EstimatedFigures}
+
+import scala.util.Try
 
 case object ReturnContainEstimatesPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "returnContainEstimates"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
+    value match {
+      case Some(false) => userAnswers.remove(EstimatedFiguresPage)
+      case _ => super.cleanup(value, userAnswers)
+    }
+  }
 }
