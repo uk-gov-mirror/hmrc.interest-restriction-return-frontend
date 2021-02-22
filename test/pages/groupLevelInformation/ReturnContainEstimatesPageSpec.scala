@@ -17,6 +17,7 @@
 package pages.groupLevelInformation
 
 import pages.behaviours.PageBehaviours
+import models.{UserAnswers, EstimatedFigures}
 
 class ReturnContainEstimatesPageSpec extends PageBehaviours {
 
@@ -27,5 +28,17 @@ class ReturnContainEstimatesPageSpec extends PageBehaviours {
     beSettable[Boolean](ReturnContainEstimatesPage)
 
     beRemovable[Boolean](ReturnContainEstimatesPage)
+  }
+
+  "cleanup" must {
+    "remove EstimatedFiguresPage when set to false" in {
+      val userAnswers = (for {
+        ua <- UserAnswers("id").set(ReturnContainEstimatesPage, true)
+        ua2 <- ua.set(EstimatedFiguresPage, EstimatedFigures.values.toSet)
+        ua3 <- ua2.set(ReturnContainEstimatesPage, false)
+      } yield ua3).get
+
+      userAnswers.get(EstimatedFiguresPage) mustEqual None
+    }
   }
 }
