@@ -18,9 +18,12 @@ package utils
 
 import models.{NormalMode, Section, UserAnswers}
 import models.returnModels.ReviewAndCompleteModel
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.i18n.Messages
 import viewmodels.TaskListRow
+
+import models.FullOrAbbreviatedReturn._
 
 class ReviewAndCompleteHelper(implicit val messages: Messages) {
 
@@ -32,37 +35,54 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
       case (_, _) => controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1)
     }
 
-    Seq(
-      TaskListRow(
-        messages(s"section.${Section.AboutReturn}"),
-        controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturnStatus}")
-      ),
-      TaskListRow(
-        messages(s"section.${Section.UltimateParentCompany}"),
-        ultimateParentLink,
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.ultimateParentCompanyStatus}")
-      ),
-      TaskListRow(
-        messages(s"section.${Section.Elections}"),
-        controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.electionsStatus}")
-      ),
-      TaskListRow(
-        messages(s"section.${Section.GroupLevelInformation}"),
-        controllers.routes.UnderConstructionController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.groupLevelInformationStatus}")
-      ),
-      TaskListRow(
-        messages(s"section.${Section.UkCompanies}"),
-        controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompaniesStatus}")
-      ),
-      TaskListRow(
-        messages(s"section.${Section.CheckTotals}"),
-        controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
-        messages(s"reviewAndComplete.${reviewAndCompleteModel.checkTotalsStatus}")
-      )
+    val aboutReturnRow = TaskListRow(
+      messages(s"section.${Section.AboutReturn}"),
+      controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
+      messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturnStatus}")
     )
+    val ultimateParentRow = TaskListRow(
+      messages(s"section.${Section.UltimateParentCompany}"),
+      ultimateParentLink,
+      messages(s"reviewAndComplete.${reviewAndCompleteModel.ultimateParentCompanyStatus}")
+    )
+    val electionsRow = TaskListRow(
+      messages(s"section.${Section.Elections}"),
+      controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+      messages(s"reviewAndComplete.${reviewAndCompleteModel.electionsStatus}")
+    )
+    val groupLevelRow = TaskListRow(
+      messages(s"section.${Section.GroupLevelInformation}"),
+      controllers.routes.UnderConstructionController.onPageLoad(),
+      messages(s"reviewAndComplete.${reviewAndCompleteModel.groupLevelInformationStatus}")
+    )
+    val ukCompaniesRow = TaskListRow(
+      messages(s"section.${Section.UkCompanies}"),
+      controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
+      messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompaniesStatus}")
+    )
+    val checkTotalsRow = TaskListRow(
+      messages(s"section.${Section.CheckTotals}"),
+      controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
+      messages(s"reviewAndComplete.${reviewAndCompleteModel.checkTotalsStatus}")
+    )
+
+    userAnswers.get(FullOrAbbreviatedReturnPage) match {
+      case Some(Full) => 
+        Seq(
+          aboutReturnRow,
+          ultimateParentRow,
+          electionsRow,
+          groupLevelRow,
+          ukCompaniesRow,
+          checkTotalsRow
+        )
+      case _ => 
+        Seq(
+          aboutReturnRow,
+          ultimateParentRow,
+          electionsRow,
+          ukCompaniesRow
+        )
+    }
   }
 }
