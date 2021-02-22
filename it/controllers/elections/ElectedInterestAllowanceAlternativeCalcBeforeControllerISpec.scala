@@ -163,5 +163,38 @@ class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec
         }
       }
     }
+
+    "POST /elections/elected-interest-allowance-alternative-calc-before" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckYourAnswers page when true" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url))
+            }
+          }
+
+          "redirect to CheckYourAnswers page when false" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before/change", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url))
+            }
+          }
+        }
+      }
+    }
   }
 }

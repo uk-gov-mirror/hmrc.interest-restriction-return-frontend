@@ -113,6 +113,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       }
       case _ => checkYourAnswers
     }),
+    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_ => checkYourAnswers),
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)

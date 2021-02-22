@@ -17,6 +17,7 @@
 package pages.elections
 
 import pages.behaviours.PageBehaviours
+import models.UserAnswers
 
 class ElectedInterestAllowanceAlternativeCalcBeforePageSpec extends PageBehaviours {
 
@@ -27,5 +28,31 @@ class ElectedInterestAllowanceAlternativeCalcBeforePageSpec extends PageBehaviou
     beSettable[Boolean](ElectedInterestAllowanceAlternativeCalcBeforePage)
 
     beRemovable[Boolean](ElectedInterestAllowanceAlternativeCalcBeforePage)
+  }
+
+  "Cleanup" when {
+    "ElectedInterestAllowanceAlternativeCalcBeforePage" when {
+      "Remove AlternativeCalcElect when there is a change of the answer to 'Yes'" in {
+        val userAnswers = for {
+          ebaUa <- UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, false)
+          invUa <- ebaUa.set(InterestAllowanceAlternativeCalcElectionPage, false)
+          finalUa <- invUa.set(ElectedInterestAllowanceAlternativeCalcBeforePage, true)
+        } yield finalUa
+
+        val result = userAnswers.map(_.getList(InterestAllowanceAlternativeCalcElectionPage)).get
+        result mustBe Seq()
+      }
+
+      "Do not Remove AlternativeCalcElect when the answer to 'No'" in {
+        val userAnswers = for {
+          ebaUa <- UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, true)
+          invUa <- ebaUa.set(InterestAllowanceAlternativeCalcElectionPage, true)
+          finalUa <- invUa.set(ElectedInterestAllowanceAlternativeCalcBeforePage, false )
+        } yield finalUa
+
+        val result = userAnswers.map(_.getList(InterestAllowanceAlternativeCalcElectionPage)).get
+        result mustBe Seq()
+      }
+    }
   }
 }
