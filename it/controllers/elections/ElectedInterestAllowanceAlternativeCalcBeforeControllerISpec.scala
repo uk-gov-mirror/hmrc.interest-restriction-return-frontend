@@ -17,7 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.{NormalMode, CheckMode}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -182,7 +182,7 @@ class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec
             }
           }
 
-          "redirect to CheckYourAnswers page when false" in {
+          "redirect to InterestAllowanceAlternativeCalcElectionController page when false" in {
             AuthStub.authorised()
 
             val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before/change", Json.obj("value" -> false))()
@@ -190,7 +190,7 @@ class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url))
+                redirectLocation(controllers.elections.routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(CheckMode).url))
             }
           }
         }

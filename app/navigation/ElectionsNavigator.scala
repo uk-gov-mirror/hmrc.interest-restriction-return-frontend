@@ -113,7 +113,10 @@ class ElectionsNavigator @Inject()() extends Navigator {
       }
       case _ => checkYourAnswers
     }),
-    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_ => checkYourAnswers),
+    ElectedInterestAllowanceAlternativeCalcBeforePage -> (_.get(ElectedInterestAllowanceAlternativeCalcBeforePage) match {
+      case Some(false) => routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(CheckMode)
+      case _ => checkYourAnswers
+    }),
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)

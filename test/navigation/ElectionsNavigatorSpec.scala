@@ -597,10 +597,11 @@ class ElectionsNavigatorSpec extends SpecBase {
            routes.CheckAnswersElectionsController.onPageLoad()
        }
 
-       "go to check your answers when false" in {
+       "go to InterestAllowanceAlternativeCalcElectionController when false" in {
          val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
-         navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
-           routes.CheckAnswersElectionsController.onPageLoad()
+
+         navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, userAnswers) mustBe
+           routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
        }
      }
     }
