@@ -17,7 +17,7 @@
 package views.checkTotals
 
 import assets.constants.fullReturn.UkCompanyConstants._
-import assets.messages.BaseMessages.saveAndContinue
+import assets.messages.BaseMessages.continue
 import assets.messages.SectionHeaderMessages
 import models.Section.ReviewTaxEBITDA
 import pages.ukCompanies.UkCompaniesPage
@@ -58,7 +58,7 @@ class ReviewTaxEBITDAViewSpec extends ViewBehaviours {
 
     behave like pageWithHeading(applyView(checkYourAnswersHelper)(), ultimateParentCompanyHeading)
 
-    behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
+    behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), continue)
 
     behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
