@@ -589,6 +589,21 @@ class ElectionsNavigatorSpec extends SpecBase {
             routes.AddInvestorGroupController.onPageLoad(NormalMode)
         }
       }
+
+     "ElectedInterestAllowanceAlternativeCalcBeforePage" when {
+       "go to check your answers when true" in {
+         val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).get
+         navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
+           routes.CheckAnswersElectionsController.onPageLoad()
+       }
+
+       "go to InterestAllowanceAlternativeCalcElectionController when false" in {
+         val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
+
+         navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, userAnswers) mustBe
+           routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
+       }
+     }
     }
   }
 }

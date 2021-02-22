@@ -17,7 +17,7 @@
 package controllers.elections
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import models.{NormalMode, CheckMode}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -159,6 +159,39 @@ class ElectedInterestAllowanceAlternativeCalcBeforeControllerISpec
               httpStatus(SEE_OTHER),
               redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
             )
+          }
+        }
+      }
+    }
+
+    "POST /elections/elected-interest-allowance-alternative-calc-before" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckYourAnswers page when true" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url))
+            }
+          }
+
+          "redirect to InterestAllowanceAlternativeCalcElectionController page when false" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/elected-interest-allowance-alternative-calc-before/change", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(CheckMode).url))
+            }
           }
         }
       }
