@@ -104,7 +104,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
-    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
+    GroupRatioElectionPage -> (userAnswer => userAnswer.get(GroupRatioElectionPage) match {
+      case Some(true) => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+      case Some(false) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+      case _ => routes.GroupRatioElectionController.onPageLoad(NormalMode)
+    }),
     GroupRatioBlendedElectionPage -> (userAnswers => userAnswers.get(GroupRatioBlendedElectionPage) match {
       case Some(true) => userAnswers.get(AddInvestorGroupPage) match {
         case Some(_) => checkYourAnswers

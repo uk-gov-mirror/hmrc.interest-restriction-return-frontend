@@ -531,6 +531,30 @@ class ElectionsNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
+      "from the Group Ratio Election page" should {
+
+        "the answer is true" should {
+
+          "go to the Blended Group Ratio Election page in normal mode" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).success.value
+            navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers) mustBe
+              routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+          }
+
+        }
+
+        "the answer is false" should {
+
+          "go to the Interest Allowance Alternative Calculations Before page in normal mode" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
+            navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers) mustBe
+              routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+          }
+
+        }
+
+      }
+
       "from the Investment Name page" should {
 
         "go to the Investments Review Answers List page" in {
