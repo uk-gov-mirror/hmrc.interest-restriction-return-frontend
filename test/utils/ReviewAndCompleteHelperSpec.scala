@@ -21,9 +21,10 @@ import base.SpecBase
 import models.NormalMode
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.ReviewAndCompleteModel
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import viewmodels.{SummaryListRowHelper, TaskListRow}
-
+import models.FullOrAbbreviatedReturn._
 
 class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
 
@@ -42,7 +43,10 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
 
       "return the correct summary list row models" in {
 
-        val userAnswers = emptyUserAnswers.set(ReportingCompanySameAsParentPage, true).get
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
         val helper = new ReviewAndCompleteHelper()
 
         helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
@@ -87,6 +91,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
         "return the correct summary list row models" in {
 
           val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
             .set(ReportingCompanySameAsParentPage, false).get
             .set(HasDeemedParentPage, true).get
 
@@ -132,6 +137,7 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
         "return the correct summary list row models" in {
 
           val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
             .set(ReportingCompanySameAsParentPage, false).get
             .set(HasDeemedParentPage, false).get
 
@@ -167,6 +173,75 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
               SectionHeaderMessages.checkTotals,
               controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
               ReviewAndCompleteMessages.completed
+            )
+          )
+        }
+
+      }
+
+      "Abbreviated return journey" should {
+
+        "not return group level information or check totals" in {
+
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).get
+
+          val helper = new ReviewAndCompleteHelper()
+
+          helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+            TaskListRow(
+              SectionHeaderMessages.aboutReturn,
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
+              ReviewAndCompleteMessages.notStarted
+            ),
+            TaskListRow(
+              SectionHeaderMessages.ultimateParentCompany,
+              controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1),
+              ReviewAndCompleteMessages.completed
+            ),
+            TaskListRow(
+              SectionHeaderMessages.elections,
+              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+              ReviewAndCompleteMessages.inProgress
+            ),
+            TaskListRow(
+              SectionHeaderMessages.ukCompanies,
+              controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
+              ReviewAndCompleteMessages.inProgress
+            )
+          )
+        }
+
+      }
+
+      "Start of a journey, before answering Full/Abbreviated" should {
+
+        "not return group level information or check totals" in {
+
+          val userAnswers = emptyUserAnswers
+
+          val helper = new ReviewAndCompleteHelper()
+
+          helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+            TaskListRow(
+              SectionHeaderMessages.aboutReturn,
+              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
+              ReviewAndCompleteMessages.notStarted
+            ),
+            TaskListRow(
+              SectionHeaderMessages.ultimateParentCompany,
+              controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1),
+              ReviewAndCompleteMessages.completed
+            ),
+            TaskListRow(
+              SectionHeaderMessages.elections,
+              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+              ReviewAndCompleteMessages.inProgress
+            ),
+            TaskListRow(
+              SectionHeaderMessages.ukCompanies,
+              controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
+              ReviewAndCompleteMessages.inProgress
             )
           )
         }
