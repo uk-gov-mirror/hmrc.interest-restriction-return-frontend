@@ -124,7 +124,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (userAnswers => userAnswers.get(InterestAllowanceNonConsolidatedInvestmentsElectionPage) match {
       case Some(true) if userAnswers.getList(InvestmentNamePage).isEmpty => routes.InvestmentsReviewAnswersListController.onPageLoad()
       case _ => checkYourAnswers
-    }),
+    })
   ).withDefaultValue(_ => checkYourAnswers)
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
