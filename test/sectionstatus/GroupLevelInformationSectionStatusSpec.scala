@@ -35,11 +35,11 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
     "return InProgress" when {
       "Subject to restrictions but total disallowed amount missing" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, false).get
           .set(GroupSubjectToRestrictionsPage, true).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, false).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(ReturnContainEstimatesPage, false).get
 
@@ -48,12 +48,12 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
 
       "Group ratio elected but QNGIE/EBITDA/Percentage missing" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, true).get
           .set(GroupSubjectToRestrictionsPage, true).get
           .set(DisallowedAmountPage, BigDecimal(123.12)).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, true).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(ReturnContainEstimatesPage, false).get
 
@@ -80,12 +80,12 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
     "return Completed" when {
       "Subject to restrictions and group ratio not elected" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, false).get
           .set(GroupSubjectToRestrictionsPage, true).get
           .set(DisallowedAmountPage, BigDecimal(123.12)).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, false).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(ReturnContainEstimatesPage, false).get
 
@@ -94,12 +94,12 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
 
       "Subject to restrictions and group ratio elected" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, true).get
           .set(GroupSubjectToRestrictionsPage, true).get
           .set(DisallowedAmountPage, BigDecimal(123.12)).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, true).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(EnterQNGIEPage, BigDecimal(123.12)).get
           .set(GroupEBITDAPage, BigDecimal(123.12)).get
@@ -111,12 +111,12 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
 
       "Not subject to restrictions and not subject to reactivations and group ratio elected" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, true).get
           .set(GroupSubjectToRestrictionsPage, false).get
           .set(GroupSubjectToReactivationsPage, false).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, true).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(EnterQNGIEPage, BigDecimal(123.12)).get
           .set(GroupEBITDAPage, BigDecimal(123.12)).get
@@ -128,12 +128,12 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
 
       "Not subject to restrictions and not subject to reactivations and group ratio not elected" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, false).get
           .set(GroupSubjectToRestrictionsPage, false).get
           .set(GroupSubjectToReactivationsPage, false).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, false).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(ReturnContainEstimatesPage, false).get
 
@@ -142,13 +142,13 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
 
       "Subject to reactivations and group ratio elected" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, true).get
           .set(GroupSubjectToRestrictionsPage, false).get
           .set(GroupSubjectToReactivationsPage, true).get
           .set(InterestReactivationsCapPage, BigDecimal(123.12)).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, true).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(EnterQNGIEPage, BigDecimal(123.12)).get
           .set(GroupEBITDAPage, BigDecimal(123.12)).get
@@ -160,13 +160,13 @@ class GroupLevelInformationSectionStatusSpec extends SpecBase with BaseConstants
 
       "Subject to reactivations and group ratio not elected" in {
         val userAnswers = UserAnswers("id")
+          .set(GroupRatioElectionPage, false).get
           .set(GroupSubjectToRestrictionsPage, false).get
           .set(GroupSubjectToReactivationsPage, true).get
           .set(InterestReactivationsCapPage, BigDecimal(123.12)).get
           .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
           .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
           .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
-          .set(GroupRatioElectionPage, false).get
           .set(EnterANGIEPage, BigDecimal(123.12)).get
           .set(ReturnContainEstimatesPage, false).get
 
