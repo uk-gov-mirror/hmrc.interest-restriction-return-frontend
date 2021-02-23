@@ -17,7 +17,7 @@
 package views.ultimateParentCompany
 
 import assets.constants.UltimateParentCompanyCheckYourAnswersConstants
-import assets.messages.BaseMessages.saveAndContinue
+import assets.messages.BaseMessages.continue
 import assets.messages.{CheckAnswersUltimateParentCompanyMessages, SectionHeaderMessages}
 import models.Section.UltimateParentCompany
 import play.twirl.api.HtmlFormat
@@ -60,7 +60,7 @@ class CheckYourAnswersUltimateParentCompanyViewSpec extends ViewBehaviours with 
 
         behave like pageWithHeading(applyView(checkYourAnswersHelper)(), ultimateParentCompanyHeading)
 
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), continue)
 
         behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
@@ -88,7 +88,7 @@ class CheckYourAnswersUltimateParentCompanyViewSpec extends ViewBehaviours with 
 
         behave like pageWithHeading(applyView(checkYourAnswersHelper)(), ultimateParentCompanyHeading)
 
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), continue)
 
         behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
@@ -116,7 +116,7 @@ class CheckYourAnswersUltimateParentCompanyViewSpec extends ViewBehaviours with 
 
         behave like pageWithHeading(applyView(checkYourAnswersHelper)(), ultimateParentCompanyHeading)
 
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), saveAndContinue)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), continue)
 
         behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
@@ -144,7 +144,7 @@ class CheckYourAnswersUltimateParentCompanyViewSpec extends ViewBehaviours with 
 
         behave like pageWithHeading(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), ultimateParentCompanyHeading)
 
-        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), saveAndContinue)
+        behave like pageWithSubmitButton(applyView(checkYourAnswersHelper, Some("Manual Subheading"))(), continue)
 
         behave like pageWithSaveForLater(applyView(checkYourAnswersHelper, Some("Manual Subheading"))())
 

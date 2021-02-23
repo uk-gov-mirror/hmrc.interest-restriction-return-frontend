@@ -16,7 +16,6 @@
 
 package navigation
 
-import assets.constants.InvestorGroupConstants.{investorGroupsFixedRatioModel, investorGroupsGroupRatioModel}
 import base.SpecBase
 import assets.constants.PartnershipsConstants._
 import controllers.elections.routes

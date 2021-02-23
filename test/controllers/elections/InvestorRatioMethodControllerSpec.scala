@@ -170,14 +170,14 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
           mockGetAnswers(Some(userAnswers))
 
-          val request = fakeRequest.withFormUrlEncodedBody(("value", "noAnswer"))
-
-          val result = Controller.onSubmit(1, NormalMode)(request)
-
           (mockSessionRepository.set(_: UserAnswers))
             .expects(emptyUserAnswers
               .set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = Some(PreferNotToAnswer),otherInvestorGroupElections = None), Some(1)).success.value)
             .returns(Future.successful(true))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "noAnswer"))
+
+          val result = Controller.onSubmit(1, NormalMode)(request)
 
           redirectLocation(result) mustBe Some(onwardRoute.url)
         }
@@ -187,14 +187,14 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
           mockGetAnswers(Some(userAnswers))
 
-          val request = fakeRequest.withFormUrlEncodedBody(("value", "fixedRatioMethod"))
-
-          val result = Controller.onSubmit(1, NormalMode)(request)
-
           (mockSessionRepository.set(_: UserAnswers))
             .expects(emptyUserAnswers
               .set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = Some(FixedRatioMethod),otherInvestorGroupElections = None), Some(1)).success.value)
             .returns(Future.successful(true))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "fixedRatioMethod"))
+
+          val result = Controller.onSubmit(1, NormalMode)(request)
 
           redirectLocation(result) mustBe Some(onwardRoute.url)
         }
@@ -204,14 +204,14 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
           mockGetAnswers(Some(userAnswers))
 
-          val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
-
-          val result = Controller.onSubmit(1, NormalMode)(request)
-
           (mockSessionRepository.set(_: UserAnswers))
             .expects(emptyUserAnswers
               .set(InvestorGroupsPage, investorGroupsGroupRatioModel.copy(ratioMethod = Some(GroupRatioMethod),otherInvestorGroupElections = None), Some(1)).success.value)
             .returns(Future.successful(true))
+
+          val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
+
+          val result = Controller.onSubmit(1, NormalMode)(request)
 
           redirectLocation(result) mustBe Some(onwardRoute.url)
         }
@@ -222,14 +222,14 @@ class InvestorRatioMethodControllerSpec extends SpecBase with FeatureSwitching w
 
         mockGetAnswers(Some(userAnswers))
 
-        val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
-
-        val result = Controller.onSubmit(1, NormalMode)(request)
-
         (mockSessionRepository.set(_: UserAnswers))
           .expects(emptyUserAnswers
             .set(InvestorGroupsPage, investorGroupsGroupRatioModel, Some(1)).success.value)
           .returns(Future.successful(true))
+
+        val request = fakeRequest.withFormUrlEncodedBody(("value", "groupRatioMethod"))
+
+        val result = Controller.onSubmit(1, NormalMode)(request)
 
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }

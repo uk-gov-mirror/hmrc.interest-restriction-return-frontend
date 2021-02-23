@@ -20,7 +20,6 @@ import controllers.elections.routes
 import javax.inject.{Inject, Singleton}
 import models._
 import models.FullOrAbbreviatedReturn._
-import models.returnModels.GroupRatioBlendedModel
 import pages._
 import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.elections.{PartnershipNamePage, _}
