@@ -18,10 +18,25 @@ package pages.elections
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+import models.UserAnswers
+
+import scala.util.Try
 
 case object InterestAllowanceNonConsolidatedInvestmentsElectionPage extends QuestionPage[Boolean] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "interestAllowanceNonConsolidatedInvestmentsElection"
+
+  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
+    value match {
+      case Some(false) => {
+        userAnswers.remove(InvestmentNamePage)
+      }
+      case _ => {
+        super.cleanup(value, userAnswers)
+      }
+    }
+  }
+
 }
