@@ -120,7 +120,11 @@ class ElectionsNavigator @Inject()() extends Navigator {
     ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
       case _ => checkYourAnswers
-    })
+    }),
+    InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
+      case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
+      case _ => checkYourAnswers
+    }),
   ).withDefaultValue(_ => checkYourAnswers)
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()

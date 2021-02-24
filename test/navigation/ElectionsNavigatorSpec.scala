@@ -603,6 +603,20 @@ class ElectionsNavigatorSpec extends SpecBase {
            routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
        }
      }
+
+      "InterestAllowanceConsolidatedPshipElectionPage" when {
+        "go to check your answers when false" in {
+          val userAnswers = UserAnswers(id = "id").set(InterestAllowanceConsolidatedPshipElectionPage, false).get
+          navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, userAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
+        }
+
+        "go to PartnershipsReviewAnswersListController when true" in {
+          val userAnswers = UserAnswers(id = "id").set(InterestAllowanceConsolidatedPshipElectionPage, true).get
+          navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
+            routes.PartnershipsReviewAnswersListController.onPageLoad()
+        }
+      }
     }
   }
 }

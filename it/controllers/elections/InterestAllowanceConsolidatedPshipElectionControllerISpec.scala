@@ -159,5 +159,57 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
         }
       }
     }
+
+    "POST /elections/interest-allowance-consolidated-pship-election" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckYourAnswers page when false" in {
+
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/interest-allowance-consolidated-pship-election/change", Json.obj("value" -> false))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.CheckAnswersElectionsController.onPageLoad().url))
+            }
+          }
+
+          "redirect to PartnershipsReviewAnswersListController page when true" in {
+            AuthStub.authorised()
+
+            val res = postRequest("/elections/interest-allowance-consolidated-pship-election/change", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.elections.routes.PartnershipsReviewAnswersListController.onPageLoad().url))
+            }
+          }
+        }
+      }
+
+      "user not authorised" should {
+
+        "return SEE_OTHER (303)" in {
+
+          AuthStub.unauthorised()
+
+          val res = postRequest("/elections/interest-allowance-consolidated-pship-election/change", Json.obj("value" -> false))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+
+    }
   }
 }
