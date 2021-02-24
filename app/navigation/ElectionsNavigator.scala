@@ -29,7 +29,7 @@ import play.api.mvc.Call
 class ElectionsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
-  val normalRoutes: Map[Page, (UserAnswers => Call)] = Map(
+  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
     GroupRatioElectionPage -> (_.get(GroupRatioElectionPage) match {
       case Some(true) => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
       case Some(false) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
@@ -121,7 +121,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
       case _ => checkYourAnswers
     }),
-    InterestAllowanceConsolidatedPshipElectionPage -> (_.get(InterestAllowanceConsolidatedPshipElectionPage) match {
+    InterestAllowanceConsolidatedPshipElectionPage -> (userAnswers => userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage) match {
       case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case _ => checkYourAnswers
     }),
