@@ -88,7 +88,7 @@ class ElectedGroupEBITDABeforeControllerISpec extends IntegrationSpecBase with C
 
           "the answer is true" should {
 
-            "redirect to Elected Interest Allowance Alternative Calcaultion Before page" in {
+            "redirect to Elected Interest Allowance Alternative Calculation Before page" in {
 
               AuthStub.authorised()
 
@@ -188,7 +188,7 @@ class ElectedGroupEBITDABeforeControllerISpec extends IntegrationSpecBase with C
 
           "the answer is true" should {
 
-            "redirect to Elected Interest Allowance Alternative Calcaultion Before page" in {
+            "redirect to Elected Interest Allowance Alternative Calculation Before page" in {
 
               AuthStub.authorised()
 

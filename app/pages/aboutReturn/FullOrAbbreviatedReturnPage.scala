@@ -17,7 +17,7 @@
 package pages.aboutReturn
 
 import models.{FullOrAbbreviatedReturn, UserAnswers}
-import pages.Page.{allQuestionPages}
+import pages.Page.allQuestionPages
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
