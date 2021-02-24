@@ -124,7 +124,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InterestAllowanceConsolidatedPshipElectionPage -> (userAnswers => userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage) match {
       case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case _ => checkYourAnswers
-    }),
+    })
   ).withDefaultValue(_ => checkYourAnswers)
 
   private def checkYourAnswers: Call = routes.CheckAnswersElectionsController.onPageLoad()
