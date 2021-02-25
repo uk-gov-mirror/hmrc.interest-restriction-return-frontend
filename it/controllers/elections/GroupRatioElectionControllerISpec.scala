@@ -195,18 +195,13 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
                 whenReady(res) { result =>
                   result should have(
                     httpStatus(SEE_OTHER),
-                    redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
+                    redirectLocation(routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode).url)
                   )
                 }
-
               }
-
             }
-
           }
-
         }
-
       }
     }
   }

@@ -111,9 +111,9 @@ class ElectionsNavigator @Inject()() extends Navigator {
           case _ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
         }
       case Some(false) =>
-        userAnswer.get(ElectedInterestAllowanceAlternativeCalcBeforePage) match {
+        userAnswer.get(GroupEBITDAChargeableGainsElectionPage) match {
           case Some(_) => checkYourAnswers
-          case _ => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+          case _ => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
         }
       case _ => routes.GroupRatioElectionController.onPageLoad(NormalMode)
     }),
