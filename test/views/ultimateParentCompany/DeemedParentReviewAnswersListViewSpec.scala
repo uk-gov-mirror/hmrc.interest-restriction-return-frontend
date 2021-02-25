@@ -60,7 +60,7 @@ class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with Ult
 
       behave like pageWithBackLink(view)
 
-      behave like pageWithSubmitButton(view, BaseMessages.continue)
+      behave like pageWithSubmitButton(view, BaseMessages.confirmAndContinue)
 
       behave like pageWithSubHeading(view, SectionHeaderMessages.ultimateParentCompany)
 
@@ -134,7 +134,7 @@ class DeemedParentReviewAnswersListViewSpec extends YesNoViewBehaviours with Ult
 
       behave like pageWithBackLink(view)
 
-      behave like pageWithSubmitButton(view, BaseMessages.continue)
+      behave like pageWithSubmitButton(view, BaseMessages.confirmAndContinue)
 
       behave like pageWithSubHeading(view, SectionHeaderMessages.ultimateParentCompany)
 
