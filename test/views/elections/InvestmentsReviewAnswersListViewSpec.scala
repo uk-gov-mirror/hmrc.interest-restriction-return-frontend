@@ -75,7 +75,7 @@ class InvestmentsReviewAnswersListViewSpec extends YesNoViewBehaviours with Ulti
 
       behave like pageWithBackLink(view)
 
-      behave like pageWithSubmitButton(view, BaseMessages.continue)
+      behave like pageWithSubmitButton(view, BaseMessages.confirmAndContinue)
 
       behave like pageWithSubHeading(view, SectionHeaderMessages.elections)
 

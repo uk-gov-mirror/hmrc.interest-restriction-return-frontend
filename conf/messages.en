@@ -50,6 +50,7 @@ site.continue = Continue
 site.confirm = Confirm
 site.saveAndContinue = Save and continue
 site.submitAndContinue = Save and continue
+site.confirmAndContinue = Confirm and continue
 site.textarea.char_limit = (Limit is {0} characters)
 site.govuk = GOV.UK
 site.signOut = Sign out

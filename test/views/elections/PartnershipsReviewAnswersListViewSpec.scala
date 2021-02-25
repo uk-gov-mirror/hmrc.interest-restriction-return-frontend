@@ -74,7 +74,7 @@ class PartnershipsReviewAnswersListViewSpec extends YesNoViewBehaviours with Sum
 
         behave like pageWithBackLink(view)
 
-        behave like pageWithSubmitButton(view, BaseMessages.continue)
+        behave like pageWithSubmitButton(view, BaseMessages.confirmAndContinue)
 
         behave like pageWithSubHeading(view, SectionHeaderMessages.elections)
 

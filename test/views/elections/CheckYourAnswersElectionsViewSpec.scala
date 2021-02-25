@@ -17,7 +17,7 @@
 package views.elections
 
 import assets.constants.{BaseConstants, ElectionsCheckYourAnswersConstants}
-import assets.messages.BaseMessages.continue
+import assets.messages.BaseMessages.confirmAndContinue
 import assets.messages.{CheckAnswersElectionsMessages, SectionHeaderMessages}
 import models.Section.Elections
 import play.twirl.api.HtmlFormat
@@ -51,7 +51,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       behave like pageWithHeading(applyView(checkYourAnswersHelper)(), heading)
 
-      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), continue)
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), confirmAndContinue)
 
       behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
@@ -85,7 +85,7 @@ class CheckYourAnswersElectionsViewSpec extends ViewBehaviours with BaseConstant
 
       behave like pageWithHeading(applyView(checkYourAnswersHelper)(), heading)
 
-      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), continue)
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), confirmAndContinue)
 
       behave like pageWithSaveForLater(applyView(checkYourAnswersHelper)())
 
