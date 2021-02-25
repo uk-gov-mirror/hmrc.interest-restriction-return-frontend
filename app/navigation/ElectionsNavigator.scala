@@ -102,7 +102,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestmentNamePage -> ((_, _) => routes.InvestmentsReviewAnswersListController.onPageLoad())
   )
 
-
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
     GroupRatioElectionPage -> (userAnswer => userAnswer.get(GroupRatioElectionPage) match {
       case Some(true) =>
@@ -131,6 +130,14 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
+      case _ => checkYourAnswers
+    }),
+    InterestAllowanceConsolidatedPshipElectionPage -> (userAnswers => userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage) match {
+      case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
+      case _ => checkYourAnswers
+    }),
+    InterestAllowanceNonConsolidatedInvestmentsElectionPage -> (userAnswers => userAnswers.get(InterestAllowanceNonConsolidatedInvestmentsElectionPage) match {
+      case Some(true) if userAnswers.getList(InvestmentNamePage).isEmpty => routes.InvestmentsReviewAnswersListController.onPageLoad()
       case _ => checkYourAnswers
     })
   ).withDefaultValue(_ => checkYourAnswers)

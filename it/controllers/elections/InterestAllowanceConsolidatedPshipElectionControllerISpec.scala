@@ -209,7 +209,6 @@ class InterestAllowanceConsolidatedPshipElectionControllerISpec extends Integrat
           }
         }
       }
-
     }
   }
 }
