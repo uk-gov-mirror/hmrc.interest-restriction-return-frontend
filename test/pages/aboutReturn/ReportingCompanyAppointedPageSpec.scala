@@ -31,21 +31,4 @@ class ReportingCompanyAppointedPageSpec extends PageBehaviours {
 
     beRemovable[Boolean](ReportingCompanyAppointedPage)
   }
-
-  "Cleanup" must {
-    "remove all answers when there is a change of the answer to 'No'" in {
-      forAll(arbitrary[UserAnswers]) {
-        userAnswers =>
-          val result = userAnswers
-            .set(TellUsWhatHasChangedPage,"Agent not working with us").success.value
-            .set(RevisingReturnPage,false).success.value
-            .set(AgentNamePage,"John Doe").success.value
-            .set(ReportingCompanyAppointedPage,false).success.value
-
-          result.get(TellUsWhatHasChangedPage) must not be defined
-          result.get(RevisingReturnPage) must not be defined
-          result.get(AgentNamePage) must not be defined
-      }
-    }
-  }
 }
