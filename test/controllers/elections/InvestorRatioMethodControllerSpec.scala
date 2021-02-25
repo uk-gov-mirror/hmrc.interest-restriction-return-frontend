@@ -16,7 +16,6 @@
 
 package controllers.elections
 
-import assets.constants.DeemedParentConstants.deemedParentModelMin
 import assets.constants.InvestorGroupConstants._
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
@@ -27,7 +26,6 @@ import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod, PreferNot
 import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigators.FakeElectionsNavigator
 import pages.elections.InvestorGroupsPage
-import pages.ultimateParentCompany.DeemedParentPage
 import play.api.test.Helpers._
 import views.html.elections.InvestorRatioMethodView
 
