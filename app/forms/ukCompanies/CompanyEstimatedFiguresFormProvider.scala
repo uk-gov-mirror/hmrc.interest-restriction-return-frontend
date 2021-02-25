@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms.ukCompanies
 
-object CheckAnswersUkCompanyMessages {
+import javax.inject.Inject
 
-  val title: String => String = name => s"Check $name details"
+import forms.mappings.Mappings
+import play.api.data.Form
+import play.api.data.Forms.set
+import models.CompanyEstimatedFigures
 
-  val companyName= "Name"
-  val companyCTUTR = "CTUTR"
-  val consenting = "Consenting"
-  val taxEBITDA = "Tax-EBITDA"
-  val netTaxInterest = "Net tax-interest"
-  val income = "Income"
-  val expense = "Expense"
-  val reactivationAmount = "Company reactivations"
-  val estimatedFigures = "Type of figures estimated"
+class CompanyEstimatedFiguresFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Set[CompanyEstimatedFigures]] =
+    Form(
+      "value" -> set(enumerable[CompanyEstimatedFigures]("companyEstimatedFigures.error.required")).verifying(nonEmptySet("companyEstimatedFigures.error.required"))
+    )
 }

@@ -22,15 +22,17 @@ import assets.constants.fullReturn.UkCompanyConstants._
 import assets.messages.{BaseMessages, CheckAnswersUkCompanyMessages}
 import base.SpecBase
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import models.CheckMode
+import models.{CheckMode, CompanyEstimatedFigures}
 import pages.ukCompanies._
 import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
 
+  val company = ukCompanyModelMax.copy(estimatedFigures = Some(CompanyEstimatedFigures.values.toSet))
+
   val helper = new CheckYourAnswersUkCompanyHelper(
     emptyUserAnswers
-      .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
+      .set(UkCompaniesPage, company, Some(1)).success.value
   )
 
   "Check Your Answers Helper" must {
@@ -109,6 +111,18 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
           currencyFormat(reactivation),
           visuallyHiddenText = None,
           ukCompaniesRoutes.ReactivationAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the CompanyEstimatedFigures answer" must {
+
+      "have a correctly formatted summary list row" in {
+        helper.estimatedFigures(1) mustBe Some(summaryListRow(
+          CheckAnswersUkCompanyMessages.estimatedFigures,
+          "Tax EBITDA<br>Net tax-interest amount<br>Allocated restrictions<br>Allocated reactivations",
+          visuallyHiddenText = None,
+          ukCompaniesRoutes.CompanyEstimatedFiguresController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

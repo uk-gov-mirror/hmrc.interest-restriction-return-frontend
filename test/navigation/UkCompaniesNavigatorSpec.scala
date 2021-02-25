@@ -175,6 +175,13 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
+
+      "from the CompanyEstimatedFiguresPage" should {
+        "go to the CYA page" in {
+          navigator.nextPage(CompanyEstimatedFiguresPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
     }
 
     "in Check mode" must {
