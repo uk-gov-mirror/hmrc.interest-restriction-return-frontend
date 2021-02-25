@@ -38,5 +38,4 @@ case object InterestAllowanceNonConsolidatedInvestmentsElectionPage extends Ques
       }
     }
   }
-
 }
