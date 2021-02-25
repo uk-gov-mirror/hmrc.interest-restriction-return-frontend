@@ -37,12 +37,12 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is false" should {
 
-          "go to the ElectedInterestAllowanceAlternativeCalcBeforePage" in {
+          "go to the GroupEBITDcontrollers.elections.GroupRatioElectionControllerISpecChargeableGainsElectionController" in {
 
             val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
 
             navigator.nextPage(GroupRatioElectionPage, NormalMode, userAnswers) mustBe
-              routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+              routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
           }
         }
 

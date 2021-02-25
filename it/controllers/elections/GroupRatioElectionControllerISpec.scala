@@ -86,7 +86,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters false" when {
 
-          "redirect to ANGIE page" in {
+          "redirect to EBITDA page" in {
 
             AuthStub.authorised()
 
@@ -95,7 +95,7 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
+                redirectLocation(routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode).url)
               )
             }
           }
