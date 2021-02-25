@@ -22,9 +22,14 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import scala.concurrent.duration._
+import scala.concurrent.Await
+import pages.elections.InvestmentNamePage
 
 class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends
   IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+
+  implicit val ec: scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
 
   "in Normal mode" when {
 
@@ -99,6 +104,26 @@ class InterestAllowanceNonConsolidatedInvestmentsElectionControllerISpec extends
                 redirectLocation(routes.ElectedInterestAllowanceConsolidatedPshipBeforeController.onPageLoad(NormalMode).url)
               )
             }
+          }
+
+          "clear down investments data" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers)
+
+            val resultUserAnswers = for {
+              _ <- postRequest("/elections/interest-allowance-non-consolidated-investments-election", Json.obj("value" -> true))()
+              _ <- postRequest("/elections/investment/1/name", Json.obj("value" -> "Investment 1"))()
+              _ <- postRequest("/elections/investment/2/name", Json.obj("value" -> "Investment 2"))()
+              _ <- postRequest("/elections/investment/3/name", Json.obj("value" -> "Investment 3"))()
+              _ <- postRequest("/elections/interest-allowance-non-consolidated-investments-election", Json.obj("value" -> false))()
+              userAnswers <- getAnswersFuture("id")
+            } yield userAnswers
+
+            val userAnswers = Await.result(resultUserAnswers, 2.seconds).get
+            
+            userAnswers.getList(InvestmentNamePage) shouldEqual Nil
           }
         }
       }

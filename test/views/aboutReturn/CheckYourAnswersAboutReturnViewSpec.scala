@@ -63,7 +63,7 @@ class CheckYourAnswersAboutReturnViewSpec extends ViewBehaviours with BaseConsta
 
     behave like pageWithHeading(applyView(), reportingCompanyHeading)
 
-    behave like pageWithSubmitButton(applyView(), continue)
+    behave like pageWithSubmitButton(applyView(), confirmAndContinue)
 
     behave like pageWithSaveForLater(applyView())
 

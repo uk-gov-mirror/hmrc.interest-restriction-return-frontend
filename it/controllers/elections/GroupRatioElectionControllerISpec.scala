@@ -158,6 +158,56 @@ class GroupRatioElectionControllerISpec extends IntegrationSpecBase with CreateR
           }
         }
       }
+
+      "POST elections/group-ratio-election" when {
+
+        "user is authorised" when {
+
+          "enters a valid answer" when {
+
+            "the answer is true" should {
+
+              "redirect to the Blended Ratio Election page" in {
+
+                AuthStub.authorised()
+
+                val res = postRequest("/elections/group-ratio-election/change", Json.obj("value" -> true))()
+
+                whenReady(res) { result =>
+                  result should have(
+                    httpStatus(SEE_OTHER),
+                    redirectLocation(routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode).url)
+                  )
+                }
+
+              }
+
+            }
+
+            "the answer is false" should {
+
+              "redirect to the Blended Ratio Election page" in {
+
+                AuthStub.authorised()
+
+                val res = postRequest("/elections/group-ratio-election/change", Json.obj("value" -> false))()
+
+                whenReady(res) { result =>
+                  result should have(
+                    httpStatus(SEE_OTHER),
+                    redirectLocation(routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode).url)
+                  )
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
     }
   }
 }

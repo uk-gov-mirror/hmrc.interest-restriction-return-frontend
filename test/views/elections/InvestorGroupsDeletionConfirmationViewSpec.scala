@@ -44,7 +44,7 @@ class InvestorGroupsDeletionConfirmationViewSpec extends YesNoViewBehaviours  {
 
     behave like yesNoPage(form, applyView, messageKeyPrefix, onwardRoute.url, section = section, headingArgs = Seq(investorName))
 
-    behave like pageWithSubmitButton(applyView(form), BaseMessages.continue)
+    behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
     behave like pageWithSaveForLater(applyView(form))
   }

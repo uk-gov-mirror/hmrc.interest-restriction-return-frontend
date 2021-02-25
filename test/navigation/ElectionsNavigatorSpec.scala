@@ -531,6 +531,59 @@ class ElectionsNavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
+      "from the Group Ratio Election page" should {
+
+        "the answer is true" should {
+
+          "go to the Blended Group Ratio Election page in normal mode" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, true).success.value
+            navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers) mustBe
+              routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+          }
+
+        }
+
+        "the answer is true and the rest of the journey is already filled in" should {
+
+          "return to the check your answers page" in {
+            val userAnswers = for {
+              gre <- emptyUserAnswers.set(GroupRatioElectionPage, true)
+              gbe <- gre.set(GroupRatioBlendedElectionPage, true)
+            } yield gbe
+            navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers.success.value) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+
+        }
+
+        "the answer is false" should {
+
+          "go to the Interest Allowance Alternative Calculations Before page in normal mode" in {
+            val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
+            navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers) mustBe
+              routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+          }
+
+        }
+
+        "the answer is false and the rest of the journey is already filled in" should {
+
+          "return to the check your answers page" in {
+            val userAnswers =
+              for {
+                gre <- emptyUserAnswers.set(GroupRatioElectionPage, false)
+                iaa <- gre.set(ElectedInterestAllowanceAlternativeCalcBeforePage, true)
+              } yield
+                iaa
+
+            navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers.success.value) mustBe
+              routes.CheckAnswersElectionsController.onPageLoad()
+          }
+
+        }
+
+      }
+
       "from the Investment Name page" should {
 
         "go to the Investments Review Answers List page" in {
@@ -589,32 +642,53 @@ class ElectionsNavigatorSpec extends SpecBase {
         }
       }
 
-     "ElectedInterestAllowanceAlternativeCalcBeforePage" when {
-       "go to check your answers when true" in {
-         val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).get
-         navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
-           routes.CheckAnswersElectionsController.onPageLoad()
-       }
-
-       "go to InterestAllowanceAlternativeCalcElectionController when false" in {
-         val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
-
-         navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, userAnswers) mustBe
-           routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
-       }
-     }
-
-      "InterestAllowanceConsolidatedPshipElectionPage" when {
-        "go to check your answers when false" in {
-          val userAnswers = UserAnswers(id = "id").set(InterestAllowanceConsolidatedPshipElectionPage, false).get
-          navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, CheckMode, userAnswers) mustBe
+      "ElectedInterestAllowanceAlternativeCalcBeforePage" when {
+        "go to check your answers when true" in {
+          val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, true).get
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
             routes.CheckAnswersElectionsController.onPageLoad()
         }
 
-        "go to PartnershipsReviewAnswersListController when true" in {
-          val userAnswers = UserAnswers(id = "id").set(InterestAllowanceConsolidatedPshipElectionPage, true).get
-          navigator.nextPage(InterestAllowanceConsolidatedPshipElectionPage, NormalMode, userAnswers) mustBe
-            routes.PartnershipsReviewAnswersListController.onPageLoad()
+        "go to InterestAllowanceAlternativeCalcElectionController when false" in {
+          val userAnswers = UserAnswers(id = "id").set(ElectedInterestAllowanceAlternativeCalcBeforePage, false).get
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, NormalMode, userAnswers) mustBe
+            routes.InterestAllowanceAlternativeCalcElectionController.onPageLoad(NormalMode)
+        }
+      }
+
+      "InterestAllowanceNonConsolidatedInvestmentsElectionPage" when {
+        "true and investments is empty should go to investments addition page" in {
+          val userAnswers = UserAnswers(id = "id").set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true).get
+          navigator.nextPage(InterestAllowanceNonConsolidatedInvestmentsElectionPage, CheckMode, userAnswers) mustBe
+            routes.InvestmentsReviewAnswersListController.onPageLoad()
+        }
+
+        "true and one investment exists should go to CYA" in {
+          val userAnswers = (for {
+            ua <- UserAnswers("id").set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true)
+            finalUa <- ua.set(InvestmentNamePage, "Investment 1", Some(1))
+          } yield finalUa).get
+
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
+        }
+
+        "true and multiple investments exist should go to CYA" in {
+          val userAnswers = (for {
+            ua <- UserAnswers("id").set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, true)
+            ua2 <- ua.set(InvestmentNamePage, "Investment 1", Some(1))
+            finalUa <- ua2.set(InvestmentNamePage, "Investment 2", Some(2))
+          } yield finalUa).get
+
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
+        }
+
+        "false should go to CYA" in {
+          val userAnswers = UserAnswers("id").set(InterestAllowanceNonConsolidatedInvestmentsElectionPage, false).get
+
+          navigator.nextPage(ElectedInterestAllowanceAlternativeCalcBeforePage, CheckMode, userAnswers) mustBe
+            routes.CheckAnswersElectionsController.onPageLoad()
         }
       }
     }

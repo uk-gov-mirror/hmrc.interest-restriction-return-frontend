@@ -60,7 +60,7 @@ class ReviewNetTaxInterestViewSpec extends ViewBehaviours with BaseConstants {
 
     behave like pageWithHeading(applyView(), derivedNetTaxInterestHeading)
 
-    behave like pageWithSubmitButton(applyView(), continue)
+    behave like pageWithSubmitButton(applyView(), confirmAndContinue)
 
     behave like pageWithSaveForLater(applyView())
 

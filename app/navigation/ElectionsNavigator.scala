@@ -29,7 +29,7 @@ import play.api.mvc.Call
 class ElectionsNavigator @Inject()() extends Navigator {
 
   //TODO update with next page
-  val normalRoutes: Map[Page, UserAnswers => Call] = Map(
+  val normalRoutes: Map[Page, (UserAnswers => Call)] = Map(
     GroupRatioElectionPage -> (_.get(GroupRatioElectionPage) match {
       case Some(true) => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
       case Some(false) => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
@@ -104,7 +104,19 @@ class ElectionsNavigator @Inject()() extends Navigator {
 
 
   val checkRouteMap: Map[Page, UserAnswers => Call] = Map[Page, UserAnswers => Call](
-    InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
+    GroupRatioElectionPage -> (userAnswer => userAnswer.get(GroupRatioElectionPage) match {
+      case Some(true) =>
+        userAnswer.get(GroupRatioBlendedElectionPage) match {
+          case Some(_) => checkYourAnswers
+          case _ => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
+        }
+      case Some(false) =>
+        userAnswer.get(ElectedInterestAllowanceAlternativeCalcBeforePage) match {
+          case Some(_) => checkYourAnswers
+          case _ => routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+        }
+      case _ => routes.GroupRatioElectionController.onPageLoad(NormalMode)
+    }),
     GroupRatioBlendedElectionPage -> (userAnswers => userAnswers.get(GroupRatioBlendedElectionPage) match {
       case Some(true) => userAnswers.get(AddInvestorGroupPage) match {
         case Some(_) => checkYourAnswers
@@ -119,10 +131,6 @@ class ElectionsNavigator @Inject()() extends Navigator {
     InvestmentNamePage -> (_ => routes.InvestmentsReviewAnswersListController.onPageLoad()),
     ElectedGroupEBITDABeforePage -> (userAnswers => userAnswers.get(ElectedGroupEBITDABeforePage) match {
       case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(CheckMode)
-      case _ => checkYourAnswers
-    }),
-    InterestAllowanceConsolidatedPshipElectionPage -> (userAnswers => userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage) match {
-      case Some(true) => routes.PartnershipsReviewAnswersListController.onPageLoad()
       case _ => checkYourAnswers
     })
   ).withDefaultValue(_ => checkYourAnswers)
