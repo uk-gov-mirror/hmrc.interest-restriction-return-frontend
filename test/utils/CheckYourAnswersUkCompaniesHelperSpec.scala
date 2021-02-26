@@ -28,7 +28,10 @@ import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
 
-  val company = ukCompanyModelMax.copy(estimatedFigures = Some(CompanyEstimatedFigures.values.toSet))
+  val company = ukCompanyModelMax.copy(
+    containsEstimates = Some(true),
+    estimatedFigures = Some(CompanyEstimatedFigures.values.toSet)
+  )
 
   val helper = new CheckYourAnswersUkCompanyHelper(
     emptyUserAnswers
@@ -111,6 +114,19 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
           currencyFormat(reactivation),
           visuallyHiddenText = None,
           ukCompaniesRoutes.ReactivationAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the Contains Estimates answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.containsEstimates(1) mustBe Some(summaryListRow(
+          CheckAnswersUkCompanyMessages.estimates,
+          BaseMessages.yes,
+          visuallyHiddenText = None,
+          ukCompaniesRoutes.CompanyContainsEstimatesController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }

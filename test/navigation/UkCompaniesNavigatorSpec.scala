@@ -177,6 +177,24 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
 
       "from the CompanyEstimatedFiguresPage" should {
+        "go to the CYA page where it's set to false" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CompanyEstimatedFiguresPage where it's set to true" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CompanyEstimatedFiguresController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "from the CompanyEstimatedFiguresPage" should {
         "go to the CYA page" in {
           navigator.nextPage(CompanyEstimatedFiguresPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
