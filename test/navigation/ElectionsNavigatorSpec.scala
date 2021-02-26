@@ -37,12 +37,12 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is false" should {
 
-          "go to the ElectedInterestAllowanceAlternativeCalcBeforePage" in {
+          "go to the GroupEBITDcontrollers.elections.GroupRatioElectionControllerISpecChargeableGainsElectionController" in {
 
             val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
 
             navigator.nextPage(GroupRatioElectionPage, NormalMode, userAnswers) mustBe
-              routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+              routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
           }
         }
 
@@ -558,10 +558,10 @@ class ElectionsNavigatorSpec extends SpecBase {
 
         "the answer is false" should {
 
-          "go to the Interest Allowance Alternative Calculations Before page in normal mode" in {
+          "go to the GroupEBITDAChargeableGainsElectionController in normal mode" in {
             val userAnswers = emptyUserAnswers.set(GroupRatioElectionPage, false).success.value
             navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers) mustBe
-              routes.ElectedInterestAllowanceAlternativeCalcBeforeController.onPageLoad(NormalMode)
+              routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
           }
 
         }
@@ -572,16 +572,14 @@ class ElectionsNavigatorSpec extends SpecBase {
             val userAnswers =
               for {
                 gre <- emptyUserAnswers.set(GroupRatioElectionPage, false)
-                iaa <- gre.set(ElectedInterestAllowanceAlternativeCalcBeforePage, true)
+                iaa <- gre.set(GroupEBITDAChargeableGainsElectionPage, true)
               } yield
                 iaa
 
             navigator.nextPage(GroupRatioElectionPage, CheckMode, userAnswers.success.value) mustBe
               routes.CheckAnswersElectionsController.onPageLoad()
           }
-
         }
-
       }
 
       "from the Investment Name page" should {
