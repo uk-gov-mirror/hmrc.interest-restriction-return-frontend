@@ -58,7 +58,9 @@ class CompanyEstimatedFiguresController @Inject()(
       formProvider().bindFromRequest().fold(
         formWithErrors => {
           val formOptions = CompanyEstimatedFigures.options(formWithErrors, idx, request.userAnswers)
-          Future.successful(BadRequest(view(formWithErrors, mode, formOptions, routes.CompanyEstimatedFiguresController.onSubmit(idx, mode)))),
+          Future.successful(
+            BadRequest(view(formWithErrors, mode, formOptions, routes.CompanyEstimatedFiguresController.onSubmit(idx, mode)))
+          )
         },
         value => {
           val updatedModel = ukCompany.copy(estimatedFigures = Some(value))
