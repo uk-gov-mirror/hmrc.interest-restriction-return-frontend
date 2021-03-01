@@ -17,7 +17,9 @@
 package pages.groupLevelInformation
 
 import models.UserAnswers
+import pages.Page.allQuestionPages
 import pages.QuestionPage
+import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.libs.json.JsPath
 
 import scala.util.Try
@@ -30,7 +32,7 @@ case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
     value match {
-      case Some(false) => userAnswers.remove(InterestReactivationsCapPage)
+      case Some(false) =>         userAnswers.remove(allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage))
       case _ => super.cleanup(value, userAnswers)
     }
   }
