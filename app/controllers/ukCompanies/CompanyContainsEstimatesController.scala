@@ -68,7 +68,10 @@ class CompanyContainsEstimatesController @Inject()(
             postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
           ))),
         value => {
-          val updatedModel = ukCompany.copy(containsEstimates = Some(value))
+          val updatedModel = value match {
+            case true   => ukCompany.copy(containsEstimates = Some(value))
+            case false  => ukCompany.copy(containsEstimates = Some(value), estimatedFigures = None)
+          }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)

@@ -25,10 +25,11 @@ import models.NormalMode
 import play.api.test.Helpers._
 import views.html.ukCompanies.CompanyContainsEstimatesView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import models.{UserAnswers, CompanyDetailsModel}
+import models.{UserAnswers, CompanyDetailsModel, CompanyEstimatedFigures}
 import models.returnModels.fullReturn._
 import pages.ukCompanies.UkCompaniesPage
 import controllers.ukCompanies.routes.CompanyContainsEstimatesController
+import scala.concurrent.Future
 
 class CompanyContainsEstimatesControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -70,6 +71,34 @@ class CompanyContainsEstimatesControllerSpec extends SpecBase with FeatureSwitch
       val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
       mockGetAnswers(Some(userAnswers))
       mockSetAnswers
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "clear the Company Estimated Figures page when 'false' is submitted" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+      val company = UkCompanyModel(
+        companyDetails = CompanyDetailsModel("123", "1123456789"),
+        estimatedFigures = Some(CompanyEstimatedFigures.values.toSet)
+      )
+      val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).get
+
+      val expectedCompany = UkCompanyModel(
+        companyDetails = CompanyDetailsModel("123", "1123456789"),
+        containsEstimates = Some(false)
+      )
+      
+      mockGetAnswers(Some(userAnswers))
+
+      (mockSessionRepository.set(_: UserAnswers))
+        .expects(emptyUserAnswers
+          .set(UkCompaniesPage, expectedCompany, Some(1)).success.value)
+        .returns(Future.successful(true))
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 
