@@ -36,17 +36,17 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
 
   "Cleanup" must {
     "Remove all answers when there is a change of the answer to 'No'" in {
-      forAll(arbitrary[UserAnswers]) {
-        userAnswers =>
-          val result = userAnswers
-            .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
-            .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
-        //    .set(GroupSubjectToReactivationsPage,false).success.value
+
+        val result = UserAnswers("test")
+          .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
+          .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
+          .set(GroupSubjectToReactivationsPage,false).success.value
 
 
-          result.get(GroupSubjectToReactivationsPage) must not be defined
-          result.get(CompanyDetailsPage) must not be defined
+        result.get(GroupSubjectToReactivationsPage) must not be defined
+        result.get(CompanyDetailsPage) must not be defined
+
       }
     }
-  }
 }
+
