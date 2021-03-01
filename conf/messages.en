@@ -621,7 +621,7 @@ enterCompanyTaxEBITDA.label = Enter the tax-EBITDA for this company
 enterCompanyTaxEBITDA.checkYourAnswersLabel = Tax-EBITDA
 enterCompanyTaxEBITDA.error.nonNumeric = Enter the tax-EBITDA for this company using numbers
 enterCompanyTaxEBITDA.error.required = Enter the tax-EBITDA for this company
-enterCompanyTaxEBITDA.error.invalidNumeric = Tax-EBITDA for this company must be valid decimal or whole number
+enterCompanyTaxEBITDA.error.invalidNumeric = Tax-EBITDA for this company must be to 2 decimal places or a whole number
 enterCompanyTaxEBITDA.error.outOfRange = Tax-EBITDA for this company must be between {0} and {1}
 
 # InvestmentNamePage Messages
@@ -745,7 +745,7 @@ netTaxInterestAmount.expense.subheading = {0}
 netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
 netTaxInterestAmount.expense.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.expense.error.required = Enter the total net-tax interest expense
-netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be valid decimal or whole number
+netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be to 2 decimal places or a whole number
 netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
 netTaxInterestAmount.income.title = Enter the company''s total net-tax interest income
@@ -755,7 +755,7 @@ netTaxInterestAmount.income.subheading = {0}
 netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
 netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.income.error.required = Enter the company''s total net-tax interest income
-netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be valid decimal or whole number
+netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be to 2 decimal places or a whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
 
 netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest
@@ -838,7 +838,7 @@ reactivationAmount.label= Add a reactivation amount
 reactivationAmount.subheading = {0}
 reactivationAmount.error.nonNumeric = A Reactivation must be numeric
 reactivationAmount.error.required = Enter your reactivation amount
-reactivationAmount.error.invalidNumeric = The reactivation amount must be valid decimal or whole number
+reactivationAmount.error.invalidNumeric = Reactivation amount must be to 2 decimal places or a whole number
 reactivationAmount.error.outOfRange = Reactivation amount must be between {0} and {1}
 reactivationAmount.checkYourAnswersLabel = Company reactivations
 
@@ -889,8 +889,8 @@ restrictionAmountSameAP.label= Enter the restriction amount for this company
 restrictionAmountSameAP.checkYourAnswersLabel = Enter the restriction amount for this company
 restrictionAmountSameAP.error.nonNumeric = Enter the restriction amount using numbers
 restrictionAmountSameAP.error.required = Enter the restriction amount for this company
-restrictionAmountSameAP.error.invalidNumeric = The restriction amount must be valid decimal or whole number
-restrictionAmountSameAP.error.outOfRange = The restriction amount must be between {0} and {1}
+restrictionAmountSameAP.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
+restrictionAmountSameAP.error.outOfRange = Restriction amount must be between {0} and {1}
 
 # TellUsWhatHasChangedPage Messages
 # ----------------------------------------------------------
