@@ -3,6 +3,7 @@ package assets
 object PageTitles {
   val companyContainsEstimates = "Are these estimated figures?"
   val companyEstimatedFigures = "Tell us which figures have been estimated"
+  val companyQICElection = "Has the company made a qualifying infrastructure company (QIC) election for the return period?"
   val estimatedFigures = "Tell us which figures have been estimated"
   val disallowedAmount = "Enter the total disallowed amount for the group"
   val tellUsWhatHasChanged = "Tell us what has changed"

@@ -17,9 +17,10 @@
 package navigation
 
 import controllers.ukCompanies.routes
+
 import javax.inject.{Inject, Singleton}
 import models._
-import pages._
+import pages.{ukCompanies, _}
 import pages.groupLevelInformation._
 import pages.ukCompanies._
 import play.api.mvc.Call
@@ -52,6 +53,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    CompanyQICElectionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyContainsEstimatesPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.containsEstimates) match {
       case Some(true) => routes.CompanyEstimatedFiguresController.onPageLoad(idx, NormalMode)
       case Some(false) => checkYourAnswers(idx)
@@ -64,14 +66,14 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     CompanyContainsEstimatesPage -> ((idx, userAnswers) => {
       val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
       ukCompany.flatMap(_.containsEstimates) match {
-        case Some(true) if !ukCompany.flatMap(_.estimatedFigures).isDefined => routes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode)
+        case Some(true) if ukCompany.flatMap(_.estimatedFigures).isEmpty => routes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode)
         case _ => checkYourAnswers(idx)
       }
     }),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => {
       val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
       ukCompany.flatMap(_.reactivation) match {
-        case Some(true) if !ukCompany.flatMap(_.allocatedReactivations).isDefined => routes.ReactivationAmountController.onPageLoad(idx, CheckMode)
+        case Some(true) if ukCompany.flatMap(_.allocatedReactivations).isEmpty => routes.ReactivationAmountController.onPageLoad(idx, CheckMode)
         case _ => checkYourAnswers(idx)
       }
     })

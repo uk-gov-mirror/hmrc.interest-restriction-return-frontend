@@ -46,6 +46,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryCompanyQICElectionUserAnswersEntry: Arbitrary[(CompanyQICElectionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[CompanyQICElectionPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryEstimatedFiguresUserAnswersEntry: Arbitrary[(EstimatedFiguresPage.type, JsValue)] =
     Arbitrary {
       for {

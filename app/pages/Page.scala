@@ -83,6 +83,7 @@ object Page {
     AddRestrictionPage,
     CompanyAccountingPeriodSameAsGroupPage,
     RestrictionAmountSameAPPage,
+    CompanyQICElectionPage,
     CompanyEstimatedFiguresPage,
     CompanyContainsEstimatesPage
   )
