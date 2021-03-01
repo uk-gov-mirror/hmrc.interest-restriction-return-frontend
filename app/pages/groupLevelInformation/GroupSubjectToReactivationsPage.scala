@@ -31,10 +31,12 @@ case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
   override def toString: String = "groupSubjectToReactivations"
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    value match {
-      case Some(false) =>         userAnswers.remove(allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage))
-      case _ => super.cleanup(value, userAnswers)
+    val currentAnswer = userAnswers.get(GroupSubjectToReactivationsPage)
+
+    if (currentAnswer == value) {
+      super.cleanup(value, userAnswers)
+    } else {
+      userAnswers.remove(allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage))
     }
   }
-
 }

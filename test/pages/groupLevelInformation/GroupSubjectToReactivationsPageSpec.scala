@@ -16,11 +16,9 @@
 
 package pages.groupLevelInformation
 
-import pages.behaviours.PageBehaviours
 import models.{CompanyDetailsModel, UserAnswers}
 import pages.behaviours.PageBehaviours
 import org.scalacheck.Arbitrary.arbitrary
-import pages.aboutReturn.TellUsWhatHasChangedPage
 import pages.ukCompanies.CompanyDetailsPage
 
 class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
@@ -35,18 +33,63 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
   }
 
   "Cleanup" must {
-    "Remove all answers when there is a change of the answer to 'No'" in {
+      "Remove all answers when there is a change of the answer to 'No'" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val result = userAnswers
+                .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
+                .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
+                .set(GroupSubjectToReactivationsPage,false).success.value
 
-        val result = UserAnswers("test")
-          .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
-          .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
-          .set(GroupSubjectToReactivationsPage,false).success.value
+
+              result.get(GroupSubjectToReactivationsPage) mustBe defined
+              result.get(CompanyDetailsPage) must not be defined
+          }
+        }
+
+      "Remove all answers when there is a change of the answer to 'Yes'" in {
+        forAll(arbitrary[UserAnswers]) {
+          userAnswers =>
+            val result = userAnswers
+              .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
+              .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
+              .set(GroupSubjectToReactivationsPage,true).success.value
 
 
-        result.get(GroupSubjectToReactivationsPage) must not be defined
-        result.get(CompanyDetailsPage) must not be defined
-
+            result.get(GroupSubjectToReactivationsPage) mustBe defined
+            result.get(CompanyDetailsPage) must not be defined
+        }
       }
+
+      "Not do anything if we select 'No' and our previous answer was 'No'" in {
+        forAll(arbitrary[UserAnswers]) {
+          userAnswers =>
+            val result = userAnswers
+              .set(GroupSubjectToReactivationsPage,false).success.value
+              .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
+              .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
+              .set(GroupSubjectToReactivationsPage,false).success.value
+
+
+            result.get(GroupSubjectToReactivationsPage) mustBe defined
+            result.get(CompanyDetailsPage) mustBe defined
+        }
+      }
+
+    "Not do anything if we select 'Yes' and our previous answer was 'Yes'" in {
+      forAll(arbitrary[UserAnswers]) {
+        userAnswers =>
+          val result = userAnswers
+            .set(GroupSubjectToReactivationsPage,true).success.value
+            .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
+            .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
+            .set(GroupSubjectToReactivationsPage,true).success.value
+
+
+          result.get(GroupSubjectToReactivationsPage) mustBe defined
+          result.get(CompanyDetailsPage) mustBe defined
+      }
+    }
     }
 }
 
