@@ -24,6 +24,7 @@ import assets.messages.{BaseMessages, CheckAnswersElectionsMessages}
 import base.SpecBase
 import controllers.elections.{routes => electionsRoutes}
 import models.{CheckMode, UserAnswers}
+import org.scalatest.events.Summary
 import pages.elections._
 import viewmodels.SummaryListRowHelper
 
@@ -243,6 +244,27 @@ class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants wi
           visuallyHiddenText = None,
           electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview
         ))
+      }
+
+      "do not display partnerships row when there are none" in {
+
+        val helper = new CheckYourAnswersElectionsHelper(userAnswers
+          .set(ElectedInterestAllowanceConsolidatedPshipBeforePage, true).get
+          .set(InterestAllowanceConsolidatedPshipElectionPage, false).get
+          .remove(PartnershipsPage).get)
+
+        val partnerRow = helper.consolidatedPartnershipsRow
+        partnerRow mustBe None
+      }
+
+      "display partnerships row when partnerships are not removed" in {
+        val partnerRow = helper.consolidatedPartnershipsRow
+
+        partnerRow mustBe Some(summaryListRow(
+          CheckAnswersElectionsMessages.consolidatedPartnershipsHeading,
+          CheckAnswersElectionsMessages.consolidatedPartnershipsValue(1),
+          visuallyHiddenText = None,
+          electionsRoutes.PartnershipsReviewAnswersListController.onPageLoad() -> CheckAnswersElectionsMessages.consolidatedPartnershipsReview))
       }
     }
   }
