@@ -37,7 +37,10 @@
 
     @formHelper(action = EstimatedFiguresController.onSubmit(mode)) {
 
-        @errorSummary(form.errors)
+        @errorSummary(
+            form.errors, 
+            formItems.headOption.flatMap(_.id)
+        )
 
         @subheading("section.groupLevelInformation")
 

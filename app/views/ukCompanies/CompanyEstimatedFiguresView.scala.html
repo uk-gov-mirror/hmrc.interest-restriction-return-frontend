@@ -37,7 +37,10 @@
 
     @formHelper(action = postAction) {
 
-        @errorSummary(form.errors)
+        @errorSummary(
+            form.errors,
+            formItems.headOption.flatMap(_.id)
+        )
 
         @subheading("section.ukCompanies")
 
