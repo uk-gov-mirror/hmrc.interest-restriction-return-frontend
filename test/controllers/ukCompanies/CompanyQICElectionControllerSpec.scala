@@ -52,7 +52,7 @@ class CompanyQICElectionControllerSpec extends SpecBase with FeatureSwitching wi
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
       val result = Controller.onPageLoad(idx, NormalMode)(fakeRequest)
 

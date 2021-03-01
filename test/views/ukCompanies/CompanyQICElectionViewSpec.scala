@@ -41,7 +41,7 @@ class CompanyQICElectionViewSpec extends YesNoViewBehaviours  {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), companyNameModel.name)
 
       behave like pageWithBackLink(applyView(form))
 
