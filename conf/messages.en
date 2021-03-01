@@ -224,9 +224,9 @@ interestReactivationsCap.title = Enter the group''s interest reactivation cap
 interestReactivationsCap.heading = Enter the group''s interest reactivation cap
 interestReactivationsCap.label = Enter the group''s interest reactivation cap
 interestReactivationsCap.checkYourAnswersLabel = Reactivation Cap
-interestReactivationsCap.error.nonNumeric = Enter your group''s interestReactivationsCap using numbers
-interestReactivationsCap.error.required = Enter your group''s interestReactivationsCap
-interestReactivationsCap.error.invalidNumeric = Interest reactivations cap must be to 2 decimal places or a whole number
+interestReactivationsCap.error.nonNumeric = Enter the group''s interest reactivation cap using numbers
+interestReactivationsCap.error.required = Enter the group''s interest reactivation cap
+interestReactivationsCap.error.invalidNumeric = Interest reactivation cap must be to 2 decimal places or a whole number
 interestReactivationsCap.error.outOfRange = InterestReactivationsCap must be between {0} and {1}
 
 
