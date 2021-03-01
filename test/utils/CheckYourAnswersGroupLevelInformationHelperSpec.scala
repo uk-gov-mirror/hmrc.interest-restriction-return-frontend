@@ -29,11 +29,11 @@ class CheckYourAnswersGroupLevelInformationHelperSpec extends SpecBase with Base
 
   val helper = new CheckYourAnswersGroupLevelInformationHelper(
     UserAnswers("id")
+      .set(GroupSubjectToRestrictionsPage, true).get
+      .set(GroupSubjectToReactivationsPage, false).get
       .set(ReturnContainEstimatesPage, false).get
       .set(GroupInterestAllowancePage, groupInterestAllowance).get
       .set(GroupInterestCapacityPage, groupInterestCapacity).get
-      .set(GroupSubjectToRestrictionsPage, true).get
-      .set(GroupSubjectToReactivationsPage, false).get
       .set(InterestReactivationsCapPage, interestReactivationCap).get
       .set(DisallowedAmountPage, disallowedAmount).get
       .set(InterestAllowanceBroughtForwardPage, interestAllowanceBroughtForward).get

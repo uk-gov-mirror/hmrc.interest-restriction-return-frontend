@@ -16,9 +16,10 @@
 
 package pages.groupLevelInformation
 
-import models.UserAnswers
+import models.{FullOrAbbreviatedReturn, UserAnswers}
 import pages.behaviours.PageBehaviours
 import org.scalacheck.Arbitrary.arbitrary
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 
 class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
 
@@ -32,33 +33,101 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
   }
 
   "Cleanup" must {
-    "remove subject to restrictions and reactivation cap when there is a change of the answer to 'Yes'" in {
-      forAll(arbitrary[UserAnswers]) {
-        userAnswers =>
-          val result = userAnswers
-            .set(GroupSubjectToReactivationsPage, true).success.value
-            .set(InterestReactivationsCapPage, BigDecimal(1.23)).success.value
-            .set(DisallowedAmountPage, BigDecimal(1.23)).success.value
-            .set(GroupSubjectToRestrictionsPage, true).success.value
+    "the answer is set to 'Yes'" when {
+      "the user doesn't change the answer" should {
+        "no data should be cleared" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val updatedUserAnswers = for {
+                foa <- userAnswers.set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.values.head)
+                gsr <- foa.set(GroupSubjectToRestrictionsPage, true)
+                gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
+                irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
+                da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
+                uua <- da.set(GroupSubjectToRestrictionsPage, true)
+              } yield uua
 
-          result.get(DisallowedAmountPage) must be ('defined)
-          result.get(InterestReactivationsCapPage) must not be defined
-          result.get(GroupSubjectToReactivationsPage) must not be defined
+              val result = updatedUserAnswers.success.value
+
+              result.get(FullOrAbbreviatedReturnPage) mustBe defined
+              result.get(GroupSubjectToRestrictionsPage) mustBe defined
+              result.get(DisallowedAmountPage) mustBe defined
+              result.get(InterestReactivationsCapPage) mustBe defined
+              result.get(GroupSubjectToReactivationsPage) mustBe defined
+          }
+        }
+      }
+      "the user changes the answer to 'No'" should {
+        "clear all data after Subject To Restrictions page" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val updatedUserAnswers = for {
+                foa <- userAnswers.set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.values.head)
+                gsr <- foa.set(GroupSubjectToRestrictionsPage, true)
+                gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
+                irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
+                da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
+                uua <- da.set(GroupSubjectToRestrictionsPage, false)
+              } yield uua
+
+              val result = updatedUserAnswers.success.value
+
+              result.get(FullOrAbbreviatedReturnPage) mustBe defined
+              result.get(GroupSubjectToRestrictionsPage) mustBe defined
+              result.get(DisallowedAmountPage) must not be defined
+              result.get(InterestReactivationsCapPage) must not be defined
+              result.get(GroupSubjectToReactivationsPage) must not be defined
+          }
+        }
       }
     }
 
-    "remove disallowed amount when there is a change of the answer to 'No'" in {
-      forAll(arbitrary[UserAnswers]) {
-        userAnswers =>
-          val result = userAnswers
-            .set(GroupSubjectToReactivationsPage, true).success.value
-            .set(InterestReactivationsCapPage, BigDecimal(1.23)).success.value
-            .set(DisallowedAmountPage, BigDecimal(1.23)).success.value
-            .set(GroupSubjectToRestrictionsPage, false).success.value
+    "the answer is set to 'No'" when {
+      "the user doesn't change the answer" should {
+        "no data should be cleared" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val updatedUserAnswers = for {
+                foa <- userAnswers.set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.values.head)
+                gsr <- foa.set(GroupSubjectToRestrictionsPage, false)
+                gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
+                irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
+                da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
+                uua <- da.set(GroupSubjectToRestrictionsPage, false)
+              } yield uua
 
-          result.get(DisallowedAmountPage) must not be defined
-          result.get(GroupSubjectToReactivationsPage) must be ('defined)
-          result.get(InterestReactivationsCapPage) must be ('defined)
+              val result = updatedUserAnswers.success.value
+
+              result.get(FullOrAbbreviatedReturnPage) mustBe defined
+              result.get(GroupSubjectToRestrictionsPage) mustBe defined
+              result.get(DisallowedAmountPage) mustBe defined
+              result.get(InterestReactivationsCapPage) mustBe defined
+              result.get(GroupSubjectToReactivationsPage) mustBe defined
+          }
+        }
+      }
+      "the user changes the answer to 'Yes'" should {
+        "clear all data after Subject To Restrictions page" in {
+          forAll(arbitrary[UserAnswers]) {
+            userAnswers =>
+              val updatedUserAnswers = for {
+                foa <- userAnswers.set(FullOrAbbreviatedReturnPage, FullOrAbbreviatedReturn.values.head)
+                gsr <- foa.set(GroupSubjectToRestrictionsPage, false)
+                gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
+                irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
+                da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
+                uua <- da.set(GroupSubjectToRestrictionsPage, true)
+              } yield uua
+
+              val result = updatedUserAnswers.success.value
+
+              result.get(FullOrAbbreviatedReturnPage) mustBe defined
+              result.get(GroupSubjectToRestrictionsPage) mustBe defined
+              result.get(DisallowedAmountPage) must not be defined
+              result.get(InterestReactivationsCapPage) must not be defined
+              result.get(GroupSubjectToReactivationsPage) must not be defined
+          }
+        }
       }
     }
   }
