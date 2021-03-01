@@ -945,5 +945,5 @@ companyEstimatedFigures.netTaxInterest = Net tax-interest amount
 companyEstimatedFigures.allocatedRestrictions = Allocated restrictions
 companyEstimatedFigures.allocatedReactivations = Allocated reactivations
 companyEstimatedFigures.checkYourAnswersLabel = Type of figures estimated
-companyEstimatedFigures.error.required = Select which figures have been estimated
+companyEstimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
 companyEstimatedFigures.hint = Select all that apply
