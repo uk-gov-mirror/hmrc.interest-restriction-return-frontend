@@ -24,7 +24,6 @@ import assets.messages.{BaseMessages, CheckAnswersElectionsMessages}
 import base.SpecBase
 import controllers.elections.{routes => electionsRoutes}
 import models.{CheckMode, UserAnswers}
-import org.scalatest.events.Summary
 import pages.elections._
 import viewmodels.SummaryListRowHelper
 
