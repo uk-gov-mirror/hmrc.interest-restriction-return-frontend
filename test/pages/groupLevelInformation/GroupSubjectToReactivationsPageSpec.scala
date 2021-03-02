@@ -36,7 +36,8 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
       "Remove all answers when there is a change of the answer to 'No'" in {
           forAll(arbitrary[UserAnswers]) {
             userAnswers =>
-              val result = userAnswers
+              val result = userAnswers              
+                .set(GroupSubjectToReactivationsPage,true).success.value
                 .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
                 .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
                 .set(GroupSubjectToReactivationsPage,false).success.value
@@ -50,7 +51,8 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
       "Remove all answers when there is a change of the answer to 'Yes'" in {
         forAll(arbitrary[UserAnswers]) {
           userAnswers =>
-            val result = userAnswers
+            val result = userAnswers              
+              .set(GroupSubjectToReactivationsPage,false).success.value
               .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
               .set(CompanyDetailsPage,CompanyDetailsModel("test","test")).success.value
               .set(GroupSubjectToReactivationsPage,true).success.value

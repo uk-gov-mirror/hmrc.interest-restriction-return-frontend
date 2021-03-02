@@ -27,8 +27,7 @@ import scala.util.{Failure, Success, Try}
 final case class UserAnswers(
                               id: String,
                               data: JsObject = Json.obj(),
-                              lastUpdated: LocalDateTime = LocalDateTime.now,
-                              lastPageSaved: Option[Page] = None
+                              lastUpdated: LocalDateTime = LocalDateTime.now
                             ) {
 
   private def path[A](page: QuestionPage[A], idx: Option[Int]) = idx.fold(page.path)(idx => page.path \ (idx - 1))
@@ -48,7 +47,7 @@ final case class UserAnswers(
     page.cleanup(Some(value),this).flatMap {
       cleanedUserAnswers => {
         cleanedUserAnswers.setData(path(page,idx),value).flatMap {
-          d => Try(copy(data = d, lastPageSaved = Some(page)))
+          d => Try(copy(data = d))
         }
       }
     }
@@ -59,7 +58,7 @@ final case class UserAnswers(
     page.cleanup(Some(value),this).flatMap {
       cleanedUserAnswers => {
         cleanedUserAnswers.setData(page.path, getList(page).+:(value)).flatMap {
-          d => Try(copy(data = d, lastPageSaved = Some(page)))
+          d => Try(copy(data = d))
         }
       }
     }
@@ -112,8 +111,7 @@ object UserAnswers {
     (
       (__ \ "_id").read[String] and
         (__ \ "data").read[JsObject] and
-        (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead) and
-        (__ \ "lastPageSaved").readNullable[Page]
+        (__ \ "lastUpdated").read(MongoDateTimeFormats.localDateTimeRead)
       ) (UserAnswers.apply _)
   }
 
@@ -124,8 +122,7 @@ object UserAnswers {
     (
       (__ \ "_id").write[String] and
         (__ \ "data").write[JsObject] and
-        (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite) and
-        (__ \ "lastPageSaved").writeNullable[Page]
+        (__ \ "lastUpdated").write(MongoDateTimeFormats.localDateTimeWrite)
       ) (unlift(UserAnswers.unapply))
   }
 }
