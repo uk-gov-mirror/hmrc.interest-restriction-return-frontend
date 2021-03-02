@@ -70,7 +70,6 @@ object Page {
     CheckAnswersGroupLevelPage
   )
 
-
   lazy val ukCompaniesSectionPages: Seq[Page] = List(
     UkCompaniesPage,
     CheckAnswersUkCompanyPage,
@@ -156,7 +155,11 @@ object Page {
     ContinueSavedReturnPage.toString -> ContinueSavedReturnPage
   )
 
-  lazy val allQuestionPages = pages.values.collect{ case a: QuestionPage[_] => a}.toList
+  val allPagesFromSubjectToReactivations: Map[String, Page] = (groupLevelInformationSectionPages.filterNot(page => page == GroupSubjectToRestrictionsPage ||
+    page == GroupSubjectToReactivationsPage ||
+    page == DisallowedAmountPage ) ++ ukCompaniesSectionPages).map(page => page.toString -> page).toMap
+
+  lazy val allQuestionPages: Seq[QuestionPage[_]] = pages.values.collect{ case a: QuestionPage[_] => a}.toList
 
   def apply(page: String): Page = pages(page)
 

@@ -17,7 +17,7 @@
 package pages.groupLevelInformation
 
 import models.UserAnswers
-import pages.Page.allQuestionPages
+import pages.Page.{allPagesFromSubjectToReactivations, allQuestionPages}
 import pages.QuestionPage
 import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.libs.json.JsPath
@@ -36,7 +36,7 @@ case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
     if (currentAnswer == value) {
       super.cleanup(value, userAnswers)
     } else {
-      userAnswers.remove(allQuestionPages.filterNot(_ == ReportingCompanyAppointedPage))
+      userAnswers.remove(allPagesFromSubjectToReactivations.values.collect{ case a: QuestionPage[_] => a}.toList)
     }
   }
 }
