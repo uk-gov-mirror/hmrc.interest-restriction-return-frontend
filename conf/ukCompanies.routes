@@ -97,3 +97,10 @@ GET        /:idx/restriction-amount-same-accounting-period          controllers.
 POST       /:idx/restriction-amount-same-accounting-period          controllers.ukCompanies.RestrictionAmountSameAPController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/restriction-amount-same-accounting-period/change   controllers.ukCompanies.RestrictionAmountSameAPController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/restriction-amount-same-accounting-period/change   controllers.ukCompanies.RestrictionAmountSameAPController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### CompanyEstimatedFigures Controller
+### ----------------------------------------
+GET        /:idx/company-estimated-figures                          controllers.ukCompanies.CompanyEstimatedFiguresController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/company-estimated-figures                          controllers.ukCompanies.CompanyEstimatedFiguresController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/company-estimated-figures/change                   controllers.ukCompanies.CompanyEstimatedFiguresController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/company-estimated-figures/change                   controllers.ukCompanies.CompanyEstimatedFiguresController.onSubmit(idx: Int, mode: Mode = CheckMode)

@@ -936,3 +936,15 @@ estimatedFigures.interestCapacity = Interest capacity
 estimatedFigures.checkYourAnswersLabel = Type of figures estimated
 estimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
 estimatedFigures.hint = Select all that apply
+
+# CompanyEstimatedFiguresPage Messages
+# ----------------------------------------------------------
+companyEstimatedFigures.title = Tell us which figures have been estimated
+companyEstimatedFigures.heading = Tell us which figures have been estimated
+companyEstimatedFigures.taxEBITDA = Tax EBITDA
+companyEstimatedFigures.netTaxInterest = Net tax-interest amount
+companyEstimatedFigures.allocatedRestrictions = Allocated restrictions
+companyEstimatedFigures.allocatedReactivations = Allocated reactivations
+companyEstimatedFigures.checkYourAnswersLabel = Type of figures estimated
+companyEstimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
+companyEstimatedFigures.hint = Select all that apply

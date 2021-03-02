@@ -96,6 +96,15 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def estimatedFigures(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.estimatedFigures.map(figures => 
+      summaryListRow(
+        label = messages("companyEstimatedFigures.checkYourAnswersLabel"),
+        value = figures.toSeq.sorted.map(figure => messages(s"companyEstimatedFigures.${figure.toString}")).mkString("<br>"),
+        visuallyHiddenText = None,
+        ukCompanyRoutes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode) -> messages("site.edit")
+      )
+    ))
 
   def rows(idx: Int): Seq[SummaryListRow] = Seq(
     companyName(idx),
@@ -103,7 +112,8 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
     netTaxInterestAmount(idx),
-    companyReactivationAmount(idx)
+    companyReactivationAmount(idx),
+    estimatedFigures(idx)
   ).flatten
 
 

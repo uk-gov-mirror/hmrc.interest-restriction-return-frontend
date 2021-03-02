@@ -72,3 +72,12 @@ estimatedFigures.aNGIE = ANGIE
 estimatedFigures.qNGIE = QNGIE
 estimatedFigures.checkYourAnswersLabel = Tell us which figures have been estimated
 estimatedFigures.error.required = Select estimatedFigures
+
+# CompanyEstimatedFiguresPage Messages
+# ----------------------------------------------------------
+companyEstimatedFigures.title = Tell us which figures have been estimated
+companyEstimatedFigures.heading = Tell us which figures have been estimated
+companyEstimatedFigures.tax EBITDA = Net tax interest amount
+companyEstimatedFigures.netTaxInterest = Net tax interest amount
+companyEstimatedFigures.checkYourAnswersLabel = Tell us which figures have been estimated
+companyEstimatedFigures.error.required = Select companyEstimatedFigures
