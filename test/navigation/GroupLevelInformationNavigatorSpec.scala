@@ -186,7 +186,7 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
           }
 
           "go to the Check Answers page where true and EstimatedFigures is populated" in {
-            val userAnswers = 
+            val userAnswers =
               for {
                 ua <- emptyUserAnswers.set(ReturnContainEstimatesPage, true)
                 finalUa <- ua.set(EstimatedFiguresPage, EstimatedFigures.values.toSet)
@@ -228,14 +228,14 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
             val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
 
             navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
-              groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(CheckMode)
+              groupLevelInformationRoutes.DisallowedAmountController.onPageLoad(NormalMode)
           }
 
           "when set to false and GroupSubjectToReactivationsPage not already set go to GroupSubjectToReactivationsPage" in {
             val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
 
             navigator.nextPage(GroupSubjectToRestrictionsPage, CheckMode, userAnswers.get) mustBe
-              groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(CheckMode)
+              groupLevelInformationRoutes.GroupSubjectToReactivationsController.onPageLoad(NormalMode)
           }
         }
 

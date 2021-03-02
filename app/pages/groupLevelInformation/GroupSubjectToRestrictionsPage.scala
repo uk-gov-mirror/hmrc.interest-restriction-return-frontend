@@ -17,6 +17,7 @@
 package pages.groupLevelInformation
 
 import models.UserAnswers
+import pages.Page.{aboutReturnSectionPages, allQuestionPages, electionsSectionPages, ultimateParentCompanySectionPages}
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
@@ -29,14 +30,19 @@ case object GroupSubjectToRestrictionsPage extends QuestionPage[Boolean] {
   override def toString: String = "groupSubjectToRestrictions"
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    value match {
-      case Some(false) => userAnswers.remove(DisallowedAmountPage)
-      case Some(true) => 
-        for {
-          newUa <- userAnswers.remove(GroupSubjectToReactivationsPage)
-          finalUa <- newUa.remove(InterestReactivationsCapPage)
-        } yield finalUa
-      case _ => super.cleanup(value, userAnswers)
+    val currentAnswer = userAnswers.get(GroupSubjectToRestrictionsPage)
+    if(currentAnswer == value) {
+      super.cleanup(value, userAnswers)
+    } else {
+      userAnswers.remove(allPagesAfterGroupSubjectToRestrictions)
+    }
+  }
+
+  private def allPagesAfterGroupSubjectToRestrictions: Seq[QuestionPage[_]] = {
+    allQuestionPages.filterNot { p =>
+      aboutReturnSectionPages.contains(p) ||
+      ultimateParentCompanySectionPages.contains(p) ||
+      electionsSectionPages.contains(p)
     }
   }
 
