@@ -18,66 +18,64 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.ukCompanies.CompanyEstimatedFiguresFormProvider
+import forms.ukCompanies.CompanyContainsEstimatesFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.{UkCompaniesPage, CompanyEstimatedFiguresPage}
+import pages.ukCompanies.CompanyContainsEstimatesPage
 import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.ukCompanies.CompanyEstimatedFiguresView
-import navigation.UkCompaniesNavigator
+import views.html.ukCompanies.CompanyContainsEstimatesView
 import scala.concurrent.Future
+import navigation.UkCompaniesNavigator
 import controllers.BaseController
-import models.CompanyEstimatedFigures
+import pages.ukCompanies.UkCompaniesPage
 import handlers.ErrorHandler
 
-class CompanyEstimatedFiguresController @Inject()(
-                                       override val messagesApi: MessagesApi,
-                                       sessionRepository: SessionRepository,
-                                       navigator: UkCompaniesNavigator,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: CompanyEstimatedFiguresFormProvider,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: CompanyEstimatedFiguresView
-                                   )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
+class CompanyContainsEstimatesController @Inject()(
+                                         override val messagesApi: MessagesApi,
+                                         sessionRepository: SessionRepository,
+                                         navigator: UkCompaniesNavigator,
+                                         identify: IdentifierAction,
+                                         getData: DataRetrievalAction,
+                                         requireData: DataRequiredAction,
+                                         formProvider: CompanyContainsEstimatesFormProvider,
+                                         val controllerComponents: MessagesControllerComponents,
+                                         view: CompanyContainsEstimatesView
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx: Int) { ukCompany =>
-      val form = ukCompany.estimatedFigures.fold(formProvider())(formProvider().fill)
-      val formOptions = CompanyEstimatedFigures.options(form, idx, request.userAnswers)
+      val form = ukCompany.containsEstimates.fold(formProvider())(formProvider().fill)
       Future.successful(Ok(view(
         form = form, 
         mode = mode,
         companyName = ukCompany.companyDetails.companyName, 
-        formItems = formOptions,
-        postAction = routes.CompanyEstimatedFiguresController.onSubmit(idx, mode)
+        postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
       )))
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage, idx) { ukCompany =>
+    answerFor(UkCompaniesPage, idx: Int) { ukCompany =>
       formProvider().bindFromRequest().fold(
-        formWithErrors => {
-          val formOptions = CompanyEstimatedFigures.options(formWithErrors, idx, request.userAnswers)
+        formWithErrors =>
           Future.successful(BadRequest(view(
             form = formWithErrors, 
             mode = mode, 
             companyName = ukCompany.companyDetails.companyName,
-            formItems = formOptions,
             postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
-          )))
-        },
+          ))),
         value => {
-          val updatedModel = ukCompany.copy(estimatedFigures = Some(value))
+          val updatedModel = value match {
+            case true   => ukCompany.copy(containsEstimates = Some(value))
+            case false  => ukCompany.copy(containsEstimates = Some(value), estimatedFigures = None)
+          }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CompanyEstimatedFiguresPage, mode, updatedAnswers, Some(idx)))
+          } yield Redirect(navigator.nextPage(CompanyContainsEstimatesPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }
