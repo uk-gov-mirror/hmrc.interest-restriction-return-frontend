@@ -19,6 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.ukCompanies.routes
 import models._
+import models.CompanyEstimatedFigures._
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import assets.constants.fullReturn.UkCompanyConstants._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
@@ -208,6 +209,32 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         navigator.nextPage(CheckAnswersUkCompanyPage, CheckMode, emptyUserAnswers) mustBe
           routes.CheckAnswersUkCompanyController.onPageLoad(1)
       }
+
+      "from the CompanyContainsEstimatesPage" should {
+        "go to the CYA page where it's set to false" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CompanyEstimatedFiguresPage where it's set to true and the next page is not set" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CompanyEstimatedFiguresController.onPageLoad(1, CheckMode)
+        }
+
+        "go to the CYA page where it's set to true and the next page is set" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(true), estimatedFigures = Some(Set(TaxEbitda)))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      } 
     }
 
     "in Review mode" must {

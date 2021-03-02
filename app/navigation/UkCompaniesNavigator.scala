@@ -60,7 +60,15 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx))
   )
 
-  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
+    CompanyContainsEstimatesPage -> ((idx, userAnswers) => {
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      ukCompany.flatMap(_.containsEstimates) match {
+        case Some(true) if !ukCompany.flatMap(_.estimatedFigures).isDefined => routes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode)
+        case _ => checkYourAnswers(idx)
+      }
+    })
+  ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
     ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
