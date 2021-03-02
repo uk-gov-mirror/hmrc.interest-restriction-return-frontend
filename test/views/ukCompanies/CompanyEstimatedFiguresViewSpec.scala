@@ -40,16 +40,16 @@ class CompanyEstimatedFiguresViewSpec extends CheckboxViewBehaviours[CompanyEsti
 
       def applyView(form: Form[Set[CompanyEstimatedFigures]]): HtmlFormat.Appendable = {
         val view = viewFor[CompanyEstimatedFiguresView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode, checkboxes(form), CompanyEstimatedFiguresController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, NormalMode, "Company 1", checkboxes(form), CompanyEstimatedFiguresController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = section)
+      behave like normalPage(applyView(form), messageKeyPrefix, section = Some("Company 1"))
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), "Company 1")
 
-      behave like checkboxPage(form, applyView, messageKeyPrefix, checkboxes(form), messages("section.ukCompanies"))
+      behave like checkboxPage(form, applyView, messageKeyPrefix, checkboxes(form), messages("Company 1"))
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

@@ -28,6 +28,9 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryCompanyContainsEstimatesPage: Arbitrary[CompanyContainsEstimatesPage.type] =
+    Arbitrary(CompanyContainsEstimatesPage)
+
   implicit lazy val arbitraryCompanyEstimatedFiguresPage: Arbitrary[CompanyEstimatedFiguresPage.type] =
     Arbitrary(CompanyEstimatedFiguresPage)
 

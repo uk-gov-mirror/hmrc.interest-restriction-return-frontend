@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.ukCompanies
 
-object CheckAnswersUkCompanyMessages {
+import pages.behaviours.PageBehaviours
 
-  val title: String => String = name => s"Check $name details"
+class CompanyContainsEstimatesPageSpec extends PageBehaviours {
 
-  val companyName= "Name"
-  val companyCTUTR = "CTUTR"
-  val consenting = "Consenting"
-  val taxEBITDA = "Tax-EBITDA"
-  val netTaxInterest = "Net tax-interest"
-  val income = "Income"
-  val expense = "Expense"
-  val reactivationAmount = "Company reactivations"
-  val estimates = "Estimates"
-  val estimatedFigures = "Type of figures estimated"
+  "CompanyContainsEstimatesPage" must {
+
+    beRetrievable[Boolean](CompanyContainsEstimatesPage)
+
+    beSettable[Boolean](CompanyContainsEstimatesPage)
+
+    beRemovable[Boolean](CompanyContainsEstimatesPage)
+  }
 }

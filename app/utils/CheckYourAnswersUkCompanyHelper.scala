@@ -96,6 +96,15 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def containsEstimates(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.containsEstimates.map(containsEstimates =>
+      ukCompanyAnswer(
+        page = CompanyContainsEstimatesPage,
+        value = containsEstimates,
+        changeLinkCall = ukCompanyRoutes.CompanyContainsEstimatesController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
   def estimatedFigures(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.estimatedFigures.map(figures => 
       summaryListRow(
@@ -113,6 +122,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     enterCompanyTaxEBITDA(idx),
     netTaxInterestAmount(idx),
     companyReactivationAmount(idx),
+    containsEstimates(idx),
     estimatedFigures(idx)
   ).flatten
 
