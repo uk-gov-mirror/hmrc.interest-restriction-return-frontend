@@ -18,9 +18,10 @@ package controllers.ukCompanies
 
 import assets.UkCompanyITConstants.ukCompanyModelMin
 import assets.{BaseITConstants, PageTitles}
-import models.NetTaxInterestIncomeOrExpense.NetTaxInterestIncome
+import models.NetTaxInterestIncomeOrExpense.{NetTaxInterestExpense, NetTaxInterestIncome}
 import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
+import pages.groupLevelInformation.{GroupSubjectToRestrictionsPage, GroupSubjectToReactivationsPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -79,13 +80,40 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
 
       "user is authorised" when {
 
-        "enters a valid answer" when {
+        "enters a valid answer and group is subject to restrictions and IncomeOrExpense is Expense" when {
 
-          "redirect to NetTaxInterestAmount page" in {
+          "redirect to AddRestriction page" in {
 
             AuthStub.authorised()
 
             val userAnswers = emptyUserAnswers
+              .set(GroupSubjectToRestrictionsPage, true).success.value
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.AddRestrictionController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a valid answer and group is subject to restrictions and IncomeOrExpense is Income" when {
+
+          "redirect to ContainsEstimates page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(GroupSubjectToRestrictionsPage, true).success.value
               .set(UkCompaniesPage, ukCompanyModelMin.copy(
                 netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
                 netTaxInterest = None
@@ -98,11 +126,120 @@ class NetTaxInterestAmountControllerISpec extends IntegrationSpecBase with Creat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.ConsentingCompanyController.onPageLoad(1, NormalMode).url)
+                redirectLocation(routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
               )
             }
           }
         }
+
+        "enters a valid answer and group is subject to reactivations and IncomeOrExpense is Income" when {
+
+          "redirect to AddAnReactivationQuery page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(GroupSubjectToRestrictionsPage, false).success.value
+              .set(GroupSubjectToReactivationsPage, true).success.value
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a valid answer and group is subject to reactivations and IncomeOrExpense is Expense" when {
+
+          "redirect to AddAnReactivationQuery page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(GroupSubjectToRestrictionsPage, false).success.value
+              .set(GroupSubjectToReactivationsPage, true).success.value
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a valid answer and group is NOT subject to reactivations or restrictions and IncomeOrExpense is Expense" when {
+
+          "redirect to CompanyContainsEstimates page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(GroupSubjectToRestrictionsPage, false).success.value
+              .set(GroupSubjectToReactivationsPage, false).success.value
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestExpense),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+
+        "enters a valid answer and group is NOT subject to reactivations or restrictions and IncomeOrExpense is Income" when {
+
+          "redirect to CompanyContainsEstimates page" in {
+
+            AuthStub.authorised()
+
+            val userAnswers = emptyUserAnswers
+              .set(GroupSubjectToRestrictionsPage, false).success.value
+              .set(GroupSubjectToReactivationsPage, false).success.value
+              .set(UkCompaniesPage, ukCompanyModelMin.copy(
+                netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
+                netTaxInterest = None
+              ), Some(1)).success.value
+
+            setAnswers(userAnswers)
+
+            val res = postRequest("/uk-companies/1/net-tax-interest-amount", Json.obj("value" -> 1))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
+              )
+            }
+          }
+        }
+
       }
 
       "user not authorised" should {

@@ -23,6 +23,7 @@ import pages._
 import pages.groupLevelInformation._
 import pages.ukCompanies._
 import play.api.mvc.Call
+import models.NetTaxInterestIncomeOrExpense._
 
 @Singleton
 class UkCompaniesNavigator @Inject()() extends Navigator {
@@ -95,8 +96,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     (groupSubjectToRestrictions, incomeOrExpense, groupSubjectToReactivations) match {
       case (Some(true), Some(NetTaxInterestExpense), _) => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
       case (_, _, Some(true)) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
-      case _ => checkYourAnswers(idx)
-    
-    }),
+      case _ => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
+    }
   }
 }
