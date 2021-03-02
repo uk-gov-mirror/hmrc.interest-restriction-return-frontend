@@ -31,9 +31,9 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[Set[CompanyEstimatedFigures]], mode: Mode, formItems: Seq[CheckboxItem], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[Set[CompanyEstimatedFigures]], mode: Mode, companyName: String, formItems: Seq[CheckboxItem], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "companyEstimatedFigures.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form, "companyEstimatedFigures.title", Some(companyName)))) {
 
     @formHelper(action = postAction) {
 
@@ -42,7 +42,7 @@
             formItems.headOption.flatMap(_.id)
         )
 
-        @subheading("section.ukCompanies")
+        @subheading(companyName)
 
         @checkboxes(
             form = form,

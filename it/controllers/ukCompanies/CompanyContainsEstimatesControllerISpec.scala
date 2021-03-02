@@ -83,7 +83,7 @@ class CompanyContainsEstimatesControllerISpec extends IntegrationSpecBase with C
 
         "enters a valid answer" when {
 
-          "redirect to CompanyContainsEstimates page" in {
+          "redirect to CompanyEstimatedFigures page" in {
 
             AuthStub.authorised()
 
@@ -91,14 +91,14 @@ class CompanyContainsEstimatesControllerISpec extends IntegrationSpecBase with C
             val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
             setAnswers(userAnswers)
 
-            val res = postRequest("/uk-companies/1/company-contains-estimates", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest("/uk-companies/1/company-contains-estimates", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CompanyEstimatedFiguresController.onPageLoad(1, NormalMode).url)
+              )
+            }
           }
         }
       }

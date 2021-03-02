@@ -41,7 +41,7 @@ class CompanyContainsEstimatesViewSpec extends YesNoViewBehaviours  {
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = Some("Company 1"))
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), "Company 1")
 
       behave like pageWithBackLink(applyView(form))
 
