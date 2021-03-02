@@ -27,7 +27,8 @@ object CheckAnswersUkCompanyMessages {
   val netTaxInterest = "Net tax-interest"
   val income = "Income"
   val expense = "Expense"
-  val reactivationAmount = "Company reactivations"
+  val reactivation = "Reactivation"
+  val reactivationAmount = "Reactivation amount"
   val estimates = "Estimates"
   val estimatedFigures = "Type of figures estimated"
 }

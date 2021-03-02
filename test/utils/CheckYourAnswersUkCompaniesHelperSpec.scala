@@ -105,6 +105,19 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       }
     }
 
+    "For the Reactivation Y/N answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.addAReactivation(1) mustBe Some(summaryListRow(
+          CheckAnswersUkCompanyMessages.reactivation,
+          BaseMessages.yes,
+          visuallyHiddenText = None,
+          ukCompaniesRoutes.AddAnReactivationQueryController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
     "For the companyReactivationAmount answer" must {
 
       "have a correctly formatted summary list row" in {

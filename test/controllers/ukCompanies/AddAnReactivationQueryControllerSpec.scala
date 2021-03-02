@@ -51,7 +51,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(consenting = None), Some(1)).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(reactivation = None, consenting = None), Some(1)).get))
 
       val result = Controller.onPageLoad(1,NormalMode)(fakeRequest)
 

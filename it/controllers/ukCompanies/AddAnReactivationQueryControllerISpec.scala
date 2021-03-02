@@ -105,7 +105,7 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+                redirectLocation(controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
               )
             }
           }

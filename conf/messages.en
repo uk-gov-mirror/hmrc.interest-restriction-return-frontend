@@ -826,7 +826,7 @@ partnershipsReviewAnswersList.error.required = Select yes if Do you need to add 
 # ----------------------------------------------------------
 addAnReactivationQuery.title = Do you need to add a reactivation to this company?
 addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
-addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Reactivation
 addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
 addAnReactivationQuery.subheading = {0}
 
@@ -840,7 +840,7 @@ reactivationAmount.error.nonNumeric = A Reactivation must be numeric
 reactivationAmount.error.required = Enter your reactivation amount
 reactivationAmount.error.invalidNumeric = The reactivation amount must be valid decimal or whole number
 reactivationAmount.error.outOfRange = Current period reactivation must be a positive number
-reactivationAmount.checkYourAnswersLabel = Company reactivations
+reactivationAmount.checkYourAnswersLabel = Reactivation amount
 
 # ReviewAndCompletePage Messages
 # ----------------------------------------------------------

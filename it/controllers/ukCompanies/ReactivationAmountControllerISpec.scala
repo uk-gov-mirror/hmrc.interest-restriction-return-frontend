@@ -22,6 +22,7 @@ import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
+import models.NormalMode
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
@@ -72,7 +73,7 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" when {
 
-          "redirect to Check your Answers page" in {
+          "redirect to Company Contains Estimates page" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
@@ -85,7 +86,7 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+                redirectLocation(controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
               )
             }
           }
