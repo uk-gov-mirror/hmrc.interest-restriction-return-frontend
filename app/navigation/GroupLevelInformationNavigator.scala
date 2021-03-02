@@ -18,11 +18,13 @@ package navigation
 
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
+import models.SectionStatus.{InProgress, NotStarted}
 import models._
 import pages._
 import pages.elections.GroupRatioElectionPage
 import pages.groupLevelInformation._
 import play.api.mvc.Call
+import sectionstatus.GroupLevelInformationSectionStatus
 
 import javax.inject.{Inject, Singleton}
 
@@ -96,11 +98,12 @@ class GroupLevelInformationNavigator @Inject()() extends Navigator {
   }
 
   def groupSubjectToReactivationsCheckRoute(userAnswers: UserAnswers): Call = {
+    val sectionStatus = GroupLevelInformationSectionStatus.getStatus(userAnswers)
     val groupSubjectToReactivationsPage = userAnswers.get(GroupSubjectToReactivationsPage)
-    val interestReactivationsCapNotPopulated = userAnswers.get(InterestReactivationsCapPage).isEmpty
 
-    groupSubjectToReactivationsPage match {
-      case Some(true) if interestReactivationsCapNotPopulated => groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode)
+    (sectionStatus,groupSubjectToReactivationsPage) match {
+      case (NotStarted | InProgress, Some(true)) => groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(NormalMode)
+      case (NotStarted | InProgress, Some(false)) => groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
       case _ => checkAnswers
     }
   }
