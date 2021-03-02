@@ -116,21 +116,21 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.ReactivationAmountController.onPageLoad(1, NormalMode)
         }
 
-        "if no to the checkyouranswerspage" in {
+        "if no to the CompanyContainsEstimatesPage" in {
 
           val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse, Some(1)).success.value
 
           navigator.nextPage(AddAnReactivationQueryPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
-      "go from the ReactivationAmount to the" should {
+      "from the ReactivationAmount" should {
 
-        "Check your answers page" in {
+        "navigate to the CompanyContainsEstimates page" in {
 
           navigator.nextPage(ReactivationAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -235,6 +235,34 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       } 
+
+      "from the AddAnReactivationQueryPage" should {
+
+        "if yes and the ReactivationAmountPage is not set, to the ReactivationAmountPage" in {
+
+          val model = ukCompanyModelReactivationTrue.copy(allocatedReactivations = None)
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, model, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.ReactivationAmountController.onPageLoad(1, CheckMode)
+        }
+
+        "if yes and the ReactivationAmountPage is set, to the CYA Page" in {
+
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationTrue, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "if no to the CYA Page" in {
+
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
     }
 
     "in Review mode" must {

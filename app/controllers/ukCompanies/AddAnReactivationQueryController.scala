@@ -71,8 +71,10 @@ class AddAnReactivationQueryController @Inject()(
             ))
           ),
         value => {
-          val updatedModel = ukCompany.copy(reactivation = Some(value))
-
+          val updatedModel = value match {
+            case true   => ukCompany.copy(reactivation = Some(value))
+            case false  => ukCompany.copy(reactivation = Some(value), allocatedReactivations = None)
+          }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
