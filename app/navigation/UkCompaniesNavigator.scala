@@ -74,7 +74,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
         case Some(true) if !ukCompany.flatMap(_.allocatedReactivations).isDefined => routes.ReactivationAmountController.onPageLoad(idx, CheckMode)
         case _ => checkYourAnswers(idx)
       }
-    }),
+    })
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
