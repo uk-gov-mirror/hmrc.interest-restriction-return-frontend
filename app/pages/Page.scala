@@ -82,7 +82,8 @@ object Page {
     UkCompaniesDeletionConfirmationPage,
     AddRestrictionPage,
     CompanyAccountingPeriodSameAsGroupPage,
-    RestrictionAmountSameAPPage
+    RestrictionAmountSameAPPage,
+    CompanyEstimatedFiguresPage
   )
 
   lazy val electionsSectionPages: Seq[Page] = List(
