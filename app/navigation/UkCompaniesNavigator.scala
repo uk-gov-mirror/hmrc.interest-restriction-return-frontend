@@ -51,7 +51,11 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
-    AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    AddRestrictionPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.restriction) match {
+      case Some(true)   => controllers.routes.UnderConstructionController.onPageLoad() //TODO: Update as part of routing subtask
+      case Some(false)  => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
+      case None         => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
+    }),
     CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyQICElectionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
