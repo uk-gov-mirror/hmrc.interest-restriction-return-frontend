@@ -68,12 +68,70 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         }
       }
 
-      "go from the NetTaxInterestAmountPage" should {
+      "from the NetTaxInterestAmountPage" should {
 
-        "to the ConsentingCompanyPage" in {
+        "where interest is income and group is subject to restrictions, go to the CompanyContainsEstimatesPage" in {
+          val userAnswers = for {
+            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+            finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
+          } yield finalUa
 
-          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.ConsentingCompanyController.onPageLoad(1, NormalMode)
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+        }
+
+        "where interest is income and group is subject to reactivations, go to the AddAnReactivationQueryPage" in {
+          val userAnswers = for {
+            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2     <- ua.set(GroupSubjectToReactivationsPage, true)
+            finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
+          } yield finalUa
+
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+        }
+
+        "where interest is income and group is NOT subject to restrictions or reactivations, go to the CompanyContainsEstimatesPage" in {
+          val userAnswers = for {
+            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2     <- ua.set(GroupSubjectToReactivationsPage, false)
+            finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
+          } yield finalUa
+
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+        }
+
+        "where interest is expense and group is subject to restrictions, go to the AddRestrictionPage" in {
+          val userAnswers = for {
+            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+            finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(1))
+          } yield finalUa
+
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.AddRestrictionController.onPageLoad(1, NormalMode)
+        }
+
+        "where interest is expense and group is subject to reactivations, go to the AddAnReactivationQueryPage" in {
+          val userAnswers = for {
+            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2     <- ua.set(GroupSubjectToReactivationsPage, true)
+            finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(1))
+          } yield finalUa
+
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+        }
+
+        "where interest is expense and group is NOT subject to restrictions or reactivations, go to the CompanyContainsEstimatesPage" in {
+          val userAnswers = for {
+            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2     <- ua.set(GroupSubjectToReactivationsPage, false)
+            finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(1))
+          } yield finalUa
+
+          navigator.nextPage(NetTaxInterestAmountPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
