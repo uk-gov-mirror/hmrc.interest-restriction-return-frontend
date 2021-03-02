@@ -52,7 +52,8 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
-    CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx))
+    CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx)),
+    AddRestrictionAmountPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))

@@ -104,3 +104,10 @@ GET        /:idx/company-estimated-figures                          controllers.
 POST       /:idx/company-estimated-figures                          controllers.ukCompanies.CompanyEstimatedFiguresController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/company-estimated-figures/change                   controllers.ukCompanies.CompanyEstimatedFiguresController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/company-estimated-figures/change                   controllers.ukCompanies.CompanyEstimatedFiguresController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### AddRestrictionAmount Controller
+### ----------------------------------------
+GET        /add-restriction-amount                          controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-restriction-amount                          controllers.ukCompanies.AddRestrictionAmountController.onSubmit(mode: Mode = NormalMode)
+GET        /add-restriction-amount/change                   controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-restriction-amount/change                   controllers.ukCompanies.AddRestrictionAmountController.onSubmit(mode: Mode = CheckMode)

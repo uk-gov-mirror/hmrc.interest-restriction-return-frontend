@@ -948,3 +948,10 @@ companyEstimatedFigures.allocatedReactivations = Allocated reactivations
 companyEstimatedFigures.checkYourAnswersLabel = Type of figures estimated
 companyEstimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
 companyEstimatedFigures.hint = Select all that apply
+
+# AddRestrictionAmountPage Messages
+# ----------------------------------------------------------
+addRestrictionAmount.title = Do you want to add a restriction amount for the accounting period?
+addRestrictionAmount.heading = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.checkYourAnswersLabel = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.error.required = Select yes if Do you want to add a restriction amount for this accounting period?
