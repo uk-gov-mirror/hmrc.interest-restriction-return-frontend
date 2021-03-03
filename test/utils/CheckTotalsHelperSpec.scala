@@ -19,7 +19,6 @@ package utils
 import assets.constants.BaseConstants
 import assets.constants.fullReturn.AllocatedReactivationsConstants.{reactivation, _}
 import assets.constants.fullReturn.AllocatedRestrictionsConstants._
-import assets.constants.fullReturn.FullReturnConstants.{fullReturnModelMax, fullReturnModelMin, fullReturnNetTaxExpenseModelMax, fullReturnNetTaxIncomeModelMax}
 import assets.constants.fullReturn.UkCompanyConstants.{netTaxInterestIncome, _}
 import assets.messages.BaseMessages
 import base.SpecBase
@@ -35,11 +34,11 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
 
     "deriving the numberOfUkCompanies when given one or multiple companies" in {
 
-      val result = helper.calculateSums(fullReturnModelMin.ukCompanies)
+      val result = helper.calculateSums(Seq(ukCompanyModelMin))
 
       result.ukCompaniesLength mustBe 1
 
-      val result1 = helper.calculateSums(fullReturnModelMax.ukCompanies)
+      val result1 = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMin))
 
       result1.ukCompaniesLength mustBe 2
 
@@ -49,21 +48,21 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
 
       "income is bigger" in {
 
-        val result = helper.calculateSums(fullReturnNetTaxIncomeModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMin, ukCompanyModelMin, ukCompanyModelMin, ukCompanyModelMax))
 
         result.aggregateInterest mustBe ((3 * netTaxInterestIncome) - netTaxInterestExpense)
       }
 
       "expense is bigger" in {
 
-        val result = helper.calculateSums(fullReturnNetTaxExpenseModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMin))
 
         result.aggregateInterest mustBe (netTaxInterestIncome - (3 * netTaxInterestExpense))
       }
 
       "income and expense are equal" in {
 
-        val result = helper.calculateSums(fullReturnModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMin))
 
         result.aggregateInterest mustBe 0
       }
@@ -73,14 +72,14 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
 
       "one company has a taxEBITDA" in {
 
-        val result = helper.calculateSums(fullReturnModelMin.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMin))
 
         result.aggregateEbitda mustBe taxEBITDA
       }
 
       "multiple companies have a taxEBITDA" in {
 
-        val result = helper.calculateSums(fullReturnModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMin))
 
         result.aggregateEbitda mustBe (2 * taxEBITDA)
       }
@@ -90,21 +89,21 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
 
       "no companies have a allocatedRestrictions" in {
 
-        val result = helper.calculateSums(fullReturnModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMin))
 
         result.aggregateEbitda mustBe (2 * taxEBITDA)
       }
 
       "one company has a allocatedRestrictions" in {
 
-        val result = helper.calculateSums(fullReturnModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMin))
 
         result.restrictions.get mustBe totalDisallowances
       }
 
       "multiple companies have a allocatedRestrictions" in {
 
-        val result = helper.calculateSums(fullReturnNetTaxExpenseModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMin))
 
         result.restrictions.get mustBe 3 * totalDisallowances
       }
@@ -114,21 +113,21 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
 
       "no companies have a allocatedRestrictions" in {
 
-        val result = helper.calculateSums(fullReturnModelMin.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMin))
 
         result.restrictions mustBe None
       }
 
       "one company has a allocatedRestrictions" in {
 
-        val result = helper.calculateSums(fullReturnModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMin))
 
         result.reactivations mustBe Some(reactivation)
       }
 
       "multiple companies have a allocatedRestrictions" in {
 
-        val result = helper.calculateSums(fullReturnNetTaxExpenseModelMax.ukCompanies)
+        val result = helper.calculateSums(Seq(ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMin))
 
         result.reactivations mustBe Some(3 * reactivation)
       }
@@ -176,7 +175,7 @@ class CheckTotalsHelperSpec extends SpecBase with BaseConstants with SummaryList
         )
     }
 
-    val model = fullReturnModelMin.ukCompanies.head
+    val model = ukCompanyModelMin
 
     "given the first 3 mandatory fields, should not display the last 2 optional fields" in {
 

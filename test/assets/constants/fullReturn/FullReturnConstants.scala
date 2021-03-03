@@ -25,7 +25,6 @@ import assets.constants.fullReturn.AdjustedGroupInterestConstants._
 import assets.constants.fullReturn.GroupLevelAmountConstants._
 import assets.constants.fullReturn.UkCompanyConstants._
 import models.returnModels._
-import models.returnModels.fullReturn.FullReturnModel
 import play.api.libs.json.{JsObject, Json}
 
 object FullReturnConstants {
@@ -36,25 +35,6 @@ object FullReturnConstants {
   val totalReactivations: BigDecimal = ukCompanyModelReactivationMaxIncome.allocatedReactivations.foldLeft[BigDecimal](0) {
     (total, company) => total + company.reactivation
   }
-
-  val fullReturnModelMax: FullReturnModel = FullReturnModel(
-    agentDetails = agentDetailsModelMax,
-    reportingCompany = reportingCompanyModel,
-    parentCompany = Some(parentCompanyModelUltUkCompany),
-    publicInfrastructure = true,
-    groupCompanyDetails = groupCompanyDetailsModel,
-    submissionType = Revised,
-    revisedReturnDetails = Some(revisedReturnDetails),
-    groupLevelElections = groupLevelElectionsModelMax,
-    ukCompanies = Seq(ukCompanyModelMax, ukCompanyModelMin),
-    angie = Some(angie),
-    returnContainsEstimates = true,
-    groupSubjectToInterestRestrictions = false,
-    groupSubjectToInterestReactivation = true,
-    totalReactivation = totalReactivations,
-    groupLevelAmount = groupLevelAmountModel,
-    adjustedGroupInterest = Some(adjustedGroupInterestModel)
-  )
 
   val fullReturnJsonMax: JsObject = Json.obj(
     "agentDetails" -> agentDetailsJsonMax,
@@ -73,65 +53,6 @@ object FullReturnConstants {
     "totalReactivation" -> totalReactivations,
     "groupLevelAmount" -> groupLevelAmountJson,
     "adjustedGroupInterest" -> adjustedGroupInterestJson
-  )
-
-  val fullReturnNetTaxExpenseModelMax: FullReturnModel = FullReturnModel(
-    agentDetails = agentDetailsModelMax,
-    reportingCompany = reportingCompanyModel,
-    parentCompany = Some(parentCompanyModelUltUkCompany),
-    publicInfrastructure = true,
-    groupCompanyDetails = groupCompanyDetailsModel,
-    submissionType = Revised,
-    revisedReturnDetails = Some(revisedReturnDetails),
-    groupLevelElections = groupLevelElectionsModelMax,
-    ukCompanies = Seq(ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMax, ukCompanyModelMin),
-    angie = Some(angie),
-    returnContainsEstimates = true,
-    groupSubjectToInterestRestrictions = false,
-    groupSubjectToInterestReactivation = true,
-    totalReactivation = totalReactivations,
-    groupLevelAmount = groupLevelAmountModel,
-    adjustedGroupInterest = Some(adjustedGroupInterestModel)
-  )
-
-  val fullReturnNetTaxIncomeModelMax: FullReturnModel = FullReturnModel(
-    agentDetails = agentDetailsModelMax,
-    reportingCompany = reportingCompanyModel,
-    parentCompany = Some(parentCompanyModelUltUkCompany),
-    publicInfrastructure = true,
-    groupCompanyDetails = groupCompanyDetailsModel,
-    submissionType = Revised,
-    revisedReturnDetails = Some(revisedReturnDetails),
-    groupLevelElections = groupLevelElectionsModelMax,
-    ukCompanies = Seq(ukCompanyModelMin, ukCompanyModelMin, ukCompanyModelMin, ukCompanyModelMax),
-    angie = Some(angie),
-    returnContainsEstimates = true,
-    groupSubjectToInterestRestrictions = false,
-    groupSubjectToInterestReactivation = true,
-    totalReactivation = totalReactivations,
-    groupLevelAmount = groupLevelAmountModel,
-    adjustedGroupInterest = Some(adjustedGroupInterestModel)
-  )
-
-  // Minimum Model and Json
-
-  val fullReturnModelMin: FullReturnModel = FullReturnModel(
-    agentDetails = agentDetailsModelMin,
-    reportingCompany = reportingCompanyModel,
-    parentCompany = None,
-    publicInfrastructure = true,
-    groupCompanyDetails = groupCompanyDetailsModel,
-    submissionType = Original,
-    revisedReturnDetails = None,
-    groupLevelElections = groupLevelElectionsModelMin,
-    ukCompanies = Seq(ukCompanyModelMin),
-    angie = None,
-    returnContainsEstimates = true,
-    groupSubjectToInterestRestrictions = false,
-    groupSubjectToInterestReactivation = true,
-    totalReactivation = totalReactivations,
-    groupLevelAmount = groupLevelAmountModel,
-    adjustedGroupInterest = None
   )
 
   val fullReturnJsonMin: JsObject = Json.obj(

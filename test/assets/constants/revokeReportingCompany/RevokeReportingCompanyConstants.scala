@@ -21,23 +21,11 @@ import assets.constants.AgentDetailsConstants._
 import assets.constants.AuthorisingCompanyConstants._
 import assets.constants.ReportingCompanyConstants._
 import assets.constants.UltimateParentConstants._
-import models.returnModels.revokeReportingCompany.RevokeReportingCompanyModel
 import play.api.libs.json.Json
 
 object RevokeReportingCompanyConstants {
 
   val ackRef = "ackRef"
-
-  val revokeReportingCompanyModelMax = RevokeReportingCompanyModel(
-    agentDetails = agentDetailsModelMax,
-    reportingCompany = reportingCompanyModel,
-    isReportingCompanyRevokingItself = true,
-    companyMakingRevocation = None,
-    ultimateParent = Some(ultimateParentModelUkCompany),
-    accountingPeriod = accountingPeriodModel,
-    authorisingCompanies = Seq(authorisingCompanyModel),
-    declaration = true
-  )
 
   val revokeReportingCompanyJsonMax = Json.obj(
     "agentDetails" -> agentDetailsJsonMax,
@@ -47,17 +35,6 @@ object RevokeReportingCompanyConstants {
     "accountingPeriod" -> accountingPeriodJson,
     "authorisingCompanies" -> Seq(authorisingCompanyJson),
     "declaration" -> true
-  )
-
-  val revokeReportingCompanyModelMin = RevokeReportingCompanyModel(
-    agentDetails = agentDetailsModelMax,
-    reportingCompany = reportingCompanyModel,
-    isReportingCompanyRevokingItself = true,
-    companyMakingRevocation = None,
-    ultimateParent = None,
-    accountingPeriod = accountingPeriodModel,
-    authorisingCompanies = Seq(authorisingCompanyModel),
-    declaration = true
   )
 
   val revokeReportingCompanyJsonMin = Json.obj(
