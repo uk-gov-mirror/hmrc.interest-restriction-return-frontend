@@ -30,7 +30,8 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           allocatedReactivations: Option[AllocatedReactivationsModel] = None,
                           accountPeriodSameAsGroup: Option[Boolean] = None,
                           containsEstimates: Option[Boolean] = None,
-                          estimatedFigures: Option[Set[CompanyEstimatedFigures]] = None
+                          estimatedFigures: Option[Set[CompanyEstimatedFigures]] = None,
+                          qicElection: Option[Boolean] = None
                          )
 object UkCompanyModel {
 
