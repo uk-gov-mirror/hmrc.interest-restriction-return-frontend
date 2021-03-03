@@ -962,3 +962,10 @@ companyContainsEstimates.title = Are these estimated figures?
 companyContainsEstimates.heading = Are these estimated figures?
 companyContainsEstimates.checkYourAnswersLabel = Estimates
 companyContainsEstimates.error.required = Select yes if there are estimated figures
+
+# AddNetTaxInterestPage Messages
+# ----------------------------------------------------------
+addNetTaxInterest.title = Does this company have a net tax interest?
+addNetTaxInterest.heading = Does this company have a net tax interest?
+addNetTaxInterest.checkYourAnswersLabel = Does this company have a net tax interest?
+addNetTaxInterest.error.required = Select yes if Does this company have a net tax interest?
