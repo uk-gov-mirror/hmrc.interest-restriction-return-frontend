@@ -19,9 +19,10 @@ package navigation
 import base.SpecBase
 import controllers.groupLevelInformation.{routes => groupLevelInformationRoutes}
 import controllers.ukCompanies.{routes => ukCompaniesRoutes}
-import models.{CheckMode, NormalMode, EstimatedFigures}
+import models.{CheckMode, EstimatedFigures, NormalMode, UserAnswers}
 import pages.groupLevelInformation._
 import pages.elections.GroupRatioElectionPage
+import sectionstatus.GroupLevelInformationSectionStatus
 
 class GroupLevelInformationNavigatorSpec extends SpecBase {
 
@@ -241,38 +242,50 @@ class GroupLevelInformationNavigatorSpec extends SpecBase {
 
         "from GroupSubjectToReactivationsPage" should {
 
-          "when set to true and InterestReactivationsCapPage not already set go to the InterestReactivationsCapPage" in {
+          "when set to true and data for the section is not complete then go to the InterestReactivationsCapPage" in {
             val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
 
             navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
-              groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(CheckMode)
+              groupLevelInformationRoutes.InterestReactivationsCapController.onPageLoad(NormalMode)
           }
 
-          "when set to true and InterestReactivationsCapPage already set go back to the CYA page" in {
-            val userAnswers = for {
-              ua <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
-              finalUa <- ua.set(InterestReactivationsCapPage, BigDecimal(123))
-            } yield finalUa
+          "when set to true and data for the section is complete then go back to the CYA page" in {
+            val userAnswers = UserAnswers("id")
+              .set(GroupRatioElectionPage, false).get
+              .set(GroupSubjectToRestrictionsPage, false).get
+              .set(GroupSubjectToReactivationsPage, true).get
+              .set(InterestReactivationsCapPage,BigDecimal(5)).get
+              .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
+              .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
+              .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
+              .set(EnterANGIEPage, BigDecimal(123.12)).get
+              .set(ReturnContainEstimatesPage, false).get
 
-            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers) mustBe
               groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
           }
 
-          "when set to false and InterestReactivationsCapPage already set go back to the CYA page" in {
-            val userAnswers = for {
-              ua <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
-              finalUa <- ua.set(InterestReactivationsCapPage, BigDecimal(123))
-            } yield finalUa
+          "when set to false and data for section is complete then go back to the CYA page" in {
+            val userAnswers = UserAnswers("id")
+              .set(GroupRatioElectionPage, false).get
+              .set(GroupSubjectToRestrictionsPage, false).get
+              .set(GroupSubjectToReactivationsPage, false).get
+              .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
+              .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
+              .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
+              .set(EnterANGIEPage, BigDecimal(123.12)).get
+              .set(ReturnContainEstimatesPage, false).get
 
-            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
+            navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers) mustBe
               groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
           }
 
-          "when set to true and InterestReactivationsCapPage not already set go back to the CYA page" in {
+          "when set to false and data for the section is not complete then go back to interest allowance brought forward" in {
             val userAnswers = emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
 
             navigator.nextPage(GroupSubjectToReactivationsPage, CheckMode, userAnswers.get) mustBe
-              groupLevelInformationRoutes.CheckAnswersGroupLevelController.onPageLoad()
+              groupLevelInformationRoutes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode)
           }
         }
       }

@@ -826,7 +826,7 @@ partnershipsReviewAnswersList.error.required = Select yes if Do you need to add 
 # ----------------------------------------------------------
 addAnReactivationQuery.title = Do you need to add a reactivation to this company?
 addAnReactivationQuery.heading = Do you need to add a reactivation to this company?
-addAnReactivationQuery.checkYourAnswersLabel = Do you need to add a reactivation to this company?
+addAnReactivationQuery.checkYourAnswersLabel = Reactivation
 addAnReactivationQuery.error.required = Select yes if Do you need to add a reactivation to this company?
 addAnReactivationQuery.subheading = {0}
 
@@ -839,8 +839,8 @@ reactivationAmount.subheading = {0}
 reactivationAmount.error.nonNumeric = A Reactivation must be numeric
 reactivationAmount.error.required = Enter your reactivation amount
 reactivationAmount.error.invalidNumeric = The reactivation amount must be valid decimal or whole number
-reactivationAmount.error.outOfRange = Reactivation amount must be between {0} and {1}
-reactivationAmount.checkYourAnswersLabel = Company reactivations
+reactivationAmount.error.outOfRange = Current period reactivation must be a positive number
+reactivationAmount.checkYourAnswersLabel = Reactivation amount
 
 # ReviewAndCompletePage Messages
 # ----------------------------------------------------------
@@ -934,7 +934,7 @@ estimatedFigures.interestAllowanceBroughtForward = Interest allowance brought fo
 estimatedFigures.interestAllowanceForThePeriodOfAccount = Interest allowance for the period of account
 estimatedFigures.interestCapacity = Interest capacity
 estimatedFigures.checkYourAnswersLabel = Type of figures estimated
-estimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
+estimatedFigures.error.required = Select which figures have been estimated – choose one or more options
 estimatedFigures.hint = Select all that apply
 
 # CompanyEstimatedFiguresPage Messages
@@ -946,8 +946,15 @@ companyEstimatedFigures.netTaxInterest = Net tax-interest amount
 companyEstimatedFigures.allocatedRestrictions = Allocated restrictions
 companyEstimatedFigures.allocatedReactivations = Allocated reactivations
 companyEstimatedFigures.checkYourAnswersLabel = Type of figures estimated
-companyEstimatedFigures.error.required = Select which figures have been estimated. You can choose one or more options.
+companyEstimatedFigures.error.required = Select which figures have been estimated – choose one or more options
 companyEstimatedFigures.hint = Select all that apply
+
+# CompanyContainsEstimatesPage Messages
+# ----------------------------------------------------------
+companyContainsEstimates.title = Are these estimated figures?
+companyContainsEstimates.heading = Are these estimated figures?
+companyContainsEstimates.checkYourAnswersLabel = Estimates
+companyContainsEstimates.error.required = Select yes if there are estimated figures
 
 # AddRestrictionAmountPage Messages
 # ----------------------------------------------------------

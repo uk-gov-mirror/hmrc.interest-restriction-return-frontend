@@ -16,47 +16,34 @@
 
 @import controllers.ukCompanies.routes._
 @import models.Mode
+@import views.ViewUtils._
 @import config.FrontendAppConfig
-@import models.CompanyEstimatedFigures
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
+    yesNoRadio: components.yesNoRadio,
     button: components.button,
-    checkboxes: components.inputCheckboxes,
-    link: components.link,
     subheading: components.subheading,
+    link: components.link,
     saveForLater: components.saveForLater
 )
 
-@(form: Form[Set[CompanyEstimatedFigures]], mode: Mode, companyName: String, formItems: Seq[CheckboxItem], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "companyEstimatedFigures.title", Some(companyName)))) {
+@govukLayout(pageTitle = Some(title(form, "companyContainsEstimates.title", Some(companyName)))) {
 
     @formHelper(action = postAction) {
 
-        @errorSummary(
-            form.errors,
-            formItems.headOption.flatMap(_.id)
-        )
+        @errorSummary(form.errors)
 
         @subheading(companyName)
 
-        @checkboxes(
-            form = form,
-            legend = messages("companyEstimatedFigures.heading"),
-            items = formItems,
-            hint = Some(hint)
-        )
+        @yesNoRadio(form, "companyContainsEstimates.heading")
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
-}
-
-@hint = {
-    @messages("companyEstimatedFigures.hint")
 }

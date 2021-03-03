@@ -16,26 +16,28 @@
 
 package controllers.ukCompanies
 
-import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.ukCompanies.AddAnReactivationQueryFormProvider
-import models.{NormalMode, UserAnswers}
-import pages.ukCompanies.UkCompaniesPage
+import forms.ukCompanies.CompanyContainsEstimatesFormProvider
+import models.NormalMode
 import play.api.test.Helpers._
-import views.html.ukCompanies.AddAnReactivationQueryView
+import views.html.ukCompanies.CompanyContainsEstimatesView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import models.{UserAnswers, CompanyDetailsModel, CompanyEstimatedFigures}
+import models.returnModels.fullReturn._
+import pages.ukCompanies.UkCompaniesPage
+import controllers.ukCompanies.routes.CompanyContainsEstimatesController
 import scala.concurrent.Future
 
-class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class CompanyContainsEstimatesControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[AddAnReactivationQueryView]
-  val formProvider = injector.instanceOf[AddAnReactivationQueryFormProvider]
+  val view = injector.instanceOf[CompanyContainsEstimatesView]
+  val formProvider = injector.instanceOf[CompanyContainsEstimatesFormProvider]
   val form = formProvider()
 
-  object Controller extends AddAnReactivationQueryController(
+  object Controller extends CompanyContainsEstimatesController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
@@ -47,53 +49,48 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
     view = view
   )
 
-  "AddAnReactivationQuery Controller" must {
+  "CompanyContainsEstimates Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(reactivation = None, consenting = None), Some(1)).get))
-
-      val result = Controller.onPageLoad(1,NormalMode)(fakeRequest)
-
-      status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form = form,
-        mode = NormalMode,
-        companyName = ukCompanyModelMax.companyDetails.companyName,
-        postAction = routes.AddAnReactivationQueryController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
-    }
-
-    "populate the view correctly on a GET when the question has previously been answered" in {
-
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      val company = UkCompanyModel(CompanyDetailsModel("Company 1", "1123456789"))
+      val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
+      contentAsString(result) mustEqual view(form, NormalMode, "Company 1", CompanyContainsEstimatesController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+      val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+      mockGetAnswers(Some(userAnswers))
       mockSetAnswers
 
-      val result = Controller.onSubmit(1,NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "clear the ReactivationAmount page when 'false' is submitted" in {
+    "clear the Company Estimated Figures page when 'false' is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
-      val company = ukCompanyModelMax.copy(reactivation = Some(false))
+      val company = UkCompanyModel(
+        companyDetails = CompanyDetailsModel("123", "1123456789"),
+        estimatedFigures = Some(CompanyEstimatedFigures.values.toSet)
+      )
       val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).get
 
-      val expectedCompany = ukCompanyModelMax.copy(
-        reactivation = Some(false),
-        allocatedReactivations = None
+      val expectedCompany = UkCompanyModel(
+        companyDetails = CompanyDetailsModel("123", "1123456789"),
+        containsEstimates = Some(false)
       )
       
       mockGetAnswers(Some(userAnswers))
@@ -113,9 +110,11 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+      val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+      mockGetAnswers(Some(userAnswers))
 
-      val result = Controller.onSubmit(1,NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -124,7 +123,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(1,NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -137,7 +136,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(1,NormalMode)(request)
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

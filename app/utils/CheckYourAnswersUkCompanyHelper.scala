@@ -86,6 +86,16 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def addAReactivation(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.reactivation.map(reactivation =>
+      summaryListRow(
+        label = messages("addAnReactivationQuery.checkYourAnswersLabel", Seq()),
+        value = reactivation,
+        visuallyHiddenText = None,
+        (ukCompanyRoutes.AddAnReactivationQueryController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
+    ))
+
   def companyReactivationAmount(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.allocatedReactivations.map(reactivationModel =>
       summaryListRow(
@@ -93,6 +103,15 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
         value = currencyFormat(reactivationModel.reactivation),
         visuallyHiddenText = None,
         (ukCompanyRoutes.ReactivationAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
+    ))
+
+  def containsEstimates(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.containsEstimates.map(containsEstimates =>
+      ukCompanyAnswer(
+        page = CompanyContainsEstimatesPage,
+        value = containsEstimates,
+        changeLinkCall = ukCompanyRoutes.CompanyContainsEstimatesController.onPageLoad(idx, CheckMode)
       )
     ))
 
@@ -112,7 +131,9 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
     netTaxInterestAmount(idx),
+    addAReactivation(idx),
     companyReactivationAmount(idx),
+    containsEstimates(idx),
     estimatedFigures(idx)
   ).flatten
 

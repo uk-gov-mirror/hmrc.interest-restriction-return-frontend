@@ -51,7 +51,7 @@ class CompanyEstimatedFiguresControllerSpec extends SpecBase with FeatureSwitchi
 
     "return OK and the correct view for a GET" in {
 
-      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+      val company = UkCompanyModel(CompanyDetailsModel("Company 1", "1123456789"))
           .copy(taxEBITDA = Some(BigDecimal(123)), netTaxInterest = Some(BigDecimal(123)))
       val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
       mockGetAnswers(Some(userAnswers))
@@ -60,12 +60,12 @@ class CompanyEstimatedFiguresControllerSpec extends SpecBase with FeatureSwitchi
       val checkboxes = CompanyEstimatedFigures.options(form, 1, userAnswers)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, checkboxes, routes.CompanyEstimatedFiguresController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, NormalMode, "Company 1", checkboxes, routes.CompanyEstimatedFiguresController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+      val company = UkCompanyModel(CompanyDetailsModel("Company 1", "1123456789"))
           .copy(taxEBITDA = Some(BigDecimal(123)), netTaxInterest = Some(BigDecimal(123)))
       val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
 

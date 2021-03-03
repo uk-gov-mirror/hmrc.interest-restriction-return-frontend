@@ -19,6 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.ukCompanies.routes
 import models._
+import models.CompanyEstimatedFigures._
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import assets.constants.fullReturn.UkCompanyConstants._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
@@ -115,21 +116,21 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.ReactivationAmountController.onPageLoad(1, NormalMode)
         }
 
-        "if no to the checkyouranswerspage" in {
+        "if no to the CompanyContainsEstimatesPage" in {
 
           val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse, Some(1)).success.value
 
           navigator.nextPage(AddAnReactivationQueryPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
-      "go from the ReactivationAmount to the" should {
+      "from the ReactivationAmount" should {
 
-        "Check your answers page" in {
+        "navigate to the CompanyContainsEstimates page" in {
 
           navigator.nextPage(ReactivationAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -177,6 +178,24 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
 
       "from the CompanyEstimatedFiguresPage" should {
+        "go to the CYA page where it's set to false" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CompanyEstimatedFiguresPage where it's set to true" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CompanyEstimatedFiguresController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "from the CompanyEstimatedFiguresPage" should {
         "go to the CYA page" in {
           navigator.nextPage(CompanyEstimatedFiguresPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
@@ -189,6 +208,60 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       "for any page go to CheckAnswersUKCompany" in {
         navigator.nextPage(CheckAnswersUkCompanyPage, CheckMode, emptyUserAnswers) mustBe
           routes.CheckAnswersUkCompanyController.onPageLoad(1)
+      }
+
+      "from the CompanyContainsEstimatesPage" should {
+        "go to the CYA page where it's set to false" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CompanyEstimatedFiguresPage where it's set to true and the next page is not set" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CompanyEstimatedFiguresController.onPageLoad(1, CheckMode)
+        }
+
+        "go to the CYA page where it's set to true and the next page is set" in {
+          val company = ukCompanyModelMin.copy(containsEstimates = Some(true), estimatedFigures = Some(Set(TaxEbitda)))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyContainsEstimatesPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      } 
+
+      "from the AddAnReactivationQueryPage" should {
+
+        "if yes and the ReactivationAmountPage is not set, to the ReactivationAmountPage" in {
+
+          val model = ukCompanyModelReactivationTrue.copy(allocatedReactivations = None)
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, model, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.ReactivationAmountController.onPageLoad(1, CheckMode)
+        }
+
+        "if yes and the ReactivationAmountPage is set, to the CYA Page" in {
+
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationTrue, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "if no to the CYA Page" in {
+
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse, Some(1)).success.value
+
+          navigator.nextPage(AddAnReactivationQueryPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
       }
     }
 

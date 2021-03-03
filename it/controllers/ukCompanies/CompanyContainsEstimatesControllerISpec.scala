@@ -16,34 +16,40 @@
 
 package controllers.ukCompanies
 
-import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
-import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import models.returnModels.fullReturn.UkCompanyModel
+import models._
+import pages.ukCompanies.UkCompaniesPage
+import play.api.libs.json.Json
+import assets.UkCompanyITConstants._
 
-class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+class CompanyContainsEstimatesControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
   "in Normal mode" when {
 
-    "GET /uk-companies/1/add-an-reactivation-query" when {
+    "GET /uk-companies/1/company-contains-estimates" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
-          val res = getRequest("/uk-companies/1/add-an-reactivation-query")()
+          val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+          val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+          setAnswers(userAnswers)
+
+          val res = getRequest("/uk-companies/1/company-contains-estimates")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.addAnReactivationQuery)
+              titleOf(PageTitles.companyContainsEstimates)
             )
           }
         }
@@ -55,7 +61,11 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/add-an-reactivation-query")()
+          val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+          val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+          setAnswers(userAnswers)
+
+          val res = getRequest("/uk-companies/1/company-contains-estimates")()
 
           whenReady(res) { result =>
             result should have(
@@ -67,45 +77,26 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
       }
     }
 
-    "POST /uk-companies/1/add-an-reactivation-query" when {
+    "POST /uk-companies/1/company-contains-estimates" when {
 
       "user is authorised" when {
 
-        "enters a True" when {
+        "enters a valid answer" when {
 
-          "redirect to reactivationAmount page" in {
-
-            AuthStub.authorised()
-
-            setAnswers(
-              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
-            )
-
-            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> true))()
-            whenReady(res) { result =>
-              result should have(
-                httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.ReactivationAmountController.onPageLoad(1,NormalMode).url)
-              )
-            }
-          }
-        }
-
-        "enters a False" when {
-
-          "redirect to check page" in {
+          "redirect to CompanyEstimatedFigures page" in {
 
             AuthStub.authorised()
 
-            setAnswers(
-              emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).success.value
-            )
+            val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+            val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+            setAnswers(userAnswers)
 
-            val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> false))()
+            val res = postRequest("/uk-companies/1/company-contains-estimates", Json.obj("value" -> true))()
+
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
+                redirectLocation(controllers.ukCompanies.routes.CompanyEstimatedFiguresController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -118,7 +109,11 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/add-an-reactivation-query", Json.obj("value" -> 1))()
+          val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+          val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+          setAnswers(userAnswers)
+
+          val res = postRequest("/uk-companies/1/company-contains-estimates", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -133,7 +128,7 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
 
   "in Change mode" when {
 
-    "GET /uk-companies/1/add-an-reactivation-query" when {
+    "GET /uk-companies/1/company-contains-estimates" when {
 
       "user is authorised" should {
 
@@ -141,14 +136,16 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.authorised()
 
-          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+          val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+          val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+          setAnswers(userAnswers)
 
-          val res = getRequest("/uk-companies/1/add-an-reactivation-query/change")()
+          val res = getRequest("/uk-companies/1/company-contains-estimates/change")()
 
           whenReady(res) { result =>
             result should have(
               httpStatus(OK),
-              titleOf(PageTitles.addAnReactivationQuery)
+              titleOf(PageTitles.companyContainsEstimates)
             )
           }
         }
@@ -160,7 +157,11 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/uk-companies/1/add-an-reactivation-query/change")()
+          val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+          val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+          setAnswers(userAnswers)
+
+          val res = getRequest("/uk-companies/1/company-contains-estimates/change")()
 
           whenReady(res) { result =>
             result should have(

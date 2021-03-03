@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val companyContainsEstimates = "Are these estimated figures?"
   val addRestrictionAmount = "Do you want to add a restriction amount for the accounting period?"
   val companyEstimatedFigures = "Tell us which figures have been estimated"
   val estimatedFigures = "Tell us which figures have been estimated"

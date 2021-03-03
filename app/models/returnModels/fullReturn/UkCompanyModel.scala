@@ -29,6 +29,7 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           reactivation: Option[Boolean] = None,
                           allocatedReactivations: Option[AllocatedReactivationsModel] = None,
                           accountPeriodSameAsGroup: Option[Boolean] = None,
+                          containsEstimates: Option[Boolean] = None,
                           estimatedFigures: Option[Set[CompanyEstimatedFigures]] = None,
                           addRestrictionAmount: Option[Boolean] = None
                          )

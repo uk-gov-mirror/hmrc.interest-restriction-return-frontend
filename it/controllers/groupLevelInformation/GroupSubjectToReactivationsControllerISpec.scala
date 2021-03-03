@@ -18,6 +18,8 @@ package controllers.groupLevelInformation
 
 import assets.{BaseITConstants, PageTitles}
 import models.NormalMode
+import pages.elections.GroupRatioElectionPage
+import pages.groupLevelInformation.{EnterANGIEPage, GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage, InterestAllowanceBroughtForwardPage, InterestReactivationsCapPage, ReturnContainEstimatesPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -158,6 +160,95 @@ class GroupSubjectToReactivationsControllerISpec extends IntegrationSpecBase wit
       }
     }
 
-    //TODO: Add Check Your Answers tests
+    "User selects `false`" when {
+      "section is complete it should redirect back to CYA" in {
+        AuthStub.authorised()
+
+        setAnswers(
+          emptyUserAnswers.set(GroupRatioElectionPage, false).get
+            .set(GroupSubjectToRestrictionsPage, false).get
+            .set(GroupSubjectToReactivationsPage, false).get
+            .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
+            .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
+            .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
+            .set(EnterANGIEPage, BigDecimal(123.12)).get
+            .set(ReturnContainEstimatesPage, false).get
+        )
+
+        val res = postRequest("/group-level-information/group-subject-to-reactivations/change", Json.obj("value" -> "false"))()
+
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onPageLoad().url)
+          )
+        }
+      }
+
+      "section is not complete it should redirect back to interest allowance brought forward" in {
+        AuthStub.authorised()
+
+        setAnswers(
+          emptyUserAnswers.set(GroupRatioElectionPage, false).get
+            .set(GroupSubjectToRestrictionsPage, false).get
+            .set(GroupSubjectToReactivationsPage, false).get
+        )
+
+        val res = postRequest("/group-level-information/group-subject-to-reactivations/change", Json.obj("value" -> "false"))()
+
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.groupLevelInformation.routes.InterestAllowanceBroughtForwardController.onPageLoad(NormalMode).url)
+          )
+        }
+      }
+    }
+
+    "User selects `true`" when {
+      "section is complete it should redirect back to CYA" in {
+        AuthStub.authorised()
+
+        setAnswers(
+          emptyUserAnswers.set(GroupRatioElectionPage, false).get
+            .set(GroupSubjectToRestrictionsPage, false).get
+            .set(GroupSubjectToReactivationsPage, true).get
+            .set(InterestReactivationsCapPage, BigDecimal(123.12)).get
+            .set(InterestAllowanceBroughtForwardPage, BigDecimal(123.12)).get
+            .set(GroupInterestAllowancePage, BigDecimal(123.12)).get
+            .set(GroupInterestCapacityPage, BigDecimal(123.12)).get
+            .set(EnterANGIEPage, BigDecimal(123.12)).get
+            .set(ReturnContainEstimatesPage, false).get
+        )
+
+        val res = postRequest("/group-level-information/group-subject-to-reactivations/change", Json.obj("value" -> "true"))()
+
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onPageLoad().url)
+          )
+        }
+      }
+
+      "section is not complete it should redirect to CAP restrictions" in {
+        AuthStub.authorised()
+
+        setAnswers(
+          emptyUserAnswers.set(GroupRatioElectionPage, false).get
+            .set(GroupSubjectToRestrictionsPage, false).get
+            .set(GroupSubjectToReactivationsPage, true).get
+        )
+
+        val res = postRequest("/group-level-information/group-subject-to-reactivations/change", Json.obj("value" -> "true"))()
+
+        whenReady(res) { result =>
+          result should have(
+            httpStatus(SEE_OTHER),
+            redirectLocation(controllers.groupLevelInformation.routes.InterestReactivationsCapController.onPageLoad(NormalMode).url)
+          )
+        }
+      }
+    }
   }
 }

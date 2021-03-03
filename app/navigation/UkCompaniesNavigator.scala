@@ -42,21 +42,41 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     }),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
       case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
-      case Some(false) => checkYourAnswers(idx)
+      case Some(false) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
       case _ => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
     }),
-    ReactivationAmountPage -> ((idx,_) => checkYourAnswers(idx)),
+    ReactivationAmountPage -> ((idx,_) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
     CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    CompanyContainsEstimatesPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.containsEstimates) match {
+      case Some(true) => routes.CompanyEstimatedFiguresController.onPageLoad(idx, NormalMode)
+      case Some(false) => checkYourAnswers(idx)
+      case _ => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
+    }),
     CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx)),
     AddRestrictionAmountPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad())
   )
 
-  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map().withDefaultValue((idx, _) => checkYourAnswers(idx))
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
+    CompanyContainsEstimatesPage -> ((idx, userAnswers) => {
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      ukCompany.flatMap(_.containsEstimates) match {
+        case Some(true) if !ukCompany.flatMap(_.estimatedFigures).isDefined => routes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode)
+        case _ => checkYourAnswers(idx)
+      }
+    }),
+    AddAnReactivationQueryPage -> ((idx, userAnswers) => {
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      ukCompany.flatMap(_.reactivation) match {
+        case Some(true) if !ukCompany.flatMap(_.allocatedReactivations).isDefined => routes.ReactivationAmountController.onPageLoad(idx, CheckMode)
+        case _ => checkYourAnswers(idx)
+      }
+    })
+  ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
     ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),

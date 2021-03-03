@@ -49,7 +49,13 @@ class CompanyEstimatedFiguresController @Inject()(
     answerFor(UkCompaniesPage, idx: Int) { ukCompany =>
       val form = ukCompany.estimatedFigures.fold(formProvider())(formProvider().fill)
       val formOptions = CompanyEstimatedFigures.options(form, idx, request.userAnswers)
-      Future.successful(Ok(view(form, mode, formOptions, routes.CompanyEstimatedFiguresController.onSubmit(idx, mode))))
+      Future.successful(Ok(view(
+        form = form, 
+        mode = mode,
+        companyName = ukCompany.companyDetails.companyName, 
+        formItems = formOptions,
+        postAction = routes.CompanyEstimatedFiguresController.onSubmit(idx, mode)
+      )))
     }
   }
 
@@ -58,9 +64,13 @@ class CompanyEstimatedFiguresController @Inject()(
       formProvider().bindFromRequest().fold(
         formWithErrors => {
           val formOptions = CompanyEstimatedFigures.options(formWithErrors, idx, request.userAnswers)
-          Future.successful(
-            BadRequest(view(formWithErrors, mode, formOptions, routes.CompanyEstimatedFiguresController.onSubmit(idx, mode)))
-          )
+          Future.successful(BadRequest(view(
+            form = formWithErrors, 
+            mode = mode, 
+            companyName = ukCompany.companyDetails.companyName,
+            formItems = formOptions,
+            postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
+          )))
         },
         value => {
           val updatedModel = ukCompany.copy(estimatedFigures = Some(value))
