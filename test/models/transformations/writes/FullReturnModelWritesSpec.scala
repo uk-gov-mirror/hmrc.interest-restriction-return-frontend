@@ -26,7 +26,7 @@ import play.api.libs.json.{JsValue, Json}
 import java.time.LocalDate
 
 class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues with ModelGenerators {
-  "An AboutReturnSectionModel object" when {
+  "The AboutReturnSectionModel section of a Full Return" when {
     val aboutReturn : AboutReturnSectionModel = aboutReturnSectionModel.sample.value
     val ultimateParent  = UltimateParentCompanySectionModel(true,None,Seq())
     val fullReturn = FullReturnModel(aboutReturn,ultimateParent)
