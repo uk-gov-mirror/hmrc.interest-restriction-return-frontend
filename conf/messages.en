@@ -949,6 +949,13 @@ companyEstimatedFigures.checkYourAnswersLabel = Type of figures estimated
 companyEstimatedFigures.error.required = Select which figures have been estimated – choose one or more options
 companyEstimatedFigures.hint = Select all that apply
 
+# CompanyQICElectionPage Messages
+# ----------------------------------------------------------
+companyQICElection.title = Has the company made a qualifying infrastructure company (QIC) election for the return period?
+companyQICElection.heading = Has the company made a qualifying infrastructure company (QIC) election for the return period?
+companyQICElection.checkYourAnswersLabel = Has the company made a qualifying infrastructure company (QIC) election for the return period?
+companyQICElection.error.required = Select yes if the company made a qualifying infrastructure company (QIC) election for the return period
+
 # CompanyContainsEstimatesPage Messages
 # ----------------------------------------------------------
 companyContainsEstimates.title = Are these estimated figures?
