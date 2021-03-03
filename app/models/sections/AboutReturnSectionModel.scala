@@ -19,12 +19,6 @@ package models.sections
 import models.returnModels._
 import models.FullOrAbbreviatedReturn
 
-
-
-
-
-
-
 case class AboutReturnSectionModel(
   appointedReportingCompany: Boolean,
   agentDetails: AgentDetailsModel,
