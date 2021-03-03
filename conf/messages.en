@@ -965,7 +965,7 @@ companyContainsEstimates.error.required = Select yes if there are estimated figu
 
 # AddNetTaxInterestPage Messages
 # ----------------------------------------------------------
-addNetTaxInterest.title = Does this company have a net tax interest?
-addNetTaxInterest.heading = Does this company have a net tax interest?
-addNetTaxInterest.checkYourAnswersLabel = Does this company have a net tax interest?
-addNetTaxInterest.error.required = Select yes if Does this company have a net tax interest?
+addNetTaxInterest.title = Does this company have a net tax-interest?
+addNetTaxInterest.heading = Does this company have a net tax-interest?
+addNetTaxInterest.checkYourAnswersLabel = Does this company have a net tax-interest?
+addNetTaxInterest.error.required = Select yes if the company has a net tax-interest
