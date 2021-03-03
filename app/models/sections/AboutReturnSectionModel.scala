@@ -18,6 +18,8 @@ package models.sections
 
 import models.returnModels._
 import models.FullOrAbbreviatedReturn
+import play.api.libs.json.{Format, JsObject, JsPath, Json, Writes}
+import play.api.libs.functional.syntax._
 
 case class AboutReturnSectionModel(
   appointedReportingCompany: Boolean,
@@ -29,3 +31,20 @@ case class AboutReturnSectionModel(
   ctutr: UTRModel,
   periodOfAccount: AccountingPeriodModel
 )
+
+object AboutReturnSectionModel {
+  val writes : Writes[AboutReturnSectionModel] =(
+    (JsPath \ "appointedReportingCompany").write[Boolean] and
+      (JsPath \ "agentDetails").write[AgentDetailsModel] and
+        (JsPath \ "submissionType").write[String] and
+      (JsPath \ "revisedReturnDetails").writeNullable[String] and
+      (JsPath \ "reportingCompany").write[JsObject]
+  )(ar=>(ar.appointedReportingCompany,
+    ar.agentDetails,
+    if (ar.isRevisingReturn) "revised" else "original",
+    ar.revisedReturnDetails,
+    Json.obj("companyName" -> ar.companyName,
+                    "ctutr" -> ar.ctutr,
+                    "sameAsUltimateParent" -> false //TODO:No visiblity of this yet, to be done in next section
+    )))
+}

@@ -16,11 +16,15 @@
 
 package generators
 
+import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
 import models.returnModels._
+import models.sections.AboutReturnSectionModel
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
+
+import java.time.LocalDate
 
 trait ModelGenerators {
 
@@ -74,4 +78,26 @@ trait ModelGenerators {
         utr <- arbitrary[String]
       } yield  CompanyDetailsModel(CompanyNameModel(name), UTRModel(utr))
     }
+
+  implicit val localDateArb = Arbitrary(localDateGen)
+
+  def localDateGen: Gen[LocalDate] = {
+    val rangeStart = LocalDate.MIN.toEpochDay
+    val currentYear = LocalDate.now().getYear
+    val rangeEnd = LocalDate.of(currentYear, 1, 1).toEpochDay
+    Gen.choose(rangeStart, rangeEnd).map(i => LocalDate.ofEpochDay(i))
+  }
+  implicit lazy val aboutReturnSectionModel: Gen[AboutReturnSectionModel] =
+      for {
+        hasAppointedReportingCompany <- arbitrary[Boolean]
+        agentOnBehalfCompany <- arbitrary[Boolean]
+        agentName <- arbitrary[Option[String]]
+        fullOrAbbr <- Gen.oneOf(Full, Abbreviated)
+        isRevising <- arbitrary[Boolean]
+        revisedReturnDetails <- arbitrary[Option[String]]
+        companyName <- arbitrary[String]
+        ctUtr <- arbitrary[String]
+        date <- localDateGen
+      } yield AboutReturnSectionModel(hasAppointedReportingCompany, AgentDetailsModel(agentOnBehalfCompany, agentName),
+        fullOrAbbr, isRevising, revisedReturnDetails, CompanyNameModel(companyName), UTRModel(ctUtr), AccountingPeriodModel(date, date))
 }
