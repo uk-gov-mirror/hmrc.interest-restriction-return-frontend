@@ -1,7 +1,7 @@
 package assets
 
 object PageTitles {
-  val addNetTaxInterest = "Does this company have a net tax interest?"
+  val addNetTaxInterest = "Does this company have a net tax-interest?"
   val companyContainsEstimates = "Are these estimated figures?"
   val companyEstimatedFigures = "Tell us which figures have been estimated"
   val companyQICElection = "Has the company made a qualifying infrastructure company (QIC) election for the return period?"
