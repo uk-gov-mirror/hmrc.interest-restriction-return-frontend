@@ -17,7 +17,6 @@
 package navigation
 
 import controllers.ukCompanies.routes
-
 import javax.inject.{Inject, Singleton}
 import models._
 import pages.{ukCompanies, _}
@@ -35,21 +34,17 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> ((idx, userAnswers) => netTaxInterestAmountPageNormalRoute(idx, userAnswers)),
-    ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(GroupSubjectToRestrictionsPage) match {
-      case Some(true) => checkYourAnswers(idx)
-      case _ => userAnswers.get(GroupSubjectToReactivationsPage) match {
-        case Some(true) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
-        case _ => checkYourAnswers(idx)
-      }
+    ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(ConsentingCompanyPage) match {
+      case Some(_) => routes.CompanyQICElectionController.onPageLoad(idx, NormalMode)
     }),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
       case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
       case Some(false) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
       case _ => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
     }),
-    ReactivationAmountPage -> ((idx,_) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
-    CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
-    UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
+    ReactivationAmountPage -> ((idx, _) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
+    CheckAnswersUkCompanyPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
+    UkCompaniesPage -> ((idx, _) => routes.CheckAnswersUkCompanyController.onPageLoad(idx)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
@@ -81,14 +76,15 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
-    ReactivationAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
-    EnterCompanyTaxEBITDAPage -> ((_,_) => controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()),
-    NetTaxInterestAmountPage -> ((_,_) => controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad())
+    ReactivationAmountPage -> ((_, _) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
+    EnterCompanyTaxEBITDAPage -> ((_, _) => controllers.checkTotals.routes.ReviewTaxEBITDAController.onPageLoad()),
+    NetTaxInterestAmountPage -> ((_, _) => controllers.checkTotals.routes.ReviewNetTaxInterestController.onPageLoad())
   ).withDefaultValue((_, _) => controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
 
   def nextSection(mode: Mode): Call = controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
+
   def addCompany(numberOfCompanies: Int): Call = routes.CompanyDetailsController.onPageLoad(numberOfCompanies + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
@@ -101,7 +97,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     val groupSubjectToRestrictions = userAnswers.get(GroupSubjectToRestrictionsPage)
     val incomeOrExpense = userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.netTaxInterestIncomeOrExpense)
     val groupSubjectToReactivations = userAnswers.get(GroupSubjectToReactivationsPage)
-    
+
     (groupSubjectToRestrictions, incomeOrExpense, groupSubjectToReactivations) match {
       case (Some(true), Some(NetTaxInterestExpense), _) => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
       case (_, _, Some(true)) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
