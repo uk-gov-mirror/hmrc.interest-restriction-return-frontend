@@ -42,10 +42,10 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     }),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
       case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
-      case Some(false) => checkYourAnswers(idx)
+      case Some(false) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
       case _ => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
     }),
-    ReactivationAmountPage -> ((idx,_) => checkYourAnswers(idx)),
+    ReactivationAmountPage -> ((idx,_) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
     CheckAnswersUkCompanyPage -> ((_,_) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     UkCompaniesPage -> ((_,_) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
@@ -65,6 +65,13 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
       ukCompany.flatMap(_.containsEstimates) match {
         case Some(true) if !ukCompany.flatMap(_.estimatedFigures).isDefined => routes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode)
+        case _ => checkYourAnswers(idx)
+      }
+    }),
+    AddAnReactivationQueryPage -> ((idx, userAnswers) => {
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      ukCompany.flatMap(_.reactivation) match {
+        case Some(true) if !ukCompany.flatMap(_.allocatedReactivations).isDefined => routes.ReactivationAmountController.onPageLoad(idx, CheckMode)
         case _ => checkYourAnswers(idx)
       }
     })

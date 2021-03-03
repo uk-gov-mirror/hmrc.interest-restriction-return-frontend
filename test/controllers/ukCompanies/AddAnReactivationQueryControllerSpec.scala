@@ -22,11 +22,12 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddAnReactivationQueryFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddAnReactivationQueryView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import scala.concurrent.Future
 
 class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -50,7 +51,7 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(consenting = None), Some(1)).get))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax.copy(reactivation = None, consenting = None), Some(1)).get))
 
       val result = Controller.onPageLoad(1,NormalMode)(fakeRequest)
 
@@ -78,6 +79,31 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
       mockSetAnswers
 
       val result = Controller.onSubmit(1,NormalMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "clear the ReactivationAmount page when 'false' is submitted" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+      val company = ukCompanyModelMax.copy(reactivation = Some(false))
+      val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).get
+
+      val expectedCompany = ukCompanyModelMax.copy(
+        reactivation = Some(false),
+        allocatedReactivations = None
+      )
+      
+      mockGetAnswers(Some(userAnswers))
+
+      (mockSessionRepository.set(_: UserAnswers))
+        .expects(emptyUserAnswers
+          .set(UkCompaniesPage, expectedCompany, Some(1)).success.value)
+        .returns(Future.successful(true))
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
