@@ -954,7 +954,7 @@ companyEstimatedFigures.hint = Select all that apply
 companyQICElection.title = Has the company made a qualifying infrastructure company (QIC) election for the return period?
 companyQICElection.heading = Has the company made a qualifying infrastructure company (QIC) election for the return period?
 companyQICElection.checkYourAnswersLabel = Has the company made a qualifying infrastructure company (QIC) election for the return period?
-companyQICElection.error.required = Select yes if Has the company made a qualifying infrastructure company (QIC) election for the return period?
+companyQICElection.error.required = Select yes if the company made a qualifying infrastructure company (QIC) election for the return period
 
 # CompanyContainsEstimatesPage Messages
 # ----------------------------------------------------------
