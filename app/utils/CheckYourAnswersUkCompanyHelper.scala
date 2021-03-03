@@ -86,6 +86,16 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def addAReactivation(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.reactivation.map(reactivation =>
+      summaryListRow(
+        label = messages("addAnReactivationQuery.checkYourAnswersLabel", Seq()),
+        value = reactivation,
+        visuallyHiddenText = None,
+        (ukCompanyRoutes.AddAnReactivationQueryController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
+    ))
+
   def companyReactivationAmount(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.allocatedReactivations.map(reactivationModel =>
       summaryListRow(
@@ -96,6 +106,24 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def containsEstimates(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.containsEstimates.map(containsEstimates =>
+      ukCompanyAnswer(
+        page = CompanyContainsEstimatesPage,
+        value = containsEstimates,
+        changeLinkCall = ukCompanyRoutes.CompanyContainsEstimatesController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
+  def estimatedFigures(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.estimatedFigures.map(figures => 
+      summaryListRow(
+        label = messages("companyEstimatedFigures.checkYourAnswersLabel"),
+        value = figures.toSeq.sorted.map(figure => messages(s"companyEstimatedFigures.${figure.toString}")).mkString("<br>"),
+        visuallyHiddenText = None,
+        ukCompanyRoutes.CompanyEstimatedFiguresController.onPageLoad(idx, CheckMode) -> messages("site.edit")
+      )
+    ))
 
   def rows(idx: Int): Seq[SummaryListRow] = Seq(
     companyName(idx),
@@ -103,7 +131,10 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
     netTaxInterestAmount(idx),
-    companyReactivationAmount(idx)
+    addAReactivation(idx),
+    companyReactivationAmount(idx),
+    containsEstimates(idx),
+    estimatedFigures(idx)
   ).flatten
 
 

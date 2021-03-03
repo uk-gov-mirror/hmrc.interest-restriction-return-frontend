@@ -17,68 +17,65 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.ukCompanies.AddAnReactivationQueryFormProvider
-import handlers.ErrorHandler
+import forms.ukCompanies.CompanyContainsEstimatesFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.UkCompaniesNavigator
-import pages.ukCompanies.{AddAnReactivationQueryPage, UkCompaniesPage}
+import pages.ukCompanies.CompanyContainsEstimatesPage
+import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.ukCompanies.AddAnReactivationQueryView
-import controllers.BaseController
-
+import views.html.ukCompanies.CompanyContainsEstimatesView
 import scala.concurrent.Future
+import navigation.UkCompaniesNavigator
+import controllers.BaseController
+import pages.ukCompanies.UkCompaniesPage
+import handlers.ErrorHandler
 
-class AddAnReactivationQueryController @Inject()(
+class CompanyContainsEstimatesController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
                                          navigator: UkCompaniesNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
-                                         formProvider: AddAnReactivationQueryFormProvider,
+                                         formProvider: CompanyContainsEstimatesFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
-                                         view: AddAnReactivationQueryView
+                                         view: CompanyContainsEstimatesView
                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage, idx) { ukCompany =>
-      Future.successful(
-        Ok(view(
-          form = ukCompany.reactivation.fold(formProvider())(formProvider().fill),
-          mode = mode,
-          companyName = ukCompany.companyDetails.companyName,
-          postAction = routes.AddAnReactivationQueryController.onSubmit(idx, mode)
-        ))
-      )
+    answerFor(UkCompaniesPage, idx: Int) { ukCompany =>
+      val form = ukCompany.containsEstimates.fold(formProvider())(formProvider().fill)
+      Future.successful(Ok(view(
+        form = form, 
+        mode = mode,
+        companyName = ukCompany.companyDetails.companyName, 
+        postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
+      )))
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(UkCompaniesPage, idx) { ukCompany =>
+    answerFor(UkCompaniesPage, idx: Int) { ukCompany =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
-          Future.successful(
-            BadRequest(view(
-              form = formWithErrors,
-              mode = mode,
-              companyName = ukCompany.companyDetails.companyName,
-              postAction = routes.AddAnReactivationQueryController.onSubmit(idx, mode)
-            ))
-          ),
+          Future.successful(BadRequest(view(
+            form = formWithErrors, 
+            mode = mode, 
+            companyName = ukCompany.companyDetails.companyName,
+            postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
+          ))),
         value => {
           val updatedModel = value match {
-            case true   => ukCompany.copy(reactivation = Some(value))
-            case false  => ukCompany.copy(reactivation = Some(value), allocatedReactivations = None)
+            case true   => ukCompany.copy(containsEstimates = Some(value))
+            case false  => ukCompany.copy(containsEstimates = Some(value), estimatedFigures = None)
           }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AddAnReactivationQueryPage, mode, updatedAnswers, Some(idx)))
+          } yield Redirect(navigator.nextPage(CompanyContainsEstimatesPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

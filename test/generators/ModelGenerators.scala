@@ -24,6 +24,11 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryCompanyEstimatedFigures: Arbitrary[CompanyEstimatedFigures] =
+    Arbitrary {
+      Gen.oneOf(CompanyEstimatedFigures.values.toSeq)
+    }
+
   implicit lazy val arbitraryEstimatedFigures: Arbitrary[EstimatedFigures] =
     Arbitrary {
       Gen.oneOf(EstimatedFigures.values.toSeq)

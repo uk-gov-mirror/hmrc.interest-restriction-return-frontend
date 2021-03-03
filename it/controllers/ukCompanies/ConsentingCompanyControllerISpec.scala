@@ -79,9 +79,9 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             AuthStub.authorised()
 
             setAnswers(emptyUserAnswers
-              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-              .set(GroupSubjectToReactivationsPage, true).get
               .set(GroupSubjectToRestrictionsPage, false).get
+              .set(GroupSubjectToReactivationsPage, true).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
             )
 
             val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> true))()
@@ -98,8 +98,8 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             AuthStub.authorised()
 
             setAnswers(emptyUserAnswers
-              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
               .set(GroupSubjectToRestrictionsPage, true).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
             )
 
             val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> false))()
@@ -116,9 +116,9 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             AuthStub.authorised()
 
             setAnswers(emptyUserAnswers
-              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
-              .set(GroupSubjectToReactivationsPage, false).get
               .set(GroupSubjectToRestrictionsPage, false).get
+              .set(GroupSubjectToReactivationsPage, false).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
             )
 
             val res = postRequest("/uk-companies/1/consenting-company", Json.obj("value" -> false))()

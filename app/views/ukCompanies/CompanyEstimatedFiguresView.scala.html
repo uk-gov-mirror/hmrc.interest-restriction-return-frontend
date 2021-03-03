@@ -14,10 +14,10 @@
  * limitations under the License.
  *@
 
-@import controllers.groupLevelInformation.routes._
+@import controllers.ukCompanies.routes._
 @import models.Mode
 @import config.FrontendAppConfig
-@import models.EstimatedFigures
+@import models.CompanyEstimatedFigures
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 
 @this(
@@ -31,22 +31,22 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[Set[EstimatedFigures]], mode: Mode, formItems: Seq[CheckboxItem])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[Set[CompanyEstimatedFigures]], mode: Mode, companyName: String, formItems: Seq[CheckboxItem], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "estimatedFigures.title", Some("section.groupLevelInformation")))) {
+@govukLayout(pageTitle = Some(title(form, "companyEstimatedFigures.title", Some(companyName)))) {
 
-    @formHelper(action = EstimatedFiguresController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(
-            form.errors, 
+            form.errors,
             formItems.headOption.flatMap(_.id)
         )
 
-        @subheading("section.groupLevelInformation")
+        @subheading(companyName)
 
         @checkboxes(
             form = form,
-            legend = messages("estimatedFigures.heading"),
+            legend = messages("companyEstimatedFigures.heading"),
             items = formItems,
             hint = Some(hint)
         )
@@ -58,5 +58,5 @@
 }
 
 @hint = {
-    @messages("estimatedFigures.hint")
+    @messages("companyEstimatedFigures.hint")
 }

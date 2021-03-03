@@ -16,8 +16,7 @@
 
 package models.returnModels.fullReturn
 
-import models.NetTaxInterestIncomeOrExpense
-import models.CompanyDetailsModel
+import models.{NetTaxInterestIncomeOrExpense, CompanyEstimatedFigures, CompanyDetailsModel}
 import play.api.libs.json.Json
 
 case class UkCompanyModel(companyDetails: CompanyDetailsModel,
@@ -29,7 +28,9 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           allocatedRestrictions: Option[AllocatedRestrictionsModel] = None,
                           reactivation: Option[Boolean] = None,
                           allocatedReactivations: Option[AllocatedReactivationsModel] = None,
-                          accountPeriodSameAsGroup: Option[Boolean] = None
+                          accountPeriodSameAsGroup: Option[Boolean] = None,
+                          containsEstimates: Option[Boolean] = None,
+                          estimatedFigures: Option[Set[CompanyEstimatedFigures]] = None
                          )
 object UkCompanyModel {
 

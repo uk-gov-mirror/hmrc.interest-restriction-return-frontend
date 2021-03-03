@@ -14,49 +14,36 @@
  * limitations under the License.
  *@
 
-@import controllers.groupLevelInformation.routes._
+@import controllers.ukCompanies.routes._
 @import models.Mode
+@import views.ViewUtils._
 @import config.FrontendAppConfig
-@import models.EstimatedFigures
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
     formHelper: FormWithCSRF,
     errorSummary: components.errorSummary,
+    yesNoRadio: components.yesNoRadio,
     button: components.button,
-    checkboxes: components.inputCheckboxes,
-    link: components.link,
     subheading: components.subheading,
+    link: components.link,
     saveForLater: components.saveForLater
 )
 
-@(form: Form[Set[EstimatedFigures]], mode: Mode, formItems: Seq[CheckboxItem])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], mode: Mode, companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "estimatedFigures.title", Some("section.groupLevelInformation")))) {
+@govukLayout(pageTitle = Some(title(form, "companyContainsEstimates.title", Some(companyName)))) {
 
-    @formHelper(action = EstimatedFiguresController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
-        @errorSummary(
-            form.errors, 
-            formItems.headOption.flatMap(_.id)
-        )
+        @errorSummary(form.errors)
 
-        @subheading("section.groupLevelInformation")
+        @subheading(companyName)
 
-        @checkboxes(
-            form = form,
-            legend = messages("estimatedFigures.heading"),
-            items = formItems,
-            hint = Some(hint)
-        )
+        @yesNoRadio(form, "companyContainsEstimates.heading")
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
-}
-
-@hint = {
-    @messages("estimatedFigures.hint")
 }

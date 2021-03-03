@@ -66,9 +66,7 @@ class CheckYourAnswersElectionsHelper(val userAnswers: UserAnswers)
   }
 
   def consolidatedPartnershipsRow(implicit messages: Messages): Option[SummaryListRow] = {
-    val addedPships = userAnswers.get(ElectedInterestAllowanceConsolidatedPshipBeforePage).contains(true) ||
-      userAnswers.get(InterestAllowanceConsolidatedPshipElectionPage).contains(true)
-    if (!addedPships) None else {
+    if (userAnswers.getList(PartnershipsPage).isEmpty) None else {
       val numberOfPartnershipsAdded = userAnswers.getList(PartnershipsPage).length
       val valueMsgSuffix = if(numberOfPartnershipsAdded == 1) "singular" else "plural"
       Some(summaryListRow(
