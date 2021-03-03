@@ -20,7 +20,7 @@ import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
 import models.returnModels._
-import models.sections.AboutReturnSectionModel
+import models.sections.{AboutReturnSectionModel, UltimateParentCompanySectionModel}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
