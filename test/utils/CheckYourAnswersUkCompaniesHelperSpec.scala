@@ -30,7 +30,8 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
 
   val company = ukCompanyModelMax.copy(
     containsEstimates = Some(true),
-    estimatedFigures = Some(CompanyEstimatedFigures.values.toSet)
+    estimatedFigures = Some(CompanyEstimatedFigures.values.toSet),
+    restriction = Some(true)
   )
 
   val helper = new CheckYourAnswersUkCompanyHelper(
@@ -101,6 +102,19 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
           currencyFormat(netTaxInterestIncome) + " Expense",
           visuallyHiddenText = None,
           ukCompaniesRoutes.NetTaxInterestAmountController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
+        ))
+      }
+    }
+
+    "For the Restriction Y/N answer" must {
+
+      "have a correctly formatted summary list row" in {
+
+        helper.addARestriction(1) mustBe Some(summaryListRow(
+          CheckAnswersUkCompanyMessages.restriction,
+          BaseMessages.yes,
+          visuallyHiddenText = None,
+          ukCompaniesRoutes.AddRestrictionController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))
       }
     }
