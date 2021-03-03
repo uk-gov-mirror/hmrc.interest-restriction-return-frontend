@@ -60,6 +60,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case Some(false) => checkYourAnswers(idx)
       case _ => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
     }),
+    AddNetTaxInterestPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx))
   )
 
@@ -101,7 +102,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     val groupSubjectToRestrictions = userAnswers.get(GroupSubjectToRestrictionsPage)
     val incomeOrExpense = userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.netTaxInterestIncomeOrExpense)
     val groupSubjectToReactivations = userAnswers.get(GroupSubjectToReactivationsPage)
-    
+
     (groupSubjectToRestrictions, incomeOrExpense, groupSubjectToReactivations) match {
       case (Some(true), Some(NetTaxInterestExpense), _) => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
       case (_, _, Some(true)) => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)

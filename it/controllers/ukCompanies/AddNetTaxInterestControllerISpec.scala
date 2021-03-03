@@ -17,7 +17,8 @@
 package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import assets.UkCompanyITConstants.ukCompanyModelMax
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -25,16 +26,20 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
+  val idx = 1
+
   "in Normal mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /:idx/add-net-tax-interest" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
+
+          val res = getRequest(s"/uk-companies/$idx/add-net-tax-interest")()
 
           whenReady(res) { result =>
             result should have(
@@ -51,7 +56,7 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest(s"/uk-companies/$idx/add-net-tax-interest")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +68,7 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "POST /ROUTING_PLACEHOLDER" when {
+    "POST /:idx/add-net-tax-interest" when {
 
       "user is authorised" when {
 
@@ -72,15 +77,15 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
           "redirect to AddNetTaxInterest page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-            val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.AddNetTaxInterestController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest(s"/uk-companies/$idx/add-net-tax-interest", Json.obj("value" -> "true"))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -91,7 +96,7 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+          val res = postRequest(s"/uk-companies/$idx/add-net-tax-interest", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,15 +111,16 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
 
   "in Change mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /:idx/add-net-tax-interest" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest(s"/uk-companies/$idx/add-net-tax-interest/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +137,7 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest(s"/uk-companies/$idx/add-net-tax-interest/change")()
 
           whenReady(res) { result =>
             result should have(
