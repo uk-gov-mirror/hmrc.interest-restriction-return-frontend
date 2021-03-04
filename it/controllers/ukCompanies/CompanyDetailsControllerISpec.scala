@@ -82,7 +82,7 @@ class CompanyDetailsControllerISpec extends IntegrationSpecBase with CreateReque
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode).url)
+                redirectLocation(routes.ConsentingCompanyController.onPageLoad(1, NormalMode).url)
               )
             }
           }
