@@ -72,9 +72,11 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyReactivationJsonMaxIncome = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "addNetTaxInterest" -> true,
     "netTaxInterestIncomeOrExpense" -> NetTaxInterestIncome.toString,
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA,
+    "reactivation" -> true,
     "allocatedReactivations" -> allocatedReactivationsJson
   )
 
