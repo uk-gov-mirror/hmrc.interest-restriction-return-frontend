@@ -60,10 +60,12 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelReactivationMaxIncome = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    addNetTaxInterest = Some(true),
     netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
     netTaxInterest = Some(netTaxInterestIncome),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
+    reactivation = Some(true),
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
 
