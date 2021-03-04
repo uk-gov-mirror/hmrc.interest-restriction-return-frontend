@@ -17,8 +17,9 @@
 package models.transformations.writes
 
 import generators.ModelGenerators
+import models.FullReturnModel
 import models.returnModels.AgentDetailsModel
-import models.sections.{AboutReturnSectionModel, FullReturnModel, UltimateParentCompanySectionModel}
+import models.sections.{AboutReturnSectionModel, UltimateParentCompanySectionModel}
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsValue, Json}
@@ -40,7 +41,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
       "contain the `agentDetails`" when {
         "there is no agent" in {
-          val fullReturn = FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent)
+          val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent)
 
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -49,7 +50,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
         }
 
         "there is an agent" in {
-          val fullReturn = FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent)
+          val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent)
 
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -60,7 +61,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
       "contain the `submissionType`" when {
         "it is a revised return" in {
-          val fullReturn = FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent)
+          val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent)
 
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -68,7 +69,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
         }
 
         "it is an original return" in {
-          val fullReturn = FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent)
+          val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent)
 
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
