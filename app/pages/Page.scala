@@ -76,6 +76,7 @@ object Page {
     CompanyDetailsPage,
     ConsentingCompanyPage,
     EnterCompanyTaxEBITDAPage,
+    AddNetTaxInterestPage,
     NetTaxInterestIncomeOrExpensePage,
     NetTaxInterestAmountPage,
     ReactivationAmountPage,
