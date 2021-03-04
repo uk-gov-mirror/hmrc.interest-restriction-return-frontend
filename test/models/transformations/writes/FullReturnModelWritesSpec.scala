@@ -18,7 +18,7 @@ package models.transformations.writes
 
 import generators.ModelGenerators
 import models.FullReturnModel
-import models.returnModels.AgentDetailsModel
+import models.returnModels.{AgentDetailsModel, UTRModel}
 import models.sections.{AboutReturnSectionModel, UltimateParentCompanySectionModel}
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -112,6 +112,71 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
             (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "ctutr").as[String] mustEqual fullReturn.aboutReturn.ctutr.utr
+          }
+        }
+
+        "The Reporting Company is not the same as The Parent Company" when {
+          "We are not deemed parent" should {
+            val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
+              ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(false),
+                parentCompanies = Seq(deemedParentSectionModel.sample.value)))
+
+
+            "Have a company name" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.companyName.name
+            }
+
+            "Have a ctutr if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.ctutr
+            }
+
+            "Have a sautr if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.sautr
+            }
+
+            "Have a country of incorporation if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "countryOfIncorporation").asOpt[String] mustEqual
+                fullReturn.ultimateParentCompany.parentCompanies.head.countryOfIncorporation.map(c=>c.code)
+            }
+          }
+
+          "We are deemed parent" should {
+            val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
+              ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(true),
+                parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)))
+
+            "Have a company name" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).companyName.name
+            }
+
+            "Have a ctutr if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).ctutr
+            }
+
+            "Have a sautr if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).sautr
+            }
+
+            "Have a country of incorporation if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "countryOfIncorporation").asOpt[String] mustEqual
+                fullReturn.ultimateParentCompany.parentCompanies(0).countryOfIncorporation.map(c=>c.code)
+            }
           }
         }
       }
