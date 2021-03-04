@@ -37,7 +37,8 @@ object FullReturnModel {
       (JsPath \ "submissionType").write[String] and
       (JsPath \ "revisedReturnDetails").writeNullable[String] and
       (JsPath \ "reportingCompany").write[JsObject] and
-      (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject]
+      (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
+      (JsPath \ "parentCompany").write[JsObject]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -52,6 +53,9 @@ object FullReturnModel {
       Json.obj(
         "startDate" -> fullReturn.aboutReturn.periodOfAccount.startDate,
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
+      ),
+        Json.obj("ultimateParent" -> Json.obj("companyName" -> fullReturn.aboutReturn.companyName,
+                                                            "ctutr" -> fullReturn.aboutReturn.ctutr)
       )
     )
   )

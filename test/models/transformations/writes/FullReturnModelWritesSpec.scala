@@ -97,6 +97,24 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
         (mappedAboutReturn \ "groupCompanyDetails" \ "accountingPeriod" \ "startDate").as[LocalDate] mustEqual aboutReturn.periodOfAccount.startDate
         (mappedAboutReturn \ "groupCompanyDetails" \ "accountingPeriod" \ "endDate").as[LocalDate] mustEqual aboutReturn.periodOfAccount.endDate
       }
+
+      "The Parent Company" when {
+        "The Reporting Company is the same as The Parent Company" should {
+          val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn, ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = true))
+
+          "Have a company name" in {
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "companyName").as[String] mustEqual fullReturn.aboutReturn.companyName.name
+          }
+
+          "Have a ctutr if one available" in {
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "ctutr").as[String] mustEqual fullReturn.aboutReturn.ctutr.utr
+          }
+        }
+      }
     }
   }
 }
