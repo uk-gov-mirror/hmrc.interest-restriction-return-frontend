@@ -137,30 +137,30 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the ConsentingCompanyPage to the" should {
 
-        "Add a checkanswers page for subject to restrictions" in {
+        "CompanyQICElectionController when subject to restrictions is true" in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true).success.value
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
 
-        "Add a checkanswers page for not subject to reactivations" in {
+        "CompanyQICElectionController when multiple subject to restrictions are false"  in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
               .set(GroupSubjectToReactivationsPage, false).success.value
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
 
-        "Add a checkanswers page for subject to reactivations" in {
+        "CompanyQICElectionController when multiple subject to restrictions are mixed" in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
             .set(GroupSubjectToReactivationsPage, true).success.value
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+            routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -202,9 +202,9 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "from the UkCompaniesPage" should {
 
-        "go to the DerivedCompany page" in {
+        "go to the Check your Answers page" in {
           navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
 

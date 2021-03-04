@@ -34,9 +34,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> ((idx, userAnswers) => netTaxInterestAmountPageNormalRoute(idx, userAnswers)),
-    ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(ConsentingCompanyPage) match {
-      case Some(_) => routes.CompanyQICElectionController.onPageLoad(idx, NormalMode)
-    }),
+    ConsentingCompanyPage -> ((idx, userAnswers) => routes.CompanyQICElectionController.onPageLoad(idx, NormalMode)),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
       case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
       case Some(false) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)

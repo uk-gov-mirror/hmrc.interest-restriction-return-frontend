@@ -141,7 +141,7 @@ class UkCompaniesReviewAnswersListControllerISpec extends IntegrationSpecBase wi
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.checkTotals.routes.DerivedCompanyController.onPageLoad().url)
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
               )
             }
           }

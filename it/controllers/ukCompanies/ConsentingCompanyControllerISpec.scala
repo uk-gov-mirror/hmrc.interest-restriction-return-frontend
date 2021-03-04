@@ -74,7 +74,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
 
         "enters a valid answer" when {
 
-          "redirect to add activation page in subject to reactivation" in {
+          "redirect to CompanyQICElectionController in subject to reactivation" in {
 
             AuthStub.authorised()
 
@@ -88,12 +88,12 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.AddAnReactivationQueryController.onPageLoad(1,NormalMode).url)
+                redirectLocation(routes.CompanyQICElectionController.onPageLoad(1,NormalMode).url)
               )
             }
           }
 
-          "redirect to Checkanswers page in subject to restriction" in {
+          "redirect to CompanyQICElectionController page in subject to restriction" in {
 
             AuthStub.authorised()
 
@@ -106,12 +106,12 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+                redirectLocation(routes.CompanyQICElectionController.onPageLoad(1, NormalMode).url)
               )
             }
           }
 
-          "redirect to Checkanswers page in no subject to reactivation or to restriction" in {
+          "redirect to CompanyQICElectionController page in no subject to reactivation or to restriction" in {
 
             AuthStub.authorised()
 
@@ -125,7 +125,7 @@ class ConsentingCompanyControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+                redirectLocation(routes.CompanyQICElectionController.onPageLoad(1, NormalMode).url)
               )
             }
           }
