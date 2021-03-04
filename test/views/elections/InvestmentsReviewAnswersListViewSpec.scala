@@ -17,7 +17,6 @@
 package views.elections
 
 import assets.constants.UltimateParentCompanyCheckYourAnswersConstants
-import assets.constants.NonConsolidatedInvestmentConstants._
 import assets.messages.elections.InvestmentsReviewAnswersListMessages
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.elections.InvestmentsReviewAnswersListFormProvider
@@ -36,6 +35,7 @@ class InvestmentsReviewAnswersListViewSpec extends YesNoViewBehaviours with Ulti
   val messageKeyPrefix: String => String = addition => s"investmentsReviewAnswersList.$addition"
   val section = Some(SectionHeaderMessages.elections)
   val form = new InvestmentsReviewAnswersListFormProvider()()
+  val investmentName = "Test"
 
   s"Investments view" when {
 

@@ -16,7 +16,6 @@
 
 package views.elections
 
-import assets.constants.NonConsolidatedInvestmentConstants.investmentName
 import assets.messages.{BaseMessages, SectionHeaderMessages}
 import forms.elections.InvestmentsDeletionConfirmationFormProvider
 import play.api.data.Form
@@ -30,6 +29,7 @@ class InvestmentsDeletionConfirmationViewSpec extends YesNoViewBehaviours  {
   val section = Some(SectionHeaderMessages.elections)
   val view = viewFor[InvestmentsDeletionConfirmationView]()
   val form = new InvestmentsDeletionConfirmationFormProvider()()
+  val investmentName = "Test"
 
     "InvestmentsDeletionConfirmationView" must {
 
