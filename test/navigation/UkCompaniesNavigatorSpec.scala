@@ -52,10 +52,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the EnterCompanyTaxEBITDAPage" should {
 
-        "to the NetTaxInterestIncomeOrExpensePage" in {
+        "to the AddNetTaxInterestPage" in {
 
           navigator.nextPage(EnterCompanyTaxEBITDAPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode)
+            routes.AddNetTaxInterestController.onPageLoad(1, NormalMode)
         }
       }
 

@@ -32,7 +32,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     AboutAddingUKCompaniesPage -> ((idx, _) => routes.CompanyDetailsController.onPageLoad(idx, NormalMode)),
     CompanyDetailsPage -> ((idx, _) => routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)),
-    EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
+    EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.AddNetTaxInterestController.onPageLoad(idx, NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
     NetTaxInterestAmountPage -> afterNetTaxInterestPagesNormalRoute,
     ConsentingCompanyPage -> ((idx, userAnswers) => userAnswers.get(GroupSubjectToRestrictionsPage) match {
