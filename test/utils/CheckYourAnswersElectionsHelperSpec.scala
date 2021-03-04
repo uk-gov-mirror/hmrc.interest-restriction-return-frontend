@@ -18,7 +18,6 @@ package utils
 
 import assets.constants.BaseConstants
 import assets.constants.InvestorGroupConstants._
-import assets.constants.NonConsolidatedInvestmentConstants._
 import assets.constants.PartnershipsConstants._
 import assets.messages.{BaseMessages, CheckAnswersElectionsMessages}
 import base.SpecBase
@@ -28,6 +27,7 @@ import pages.elections._
 import viewmodels.SummaryListRowHelper
 
 class CheckYourAnswersElectionsHelperSpec extends SpecBase with BaseConstants with SummaryListRowHelper with CurrencyFormatter {
+  val investmentName = "Test"
 
   val userAnswers = UserAnswers("id")
     .set(GroupRatioElectionPage, true).get

@@ -17,12 +17,12 @@
 package assets.constants
 
 import assets.constants.InvestorGroupConstants.investorGroupsGroupRatioModel
-import assets.constants.NonConsolidatedInvestmentConstants.investmentName
 import assets.constants.PartnershipsConstants.partnershipModelUK
 import pages.elections._
 import views.behaviours.ViewBehaviours
 
 trait ElectionsCheckYourAnswersConstants extends ViewBehaviours with BaseConstants {
+  val investmentName = "Test"
 
   val allElections = emptyUserAnswers
     .set(GroupRatioElectionPage, true).get

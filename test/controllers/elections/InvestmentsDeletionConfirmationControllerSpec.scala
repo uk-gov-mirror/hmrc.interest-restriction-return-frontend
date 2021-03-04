@@ -16,7 +16,6 @@
 
 package controllers.elections
 
-import assets.constants.NonConsolidatedInvestmentConstants.investmentName
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -32,6 +31,7 @@ class InvestmentsDeletionConfirmationControllerSpec extends SpecBase with Featur
   val view = injector.instanceOf[InvestmentsDeletionConfirmationView]
   val formProvider = injector.instanceOf[InvestmentsDeletionConfirmationFormProvider]
   val form = formProvider()
+  val investmentName = "Test"
 
   object Controller extends InvestmentsDeletionConfirmationController(
     messagesApi = messagesApi,

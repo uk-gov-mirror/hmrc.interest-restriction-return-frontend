@@ -76,6 +76,7 @@ object Page {
     CompanyDetailsPage,
     ConsentingCompanyPage,
     EnterCompanyTaxEBITDAPage,
+    AddNetTaxInterestPage,
     NetTaxInterestIncomeOrExpensePage,
     NetTaxInterestAmountPage,
     ReactivationAmountPage,
@@ -83,6 +84,7 @@ object Page {
     AddRestrictionPage,
     CompanyAccountingPeriodSameAsGroupPage,
     RestrictionAmountSameAPPage,
+    CompanyQICElectionPage,
     CompanyEstimatedFiguresPage,
     CompanyContainsEstimatesPage,
     AddRestrictionAmountPage

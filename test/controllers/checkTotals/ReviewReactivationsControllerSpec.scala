@@ -16,7 +16,6 @@
 
 package controllers.checkTotals
 
-import assets.constants.fullReturn.GroupLevelAmountConstants.interestReactivationCap
 import assets.messages.SectionHeaderMessages
 import assets.messages.checkTotals.ReviewReactivationsMessages
 import base.SpecBase
@@ -51,7 +50,7 @@ class ReviewReactivationsControllerSpec extends SpecBase with FeatureSwitching w
 
         "return a OK (200)" in {
 
-          val userAnswers = emptyUserAnswers.set(InterestReactivationsCapPage, interestReactivationCap).get
+          val userAnswers = emptyUserAnswers.set(InterestReactivationsCapPage, BigDecimal(2.22)).get
 
           mockGetAnswers(Some(userAnswers))
 

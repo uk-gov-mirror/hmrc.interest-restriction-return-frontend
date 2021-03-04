@@ -34,8 +34,14 @@ trait PageGenerators {
   implicit lazy val arbitraryCompanyContainsEstimatesPage: Arbitrary[CompanyContainsEstimatesPage.type] =
     Arbitrary(CompanyContainsEstimatesPage)
 
+  implicit lazy val arbitraryAddNetTaxInterestPage: Arbitrary[AddNetTaxInterestPage.type] =
+    Arbitrary(AddNetTaxInterestPage)
+
   implicit lazy val arbitraryCompanyEstimatedFiguresPage: Arbitrary[CompanyEstimatedFiguresPage.type] =
     Arbitrary(CompanyEstimatedFiguresPage)
+
+  implicit lazy val arbitraryCompanyQICElectionPage: Arbitrary[CompanyQICElectionPage.type] =
+    Arbitrary(CompanyQICElectionPage)
 
   implicit lazy val arbitraryEstimatedFiguresPage: Arbitrary[EstimatedFiguresPage.type] =
     Arbitrary(EstimatedFiguresPage)

@@ -21,6 +21,7 @@ import play.api.libs.json.Json
 
 case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           consenting: Option[Boolean] = None,
+                          addNetTaxInterest: Option[Boolean] = None,
                           netTaxInterestIncomeOrExpense: Option[NetTaxInterestIncomeOrExpense] = None,
                           netTaxInterest: Option[BigDecimal] = None,
                           taxEBITDA: Option[BigDecimal] = None,
@@ -31,7 +32,8 @@ case class UkCompanyModel(companyDetails: CompanyDetailsModel,
                           accountPeriodSameAsGroup: Option[Boolean] = None,
                           containsEstimates: Option[Boolean] = None,
                           estimatedFigures: Option[Set[CompanyEstimatedFigures]] = None,
-                          addRestrictionAmount: Option[Boolean] = None
+                          addRestrictionAmount: Option[Boolean] = None,
+                          qicElection: Option[Boolean] = None
                          )
 object UkCompanyModel {
 

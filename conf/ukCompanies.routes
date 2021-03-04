@@ -112,6 +112,20 @@ POST       /:idx/company-contains-estimates                          controllers
 GET        /:idx/company-contains-estimates/change                   controllers.ukCompanies.CompanyContainsEstimatesController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/company-contains-estimates/change                   controllers.ukCompanies.CompanyContainsEstimatesController.onSubmit(idx: Int, mode: Mode = CheckMode)
 
+### CompanyQICElection Controller
+### ----------------------------------------
+GET        /:idx/company-qic-election                          controllers.ukCompanies.CompanyQICElectionController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/company-qic-election                          controllers.ukCompanies.CompanyQICElectionController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/company-qic-election/change                   controllers.ukCompanies.CompanyQICElectionController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/company-qic-election/change                   controllers.ukCompanies.CompanyQICElectionController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### AddNetTaxInterest Controller
+### ----------------------------------------
+GET        /:idx/add-net-tax-interest                          controllers.ukCompanies.AddNetTaxInterestController.onPageLoad(idx: Int, mode: Mode = NormalMode)
+POST       /:idx/add-net-tax-interest                          controllers.ukCompanies.AddNetTaxInterestController.onSubmit(idx: Int, mode: Mode = NormalMode)
+GET        /:idx/add-net-tax-interest/change                   controllers.ukCompanies.AddNetTaxInterestController.onPageLoad(idx: Int, mode: Mode = CheckMode)
+POST       /:idx/add-net-tax-interest/change                   controllers.ukCompanies.AddNetTaxInterestController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
 ### AddRestrictionAmount Controller
 ### ----------------------------------------
 GET        /add-restriction-amount                          controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(mode: Mode = NormalMode)

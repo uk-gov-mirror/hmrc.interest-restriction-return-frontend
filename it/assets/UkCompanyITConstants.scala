@@ -41,7 +41,8 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = Some(allocatedReactivationsModel),
-    addRestrictionAmount = Some(true)
+    addRestrictionAmount = Some(true),
+    qicElection = Some(true)
   )
 
   val ukCompanyJsonMax = Json.obj(
@@ -51,7 +52,8 @@ object UkCompanyITConstants extends BaseITConstants {
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
     "allocatedReactivations" -> allocatedReactivationsJson,
-    "addRestriction" -> true
+    "addRestriction" -> true,
+    "qicElection" -> true
   )
 
   val ukCompanyModelReactivationMaxIncome = UkCompanyModel(
@@ -62,7 +64,8 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel),
-    addRestrictionAmount = Some(true)
+    addRestrictionAmount = Some(true),
+    qicElection = Some(true)
   )
 
   val ukCompanyReactivationJsonMaxIncome = Json.obj(
@@ -72,7 +75,8 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA,
     "allocatedReactivations" -> allocatedReactivationsJson,
-    "addRestriction" -> true
+    "addRestriction" -> true,
+    "qicElection" -> true
   )
 
   val ukCompanyModelRestrictionMaxIncome = UkCompanyModel(
@@ -83,7 +87,8 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None,
-    addRestrictionAmount = Some(true)
+    addRestrictionAmount = Some(true),
+    qicElection = Some(true)
   )
 
   val ukCompanyRestrictionJsonMaxIncome = Json.obj(
@@ -93,7 +98,8 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
-    "addRestriction" -> true
+    "addRestriction" -> true,
+    "qicElection" -> true
   )
 
   val ukCompanyModelReactivationMaxExpense = UkCompanyModel(
@@ -104,7 +110,8 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel),
-    addRestrictionAmount = Some(true)
+    addRestrictionAmount = Some(true),
+    qicElection = Some(true)
   )
 
   val ukCompanyReactivationJsonMaxExpense = Json.obj(
@@ -114,7 +121,8 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedReactivations" -> allocatedReactivationsJson,
-    "addRestriction" -> true
+    "addRestriction" -> true,
+    "qicElection" -> true
   )
 
   val ukCompanyModelRestrictionMaxExpense = UkCompanyModel(
@@ -125,7 +133,8 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None,
-    addRestrictionAmount = Some(true)
+    addRestrictionAmount = Some(true),
+    qicElection = Some(true)
   )
 
   val ukCompanyRestrictionJsonMaxExpense = Json.obj(
@@ -135,7 +144,8 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
-    "addRestriction" -> true
+    "addRestriction" -> true,
+    "qicElection" -> true
   )
 
 

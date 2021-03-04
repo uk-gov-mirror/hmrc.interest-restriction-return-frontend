@@ -38,6 +38,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
+  implicit lazy val arbitraryAddNetTaxInterestUserAnswersEntry: Arbitrary[(AddNetTaxInterestPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[AddNetTaxInterestPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryCompanyContainsEstimatesUserAnswersEntry: Arbitrary[(CompanyContainsEstimatesPage.type, JsValue)] =
     Arbitrary {
       for {
@@ -51,6 +59,14 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       for {
         page  <- arbitrary[CompanyEstimatedFiguresPage.type]
         value <- arbitrary[CompanyEstimatedFigures].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryCompanyQICElectionUserAnswersEntry: Arbitrary[(CompanyQICElectionPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[CompanyQICElectionPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }
 

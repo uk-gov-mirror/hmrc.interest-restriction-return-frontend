@@ -17,7 +17,6 @@
 package controllers.checkTotals
 
 import assets.UkCompanyITConstants.ukCompanyModelMax
-import assets.GroupLevelAmountITConstants.interestReactivationCap
 import assets.{BaseITConstants, PageTitles}
 import pages.groupLevelInformation.InterestReactivationsCapPage
 import pages.ukCompanies.UkCompaniesPage
@@ -38,7 +37,7 @@ class ReviewReactivationsControllerISpec extends IntegrationSpecBase with Create
 
           AuthStub.authorised()
           setAnswers(emptyUserAnswers
-            .set(InterestReactivationsCapPage, interestReactivationCap).get
+            .set(InterestReactivationsCapPage, BigDecimal(2.22)).get
             .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
           )
 

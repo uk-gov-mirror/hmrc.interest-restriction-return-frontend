@@ -1,9 +1,11 @@
 package assets
 
 object PageTitles {
+  val addNetTaxInterest = "Does this company have a net tax-interest?"
   val companyContainsEstimates = "Are these estimated figures?"
   val addRestrictionAmount = "Do you want to add a restriction amount for the accounting period?"
   val companyEstimatedFigures = "Tell us which figures have been estimated"
+  val companyQICElection = "Has the company made a qualifying infrastructure company (QIC) election for the return period?"
   val estimatedFigures = "Tell us which figures have been estimated"
   val disallowedAmount = "Enter the total disallowed amount for the group"
   val tellUsWhatHasChanged = "Tell us what has changed"
