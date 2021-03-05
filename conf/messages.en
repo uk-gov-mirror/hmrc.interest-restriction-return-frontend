@@ -758,7 +758,7 @@ netTaxInterestAmount.income.error.required = Enter the company''s total net-tax 
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be to 2 decimal places or a whole number
 netTaxInterestAmount.income.error.outOfRange = The total net-tax interest income must be between {0} and {1}
 
-netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest
+netTaxInterestAmount.checkYourAnswersLabel = Net tax-interest amount
 netTaxInterestAmount.income = Income
 netTaxInterestAmount.expense = Expense
 
@@ -953,7 +953,7 @@ companyEstimatedFigures.hint = Select all that apply
 # ----------------------------------------------------------
 companyQICElection.title = Has the company made a qualifying infrastructure company (QIC) election for the return period?
 companyQICElection.heading = Has the company made a qualifying infrastructure company (QIC) election for the return period?
-companyQICElection.checkYourAnswersLabel = Has the company made a qualifying infrastructure company (QIC) election for the return period?
+companyQICElection.checkYourAnswersLabel = Qualifying infrastructure company (QIC) election
 companyQICElection.error.required = Select yes if the company made a qualifying infrastructure company (QIC) election for the return period
 
 # CompanyContainsEstimatesPage Messages
@@ -967,5 +967,5 @@ companyContainsEstimates.error.required = Select yes if there are estimated figu
 # ----------------------------------------------------------
 addNetTaxInterest.title = Does this company have a net tax-interest?
 addNetTaxInterest.heading = Does this company have a net tax-interest?
-addNetTaxInterest.checkYourAnswersLabel = Does this company have a net tax-interest?
+addNetTaxInterest.checkYourAnswersLabel = Net tax-interest
 addNetTaxInterest.error.required = Select yes if the company has a net tax-interest
