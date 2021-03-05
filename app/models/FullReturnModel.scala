@@ -54,20 +54,23 @@ object FullReturnModel {
         "startDate" -> fullReturn.aboutReturn.periodOfAccount.startDate,
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
       ),
-      {
-        if (fullReturn.ultimateParentCompany.reportingCompanySameAsParent) {
-          Json.obj("ultimateParent" -> Json.obj("companyName" -> fullReturn.aboutReturn.companyName,
-                                                              "ctutr" -> fullReturn.aboutReturn.ctutr))
-        } else {
-          fullReturn.ultimateParentCompany.hasDeemedParent match {
-            case Some(true) => Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
-              companyDetails(parent)})))
-            case _ => Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
-          }
-        }
-      }
+      toParentCompany(fullReturn)
     )
   )
+
+  private def toParentCompany(fullReturn: FullReturnModel) = {
+    if (fullReturn.ultimateParentCompany.reportingCompanySameAsParent) {
+      Json.obj("ultimateParent" -> Json.obj("companyName" -> fullReturn.aboutReturn.companyName,
+        "ctutr" -> fullReturn.aboutReturn.ctutr))
+    } else {
+      fullReturn.ultimateParentCompany.hasDeemedParent match {
+        case Some(true) => Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
+          companyDetails(parent)
+        })))
+        case _ => Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
+      }
+    }
+  }
 
   private def companyDetails(parent: DeemedParentModel) : JsObject = {
     withNoNulls(Json.obj("companyName" -> parent.companyName.name,
