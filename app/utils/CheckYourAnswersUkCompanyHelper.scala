@@ -86,6 +86,16 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def addARestriction(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.restriction.map(restriction =>
+      summaryListRow(
+        label = messages("addRestriction.checkYourAnswersLabel", Seq()),
+        value = restriction,
+        visuallyHiddenText = None,
+        (ukCompanyRoutes.AddRestrictionController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
+    ))
+
   def addAReactivation(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.reactivation.map(reactivation =>
       summaryListRow(
@@ -131,6 +141,7 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     consentingCompany(idx),
     enterCompanyTaxEBITDA(idx),
     netTaxInterestAmount(idx),
+    addARestriction(idx),
     addAReactivation(idx),
     companyReactivationAmount(idx),
     containsEstimates(idx),

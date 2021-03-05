@@ -213,9 +213,20 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       "from the AddRestrictionPage" should {
 
         //TODO: Update as part of routing subtask
-        "go to the Under Construction page" in {
-          navigator.nextPage(AddRestrictionPage, NormalMode, emptyUserAnswers) mustBe
+        "go to the Under Construction page when set to true" in {
+          val company = ukCompanyModelMax.copy(restriction = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(AddRestrictionPage, NormalMode, userAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+        "go to the CompanyContainsEstimatesPage when set to false" in {
+          val company = ukCompanyModelMax.copy(restriction = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(AddRestrictionPage, NormalMode, userAnswers) mustBe
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
