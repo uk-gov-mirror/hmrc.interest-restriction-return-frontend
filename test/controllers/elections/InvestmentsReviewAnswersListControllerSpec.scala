@@ -16,7 +16,6 @@
 
 package controllers.elections
 
-import assets.constants.NonConsolidatedInvestmentConstants._
 import assets.messages.SectionHeaderMessages
 import assets.messages.elections.InvestmentsReviewAnswersListMessages
 import base.SpecBase
@@ -34,6 +33,7 @@ class InvestmentsReviewAnswersListControllerSpec extends SpecBase with FeatureSw
   val view = injector.instanceOf[InvestmentsReviewAnswersListView]
   val formProvider = injector.instanceOf[InvestmentsReviewAnswersListFormProvider]
   val form = formProvider()
+  val investmentName = "Test"
 
   object Controller extends InvestmentsReviewAnswersListController(
     messagesApi = messagesApi,

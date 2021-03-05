@@ -16,7 +16,6 @@
 
 package utils
 
-import assets.constants.NonConsolidatedInvestmentConstants._
 import assets.messages.BaseMessages
 import controllers.elections.routes
 import base.SpecBase
@@ -26,6 +25,7 @@ import viewmodels.SummaryListRowHelper
 
 
 class InvestmentsReviewAnswersListHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+  val investmentName = "Test"
 
   "InvestmentsReviewAnswersListHelper.rows" when {
 

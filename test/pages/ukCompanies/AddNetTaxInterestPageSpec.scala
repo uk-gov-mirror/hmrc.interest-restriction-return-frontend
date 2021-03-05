@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-package assets.constants.abbreviatedReturn
+package pages.ukCompanies
 
-import assets.constants.BaseConstants
-import models.returnModels.abbreviatedReturnModel.UkCompanyModel
-import play.api.libs.json.Json
+import pages.behaviours.PageBehaviours
 
-object UkCompanyConstants extends BaseConstants {
+class AddNetTaxInterestPageSpec extends PageBehaviours {
 
-  val ukCompanyModel = UkCompanyModel(
-    companyName = companyNameModel,
-    ctutr = ctutrModel,
-    consenting = true
-  )
+  "AddNetTaxInterestPage" must {
 
-  val ukCompanyJson = Json.obj(
-    "companyName" -> companyNameModel,
-    "ctutr" -> ctutrModel,
-    "consenting" -> true
-  )
+    beRetrievable[Boolean](AddNetTaxInterestPage)
+
+    beSettable[Boolean](AddNetTaxInterestPage)
+
+    beRemovable[Boolean](AddNetTaxInterestPage)
+  }
 }

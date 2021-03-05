@@ -14,22 +14,32 @@
  * limitations under the License.
  */
 
-package models.returnModels.appointReportingCompany
+package forms.ukCompanies
 
-import assets.constants.AuthorisingCompanyConstants._
-import org.scalatest.{MustMatchers, WordSpec}
-import play.api.libs.json.Json
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-class AuthorisingCompanyModelSpec extends WordSpec with MustMatchers {
+class AddNetTaxInterestFormProviderSpec extends BooleanFieldBehaviours {
 
-  "AuthorisingCompanyModel" must {
+  val requiredKey = "addNetTaxInterest.error.required"
+  val invalidKey = "error.boolean"
 
-    "correctly write to json" in {
+  val form = new AddNetTaxInterestFormProvider()()
 
-      val expectedValue = authorisingCompanyJson
-      val actualValue = Json.toJson(authorisingCompanyModel)
+  ".value" must {
 
-      actualValue mustBe expectedValue
-    }
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
   }
 }

@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package models.returnModels
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import play.api.libs.json.Json
+case object AddNetTaxInterestPage extends QuestionPage[Boolean] {
 
-case class IdentityOfCompanySubmittingModel(companyName: CompanyNameModel,
-                                            ctutr: Option[UTRModel],
-                                            crn: Option[CRNModel],
-                                            countryOfIncorporation: Option[CountryCodeModel],
-                                            nonUkCrn: Option[String])
+  override def path: JsPath = JsPath \ toString
 
-object IdentityOfCompanySubmittingModel {
-
-  implicit val writes = Json.writes[IdentityOfCompanySubmittingModel]
+  override def toString: String = "addNetTaxInterest"
 }

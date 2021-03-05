@@ -53,6 +53,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case Some(false) => checkYourAnswers(idx)
       case _ => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
     }),
+    AddNetTaxInterestPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx))
   )
 

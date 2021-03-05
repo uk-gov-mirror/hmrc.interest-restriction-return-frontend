@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package models.returnModels
+package forms.ukCompanies
 
-import play.api.libs.json.Json
+import javax.inject.Inject
 
-case class GroupCompanyDetailsModel(totalCompanies: Int,
-                                    accountingPeriod: AccountingPeriodModel)
+import forms.mappings.Mappings
+import play.api.data.Form
 
-object GroupCompanyDetailsModel {
+class AddNetTaxInterestFormProvider @Inject() extends Mappings {
 
-  implicit val writes = Json.writes[GroupCompanyDetailsModel]
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("addNetTaxInterest.error.required")
+    )
 }
