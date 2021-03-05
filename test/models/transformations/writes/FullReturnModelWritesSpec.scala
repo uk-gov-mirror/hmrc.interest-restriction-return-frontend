@@ -19,7 +19,7 @@ package models.transformations.writes
 import generators.ModelGenerators
 import models.FullReturnModel
 import models.returnModels.{AgentDetailsModel, UTRModel}
-import models.sections.{AboutReturnSectionModel, UltimateParentCompanySectionModel}
+import models.sections.{AboutReturnSectionModel}
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsValue, Json}
@@ -185,6 +185,17 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
         }
       }
+    }
+  }
+
+  "JSON Null removers" should {
+    "Remove null elements in a JSON obj" in {
+      val car : Option[String] = None
+      val json = Json.obj("test" -> "car", "test2" -> car)
+
+      val result = FullReturnModel.withNoNulls(json)
+
+      result mustEqual Json.obj("test" -> "car")
     }
   }
 }

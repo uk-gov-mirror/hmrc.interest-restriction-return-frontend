@@ -19,7 +19,7 @@ package models
 import models.returnModels.{AgentDetailsModel, DeemedParentModel}
 import models.sections._
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsArray, JsObject, JsPath, Json, Writes}
+import play.api.libs.json.{JsArray, JsNull, JsObject, JsPath, JsValue, Json, Writes}
 
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
@@ -61,20 +61,24 @@ object FullReturnModel {
         } else {
           if (fullReturn.ultimateParentCompany.hasDeemedParent == Some(true)) {
             Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
-                deemedParent(parent)
+                companyDetails(parent)
               })))
           } else {
-            Json.obj("ultimateParent" -> deemedParent(fullReturn.ultimateParentCompany.parentCompanies.head))
+            Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
           }
         }
       }
     )
   )
 
-  private def deemedParent(parent: DeemedParentModel) = {
-    Json.obj("companyName" -> parent.companyName.name,
+  private def companyDetails(parent: DeemedParentModel) = {
+    withNoNulls(Json.obj("companyName" -> parent.companyName.name,
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
-      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
+      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code)))
+  }
+
+  def withNoNulls(json : JsObject): JsObject = {
+    JsObject(json.fields.filterNot(c => c._2 == JsNull))
   }
 }
