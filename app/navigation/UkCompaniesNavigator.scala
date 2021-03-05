@@ -33,9 +33,9 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   val normalRoutes: Map[Page, (Int, UserAnswers) => Call] = Map(
     AboutAddingUKCompaniesPage -> ((idx, _) => routes.CompanyDetailsController.onPageLoad(idx, NormalMode)),
     CompanyDetailsPage -> ((idx, _) => routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)),
-    EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)),
+    EnterCompanyTaxEBITDAPage -> ((idx, _) => routes.AddNetTaxInterestController.onPageLoad(idx, NormalMode)),
     NetTaxInterestIncomeOrExpensePage -> ((idx, _) => routes.NetTaxInterestAmountController.onPageLoad(idx, NormalMode)),
-    NetTaxInterestAmountPage -> ((idx, userAnswers) => netTaxInterestAmountPageNormalRoute(idx, userAnswers)),
+    NetTaxInterestAmountPage -> afterNetTaxInterestPagesNormalRoute,
     ConsentingCompanyPage -> ((idx, userAnswers) => routes.CompanyQICElectionController.onPageLoad(idx, NormalMode)),
     AddAnReactivationQueryPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.reactivation) match {
       case Some(true) => routes.ReactivationAmountController.onPageLoad(idx, NormalMode)
@@ -63,7 +63,14 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case Some(false) => checkYourAnswers(idx)
       case _ => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
     }),
-    AddNetTaxInterestPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    AddNetTaxInterestPage -> ((idx, userAnswers) => {
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      ukCompany.flatMap(_.addNetTaxInterest) match {
+        case Some(true) => routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
+        case Some(false) => afterNetTaxInterestPagesNormalRoute(idx, userAnswers)
+        case _ => routes.AddNetTaxInterestController.onPageLoad(idx, NormalMode)
+      }
+    }),
     CompanyEstimatedFiguresPage -> ((idx, _) => checkYourAnswers(idx))
   )
 
@@ -100,7 +107,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     case ReviewMode => reviewRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
   }
 
-  def netTaxInterestAmountPageNormalRoute(idx: Int, userAnswers: UserAnswers): Call = {
+  def afterNetTaxInterestPagesNormalRoute(idx: Int, userAnswers: UserAnswers): Call = {
     val groupSubjectToRestrictions = userAnswers.get(GroupSubjectToRestrictionsPage)
     val incomeOrExpense = userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.netTaxInterestIncomeOrExpense)
     val groupSubjectToReactivations = userAnswers.get(GroupSubjectToReactivationsPage)

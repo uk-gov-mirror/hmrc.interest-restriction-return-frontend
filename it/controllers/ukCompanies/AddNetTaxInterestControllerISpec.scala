@@ -18,6 +18,7 @@ package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
 import assets.UkCompanyITConstants.ukCompanyModelMax
+import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -83,7 +84,7 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode).url)
               )
             }
           }
