@@ -44,7 +44,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     }),
     ReactivationAmountPage -> ((idx, _) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
     CheckAnswersUkCompanyPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
-    UkCompaniesPage -> ((idx, _) => routes.CheckAnswersUkCompanyController.onPageLoad(idx)),
+    UkCompaniesPage -> ((idx, _) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.restriction) match {
       case Some(true)   => controllers.routes.UnderConstructionController.onPageLoad() //TODO: Update as part of routing subtask
