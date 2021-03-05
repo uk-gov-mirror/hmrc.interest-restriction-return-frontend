@@ -23,6 +23,8 @@ import models.CompanyEstimatedFigures._
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import assets.constants.fullReturn.UkCompanyConstants._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
+import models.FullOrAbbreviatedReturn._
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -259,6 +261,44 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
+
+      "from the CompanyQICElectionPage" should {
+        "go to the EnterCompanyTaxEBITDAController when true & in full return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).success.value
+            .set(CompanyQICElectionPage, true).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+        }
+
+        "go to the EnterCompanyTaxEBITDAController when false & in full return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).success.value
+            .set(CompanyQICElectionPage, false).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+        }
+
+        "go to the CheckAnswersUkCompanyController when true & in abbreviated return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
+            .set(CompanyQICElectionPage, true).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CheckAnswersUkCompanyController when false & in abbreviated return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
+            .set(CompanyQICElectionPage, false).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
     }
 
     "in Check mode" must {
@@ -292,7 +332,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           navigator.nextPage(CompanyContainsEstimatesPage, CheckMode, userAnswers, Some(1)) mustBe
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
-      } 
+      }
 
       "from the AddAnReactivationQueryPage" should {
 
@@ -321,6 +361,23 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
+
+      "from the CompanyQICElectionPage" should {
+        "go to the CheckAnswersUkCompanyController when false" in {
+          val userAnswers = emptyUserAnswers.set(CompanyQICElectionPage, false).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CheckAnswersUkCompanyController when true" in {
+          val userAnswers = emptyUserAnswers.set(CompanyQICElectionPage, true).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
+
     }
 
     "in Review mode" must {

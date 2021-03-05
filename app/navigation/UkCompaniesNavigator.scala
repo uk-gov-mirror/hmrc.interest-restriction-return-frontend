@@ -18,8 +18,10 @@ package navigation
 
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
-import pages.{ukCompanies, _}
+import pages._
 import pages.groupLevelInformation._
 import pages.ukCompanies._
 import play.api.mvc.Call
@@ -47,7 +49,11 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     AddRestrictionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
     RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
-    CompanyQICElectionPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    CompanyQICElectionPage -> ((idx, userAnswers) => userAnswers.get(FullOrAbbreviatedReturnPage) match {
+      case Some(Full) => controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)
+      case Some(Abbreviated) => controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(idx)
+      case _ => controllers.routes.UnderConstructionController.onPageLoad()
+    }),
     CompanyContainsEstimatesPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.containsEstimates) match {
       case Some(true) => routes.CompanyEstimatedFiguresController.onPageLoad(idx, NormalMode)
       case Some(false) => checkYourAnswers(idx)
@@ -72,7 +78,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
         case _ => checkYourAnswers(idx)
       }
     })
-  ).withDefaultValue((idx, _) => checkYourAnswers(idx))
+    ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
     ReactivationAmountPage -> ((_, _) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
@@ -81,9 +87,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   ).withDefaultValue((_, _) => controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
-
   def nextSection(mode: Mode): Call = controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
-
   def addCompany(numberOfCompanies: Int): Call = routes.CompanyDetailsController.onPageLoad(numberOfCompanies + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
