@@ -16,7 +16,7 @@
 
 package models
 
-import models.returnModels.AgentDetailsModel
+import models.returnModels.{AgentDetailsModel, DeemedParentModel}
 import models.sections._
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsArray, JsObject, JsPath, Json, Writes}
@@ -60,22 +60,21 @@ object FullReturnModel {
                                                               "ctutr" -> fullReturn.aboutReturn.ctutr))
         } else {
           if (fullReturn.ultimateParentCompany.hasDeemedParent == Some(true)) {
-            val deemedParents: Seq[JsObject] = fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
-              Json.obj("companyName" -> parent.companyName.name,
-                "ctutr" -> parent.ctutr,
-                "sautr" -> parent.sautr,
-                "countryOfIncorporation" -> parent.countryOfIncorporation.map(c=>c.code))
-            })
-
-            Json.obj("deemedParent" -> JsArray(deemedParents))
+            Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
+                deemedParent(parent)
+              })))
           } else {
-            Json.obj("ultimateParent" -> Json.obj("companyName" -> fullReturn.ultimateParentCompany.parentCompanies.head.companyName.name,
-              "ctutr" -> fullReturn.ultimateParentCompany.parentCompanies.head.ctutr,
-              "sautr" -> fullReturn.ultimateParentCompany.parentCompanies.head.sautr,
-              "countryOfIncorporation" -> fullReturn.ultimateParentCompany.parentCompanies.head.countryOfIncorporation.map(c=>c.code)))
+            Json.obj("ultimateParent" -> deemedParent(fullReturn.ultimateParentCompany.parentCompanies.head))
           }
         }
       }
     )
   )
+
+  private def deemedParent(parent: DeemedParentModel) = {
+    Json.obj("companyName" -> parent.companyName.name,
+      "ctutr" -> parent.ctutr,
+      "sautr" -> parent.sautr,
+      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
+  }
 }

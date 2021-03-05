@@ -153,29 +153,34 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
               ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(true),
                 parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)))
 
-            "Have a company name" in {
+            "Have a company name in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
               (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).companyName.name
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).companyName.name
             }
 
-            "Have a ctutr if one available" in {
+            "Have a ctutr if one available in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
               (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).ctutr
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).ctutr
             }
 
-            "Have a sautr if one available" in {
+            "Have a sautr if one available in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
               (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).sautr
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).sautr
             }
 
-            "Have a country of incorporation if one available" in {
+            "Have a country of incorporation if one available in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
               (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "countryOfIncorporation").asOpt[String] mustEqual
                 fullReturn.ultimateParentCompany.parentCompanies(0).countryOfIncorporation.map(c=>c.code)
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "countryOfIncorporation").asOpt[String] mustEqual
+                fullReturn.ultimateParentCompany.parentCompanies(1).countryOfIncorporation.map(c=>c.code)
             }
           }
         }
