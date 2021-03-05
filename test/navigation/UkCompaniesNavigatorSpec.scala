@@ -45,10 +45,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the CompanyDetailsPage" should {
 
-        "to the EnterCompanyTaxEBITDAPage" in {
+        "to the ConsentingCompanyPage" in {
 
           navigator.nextPage(CompanyDetailsPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+            routes.ConsentingCompanyController.onPageLoad(1, NormalMode)
         }
       }
 
