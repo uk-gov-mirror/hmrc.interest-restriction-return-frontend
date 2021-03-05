@@ -59,19 +59,17 @@ object FullReturnModel {
           Json.obj("ultimateParent" -> Json.obj("companyName" -> fullReturn.aboutReturn.companyName,
                                                               "ctutr" -> fullReturn.aboutReturn.ctutr))
         } else {
-          if (fullReturn.ultimateParentCompany.hasDeemedParent == Some(true)) {
-            Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
-                companyDetails(parent)
-              })))
-          } else {
-            Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
+          fullReturn.ultimateParentCompany.hasDeemedParent match {
+            case Some(true) => Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
+              companyDetails(parent)})))
+            case _ => Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
           }
         }
       }
     )
   )
 
-  private def companyDetails(parent: DeemedParentModel) = {
+  private def companyDetails(parent: DeemedParentModel) : JsObject = {
     withNoNulls(Json.obj("companyName" -> parent.companyName.name,
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
