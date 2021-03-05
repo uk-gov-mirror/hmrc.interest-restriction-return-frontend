@@ -311,7 +311,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "go to the Check your Answers page" in {
           navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
         }
       }
 
