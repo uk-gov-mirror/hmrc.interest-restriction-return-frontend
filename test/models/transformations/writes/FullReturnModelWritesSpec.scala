@@ -18,8 +18,8 @@ package models.transformations.writes
 
 import generators.ModelGenerators
 import models.FullReturnModel
-import models.returnModels.AgentDetailsModel
-import models.sections.{AboutReturnSectionModel, UltimateParentCompanySectionModel}
+import models.returnModels.{AgentDetailsModel, UTRModel}
+import models.sections.{AboutReturnSectionModel}
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsValue, Json}
@@ -29,74 +29,175 @@ import java.time.LocalDate
 class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues with ModelGenerators {
   "The AboutReturnSectionModel section of a Full Return" when {
     val aboutReturn : AboutReturnSectionModel = aboutReturnSectionModel.sample.value
-    val ultimateParent  = UltimateParentCompanySectionModel(true,None,Seq())
+    val ultimateParent  = ultimateParentCompanySectionModel.sample.value
     val fullReturn = FullReturnModel(aboutReturn,ultimateParent)
 
-    "Mapping to an accepted interest-restriction-returns payload" should {
-      "contain the `appointedReportingCompany`" in {
-        val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
-
-        (mappedAboutReturn \ "appointedReportingCompany").as[Boolean] mustEqual aboutReturn.appointedReportingCompany
-      }
-
-      "contain the `agentDetails`" when {
-        "there is no agent" in {
-          val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent)
-
+    "Mapping to an accepted interest-restriction-returns payload" when {
+      "Mapping the About Your Return section" should {
+        "contain the `appointedReportingCompany`" in {
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-          (mappedAboutReturn \ "agentDetails" \ "agentActingOnBehalfOfCompany").as[Boolean] mustEqual false
-          (mappedAboutReturn \ "agentDetails" \ "agentName").asOpt[String] mustEqual None
+          (mappedAboutReturn \ "appointedReportingCompany").as[Boolean] mustEqual aboutReturn.appointedReportingCompany
         }
 
-        "there is an agent" in {
-          val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent)
+        "contain the `agentDetails`" when {
+          "there is no agent" in {
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent)
 
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "agentDetails" \ "agentActingOnBehalfOfCompany").as[Boolean] mustEqual false
+            (mappedAboutReturn \ "agentDetails" \ "agentName").asOpt[String] mustEqual None
+          }
+
+          "there is an agent" in {
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent)
+
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "agentDetails" \ "agentActingOnBehalfOfCompany").as[Boolean] mustEqual true
+            (mappedAboutReturn \ "agentDetails" \ "agentName").asOpt[String] mustEqual Some("Bob")
+          }
+        }
+
+        "contain the `submissionType`" when {
+          "it is a revised return" in {
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent)
+
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "submissionType").as[String] mustEqual "revised"
+          }
+
+          "it is an original return" in {
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent)
+
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "submissionType").as[String] mustEqual "original"
+          }
+        }
+
+        "contain the `revisedReturnDetails`" in {
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-          (mappedAboutReturn \ "agentDetails" \ "agentActingOnBehalfOfCompany").as[Boolean] mustEqual true
-          (mappedAboutReturn \ "agentDetails" \ "agentName").asOpt[String] mustEqual Some("Bob")
+          (mappedAboutReturn \ "revisedReturnDetails").asOpt[String] mustEqual aboutReturn.revisedReturnDetails
         }
-      }
 
-      "contain the `submissionType`" when {
-        "it is a revised return" in {
-          val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent)
-
+        "contain the `reportingCompany`" in {
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-          (mappedAboutReturn \ "submissionType").as[String] mustEqual "revised"
+          (mappedAboutReturn \ "reportingCompany" \ "companyName").as[String] mustEqual aboutReturn.companyName.name
+          (mappedAboutReturn \ "reportingCompany" \ "ctutr").as[String] mustEqual aboutReturn.ctutr.utr
+          (mappedAboutReturn \ "reportingCompany" \ "sameAsUltimateParent").as[Boolean] mustEqual fullReturn.ultimateParentCompany.reportingCompanySameAsParent
         }
 
-        "it is an original return" in {
-          val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent)
-
+        "contain the `accountingPeriod`" in {
           val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-          (mappedAboutReturn \ "submissionType").as[String] mustEqual "original"
+          (mappedAboutReturn \ "groupCompanyDetails" \ "accountingPeriod" \ "startDate").as[LocalDate] mustEqual aboutReturn.periodOfAccount.startDate
+          (mappedAboutReturn \ "groupCompanyDetails" \ "accountingPeriod" \ "endDate").as[LocalDate] mustEqual aboutReturn.periodOfAccount.endDate
         }
       }
 
-      "contain the `revisedReturnDetails`" in {
-        val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+      "Mapping the Parent Company" when {
+        "The Reporting Company is the same as The Parent Company" should {
+          val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn, ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = true))
 
-        (mappedAboutReturn \ "revisedReturnDetails").asOpt[String] mustEqual aboutReturn.revisedReturnDetails
+          "Have a company name" in {
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "companyName").as[String] mustEqual fullReturn.aboutReturn.companyName.name
+          }
+
+          "Have a ctutr if one available" in {
+            val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "ctutr").as[String] mustEqual fullReturn.aboutReturn.ctutr.utr
+          }
+        }
+
+        "The Reporting Company is not the same as The Parent Company" when {
+          "We are not deemed parent" should {
+            val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
+              ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(false),
+                parentCompanies = Seq(deemedParentSectionModel.sample.value)))
+
+
+            "Have a company name" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.companyName.name
+            }
+
+            "Have a ctutr if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.ctutr
+            }
+
+            "Have a sautr if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.sautr
+            }
+
+            "Have a country of incorporation if one available" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "countryOfIncorporation").asOpt[String] mustEqual
+                fullReturn.ultimateParentCompany.parentCompanies.head.countryOfIncorporation.map(c=>c.code)
+            }
+          }
+
+          "We are deemed parent" should {
+            val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
+              ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(true),
+                parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)))
+
+            "Have a company name in all deemed parents" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).companyName.name
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "companyName").as[String] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).companyName.name
+            }
+
+            "Have a ctutr if one available in all deemed parents" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).ctutr
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "ctutr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).ctutr
+            }
+
+            "Have a sautr if one available in all deemed parents" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).sautr
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "sautr").asOpt[UTRModel] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).sautr
+            }
+
+            "Have a country of incorporation if one available in all deemed parents" in {
+              val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "countryOfIncorporation").asOpt[String] mustEqual
+                fullReturn.ultimateParentCompany.parentCompanies(0).countryOfIncorporation.map(c=>c.code)
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "countryOfIncorporation").asOpt[String] mustEqual
+                fullReturn.ultimateParentCompany.parentCompanies(1).countryOfIncorporation.map(c=>c.code)
+            }
+          }
+        }
       }
+    }
+  }
 
-      "contain the `reportingCompany`" in {
-        val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+  "JSON Null removers" should {
+    "Remove null elements in a JSON obj" in {
+      val car : Option[String] = None
+      val json = Json.obj("test" -> "car", "test2" -> car)
 
-        (mappedAboutReturn \ "reportingCompany" \ "companyName").as[String] mustEqual aboutReturn.companyName.name
-        (mappedAboutReturn \ "reportingCompany" \ "ctutr").as[String] mustEqual aboutReturn.ctutr.utr
-        (mappedAboutReturn \ "reportingCompany" \ "sameAsUltimateParent").as[Boolean] mustEqual fullReturn.ultimateParentCompany.reportingCompanySameAsParent
-      }
+      val result = FullReturnModel.withNoNulls(json)
 
-      "contain the `accountingPeriod`" in {
-        val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
-
-        (mappedAboutReturn \ "groupCompanyDetails" \ "accountingPeriod" \ "startDate").as[LocalDate] mustEqual aboutReturn.periodOfAccount.startDate
-        (mappedAboutReturn \ "groupCompanyDetails" \ "accountingPeriod" \ "endDate").as[LocalDate] mustEqual aboutReturn.periodOfAccount.endDate
-      }
+      result mustEqual Json.obj("test" -> "car")
     }
   }
 }

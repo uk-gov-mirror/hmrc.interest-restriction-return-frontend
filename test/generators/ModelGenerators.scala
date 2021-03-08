@@ -100,4 +100,30 @@ trait ModelGenerators {
         date <- localDateGen
       } yield AboutReturnSectionModel(hasAppointedReportingCompany, AgentDetailsModel(agentOnBehalfCompany, agentName),
         fullOrAbbr, isRevising, revisedReturnDetails, CompanyNameModel(companyName), UTRModel(ctUtr), AccountingPeriodModel(date, date))
+
+  implicit lazy val utrModel : Gen[UTRModel] = arbitrary[String].map(utr => UTRModel(utr))
+
+  implicit lazy val cuontryCodeModel : Gen[CountryCodeModel] =
+    for{
+      code <- arbitrary[String]
+      country <- arbitrary[String]
+    } yield CountryCodeModel(code,country)
+
+  implicit lazy val deemedParentSectionModel : Gen[DeemedParentModel] =
+    for {
+      companyName <- arbitrary[String]
+      ctUtr <- Gen.option(utrModel)
+      saUtr <- Gen.option(utrModel)
+      country <- Gen.option(cuontryCodeModel)
+      liability <- arbitrary[Option[Boolean]]
+      payTaxInUk <- arbitrary[Option[Boolean]]
+      isSameAsParent <- arbitrary[Option[Boolean]]
+    } yield DeemedParentModel(CompanyNameModel(companyName),ctUtr,saUtr,country,liability,payTaxInUk,isSameAsParent)
+
+  implicit lazy val ultimateParentCompanySectionModel : Gen[UltimateParentCompanySectionModel] =
+    for {
+      isSameAsParent <- arbitrary[Boolean]
+      hasDeemedParent <- arbitrary[Option[Boolean]]
+      parentCompanies <- Gen.listOf(deemedParentSectionModel)
+    } yield UltimateParentCompanySectionModel(isSameAsParent,hasDeemedParent,parentCompanies.toSeq)
 }
