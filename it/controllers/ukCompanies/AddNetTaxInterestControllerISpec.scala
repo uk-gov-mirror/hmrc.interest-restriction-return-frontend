@@ -88,6 +88,24 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
               )
             }
           }
+
+          "redirect to AddNetTaxInterest page for index 2" in {
+
+            val idx = 2
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get)
+
+            val res = postRequest(s"/uk-companies/$idx/add-net-tax-interest", Json.obj("value" -> "true"))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode).url)
+              )
+            }
+          }
         }
       }
 

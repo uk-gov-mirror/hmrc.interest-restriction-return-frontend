@@ -68,7 +68,7 @@ class CompanyQICElectionController @Inject()(
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CompanyQICElectionPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(CompanyQICElectionPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

@@ -97,6 +97,26 @@ class CompanyQICElectionControllerISpec extends IntegrationSpecBase with CreateR
               )
             }
           }
+
+          "redirect to companyTaxEBITDA page for index 2" in {
+            
+            val idx = 2
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers
+              .set(FullOrAbbreviatedReturnPage, Full).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get)
+
+            val res = postRequest(s"/uk-companies/$idx/company-qic-election", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode).url)
+              )
+            }
+          }
         }
       }
 
