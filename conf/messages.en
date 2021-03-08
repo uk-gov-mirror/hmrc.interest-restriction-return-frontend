@@ -811,6 +811,7 @@ accountingPeriod.end.error.invalid = You must enter a valid date
 accountingPeriod.end.error.required.two = You must enter a valid date
 accountingPeriod.end.error.required.all = You must enter a valid date
 accountingPeriod.end.error.range = End Date must be after Start Date, and must be no more than 18 months after Start Date
+accountingPeriod.end.error.range.below = End date must be the same as or after 1 April 2017
 accountingPeriod.end.hint = For example, 27 6 2019
 
 # PartnershipsReviewAnswersListPage Messages

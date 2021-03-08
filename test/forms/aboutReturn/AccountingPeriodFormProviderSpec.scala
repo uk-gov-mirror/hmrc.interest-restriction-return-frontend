@@ -29,6 +29,7 @@ class AccountingPeriodFormProviderSpec extends FieldBehaviours {
   val form = new AccountingPeriodFormProvider()()
   val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
   val min = LocalDate.of(2016, 10, 1)
+  val minEndDate = LocalDate.of(2017, 4, 1)
 
   "The dates in the form" should {
 
@@ -59,7 +60,7 @@ class AccountingPeriodFormProviderSpec extends FieldBehaviours {
     }
 
     "fail validation if 1 day before the min date" in {
-      val model = AccountingPeriodModel(min.minusDays(1L), min)
+      val model = AccountingPeriodModel(min.minusDays(1L), minEndDate)
       val errors = fillForm(form, model).errors
       errors.length mustBe 1
       errors.head mustBe FormError("", "accountingPeriod.start.error.range.below")
@@ -108,13 +109,26 @@ class AccountingPeriodFormProviderSpec extends FieldBehaviours {
       fillForm(form, model).errors.length mustBe 1
     }
 
+    "fail validation if 1 day before the min date" in {
+      val model = AccountingPeriodModel(min, minEndDate.minusDays(1L))
+      val errors = fillForm(form, model).errors
+      errors.length mustBe 1
+      errors.head mustBe FormError("", "accountingPeriod.end.error.range.below")
+    }
+
+    "pass validation if on the min date" in {
+      val model = AccountingPeriodModel(min, minEndDate)
+      val errors = fillForm(form, model).errors
+      errors.length mustBe 0
+    }
+
   }
 
   def dateFields(form: Form[AccountingPeriodModel], validData: Gen[LocalDate]): Unit = {
     "bind valid data" in {
       forAll(validData -> "valid date") {
         date =>
-          val datePlusOneMonth = date.plusMonths(1L)        
+          val datePlusOneMonth = date.plusMonths(6L)        
           val result = fillForm(form, AccountingPeriodModel(date, datePlusOneMonth))
           result.value.value mustEqual AccountingPeriodModel(date, datePlusOneMonth)
       }
