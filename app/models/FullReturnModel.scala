@@ -38,7 +38,8 @@ object FullReturnModel {
       (JsPath \ "revisedReturnDetails").writeNullable[String] and
       (JsPath \ "reportingCompany").write[JsObject] and
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
-      (JsPath \ "parentCompany").write[JsObject]
+      (JsPath \ "parentCompany").write[JsObject] and
+      (JsPath \ "groupLevelElections").writeNullable[JsObject]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -54,7 +55,12 @@ object FullReturnModel {
         "startDate" -> fullReturn.aboutReturn.periodOfAccount.startDate,
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
       ),
-      toParentCompany(fullReturn)
+      toParentCompany(fullReturn),
+      {
+        fullReturn.elections.map(election => {
+          Json.obj("groupRatio" -> Json.obj("isElected" -> election.groupRatioIsElected))
+        })
+      }
     )
   )
 

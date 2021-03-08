@@ -30,7 +30,8 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
   "The AboutReturnSectionModel section of a Full Return" when {
     val aboutReturn : AboutReturnSectionModel = aboutReturnSectionModel.sample.value
     val ultimateParent  = ultimateParentCompanySectionModel.sample.value
-    val fullReturn = FullReturnModel(aboutReturn,ultimateParent)
+    val groupRatioElection = electionsSectionModel.sample.value
+    val fullReturn = FullReturnModel(aboutReturn,ultimateParent,Some(groupRatioElection))
 
     "Mapping to an accepted interest-restriction-returns payload" when {
       "Mapping the About Your Return section" should {
@@ -185,6 +186,14 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
                 fullReturn.ultimateParentCompany.parentCompanies(1).countryOfIncorporation.map(c=>c.code)
             }
           }
+        }
+      }
+
+      "Mapping the Elections Section" should {
+        "Whether if the group ratio is elected" in {
+          val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+          (mappedElection \ "groupLevelElections" \ "groupRatio" \ "isElected").as[Boolean] mustEqual groupRatioElection.groupRatioIsElected
         }
       }
     }
