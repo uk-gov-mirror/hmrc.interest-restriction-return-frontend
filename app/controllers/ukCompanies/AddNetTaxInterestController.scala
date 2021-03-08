@@ -49,7 +49,7 @@ class AddNetTaxInterestController @Inject()(
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(
         Ok(view(
-          form = fillForm(AddNetTaxInterestPage, formProvider()),
+          form = ukCompany.addNetTaxInterest.fold(formProvider())(formProvider().fill),
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.AddNetTaxInterestController.onSubmit(idx, mode)
         ))

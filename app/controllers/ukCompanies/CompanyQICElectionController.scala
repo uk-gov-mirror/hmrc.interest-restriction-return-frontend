@@ -48,7 +48,7 @@ class CompanyQICElectionController @Inject()(
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(Ok(view(
-        form = fillForm(CompanyQICElectionPage, formProvider()),
+        form = ukCompany.qicElection.fold(formProvider())(formProvider().fill),
         companyName = ukCompany.companyDetails.companyName,
         postAction = routes.CompanyQICElectionController.onSubmit(idx, mode))))
     }
