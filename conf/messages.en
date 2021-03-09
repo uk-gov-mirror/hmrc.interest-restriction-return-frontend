@@ -892,6 +892,7 @@ restrictionAmountSameAP.error.nonNumeric = Enter the restriction amount using nu
 restrictionAmountSameAP.error.required = Enter the restriction amount for this company
 restrictionAmountSameAP.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
 restrictionAmountSameAP.error.outOfRange = Restriction amount must be between {0} and {1}
+restrictionAmountSameAP.error.expenseAmount = A company cannot have a restriction greater than it's next tax expense
 
 # TellUsWhatHasChangedPage Messages
 # ----------------------------------------------------------
@@ -970,3 +971,10 @@ addNetTaxInterest.title = Does this company have a net tax-interest?
 addNetTaxInterest.heading = Does this company have a net tax-interest?
 addNetTaxInterest.checkYourAnswersLabel = Net tax-interest
 addNetTaxInterest.error.required = Select yes if the company has a net tax-interest
+
+# AddRestrictionAmountPage Messages
+# ----------------------------------------------------------
+addRestrictionAmount.title = Do you want to add a restriction amount for the accounting period?
+addRestrictionAmount.heading = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.checkYourAnswersLabel = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.error.required = Select yes if Do you want to add a restriction amount for this accounting period?

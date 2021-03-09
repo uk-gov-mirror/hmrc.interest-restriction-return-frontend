@@ -23,6 +23,7 @@ import pages.aboutReturn.AccountingPeriodPage
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
+import models.NormalMode
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import models.returnModels.AccountingPeriodModel
@@ -75,7 +76,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
 
         "enters a valid answer" should {
 
-          "redirect to UnderConstruction page" in {
+          "redirect to CompanyEstimatedFiguresController page" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers
@@ -83,12 +84,12 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
               .set(AccountingPeriodPage, AccountingPeriodModel(startDate, endDate)).get
             )
 
-            val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
+            val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 1.01))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.ukCompanies.routes.CompanyEstimatedFiguresController.onPageLoad(1, NormalMode).url)
               )
             }
           }
@@ -101,7 +102,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
+          val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 1.01))()
 
           whenReady(res) { result =>
             result should have(
@@ -168,7 +169,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
               .set(AccountingPeriodPage, AccountingPeriodModel(startDate, endDate)).get
             )
 
-            val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period/change", Json.obj("value" -> 123456))()
+            val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period/change", Json.obj("value" -> 1.01))()
 
             whenReady(res) { result =>
               result should have(
@@ -186,7 +187,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
 
           AuthStub.unauthorised()
 
-          val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 123456))()
+          val res = postRequest("/uk-companies/1/restriction-amount-same-accounting-period", Json.obj("value" -> 1.01))()
 
           whenReady(res) { result =>
             result should have(
@@ -197,6 +198,5 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
         }
       }
     }
-
   }
 }
