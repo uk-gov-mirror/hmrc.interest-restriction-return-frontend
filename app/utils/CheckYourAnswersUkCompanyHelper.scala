@@ -66,6 +66,15 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def qicElection(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.qicElection.map(qicElection =>
+      ukCompanyAnswer(
+        page = CompanyQICElectionPage,
+        value = qicElection,
+        changeLinkCall = ukCompanyRoutes.CompanyQICElectionController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
   def enterCompanyTaxEBITDA(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.taxEBITDA.map(taxEBITDA =>
       summaryListRow(
@@ -76,6 +85,15 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
       )
     ))
 
+  def addNetTaxInterest(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.addNetTaxInterest.map(addNetTaxInterest =>
+      ukCompanyAnswer(
+        page = AddNetTaxInterestPage,
+        value = addNetTaxInterest,
+        changeLinkCall = ukCompanyRoutes.AddNetTaxInterestController.onPageLoad(idx, CheckMode)
+      )
+    ))
+
   def netTaxInterestAmount(idx: Int): Option[SummaryListRow] =
     ukCompanyModel(idx).flatMap(_.netTaxInterest.map(netTaxInterest =>
       summaryListRow(
@@ -83,6 +101,16 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
         value = s"${currencyFormat(netTaxInterest)} ${incomeOrExpense(idx)}",
         visuallyHiddenText = None,
         (ukCompanyRoutes.NetTaxInterestAmountController.onPageLoad(idx, CheckMode), messages("site.edit"))
+      )
+    ))
+
+  def addARestriction(idx: Int): Option[SummaryListRow] =
+    ukCompanyModel(idx).flatMap(_.restriction.map(restriction =>
+      summaryListRow(
+        label = messages("addRestriction.checkYourAnswersLabel", Seq()),
+        value = restriction,
+        visuallyHiddenText = None,
+        (ukCompanyRoutes.AddRestrictionController.onPageLoad(idx, CheckMode), messages("site.edit"))
       )
     ))
 
@@ -129,8 +157,11 @@ class CheckYourAnswersUkCompanyHelper(val userAnswers: UserAnswers)
     companyName(idx),
     ctutr(idx),
     consentingCompany(idx),
+    qicElection(idx),
     enterCompanyTaxEBITDA(idx),
+    addNetTaxInterest(idx),
     netTaxInterestAmount(idx),
+    addARestriction(idx),
     addAReactivation(idx),
     companyReactivationAmount(idx),
     containsEstimates(idx),

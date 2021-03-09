@@ -49,7 +49,7 @@ class AddNetTaxInterestController @Inject()(
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(
         Ok(view(
-          form = fillForm(AddNetTaxInterestPage, formProvider()),
+          form = ukCompany.addNetTaxInterest.fold(formProvider())(formProvider().fill),
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.AddNetTaxInterestController.onSubmit(idx, mode)
         ))
@@ -73,7 +73,7 @@ class AddNetTaxInterestController @Inject()(
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(AddNetTaxInterestPage, mode, updatedAnswers))
+          } yield Redirect(navigator.nextPage(AddNetTaxInterestPage, mode, updatedAnswers, Some(idx)))
         }
       )
     }

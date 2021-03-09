@@ -16,13 +16,15 @@
 
 package navigation
 
+import assets.constants.fullReturn.UkCompanyConstants._
 import base.SpecBase
 import controllers.ukCompanies.routes
 import models._
 import models.CompanyEstimatedFigures._
-import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
-import assets.constants.fullReturn.UkCompanyConstants._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
+import models.FullOrAbbreviatedReturn._
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -43,20 +45,125 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the CompanyDetailsPage" should {
 
-        "to the EnterCompanyTaxEBITDAPage" in {
+        "to the ConsentingCompanyPage" in {
 
           navigator.nextPage(CompanyDetailsPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+            routes.ConsentingCompanyController.onPageLoad(1, NormalMode)
         }
       }
 
       "go from the EnterCompanyTaxEBITDAPage" should {
 
-        "to the NetTaxInterestIncomeOrExpensePage" in {
+        "to the AddNetTaxInterestPage" in {
 
           navigator.nextPage(EnterCompanyTaxEBITDAPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode)
+            routes.AddNetTaxInterestController.onPageLoad(1, NormalMode)
         }
+      }
+
+      "go from the AddNetTaxInterestPage" should {
+
+        "where add net tax interest is yes" should {
+
+          "go to the NetTaxInterestIncomeOrExpensePage" in {
+            val userAnswers = (for {
+              finalUa <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
+            } yield finalUa).get
+
+            navigator.nextPage(AddNetTaxInterestPage, NormalMode, userAnswers, Some(1)) mustBe
+              routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode)
+          }
+
+        }
+
+        "where add net tax interest is no" should {
+
+          "where reactivations are yes" should {
+
+            "go to the AddAnReactivationsPage" in {
+              val userAnswers = (for {
+                re <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, true)
+                finalUa <- re.set(
+                  UkCompaniesPage,
+                  ukCompanyModelReactivationMaxIncome.copy(
+                    addNetTaxInterest = Some(false),
+                    netTaxInterestIncomeOrExpense = None
+                  ),
+                  Some(1)
+                )
+              } yield finalUa).get
+
+              navigator.nextPage(AddNetTaxInterestPage, NormalMode, userAnswers, Some(1)) mustBe
+               routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+            }
+
+          }
+
+          "where reactivations are no" should {
+
+            "go to the ContainsEstimatesPage" in {
+              val userAnswers = (for {
+                re <- emptyUserAnswers.set(GroupSubjectToReactivationsPage, false)
+                finalUa <- re.set(
+                  UkCompaniesPage,
+                  ukCompanyModelReactivationMaxIncome.copy(
+                    addNetTaxInterest = Some(false),
+                    netTaxInterestIncomeOrExpense = None
+                  ),
+                  Some(1)
+                )
+              } yield finalUa).get
+
+              navigator.nextPage(AddNetTaxInterestPage, NormalMode, userAnswers, Some(1)) mustBe
+                routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+            }
+
+          }
+
+          "where restrictions are yes" should {
+
+            "go to the ContainsEstimatesPage" in {
+              val userAnswers = (for {
+                re <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+                finalUa <- re.set(
+                  UkCompaniesPage,
+                  ukCompanyModelReactivationMaxIncome.copy(
+                    addNetTaxInterest = Some(false),
+                    netTaxInterestIncomeOrExpense = None
+                  ),
+                  Some(1)
+                )
+              } yield finalUa).get
+
+              navigator.nextPage(AddNetTaxInterestPage, NormalMode, userAnswers, Some(1)) mustBe
+                routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+            }
+          }
+
+          "where restrictions and reactivations are both no" should {
+
+            "go to the ContainsEstimatesPage" in {
+              val userAnswers = (for {
+                re <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+                ree <- re.set(GroupSubjectToReactivationsPage, false)
+                finalUa <- ree.set(
+                  UkCompaniesPage,
+                  ukCompanyModelReactivationMaxIncome.copy(
+                    addNetTaxInterest = Some(false),
+                    netTaxInterestIncomeOrExpense = None
+                  ),
+                  Some(1)
+                )
+              } yield finalUa).get
+
+              navigator.nextPage(AddNetTaxInterestPage, NormalMode, userAnswers, Some(1)) mustBe
+                routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+            }
+
+          }
+
+        }
+
       }
 
       "go from the NetTaxInterestIncomeOrExpensePage" should {
@@ -72,7 +179,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "where interest is income and group is subject to restrictions, go to the CompanyContainsEstimatesPage" in {
           val userAnswers = (for {
-            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+            ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
             finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
           } yield finalUa).get
 
@@ -82,8 +189,8 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "where interest is income and group is subject to reactivations, go to the AddAnReactivationQueryPage" in {
           val userAnswers = (for {
-            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
-            ua2     <- ua.set(GroupSubjectToReactivationsPage, true)
+            ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2 <- ua.set(GroupSubjectToReactivationsPage, true)
             finalUa <- ua2.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
           } yield finalUa).get
 
@@ -93,8 +200,8 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "where interest is income and group is NOT subject to restrictions or reactivations, go to the CompanyContainsEstimatesPage" in {
           val userAnswers = (for {
-            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
-            ua2     <- ua.set(GroupSubjectToReactivationsPage, false)
+            ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2 <- ua.set(GroupSubjectToReactivationsPage, false)
             finalUa <- ua2.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, Some(1))
           } yield finalUa).get
 
@@ -104,7 +211,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "where interest is expense and group is subject to restrictions, go to the AddRestrictionPage" in {
           val userAnswers = (for {
-            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
+            ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true)
             finalUa <- ua.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(1))
           } yield finalUa).get
 
@@ -114,8 +221,8 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "where interest is expense and group is subject to reactivations, go to the AddAnReactivationQueryPage" in {
           val userAnswers = (for {
-            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
-            ua2     <- ua.set(GroupSubjectToReactivationsPage, true)
+            ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2 <- ua.set(GroupSubjectToReactivationsPage, true)
             finalUa <- ua2.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(1))
           } yield finalUa).get
 
@@ -125,8 +232,8 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "where interest is expense and group is NOT subject to restrictions or reactivations, go to the CompanyContainsEstimatesPage" in {
           val userAnswers = (for {
-            ua      <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
-            ua2     <- ua.set(GroupSubjectToReactivationsPage, false)
+            ua <- emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false)
+            ua2 <- ua.set(GroupSubjectToReactivationsPage, false)
             finalUa <- ua2.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, Some(1))
           } yield finalUa).get
 
@@ -137,30 +244,30 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "go from the ConsentingCompanyPage to the" should {
 
-        "Add a checkanswers page for subject to restrictions" in {
+        "CompanyQICElectionController when subject to restrictions is true" in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, true).success.value
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
 
-        "Add a checkanswers page for not subject to reactivations" in {
+        "CompanyQICElectionController when multiple subject to restrictions are false"  in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
-              .set(GroupSubjectToReactivationsPage, false).success.value
+            .set(GroupSubjectToReactivationsPage, false).success.value
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+            routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
 
-        "Add a checkanswers page for subject to reactivations" in {
+        "CompanyQICElectionController when multiple subject to restrictions are mixed" in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
             .set(GroupSubjectToReactivationsPage, true).success.value
 
           navigator.nextPage(ConsentingCompanyPage, NormalMode, userAnswers, Some(1)) mustBe
-            routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+            routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -202,7 +309,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "from the UkCompaniesPage" should {
 
-        "go to the DerivedCompany page" in {
+        "go to the Check your Answers page" in {
           navigator.nextPage(UkCompaniesPage, NormalMode, emptyUserAnswers) mustBe
             controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
         }
@@ -211,9 +318,20 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       "from the AddRestrictionPage" should {
 
         //TODO: Update as part of routing subtask
-        "go to the Under Construction page" in {
-          navigator.nextPage(AddRestrictionPage, NormalMode, emptyUserAnswers) mustBe
+        "go to the Under Construction page when set to true" in {
+          val company = ukCompanyModelMax.copy(restriction = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(AddRestrictionPage, NormalMode, userAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+        "go to the CompanyContainsEstimatesPage when set to false" in {
+          val company = ukCompanyModelMax.copy(restriction = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(AddRestrictionPage, NormalMode, userAnswers) mustBe
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -259,6 +377,44 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
+
+      "from the CompanyQICElectionPage" should {
+        "go to the EnterCompanyTaxEBITDAController when true & in full return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).success.value
+            .set(CompanyQICElectionPage, true).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+        }
+
+        "go to the EnterCompanyTaxEBITDAController when false & in full return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).success.value
+            .set(CompanyQICElectionPage, false).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.EnterCompanyTaxEBITDAController.onPageLoad(1, NormalMode)
+        }
+
+        "go to the CheckAnswersUkCompanyController when true & in abbreviated return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
+            .set(CompanyQICElectionPage, true).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CheckAnswersUkCompanyController when false & in abbreviated return" in {
+          val userAnswers = emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Abbreviated).success.value
+            .set(CompanyQICElectionPage, false).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, NormalMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
     }
 
     "in Check mode" must {
@@ -292,7 +448,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           navigator.nextPage(CompanyContainsEstimatesPage, CheckMode, userAnswers, Some(1)) mustBe
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
-      } 
+      }
 
       "from the AddAnReactivationQueryPage" should {
 
@@ -321,6 +477,23 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
       }
+
+      "from the CompanyQICElectionPage" should {
+        "go to the CheckAnswersUkCompanyController when false" in {
+          val userAnswers = emptyUserAnswers.set(CompanyQICElectionPage, false).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "go to the CheckAnswersUkCompanyController when true" in {
+          val userAnswers = emptyUserAnswers.set(CompanyQICElectionPage, true).success.value
+
+          navigator.nextPage(CompanyQICElectionPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
+
     }
 
     "in Review mode" must {

@@ -18,6 +18,7 @@ package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
 import assets.UkCompanyITConstants.ukCompanyModelMax
+import models.NormalMode
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -83,7 +84,25 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode).url)
+              )
+            }
+          }
+
+          "redirect to AddNetTaxInterest page for index 2" in {
+
+            val idx = 2
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get)
+
+            val res = postRequest(s"/uk-companies/$idx/add-net-tax-interest", Json.obj("value" -> "true"))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode).url)
               )
             }
           }

@@ -78,6 +78,7 @@ class CheckAnswersUkCompanyViewSpec extends ViewBehaviours with UkCompanyCheckYo
         CheckAnswersUkCompanyMessages.companyCTUTR -> ukCompanyModelReactivationMaxIncome.companyDetails.ctutr,
         CheckAnswersUkCompanyMessages.consenting -> "Yes",
         CheckAnswersUkCompanyMessages.taxEBITDA -> currency(taxEBITDA),
+        CheckAnswersUkCompanyMessages.addNetTaxInterest -> "Yes",
         CheckAnswersUkCompanyMessages.netTaxInterest -> s"${currency(netTaxInterestIncome)} ${CheckAnswersUkCompanyMessages.income}"
       )
     }
@@ -110,10 +111,6 @@ class CheckAnswersUkCompanyViewSpec extends ViewBehaviours with UkCompanyCheckYo
         CheckAnswersUkCompanyMessages.taxEBITDA -> currency(taxEBITDA),
         CheckAnswersUkCompanyMessages.netTaxInterest -> s"${currency(netTaxInterestExpense)} ${CheckAnswersUkCompanyMessages.expense}"
       )
-
-
     }
-
-
   }
 }

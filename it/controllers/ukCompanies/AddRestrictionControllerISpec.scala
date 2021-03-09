@@ -23,6 +23,7 @@ import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import models.NormalMode
 
 class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -73,7 +74,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
         "enters a valid answer" when {
 
           //TODO: Update as part of routing storys
-          "redirect to Under Construction page" in {
+          "redirect to Under Construction page when true" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
@@ -84,6 +85,21 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
               result should have(
                 httpStatus(SEE_OTHER),
                 redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
+          }
+
+          "redirect to CompanyContainsEstimates page when false" in {
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/add-restriction", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
               )
             }
           }

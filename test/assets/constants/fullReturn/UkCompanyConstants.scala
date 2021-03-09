@@ -60,19 +60,23 @@ object UkCompanyConstants extends BaseConstants {
   val ukCompanyModelReactivationMaxIncome = UkCompanyModel(
     companyDetails = companyDetailsModel,
     consenting = Some(true),
+    addNetTaxInterest = Some(true),
     netTaxInterestIncomeOrExpense = Some(NetTaxInterestIncome),
     netTaxInterest = Some(netTaxInterestIncome),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
+    reactivation = Some(true),
     allocatedReactivations = Some(allocatedReactivationsModel)
   )
 
   val ukCompanyReactivationJsonMaxIncome = Json.obj(
     "companyDetails" -> companyDetailsJson,
     "consenting" -> true,
+    "addNetTaxInterest" -> true,
     "netTaxInterestIncomeOrExpense" -> NetTaxInterestIncome.toString,
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA,
+    "reactivation" -> true,
     "allocatedReactivations" -> allocatedReactivationsJson
   )
 
