@@ -17,13 +17,16 @@
 package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
-import assets.UkCompanyITConstants.ukCompanyModelMax
+import assets.UkCompanyITConstants.{ukCompanyModelMax, ukCompanyModelReactivationMaxIncome}
 import models.NormalMode
+import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import views.ViewUtils.addPossessive
 
 class CompanyQICElectionControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -76,19 +79,41 @@ class CompanyQICElectionControllerISpec extends IntegrationSpecBase with CreateR
 
         "enters a valid answer" when {
 
-          "redirect to CompanyQICElection page" in {
+          "redirect to companyTaxEBITDA page" in {
 
             val idx = 1
 
             AuthStub.authorised()
-            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
+            setAnswers(emptyUserAnswers
+              .set(FullOrAbbreviatedReturnPage, Full).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
             val res = postRequest(s"/uk-companies/$idx/company-qic-election", Json.obj("value" -> "true"))()
 
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode).url)
+              )
+            }
+          }
+
+          "redirect to companyTaxEBITDA page for index 2" in {
+            
+            val idx = 2
+
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers
+              .set(FullOrAbbreviatedReturnPage, Full).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+              .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get)
+
+            val res = postRequest(s"/uk-companies/$idx/company-qic-election", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode).url)
               )
             }
           }
