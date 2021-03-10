@@ -56,17 +56,21 @@ object FullReturnModel {
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
       ),
       toParentCompany(fullReturn),
-      {
-        Json.obj("groupRatio" ->Json.obj(
-            "isElected" -> fullReturn.elections.groupRatioIsElected,
-            "groupRatioBlended" -> Json.obj(
-                  "isElected" -> fullReturn.elections.groupRatioBlended.map(groupRatio=>groupRatio.isElected),
-                  "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio=>groupRatio.investorGroups.map(investors=>{ investors.map(investor => Json.obj(
-                      "groupName" -> investor.investorName,
-                      "elections" -> investor.otherInvestorGroupElections.map(elections=>elections.map(election=>election))))})))))
-      }
+      toGroupLevelElections(fullReturn)
     )
   )
+
+  private def toGroupLevelElections(fullReturn: FullReturnModel) = {
+    Json.obj("groupRatio" -> Json.obj(
+      "isElected" -> fullReturn.elections.groupRatioIsElected,
+      "groupRatioBlended" -> Json.obj(
+        "isElected" -> fullReturn.elections.groupRatioBlended.map(groupRatio => groupRatio.isElected),
+        "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio => groupRatio.investorGroups.map(investors => {
+          investors.map(investor => Json.obj(
+            "groupName" -> investor.investorName,
+            "elections" -> investor.otherInvestorGroupElections.map(elections => elections.map(election => election))))
+        })))))
+  }
 
   private def toParentCompany(fullReturn: FullReturnModel) = {
     if (fullReturn.ultimateParentCompany.reportingCompanySameAsParent) {
@@ -74,9 +78,8 @@ object FullReturnModel {
         "ctutr" -> fullReturn.aboutReturn.ctutr))
     } else {
       fullReturn.ultimateParentCompany.hasDeemedParent match {
-        case Some(true) => Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
-          companyDetails(parent)
-        })))
+        case Some(true) => Json.obj("deemedParent" -> fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
+          companyDetails(parent)}))
         case _ => Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
       }
     }
