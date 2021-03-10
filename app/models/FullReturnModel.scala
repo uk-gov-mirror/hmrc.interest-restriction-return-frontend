@@ -58,12 +58,11 @@ object FullReturnModel {
       toParentCompany(fullReturn),
       {
         fullReturn.elections.map(election => {
-          Json.obj("groupRatio" ->
-            election.groupRatioBlended.fold(Json.obj("isElected" -> election.groupRatioIsElected))(gr => {
-              Json.obj("isElected" -> election.groupRatioIsElected,
-              "groupRatioBlended" -> Json.obj("isElected" -> gr.isElected))
-            }))
-        })
+          Json.obj("groupRatio" ->Json.obj("isElected" -> election.groupRatioIsElected,
+            "groupRatioBlended" -> Json.obj("isElected" -> election.groupRatioBlended.map(c=>c.isElected),
+              "investorGroups" -> election.groupRatioBlended.flatMap(c=>c.investorGroups.map(i=>{
+                i.map(z => Json.obj("groupName" -> z.investorName) )
+              })))))})
       }
     )
   )
@@ -83,13 +82,9 @@ object FullReturnModel {
   }
 
   private def companyDetails(parent: DeemedParentModel) : JsObject = {
-    withNoNulls(Json.obj("companyName" -> parent.companyName.name,
+    Json.obj("companyName" -> parent.companyName.name,
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
-      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code)))
-  }
-
-  def withNoNulls(json : JsObject): JsObject = {
-    JsObject(json.fields.filterNot(c => c._2 == JsNull))
+      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
   }
 }

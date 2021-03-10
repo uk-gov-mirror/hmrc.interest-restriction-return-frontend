@@ -19,7 +19,8 @@ package models.transformations.writes
 import generators.ModelGenerators
 import models.FullReturnModel
 import models.returnModels.{AgentDetailsModel, UTRModel}
-import models.sections.{AboutReturnSectionModel}
+import models.sections.AboutReturnSectionModel
+import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsValue, Json}
@@ -190,12 +191,6 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
       }
 
       "Mapping the Elections Section" should {
-        "Not render anything if there are no elections" in {
-          val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = None))(FullReturnModel.writes)
-
-          (mappedElection \ "groupLevelElections").asOpt[JsValue] mustEqual None
-        }
-
         "Whether if the group ratio is elected" in {
           val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -203,11 +198,6 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
         }
 
         "When mapping the group ratio blended" should {
-          "not show anything if there is no group ratio blended" in {
-            val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = Some(groupRatioElection.copy(groupRatioBlended = None))))(FullReturnModel.writes)
-
-            (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended").asOpt[JsValue] mustEqual None
-          }
           "have whether if it is elected" in {
             val groupRatioBlended = groupRatioBlendedModel.sample.value
             val mappedElection: JsValue = Json.toJson(FullReturnModel(aboutReturn,ultimateParent,
@@ -215,19 +205,26 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
             (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended" \ "isElected").as[Boolean] mustEqual groupRatioBlended.isElected
           }
+
+          "When mapping the investor groups" should {
+            val groupRatioBlendedWithInvestorGroups = groupRatioBlendedModel.sample.value.copy(investorGroups = Some(List(investorGroupModel.sample.value,investorGroupModel.sample.value)))
+
+            "have the investor name" in {
+              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = Some(electionsSectionModel.sample.value.copy(groupRatioBlended = Some(groupRatioBlendedWithInvestorGroups)))))(FullReturnModel.writes)
+
+              (mappedElection \ "groupLevelElections" \ "groupRatio" \
+                "groupRatioBlended" \ "investorGroups" \ 0 \ "groupName").as[String] mustEqual groupRatioBlendedWithInvestorGroups.investorGroups.value.head.investorName
+            }
+
+            "have the investor ratio method when available" in {
+              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = Some(electionsSectionModel.sample.value.copy(groupRatioBlended = Some(groupRatioBlendedWithInvestorGroups)))))(FullReturnModel.writes)
+
+              (mappedElection \ "groupLevelElections" \ "groupRatio" \
+                "groupRatioBlended" \ "investorGroups" \ 0 \ "groupName").as[String] mustEqual groupRatioBlendedWithInvestorGroups.investorGroups.value.head.investorName
+            }
+          }
         }
       }
-    }
-  }
-
-  "JSON Null removers" should {
-    "Remove null elements in a JSON obj" in {
-      val car : Option[String] = None
-      val json = Json.obj("test" -> "car", "test2" -> car)
-
-      val result = FullReturnModel.withNoNulls(json)
-
-      result mustEqual Json.obj("test" -> "car")
     }
   }
 }
