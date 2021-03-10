@@ -23,7 +23,7 @@ import play.api.libs.json.{JsArray, JsNull, JsObject, JsPath, JsValue, Json, Wri
 
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
-                           elections: Option[ElectionsSectionModel] = None,
+                           elections: ElectionsSectionModel,
                            groupLevelInformation: Option[GroupLevelInformationSectionModel] = None,
                            ukCompanies: Option[UkCompaniesSectionModel] = None)
 
@@ -39,7 +39,7 @@ object FullReturnModel {
       (JsPath \ "reportingCompany").write[JsObject] and
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
       (JsPath \ "parentCompany").write[JsObject] and
-      (JsPath \ "groupLevelElections").writeNullable[JsObject]
+      (JsPath \ "groupLevelElections").write[JsObject]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -57,12 +57,13 @@ object FullReturnModel {
       ),
       toParentCompany(fullReturn),
       {
-        fullReturn.elections.map(election => {
-          Json.obj("groupRatio" ->Json.obj("isElected" -> election.groupRatioIsElected,
-            "groupRatioBlended" -> Json.obj("isElected" -> election.groupRatioBlended.map(c=>c.isElected),
-              "investorGroups" -> election.groupRatioBlended.flatMap(c=>c.investorGroups.map(i=>{
-                i.map(z => Json.obj("groupName" -> z.investorName) )
-              })))))})
+        Json.obj("groupRatio" ->Json.obj(
+            "isElected" -> fullReturn.elections.groupRatioIsElected,
+            "groupRatioBlended" -> Json.obj(
+                  "isElected" -> fullReturn.elections.groupRatioBlended.map(groupRatio=>groupRatio.isElected),
+                  "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio=>groupRatio.investorGroups.map(investors=>{ investors.map(investor => Json.obj(
+                      "groupName" -> investor.investorName,
+                      "elections" -> investor.otherInvestorGroupElections.map(elections=>elections.map(election=>election))))})))))
       }
     )
   )
