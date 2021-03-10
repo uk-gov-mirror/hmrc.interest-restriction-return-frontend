@@ -23,6 +23,7 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
+import pages.ultimateParentCompany.HasDeemedParentPage
 
 class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -35,7 +36,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
         "return OK (200)" in {
 
           AuthStub.authorised()
-
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
           val res = getRequest("/ultimate-parent-company/1/name")()
 
           whenReady(res) { result =>
@@ -74,7 +75,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
           "redirect to PayTaxInUk page" in {
 
             AuthStub.authorised()
-
+            setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
             val res = postRequest("/ultimate-parent-company/1/name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
@@ -115,7 +116,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
         "return OK (200)" in {
 
           AuthStub.authorised()
-
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
           val res = getRequest("/ultimate-parent-company/1/name/change")()
 
           whenReady(res) { result =>
@@ -154,7 +155,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
-
+            setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
             val res = postRequest("/ultimate-parent-company/1/name/change", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>

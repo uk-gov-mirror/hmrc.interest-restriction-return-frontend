@@ -22,7 +22,6 @@ import base.SpecBase
 import models.SectionStatus._
 import pages.aboutReturn._
 import pages.groupLevelInformation.RevisingReturnPage
-import pages.Page._
 import assets.constants.BaseConstants
 import models.UserAnswers
 import models.returnModels.AccountingPeriodModel

@@ -19,7 +19,6 @@ package pages.elections
 import assets.constants.PartnershipsConstants._
 import pages.behaviours.PageBehaviours
 import models.UserAnswers
-import models.returnModels.PartnershipModel
 
 class InterestAllowanceConsolidatedPshipElectionPageSpec extends PageBehaviours {
 

@@ -21,12 +21,12 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
-
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Mode
 import models.returnModels.{CompanyNameModel, DeemedParentModel}
 import navigation.UltimateParentCompanyNavigator
-import pages.ultimateParentCompany.{DeemedParentPage, ParentCompanyNamePage}
+import pages.ultimateParentCompany.{DeemedParentPage, HasDeemedParentPage, ParentCompanyNamePage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
@@ -43,27 +43,50 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
                                             formProvider: ParentCompanyNameFormProvider,
                                             val controllerComponents: MessagesControllerComponents,
                                             view: ParentCompanyNameView
-                                           )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+                                           )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val companyName = getAnswer(DeemedParentPage, idx).map(_.companyName.name)
     val form = formProvider()
-    Ok(view(companyName.fold(form)(form.fill), mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))
+
+    answerFor(HasDeemedParentPage) { deemedParent =>
+      val labelMsg = deemedParent match {
+        case false => "parentCompanyName.ultimateParentCompanyHeading"
+        case true => idx match {
+          case 1 => "parentCompanyName.firstDeemedParentCompanyHeading"
+          case _ => "parentCompanyName.furtherDeemedParentCompanyHeading"
+        }
+      }
+      Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, labelMsg,
+        routes.ParentCompanyNameController.onSubmit(idx, mode))))
+    }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode, routes.ParentCompanyNameController.onSubmit(idx, mode)))),
-      value => {
-        val companyName = CompanyNameModel(value)
-        val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
 
-        for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers, Some(idx)))
+    answerFor(HasDeemedParentPage) { deemedParent =>
+      val labelMsg = deemedParent match {
+        case true => "parentCompanyName.ultimateParentCompanyHeading"
+        case false => idx match {
+          case 0 => "parentCompanyName.firstDeemedParentCompanyHeading"
+          case _ => "parentCompanyName.furtherDeemedParentCompanyHeading"
+        }
       }
-    )
+
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(formWithErrors, mode, labelMsg, routes.ParentCompanyNameController.onSubmit(idx, mode)))),
+        value => {
+          val companyName = CompanyNameModel(value)
+          val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
+
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(DeemedParentPage, deemedParentModel, Some(idx)))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers, Some(idx)))
+        }
+      )
+
+    }
   }
 }
