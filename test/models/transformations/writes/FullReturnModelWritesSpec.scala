@@ -190,10 +190,31 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
       }
 
       "Mapping the Elections Section" should {
+        "Not render anything if there are no elections" in {
+          val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = None))(FullReturnModel.writes)
+
+          (mappedElection \ "groupLevelElections").asOpt[JsValue] mustEqual None
+        }
+
         "Whether if the group ratio is elected" in {
           val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
           (mappedElection \ "groupLevelElections" \ "groupRatio" \ "isElected").as[Boolean] mustEqual groupRatioElection.groupRatioIsElected
+        }
+
+        "When mapping the group ratio blended" should {
+          "not show anything if there is no group ratio blended" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = Some(groupRatioElection.copy(groupRatioBlended = None))))(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended").asOpt[JsValue] mustEqual None
+          }
+          "have whether if it is elected" in {
+            val groupRatioBlended = groupRatioBlendedModel.sample.value
+            val mappedElection: JsValue = Json.toJson(FullReturnModel(aboutReturn,ultimateParent,
+              Some(groupRatioElection.copy(groupRatioBlended = Some(groupRatioBlended)))))(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended" \ "isElected").as[Boolean] mustEqual groupRatioBlended.isElected
+          }
         }
       }
     }

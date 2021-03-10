@@ -58,7 +58,11 @@ object FullReturnModel {
       toParentCompany(fullReturn),
       {
         fullReturn.elections.map(election => {
-          Json.obj("groupRatio" -> Json.obj("isElected" -> election.groupRatioIsElected))
+          Json.obj("groupRatio" ->
+            election.groupRatioBlended.fold(Json.obj("isElected" -> election.groupRatioIsElected))(gr => {
+              Json.obj("isElected" -> election.groupRatioIsElected,
+              "groupRatioBlended" -> Json.obj("isElected" -> gr.isElected))
+            }))
         })
       }
     )
