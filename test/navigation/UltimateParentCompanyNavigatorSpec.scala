@@ -171,7 +171,7 @@ class UltimateParentCompanyNavigatorSpec extends SpecBase {
 
         "from the Country of Incorporation page" should {
 
-          "go to the Check Answers pagfe" in {
+          "go to the Check Answers page" in {
 
             navigator.nextPage(CountryOfIncorporationPage, NormalMode, emptyUserAnswers) mustBe
               ultimateParentCompanyRoutes.CheckAnswersGroupStructureController.onPageLoad(1)
