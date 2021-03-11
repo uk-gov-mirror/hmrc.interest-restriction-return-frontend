@@ -18,7 +18,7 @@ package models.transformations.writes
 
 import generators.ModelGenerators
 import models.{FullReturnModel, OtherInvestorGroupElections}
-import models.returnModels.{AgentDetailsModel, UTRModel}
+import models.returnModels.{AgentDetailsModel, ConsolidatedPartnershipModel, UTRModel}
 import models.sections.AboutReturnSectionModel
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
@@ -239,6 +239,29 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
               (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 0 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.head
               (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 1 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.last
+            }
+          }
+
+          "have the interestAllowanceAlternativeCalculation" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceAlternativeCalculation").as[Boolean] mustEqual groupRatioElection.interestAllowanceAlternativeCalcActive
+          }
+
+          "When mapping the interestAllowanceConsolidatedPartnership" should {
+            "have whether if it is elected" in {
+              val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "isElected").as[Boolean] mustEqual groupRatioElection.consolidatedPartnershipsActive
+            }
+
+            "When mapping the consolidated partnerships" should {
+              "have the name" in {
+                val consolidatedPartnership = Seq(partnershipModel.sample.value)
+                val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnershipModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnership))))))(FullReturnModel.writes)
+
+                (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "partnershipName").as[String] mustEqual consolidatedPartnership.head.name
+              }
             }
           }
         }
