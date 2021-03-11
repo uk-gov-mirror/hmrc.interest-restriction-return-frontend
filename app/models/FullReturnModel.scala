@@ -61,15 +61,20 @@ object FullReturnModel {
   )
 
   private def toGroupLevelElections(fullReturn: FullReturnModel) = {
-    Json.obj("groupRatio" -> Json.obj(
-      "isElected" -> fullReturn.elections.groupRatioIsElected,
-      "groupRatioBlended" -> Json.obj(
-        "isElected" -> fullReturn.elections.groupRatioBlended.map(groupRatio => groupRatio.isElected),
-        "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio => groupRatio.investorGroups.map(investors => {
-          investors.map(investor => Json.obj(
-            "groupName" -> investor.investorName,
-            "elections" -> investor.otherInvestorGroupElections.map(elections => elections.map(election => election))))
-        })))))
+    Json.obj(
+      "groupRatio" -> Json.obj(
+        "isElected" -> fullReturn.elections.groupRatioIsElected,
+        "groupRatioBlended" -> Json.obj(
+          "isElected" -> fullReturn.elections.groupRatioBlended.map(groupRatio => groupRatio.isElected),
+          "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio => groupRatio.investorGroups.map(investors => {
+            investors.map(investor => Json.obj(
+              "groupName" -> investor.investorName,
+              "elections" -> investor.otherInvestorGroupElections.map(elections => elections.map(election => election))))})))),
+      "interestAllowanceNonConsolidatedInvestment" -> Json.obj(
+          "isElected" -> fullReturn.elections.nonConsolidatedInvestmentsIsElected,
+          "nonConsolidatedInvestments" -> fullReturn.elections.nonConsolidatedInvestmentNames.map(investments=>investments.map(investment =>
+                Json.obj("investmentName" -> investment))))
+    )
   }
 
   private def toParentCompany(fullReturn: FullReturnModel) = {

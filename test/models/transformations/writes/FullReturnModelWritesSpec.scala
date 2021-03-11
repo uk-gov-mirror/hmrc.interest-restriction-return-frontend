@@ -23,7 +23,7 @@ import models.sections.AboutReturnSectionModel
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsObject, JsValue, Json}
 
 import java.time.LocalDate
 
@@ -222,6 +222,23 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
               (mappedElection \ "groupLevelElections" \ "groupRatio" \
                 "groupRatioBlended" \ "investorGroups" \ 0 \ "elections" \ 0).as[OtherInvestorGroupElections] mustEqual investorGroups.investorGroups.value.head.otherInvestorGroupElections.value.head
+            }
+          }
+
+          "When mapping the non consolidated investments" should {
+            "have whether if its elected" in {
+              val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "isElected").as[Boolean] mustEqual groupRatioElection.nonConsolidatedInvestmentsIsElected
+            }
+
+            "have the non consolidated investments" in {
+              val nonConsolidatedInvestments = Seq("test1","test2")
+              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(nonConsolidatedInvestmentNames = Some(nonConsolidatedInvestments))))(FullReturnModel.writes)
+
+
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 0 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.head
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 1 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.last
             }
           }
         }
