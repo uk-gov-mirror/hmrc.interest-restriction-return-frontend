@@ -231,49 +231,49 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
         }
 
-          "When mapping the non consolidated investments" should {
-            "have whether if its elected" in {
-              val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
-
-              (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "isElected").as[Boolean] mustEqual groupRatioElection.nonConsolidatedInvestmentsIsElected
-            }
-
-            "have the non consolidated investments" in {
-              val nonConsolidatedInvestments = Seq("test1","test2")
-              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(nonConsolidatedInvestmentNames = Some(nonConsolidatedInvestments))))(FullReturnModel.writes)
-
-
-              (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 0 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.head
-              (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 1 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.last
-            }
-          }
-
-          "have the interestAllowanceAlternativeCalculation" in {
+        "When mapping the non consolidated investments" should {
+          "have whether if its elected" in {
             val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-            (mappedElection \ "groupLevelElections" \ "interestAllowanceAlternativeCalculation").as[Boolean] mustEqual groupRatioElection.interestAllowanceAlternativeCalcIsElected.fold(false)(isElected => isElected)
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "isElected").as[Boolean] mustEqual groupRatioElection.nonConsolidatedInvestmentsIsElected
           }
 
-          "When mapping the interestAllowanceConsolidatedPartnership" should {
-            "have whether if it is elected" in {
-              val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+          "have the non consolidated investments" in {
+            val nonConsolidatedInvestments = Seq("test1","test2")
+            val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(nonConsolidatedInvestmentNames = Some(nonConsolidatedInvestments))))(FullReturnModel.writes)
 
-              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "isElected").as[Boolean] mustEqual groupRatioElection.consolidatedPartnerships.fold(false)(partnership=>partnership.isElected)
+
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 0 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.head
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 1 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.last
+          }
+        }
+
+        "have the interestAllowanceAlternativeCalculation" in {
+          val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+          (mappedElection \ "groupLevelElections" \ "interestAllowanceAlternativeCalculation").as[Boolean] mustEqual groupRatioElection.interestAllowanceAlternativeCalcIsElected.fold(false)(isElected => isElected)
+        }
+
+        "When mapping the interestAllowanceConsolidatedPartnership" should {
+          "have whether if it is elected" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "isElected").as[Boolean] mustEqual groupRatioElection.consolidatedPartnerships.fold(false)(partnership=>partnership.isElected)
+          }
+
+          "When mapping the consolidated partnerships" should {
+            val consolidatedPartnership = Seq(partnershipModel.sample.value)
+            val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnershipModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnership))))))(FullReturnModel.writes)
+
+            "have the name" in {
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "partnershipName").as[String] mustEqual consolidatedPartnership.head.name
             }
 
-            "When mapping the consolidated partnerships" should {
-              val consolidatedPartnership = Seq(partnershipModel.sample.value)
-              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnershipModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnership))))))(FullReturnModel.writes)
-
-              "have the name" in {
-                (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "partnershipName").as[String] mustEqual consolidatedPartnership.head.name
-              }
-
-              "have the SAUTR if available" in {
-                (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "sautr").asOpt[String] mustEqual consolidatedPartnership.head.sautr.map(c=>c.utr)
-              }
+            "have the SAUTR if available" in {
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "sautr").asOpt[String] mustEqual consolidatedPartnership.head.sautr.map(c=>c.utr)
             }
           }
+        }
       }
     }
   }
