@@ -77,7 +77,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
     }
   }
 
-  def getLabel(deemedParent : Boolean, idx : Int): String = {
+  private def getLabel(deemedParent : Boolean, idx : Int): String = {
     deemedParent match {
       case true => "parentCompanyName.ultimateParentCompanyHeading"
       case false => idx match {
