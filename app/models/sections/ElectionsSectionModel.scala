@@ -19,14 +19,14 @@ package models.sections
 import models.returnModels._
 
 case class ElectionsSectionModel(
-    groupRatioIsElected: Boolean,
-    groupRatioBlended: Option[GroupRatioBlendedModel],
-    groupEBITDAChargeableGainsActive: Option[Boolean],
-    groupEBITDAChargeableGainsIsElected: Option[Boolean],
-    interestAllowanceAlternativeCalcActive: Boolean,
-    interestAllowanceAlternativeCalcIsElected: Option[Boolean],
-    nonConsolidatedInvestmentsIsElected: Boolean,
-    nonConsolidatedInvestmentNames: Option[Seq[String]],
-    consolidatedPartnershipsActive: Boolean, 
-    consolidatedPartnerships: Option[ConsolidatedPartnershipModel]
+    groupRatioIsElected: Boolean, //DONE
+    groupRatioBlended: Option[GroupRatioBlendedModel], //DONE
+    groupEBITDAChargeableGainsActive: Option[Boolean],//DOES NOT MAP TO ANYTHING
+    groupEBITDAChargeableGainsIsElected: Option[Boolean],//DONE
+    interestAllowanceAlternativeCalcActive: Boolean,//DONE???
+    interestAllowanceAlternativeCalcIsElected: Option[Boolean], //DONE
+    nonConsolidatedInvestmentsIsElected: Boolean,//DONE
+    nonConsolidatedInvestmentNames: Option[Seq[String]],//DNE
+    consolidatedPartnershipsActive: Boolean, //DONE
+    consolidatedPartnerships: Option[ConsolidatedPartnershipModel]//DONE - isElected maps to interestAllowanceConsolidatedPartnership
 )

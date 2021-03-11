@@ -69,14 +69,15 @@ object FullReturnModel {
           "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio => groupRatio.investorGroups.map(investors => {
             investors.map(investor => Json.obj(
               "groupName" -> investor.investorName,
-              "elections" -> investor.otherInvestorGroupElections.map(elections => elections.map(election => election))))})))),
+              "elections" -> investor.otherInvestorGroupElections.map(elections => elections.map(election => election))))}))),
+          "groupEBITDAChargeableGains" -> fullReturn.elections.groupEBITDAChargeableGainsIsElected),
       "interestAllowanceNonConsolidatedInvestment" -> Json.obj(
           "isElected" -> fullReturn.elections.nonConsolidatedInvestmentsIsElected,
           "nonConsolidatedInvestments" -> fullReturn.elections.nonConsolidatedInvestmentNames.map(investments=>investments.map(investment =>
                 Json.obj("investmentName" -> investment)))),
-      "interestAllowanceAlternativeCalculation" -> fullReturn.elections.interestAllowanceAlternativeCalcActive,
+      "interestAllowanceAlternativeCalculation" -> fullReturn.elections.interestAllowanceAlternativeCalcIsElected.fold(false)(isElected => isElected),
       "interestAllowanceConsolidatedPartnership" -> Json.obj(
-          "isElected" -> fullReturn.elections.consolidatedPartnershipsActive,
+          "isElected" -> fullReturn.elections.consolidatedPartnerships.fold(false)(partnership=>partnership.isElected),
           "consolidatedPartnerships" -> fullReturn.elections.consolidatedPartnerships.flatMap(consolidatedPartnership => consolidatedPartnership.consolidatedPartnerships.map(partnerhips=>partnerhips.map(partnership=>{
             Json.obj("partnershipName" -> partnership.name,
                      "sautr" -> partnership.sautr.map(sautr=>sautr.utr))}))))

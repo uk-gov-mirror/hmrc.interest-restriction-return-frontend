@@ -18,12 +18,11 @@ package models.transformations.writes
 
 import generators.ModelGenerators
 import models.{FullReturnModel, OtherInvestorGroupElections}
-import models.returnModels.{AgentDetailsModel, ConsolidatedPartnershipModel, UTRModel}
+import models.returnModels.{AgentDetailsModel, UTRModel}
 import models.sections.AboutReturnSectionModel
-import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsObject, JsValue, Json}
+import play.api.libs.json.{JsValue, Json}
 
 import java.time.LocalDate
 
@@ -200,14 +199,14 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
         "When mapping the group ratio blended" should {
           "have whether if it is elected" in {
             val groupRatioBlended = groupRatioBlendedModel.sample.value
-            val mappedElection: JsValue = Json.toJson(FullReturnModel(aboutReturn,ultimateParent,
+            val mappedElection: JsValue = Json.toJson(FullReturnModel(aboutReturn, ultimateParent,
               groupRatioElection.copy(groupRatioBlended = Some(groupRatioBlended))))(FullReturnModel.writes)
 
             (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended" \ "isElected").as[Boolean] mustEqual groupRatioBlended.isElected
           }
 
           "When mapping the investor groups" should {
-            val groupRatioBlendedWithInvestorGroups = groupRatioBlendedModel.sample.value.copy(investorGroups = Some(List(investorGroupModel.sample.value,investorGroupModel.sample.value)))
+            val groupRatioBlendedWithInvestorGroups = groupRatioBlendedModel.sample.value.copy(investorGroups = Some(List(investorGroupModel.sample.value, investorGroupModel.sample.value)))
 
             "have the investor name" in {
               val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioBlended = Some(groupRatioBlendedWithInvestorGroups))))(FullReturnModel.writes)
@@ -224,6 +223,13 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
                 "groupRatioBlended" \ "investorGroups" \ 0 \ "elections" \ 0).as[OtherInvestorGroupElections] mustEqual investorGroups.investorGroups.value.head.otherInvestorGroupElections.value.head
             }
           }
+
+          "have the groupEBITDAChargeableGains when available" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupEBITDAChargeableGains").asOpt[Boolean] mustEqual groupRatioElection.groupEBITDAChargeableGainsIsElected
+          }
+        }
 
           "When mapping the non consolidated investments" should {
             "have whether if its elected" in {
@@ -245,14 +251,14 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "have the interestAllowanceAlternativeCalculation" in {
             val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-            (mappedElection \ "groupLevelElections" \ "interestAllowanceAlternativeCalculation").as[Boolean] mustEqual groupRatioElection.interestAllowanceAlternativeCalcActive
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceAlternativeCalculation").as[Boolean] mustEqual groupRatioElection.interestAllowanceAlternativeCalcIsElected.fold(false)(isElected => isElected)
           }
 
           "When mapping the interestAllowanceConsolidatedPartnership" should {
             "have whether if it is elected" in {
               val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "isElected").as[Boolean] mustEqual groupRatioElection.consolidatedPartnershipsActive
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "isElected").as[Boolean] mustEqual groupRatioElection.consolidatedPartnerships.fold(false)(partnership=>partnership.isElected)
             }
 
             "When mapping the consolidated partnerships" should {
@@ -268,7 +274,6 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
               }
             }
           }
-        }
       }
     }
   }
