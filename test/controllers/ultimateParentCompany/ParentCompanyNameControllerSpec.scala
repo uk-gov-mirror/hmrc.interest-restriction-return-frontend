@@ -49,7 +49,7 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
 
     "return OK and the correct view for a GET with 1 index" in {
 
-      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
@@ -63,7 +63,7 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
 
     "return OK and the correct view for a GET with 2 index" in {
 
-      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(2, NormalMode)(fakeRequest)
@@ -75,9 +75,9 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
         routes.ParentCompanyNameController.onSubmit(2, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
-    "return OK and the correct view for a GET with FALSE HasDeemedParentPage" in {
+    "return OK and the correct view for a GET with TRUE HasDeemedParentPage" in {
 
-      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)

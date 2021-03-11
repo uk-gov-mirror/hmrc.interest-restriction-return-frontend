@@ -50,13 +50,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
     val form = formProvider()
 
     answerFor(HasDeemedParentPage) { deemedParent =>
-      val labelMsg = deemedParent match {
-        case false => "parentCompanyName.ultimateParentCompanyHeading"
-        case true => idx match {
-          case 1 => "parentCompanyName.firstDeemedParentCompanyHeading"
-          case _ => "parentCompanyName.furtherDeemedParentCompanyHeading"
-        }
-      }
+      val labelMsg : String = getLabel(deemedParent, idx)
       Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, labelMsg,
         routes.ParentCompanyNameController.onSubmit(idx, mode))))
     }
@@ -65,13 +59,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     answerFor(HasDeemedParentPage) { deemedParent =>
-      val labelMsg = deemedParent match {
-        case true => "parentCompanyName.ultimateParentCompanyHeading"
-        case false => idx match {
-          case 0 => "parentCompanyName.firstDeemedParentCompanyHeading"
-          case _ => "parentCompanyName.furtherDeemedParentCompanyHeading"
-        }
-      }
+      val labelMsg : String = getLabel(deemedParent, idx)
 
       formProvider().bindFromRequest().fold(
         formWithErrors =>
@@ -86,7 +74,16 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
           } yield Redirect(navigator.nextPage(ParentCompanyNamePage, mode, updatedAnswers, Some(idx)))
         }
       )
+    }
+  }
 
+  def getLabel(deemedParent : Boolean, idx : Int): String = {
+    deemedParent match {
+      case true => "parentCompanyName.ultimateParentCompanyHeading"
+      case false => idx match {
+        case 1 => "parentCompanyName.firstDeemedParentCompanyHeading"
+        case _ => "parentCompanyName.furtherDeemedParentCompanyHeading"
+      }
     }
   }
 }

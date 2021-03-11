@@ -15,10 +15,9 @@
  */
 
 package models
-import pages.QuestionPage
+
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Gen
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import play.api.libs.json.{JsError, JsString, Json}
@@ -27,7 +26,6 @@ import forms.ukCompanies.CompanyEstimatedFiguresFormProvider
 import pages.ukCompanies._
 import models.CompanyEstimatedFigures._
 import play.api.test.FakeRequest
-import models.{UserAnswers, CompanyDetailsModel}
 import models.returnModels.fullReturn._
 import assets.constants.fullReturn.UkCompanyConstants._
 
