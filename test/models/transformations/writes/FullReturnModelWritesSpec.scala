@@ -262,6 +262,13 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
                 (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "partnershipName").as[String] mustEqual consolidatedPartnership.head.name
               }
+
+              "have the SAUTR if available" in {
+                val consolidatedPartnership = Seq(partnershipModel.sample.value)
+                val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnershipModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnership))))))(FullReturnModel.writes)
+
+                (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "sautr").asOpt[String] mustEqual consolidatedPartnership.head.sautr.map(c=>c.utr)
+              }
             }
           }
         }

@@ -78,7 +78,8 @@ object FullReturnModel {
       "interestAllowanceConsolidatedPartnership" -> Json.obj(
           "isElected" -> fullReturn.elections.consolidatedPartnershipsActive,
           "consolidatedPartnerships" -> fullReturn.elections.consolidatedPartnerships.flatMap(partnerships => partnerships.consolidatedPartnerships.map(p=>p.map(d=>{
-            Json.obj("partnershipName" -> d.name)
+            Json.obj("partnershipName" -> d.name,
+                     "sautr" -> d.sautr.map(c=>c.utr))
           })))
       )
     )
