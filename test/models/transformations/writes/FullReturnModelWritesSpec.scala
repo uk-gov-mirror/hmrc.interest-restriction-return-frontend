@@ -17,9 +17,9 @@
 package models.transformations.writes
 
 import generators.ModelGenerators
-import models.FullReturnModel
+import models.{FullReturnModel, OtherInvestorGroupElections}
 import models.returnModels.{AgentDetailsModel, UTRModel}
-import models.sections.{AboutReturnSectionModel}
+import models.sections.AboutReturnSectionModel
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsValue, Json}
@@ -30,7 +30,8 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
   "The AboutReturnSectionModel section of a Full Return" when {
     val aboutReturn : AboutReturnSectionModel = aboutReturnSectionModel.sample.value
     val ultimateParent  = ultimateParentCompanySectionModel.sample.value
-    val fullReturn = FullReturnModel(aboutReturn,ultimateParent)
+    val groupRatioElection = electionsSectionModel.sample.value
+    val fullReturn = FullReturnModel(aboutReturn,ultimateParent,groupRatioElection)
 
     "Mapping to an accepted interest-restriction-returns payload" when {
       "Mapping the About Your Return section" should {
@@ -42,7 +43,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
         "contain the `agentDetails`" when {
           "there is no agent" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent,groupRatioElection)
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -51,7 +52,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
 
           "there is an agent" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent,groupRatioElection)
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -62,7 +63,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
         "contain the `submissionType`" when {
           "it is a revised return" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent,groupRatioElection)
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -70,7 +71,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
 
           "it is an original return" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent,groupRatioElection)
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -102,7 +103,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
       "Mapping the Parent Company" when {
         "The Reporting Company is the same as The Parent Company" should {
-          val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn, ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = true))
+          val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn, ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = true),groupRatioElection)
 
           "Have a company name" in {
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
@@ -121,7 +122,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "We are not deemed parent" should {
             val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
               ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(false),
-                parentCompanies = Seq(deemedParentSectionModel.sample.value)))
+                parentCompanies = Seq(deemedParentSectionModel.sample.value)),groupRatioElection)
 
 
             "Have a company name" in {
@@ -153,7 +154,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "We are deemed parent" should {
             val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
               ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(true),
-                parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)))
+                parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)),groupRatioElection)
 
             "Have a company name in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
@@ -187,17 +188,93 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
         }
       }
-    }
-  }
 
-  "JSON Null removers" should {
-    "Remove null elements in a JSON obj" in {
-      val car : Option[String] = None
-      val json = Json.obj("test" -> "car", "test2" -> car)
+      "Mapping the Elections Section" should {
+        "Whether if the group ratio is elected" in {
+          val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-      val result = FullReturnModel.withNoNulls(json)
+          (mappedElection \ "groupLevelElections" \ "groupRatio" \ "isElected").as[Boolean] mustEqual groupRatioElection.groupRatioIsElected
+        }
 
-      result mustEqual Json.obj("test" -> "car")
+        "When mapping the group ratio blended" should {
+          "have whether if it is elected" in {
+            val groupRatioBlended = groupRatioBlendedModel.sample.value
+            val mappedElection: JsValue = Json.toJson(FullReturnModel(aboutReturn, ultimateParent,
+              groupRatioElection.copy(groupRatioBlended = Some(groupRatioBlended))))(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended" \ "isElected").as[Boolean] mustEqual groupRatioBlended.isElected
+          }
+
+          "When mapping the investor groups" should {
+            val groupRatioBlendedWithInvestorGroups = groupRatioBlendedModel.sample.value.copy(investorGroups = Some(List(investorGroupModel.sample.value, investorGroupModel.sample.value)))
+
+            "have the investor name" in {
+              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioBlended = Some(groupRatioBlendedWithInvestorGroups))))(FullReturnModel.writes)
+
+              (mappedElection \ "groupLevelElections" \ "groupRatio" \
+                "groupRatioBlended" \ "investorGroups" \ 0 \ "groupName").as[String] mustEqual groupRatioBlendedWithInvestorGroups.investorGroups.value.head.investorName
+            }
+
+            "have the elections" in {
+              val investorGroups = groupRatioBlendedModel.sample.value.copy(investorGroups = Some(List(investorGroupModel.sample.value.copy(otherInvestorGroupElections = Some(Set(arbitraryOtherInvestorGroupElections.arbitrary.sample.value))))))
+              val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioBlended = Some(investorGroups))))(FullReturnModel.writes)
+
+              (mappedElection \ "groupLevelElections" \ "groupRatio" \
+                "groupRatioBlended" \ "investorGroups" \ 0 \ "elections" \ 0).as[OtherInvestorGroupElections] mustEqual investorGroups.investorGroups.value.head.otherInvestorGroupElections.value.head
+            }
+          }
+
+          "have the groupEBITDAChargeableGains when available" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupEBITDAChargeableGains").asOpt[Boolean] mustEqual groupRatioElection.groupEBITDAChargeableGainsIsElected
+          }
+        }
+
+        "When mapping the non consolidated investments" should {
+          "have whether if its elected" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "isElected").as[Boolean] mustEqual groupRatioElection.nonConsolidatedInvestmentsIsElected
+          }
+
+          "have the non consolidated investments" in {
+            val nonConsolidatedInvestments = Seq("test1","test2")
+            val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(nonConsolidatedInvestmentNames = Some(nonConsolidatedInvestments))))(FullReturnModel.writes)
+
+
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 0 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.head
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceNonConsolidatedInvestment" \ "nonConsolidatedInvestments" \ 1 \ "investmentName").as[String] mustEqual nonConsolidatedInvestments.last
+          }
+        }
+
+        "have the interestAllowanceAlternativeCalculation" in {
+          val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+          (mappedElection \ "groupLevelElections" \ "interestAllowanceAlternativeCalculation").as[Boolean] mustEqual groupRatioElection.interestAllowanceAlternativeCalcIsElected.fold(false)(isElected => isElected)
+        }
+
+        "When mapping the interestAllowanceConsolidatedPartnership" should {
+          "have whether if it is elected" in {
+            val mappedElection: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+            (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "isElected").as[Boolean] mustEqual groupRatioElection.consolidatedPartnerships.fold(false)(partnership=>partnership.isElected)
+          }
+
+          "When mapping the consolidated partnerships" should {
+            val consolidatedPartnership = Seq(partnershipModel.sample.value)
+            val mappedElection: JsValue = Json.toJson(fullReturn.copy(elections = electionsSectionModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnershipModel.sample.value.copy(consolidatedPartnerships = Some(consolidatedPartnership))))))(FullReturnModel.writes)
+
+            "have the name" in {
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "partnershipName").as[String] mustEqual consolidatedPartnership.head.name
+            }
+
+            "have the SAUTR if available" in {
+              (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "sautr").asOpt[String] mustEqual consolidatedPartnership.head.sautr.map(c=>c.utr)
+            }
+          }
+        }
+      }
     }
   }
 }

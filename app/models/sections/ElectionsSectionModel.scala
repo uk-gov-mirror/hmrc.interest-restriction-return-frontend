@@ -27,6 +27,6 @@ case class ElectionsSectionModel(
     interestAllowanceAlternativeCalcIsElected: Option[Boolean],
     nonConsolidatedInvestmentsIsElected: Boolean,
     nonConsolidatedInvestmentNames: Option[Seq[String]],
-    consolidatedPartnershipsActive: Boolean, 
+    consolidatedPartnershipsActive: Boolean,
     consolidatedPartnerships: Option[ConsolidatedPartnershipModel]
 )
