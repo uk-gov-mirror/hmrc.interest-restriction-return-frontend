@@ -302,8 +302,9 @@ parentCompanyName.title = Enter the name of the ultimate parent
 parentCompanyName.heading = Enter the name of the ultimate parent
 parentCompanyName.checkYourAnswersLabel = Ultimate parent name
 parentCompanyName.ultimateParentCompanyHeading = Enter the name of the ultimate parent
-parentCompanyName.firstDeemedParentCompanyHeading = Enter the name of an entity in the deemed parent
-parentCompanyName.furtherDeemedParentCompanyHeading = Enter the name of another entity in the deemed parent
+parentCompanyName.firstDeemedParentCompanyHeading = What is the name of the first entity in the deemed parent?
+parentCompanyName.secondDeemedParentCompanyHeading = What is the name of the second entity in the deemed parent?
+parentCompanyName.thirdDeemedParentCompanyHeading = What is the name of the third entity in the deemed parent?
 parentCompanyName.error.required = Enter the name of the ultimate parent
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 

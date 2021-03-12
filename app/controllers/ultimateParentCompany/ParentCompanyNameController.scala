@@ -51,8 +51,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
 
     answerFor(HasDeemedParentPage) { deemedParent =>
       val labelMsg : String = getLabel(deemedParent, idx)
-      Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, labelMsg,
-        routes.ParentCompanyNameController.onSubmit(idx, mode))))
+      Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, labelMsg, routes.ParentCompanyNameController.onSubmit(idx, mode))))
     }
   }
 
@@ -82,7 +81,8 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
       case true => "parentCompanyName.ultimateParentCompanyHeading"
       case false => idx match {
         case 1 => "parentCompanyName.firstDeemedParentCompanyHeading"
-        case _ => "parentCompanyName.furtherDeemedParentCompanyHeading"
+        case 2 => "parentCompanyName.secondDeemedParentCompanyHeading"
+        case _ => "parentCompanyName.thirdDeemedParentCompanyHeading"
       }
     }
   }

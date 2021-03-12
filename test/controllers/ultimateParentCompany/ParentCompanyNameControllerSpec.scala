@@ -55,7 +55,7 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
       status(result) mustEqual OK
 
-      val labelMsg = "Enter the name of an entity in the deemed parent"
+      val labelMsg = "What is the name of the first entity in the deemed parent?"
 
       contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
         routes.ParentCompanyNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
@@ -69,10 +69,24 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
       val result = Controller.onPageLoad(2, NormalMode)(fakeRequest)
       status(result) mustEqual OK
 
-      val labelMsg = "Enter the name of another entity in the deemed parent"
+      val labelMsg = "What is the name of the second entity in the deemed parent?"
 
       contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
         routes.ParentCompanyNameController.onSubmit(2, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+    }
+
+    "return OK and the correct view for a GET with 3 index" in {
+
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(3, NormalMode)(fakeRequest)
+      status(result) mustEqual OK
+
+      val labelMsg = "What is the name of the third entity in the deemed parent?"
+
+      contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
+        routes.ParentCompanyNameController.onSubmit(3, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "return OK and the correct view for a GET with TRUE HasDeemedParentPage" in {
