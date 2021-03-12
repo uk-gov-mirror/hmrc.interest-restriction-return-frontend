@@ -353,4 +353,37 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
     }
   }
+
+  "nextRestrictionPage" must {
+
+    "in Normal mode" must {
+
+      "for AddRestrictionAmountPage" must {
+
+        "Navigate to the UnderConstructionController" in {
+          val page = AddRestrictionAmountPage(1, 1)
+          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+      }
+
+    }
+
+    "in Check mode" must {
+
+      "for AddRestrictionAmountPage" must {
+
+        "Navigate to the UnderConstructionController" in {
+          val page = AddRestrictionAmountPage(1, 1)
+          navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+      }
+
+    }
+
+  }
+  
 }

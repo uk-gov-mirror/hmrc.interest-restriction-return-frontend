@@ -30,15 +30,15 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "addRestrictionAmount.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form, "addRestrictionAmount.title", Some(companyName)))) {
 
-    @formHelper(action = AddRestrictionAmountController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ukCompanies")
+        @subheading(companyName)
 
         @yesNoRadio(form, "addRestrictionAmount.heading")
 

@@ -28,23 +28,26 @@ import views.html.ukCompanies.AddRestrictionAmountView
 class AddRestrictionAmountViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "addRestrictionAmount"
-  val section = Some(messages("section.ukCompanies"))
+  val section = Some("Company 1")
   val form = new AddRestrictionAmountFormProvider()()
+  val companyIdx = 1
+  val restrictionIdx = 1
+  val postAction = routes.AddRestrictionAmountController.onSubmit(companyIdx, restrictionIdx, NormalMode)
 
     "AddRestrictionAmountView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[AddRestrictionAmountView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, "Company 1", postAction)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), "Company 1")
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AddRestrictionAmountController.onSubmit(NormalMode).url, section = section)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, postAction.url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

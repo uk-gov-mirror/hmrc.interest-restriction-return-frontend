@@ -33,7 +33,9 @@ object FakeNavigators extends SpecBase {
     override def addParent(numberOfParents: Int): Call = Call("GET", s"/addParent/$numberOfParents")
   }
   object FakeElectionsNavigator extends ElectionsNavigator() with FakeNavigator
-  object FakeUkCompaniesNavigator extends UkCompaniesNavigator() with FakeNavigator
+  object FakeUkCompaniesNavigator extends UkCompaniesNavigator() with FakeNavigator {
+    override def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = onwardRoute
+  }
   object FakeCheckTotalsNavigator extends CheckTotalsNavigator() with FakeNavigator
   object FakeReviewAndCompleteNavigator extends ReviewAndCompleteNavigator() with FakeNavigator
 }

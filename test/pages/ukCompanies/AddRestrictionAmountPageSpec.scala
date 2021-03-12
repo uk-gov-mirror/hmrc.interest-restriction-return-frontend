@@ -22,10 +22,10 @@ class AddRestrictionAmountPageSpec extends PageBehaviours {
 
   "AddRestrictionAmountPage" must {
 
-    beRetrievable[Boolean](AddRestrictionAmountPage)
+    beRetrievable[Boolean](AddRestrictionAmountPage(1, 1))
 
-    beSettable[Boolean](AddRestrictionAmountPage)
+    beSettable[Boolean](AddRestrictionAmountPage(1, 1))
 
-    beRemovable[Boolean](AddRestrictionAmountPage)
+    beRemovable[Boolean](AddRestrictionAmountPage(1, 1))
   }
 }

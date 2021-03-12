@@ -16,13 +16,14 @@
 
 package controllers.ukCompanies
 
+import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddRestrictionAmountFormProvider
 import models.NormalMode
-import pages.ukCompanies.AddRestrictionAmountPage
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddRestrictionAmountView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
@@ -45,26 +46,32 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
     view = view
   )
 
+  val companyIdx = 1
+  val restrictionIdx = 1
+  val postAction = routes.AddRestrictionAmountController.onSubmit(companyIdx, restrictionIdx, NormalMode)
+
   "AddRestrictionAmount Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+
+      val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, "Company Name ltd", postAction)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
+
       mockSetAnswers
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -74,9 +81,9 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -85,7 +92,7 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -98,7 +105,7 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(NormalMode)(request)
+      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

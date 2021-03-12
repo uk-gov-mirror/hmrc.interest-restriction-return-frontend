@@ -31,7 +31,6 @@ import repositories.SessionRepository
 import views.html.ukCompanies.AddRestrictionAmountView
 
 import javax.inject.Inject
-import play.api.data.Form
 import scala.concurrent.Future
 
 class AddRestrictionAmountController @Inject()(
@@ -44,21 +43,35 @@ class AddRestrictionAmountController @Inject()(
                                          formProvider: AddRestrictionAmountFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: AddRestrictionAmountView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(AddRestrictionAmountPage, formProvider()), mode))
+  def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      Future.successful(Ok(view(
+        form = fillForm(AddRestrictionAmountPage(idx, restrictionIdx), formProvider()), 
+        companyName = ukCompany.companyDetails.companyName,
+        postAction = routes.AddRestrictionAmountController.onSubmit(idx, restrictionIdx, mode)
+      )))
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
-          for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AddRestrictionAmountPage, value))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AddRestrictionAmountPage, mode, updatedAnswers))
-    )
+  def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors, 
+              companyName = ukCompany.companyDetails.companyName,
+              postAction = routes.AddRestrictionAmountController.onSubmit(idx, restrictionIdx, mode)
+            ))
+          ),
+        value =>
+            for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(AddRestrictionAmountPage(idx, restrictionIdx), value))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextRestrictionPage(AddRestrictionAmountPage(idx, restrictionIdx), mode, updatedAnswers))
+      )
+    }
   }
 }

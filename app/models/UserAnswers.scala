@@ -91,6 +91,18 @@ final case class UserAnswers(
 
   def remove(pages: Seq[QuestionPage[_]]): Try[UserAnswers] = recursivelyClearQuestions(pages, this)
 
+  def remove(objectPath: JsPath): Try[UserAnswers] = {
+
+    val updatedData = data.removeObject(objectPath) match {
+      case JsSuccess(jsValue, _) =>
+        Success(jsValue)
+      case JsError(_) =>
+        Success(data)
+    }
+
+    updatedData.map(d => copy(data = d))
+  }
+
   @tailrec
   private def recursivelyClearQuestions(pages: Seq[QuestionPage[_]], userAnswers: UserAnswers): Try[UserAnswers] = {
     if (pages.isEmpty) Success(userAnswers) else {

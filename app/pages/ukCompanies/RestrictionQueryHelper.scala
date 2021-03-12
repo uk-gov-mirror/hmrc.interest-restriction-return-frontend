@@ -15,13 +15,14 @@
  */
 
 package pages.ukCompanies
-import pages.QuestionPage
+
 import play.api.libs.json.JsPath
+import pages.QuestionPage
 
-case class AddRestrictionAmountPage(companyIdx: Int, restrictionIdx: Int) extends QuestionPage[Boolean] {
+object RestrictionQueryHelper {
 
-  override def path: JsPath = RestrictionQueryHelper.path(companyIdx, restrictionIdx, toString)
+  val restrictionCompanyPath = JsPath \ "company"
 
-  override def toString: String = "addRestrictionAmount"
+  def path(companyIdx: Int, restrictionIdx: Int, page: String) = restrictionCompanyPath \ (companyIdx - 1) \ page \ (restrictionIdx - 1)
 
 }

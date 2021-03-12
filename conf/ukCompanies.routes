@@ -128,7 +128,7 @@ POST       /:idx/add-net-tax-interest/change                   controllers.ukCom
 
 ### AddRestrictionAmount Controller
 ### ----------------------------------------
-GET        /add-restriction-amount                          controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-restriction-amount                          controllers.ukCompanies.AddRestrictionAmountController.onSubmit(mode: Mode = NormalMode)
-GET        /add-restriction-amount/change                   controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-restriction-amount/change                   controllers.ukCompanies.AddRestrictionAmountController.onSubmit(mode: Mode = CheckMode)
+GET        /:idx/restriction/:restrictionIdx/add-restriction-amount              controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+POST       /:idx/restriction/:restrictionIdx/add-restriction-amount              controllers.ukCompanies.AddRestrictionAmountController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+GET        /:idx/restriction/:restrictionIdx/add-restriction-amount/change       controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+POST       /:idx/restriction/:restrictionIdx/add-restriction-amount/change       controllers.ukCompanies.AddRestrictionAmountController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
