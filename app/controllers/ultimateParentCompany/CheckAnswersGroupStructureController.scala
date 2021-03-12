@@ -49,8 +49,8 @@ class CheckAnswersGroupStructureController @Inject()(override val messagesApi: M
     answerFor(DeemedParentPage, idx) { deemedParentModel =>
       Future.successful(
         Ok(view(
-          answers = checkYourAnswersHelper.rows(idx), 
-          section = UltimateParentCompany, 
+          answers = checkYourAnswersHelper.rows(idx),
+          section = UltimateParentCompany,
           postAction = controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onSubmit(idx),
           subheader = Some(deemedParentModel.companyName.name)
         ))
