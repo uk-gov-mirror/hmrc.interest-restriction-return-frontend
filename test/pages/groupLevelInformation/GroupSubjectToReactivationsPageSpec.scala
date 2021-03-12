@@ -21,7 +21,7 @@ import models.{CompanyDetailsModel, UserAnswers}
 import pages.behaviours.PageBehaviours
 import org.scalacheck.Arbitrary.arbitrary
 import pages.aboutReturn.AgentNamePage
-import pages.ukCompanies.{CompanyDetailsPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 
 class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
 

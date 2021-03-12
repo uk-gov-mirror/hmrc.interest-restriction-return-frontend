@@ -22,10 +22,9 @@ import controllers.BaseController
 import controllers.actions._
 import forms.elections.InvestorRatioMethodFormProvider
 import handlers.ErrorHandler
-import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod, PreferNotToAnswer}
 
 import javax.inject.Inject
-import models.{InvestorRatioMethod, Mode}
+import models.Mode
 import navigation.ElectionsNavigator
 import pages.elections.{InvestorGroupsPage, InvestorRatioMethodPage}
 import play.api.i18n.MessagesApi
