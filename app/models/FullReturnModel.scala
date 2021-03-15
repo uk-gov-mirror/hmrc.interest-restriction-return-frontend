@@ -19,7 +19,7 @@ package models
 import models.returnModels.{AgentDetailsModel, DeemedParentModel}
 import models.sections._
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsArray, JsNull, JsObject, JsPath, JsValue, Json, Writes}
+import play.api.libs.json.{JsObject, JsPath, Json, Writes}
 
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
