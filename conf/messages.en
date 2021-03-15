@@ -994,3 +994,10 @@ companyAccountingPeriodEndDate.error.required.two= End date must include a {0} a
 companyAccountingPeriodEndDate.error.required = End date must include a {0}
 companyAccountingPeriodEndDate.error.invalid = End date must be a real date
 companyAccountingPeriodEndDate.error.afterStart = End date must be after {0}
+
+# AddAnotherAccountingPeriodPage Messages
+# ----------------------------------------------------------
+addAnotherAccountingPeriod.title = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.heading = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.checkYourAnswersLabel = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.error.required = Select yes if Do you want to add another accounting period for this company?
