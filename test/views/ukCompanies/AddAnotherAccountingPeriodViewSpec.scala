@@ -28,12 +28,12 @@ import views.html.ukCompanies.AddAnotherAccountingPeriodView
 class AddAnotherAccountingPeriodViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "addAnotherAccountingPeriod"
-  val section = Some(messages("section.ukCompanies"))
   val form = new AddAnotherAccountingPeriodFormProvider()()
   val companyIdx = 1
   val restrictionIdx = 1
   val postAction = routes.AddRestrictionAmountController.onSubmit(companyIdx, restrictionIdx, NormalMode)
   val companyName = "Company 1"
+  val section = Some(companyName)
 
     "AddAnotherAccountingPeriodView" must {
 
