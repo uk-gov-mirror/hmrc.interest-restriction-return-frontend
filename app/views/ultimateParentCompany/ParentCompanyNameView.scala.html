@@ -33,7 +33,7 @@
 @(form: Form[_], mode: Mode, labelMsg : String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @govukLayout(
-    pageTitle = Some(title(form, "parentCompanyName.title"))
+    pageTitle = Some(title(form, labelMsg))
     ) {
 
     @formHelper(action = postAction, args = 'novalidate -> "novalidate") {

@@ -33,10 +33,59 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "return OK (200) with 1 index" in {
+
+          val pageTitle : String = "What is the name of the first entity in the deemed parent? - Interest Restriction Return - GOV.UK"
 
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/1/name")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 2 index" in {
+
+          val pageTitle : String = "What is the name of the second entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/2/name")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 3 index" in {
+
+          val pageTitle : String =
+            "What is the name of the third entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/3/name")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with false deemed parent" in {
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, false).get)
           val res = getRequest("/ultimate-parent-company/1/name")()
 
           whenReady(res) { result =>
@@ -46,6 +95,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
             )
           }
         }
+
       }
 
       "user not authorised" should {
@@ -113,10 +163,58 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "return OK (200) with 1 index" in {
+
+          val pageTitle: String = "What is the name of the first entity in the deemed parent? - Interest Restriction Return - GOV.UK"
 
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/1/name/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 2 index" in {
+
+          val pageTitle: String = "What is the name of the second entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/2/name/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 3 index" in {
+
+          val pageTitle: String = "What is the name of the third entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/3/name/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with false deemed parent" in {
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, false).get)
           val res = getRequest("/ultimate-parent-company/1/name/change")()
 
           whenReady(res) { result =>
@@ -126,6 +224,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
             )
           }
         }
+
       }
 
       "user not authorised" should {
