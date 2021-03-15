@@ -31,7 +31,7 @@
             Legend(
                 content = Text(messages(legendContent)),
                 isPageHeading = legendAsPageHeading,
-                classes = "govuk-fieldset__legend--xl"
+                classes = if(legendAsPageHeading) "govuk-fieldset__legend--xl" else ""
             )
         )
     )),

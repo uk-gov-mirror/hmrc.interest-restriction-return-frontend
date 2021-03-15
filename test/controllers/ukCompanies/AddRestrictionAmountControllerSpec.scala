@@ -56,7 +56,6 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-
       val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK

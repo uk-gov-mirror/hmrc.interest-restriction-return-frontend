@@ -15,6 +15,7 @@ import play.api.data.Form
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import navigation.$section;format="cap"$Navigator
 import scala.concurrent.Future
+import controllers.BaseController
 
 class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,

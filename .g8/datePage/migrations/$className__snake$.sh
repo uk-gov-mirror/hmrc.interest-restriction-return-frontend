@@ -18,9 +18,9 @@ echo "Adding messages to English conf.messages"
 echo "" >> ../conf/messages.en
 echo "# $className;format="cap"$Page Messages" >> ../conf/messages.en
 echo "# ----------------------------------------------------------" >> ../conf/messages.en
-echo "$className;format="decap"$.title = $className;format="cap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.heading = $className;format="cap"$" >> ../conf/messages.en
-echo "$className;format="decap"$.checkYourAnswersLabel = $className;format="cap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.title = $title;format="cap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.heading = $title;format="cap"$" >> ../conf/messages.en
+echo "$className;format="decap"$.checkYourAnswersLabel = $title;format="cap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required.all = Please enter the date for $className;format="decap"$" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required.two= The $className;format="decap"$" must include {0} and {1} >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = The $className;format="decap"$ must include {0}" >> ../conf/messages.en

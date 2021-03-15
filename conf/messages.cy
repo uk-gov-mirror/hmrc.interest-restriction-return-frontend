@@ -81,3 +81,13 @@ companyEstimatedFigures.tax EBITDA = Net tax interest amount
 companyEstimatedFigures.netTaxInterest = Net tax interest amount
 companyEstimatedFigures.checkYourAnswersLabel = Tell us which figures have been estimated
 companyEstimatedFigures.error.required = Select companyEstimatedFigures
+
+# CompanyAccountingPeriodEndDatePage Messages
+# ----------------------------------------------------------
+companyAccountingPeriodEndDate.title = CompanyAccountingPeriodEndDate
+companyAccountingPeriodEndDate.heading = CompanyAccountingPeriodEndDate
+companyAccountingPeriodEndDate.checkYourAnswersLabel = CompanyAccountingPeriodEndDate
+companyAccountingPeriodEndDate.error.required.all = Enter the companyAccountingPeriodEndDate
+companyAccountingPeriodEndDate.error.required.two= The companyAccountingPeriodEndDate must include {0} and {1}
+companyAccountingPeriodEndDate.error.required = The companyAccountingPeriodEndDate must include {0}
+companyAccountingPeriodEndDate.error.invalid = Enter a real CompanyAccountingPeriodEndDate
