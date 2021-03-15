@@ -19,7 +19,7 @@ package models.transformations.writes
 import generators.ModelGenerators
 import models.{FullReturnModel, OtherInvestorGroupElections}
 import models.returnModels.{AgentDetailsModel, UTRModel}
-import models.sections.AboutReturnSectionModel
+import models.sections.{AboutReturnSectionModel, GroupRatioJourneyModel}
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsValue, Json}
@@ -273,6 +273,61 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
             "have the SAUTR if available" in {
               (mappedElection \ "groupLevelElections" \ "interestAllowanceConsolidatedPartnership" \ "consolidatedPartnerships" \ 0 \ "sautr").asOpt[String] mustEqual consolidatedPartnership.head.sautr.map(c=>c.utr)
             }
+          }
+        }
+      }
+
+      "Mapping the Group Level Information section" should {
+        val mappedReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
+
+        "have the ANGIE" in {
+          (mappedReturn \ "angie").as[BigDecimal] mustEqual groupLevelInfo.groupRatioJourney.angie
+        }
+
+        "have the groupSubjectToInterestRestrictions" in {
+          (mappedReturn \ "groupSubjectToInterestRestrictions").as[Boolean] mustEqual groupLevelInfo.restrictionReactivationJourney.subjectToRestrictions
+        }
+
+        "When mapping the groupLevelAount" should {
+          "have the interest allowance brought forward" in {
+            (mappedReturn \ "groupLevelAmount" \ "interestAllowanceBroughtForward").as[BigDecimal] mustEqual groupLevelInfo.interestAllowanceBroughtForward
+          }
+
+          "have the interest allowance for period" in {
+            (mappedReturn \ "groupLevelAmount" \ "interestAllowanceForPeriod").as[BigDecimal] mustEqual groupLevelInfo.interestAllowanceForReturnPeriod
+          }
+
+          "have the interest capacity for period" in {
+            (mappedReturn \ "groupLevelAmount" \ "interestCapacityForPeriod").as[BigDecimal] mustEqual groupLevelInfo.interestCapacityForReturnPeriod
+          }
+        }
+
+        "When it is groupRatioElected and mapping the adjustedGroupInterest" should {
+          val groupRatioJourney = GroupRatioJourneyModel(BigDecimal(5),Some(BigDecimal(325324)),Some(BigDecimal(23432324)),Some(BigDecimal(23423432)))
+          val fullReturnWithGroupLevelInformation = fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioIsElected = true),
+            groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(groupRatioJourney = groupRatioJourney))
+
+          val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
+
+          "have QNGIE" in {
+            (mappedReturn \ "adjustedGroupInterest" \ "qngie").asOpt[BigDecimal] mustEqual groupRatioJourney.qngie
+          }
+
+          "have groupEBITDA" in {
+            (mappedReturn \ "adjustedGroupInterest" \ "groupEBITDA").asOpt[BigDecimal] mustEqual groupRatioJourney.groupEBITDA
+          }
+
+          "have groupRatio" in {
+            (mappedReturn \ "adjustedGroupInterest" \ "groupRatio").asOpt[BigDecimal] mustEqual groupRatioJourney.groupRatioPercentage
+          }
+        }
+
+        "When it is not groupRatioElected" should {
+          "not add adjustedGroupInterest" in {
+            val fullReturnNoGroupRatio = fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioIsElected = false))
+            val mappedReturn : JsValue = Json.toJson(fullReturnNoGroupRatio)(FullReturnModel.writes)
+
+            (mappedReturn \ "adjustedGroupInterest").asOpt[JsValue] mustEqual None
           }
         }
       }

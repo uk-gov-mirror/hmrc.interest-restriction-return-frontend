@@ -18,24 +18,24 @@ package models.sections
 
 case class GroupLevelInformationSectionModel(
   restrictionReactivationJourney: RestrictionReactivationJourneyModel,
-  interestAllowanceBroughtForward: BigDecimal,
-  interestAllowanceForReturnPeriod: BigDecimal,
-  interestCapacityForReturnPeriod: BigDecimal,
-  groupRatioJourney: GroupRatioJourneyModel,
+  interestAllowanceBroughtForward: BigDecimal, //DONE
+  interestAllowanceForReturnPeriod: BigDecimal, //DONE
+  interestCapacityForReturnPeriod: BigDecimal, //DONE
+  groupRatioJourney: GroupRatioJourneyModel, //DONE
   estimates: Boolean,
   groupRatioElection: Boolean
 )
 
 case class RestrictionReactivationJourneyModel(
-  subjectToRestrictions: Boolean,
+  subjectToRestrictions: Boolean, //DONE
   totalDisallowedAmount: Option[BigDecimal],
   subjectToReactivations: Option[Boolean],
   reactivationCap: Option[BigDecimal]
 )
 
 case class GroupRatioJourneyModel(
-  angie: BigDecimal,
-  qngie: Option[BigDecimal],
-  groupEBITDA: Option[BigDecimal],
-  groupRatioPercentage: Option[BigDecimal]
+  angie: BigDecimal, //DONE
+  qngie: Option[BigDecimal], //DONE
+  groupEBITDA: Option[BigDecimal], //DONE
+  groupRatioPercentage: Option[BigDecimal] //DONE
 )

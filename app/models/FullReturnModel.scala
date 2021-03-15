@@ -39,7 +39,11 @@ object FullReturnModel {
       (JsPath \ "reportingCompany").write[JsObject] and
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
       (JsPath \ "parentCompany").write[JsObject] and
-      (JsPath \ "groupLevelElections").write[JsObject]
+      (JsPath \ "groupLevelElections").write[JsObject] and
+      (JsPath \ "angie").write[BigDecimal] and
+      (JsPath \ "groupLevelAmount").write[JsObject] and
+      (JsPath \ "adjustedGroupInterest").writeNullable[JsObject] and
+      (JsPath \ "groupSubjectToInterestRestrictions").write[Boolean]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -56,9 +60,35 @@ object FullReturnModel {
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
       ),
       toParentCompany(fullReturn),
-      toGroupLevelElections(fullReturn)
+      toGroupLevelElections(fullReturn),
+      fullReturn.groupLevelInformation.groupRatioJourney.angie,
+      toGroupLevelAmount(fullReturn),
+      toAdjustedGroupInterest(fullReturn),
+      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToRestrictions
     )
   )
+
+  private def toAdjustedGroupInterest(fullReturn: FullReturnModel) = {
+    if (fullReturn.elections.groupRatioIsElected) {
+      Some(Json.obj(
+        "qngie" -> fullReturn.groupLevelInformation.groupRatioJourney.qngie,
+        "groupEBITDA" -> fullReturn.groupLevelInformation.groupRatioJourney.groupEBITDA,
+        "groupRatio" -> fullReturn.groupLevelInformation.groupRatioJourney.groupRatioPercentage
+      ))
+    } else {
+      None
+    }
+  }
+
+  private def toGroupLevelAmount(fullReturn: FullReturnModel) = {
+
+    Json.obj(
+      "interestAllowanceBroughtForward" -> fullReturn.groupLevelInformation.interestAllowanceBroughtForward,
+      "interestAllowanceForPeriod" -> fullReturn.groupLevelInformation.interestAllowanceForReturnPeriod,
+      "interestCapacityForPeriod" -> fullReturn.groupLevelInformation.interestCapacityForReturnPeriod
+    )
+
+  }
 
   private def toGroupLevelElections(fullReturn: FullReturnModel) = {
     Json.obj(
