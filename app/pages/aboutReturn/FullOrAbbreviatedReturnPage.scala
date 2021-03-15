@@ -20,6 +20,7 @@ import models.{FullOrAbbreviatedReturn, UserAnswers}
 import pages.Page.allQuestionPages
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+import pages.ukCompanies.RestrictionQueryHelper
 
 import scala.util.Try
 
@@ -35,7 +36,10 @@ case object FullOrAbbreviatedReturnPage extends QuestionPage[FullOrAbbreviatedRe
     if (currentAnswer == value) {
       super.cleanup(value, userAnswers)
     } else {
-      userAnswers.remove(allPagesFromFullOrAbbreviated)
+      for {
+        ua      <- userAnswers.remove(allPagesFromFullOrAbbreviated)
+        finalUa <- ua.remove(RestrictionQueryHelper.restrictionCompanyPath)
+      } yield finalUa
     }
   }
 
