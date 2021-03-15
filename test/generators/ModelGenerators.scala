@@ -20,7 +20,7 @@ import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
 import models.returnModels._
-import models.sections.{AboutReturnSectionModel, UltimateParentCompanySectionModel}
+import models.sections.{AboutReturnSectionModel, ElectionsSectionModel, UltimateParentCompanySectionModel}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
@@ -125,5 +125,48 @@ trait ModelGenerators {
       isSameAsParent <- arbitrary[Boolean]
       hasDeemedParent <- arbitrary[Option[Boolean]]
       parentCompanies <- Gen.listOf(deemedParentSectionModel)
-    } yield UltimateParentCompanySectionModel(isSameAsParent,hasDeemedParent,parentCompanies.toSeq)
+    } yield UltimateParentCompanySectionModel(isSameAsParent,hasDeemedParent,parentCompanies)
+
+
+  implicit lazy val investorGroupModel : Gen[InvestorGroupModel] =
+    for {
+      name <- arbitrary[String]
+      ratioMethod <- Gen.option(arbitraryInvestorRatioMethod.arbitrary)
+      otherInvestments <- Gen.option(Gen.listOf(arbitraryOtherInvestorGroupElections.arbitrary))
+    } yield InvestorGroupModel(name,ratioMethod,otherInvestments.map(c=>c.toSet))
+
+  implicit lazy val groupRatioBlendedModel : Gen[GroupRatioBlendedModel] =
+    for {
+      isElected <- arbitrary[Boolean]
+      blendedModel <- Gen.option(Gen.listOf(investorGroupModel))
+    } yield GroupRatioBlendedModel(isElected,blendedModel)
+
+
+  implicit lazy val partnershipModel : Gen[PartnershipModel] =
+    for {
+      name <- arbitrary[String]
+      isUkPartnership <- Gen.option(Gen.oneOf(IsUKPartnershipOrPreferNotToAnswer.values))
+      saUtr <- Gen.option(arbitrary[String])
+    } yield PartnershipModel(name,isUkPartnership,saUtr.map(c=>UTRModel(c)))
+
+  implicit lazy val consolidatedPartnershipModel : Gen[ConsolidatedPartnershipModel] =
+    for {
+      isElected <- arbitrary[Boolean]
+      consolidated <- Gen.option(Gen.listOf(partnershipModel))
+    } yield ConsolidatedPartnershipModel(isElected,consolidated)
+
+  implicit lazy val electionsSectionModel : Gen[ElectionsSectionModel] =
+    for {
+      isGroupRatioElected <- arbitrary[Boolean]
+      blended <- Gen.option(groupRatioBlendedModel)
+      ebitdaActive <- arbitrary[Option[Boolean]]
+      ebitdaIsElected <- arbitrary[Option[Boolean]]
+      calcActive <- arbitrary[Boolean]
+      calcIsElectec <- arbitrary[Option[Boolean]]
+      nonConsoElec <- arbitrary[Boolean]
+      nonConsolidatedInvestments <- Gen.option(Gen.listOf(arbitrary[String]))
+      isPartnershipActive <- arbitrary[Boolean]
+      partnership <- Gen.option(consolidatedPartnershipModel)
+    } yield ElectionsSectionModel(isGroupRatioElected,blended,ebitdaActive,ebitdaIsElected,calcActive,
+      calcIsElectec,nonConsoElec,nonConsolidatedInvestments,isPartnershipActive,partnership)
 }

@@ -22,6 +22,7 @@ import pages.behaviours.PageBehaviours
 import org.scalacheck.Arbitrary.arbitrary
 import pages.aboutReturn.AgentNamePage
 import pages.ukCompanies.UkCompaniesPage
+import pages.ukCompanies.AddRestrictionAmountPage
 
 class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
 
@@ -43,11 +44,13 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
                 .set(GroupSubjectToReactivationsPage,true).success.value
                 .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
                 .set(UkCompaniesPage,UkCompanyModel(CompanyDetailsModel("test","test")),Some(1)).success.value
+                .set(AddRestrictionAmountPage(1,1), true).success.value
                 .set(GroupSubjectToReactivationsPage,false).success.value
 
               result.get(AgentNamePage) mustBe defined
               result.get(GroupSubjectToReactivationsPage) mustBe defined
               result.get(UkCompaniesPage,Some(1)) must not be defined
+              result.get(AddRestrictionAmountPage(1,1)) must not be defined
           }
         }
 
@@ -59,11 +62,13 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
               .set(GroupSubjectToReactivationsPage,false).success.value
               .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
               .set(UkCompaniesPage,UkCompanyModel(CompanyDetailsModel("test","test")),Some(1)).success.value
+              .set(AddRestrictionAmountPage(1,1), true).success.value
               .set(GroupSubjectToReactivationsPage,true).success.value
 
             result.get(AgentNamePage) mustBe defined
             result.get(GroupSubjectToReactivationsPage) mustBe defined
             result.get(UkCompaniesPage,Some(1)) must not be defined
+            result.get(AddRestrictionAmountPage(1,1)) must not be defined
         }
       }
 
@@ -75,11 +80,13 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
               .set(GroupSubjectToReactivationsPage,false).success.value
               .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
               .set(UkCompaniesPage,UkCompanyModel(CompanyDetailsModel("test","test")),Some(1)).success.value
+              .set(AddRestrictionAmountPage(1,1), true).success.value
               .set(GroupSubjectToReactivationsPage,false).success.value
 
             result.get(AgentNamePage) mustBe defined
             result.get(GroupSubjectToReactivationsPage) mustBe defined
             result.get(UkCompaniesPage,Some(1)) mustBe defined
+            result.get(AddRestrictionAmountPage(1,1)) mustBe defined
         }
       }
 
@@ -91,12 +98,13 @@ class GroupSubjectToReactivationsPageSpec extends PageBehaviours {
             .set(GroupSubjectToReactivationsPage,true).success.value
             .set(InterestReactivationsCapPage,BigDecimal(1)).success.value
             .set(UkCompaniesPage,UkCompanyModel(CompanyDetailsModel("test","test")),Some(1)).success.value
+            .set(AddRestrictionAmountPage(1,1), true).success.value
             .set(GroupSubjectToReactivationsPage,true).success.value
-
 
           result.get(AgentNamePage) mustBe defined
           result.get(GroupSubjectToReactivationsPage) mustBe defined
           result.get(UkCompaniesPage,Some(1)) mustBe defined
+          result.get(AddRestrictionAmountPage(1,1)) mustBe defined
       }
     }
   }

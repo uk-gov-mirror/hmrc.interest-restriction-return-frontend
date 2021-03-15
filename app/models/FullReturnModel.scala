@@ -19,11 +19,11 @@ package models
 import models.returnModels.{AgentDetailsModel, DeemedParentModel}
 import models.sections._
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsArray, JsNull, JsObject, JsPath, JsValue, Json, Writes}
+import play.api.libs.json.{JsObject, JsPath, Json, Writes}
 
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
-                           elections: Option[ElectionsSectionModel] = None,
+                           elections: ElectionsSectionModel,
                            groupLevelInformation: Option[GroupLevelInformationSectionModel] = None,
                            ukCompanies: Option[UkCompaniesSectionModel] = None)
 
@@ -38,7 +38,8 @@ object FullReturnModel {
       (JsPath \ "revisedReturnDetails").writeNullable[String] and
       (JsPath \ "reportingCompany").write[JsObject] and
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
-      (JsPath \ "parentCompany").write[JsObject]
+      (JsPath \ "parentCompany").write[JsObject] and
+      (JsPath \ "groupLevelElections").write[JsObject]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -54,9 +55,34 @@ object FullReturnModel {
         "startDate" -> fullReturn.aboutReturn.periodOfAccount.startDate,
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
       ),
-      toParentCompany(fullReturn)
+      toParentCompany(fullReturn),
+      toGroupLevelElections(fullReturn)
     )
   )
+
+  private def toGroupLevelElections(fullReturn: FullReturnModel) = {
+    Json.obj(
+      "groupRatio" -> Json.obj(
+        "isElected" -> fullReturn.elections.groupRatioIsElected,
+        "groupRatioBlended" -> Json.obj(
+          "isElected" -> fullReturn.elections.groupRatioBlended.map(groupRatio => groupRatio.isElected),
+          "investorGroups" -> fullReturn.elections.groupRatioBlended.flatMap(groupRatio => groupRatio.investorGroups.map(investors => {
+            investors.map(investor => Json.obj(
+              "groupName" -> investor.investorName,
+              "elections" -> investor.otherInvestorGroupElections.map(elections => elections.map(election => election))))}))),
+          "groupEBITDAChargeableGains" -> fullReturn.elections.groupEBITDAChargeableGainsIsElected),
+      "interestAllowanceNonConsolidatedInvestment" -> Json.obj(
+          "isElected" -> fullReturn.elections.nonConsolidatedInvestmentsIsElected,
+          "nonConsolidatedInvestments" -> fullReturn.elections.nonConsolidatedInvestmentNames.map(investments=>investments.map(investment =>
+                Json.obj("investmentName" -> investment)))),
+      "interestAllowanceAlternativeCalculation" -> fullReturn.elections.interestAllowanceAlternativeCalcIsElected.fold(false)(isElected => isElected),
+      "interestAllowanceConsolidatedPartnership" -> Json.obj(
+          "isElected" -> fullReturn.elections.consolidatedPartnerships.fold(false)(partnership=>partnership.isElected),
+          "consolidatedPartnerships" -> fullReturn.elections.consolidatedPartnerships.flatMap(consolidatedPartnership => consolidatedPartnership.consolidatedPartnerships.map(partnerhips=>partnerhips.map(partnership=>{
+            Json.obj("partnershipName" -> partnership.name,
+                     "sautr" -> partnership.sautr.map(sautr=>sautr.utr))}))))
+    )
+  }
 
   private def toParentCompany(fullReturn: FullReturnModel) = {
     if (fullReturn.ultimateParentCompany.reportingCompanySameAsParent) {
@@ -64,22 +90,17 @@ object FullReturnModel {
         "ctutr" -> fullReturn.aboutReturn.ctutr))
     } else {
       fullReturn.ultimateParentCompany.hasDeemedParent match {
-        case Some(true) => Json.obj("deemedParent" -> JsArray(fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
-          companyDetails(parent)
-        })))
+        case Some(true) => Json.obj("deemedParent" -> fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
+          companyDetails(parent)}))
         case _ => Json.obj("ultimateParent" -> companyDetails(fullReturn.ultimateParentCompany.parentCompanies.head))
       }
     }
   }
 
   private def companyDetails(parent: DeemedParentModel) : JsObject = {
-    withNoNulls(Json.obj("companyName" -> parent.companyName.name,
+    Json.obj("companyName" -> parent.companyName.name,
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
-      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code)))
-  }
-
-  def withNoNulls(json : JsObject): JsObject = {
-    JsObject(json.fields.filterNot(c => c._2 == JsNull))
+      "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
   }
 }

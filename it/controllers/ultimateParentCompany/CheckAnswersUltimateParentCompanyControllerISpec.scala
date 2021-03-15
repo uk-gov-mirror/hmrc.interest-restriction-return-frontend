@@ -92,7 +92,7 @@ class CheckAnswersUltimateParentCompanyControllerISpec extends IntegrationSpecBa
               whenReady(res) { result =>
                 result should have(
                   httpStatus(SEE_OTHER),
-                  redirectLocation(routes.DeemedParentReviewAnswersListController.onPageLoad().url)
+                  redirectLocation(routes.ParentCompanyNameController.onPageLoad(2, NormalMode).url)
                 )
               }
             }

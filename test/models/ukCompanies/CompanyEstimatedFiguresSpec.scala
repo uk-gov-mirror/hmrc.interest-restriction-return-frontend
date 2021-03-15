@@ -107,6 +107,5 @@ class CompanyEstimatedFiguresSpec extends WordSpec with MustMatchers with ScalaC
       val expectedValues = Seq(TaxEbitda)
       result mustEqual expectedValues.map(estimatedFigureToCheckboxItem(form, _))
     }
-
   }
 }

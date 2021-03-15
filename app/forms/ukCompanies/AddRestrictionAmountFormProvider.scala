@@ -14,24 +14,17 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
+package forms.ukCompanies
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
-import models.UserAnswers
+import javax.inject.Inject
 
-import scala.util.Try
+import forms.mappings.Mappings
+import play.api.data.Form
 
-case object ReturnContainEstimatesPage extends QuestionPage[Boolean] {
+class AddRestrictionAmountFormProvider @Inject() extends Mappings {
 
-  override def path: JsPath = JsPath \ toString
-
-  override def toString: String = "returnContainEstimates"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    value match {
-      case Some(false) => userAnswers.remove(EstimatedFiguresPage)
-      case _ => super.cleanup(value, userAnswers)
-    }
-  }
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("addRestrictionAmount.error.required")
+    )
 }

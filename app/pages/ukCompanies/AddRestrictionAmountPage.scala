@@ -14,24 +14,14 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
-
+package pages.ukCompanies
 import pages.QuestionPage
 import play.api.libs.json.JsPath
-import models.UserAnswers
 
-import scala.util.Try
+case class AddRestrictionAmountPage(companyIdx: Int, restrictionIdx: Int) extends QuestionPage[Boolean] {
 
-case object ReturnContainEstimatesPage extends QuestionPage[Boolean] {
+  override def path: JsPath = RestrictionQueryHelper.path(companyIdx, restrictionIdx, toString)
 
-  override def path: JsPath = JsPath \ toString
+  override def toString: String = "addRestrictionAmount"
 
-  override def toString: String = "returnContainEstimates"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    value match {
-      case Some(false) => userAnswers.remove(EstimatedFiguresPage)
-      case _ => super.cleanup(value, userAnswers)
-    }
-  }
 }

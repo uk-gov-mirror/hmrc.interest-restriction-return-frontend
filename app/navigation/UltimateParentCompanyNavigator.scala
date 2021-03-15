@@ -18,11 +18,12 @@ package navigation
 
 import controllers.elections.{routes => electionsRoutes}
 import controllers.ultimateParentCompany.routes
-import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.ultimateParentCompany._
 import play.api.mvc.Call
+
+import javax.inject.{Inject, Singleton}
 
 @Singleton
 class UltimateParentCompanyNavigator @Inject()() extends Navigator {
@@ -46,11 +47,15 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
       case Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx, NormalMode)
       case _ => routes.LimitedLiabilityPartnershipController.onPageLoad(idx, NormalMode)
     }),
-    ParentCompanyCTUTRPage -> ((idx,_) => checkYourAnswers(idx)),
-    ParentCompanySAUTRPage -> ((idx,_) => checkYourAnswers(idx)),
-    CountryOfIncorporationPage -> ((idx,_) => checkYourAnswers(idx)),
+    ParentCompanyCTUTRPage -> ((idx, _) => checkYourAnswers(idx)),
+    ParentCompanySAUTRPage -> ((idx, _) => checkYourAnswers(idx)),
+    CountryOfIncorporationPage -> ((idx, _) => checkYourAnswers(idx)),
     CheckAnswersGroupStructurePage -> ((_, userAnswers) => userAnswers.get(HasDeemedParentPage) match {
-      case Some(true) => routes.DeemedParentReviewAnswersListController.onPageLoad()
+      case Some(true) =>
+        userAnswers.get(DeemedParentPage, Some(2)) match {
+          case Some(_) => routes.DeemedParentReviewAnswersListController.onPageLoad()
+          case _ => routes.ParentCompanyNameController.onPageLoad(2, NormalMode)
+        }
       case Some(false) => nextSection(NormalMode)
       case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
     }),
@@ -58,27 +63,27 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
     DeletionConfirmationPage -> ((_, _) => routes.DeemedParentReviewAnswersListController.onPageLoad())
   )
 
-  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int,UserAnswers) => Call](
-    PayTaxInUkPage -> ((idx,userAnswers) =>
-      userAnswers.get(DeemedParentPage,Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
+  val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
+    PayTaxInUkPage -> ((idx, userAnswers) =>
+      userAnswers.get(DeemedParentPage, Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
         deemedParent.payTaxInUk match {
-          case payTaxInUk if deemedParent.limitedLiabilityPartnership.isEmpty && payTaxInUk == Some(true)  =>
-            routes.LimitedLiabilityPartnershipController.onPageLoad(idx,CheckMode)
-          case payTaxInUk if deemedParent.countryOfIncorporation.isEmpty && payTaxInUk == Some(false)  =>
-            routes.CountryOfIncorporationController.onPageLoad(idx,CheckMode)
+          case payTaxInUk if deemedParent.limitedLiabilityPartnership.isEmpty && payTaxInUk.contains(true) =>
+            routes.LimitedLiabilityPartnershipController.onPageLoad(idx, CheckMode)
+          case payTaxInUk if deemedParent.countryOfIncorporation.isEmpty && payTaxInUk.contains(false) =>
+            routes.CountryOfIncorporationController.onPageLoad(idx, CheckMode)
           case _ => checkYourAnswers(idx)
         }
       })),
-    LimitedLiabilityPartnershipPage -> ((idx,userAnswers) =>
-      userAnswers.get(DeemedParentPage,Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
+    LimitedLiabilityPartnershipPage -> ((idx, userAnswers) =>
+      userAnswers.get(DeemedParentPage, Some(idx)).fold(checkYourAnswers(idx))(deemedParent => {
         deemedParent.limitedLiabilityPartnership match {
-          case llp if deemedParent.sautr.isEmpty && llp == Some(true)  => routes.ParentCompanySAUTRController.onPageLoad(idx,CheckMode)
-          case llp if deemedParent.ctutr.isEmpty && llp == Some(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx,CheckMode)
+          case llp if deemedParent.sautr.isEmpty && llp.contains(true) => routes.ParentCompanySAUTRController.onPageLoad(idx, CheckMode)
+          case llp if deemedParent.ctutr.isEmpty && llp.contains(false) => routes.ParentCompanyCTUTRController.onPageLoad(idx, CheckMode)
           case _ => checkYourAnswers(idx)
         }
       })),
-    ReportingCompanySameAsParentPage -> ((idx,userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
-      case Some(true) =>nextSection(NormalMode)
+    ReportingCompanySameAsParentPage -> ((idx, userAnswers) => userAnswers.get(ReportingCompanySameAsParentPage) match {
+      case Some(true) => nextSection(NormalMode)
       case Some(false) => {
         val hasDeemedParentPage = userAnswers.get(HasDeemedParentPage)
 
@@ -86,17 +91,8 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
       }
       case _ => checkYourAnswers(idx)
     }),
-    HasDeemedParentPage -> ((idx,userAnswers) => hasDeemedParentCheckRoute(idx, userAnswers))
+    HasDeemedParentPage -> ((idx, userAnswers) => hasDeemedParentCheckRoute(idx, userAnswers))
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))
-
-  private def hasDeemedParentCheckRoute(idx: Int, userAnswers: UserAnswers): Call = {
-    userAnswers.get(ParentCompanyNamePage) match {
-      case Some(_) => checkYourAnswers(idx)
-      case _ => routes.ParentCompanyNameController.onPageLoad(idx, NormalMode)
-    }
-  }
-
-  private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 
   def nextSection(mode: Mode): Call = electionsRoutes.GroupRatioElectionController.onPageLoad(mode)
 
@@ -107,4 +103,13 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
     case CheckMode => checkRouteMap(page)(idx.getOrElse[Int](1), userAnswers)
     case ReviewMode => normalRoutes(page)(idx.getOrElse[Int](1), userAnswers)
   }
+
+  private def hasDeemedParentCheckRoute(idx: Int, userAnswers: UserAnswers): Call = {
+    userAnswers.get(ParentCompanyNamePage) match {
+      case Some(_) => checkYourAnswers(idx)
+      case _ => routes.ParentCompanyNameController.onPageLoad(idx, NormalMode)
+    }
+  }
+
+  private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersGroupStructureController.onPageLoad(idx)
 }

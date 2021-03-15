@@ -20,6 +20,7 @@ import models.UserAnswers
 import pages.Page.{aboutReturnSectionPages, allQuestionPages, electionsSectionPages, ultimateParentCompanySectionPages}
 import pages.QuestionPage
 import play.api.libs.json.JsPath
+import pages.ukCompanies.RestrictionQueryHelper
 
 import scala.util.Try
 
@@ -34,7 +35,10 @@ case object GroupSubjectToRestrictionsPage extends QuestionPage[Boolean] {
     if(currentAnswer == value) {
       super.cleanup(value, userAnswers)
     } else {
-      userAnswers.remove(allPagesAfterGroupSubjectToRestrictions)
+      for {
+        ua      <- userAnswers.remove(allPagesAfterGroupSubjectToRestrictions)
+        finalUa <- ua.remove(RestrictionQueryHelper.restrictionCompanyPath)
+      } yield finalUa
     }
   }
 

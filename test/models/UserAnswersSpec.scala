@@ -20,6 +20,9 @@ import assets.constants.DeemedParentConstants._
 import base.SpecBase
 import pages.ultimateParentCompany.DeemedParentPage
 import play.api.libs.json.Json
+import scala.util.Success
+import pages.ukCompanies.RestrictionQueryHelper
+import pages.ukCompanies.AddRestrictionAmountPage
 
 class UserAnswersSpec extends SpecBase {
 
@@ -70,5 +73,23 @@ class UserAnswersSpec extends SpecBase {
         }
       }
     }
+
+    "remove(path)" must {
+
+      "remove all objects within the defined path" in {
+        val userAnswers = 
+          (for {
+            ua        <- emptyUserAnswers.set(AddRestrictionAmountPage(1,1), true)
+            ua2       <- ua.set(AddRestrictionAmountPage(1,2), false)
+            ua3       <- ua2.set(AddRestrictionAmountPage(1,3), true)
+            ua4       <- ua3.set(AddRestrictionAmountPage(2,1), false)
+            finalUa   <- ua4.set(AddRestrictionAmountPage(3,1), true)
+          } yield finalUa).get
+
+          userAnswers.remove(RestrictionQueryHelper.restrictionCompanyPath) mustEqual Success(emptyUserAnswers)
+      }
+
+    }
   }
+
 }

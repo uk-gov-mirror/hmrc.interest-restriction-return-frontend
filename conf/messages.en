@@ -973,3 +973,10 @@ addNetTaxInterest.title = Does this company have a net tax-interest?
 addNetTaxInterest.heading = Does this company have a net tax-interest?
 addNetTaxInterest.checkYourAnswersLabel = Net tax-interest
 addNetTaxInterest.error.required = Select yes if the company has a net tax-interest
+
+# AddRestrictionAmountPage Messages
+# ----------------------------------------------------------
+addRestrictionAmount.title = Do you want to add a restriction amount for the accounting period?
+addRestrictionAmount.heading = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.checkYourAnswersLabel = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.error.required = Select yes if Do you want to add a restriction amount for this accounting period?

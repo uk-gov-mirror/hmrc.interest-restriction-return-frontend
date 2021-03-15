@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package pages.groupLevelInformation
+package pages.ukCompanies
 
-import pages.QuestionPage
-import play.api.libs.json.JsPath
-import models.UserAnswers
+import pages.behaviours.PageBehaviours
 
-import scala.util.Try
+class AddRestrictionAmountPageSpec extends PageBehaviours {
 
-case object ReturnContainEstimatesPage extends QuestionPage[Boolean] {
+  "AddRestrictionAmountPage" must {
 
-  override def path: JsPath = JsPath \ toString
+    beRetrievable[Boolean](AddRestrictionAmountPage(1, 1))
 
-  override def toString: String = "returnContainEstimates"
+    beSettable[Boolean](AddRestrictionAmountPage(1, 1))
 
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] = {
-    value match {
-      case Some(false) => userAnswers.remove(EstimatedFiguresPage)
-      case _ => super.cleanup(value, userAnswers)
-    }
+    beRemovable[Boolean](AddRestrictionAmountPage(1, 1))
   }
 }
