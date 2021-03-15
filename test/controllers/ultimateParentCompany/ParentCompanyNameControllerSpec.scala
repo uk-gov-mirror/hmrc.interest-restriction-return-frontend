@@ -23,7 +23,7 @@ import controllers.errors
 import forms.ultimateParentCompany.ParentCompanyNameFormProvider
 import models.NormalMode
 import navigation.FakeNavigators.FakeUltimateParentCompanyNavigator
-import pages.ultimateParentCompany.ParentCompanyNamePage
+import pages.ultimateParentCompany.{HasDeemedParentPage, ParentCompanyNamePage}
 import play.api.test.Helpers._
 import views.html.ultimateParentCompany.ParentCompanyNameView
 
@@ -47,24 +47,71 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
 
   "ParentCompanyName Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "return OK and the correct view for a GET with 1 index" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
-
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, NormalMode, routes.ParentCompanyNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+
+      val labelMsg = "What is the name of the first entity in the deemed parent?"
+
+      contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
+        routes.ParentCompanyNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+    }
+
+    "return OK and the correct view for a GET with 2 index" in {
+
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(2, NormalMode)(fakeRequest)
+      status(result) mustEqual OK
+
+      val labelMsg = "What is the name of the second entity in the deemed parent?"
+
+      contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
+        routes.ParentCompanyNameController.onSubmit(2, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+    }
+
+    "return OK and the correct view for a GET with 3 index" in {
+
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(3, NormalMode)(fakeRequest)
+      status(result) mustEqual OK
+
+      val labelMsg = "What is the name of the third entity in the deemed parent?"
+
+      contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
+        routes.ParentCompanyNameController.onSubmit(3, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
+    }
+
+    "return OK and the correct view for a GET with FALSE HasDeemedParentPage" in {
+
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, false).success.value
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
+      status(result) mustEqual OK
+
+      val labelMsg = "Enter the name of the ultimate parent"
+
+      contentAsString(result) mustEqual view(form, NormalMode, labelMsg,
+        routes.ParentCompanyNameController.onSubmit(1, NormalMode))(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val userAnswers = emptyUserAnswers.set(ParentCompanyNamePage, "answer").success.value
+      val userAnswers = emptyUserAnswers
+        .set(ParentCompanyNamePage, "answer").success.value
+        .set(HasDeemedParentPage, true).success.value
 
       mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onPageLoad(1, NormalMode)(fakeRequest)
-
       status(result) mustEqual OK
     }
 
@@ -72,7 +119,8 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "answer"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      mockGetAnswers(Some(userAnswers))
       mockSetAnswers
 
       val result = Controller.onSubmit(1, NormalMode)(request)
@@ -85,7 +133,8 @@ class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching wit
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+      mockGetAnswers(Some(userAnswers))
 
       val result = Controller.onSubmit(1, NormalMode)(request)
 

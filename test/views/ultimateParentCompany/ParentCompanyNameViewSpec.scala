@@ -27,14 +27,14 @@ import views.html.ultimateParentCompany.ParentCompanyNameView
 class ParentCompanyNameViewSpec extends StringViewBehaviours  {
 
   val messageKeyPrefix = "parentCompanyName"
-
+  val ultimatelabel : String = "Enter the name of the ultimate parent"
   val form = new ParentCompanyNameFormProvider()()
 
   s"ParentCompanyName view" must {
 
     def applyView(form: Form[_]): HtmlFormat.Appendable = {
       val view = viewFor[ParentCompanyNameView](Some(emptyUserAnswers))
-      view.apply(form, NormalMode, onwardRoute)(fakeRequest, messages, frontendAppConfig)
+      view.apply(form, NormalMode, ultimatelabel, onwardRoute)(fakeRequest, messages, frontendAppConfig)
     }
 
     behave like normalPage(applyView(form), messageKeyPrefix)
