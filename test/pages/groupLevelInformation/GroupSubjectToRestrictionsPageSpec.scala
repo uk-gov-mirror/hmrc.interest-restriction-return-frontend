@@ -20,6 +20,7 @@ import models.{FullOrAbbreviatedReturn, UserAnswers}
 import pages.behaviours.PageBehaviours
 import org.scalacheck.Arbitrary.arbitrary
 import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import pages.ukCompanies.AddRestrictionAmountPage
 
 class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
 
@@ -44,7 +45,8 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
                 gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
                 irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
                 da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
-                uua <- da.set(GroupSubjectToRestrictionsPage, true)
+                adr <- da.set(AddRestrictionAmountPage(1,1), true)
+                uua <- adr.set(GroupSubjectToRestrictionsPage, true)
               } yield uua
 
               val result = updatedUserAnswers.success.value
@@ -54,6 +56,7 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
               result.get(DisallowedAmountPage) mustBe defined
               result.get(InterestReactivationsCapPage) mustBe defined
               result.get(GroupSubjectToReactivationsPage) mustBe defined
+              result.get(AddRestrictionAmountPage(1,1)) mustBe defined
           }
         }
       }
@@ -67,7 +70,8 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
                 gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
                 irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
                 da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
-                uua <- da.set(GroupSubjectToRestrictionsPage, false)
+                adr <- da.set(AddRestrictionAmountPage(1,1), true)
+                uua <- adr.set(GroupSubjectToRestrictionsPage, false)
               } yield uua
 
               val result = updatedUserAnswers.success.value
@@ -77,6 +81,7 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
               result.get(DisallowedAmountPage) must not be defined
               result.get(InterestReactivationsCapPage) must not be defined
               result.get(GroupSubjectToReactivationsPage) must not be defined
+              result.get(AddRestrictionAmountPage(1,1)) must not be defined
           }
         }
       }
@@ -93,7 +98,8 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
                 gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
                 irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
                 da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
-                uua <- da.set(GroupSubjectToRestrictionsPage, false)
+                adr <- da.set(AddRestrictionAmountPage(1,1), true)
+                uua <- adr.set(GroupSubjectToRestrictionsPage, false)
               } yield uua
 
               val result = updatedUserAnswers.success.value
@@ -103,6 +109,7 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
               result.get(DisallowedAmountPage) mustBe defined
               result.get(InterestReactivationsCapPage) mustBe defined
               result.get(GroupSubjectToReactivationsPage) mustBe defined
+              result.get(AddRestrictionAmountPage(1,1)) mustBe defined
           }
         }
       }
@@ -116,7 +123,8 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
                 gsa <- gsr.set(GroupSubjectToReactivationsPage, true)
                 irc <- gsa.set(InterestReactivationsCapPage, BigDecimal(1.23))
                 da <- irc.set(DisallowedAmountPage, BigDecimal(1.23))
-                uua <- da.set(GroupSubjectToRestrictionsPage, true)
+                adr <- da.set(AddRestrictionAmountPage(1,1), true)
+                uua <- adr.set(GroupSubjectToRestrictionsPage, true)
               } yield uua
 
               val result = updatedUserAnswers.success.value
@@ -126,6 +134,7 @@ class GroupSubjectToRestrictionsPageSpec extends PageBehaviours {
               result.get(DisallowedAmountPage) must not be defined
               result.get(InterestReactivationsCapPage) must not be defined
               result.get(GroupSubjectToReactivationsPage) must not be defined
+              result.get(AddRestrictionAmountPage(1,1)) must not be defined
           }
         }
       }
