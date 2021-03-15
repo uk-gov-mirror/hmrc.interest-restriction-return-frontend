@@ -22,7 +22,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import pages.behaviours.PageBehaviours
 import pages.elections.AddInvestorGroupPage
 import pages.groupLevelInformation.{GroupInterestAllowancePage, RevisingReturnPage}
-import pages.ukCompanies.ConsentingCompanyPage
+import pages.ukCompanies.{ConsentingCompanyPage, AddRestrictionAmountPage}
 import pages.ultimateParentCompany.ParentCompanySAUTRPage
 
 class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
@@ -51,6 +51,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
                 .set(ConsentingCompanyPage,true).success.value
                 .set(AddInvestorGroupPage,true).success.value
                 .set(ParentCompanySAUTRPage,"111111111").success.value
+                .set(AddRestrictionAmountPage(1,1), true).success.value
                 .set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.values.head).success.value
 
 
@@ -61,6 +62,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
               result.get(ConsentingCompanyPage) mustBe defined
               result.get(AddInvestorGroupPage) mustBe defined
               result.get(ParentCompanySAUTRPage) mustBe defined
+              result.get(AddRestrictionAmountPage(1,1)) mustBe defined
         }
       }
     }
@@ -79,6 +81,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
               .set(ConsentingCompanyPage,true).success.value
               .set(AddInvestorGroupPage,true).success.value
               .set(ParentCompanySAUTRPage,"111111111").success.value
+              .set(AddRestrictionAmountPage(1,1), true).success.value
               .set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.values.head).success.value
 
 
@@ -91,6 +94,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
             result.get(ConsentingCompanyPage) must not be defined
             result.get(AddInvestorGroupPage) must not be defined
             result.get(ParentCompanySAUTRPage) must not be defined
+            result.get(AddRestrictionAmountPage(1,1)) must not be defined
         }
       }
     }
@@ -109,6 +113,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
                 .set(ConsentingCompanyPage,true).success.value
                 .set(AddInvestorGroupPage,true).success.value
                 .set(ParentCompanySAUTRPage,"111111111").success.value
+                .set(AddRestrictionAmountPage(1,1), true).success.value
                 .set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.values.last).success.value
 
 
@@ -119,6 +124,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
               result.get(ConsentingCompanyPage) mustBe defined
               result.get(AddInvestorGroupPage) mustBe defined
               result.get(ParentCompanySAUTRPage) mustBe defined
+              result.get(AddRestrictionAmountPage(1,1)) mustBe defined
           }
         }
       }
@@ -137,6 +143,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
                 .set(ConsentingCompanyPage,true).success.value
                 .set(AddInvestorGroupPage,true).success.value
                 .set(ParentCompanySAUTRPage,"111111111").success.value
+                .set(AddRestrictionAmountPage(1,1), true).success.value
                 .set(FullOrAbbreviatedReturnPage,FullOrAbbreviatedReturn.values.last).success.value
 
 
@@ -149,6 +156,7 @@ class FullOrAbbreviatedReturnPageSpec extends PageBehaviours {
               result.get(ConsentingCompanyPage) must not be defined
               result.get(AddInvestorGroupPage) must not be defined
               result.get(ParentCompanySAUTRPage) must not be defined
+              result.get(AddRestrictionAmountPage(1,1)) must not be defined
           }
         }
       }

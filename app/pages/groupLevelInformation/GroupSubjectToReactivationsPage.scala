@@ -17,10 +17,10 @@
 package pages.groupLevelInformation
 
 import models.UserAnswers
-import pages.Page.{allPagesFromSubjectToReactivations, allQuestionPages}
+import pages.Page.allPagesFromSubjectToReactivations
 import pages.QuestionPage
-import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.libs.json.JsPath
+import pages.ukCompanies.RestrictionQueryHelper
 
 import scala.util.Try
 
@@ -36,7 +36,10 @@ case object GroupSubjectToReactivationsPage extends QuestionPage[Boolean] {
     if (currentAnswer == value) {
       super.cleanup(value, userAnswers)
     } else {
-      userAnswers.remove(allPagesFromSubjectToReactivations.values.collect{ case a: QuestionPage[_] => a}.toList)
+      for {
+        ua      <- userAnswers.remove(allPagesFromSubjectToReactivations.values.collect{ case a: QuestionPage[_] => a}.toList)
+        finalUa <- ua.remove(RestrictionQueryHelper.restrictionCompanyPath)
+      } yield finalUa
     }
   }
 }

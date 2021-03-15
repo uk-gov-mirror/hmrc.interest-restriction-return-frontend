@@ -125,3 +125,10 @@ GET        /:idx/add-net-tax-interest                          controllers.ukCom
 POST       /:idx/add-net-tax-interest                          controllers.ukCompanies.AddNetTaxInterestController.onSubmit(idx: Int, mode: Mode = NormalMode)
 GET        /:idx/add-net-tax-interest/change                   controllers.ukCompanies.AddNetTaxInterestController.onPageLoad(idx: Int, mode: Mode = CheckMode)
 POST       /:idx/add-net-tax-interest/change                   controllers.ukCompanies.AddNetTaxInterestController.onSubmit(idx: Int, mode: Mode = CheckMode)
+
+### AddRestrictionAmount Controller
+### ----------------------------------------
+GET        /:idx/restriction/:restrictionIdx/add-restriction-amount              controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+POST       /:idx/restriction/:restrictionIdx/add-restriction-amount              controllers.ukCompanies.AddRestrictionAmountController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+GET        /:idx/restriction/:restrictionIdx/add-restriction-amount/change       controllers.ukCompanies.AddRestrictionAmountController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+POST       /:idx/restriction/:restrictionIdx/add-restriction-amount/change       controllers.ukCompanies.AddRestrictionAmountController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)

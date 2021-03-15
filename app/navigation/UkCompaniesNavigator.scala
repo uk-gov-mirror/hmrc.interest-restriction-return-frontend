@@ -122,4 +122,18 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case _ => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
     }
   }
+
+  private val restrictionNormalRoutes: PartialFunction[Page, UserAnswers => Call] = {
+    case AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
+  }
+
+  def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = 
+    mode match {
+      case NormalMode => restrictionNormalRoutes.lift(page) match {
+        case Some(call) => call(userAnswers)
+        case None => controllers.routes.UnderConstructionController.onPageLoad()
+      }
+      case CheckMode => controllers.routes.UnderConstructionController.onPageLoad()
+    }
+
 }

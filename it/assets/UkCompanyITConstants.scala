@@ -41,6 +41,7 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = Some(allocatedReactivationsModel),
+    addRestrictionAmount = Some(true),
     qicElection = Some(true)
   )
 
@@ -51,6 +52,7 @@ object UkCompanyITConstants extends BaseITConstants {
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
     "allocatedReactivations" -> allocatedReactivationsJson,
+    "addRestriction" -> true,
     "qicElection" -> true
   )
 
@@ -62,6 +64,7 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel),
+    addRestrictionAmount = Some(true),
     qicElection = Some(true)
   )
 
@@ -72,6 +75,7 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA,
     "allocatedReactivations" -> allocatedReactivationsJson,
+    "addRestriction" -> true,
     "qicElection" -> true
   )
 
@@ -83,6 +87,7 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None,
+    addRestrictionAmount = Some(true),
     qicElection = Some(true)
   )
 
@@ -93,6 +98,7 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestIncome,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
+    "addRestriction" -> true,
     "qicElection" -> true
   )
 
@@ -104,6 +110,7 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
     allocatedReactivations = Some(allocatedReactivationsModel),
+    addRestrictionAmount = Some(true),
     qicElection = Some(true)
   )
 
@@ -114,6 +121,7 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedReactivations" -> allocatedReactivationsJson,
+    "addRestriction" -> true,
     "qicElection" -> true
   )
 
@@ -125,6 +133,7 @@ object UkCompanyITConstants extends BaseITConstants {
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = Some(allocatedRestrictionsModel),
     allocatedReactivations = None,
+    addRestrictionAmount = Some(true),
     qicElection = Some(true)
   )
 
@@ -135,6 +144,7 @@ object UkCompanyITConstants extends BaseITConstants {
     "netTaxInterest" -> netTaxInterestExpense,
     "taxEBITDA" -> taxEBITDA,
     "allocatedRestrictions" -> allocatedRestrictionsJson,
+    "addRestriction" -> true,
     "qicElection" -> true
   )
 
@@ -145,7 +155,8 @@ object UkCompanyITConstants extends BaseITConstants {
     netTaxInterest = Some(netTaxInterestIncome),
     taxEBITDA = Some(taxEBITDA),
     allocatedRestrictions = None,
-    allocatedReactivations = None
+    allocatedReactivations = None,
+    addRestrictionAmount = Some(true)
   )
 
   val ukCompanyJsonMin = Json.obj(

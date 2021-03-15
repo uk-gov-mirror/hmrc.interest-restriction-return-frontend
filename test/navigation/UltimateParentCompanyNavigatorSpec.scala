@@ -182,13 +182,38 @@ class UltimateParentCompanyNavigatorSpec extends SpecBase {
 
           "when parent company is deemed" should {
 
-            "go to the DeemedParentReviewAnswersList page" in {
+            "only have 1 entity" should {
 
-              val userAnswers = emptyUserAnswers.set(HasDeemedParentPage, true).success.value
+              "go to the parent company name page" in {
 
-              navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
-                ultimateParentCompanyRoutes.DeemedParentReviewAnswersListController.onPageLoad()
+                val userAnswers =
+                  (for {
+                    hdp <- emptyUserAnswers.set(HasDeemedParentPage, true)
+                    finalUa <- hdp.set(DeemedParentPage, deemedParentModelMin, Some(1))
+                  } yield finalUa).success.value
+
+                navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
+                  ultimateParentCompanyRoutes.ParentCompanyNameController.onPageLoad(2, NormalMode)
+              }
             }
+
+            "have 2 entities" should {
+
+              "go to the DeemedParentReviewAnswersList page" in {
+
+                val userAnswers =
+                  (for {
+                    hdp <- emptyUserAnswers.set(HasDeemedParentPage, true)
+                    one <- hdp.set(DeemedParentPage, deemedParentModelMin, Some(1))
+                    finalUa <- one.set(DeemedParentPage, deemedParentModelMin, Some(2))
+                  } yield finalUa).success.value
+
+                navigator.nextPage(CheckAnswersGroupStructurePage, NormalMode, userAnswers) mustBe
+                  ultimateParentCompanyRoutes.DeemedParentReviewAnswersListController.onPageLoad()
+              }
+
+            }
+
           }
 
           "when parent company is ultimate" should {
