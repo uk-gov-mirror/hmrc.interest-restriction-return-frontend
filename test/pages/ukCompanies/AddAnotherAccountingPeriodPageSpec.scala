@@ -22,10 +22,10 @@ class AddAnotherAccountingPeriodPageSpec extends PageBehaviours {
 
   "AddAnotherAccountingPeriodPage" must {
 
-    beRetrievable[Boolean](AddAnotherAccountingPeriodPage)
+    beRetrievable[Boolean](AddAnotherAccountingPeriodPage(1, 1))
 
-    beSettable[Boolean](AddAnotherAccountingPeriodPage)
+    beSettable[Boolean](AddAnotherAccountingPeriodPage(1, 1))
 
-    beRemovable[Boolean](AddAnotherAccountingPeriodPage)
+    beRemovable[Boolean](AddAnotherAccountingPeriodPage(1, 1))
   }
 }

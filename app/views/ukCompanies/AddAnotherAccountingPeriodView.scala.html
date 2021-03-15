@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@import controllers.ukCompanies.routes._
-@import models.Mode
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 
@@ -30,15 +28,15 @@
     saveForLater: components.saveForLater
 )
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "addAnotherAccountingPeriod.title", Some("section.ukCompanies")))) {
+@govukLayout(pageTitle = Some(title(form, "addAnotherAccountingPeriod.title", Some(companyName)))) {
 
-    @formHelper(action = AddAnotherAccountingPeriodController.onSubmit(mode)) {
+    @formHelper(action = postAction) {
 
         @errorSummary(form.errors)
 
-        @subheading("section.ukCompanies")
+        @subheading(companyName)
 
         @yesNoRadio(form, "addAnotherAccountingPeriod.heading")
 

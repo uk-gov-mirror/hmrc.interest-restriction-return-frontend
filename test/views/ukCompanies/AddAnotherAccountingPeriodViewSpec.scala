@@ -30,21 +30,25 @@ class AddAnotherAccountingPeriodViewSpec extends YesNoViewBehaviours  {
   val messageKeyPrefix = "addAnotherAccountingPeriod"
   val section = Some(messages("section.ukCompanies"))
   val form = new AddAnotherAccountingPeriodFormProvider()()
+  val companyIdx = 1
+  val restrictionIdx = 1
+  val postAction = routes.AddRestrictionAmountController.onSubmit(companyIdx, restrictionIdx, NormalMode)
+  val companyName = "Company 1"
 
     "AddAnotherAccountingPeriodView" must {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[AddAnotherAccountingPeriodView](Some(emptyUserAnswers))
-        view.apply(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, companyName, postAction)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), companyName)
 
       behave like pageWithBackLink(applyView(form))
 
-      behave like yesNoPage(form, applyView, messageKeyPrefix, routes.AddAnotherAccountingPeriodController.onSubmit(NormalMode).url, section = section)
+      behave like yesNoPage(form, applyView, messageKeyPrefix, postAction.url, section = section)
 
       behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 

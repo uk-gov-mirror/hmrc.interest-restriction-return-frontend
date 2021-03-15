@@ -17,7 +17,8 @@
 package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
+import assets.UkCompanyITConstants.ukCompanyModelMax
+import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
@@ -25,16 +26,20 @@ import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
 class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
+  val companyIdx = 1
+  val restrictionIdx = 1
+
   "in Normal mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /uk-companies/:idx/restrictions/:restrictionIdx/add-another-accounting-period" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(companyIdx)).get)
+          val res = getRequest(s"/uk-companies/$companyIdx/restrictions/$restrictionIdx/add-another-accounting-period")()
 
           whenReady(res) { result =>
             result should have(
@@ -50,8 +55,9 @@ class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with
         "return SEE_OTHER (303)" in {
 
           AuthStub.unauthorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(companyIdx)).get)
 
-          val res = getRequest("/ROUTING_PLACEHOLDER")()
+          val res = getRequest(s"/uk-companies/$companyIdx/restrictions/$restrictionIdx/add-another-accounting-period")()
 
           whenReady(res) { result =>
             result should have(
@@ -63,7 +69,7 @@ class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with
       }
     }
 
-    "POST /ROUTING_PLACEHOLDER" when {
+    "POST /uk-companies/:idx/restrictions/:restrictionIdx/add-another-accounting-period" when {
 
       "user is authorised" when {
 
@@ -72,15 +78,15 @@ class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with
           "redirect to AddAnotherAccountingPeriod page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(companyIdx)).get)
 
-            val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
-//TODO: Implement
-//            whenReady(res) { result =>
-//              result should have(
-//                httpStatus(SEE_OTHER),
-//                redirectLocation(controllers.ukCompanies.routes.AddAnotherAccountingPeriodController.onPageLoad(NormalMode).url)
-//              )
-//            }
+            val res = postRequest(s"/uk-companies/$companyIdx/restrictions/$restrictionIdx/add-another-accounting-period", Json.obj("value" -> "true"))()
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+              )
+            }
           }
         }
       }
@@ -90,8 +96,9 @@ class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with
         "return SEE_OTHER (303)" in {
 
           AuthStub.unauthorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(companyIdx)).get)
 
-          val res = postRequest("/ROUTING_PLACEHOLDER", Json.obj("value" -> 1))()
+          val res = postRequest(s"/uk-companies/$companyIdx/restrictions/$restrictionIdx/add-another-accounting-period", Json.obj("value" -> "true"))()
 
           whenReady(res) { result =>
             result should have(
@@ -106,15 +113,16 @@ class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with
 
   "in Change mode" when {
 
-    "GET /ROUTING_PLACEHOLDER" when {
+    "GET /uk-companies/:idx/restrictions/:restrictionIdx/add-another-accounting-period" when {
 
       "user is authorised" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(companyIdx)).get)
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest(s"/uk-companies/$companyIdx/restrictions/$restrictionIdx/add-another-accounting-period/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -131,7 +139,7 @@ class AddAnotherAccountingPeriodControllerISpec extends IntegrationSpecBase with
 
           AuthStub.unauthorised()
 
-          val res = getRequest("/ROUTING_PLACEHOLDER/change")()
+          val res = getRequest(s"/uk-companies/$companyIdx/restrictions/$restrictionIdx/add-another-accounting-period/change")()
 
           whenReady(res) { result =>
             result should have(

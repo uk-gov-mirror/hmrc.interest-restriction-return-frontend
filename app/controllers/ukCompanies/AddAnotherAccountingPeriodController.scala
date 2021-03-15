@@ -17,50 +17,60 @@
 package controllers.ukCompanies
 
 import config.FrontendAppConfig
-import controllers.actions._
-import forms.ukCompanies.AddAnotherAccountingPeriodFormProvider
-
-import javax.inject.Inject
-import models.Mode
-import pages.ukCompanies.AddAnotherAccountingPeriodPage
 import config.featureSwitch.FeatureSwitching
+import controllers.actions._
 import controllers.BaseController
+import forms.ukCompanies.AddAnotherAccountingPeriodFormProvider
 import handlers.ErrorHandler
+import models.Mode
+import navigation.UkCompaniesNavigator
+import pages.ukCompanies.{AddAnotherAccountingPeriodPage, UkCompaniesPage}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.AddAnotherAccountingPeriodView
-import play.api.data.Form
 
+import javax.inject.Inject
 import scala.concurrent.Future
-import navigation.UkCompaniesNavigator
 
 class AddAnotherAccountingPeriodController @Inject()(
-                                         override val messagesApi: MessagesApi,
-                                         sessionRepository: SessionRepository,
-                                         navigator: UkCompaniesNavigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: AddAnotherAccountingPeriodFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: AddAnotherAccountingPeriodView
-                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
+                                                      override val messagesApi: MessagesApi,
+                                                      sessionRepository: SessionRepository,
+                                                      navigator: UkCompaniesNavigator,
+                                                      identify: IdentifierAction,
+                                                      getData: DataRetrievalAction,
+                                                      requireData: DataRequiredAction,
+                                                      formProvider: AddAnotherAccountingPeriodFormProvider,
+                                                      val controllerComponents: MessagesControllerComponents,
+                                                      view: AddAnotherAccountingPeriodView
+                                                    )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(AddAnotherAccountingPeriodPage, formProvider()), mode))
+  def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      Future.successful(Ok(view(
+        form = fillForm(AddAnotherAccountingPeriodPage(idx, restrictionIdx), formProvider()),
+        companyName = ukCompany.companyDetails.companyName,
+        postAction = routes.AddAnotherAccountingPeriodController.onSubmit(idx, restrictionIdx, mode)
+      )))
+    }
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value =>
+  def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors,
+              companyName = ukCompany.companyDetails.companyName,
+              postAction = routes.AddAnotherAccountingPeriodController.onSubmit(idx, restrictionIdx, mode)))),
+        value =>
           for {
-          updatedAnswers <- Future.fromTry(request.userAnswers.set(AddAnotherAccountingPeriodPage, value))
-          _              <- sessionRepository.set(updatedAnswers)
-        } yield Redirect(navigator.nextPage(AddAnotherAccountingPeriodPage, mode, updatedAnswers))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(AddAnotherAccountingPeriodPage(idx, restrictionIdx), value))
+            _ <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextRestrictionPage(AddAnotherAccountingPeriodPage(idx, restrictionIdx), mode, updatedAnswers))
 
-    )
+      )
+    }
   }
 }

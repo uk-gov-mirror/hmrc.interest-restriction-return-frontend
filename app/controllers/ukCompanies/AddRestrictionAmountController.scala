@@ -48,7 +48,7 @@ class AddRestrictionAmountController @Inject()(
   def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(Ok(view(
-        form = fillForm(AddRestrictionAmountPage(idx, restrictionIdx), formProvider()), 
+        form = fillForm(AddRestrictionAmountPage(idx, restrictionIdx), formProvider()),
         companyName = ukCompany.companyDetails.companyName,
         postAction = routes.AddRestrictionAmountController.onSubmit(idx, restrictionIdx, mode)
       )))
@@ -61,13 +61,13 @@ class AddRestrictionAmountController @Inject()(
         formWithErrors =>
           Future.successful(
             BadRequest(view(
-              form = formWithErrors, 
+              form = formWithErrors,
               companyName = ukCompany.companyDetails.companyName,
               postAction = routes.AddRestrictionAmountController.onSubmit(idx, restrictionIdx, mode)
             ))
           ),
         value =>
-            for {
+          for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(AddRestrictionAmountPage(idx, restrictionIdx), value))
             _              <- sessionRepository.set(updatedAnswers)
           } yield Redirect(navigator.nextRestrictionPage(AddRestrictionAmountPage(idx, restrictionIdx), mode, updatedAnswers))
