@@ -78,8 +78,8 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
 
   private def getLabel(deemedParent : Boolean, idx : Int): String = {
     deemedParent match {
-      case true => "parentCompanyName.ultimateParentCompanyHeading"
-      case false => idx match {
+      case false => "parentCompanyName.ultimateParentCompanyHeading"
+      case true => idx match {
         case 1 => "parentCompanyName.firstDeemedParentCompanyHeading"
         case 2 => "parentCompanyName.secondDeemedParentCompanyHeading"
         case _ => "parentCompanyName.thirdDeemedParentCompanyHeading"
