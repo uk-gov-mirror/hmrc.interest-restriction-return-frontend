@@ -83,14 +83,12 @@ object FullReturnModel {
   }
 
   private def toGroupLevelAmount(fullReturn: FullReturnModel) = {
-
     Json.obj(
       "interestAllowanceBroughtForward" -> fullReturn.groupLevelInformation.interestAllowanceBroughtForward,
       "interestAllowanceForPeriod" -> fullReturn.groupLevelInformation.interestAllowanceForReturnPeriod,
       "interestCapacityForPeriod" -> fullReturn.groupLevelInformation.interestCapacityForReturnPeriod,
       "interestReactivationCap" -> fullReturn.groupLevelInformation.restrictionReactivationJourney.reactivationCap.fold(BigDecimal(0))(amount => amount)
     )
-
   }
 
   private def toGroupLevelElections(fullReturn: FullReturnModel) = {

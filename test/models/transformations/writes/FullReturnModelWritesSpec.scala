@@ -323,9 +323,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
               val restrictionJourneyModel = restrictionReactivationJourneyModel.sample.value.copy(reactivationCap = Some(BigDecimal(3242313)))
               val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel))
 
-
               val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
-
 
               (mappedReturn \ "groupLevelAmount" \ "interestReactivationCap").as[BigDecimal] mustEqual restrictionJourneyModel.reactivationCap.value
             }
