@@ -31,7 +31,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
 
   "in Normal mode" when {
 
-    "GET /uk-companies/1/restriction/1/add-restriction-amount" when {
+    "GET /uk-companies/1/restrictions/1/add-restriction-amount" when {
 
       "user is authorised" should {
 
@@ -39,7 +39,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
 
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
-          val res = getRequest("/uk-companies/1/restriction/1/add-restriction-amount")()
+          val res = getRequest("/uk-companies/1/restrictions/1/add-restriction-amount")()
 
           whenReady(res) { result =>
             result should have(
@@ -57,7 +57,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
           AuthStub.unauthorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-          val res = getRequest("/uk-companies/1/restriction/1/add-restriction-amount")()
+          val res = getRequest("/uk-companies/1/restrictions/1/add-restriction-amount")()
 
           whenReady(res) { result =>
             result should have(
@@ -80,7 +80,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-            val res = postRequest("/uk-companies/1/restriction/1/add-restriction-amount", Json.obj("value" -> 1))()
+            val res = postRequest("/uk-companies/1/restrictions/1/add-restriction-amount", Json.obj("value" -> 1))()
 
             //TODO
 //            whenReady(res) { result =>
@@ -100,7 +100,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
           AuthStub.unauthorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-          val res = postRequest("/uk-companies/1/restriction/1/add-restriction-amount", Json.obj("value" -> 1))()
+          val res = postRequest("/uk-companies/1/restrictions/1/add-restriction-amount", Json.obj("value" -> 1))()
 
           whenReady(res) { result =>
             result should have(
@@ -124,7 +124,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
           AuthStub.authorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-          val res = getRequest("/uk-companies/1/restriction/1/add-restriction-amount/change")()
+          val res = getRequest("/uk-companies/1/restrictions/1/add-restriction-amount/change")()
 
           whenReady(res) { result =>
             result should have(
@@ -142,7 +142,7 @@ class AddRestrictionAmountControllerISpec extends IntegrationSpecBase with Creat
           AuthStub.unauthorised()
           setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
 
-          val res = getRequest("/uk-companies/1/restriction/1/add-restriction-amount/change")()
+          val res = getRequest("/uk-companies/1/restrictions/1/add-restriction-amount/change")()
 
           whenReady(res) { result =>
             result should have(
