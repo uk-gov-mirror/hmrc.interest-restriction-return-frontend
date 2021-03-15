@@ -24,7 +24,7 @@ import play.api.libs.json.{JsArray, JsNull, JsObject, JsPath, JsValue, Json, Wri
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
                            elections: ElectionsSectionModel,
-                           groupLevelInformation: Option[GroupLevelInformationSectionModel] = None,
+                           groupLevelInformation: GroupLevelInformationSectionModel,
                            ukCompanies: Option[UkCompaniesSectionModel] = None)
 
 object FullReturnModel {
