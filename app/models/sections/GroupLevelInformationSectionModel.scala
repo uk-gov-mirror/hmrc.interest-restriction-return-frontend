@@ -29,8 +29,8 @@ case class GroupLevelInformationSectionModel(
 case class RestrictionReactivationJourneyModel(
   subjectToRestrictions: Boolean, //DONE
   totalDisallowedAmount: Option[BigDecimal],
-  subjectToReactivations: Option[Boolean],
-  reactivationCap: Option[BigDecimal]
+  subjectToReactivations: Option[Boolean], //DONE
+  reactivationCap: Option[BigDecimal] //DONE
 )
 
 case class GroupRatioJourneyModel(

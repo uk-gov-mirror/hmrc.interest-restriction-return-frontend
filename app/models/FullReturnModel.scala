@@ -43,7 +43,8 @@ object FullReturnModel {
       (JsPath \ "angie").write[BigDecimal] and
       (JsPath \ "groupLevelAmount").write[JsObject] and
       (JsPath \ "adjustedGroupInterest").writeNullable[JsObject] and
-      (JsPath \ "groupSubjectToInterestRestrictions").write[Boolean]
+      (JsPath \ "groupSubjectToInterestRestrictions").write[Boolean] and
+      (JsPath \ "groupSubjectToInterestReactivation").write[Boolean]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -64,7 +65,8 @@ object FullReturnModel {
       fullReturn.groupLevelInformation.groupRatioJourney.angie,
       toGroupLevelAmount(fullReturn),
       toAdjustedGroupInterest(fullReturn),
-      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToRestrictions
+      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToRestrictions,
+      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToReactivations.fold(false)(isSubjectToReactivations => isSubjectToReactivations)
     )
   )
 
@@ -85,7 +87,8 @@ object FullReturnModel {
     Json.obj(
       "interestAllowanceBroughtForward" -> fullReturn.groupLevelInformation.interestAllowanceBroughtForward,
       "interestAllowanceForPeriod" -> fullReturn.groupLevelInformation.interestAllowanceForReturnPeriod,
-      "interestCapacityForPeriod" -> fullReturn.groupLevelInformation.interestCapacityForReturnPeriod
+      "interestCapacityForPeriod" -> fullReturn.groupLevelInformation.interestCapacityForReturnPeriod,
+      "interestReactivationCap" -> fullReturn.groupLevelInformation.restrictionReactivationJourney.reactivationCap.fold(BigDecimal(0))(amount => amount)
     )
 
   }

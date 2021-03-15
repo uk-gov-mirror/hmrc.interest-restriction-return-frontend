@@ -288,6 +288,10 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           (mappedReturn \ "groupSubjectToInterestRestrictions").as[Boolean] mustEqual groupLevelInfo.restrictionReactivationJourney.subjectToRestrictions
         }
 
+        "have the groupSubjectToInterestReactivation" in {
+          (mappedReturn \ "groupSubjectToInterestReactivation").as[Boolean] mustEqual groupLevelInfo.restrictionReactivationJourney.subjectToReactivations.fold(false)(c=>c)
+        }
+
         "When mapping the groupLevelAount" should {
           "have the interest allowance brought forward" in {
             (mappedReturn \ "groupLevelAmount" \ "interestAllowanceBroughtForward").as[BigDecimal] mustEqual groupLevelInfo.interestAllowanceBroughtForward
@@ -299,6 +303,32 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
           "have the interest capacity for period" in {
             (mappedReturn \ "groupLevelAmount" \ "interestCapacityForPeriod").as[BigDecimal] mustEqual groupLevelInfo.interestCapacityForReturnPeriod
+          }
+
+          "default interestReactivationCap to 0" when {
+            "there is no reactivationCap" in {
+              val restrictionJourneyModel = restrictionReactivationJourneyModel.sample.value.copy(reactivationCap = None)
+              val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel))
+
+
+              val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
+
+
+              (mappedReturn \ "groupLevelAmount" \ "interestReactivationCap").as[BigDecimal] mustEqual 0
+            }
+          }
+
+          "map the interestReactivionCap" when {
+            "we have a reactivationCap" in {
+              val restrictionJourneyModel = restrictionReactivationJourneyModel.sample.value.copy(reactivationCap = Some(BigDecimal(3242313)))
+              val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel))
+
+
+              val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
+
+
+              (mappedReturn \ "groupLevelAmount" \ "interestReactivationCap").as[BigDecimal] mustEqual restrictionJourneyModel.reactivationCap.value
+            }
           }
         }
 
