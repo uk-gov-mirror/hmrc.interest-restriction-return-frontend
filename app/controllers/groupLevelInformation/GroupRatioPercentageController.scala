@@ -16,8 +16,6 @@
 
 package controllers.groupLevelInformation
 
-import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 
@@ -29,7 +27,6 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.groupLevelInformation.GroupRatioPercentageView
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import config.FrontendAppConfig
 
 import config.featureSwitch.{FeatureSwitching}

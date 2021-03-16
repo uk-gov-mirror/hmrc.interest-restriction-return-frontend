@@ -17,7 +17,7 @@
 package generators
 
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
-import models.InvestorRatioMethod.{FixedRatioMethod, GroupRatioMethod, PreferNotToAnswer}
+import models.InvestorRatioMethod.GroupRatioMethod
 import models._
 import models.returnModels._
 import models.sections.{AboutReturnSectionModel, ElectionsSectionModel, GroupLevelInformationSectionModel, GroupRatioJourneyModel, RestrictionReactivationJourneyModel, UltimateParentCompanySectionModel}
