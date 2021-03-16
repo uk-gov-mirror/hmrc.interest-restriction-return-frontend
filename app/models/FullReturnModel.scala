@@ -25,7 +25,7 @@ case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
                            elections: ElectionsSectionModel,
                            groupLevelInformation: GroupLevelInformationSectionModel,
-                           ukCompanies: Option[UkCompaniesSectionModel] = None)
+                           ukCompanies: UkCompaniesSectionModel)
 
 object FullReturnModel {
   val revisedReturn = "revised"

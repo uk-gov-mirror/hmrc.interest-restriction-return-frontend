@@ -20,7 +20,7 @@ import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
 import models.returnModels._
-import models.sections.{AboutReturnSectionModel, ElectionsSectionModel, GroupLevelInformationSectionModel, GroupRatioJourneyModel, RestrictionReactivationJourneyModel, UltimateParentCompanySectionModel}
+import models.sections.{AboutReturnSectionModel, ElectionsSectionModel, GroupLevelInformationSectionModel, GroupRatioJourneyModel, RestrictionReactivationJourneyModel, UkCompaniesSectionModel, UkCompanyJourneyModel, UltimateParentCompanySectionModel}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
@@ -198,4 +198,22 @@ trait ModelGenerators {
       estimates <- arbitrary[Boolean]
       groupRatioElection <- arbitrary[Boolean]
     } yield GroupLevelInformationSectionModel(restrictionReactivationJourney,interestAllowanceBroughtForward,interestAllowanceForReturnPeriod,interestCapacityForReturnPeriod,groupRatioJourney,estimates,groupRatioElection)
+
+  implicit lazy val ukCompanyJourneyModel: Gen[UkCompanyJourneyModel] =
+    for {
+      companyDetails <- arbitraryCompanyDetailsModel.arbitrary
+      taxEbitda <- Gen.option(arbitrary[BigDecimal])
+      netTaxInterestIncome <- Gen.option(arbitrary[BigDecimal])
+      netTaxInterestExpense <- Gen.option(arbitrary[BigDecimal])
+      reactivationAmount <- Gen.option(arbitrary[BigDecimal])
+    } yield UkCompanyJourneyModel(companyDetails,taxEbitda,netTaxInterestIncome,netTaxInterestExpense,reactivationAmount)
+
+
+  implicit lazy val ukCompaniesSectionModel: Gen[UkCompaniesSectionModel] =
+    for {
+      ukCompanies <- Gen.listOf(ukCompanyJourneyModel)
+      fullOrAbbreviated <- arbitraryFullOrAbbreviatedReturn.arbitrary
+      restrictions <- Gen.option(arbitrary[Boolean])
+      reactivations <- Gen.option(arbitrary[Boolean])
+    } yield UkCompaniesSectionModel(ukCompanies,fullOrAbbreviated,restrictions,reactivations)
 }
