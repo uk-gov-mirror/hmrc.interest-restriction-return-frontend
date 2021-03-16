@@ -24,7 +24,7 @@ import play.api.libs.json.{JsObject, JsPath, Json, Writes}
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
                            elections: ElectionsSectionModel,
-                           groupLevelInformation: Option[GroupLevelInformationSectionModel] = None,
+                           groupLevelInformation: GroupLevelInformationSectionModel,
                            ukCompanies: Option[UkCompaniesSectionModel] = None)
 
 object FullReturnModel {
@@ -39,7 +39,12 @@ object FullReturnModel {
       (JsPath \ "reportingCompany").write[JsObject] and
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
       (JsPath \ "parentCompany").write[JsObject] and
-      (JsPath \ "groupLevelElections").write[JsObject]
+      (JsPath \ "groupLevelElections").write[JsObject] and
+      (JsPath \ "angie").write[BigDecimal] and
+      (JsPath \ "groupLevelAmount").write[JsObject] and
+      (JsPath \ "adjustedGroupInterest").writeNullable[JsObject] and
+      (JsPath \ "groupSubjectToInterestRestrictions").write[Boolean] and
+      (JsPath \ "groupSubjectToInterestReactivation").write[Boolean]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -56,9 +61,35 @@ object FullReturnModel {
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
       ),
       toParentCompany(fullReturn),
-      toGroupLevelElections(fullReturn)
+      toGroupLevelElections(fullReturn),
+      fullReturn.groupLevelInformation.groupRatioJourney.angie,
+      toGroupLevelAmount(fullReturn),
+      toAdjustedGroupInterest(fullReturn),
+      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToRestrictions,
+      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToReactivations.fold(false)(isSubjectToReactivations => isSubjectToReactivations)
     )
   )
+
+  private def toAdjustedGroupInterest(fullReturn: FullReturnModel) = {
+    if (fullReturn.elections.groupRatioIsElected) {
+      Some(Json.obj(
+        "qngie" -> fullReturn.groupLevelInformation.groupRatioJourney.qngie,
+        "groupEBITDA" -> fullReturn.groupLevelInformation.groupRatioJourney.groupEBITDA,
+        "groupRatio" -> fullReturn.groupLevelInformation.groupRatioJourney.groupRatioPercentage
+      ))
+    } else {
+      None
+    }
+  }
+
+  private def toGroupLevelAmount(fullReturn: FullReturnModel) = {
+    Json.obj(
+      "interestAllowanceBroughtForward" -> fullReturn.groupLevelInformation.interestAllowanceBroughtForward,
+      "interestAllowanceForPeriod" -> fullReturn.groupLevelInformation.interestAllowanceForReturnPeriod,
+      "interestCapacityForPeriod" -> fullReturn.groupLevelInformation.interestCapacityForReturnPeriod,
+      "interestReactivationCap" -> fullReturn.groupLevelInformation.restrictionReactivationJourney.reactivationCap.fold(BigDecimal(0))(amount => amount)
+    )
+  }
 
   private def toGroupLevelElections(fullReturn: FullReturnModel) = {
     Json.obj(

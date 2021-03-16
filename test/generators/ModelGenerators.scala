@@ -20,7 +20,7 @@ import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models.InvestorRatioMethod.GroupRatioMethod
 import models._
 import models.returnModels._
-import models.sections.{AboutReturnSectionModel, ElectionsSectionModel, UltimateParentCompanySectionModel}
+import models.sections.{AboutReturnSectionModel, ElectionsSectionModel, GroupLevelInformationSectionModel, GroupRatioJourneyModel, RestrictionReactivationJourneyModel, UltimateParentCompanySectionModel}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
@@ -169,4 +169,33 @@ trait ModelGenerators {
       partnership <- Gen.option(consolidatedPartnershipModel)
     } yield ElectionsSectionModel(isGroupRatioElected,blended,ebitdaActive,ebitdaIsElected,calcActive,
       calcIsElectec,nonConsoElec,nonConsolidatedInvestments,isPartnershipActive,partnership)
+
+  implicit lazy val restrictionReactivationJourneyModel : Gen[RestrictionReactivationJourneyModel] = {
+    for {
+      hasRestrictions <- arbitrary[Boolean]
+      totalDisallowedAmount <- Gen.option(arbitrary[BigDecimal])
+      subjectToReactivations <- Gen.option(arbitrary[Boolean])
+      cap <- Gen.option(arbitrary[BigDecimal])
+    } yield RestrictionReactivationJourneyModel(hasRestrictions,totalDisallowedAmount,subjectToReactivations,cap)
+  }
+
+  implicit lazy val groupRatioJourneyModel : Gen[GroupRatioJourneyModel] = {
+    for {
+      angie <- arbitrary[BigDecimal]
+      qngie <- Gen.option(arbitrary[BigDecimal])
+      ebitda <- Gen.option(arbitrary[BigDecimal])
+      groupRatioPercentage <- Gen.option(arbitrary[BigDecimal])
+    } yield GroupRatioJourneyModel(angie,qngie,ebitda,groupRatioPercentage)
+  }
+
+  implicit lazy val groupLevelInformationSectionModel : Gen[GroupLevelInformationSectionModel] =
+    for {
+      restrictionReactivationJourney <- restrictionReactivationJourneyModel
+      interestAllowanceBroughtForward <- arbitrary[BigDecimal]
+      interestAllowanceForReturnPeriod <- arbitrary[BigDecimal]
+      interestCapacityForReturnPeriod <- arbitrary[BigDecimal]
+      groupRatioJourney <- groupRatioJourneyModel
+      estimates <- arbitrary[Boolean]
+      groupRatioElection <- arbitrary[Boolean]
+    } yield GroupLevelInformationSectionModel(restrictionReactivationJourney,interestAllowanceBroughtForward,interestAllowanceForReturnPeriod,interestCapacityForReturnPeriod,groupRatioJourney,estimates,groupRatioElection)
 }
