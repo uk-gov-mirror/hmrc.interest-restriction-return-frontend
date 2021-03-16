@@ -49,7 +49,7 @@ class CompanyAccountingPeriodEndDateController @Inject()(
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       answerFor(AccountingPeriodPage) { accountingPeriod =>
         Future.successful(Ok(view(
-          form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(accountingPeriod.endDate)), 
+          form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(accountingPeriod.startDate)), 
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
         )))
@@ -60,7 +60,7 @@ class CompanyAccountingPeriodEndDateController @Inject()(
   def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       answerFor(AccountingPeriodPage) { accountingPeriod =>
-        formProvider(accountingPeriod.endDate).bindFromRequest().fold(
+        formProvider(accountingPeriod.startDate).bindFromRequest().fold(
           formWithErrors =>
             Future.successful(
               BadRequest(view(
