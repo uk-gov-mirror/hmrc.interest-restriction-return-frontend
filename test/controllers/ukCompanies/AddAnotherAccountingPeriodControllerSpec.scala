@@ -21,20 +21,24 @@ import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
-import forms.ukCompanies.AddRestrictionAmountFormProvider
+import forms.ukCompanies.AddAnotherAccountingPeriodFormProvider
 import models.NormalMode
-import pages.ukCompanies.UkCompaniesPage
+import pages.ukCompanies.{AddAnotherAccountingPeriodPage, UkCompaniesPage}
 import play.api.test.Helpers._
-import views.html.ukCompanies.AddRestrictionAmountView
+import views.html.ukCompanies.AddAnotherAccountingPeriodView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
 
-class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
-  val view = injector.instanceOf[AddRestrictionAmountView]
-  val formProvider = injector.instanceOf[AddRestrictionAmountFormProvider]
+  val view = injector.instanceOf[AddAnotherAccountingPeriodView]
+  val formProvider = injector.instanceOf[AddAnotherAccountingPeriodFormProvider]
   val form = formProvider()
 
-  object Controller extends AddRestrictionAmountController(
+  val companyIdx = 1
+  val restrictionIdx = 1
+  val postAction = routes.AddAnotherAccountingPeriodController.onSubmit(companyIdx, restrictionIdx, NormalMode)
+
+  object Controller extends AddAnotherAccountingPeriodController(
     messagesApi = messagesApi,
     sessionRepository = mockSessionRepository,
     navigator = FakeUkCompaniesNavigator,
@@ -46,11 +50,7 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
     view = view
   )
 
-  val companyIdx = 1
-  val restrictionIdx = 1
-  val postAction = routes.AddRestrictionAmountController.onSubmit(companyIdx, restrictionIdx, NormalMode)
-
-  "AddRestrictionAmount Controller" must {
+  "AddAnotherAccountingPeriod Controller" must {
 
     "return OK and the correct view for a GET" in {
 
@@ -67,7 +67,6 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
-
       mockSetAnswers
 
       val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)

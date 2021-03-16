@@ -994,3 +994,11 @@ companyAccountingPeriodEndDate.error.required.two= End date must include a {0} a
 companyAccountingPeriodEndDate.error.required = End date must include a {0}
 companyAccountingPeriodEndDate.error.invalid = End date must be a real date
 companyAccountingPeriodEndDate.error.afterStart = End date must be after {0}
+
+# AddAnotherAccountingPeriodPage Messages
+# ----------------------------------------------------------
+addAnotherAccountingPeriod.title = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.heading = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.checkYourAnswersLabel = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.error.required = Select yes if you want to add another accounting period for this company
+addAnotherAccountingPeriod.p1 = You need to add all relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions
