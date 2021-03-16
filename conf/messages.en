@@ -983,17 +983,29 @@ addRestrictionAmount.error.required = Select yes if Do you want to add a restric
 
 # CompanyAccountingPeriodEndDatePage Messages
 # ----------------------------------------------------------
-companyAccountingPeriodEndDate.title = What is the end date for the first accounting period?
-companyAccountingPeriodEndDate.heading = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.first.title = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.first.heading = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.second.title = What is the end date for the second accounting period?
+companyAccountingPeriodEndDate.second.heading = What is the end date for the second accounting period?
+companyAccountingPeriodEndDate.third.title = What is the end date for the third accounting period?
+companyAccountingPeriodEndDate.third.heading = What is the end date for the third accounting period?
+
 companyAccountingPeriodEndDate.checkYourAnswersLabel = What is the end date for the first accounting period?
 companyAccountingPeriodEndDate.warning = You need to add all the relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions. Add one at a time.
 companyAccountingPeriodEndDate.hint = For example, 27 3 2018
 companyAccountingPeriodEndDate.label = Accounting period end date
+
 companyAccountingPeriodEndDate.error.required.all = Enter the end date
-companyAccountingPeriodEndDate.error.required.two= End date must include a {0} and a {1}
+companyAccountingPeriodEndDate.error.required.two = End date must include a {0} and a {1}
 companyAccountingPeriodEndDate.error.required = End date must include a {0}
 companyAccountingPeriodEndDate.error.invalid = End date must be a real date
-companyAccountingPeriodEndDate.error.afterStart = End date must be after {0}
+companyAccountingPeriodEndDate.error.first.periodOfAccount = You must complete the Worldwide Group Period Of Account Page
+companyAccountingPeriodEndDate.error.first.afterStart = End date must be after {0}
+companyAccountingPeriodEndDate.error.second.notBefore = End date must be after the end date of the company''s first accounting period
+companyAccountingPeriodEndDate.error.second.afterOneYear = End date cannot be more than 12 months after the end date of the company''s first accounting period
+companyAccountingPeriodEndDate.error.third.notBefore = End date must be after the end date of the company''s second accounting period
+companyAccountingPeriodEndDate.error.third.afterOneYear = End date cannot be more than 12 months after the end date of the company''s second accounting period
+
 
 # AddAnotherAccountingPeriodPage Messages
 # ----------------------------------------------------------

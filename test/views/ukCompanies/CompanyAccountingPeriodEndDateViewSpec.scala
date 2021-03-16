@@ -25,13 +25,22 @@ import play.twirl.api.HtmlFormat
 import views.behaviours.QuestionViewBehaviours
 import views.html.ukCompanies.CompanyAccountingPeriodEndDateView
 import controllers.ukCompanies.routes
+import models.returnModels.AccountingPeriodModel
+import pages.aboutReturn.AccountingPeriodPage
+import pages.ukCompanies.UkCompaniesPage
+import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 
 class CompanyAccountingPeriodEndDateViewSpec extends QuestionViewBehaviours[LocalDate] {
 
-  val minDate = LocalDate.of(2017, 1, 1)
+  val periodOfAccount = AccountingPeriodModel(LocalDate.of(2017,1,1), LocalDate.of(2018,1,1))
+  val userAnswers = (for {
+    ua  <- emptyUserAnswers.set(AccountingPeriodPage, periodOfAccount)
+    ua2 <- ua.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+  } yield ua2).get
+
   val messageKeyPrefix = "companyAccountingPeriodEndDate"
   val section = Some(messages("section.ukCompanies"))
-  val form = new CompanyAccountingPeriodEndDateFormProvider()(minDate)
+  val form = new CompanyAccountingPeriodEndDateFormProvider()(1, 1, userAnswers)
   val companyIdx = 1
   val restrictionIdx = 1
   val postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(companyIdx, restrictionIdx, NormalMode)

@@ -19,24 +19,55 @@ package forms.ukCompanies
 import java.time.{LocalDate, ZoneOffset}
 
 import forms.behaviours.DateBehaviours
+import models.returnModels.AccountingPeriodModel
+import pages.aboutReturn.AccountingPeriodPage
+import pages.ukCompanies.{UkCompaniesPage, CompanyAccountingPeriodEndDatePage}
+import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 
 class CompanyAccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
-  val minDate = LocalDate.of(2017, 1, 1)
-  val minDateString = "01 01 2017"
-  val form = new CompanyAccountingPeriodEndDateFormProvider()(minDate)
+  val periodOfAccountStartDate = LocalDate.of(2017, 1, 1)
+  val periodOfAccountEndDate = LocalDate.of(2018, 1, 1)
+  val periodOfAccount = AccountingPeriodModel(periodOfAccountStartDate, periodOfAccountEndDate)
+
+  val ap1EndDate = LocalDate.of(2017, 3, 1)
+  val ap2EndDate = LocalDate.of(2017, 9, 1)
+
+  val userAnswers = (for {
+    ua  <- emptyUserAnswers.set(AccountingPeriodPage, periodOfAccount)
+    ua2 <- ua.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+    ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
+    ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1,2), ap2EndDate)
+  } yield ua4).get
+
+  val firstAPEndDateForm = new CompanyAccountingPeriodEndDateFormProvider()(1, 1, userAnswers)
+  val secondAPEndDateForm = new CompanyAccountingPeriodEndDateFormProvider()(1, 2, userAnswers)
+  val thirdAPEndDateForm = new CompanyAccountingPeriodEndDateFormProvider()(1, 3, userAnswers)
 
   ".value" should {
 
     val validData = datesBetween(
-      min = minDate,
+      min = periodOfAccountStartDate,
       max = LocalDate.now(ZoneOffset.UTC)
     )
 
-    behave like dateField(form, "value", validData)
+    behave like dateField(firstAPEndDateForm, "value", validData)
 
-    behave like mandatoryDateField(form, "value", "companyAccountingPeriodEndDate.error.required.all")
+    behave like mandatoryDateField(firstAPEndDateForm, "value", "companyAccountingPeriodEndDate.error.required.all")
 
-    behave like dateFieldWithMin(form, "value", minDate.plusDays(1), "End date must be after 01 01 2017")
+  }
+  
+  "Form with restriction index 1" should {
+    behave like dateFieldWithMin(firstAPEndDateForm, "value", periodOfAccountStartDate.plusDays(1), "End date must be after 01 01 2017")
+  }
+
+  "Form with restriction index 2" should {
+    behave like dateFieldWithMin(secondAPEndDateForm, "value", ap1EndDate.plusDays(1), "companyAccountingPeriodEndDate.error.second.notBefore")
+    behave like dateFieldWithMax(firstAPEndDateForm, "value", periodOfAccountStartDate.plusMonths(12), "companyAccountingPeriodEndDate.error.second.afterOneYear")
+  }
+
+  "Form with restriction index 3" should {
+    behave like dateFieldWithMin(thirdAPEndDateForm, "value", ap2EndDate.plusDays(1), "companyAccountingPeriodEndDate.error.third.notBefore")
+    behave like dateFieldWithMax(firstAPEndDateForm, "value", periodOfAccountStartDate.plusMonths(12), "companyAccountingPeriodEndDate.error.third.afterOneYear")
   }
 }
