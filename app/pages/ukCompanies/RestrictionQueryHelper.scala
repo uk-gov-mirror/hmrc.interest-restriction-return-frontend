@@ -17,12 +17,10 @@
 package pages.ukCompanies
 
 import play.api.libs.json.JsPath
-import pages.QuestionPage
 
 object RestrictionQueryHelper {
 
   val restrictionCompanyPath = JsPath \ "company"
 
   def path(companyIdx: Int, restrictionIdx: Int, page: String) = restrictionCompanyPath \ (companyIdx - 1) \ page \ (restrictionIdx - 1)
-
 }

@@ -741,21 +741,21 @@ ukCompaniesReviewAnswersList.error.required = Select yes if you need to add anot
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
-netTaxInterestAmount.expense.title = Enter the total net-tax interest expense
-netTaxInterestAmount.expense.heading = Enter the total net-tax interest expense
-netTaxInterestAmount.expense.label = Enter the total net-tax interest expense
+netTaxInterestAmount.expense.title = What is the company''s total net-tax interest expense
+netTaxInterestAmount.expense.heading = What is the company''s total net-tax interest expense
+netTaxInterestAmount.expense.label = What is the company''s total net-tax interest expense
 netTaxInterestAmount.expense.subheading = {0}
-netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.checkYourAnswersLabel = What is the company''s total net-tax interest expense
 netTaxInterestAmount.expense.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.expense.error.required = Enter the total net-tax interest expense
 netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be to 2 decimal places or a whole number
 netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
-netTaxInterestAmount.income.title = Enter the company''s total net-tax interest income
-netTaxInterestAmount.income.heading = Enter the company''s total net-tax interest income
-netTaxInterestAmount.income.label = Enter the company''s total net-tax interest income
+netTaxInterestAmount.income.title = What is the company''s total net-tax interest income
+netTaxInterestAmount.income.heading = What is the company''s total net-tax interest income
+netTaxInterestAmount.income.label = What is the company''s total net-tax interest income
 netTaxInterestAmount.income.subheading = {0}
-netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.checkYourAnswersLabel = What is the company''s total net tax-interest income?
 netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.income.error.required = Enter the company''s total net-tax interest income
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be to 2 decimal places or a whole number
