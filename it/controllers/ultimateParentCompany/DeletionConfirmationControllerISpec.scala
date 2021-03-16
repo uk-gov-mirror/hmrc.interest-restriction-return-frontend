@@ -18,6 +18,7 @@ package controllers.ultimateParentCompany
 
 import assets.{BaseITConstants, PageTitles}
 import assets.DeemedParentITConstants._
+import models.NormalMode
 import pages.ultimateParentCompany.{DeemedParentPage, HasDeemedParentPage}
 import play.api.http.Status._
 import play.api.libs.json.Json
@@ -77,7 +78,7 @@ class DeletionConfirmationControllerISpec extends IntegrationSpecBase with Creat
 
         "enters a valid answer of 'Yes'" when {
 
-          "delete the selected deemed parent and redirect to the list view" in {
+          "delete the selected deemed parent and redirect to add deemed parent" in {
 
             AuthStub.authorised()
 
@@ -92,11 +93,35 @@ class DeletionConfirmationControllerISpec extends IntegrationSpecBase with Creat
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ultimateParentCompany.routes.DeemedParentReviewAnswersListController.onPageLoad().url)
+                redirectLocation(controllers.ultimateParentCompany.routes.ParentCompanyNameController.onPageLoad(2, NormalMode).url)
               )
 
               val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
               updatedAnswers.getList(DeemedParentPage) shouldBe Seq(deemedParentModelUkCompany)
+            }
+          }
+
+          "delete the selected deemed parent when you have third deemed parents and redirect to review list" in {
+
+            AuthStub.authorised()
+
+            setAnswers(emptyUserAnswers
+              .set(HasDeemedParentPage, true).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(1)).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(2)).success.value
+              .set(DeemedParentPage, deemedParentModelUkCompany, Some(3)).success.value
+            )
+
+            val res = postRequest("/ultimate-parent-company/2/deletion-confirmation", Json.obj("value" -> true))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ultimateParentCompany.routes.DeemedParentReviewAnswersListController.onPageLoad().url)
+              )
+
+              val updatedAnswers = getAnswers(emptyUserAnswers.id).fold(emptyUserAnswers)(x => x)
+              updatedAnswers.getList(DeemedParentPage) shouldBe Seq(deemedParentModelUkCompany, deemedParentModelUkCompany)
             }
           }
         }
