@@ -70,7 +70,7 @@ class CompanyAccountingPeriodEndDateControllerSpec extends SpecBase with Feature
       val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Company Name ltd", postAction)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, "Company Name ltd", "first", postAction)(fakeRequest, messages, frontendAppConfig).toString
 
     }
 

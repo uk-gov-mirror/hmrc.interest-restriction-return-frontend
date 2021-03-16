@@ -34,9 +34,9 @@
     warningText: components.warningText
 )
 
-@(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], companyName: String, headingPrefix: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "companyAccountingPeriodEndDate.title", Some(companyName)))) {
+@govukLayout(pageTitle = Some(title(form, s"companyAccountingPeriodEndDate.${headingPrefix}.title", Some(companyName)))) {
 
     @formHelper(action = postAction, 'autoComplete -> "on", 'novalidate -> "novalidate") {
 
@@ -44,7 +44,7 @@
 
         @subheading(companyName)
 
-        @h1("companyAccountingPeriodEndDate.heading")
+        @h1(s"companyAccountingPeriodEndDate.${headingPrefix}.heading")
 
         @warningText { @messages("companyAccountingPeriodEndDate.warning") }
 

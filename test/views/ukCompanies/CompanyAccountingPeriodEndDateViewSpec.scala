@@ -49,10 +49,10 @@ class CompanyAccountingPeriodEndDateViewSpec extends QuestionViewBehaviours[Loca
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[CompanyAccountingPeriodEndDateView](Some(emptyUserAnswers))
-        view.apply(form, "Company 1", postAction)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, "Company 1", "first", postAction)(fakeRequest, messages, frontendAppConfig)
       }
 
-      behave like normalPage(applyView(form), messageKeyPrefix, section = Some("Company 1"))
+      behave like normalPage(applyView(form), "companyAccountingPeriodEndDate.first", section = Some("Company 1"))
 
       behave like pageWithSubHeading(applyView(form), "Company 1")
 

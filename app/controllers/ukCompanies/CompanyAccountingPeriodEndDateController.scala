@@ -49,6 +49,7 @@ class CompanyAccountingPeriodEndDateController @Inject()(
       Future.successful(Ok(view(
         form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(idx, restrictionIdx, request.userAnswers)), 
         companyName = ukCompany.companyDetails.companyName,
+        headingPrefix = headingPrefix(restrictionIdx),
         postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
       )))
     } 
@@ -62,6 +63,7 @@ class CompanyAccountingPeriodEndDateController @Inject()(
             BadRequest(view(
               form = formWithErrors, 
               companyName = ukCompany.companyDetails.companyName,
+              headingPrefix = headingPrefix(restrictionIdx),
               postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
             ))
           ),
@@ -72,5 +74,11 @@ class CompanyAccountingPeriodEndDateController @Inject()(
           } yield Redirect(navigator.nextRestrictionPage(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), mode, updatedAnswers))
       )
     }
+  }
+
+  def headingPrefix(restrictionIdx: Int): String = restrictionIdx match {
+    case 1 => "first"
+    case 2 => "second"
+    case _ => "third"
   }
 }
