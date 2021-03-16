@@ -11,6 +11,7 @@ import repositories.SessionRepository
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import config.FrontendAppConfig
 import play.api.data.Form
+import controllers.BaseController
 
 import config.featureSwitch.{FeatureSwitching}
 import scala.concurrent.Future

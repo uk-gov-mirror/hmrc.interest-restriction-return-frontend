@@ -1,6 +1,7 @@
 package assets
 
 object PageTitles {
+  val companyAccountingPeriodEndDate = "What is the end date for the first accounting period?"
   val addNetTaxInterest = "Does this company have a net tax-interest?"
   val companyContainsEstimates = "Are these estimated figures?"
   val addRestrictionAmount = "Do you want to add a restriction amount for the accounting period?"

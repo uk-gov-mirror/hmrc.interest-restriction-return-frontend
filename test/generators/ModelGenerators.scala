@@ -79,7 +79,7 @@ trait ModelGenerators {
       } yield  CompanyDetailsModel(CompanyNameModel(name), UTRModel(utr))
     }
 
-  implicit val localDateArb = Arbitrary(localDateGen)
+  //implicit val localDateArb = Arbitrary(localDateGen)
 
   def localDateGen: Gen[LocalDate] = {
     val rangeStart = LocalDate.MIN.toEpochDay

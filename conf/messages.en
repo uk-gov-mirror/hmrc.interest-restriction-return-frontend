@@ -980,3 +980,17 @@ addRestrictionAmount.title = Do you want to add a restriction amount for the acc
 addRestrictionAmount.heading = Do you want to add a restriction amount for this accounting period?
 addRestrictionAmount.checkYourAnswersLabel = Do you want to add a restriction amount for this accounting period?
 addRestrictionAmount.error.required = Select yes if Do you want to add a restriction amount for this accounting period?
+
+# CompanyAccountingPeriodEndDatePage Messages
+# ----------------------------------------------------------
+companyAccountingPeriodEndDate.title = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.heading = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.checkYourAnswersLabel = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.warning = You need to add all the relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions. Add one at a time.
+companyAccountingPeriodEndDate.hint = For example, 27 3 2018
+companyAccountingPeriodEndDate.label = Accounting period end date
+companyAccountingPeriodEndDate.error.required.all = Enter the end date
+companyAccountingPeriodEndDate.error.required.two= End date must include a {0} and a {1}
+companyAccountingPeriodEndDate.error.required = End date must include a {0}
+companyAccountingPeriodEndDate.error.invalid = End date must be a real date
+companyAccountingPeriodEndDate.error.afterStart = End date must be after {0}

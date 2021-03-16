@@ -12,6 +12,7 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.$section;format="decap"$.$className;format="cap"$View
 import play.api.data.Form
+import controllers.BaseController
 
 import scala.concurrent.Future
 import navigation.$section;format="cap"$Navigator
