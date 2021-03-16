@@ -44,7 +44,7 @@ class CompanyAccountingPeriodEndDateFormProvider @Inject() extends Mappings {
       twoRequiredKey = "companyAccountingPeriodEndDate.error.required.two",
       requiredKey    = "companyAccountingPeriodEndDate.error.required"
     )
-
+ 
     val accountingPeriodEndDateMapping = restrictionidx match {
       case 1 => formWithFirstAPValidation(fieldMapping, userAnswers)
       case 2 => formWithSecondAPValidation(fieldMapping, userAnswers, page)
@@ -85,7 +85,7 @@ class CompanyAccountingPeriodEndDateFormProvider @Inject() extends Mappings {
     case _ => false
   }
 
-    def periodOfAccountError(periodOfAccountStartDate: Option[LocalDate])(implicit messages: Messages) = periodOfAccountStartDate match {
+  def periodOfAccountError(periodOfAccountStartDate: Option[LocalDate])(implicit messages: Messages) = periodOfAccountStartDate match {
     case Some(startDate) => 
       val startDateString = startDate.toFormattedString
       messages("companyAccountingPeriodEndDate.error.first.afterStart", startDateString)

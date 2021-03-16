@@ -141,5 +141,17 @@ class CompanyAccountingPeriodEndDateControllerSpec extends SpecBase with Feature
       redirectLocation(result) mustBe Some(errors.routes.SessionExpiredController.onPageLoad().url)
     }
   }
+
+  "headingPrefix" must {
+    "return first where the restriction index is 1" in {
+      Controller.headingPrefix(1) mustBe "first"
+    }
+    "return second where the restriction index is 2" in {
+      Controller.headingPrefix(2) mustBe "second"
+    }
+    "return third where the restriction index is 3" in {
+      Controller.headingPrefix(3) mustBe "third"
+    }
+  }
 }
 

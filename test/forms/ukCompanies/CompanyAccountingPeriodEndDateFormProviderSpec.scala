@@ -63,11 +63,11 @@ class CompanyAccountingPeriodEndDateFormProviderSpec extends DateBehaviours {
 
   "Form with restriction index 2" should {
     behave like dateFieldWithMin(secondAPEndDateForm, "value", ap1EndDate.plusDays(1), "companyAccountingPeriodEndDate.error.second.notBefore")
-    behave like dateFieldWithMax(secondAPEndDateForm, "value", periodOfAccountStartDate.plusMonths(12), "companyAccountingPeriodEndDate.error.second.afterOneYear")
+    behave like dateFieldWithMax(secondAPEndDateForm, "value", ap1EndDate.plusMonths(12), "companyAccountingPeriodEndDate.error.second.afterOneYear")
   }
 
   "Form with restriction index 3" should {
     behave like dateFieldWithMin(thirdAPEndDateForm, "value", ap2EndDate.plusDays(1), "companyAccountingPeriodEndDate.error.third.notBefore")
-    behave like dateFieldWithMax(thirdAPEndDateForm, "value", periodOfAccountStartDate.plusMonths(12), "companyAccountingPeriodEndDate.error.third.afterOneYear")
+    behave like dateFieldWithMax(thirdAPEndDateForm, "value", ap2EndDate.plusMonths(12), "companyAccountingPeriodEndDate.error.third.afterOneYear")
   }
 }
