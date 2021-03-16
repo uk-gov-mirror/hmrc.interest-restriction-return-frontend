@@ -24,7 +24,7 @@ object PageTitles {
   val derivedCompany = "Check the totals for this return"
   val companyDetails = "Company details"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
-  val netTaxInterestAmount = "What is the company's total net-tax interest income?"
+  val netTaxInterestAmount = "What is the company's total net tax-interest income?"
   val investorGroupsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investor group ‘$name’?"
   val investmentsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investment ‘$name’?"
   val investmentName = "Enter the name of the investment"
