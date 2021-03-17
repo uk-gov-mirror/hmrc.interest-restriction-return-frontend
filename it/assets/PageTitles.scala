@@ -1,9 +1,10 @@
 package assets
 
 import java.time.LocalDate
+import utils.ImplicitLocalDateFormatter._
 
 object PageTitles {
-  val restrictionAmountForAccountingPeriod: LocalDate => String = endDate => s"What is the restriction amount for the accounting period ending ${endDate.toString}?"
+  val restrictionAmountForAccountingPeriod: LocalDate => String = endDate => s"What is the restriction amount for the accounting period ending ${endDate.toFormattedString}?"
   val addAnotherAccountingPeriod = "Do you want to add another accounting period for this company?"
   val companyAccountingPeriodEndDate = "What is the end date for the first accounting period?"
   val addNetTaxInterest = "Does this company have a net tax-interest?"

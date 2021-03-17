@@ -24,12 +24,13 @@ import javax.inject.Inject
 import play.api.data.Form
 
 import play.api.i18n.Messages
+import utils.ImplicitLocalDateFormatter._
 
 class CompanyAccountingPeriodEndDateFormProvider @Inject() extends Mappings {
 
   def apply(periodOfAccountStartDate: LocalDate)(implicit messages: Messages): Form[LocalDate] = {
 
-    val periodOfAccountStartDateString = periodOfAccountStartDate.format(DateTimeFormatter.ofPattern("dd MM yyyy"))
+    val periodOfAccountStartDateString = periodOfAccountStartDate.toFormattedString
     val afterPeriodOfAccountStartDateError = messages("companyAccountingPeriodEndDate.error.afterStart", periodOfAccountStartDateString)
 
     Form(

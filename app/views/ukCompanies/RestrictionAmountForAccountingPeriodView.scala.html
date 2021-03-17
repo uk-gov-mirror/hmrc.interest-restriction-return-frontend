@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import java.time.LocalDate
+@import utils.ImplicitLocalDateFormatter._
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
@@ -33,7 +34,7 @@
 
 @(form: Form[_], companyName: String, endDate: LocalDate, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "restrictionAmountForAccountingPeriod.title", Some(companyName), Seq(endDate.toString)))) {
+@govukLayout(pageTitle = Some(title(form, "restrictionAmountForAccountingPeriod.title", Some(companyName), Seq(endDate.toFormattedString)))) {
 
     @formHelper(action = postAction, args = 'novalidate -> "novalidate") {
 
@@ -45,7 +46,7 @@
             form,
             id = "value",
             name = "value",
-            label = messages("restrictionAmountForAccountingPeriod.label", endDate.toString),
+            label = messages("restrictionAmountForAccountingPeriod.label", endDate.toFormattedString),
             isPageHeading = true,
             isDecimal = true,
             classes = Some("govuk-input--width-20")

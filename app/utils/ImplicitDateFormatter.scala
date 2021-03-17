@@ -24,3 +24,9 @@ trait ImplicitDateFormatter {
   private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
   implicit def dateToString(date:LocalDate): String = dateFormatter.format(date)
 }
+
+object ImplicitLocalDateFormatter {
+  implicit class DateFormatter(date: LocalDate) {
+    def toFormattedString: String = date.format(DateTimeFormatter.ofPattern("dd MM yyyy"))
+  }
+}

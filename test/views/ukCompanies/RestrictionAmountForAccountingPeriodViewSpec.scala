@@ -24,6 +24,7 @@ import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.DecimalViewBehaviours
 import views.html.ukCompanies.RestrictionAmountForAccountingPeriodView
+import utils.ImplicitLocalDateFormatter._
 
 import java.time.LocalDate
 
@@ -45,13 +46,13 @@ class RestrictionAmountForAccountingPeriodViewSpec extends DecimalViewBehaviours
       view.apply(form, companyName, endDate, postAction)(fakeRequest, messages, frontendAppConfig)
     }
 
-    behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(endDate.toString))
+    behave like normalPage(applyView(form), messageKeyPrefix, section = section, headingArgs = Seq(endDate.toFormattedString))
 
     behave like pageWithBackLink(applyView(form))
 
     behave like pageWithSubHeading(applyView(form), companyName)
 
-    behave like decimalPage(form, applyView, messageKeyPrefix, postAction.url, section = section, headingArgs = Seq(endDate.toString))
+    behave like decimalPage(form, applyView, messageKeyPrefix, postAction.url, section = section, headingArgs = Seq(endDate.toFormattedString))
 
     behave like pageWithSubmitButton(applyView(form), BaseMessages.saveAndContinue)
 
