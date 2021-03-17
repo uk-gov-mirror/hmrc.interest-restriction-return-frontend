@@ -44,14 +44,16 @@
 
         @subheading(companyName)
 
-        @h1(s"companyAccountingPeriodEndDate.${headingPrefix}.heading")
-
-        @warningText { @messages("companyAccountingPeriodEndDate.warning") }
-
-        @inputDate(form, "companyAccountingPeriodEndDate.label", id = "date", hintText = Some("companyAccountingPeriodEndDate.hint"), legendAsPageHeading = false)
+        @inputDate(form, s"companyAccountingPeriodEndDate.${headingPrefix}.heading", id = "date", hint = Some(hint), legendAsPageHeading = true)
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @warningText { @messages("companyAccountingPeriodEndDate.warning") }
+    <div class="govuk-fieldset__legend">@messages("companyAccountingPeriodEndDate.label")</div>
+    @messages("companyAccountingPeriodEndDate.hint")
 }
