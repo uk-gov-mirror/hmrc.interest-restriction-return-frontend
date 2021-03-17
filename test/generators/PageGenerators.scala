@@ -17,9 +17,7 @@
 package generators
 
 import org.scalacheck.Arbitrary
-import org.scalacheck.Arbitrary.arbitrary
 import pages._
-import pages.aboutReturn._
 import pages.groupLevelInformation._
 import pages.elections._
 import pages.ultimateParentCompany._
