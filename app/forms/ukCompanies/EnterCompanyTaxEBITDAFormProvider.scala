@@ -28,6 +28,6 @@ class EnterCompanyTaxEBITDAFormProvider @Inject() extends Mappings {
         "enterCompanyTaxEBITDA.error.required",
         "enterCompanyTaxEBITDA.error.invalidNumeric",
         "enterCompanyTaxEBITDA.error.nonNumeric")
-        .verifying(inRange[BigDecimal](0, 999999999999999.99, "enterCompanyTaxEBITDA.error.outOfRange"))
+        .verifying(inRange[BigDecimal](-999999999999999.99, 999999999999999.99, "enterCompanyTaxEBITDA.error.outOfRange"))
     )
 }
