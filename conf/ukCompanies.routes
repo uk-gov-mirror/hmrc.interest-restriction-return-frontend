@@ -146,3 +146,10 @@ GET        /:idx/restrictions/:restrictionIdx/add-another-accounting-period     
 POST       /:idx/restrictions/:restrictionIdx/add-another-accounting-period                          controllers.ukCompanies.AddAnotherAccountingPeriodController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
 GET        /:idx/restrictions/:restrictionIdx/add-another-accounting-period/change                   controllers.ukCompanies.AddAnotherAccountingPeriodController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
 POST       /:idx/restrictions/:restrictionIdx/add-another-accounting-period/change                   controllers.ukCompanies.AddAnotherAccountingPeriodController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+
+### RestrictionAmountForAccountingPeriod Controller
+### ----------------------------------------
+GET        /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period                          controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+POST       /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period                          controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+GET        /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period/change                   controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+POST       /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period/change                   controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)

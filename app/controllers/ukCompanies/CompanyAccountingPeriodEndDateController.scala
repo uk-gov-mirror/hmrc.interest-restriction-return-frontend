@@ -49,7 +49,7 @@ class CompanyAccountingPeriodEndDateController @Inject()(
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       answerFor(AccountingPeriodPage) { accountingPeriod =>
         Future.successful(Ok(view(
-          form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(accountingPeriod.startDate)), 
+          form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(accountingPeriod.startDate)),
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
         )))
@@ -64,7 +64,7 @@ class CompanyAccountingPeriodEndDateController @Inject()(
           formWithErrors =>
             Future.successful(
               BadRequest(view(
-                form = formWithErrors, 
+                form = formWithErrors,
                 companyName = ukCompany.companyDetails.companyName,
                 postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
               ))
