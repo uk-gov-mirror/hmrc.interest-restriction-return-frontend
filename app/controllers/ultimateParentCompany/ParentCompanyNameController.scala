@@ -47,10 +47,10 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val companyName = getAnswer(DeemedParentPage, idx).map(_.companyName.name)
-    val form = formProvider()
 
     answerFor(HasDeemedParentPage) { deemedParent =>
       val labelMsg : String = getLabel(deemedParent, idx)
+      val form = formProvider(determineErrorText(labelMsg))
       Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, labelMsg, routes.ParentCompanyNameController.onSubmit(idx, mode))))
     }
   }
@@ -60,7 +60,7 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
     answerFor(HasDeemedParentPage) { deemedParent =>
       val labelMsg : String = getLabel(deemedParent, idx)
 
-      formProvider().bindFromRequest().fold(
+      formProvider(determineErrorText(labelMsg)).bindFromRequest().fold(
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors, mode, labelMsg, routes.ParentCompanyNameController.onSubmit(idx, mode)))),
         value => {
@@ -84,6 +84,16 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
         case 2 => "parentCompanyName.secondDeemedParentCompanyHeading"
         case _ => "parentCompanyName.thirdDeemedParentCompanyHeading"
       }
+    }
+  }
+
+  private def determineErrorText(msgLabel : String): String = {
+    msgLabel match {
+      case "parentCompanyName.ultimateParentCompanyHeading" => "parentCompanyName.error.required"
+      case "parentCompanyName.firstDeemedParentCompanyHeading" => "parentCompanyName.error.firstRequired"
+      case "parentCompanyName.secondDeemedParentCompanyHeading" => "parentCompanyName.error.secondRequired"
+      case "parentCompanyName.thirdDeemedParentCompanyHeading" => "parentCompanyName.error.thirdRequired"
+      case _ => "parentCompanyName.error.required"
     }
   }
 }

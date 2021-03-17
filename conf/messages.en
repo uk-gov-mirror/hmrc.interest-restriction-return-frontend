@@ -305,8 +305,12 @@ parentCompanyName.ultimateParentCompanyHeading = Enter the name of the ultimate 
 parentCompanyName.firstDeemedParentCompanyHeading = What is the name of the first entity in the deemed parent?
 parentCompanyName.secondDeemedParentCompanyHeading = What is the name of the second entity in the deemed parent?
 parentCompanyName.thirdDeemedParentCompanyHeading = What is the name of the third entity in the deemed parent?
-parentCompanyName.error.required = Enter the name of the ultimate parent
+
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
+parentCompanyName.error.required = Enter the name of the ultimate parent
+parentCompanyName.error.firstRequired = Enter the name of the first entity in the deemed parent
+parentCompanyName.error.secondRequired = Enter the name of the second entity in the deemed parent
+parentCompanyName.error.thirdRequired = Enter the name of the third entity in the deemed parent
 
 
 # ParentCRNPage Messages

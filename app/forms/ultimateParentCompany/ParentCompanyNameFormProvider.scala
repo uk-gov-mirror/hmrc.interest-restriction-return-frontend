@@ -22,9 +22,8 @@ import play.api.data.Form
 
 class ParentCompanyNameFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[String] =
-    Form(
-      "value" -> text("parentCompanyName.error.required")
+  def apply(msgLabel : String): Form[String] =
+    Form("value" -> text(msgLabel)
         .verifying(maxLength(160, "parentCompanyName.error.length"))
     )
 }

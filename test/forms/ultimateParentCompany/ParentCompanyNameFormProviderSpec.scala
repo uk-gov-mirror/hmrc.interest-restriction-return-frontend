@@ -25,7 +25,7 @@ class ParentCompanyNameFormProviderSpec extends StringFieldBehaviours {
   val lengthKey = "parentCompanyName.error.length"
   val maxLength = 160
 
-  val form = new ParentCompanyNameFormProvider()()
+  val form = new ParentCompanyNameFormProvider()(requiredKey)
 
   ".value" must {
 

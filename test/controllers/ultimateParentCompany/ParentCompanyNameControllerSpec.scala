@@ -29,9 +29,11 @@ import views.html.ultimateParentCompany.ParentCompanyNameView
 
 class ParentCompanyNameControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
+  val error: String = "parentCompanyName.error.required"
+
   val view = injector.instanceOf[ParentCompanyNameView]
   val formProvider = injector.instanceOf[ParentCompanyNameFormProvider]
-  val form = formProvider()
+  val form = formProvider(error)
 
   object Controller extends ParentCompanyNameController(
     messagesApi = messagesApi,
