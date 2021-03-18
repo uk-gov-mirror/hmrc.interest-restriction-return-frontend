@@ -27,7 +27,8 @@ import views.html.ukCompanies.RestrictionDeletionConfirmationView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
 import java.time.LocalDate
 import scala.concurrent.Future
-import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, AddRestrictionAmountPage, RestrictionAmountForAccountingPeriodPage}
+import pages.ukCompanies.{UkCompaniesPage, CompanyAccountingPeriodEndDatePage, AddRestrictionAmountPage, RestrictionAmountForAccountingPeriodPage}
+import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
 
 class RestrictionDeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -55,19 +56,19 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
 
     "return OK and the correct view for a GET" in {
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
       val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, postAction)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, "Company Name ltd", postAction)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
       mockSetAnswers
 
       val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
@@ -92,7 +93,8 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
         ua7 <- ua6.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
         ua8 <- ua7.set(AddRestrictionAmountPage(2, 1), true)
         ua9 <- ua8.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
-      } yield ua9).get
+        ua10 <- ua9.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+      } yield ua10).get
 
       val expectedUserAnswers = (for {
         ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,1,1))
@@ -101,7 +103,8 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
         ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
         ua5 <- ua4.set(AddRestrictionAmountPage(2, 1), true)
         ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
-      } yield ua6).get
+        ua7 <- ua6.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+      } yield ua7).get
 
       mockGetAnswers(Some(userAnswers))
      (mockSessionRepository.set(_: UserAnswers))
@@ -121,16 +124,17 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
       val restrictionIdx = 2
 
       val userAnswers = (for {
-        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,1,1))
-        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), true)
-        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
-        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,1,1))
-        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), true)
-        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(1))
-        ua7 <- ua6.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
-        ua8 <- ua7.set(AddRestrictionAmountPage(2, 1), true)
-        ua9 <- ua8.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
-      } yield ua9).get
+        ua1 <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+        ua2 <- ua1.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,1,1))
+        ua3 <- ua2.set(AddRestrictionAmountPage(1, 1), true)
+        ua4 <- ua3.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
+        ua5 <- ua4.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,1,1))
+        ua6 <- ua5.set(AddRestrictionAmountPage(1, 2), true)
+        ua7 <- ua6.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(1))
+        ua8 <- ua7.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
+        ua9 <- ua8.set(AddRestrictionAmountPage(2, 1), true)
+        ua10 <- ua9.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
+      } yield ua10).get
 
       mockGetAnswers(Some(userAnswers))
 
@@ -147,27 +151,29 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
       val restrictionIdx = 1
 
       val userAnswers = (for {
-        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021,1,1))
-        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), true)
-        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
+        ua1 <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+        ua2 <- ua1.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021,1,1))
+        ua3 <- ua2.set(AddRestrictionAmountPage(1, 1), true)
+        ua4 <- ua3.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
 
-        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2022,2,2))
-        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), false)
-        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(2))
+        ua5 <- ua4.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2022,2,2))
+        ua6 <- ua5.set(AddRestrictionAmountPage(1, 2), false)
+        ua7 <- ua6.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(2))
 
-        ua7 <- ua6.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2023,3,3))
-        ua8 <- ua7.set(AddRestrictionAmountPage(1, 3), true)
-        ua9 <- ua8.set(RestrictionAmountForAccountingPeriodPage(1, 3), BigDecimal(3))
-      } yield ua9).get
+        ua8 <- ua7.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2023,3,3))
+        ua9 <- ua8.set(AddRestrictionAmountPage(1, 3), true)
+        ua10 <- ua9.set(RestrictionAmountForAccountingPeriodPage(1, 3), BigDecimal(3))
+      } yield ua10).get
 
       val expectedUserAnswers = (for {
-        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2022,2,2))
-        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), false)
-        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(2))
-        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2023,3,3))
-        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), true)
-        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(3))
-      } yield ua6).get
+        ua1 <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+        ua2 <- ua1.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2022,2,2))
+        ua3 <- ua2.set(AddRestrictionAmountPage(1, 1), false)
+        ua4 <- ua3.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(2))
+        ua5 <- ua4.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2023,3,3))
+        ua6 <- ua5.set(AddRestrictionAmountPage(1, 2), true)
+        ua7 <- ua6.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(3))
+      } yield ua7).get
 
       mockGetAnswers(Some(userAnswers))
      (mockSessionRepository.set(_: UserAnswers))
@@ -184,7 +190,7 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
 
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
       val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
 

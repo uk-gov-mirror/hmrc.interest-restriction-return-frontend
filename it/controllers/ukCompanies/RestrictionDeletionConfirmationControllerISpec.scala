@@ -17,11 +17,12 @@
 package controllers.ukCompanies
 
 import assets.{BaseITConstants, PageTitles}
-import models.NormalMode
 import play.api.http.Status._
 import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
+import assets.UkCompanyITConstants.ukCompanyModelMax
+import pages.ukCompanies.UkCompaniesPage
 
 class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -34,6 +35,7 @@ class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
           val res = getRequest("/uk-companies/1/restrictions/1/restriction-deletion-confirmation")()
 
           whenReady(res) { result =>
@@ -50,6 +52,7 @@ class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase
         "return SEE_OTHER (303)" in {
 
           AuthStub.unauthorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
           val res = getRequest("/uk-companies/1/restrictions/1/restriction-deletion-confirmation")()
 
@@ -72,6 +75,7 @@ class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase
           "redirect to RestrictionDeletionConfirmation page" in {
 
             AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
             val res = postRequest("/uk-companies/1/restrictions/1/restriction-deletion-confirmation", Json.obj("value" -> 1))()
 //TODO: Implement
@@ -90,6 +94,7 @@ class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase
         "return SEE_OTHER (303)" in {
 
           AuthStub.unauthorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
           val res = postRequest("/uk-companies/1/restrictions/1/restriction-deletion-confirmation", Json.obj("value" -> 1))()
 
@@ -113,6 +118,7 @@ class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase
         "return OK (200)" in {
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
           val res = getRequest("/uk-companies/1/restrictions/1/restriction-deletion-confirmation/change")()
 
@@ -130,6 +136,7 @@ class RestrictionDeletionConfirmationControllerISpec extends IntegrationSpecBase
         "return SEE_OTHER (303)" in {
 
           AuthStub.unauthorised()
+          setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
 
           val res = getRequest("/uk-companies/1/restrictions/1/restriction-deletion-confirmation/change")()
 

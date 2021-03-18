@@ -21,7 +21,7 @@ import controllers.actions._
 import forms.ukCompanies.RestrictionDeletionConfirmationFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.RestrictionDeletionConfirmationPage
+import pages.ukCompanies.{RestrictionDeletionConfirmationPage, UkCompaniesPage}
 import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -31,6 +31,7 @@ import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
 import controllers.BaseController
 import pages.ukCompanies.RestrictionQueryHelper
+import handlers.ErrorHandler
 
 class RestrictionDeletionConfirmationController @Inject()(
                                          override val messagesApi: MessagesApi,
@@ -42,31 +43,37 @@ class RestrictionDeletionConfirmationController @Inject()(
                                          formProvider: RestrictionDeletionConfirmationFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: RestrictionDeletionConfirmationView
-                                 )(implicit appConfig: FrontendAppConfig) extends BaseController with FeatureSwitching {
+                                 )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(
-      form = fillForm(RestrictionDeletionConfirmationPage(idx, restrictionIdx), formProvider()), 
-      postAction = routes.RestrictionDeletionConfirmationController.onSubmit(idx, restrictionIdx, mode)
-    ))
+  def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      Future.successful(Ok(view(
+        form = fillForm(RestrictionDeletionConfirmationPage(idx, restrictionIdx), formProvider()), 
+        companyName = ukCompany.companyDetails.companyName,
+        postAction = routes.RestrictionDeletionConfirmationController.onSubmit(idx, restrictionIdx, mode)
+      )))
+    }
   }
 
   def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    formProvider().bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(
-          form = formWithErrors, 
-          postAction = routes.RestrictionDeletionConfirmationController.onSubmit(idx, restrictionIdx, mode)
-        ))),
-      {
-        case true =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.remove(RestrictionQueryHelper.restrictionPath(idx, restrictionIdx)))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, updatedAnswers))
-        case false => 
-          Future.successful(Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, request.userAnswers)))
-      }
-    )
+    answerFor(UkCompaniesPage, idx) { ukCompany =>
+      formProvider().bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            companyName = ukCompany.companyDetails.companyName,
+            postAction = routes.RestrictionDeletionConfirmationController.onSubmit(idx, restrictionIdx, mode)
+          ))),
+        {
+          case true =>
+            for {
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(RestrictionQueryHelper.restrictionPath(idx, restrictionIdx)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, updatedAnswers))
+          case false => 
+            Future.successful(Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, request.userAnswers)))
+        }
+      )
+    }
   }
 }

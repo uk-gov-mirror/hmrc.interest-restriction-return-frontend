@@ -28,7 +28,8 @@ import views.html.ukCompanies.RestrictionDeletionConfirmationView
 class RestrictionDeletionConfirmationViewSpec extends YesNoViewBehaviours  {
 
   val messageKeyPrefix = "restrictionDeletionConfirmation"
-  val section = Some(messages("section.ukCompanies"))
+  val companyName = "Company 1"
+  val section = Some(companyName)
   val form = new RestrictionDeletionConfirmationFormProvider()()
   val companyIdx = 1
   val restrictionIdx = 1
@@ -38,12 +39,12 @@ class RestrictionDeletionConfirmationViewSpec extends YesNoViewBehaviours  {
 
       def applyView(form: Form[_]): HtmlFormat.Appendable = {
         val view = viewFor[RestrictionDeletionConfirmationView](Some(emptyUserAnswers))
-        view.apply(form, postAction)(fakeRequest, messages, frontendAppConfig)
+        view.apply(form, companyName, postAction)(fakeRequest, messages, frontendAppConfig)
       }
 
       behave like normalPage(applyView(form), messageKeyPrefix, section = section)
 
-      behave like pageWithSubHeading(applyView(form), SectionHeaderMessages.ukCompanies)
+      behave like pageWithSubHeading(applyView(form), companyName)
 
       behave like pageWithBackLink(applyView(form))
 
