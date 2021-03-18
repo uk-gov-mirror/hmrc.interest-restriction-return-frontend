@@ -21,10 +21,13 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.RestrictionDeletionConfirmationFormProvider
-import models.NormalMode
+import models.{UserAnswers, NormalMode}
 import play.api.test.Helpers._
 import views.html.ukCompanies.RestrictionDeletionConfirmationView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import java.time.LocalDate
+import scala.concurrent.Future
+import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, AddRestrictionAmountPage, RestrictionAmountForAccountingPeriodPage}
 
 class RestrictionDeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -76,14 +79,34 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
     "clear this restriction when true is entered" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val companyIdx = 1
+      val restrictionIdx = 2
 
-      val userAnswers = for {
-        ua <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1))
-        ua <- emptyUserAnswers.set(AddRestrictionAmountPage(1, 1))
-      } yield finalUa
+      val userAnswers = (for {
+        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,1,1))
+        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), true)
+        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
+        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,1,1))
+        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), true)
+        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(1))
+        ua7 <- ua6.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
+        ua8 <- ua7.set(AddRestrictionAmountPage(2, 1), true)
+        ua9 <- ua8.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
+      } yield ua9).get
 
-      mockGetAnswers(Some(emptyUserAnswers))
-      mockSetAnswers
+      val expectedUserAnswers = (for {
+        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,1,1))
+        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), true)
+        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
+        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
+        ua5 <- ua4.set(AddRestrictionAmountPage(2, 1), true)
+        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
+      } yield ua6).get
+
+      mockGetAnswers(Some(userAnswers))
+     (mockSessionRepository.set(_: UserAnswers))
+        .expects(expectedUserAnswers)
+        .returns(Future.successful(true))
 
       val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
 
@@ -91,8 +114,71 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
+    "do not clear this restriction when false is entered" in {
 
-    ???
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+      val companyIdx = 1
+      val restrictionIdx = 2
+
+      val userAnswers = (for {
+        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,1,1))
+        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), true)
+        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
+        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,1,1))
+        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), true)
+        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(1))
+        ua7 <- ua6.set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.of(2020,1,1))
+        ua8 <- ua7.set(AddRestrictionAmountPage(2, 1), true)
+        ua9 <- ua8.set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(1))
+      } yield ua9).get
+
+      mockGetAnswers(Some(userAnswers))
+
+      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "clearing a restriction with higher indexes retains the others and reduces their indexes" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val companyIdx = 1
+      val restrictionIdx = 1
+
+      val userAnswers = (for {
+        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021,1,1))
+        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), true)
+        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
+
+        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2022,2,2))
+        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), false)
+        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(2))
+
+        ua7 <- ua6.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2023,3,3))
+        ua8 <- ua7.set(AddRestrictionAmountPage(1, 3), true)
+        ua9 <- ua8.set(RestrictionAmountForAccountingPeriodPage(1, 3), BigDecimal(3))
+      } yield ua9).get
+
+      val expectedUserAnswers = (for {
+        ua1 <- emptyUserAnswers.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2022,2,2))
+        ua2 <- ua1.set(AddRestrictionAmountPage(1, 1), false)
+        ua3 <- ua2.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(2))
+        ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2023,3,3))
+        ua5 <- ua4.set(AddRestrictionAmountPage(1, 2), true)
+        ua6 <- ua5.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(3))
+      } yield ua6).get
+
+      mockGetAnswers(Some(userAnswers))
+     (mockSessionRepository.set(_: UserAnswers))
+        .expects(expectedUserAnswers)
+        .returns(Future.successful(true))
+
+      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
@@ -129,4 +215,5 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
     }
   }
+
 }
