@@ -153,3 +153,11 @@ GET        /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-
 POST       /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period                          controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
 GET        /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period/change                   controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
 POST       /:idx/restrictions/:restrictionIdx/restriction-amount-for-accounting-period/change                   controllers.ukCompanies.RestrictionAmountForAccountingPeriodController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+
+### RestrictionDeletionConfirmation Controller
+### ----------------------------------------
+GET        /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation                         controllers.ukCompanies.RestrictionDeletionConfirmationController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+POST       /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation                         controllers.ukCompanies.RestrictionDeletionConfirmationController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = NormalMode)
+GET        /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation/change                  controllers.ukCompanies.RestrictionDeletionConfirmationController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+POST       /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation/change                  controllers.ukCompanies.RestrictionDeletionConfirmationController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
+

@@ -16,13 +16,16 @@
 
 package pages.ukCompanies
 
-import play.api.libs.json.JsPath
+import pages.behaviours.PageBehaviours
 
-object RestrictionQueryHelper {
+class RestrictionDeletionConfirmationPageSpec extends PageBehaviours {
 
-  val restrictionCompanyPath = JsPath \ "company"
+  "RestrictionDeletionConfirmationPage" must {
 
-  def restrictionPath(companyIdx: Int, restrictionIdx: Int) = restrictionCompanyPath \ (companyIdx - 1) \ "restriction" \ (restrictionIdx - 1)
+    beRetrievable[Boolean](RestrictionDeletionConfirmationPage(1, 1))
 
-  def path(companyIdx: Int, restrictionIdx: Int, page: String) = restrictionPath(companyIdx, restrictionIdx) \ page
+    beSettable[Boolean](RestrictionDeletionConfirmationPage(1, 1))
+
+    beRemovable[Boolean](RestrictionDeletionConfirmationPage(1, 1))
+  }
 }

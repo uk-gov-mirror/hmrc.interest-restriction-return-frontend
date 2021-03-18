@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package pages.ukCompanies
+package forms.ukCompanies
 
-import play.api.libs.json.JsPath
+import javax.inject.Inject
 
-object RestrictionQueryHelper {
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  val restrictionCompanyPath = JsPath \ "company"
+class RestrictionDeletionConfirmationFormProvider @Inject() extends Mappings {
 
-  def restrictionPath(companyIdx: Int, restrictionIdx: Int) = restrictionCompanyPath \ (companyIdx - 1) \ "restriction" \ (restrictionIdx - 1)
-
-  def path(companyIdx: Int, restrictionIdx: Int, page: String) = restrictionPath(companyIdx, restrictionIdx) \ page
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("restrictionDeletionConfirmation.error.required")
+    )
 }

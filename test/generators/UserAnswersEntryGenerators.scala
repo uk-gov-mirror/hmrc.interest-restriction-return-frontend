@@ -35,6 +35,12 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       for {
         value <- arbitrary[Int].map(Json.toJson(_))
       } yield (RestrictionAmountForAccountingPeriodPage(1, 1), value)
+
+  implicit lazy val arbitraryRestrictionDeletionConfirmationUserAnswersEntry: Arbitrary[(RestrictionDeletionConfirmationPage, JsValue)] =
+    Arbitrary {
+      for {
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (RestrictionDeletionConfirmationPage(1, 1), value)
     }
 
   implicit lazy val arbitraryAddAnotherAccountingPeriodUserAnswersEntry: Arbitrary[(AddAnotherAccountingPeriodPage, JsValue)] =
