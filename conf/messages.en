@@ -899,7 +899,7 @@ restrictionAmountSameAP.error.expenseAmount = Restriction amount must be the sam
 
 # TellUsWhatHasChangedPage Messages
 # ----------------------------------------------------------
-tellUsWhatHasChanged.title = Tell us what has changed
+tellUsWhatHasChanged.title = Tell us what has changedss
 tellUsWhatHasChanged.heading = Tell us what has changed
 tellUsWhatHasChanged.checkYourAnswersLabel = What has changed
 tellUsWhatHasChanged.label= Tell us what has changed
