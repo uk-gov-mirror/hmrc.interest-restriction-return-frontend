@@ -22,7 +22,6 @@ import forms.ukCompanies.CompanyAccountingPeriodEndDateFormProvider
 import javax.inject.Inject
 import models.Mode
 import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, UkCompaniesPage}
-import pages.aboutReturn.AccountingPeriodPage
 import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -47,35 +46,39 @@ class CompanyAccountingPeriodEndDateController @Inject()(
 
   def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
-      answerFor(AccountingPeriodPage) { accountingPeriod =>
-        Future.successful(Ok(view(
-          form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(accountingPeriod.startDate)),
-          companyName = ukCompany.companyDetails.companyName,
-          postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
-        )))
-      }
-    }
+      Future.successful(Ok(view(
+        form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(idx, restrictionIdx, request.userAnswers)), 
+        companyName = ukCompany.companyDetails.companyName,
+        headingPrefix = headingPrefix(restrictionIdx),
+        postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
+      )))
+    } 
   }
 
   def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
-      answerFor(AccountingPeriodPage) { accountingPeriod =>
-        formProvider(accountingPeriod.startDate).bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(
-              BadRequest(view(
-                form = formWithErrors,
-                companyName = ukCompany.companyDetails.companyName,
-                postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
-              ))
-            ),
-          value =>
-              for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.set(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), value))
-              _              <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextRestrictionPage(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), mode, updatedAnswers))
-        )
-      }
+      formProvider(idx, restrictionIdx, request.userAnswers).bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(
+            BadRequest(view(
+              form = formWithErrors, 
+              companyName = ukCompany.companyDetails.companyName,
+              headingPrefix = headingPrefix(restrictionIdx),
+              postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
+            ))
+          ),
+        value =>
+            for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), value))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextRestrictionPage(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), mode, updatedAnswers))
+      )
     }
+  }
+
+  def headingPrefix(restrictionIdx: Int): String = restrictionIdx match {
+    case 1 => "first"
+    case 2 => "second"
+    case _ => "third"
   }
 }
