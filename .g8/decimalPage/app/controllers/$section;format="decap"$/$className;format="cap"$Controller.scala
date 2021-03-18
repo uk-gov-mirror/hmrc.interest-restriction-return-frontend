@@ -21,7 +21,6 @@ class $className;format="cap"$Controller @Inject()(
                                        override val messagesApi: MessagesApi,
                                        sessionRepository: SessionRepository,
                                        navigator: $section;format="cap"$Navigator,
-                                       override val updateSectionService: UpdateSectionStateService,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
