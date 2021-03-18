@@ -18,7 +18,7 @@ package pages.groupLevelInformation
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
-import models.{UserAnswers, EstimatedFigures}
+import models.UserAnswers
 
 import scala.util.Try
 

@@ -301,7 +301,10 @@ payTaxInUk.error.required = Select yes if the ultimate parent has a Unique Taxpa
 parentCompanyName.title = Enter the name of the ultimate parent
 parentCompanyName.heading = Enter the name of the ultimate parent
 parentCompanyName.checkYourAnswersLabel = Ultimate parent name
-parentCompanyName.label = Enter the name of the ultimate parent
+parentCompanyName.ultimateParentCompanyHeading = Enter the name of the ultimate parent
+parentCompanyName.firstDeemedParentCompanyHeading = What is the name of the first entity in the deemed parent?
+parentCompanyName.secondDeemedParentCompanyHeading = What is the name of the second entity in the deemed parent?
+parentCompanyName.thirdDeemedParentCompanyHeading = What is the name of the third entity in the deemed parent?
 parentCompanyName.error.required = Enter the name of the ultimate parent
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
 
@@ -382,7 +385,7 @@ limitedLiabilityPartnership.error.required = Select yes the ultimate parent is a
 localRegistrationNumber.title = Enter {0} local Registration Number
 localRegistrationNumber.heading = Enter {0} local Registration Number
 localRegistrationNumber.checkYourAnswersLabel = Local Registration Number
-localRegistrationNumber.label= Enter {0} local Registration Number
+localRegistrationNumber.label = Enter {0} local Registration Number
 localRegistrationNumber.error.length = Local Registration Number must be 100 characters or less
 localRegistrationNumber.hint = (optional)
 
@@ -738,21 +741,21 @@ ukCompaniesReviewAnswersList.error.required = Select yes if you need to add anot
 
 # NetTaxInterestAmountPage Messages
 # ----------------------------------------------------------
-netTaxInterestAmount.expense.title = Enter the total net-tax interest expense
-netTaxInterestAmount.expense.heading = Enter the total net-tax interest expense
-netTaxInterestAmount.expense.label = Enter the total net-tax interest expense
+netTaxInterestAmount.expense.title = What is the company''s total net tax-interest expense?
+netTaxInterestAmount.expense.heading = What is the company''s total net tax-interest expense?
+netTaxInterestAmount.expense.label = What is the company''s total net tax-interest expense?
 netTaxInterestAmount.expense.subheading = {0}
-netTaxInterestAmount.expense.checkYourAnswersLabel = What is the {0} total net-tax interest expense?
+netTaxInterestAmount.expense.checkYourAnswersLabel = What is the company''s total net tax-interest expense?
 netTaxInterestAmount.expense.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.expense.error.required = Enter the total net-tax interest expense
 netTaxInterestAmount.expense.error.invalidNumeric = The total net-tax interest expense must be to 2 decimal places or a whole number
 netTaxInterestAmount.expense.error.outOfRange = The total net-tax interest expense must be between {0} and {1}
 
-netTaxInterestAmount.income.title = Enter the company''s total net-tax interest income
-netTaxInterestAmount.income.heading = Enter the company''s total net-tax interest income
-netTaxInterestAmount.income.label = Enter the company''s total net-tax interest income
+netTaxInterestAmount.income.title = What is the company''s total net tax-interest income?
+netTaxInterestAmount.income.heading = What is the company''s total net tax-interest income?
+netTaxInterestAmount.income.label = What is the company''s total net tax-interest income?
 netTaxInterestAmount.income.subheading = {0}
-netTaxInterestAmount.income.checkYourAnswersLabel = What is the {0} total net-tax interest income?
+netTaxInterestAmount.income.checkYourAnswersLabel = What is the company''s total net tax-interest income?
 netTaxInterestAmount.income.error.nonNumeric = Value entered must be numeric
 netTaxInterestAmount.income.error.required = Enter the company''s total net-tax interest income
 netTaxInterestAmount.income.error.invalidNumeric = The total net-tax interest income must be to 2 decimal places or a whole number
@@ -978,3 +981,36 @@ addRestrictionAmount.title = Do you want to add a restriction amount for the acc
 addRestrictionAmount.heading = Do you want to add a restriction amount for this accounting period?
 addRestrictionAmount.checkYourAnswersLabel = Do you want to add a restriction amount for this accounting period?
 addRestrictionAmount.error.required = Select yes if Do you want to add a restriction amount for this accounting period?
+
+# CompanyAccountingPeriodEndDatePage Messages
+# ----------------------------------------------------------
+companyAccountingPeriodEndDate.title = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.heading = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.checkYourAnswersLabel = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.warning = You need to add all the relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions. Add one at a time.
+companyAccountingPeriodEndDate.hint = For example, 27 3 2018
+companyAccountingPeriodEndDate.label = Accounting period end date
+companyAccountingPeriodEndDate.error.required.all = Enter the end date
+companyAccountingPeriodEndDate.error.required.two= End date must include a {0} and a {1}
+companyAccountingPeriodEndDate.error.required = End date must include a {0}
+companyAccountingPeriodEndDate.error.invalid = End date must be a real date
+companyAccountingPeriodEndDate.error.afterStart = End date must be after {0}
+
+# AddAnotherAccountingPeriodPage Messages
+# ----------------------------------------------------------
+addAnotherAccountingPeriod.title = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.heading = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.checkYourAnswersLabel = Do you want to add another accounting period for this company?
+addAnotherAccountingPeriod.error.required = Select yes if you want to add another accounting period for this company
+addAnotherAccountingPeriod.p1 = You need to add all relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions
+
+# RestrictionAmountForAccountingPeriodPage Messages
+# ----------------------------------------------------------
+restrictionAmountForAccountingPeriod.title = What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.heading = What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.label = What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.checkYourAnswersLabel = RestrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.error.nonNumeric = Enter the restriction amount for the accounting period using numbers
+restrictionAmountForAccountingPeriod.error.required = Enter the restriction amount for the accounting period
+restrictionAmountForAccountingPeriod.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
+restrictionAmountForAccountingPeriod.error.outOfRange = Restriction amount must be a positive number

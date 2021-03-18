@@ -23,6 +23,7 @@ import play.api.libs.json.Json
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 import controllers.ultimateParentCompany.{routes => ultimateParentCompanyRoutes}
+import pages.ultimateParentCompany.HasDeemedParentPage
 
 class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -32,10 +33,59 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "return OK (200) with 1 index" in {
+
+          val pageTitle : String = "What is the name of the first entity in the deemed parent? - Interest Restriction Return - GOV.UK"
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/1/name")()
 
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 2 index" in {
+
+          val pageTitle : String = "What is the name of the second entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/2/name")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 3 index" in {
+
+          val pageTitle : String =
+            "What is the name of the third entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/3/name")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with false deemed parent" in {
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, false).get)
           val res = getRequest("/ultimate-parent-company/1/name")()
 
           whenReady(res) { result =>
@@ -45,6 +95,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
             )
           }
         }
+
       }
 
       "user not authorised" should {
@@ -74,7 +125,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
           "redirect to PayTaxInUk page" in {
 
             AuthStub.authorised()
-
+            setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
             val res = postRequest("/ultimate-parent-company/1/name", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>
@@ -112,10 +163,58 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
 
       "user is authorised" should {
 
-        "return OK (200)" in {
+        "return OK (200) with 1 index" in {
+
+          val pageTitle: String = "What is the name of the first entity in the deemed parent? - Interest Restriction Return - GOV.UK"
 
           AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/1/name/change")()
 
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 2 index" in {
+
+          val pageTitle: String = "What is the name of the second entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/2/name/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with 3 index" in {
+
+          val pageTitle: String = "What is the name of the third entity in the deemed parent? - Interest Restriction Return - GOV.UK"
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
+          val res = getRequest("/ultimate-parent-company/3/name/change")()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(OK),
+              titleOf(pageTitle)
+            )
+          }
+        }
+
+        "return OK (200) with false deemed parent" in {
+
+          AuthStub.authorised()
+          setAnswers(emptyUserAnswers.set(HasDeemedParentPage, false).get)
           val res = getRequest("/ultimate-parent-company/1/name/change")()
 
           whenReady(res) { result =>
@@ -125,6 +224,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
             )
           }
         }
+
       }
 
       "user not authorised" should {
@@ -154,7 +254,7 @@ class ParentCompanyNameControllerISpec extends IntegrationSpecBase with CreateRe
           "redirect to CheckYourAnswers page" in {
 
             AuthStub.authorised()
-
+            setAnswers(emptyUserAnswers.set(HasDeemedParentPage, true).get)
             val res = postRequest("/ultimate-parent-company/1/name/change", Json.obj("value" -> companyName))()
 
             whenReady(res) { result =>

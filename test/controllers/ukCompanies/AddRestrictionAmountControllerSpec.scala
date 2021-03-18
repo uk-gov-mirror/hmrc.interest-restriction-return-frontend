@@ -56,11 +56,10 @@ class AddRestrictionAmountControllerSpec extends SpecBase with FeatureSwitching 
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-
       val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual view(form, "Company Name ltd", postAction)(fakeRequest, messages, frontendAppConfig).toString
+      contentAsString(result) mustEqual view(form, ukCompanyModelMax.companyDetails.companyName, postAction)(fakeRequest, messages, frontendAppConfig).toString
     }
 
     "redirect to the next page when valid data is submitted" in {

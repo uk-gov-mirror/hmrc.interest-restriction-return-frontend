@@ -22,7 +22,6 @@ import controllers.ukCompanies.{routes => ukCompaniesRoutes}
 import models.{CheckMode, EstimatedFigures, NormalMode, UserAnswers}
 import pages.groupLevelInformation._
 import pages.elections.GroupRatioElectionPage
-import sectionstatus.GroupLevelInformationSectionStatus
 
 class GroupLevelInformationNavigatorSpec extends SpecBase {
 

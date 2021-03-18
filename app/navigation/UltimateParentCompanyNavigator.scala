@@ -60,7 +60,10 @@ class UltimateParentCompanyNavigator @Inject()() extends Navigator {
       case _ => routes.HasDeemedParentController.onPageLoad(NormalMode)
     }),
     DeemedParentPage -> ((_, _) => nextSection(NormalMode)),
-    DeletionConfirmationPage -> ((_, _) => routes.DeemedParentReviewAnswersListController.onPageLoad())
+    DeletionConfirmationPage -> ((idx, userAnswers)  => userAnswers.getList(DeemedParentPage).size match {
+      case 1 => routes.ParentCompanyNameController.onPageLoad(2, NormalMode)
+      case _  => routes.DeemedParentReviewAnswersListController.onPageLoad()
+    })
   )
 
   val checkRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](

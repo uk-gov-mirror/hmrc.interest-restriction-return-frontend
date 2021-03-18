@@ -37,7 +37,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "accountingPeriod.title", Some("section.aboutReturn")))) {
 
-    @formHelper(action = AccountingPeriodController.onSubmit(mode), 'autoComplete -> "on") {
+    @formHelper(action = AccountingPeriodController.onSubmit(mode), 'autoComplete -> "on", 'novalidate -> "novalidate") {
 
         @errorSummary(
             form.errors, 

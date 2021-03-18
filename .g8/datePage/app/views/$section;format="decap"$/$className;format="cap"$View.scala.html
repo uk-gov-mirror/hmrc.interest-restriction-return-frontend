@@ -36,7 +36,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "$className;format="decap"$.title", Some("section.$section;format="decap"$")))) {
 
-    @formHelper(action = $className;format="cap"$Controller.onSubmit(mode), 'autoComplete -> "on") {
+    @formHelper(action = $className;format="cap"$Controller.onSubmit(mode), 'autoComplete -> "on", 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors, Some("date-value.day"))
 

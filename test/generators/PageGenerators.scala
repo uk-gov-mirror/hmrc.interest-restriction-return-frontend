@@ -17,9 +17,7 @@
 package generators
 
 import org.scalacheck.Arbitrary
-import org.scalacheck.Arbitrary.arbitrary
 import pages._
-import pages.aboutReturn._
 import pages.groupLevelInformation._
 import pages.elections._
 import pages.ultimateParentCompany._
@@ -29,12 +27,8 @@ import pages.ukCompanies._
 
 trait PageGenerators {
 
-  implicit lazy val arbitraryAddRestrictionAmountPage: Arbitrary[AddRestrictionAmountPage] = Arbitrary {
-    for {
-      companyIdx      <- arbitrary[Int]
-      restrictionIdx  <- arbitrary[Int]
-    } yield AddRestrictionAmountPage(companyIdx, restrictionIdx)
-  }
+  implicit lazy val arbitraryRestrictionAmountForAccountingPeriodPage: Arbitrary[RestrictionAmountForAccountingPeriodPage.type] =
+    Arbitrary(RestrictionAmountForAccountingPeriodPage)
 
   implicit lazy val arbitraryCompanyContainsEstimatesPage: Arbitrary[CompanyContainsEstimatesPage.type] =
     Arbitrary(CompanyContainsEstimatesPage)

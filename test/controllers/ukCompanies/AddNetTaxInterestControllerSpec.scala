@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddNetTaxInterestFormProvider
 import models.NormalMode
-import pages.ukCompanies.{AddNetTaxInterestPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddNetTaxInterestView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator

@@ -548,6 +548,16 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       }
 
+      "for AddAnotherAccountingPeriodPage" must {
+
+        "Navigate to the UnderConstructionController" in {
+          val page = AddAnotherAccountingPeriodPage(1, 1)
+          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+      }
+
     }
 
     "in Check mode" must {
@@ -556,6 +566,16 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
         "Navigate to the UnderConstructionController" in {
           val page = AddRestrictionAmountPage(1, 1)
+          navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
+            controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+      }
+
+      "for AddAnotherAccountingPeriodPage" must {
+
+        "Navigate to the UnderConstructionController" in {
+          val page = AddAnotherAccountingPeriodPage(1, 1)
           navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }

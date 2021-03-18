@@ -16,12 +16,8 @@
 
 package pages.aboutReturn
 
-import models.UserAnswers
-import pages.Page.allQuestionPages
 import pages.QuestionPage
 import play.api.libs.json.JsPath
-
-import scala.util.Try
 
 case object ReportingCompanyAppointedPage extends QuestionPage[Boolean] {
 

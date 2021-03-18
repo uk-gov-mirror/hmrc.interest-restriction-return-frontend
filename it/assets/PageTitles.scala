@@ -1,6 +1,12 @@
 package assets
 
+import java.time.LocalDate
+import utils.ImplicitLocalDateFormatter._
+
 object PageTitles {
+  val restrictionAmountForAccountingPeriod: LocalDate => String = endDate => s"What is the restriction amount for the accounting period ending ${endDate.toFormattedString}?"
+  val addAnotherAccountingPeriod = "Do you want to add another accounting period for this company?"
+  val companyAccountingPeriodEndDate = "What is the end date for the first accounting period?"
   val addNetTaxInterest = "Does this company have a net tax-interest?"
   val companyContainsEstimates = "Are these estimated figures?"
   val addRestrictionAmount = "Do you want to add a restriction amount for the accounting period?"
@@ -23,7 +29,7 @@ object PageTitles {
   val derivedCompany = "Check the totals for this return"
   val companyDetails = "Company details"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
-  val netTaxInterestAmount = "Enter the company's total net-tax interest income"
+  val netTaxInterestAmount = "What is the company's total net tax-interest income?"
   val investorGroupsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investor group ‘$name’?"
   val investmentsDeletionConfirmation: String => String = name => s"Are you sure you want to delete investment ‘$name’?"
   val investmentName = "Enter the name of the investment"

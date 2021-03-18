@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.CompanyQICElectionFormProvider
 import models.NormalMode
-import pages.ukCompanies.{CompanyQICElectionPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.CompanyQICElectionView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
