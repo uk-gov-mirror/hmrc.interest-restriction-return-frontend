@@ -38,7 +38,7 @@
 
 @govukLayout(pageTitle = Some(title(form, "companyAccountingPeriodEndDate.title", Some(companyName)))) {
 
-    @formHelper(action = postAction, 'autoComplete -> "on") {
+    @formHelper(action = postAction, 'autoComplete -> "on", 'novalidate -> "novalidate") {
 
         @errorSummary(form.errors, Some("date-value.day"))
 
