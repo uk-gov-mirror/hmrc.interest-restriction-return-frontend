@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package pages.ukCompanies
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import scala.language.implicitConversions
+import pages.behaviours.PageBehaviours
 
-trait ImplicitDateFormatter {
-  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-  implicit def dateToString(date:LocalDate): String = dateFormatter.format(date)
-}
+class RestrictionAmountForAccountingPeriodPageSpec extends PageBehaviours {
 
-object ImplicitLocalDateFormatter {
-  implicit class DateFormatter(date: LocalDate) {
-    def toFormattedString: String = date.format(DateTimeFormatter.ofPattern("dd MM yyyy"))
+  "RestrictionAmountForAccountingPeriodPage" must {
+
+    beRetrievable[BigDecimal](RestrictionAmountForAccountingPeriodPage(1, 1))
+
+    beSettable[BigDecimal](RestrictionAmountForAccountingPeriodPage(1, 1))
+
+    beRemovable[BigDecimal](RestrictionAmountForAccountingPeriodPage(1, 1))
   }
 }

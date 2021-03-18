@@ -122,6 +122,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   private val restrictionNormalRoutes: PartialFunction[Page, UserAnswers => Call] = {
     case AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
     case AddAnotherAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
+    case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
   }
 
   def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call =

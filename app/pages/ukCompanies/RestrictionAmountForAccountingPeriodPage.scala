@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package utils
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import scala.language.implicitConversions
+case class RestrictionAmountForAccountingPeriodPage(companyIdx: Int, restrictionIdx: Int) extends QuestionPage[BigDecimal] {
 
-trait ImplicitDateFormatter {
-  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-  implicit def dateToString(date:LocalDate): String = dateFormatter.format(date)
-}
+  override def path: JsPath = RestrictionQueryHelper.path(companyIdx, restrictionIdx, toString)
 
-object ImplicitLocalDateFormatter {
-  implicit class DateFormatter(date: LocalDate) {
-    def toFormattedString: String = date.format(DateTimeFormatter.ofPattern("dd MM yyyy"))
-  }
+  override def toString: String = "restrictionAmountForAccountingPeriod"
 }

@@ -91,3 +91,14 @@ companyAccountingPeriodEndDate.error.required.all = Enter the companyAccountingP
 companyAccountingPeriodEndDate.error.required.two= The companyAccountingPeriodEndDate must include {0} and {1}
 companyAccountingPeriodEndDate.error.required = The companyAccountingPeriodEndDate must include {0}
 companyAccountingPeriodEndDate.error.invalid = Enter a real CompanyAccountingPeriodEndDate
+
+# RestrictionAmountForAccountingPeriodPage Messages
+# ----------------------------------------------------------
+restrictionAmountForAccountingPeriod.title = RestrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.heading = RestrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.label=What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.checkYourAnswersLabel = RestrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.error.nonNumeric = Enter your restrictionAmountForAccountingPeriod using numbers
+restrictionAmountForAccountingPeriod.error.required = Enter your restrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.error.invalidNumeric = The restrictionAmountForAccountingPeriod must be valid decimal or whole number
+restrictionAmountForAccountingPeriod.error.outOfRange = RestrictionAmountForAccountingPeriod must be between {0} and {1}

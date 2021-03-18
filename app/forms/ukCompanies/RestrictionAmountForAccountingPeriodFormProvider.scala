@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package utils
+package forms.ukCompanies
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import scala.language.implicitConversions
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-trait ImplicitDateFormatter {
-  private val dateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
-  implicit def dateToString(date:LocalDate): String = dateFormatter.format(date)
-}
+class RestrictionAmountForAccountingPeriodFormProvider @Inject() extends Mappings {
 
-object ImplicitLocalDateFormatter {
-  implicit class DateFormatter(date: LocalDate) {
-    def toFormattedString: String = date.format(DateTimeFormatter.ofPattern("dd MM yyyy"))
-  }
+  def apply(): Form[BigDecimal] =
+    Form(
+      "value" -> numeric(
+        "restrictionAmountForAccountingPeriod.error.required",
+        "restrictionAmountForAccountingPeriod.error.invalidNumeric",
+        "restrictionAmountForAccountingPeriod.error.nonNumeric")
+        .verifying(inRange[BigDecimal](0, 999999999999999.99, "restrictionAmountForAccountingPeriod.error.outOfRange"))
+    )
 }

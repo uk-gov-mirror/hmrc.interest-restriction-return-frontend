@@ -1002,3 +1002,14 @@ addAnotherAccountingPeriod.heading = Do you want to add another accounting perio
 addAnotherAccountingPeriod.checkYourAnswersLabel = Do you want to add another accounting period for this company?
 addAnotherAccountingPeriod.error.required = Select yes if you want to add another accounting period for this company
 addAnotherAccountingPeriod.p1 = You need to add all relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions
+
+# RestrictionAmountForAccountingPeriodPage Messages
+# ----------------------------------------------------------
+restrictionAmountForAccountingPeriod.title = What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.heading = What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.label = What is the restriction amount for the accounting period ending {0}?
+restrictionAmountForAccountingPeriod.checkYourAnswersLabel = RestrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.error.nonNumeric = Enter the restriction amount for the accounting period using numbers
+restrictionAmountForAccountingPeriod.error.required = Enter the restriction amount for the accounting period
+restrictionAmountForAccountingPeriod.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
+restrictionAmountForAccountingPeriod.error.outOfRange = Restriction amount must be a positive number
