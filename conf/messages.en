@@ -301,16 +301,16 @@ payTaxInUk.error.required = Select yes if the ultimate parent has a Unique Taxpa
 parentCompanyName.title = Enter the name of the ultimate parent
 parentCompanyName.heading = Enter the name of the ultimate parent
 parentCompanyName.checkYourAnswersLabel = Ultimate parent name
-parentCompanyName.ultimateParentCompanyHeading = Enter the name of the ultimate parent
-parentCompanyName.firstDeemedParentCompanyHeading = What is the name of the first entity in the deemed parent?
-parentCompanyName.secondDeemedParentCompanyHeading = What is the name of the second entity in the deemed parent?
-parentCompanyName.thirdDeemedParentCompanyHeading = What is the name of the third entity in the deemed parent?
+parentCompanyName.ultimate.heading = Enter the name of the ultimate parent
+parentCompanyName.deemed.first.heading = What is the name of the first entity in the deemed parent?
+parentCompanyName.deemed.second.heading = What is the name of the second entity in the deemed parent?
+parentCompanyName.deemed.third.heading = What is the name of the third entity in the deemed parent?
 
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
-parentCompanyName.error.required = Enter the name of the ultimate parent
-parentCompanyName.error.firstRequired = Enter the name of the first entity in the deemed parent
-parentCompanyName.error.secondRequired = Enter the name of the second entity in the deemed parent
-parentCompanyName.error.thirdRequired = Enter the name of the third entity in the deemed parent
+parentCompanyName.ultimate.error.required = Enter the name of the ultimate parent
+parentCompanyName.deemed.first.error.required = Enter the name of the first entity in the deemed parent
+parentCompanyName.deemed.second.error.required = Enter the name of the second entity in the deemed parent
+parentCompanyName.deemed.third.error.required = Enter the name of the third entity in the deemed parent
 
 
 # ParentCRNPage Messages

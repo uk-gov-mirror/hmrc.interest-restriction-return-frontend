@@ -49,20 +49,20 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
     val companyName = getAnswer(DeemedParentPage, idx).map(_.companyName.name)
 
     answerFor(HasDeemedParentPage) { deemedParent =>
-      val labelMsg : String = getLabel(deemedParent, idx)
-      val form = formProvider(determineErrorText(labelMsg))
-      Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, labelMsg, routes.ParentCompanyNameController.onSubmit(idx, mode))))
+      val prefix : String = getPrefix(deemedParent, idx)
+      val form = formProvider(s"parentCompanyName.${prefix}.error.required")
+      Future.successful(Ok(view(companyName.fold(form)(form.fill), mode, s"parentCompanyName.${prefix}.heading", routes.ParentCompanyNameController.onSubmit(idx, mode))))
     }
   }
 
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     answerFor(HasDeemedParentPage) { deemedParent =>
-      val labelMsg : String = getLabel(deemedParent, idx)
+      val prefix : String = getPrefix(deemedParent, idx)
 
-      formProvider(determineErrorText(labelMsg)).bindFromRequest().fold(
+      formProvider(s"parentCompanyName.${prefix}.error.required").bindFromRequest().fold(
         formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors, mode, labelMsg, routes.ParentCompanyNameController.onSubmit(idx, mode)))),
+          Future.successful(BadRequest(view(formWithErrors, mode, s"parentCompanyName.${prefix}.heading", routes.ParentCompanyNameController.onSubmit(idx, mode)))),
         value => {
           val companyName = CompanyNameModel(value)
           val deemedParentModel = getAnswer(DeemedParentPage, idx).fold(DeemedParentModel(companyName))(_.copy(companyName = companyName))
@@ -76,24 +76,15 @@ class ParentCompanyNameController @Inject()(override val messagesApi: MessagesAp
     }
   }
 
-  private def getLabel(deemedParent : Boolean, idx : Int): String = {
+  private def getPrefix(deemedParent : Boolean, idx : Int): String = {
     deemedParent match {
-      case false => "parentCompanyName.ultimateParentCompanyHeading"
+      case false => "ultimate"
       case true => idx match {
-        case 1 => "parentCompanyName.firstDeemedParentCompanyHeading"
-        case 2 => "parentCompanyName.secondDeemedParentCompanyHeading"
-        case _ => "parentCompanyName.thirdDeemedParentCompanyHeading"
+        case 1 => "deemed.first"
+        case 2 => "deemed.second"
+        case _ => "deemed.third"
       }
     }
   }
 
-  private def determineErrorText(msgLabel : String): String = {
-    msgLabel match {
-      case "parentCompanyName.ultimateParentCompanyHeading" => "parentCompanyName.error.required"
-      case "parentCompanyName.firstDeemedParentCompanyHeading" => "parentCompanyName.error.firstRequired"
-      case "parentCompanyName.secondDeemedParentCompanyHeading" => "parentCompanyName.error.secondRequired"
-      case "parentCompanyName.thirdDeemedParentCompanyHeading" => "parentCompanyName.error.thirdRequired"
-      case _ => "parentCompanyName.error.required"
-    }
-  }
 }

@@ -28,7 +28,7 @@ class ParentCompanyNameViewSpec extends StringViewBehaviours  {
 
   val messageKeyPrefix = "parentCompanyName"
   val ultimatelabel : String = "Enter the name of the ultimate parent"
-  val ultimateRequired = "parentCompanyName.error.required"
+  val ultimateRequired = "parentCompanyName.ultimate.error.required"
 
   val form = new ParentCompanyNameFormProvider()(ultimateRequired)
 
