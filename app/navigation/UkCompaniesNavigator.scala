@@ -42,7 +42,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case Some(false) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
       case _ => routes.AddAnReactivationQueryController.onPageLoad(idx, NormalMode)
     }),
-    ReactivationAmountPage -> ((idx, _) => routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)),
+    ReactivationAmountPage -> ((idx, _) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
     CheckAnswersUkCompanyPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     UkCompaniesPage -> ((idx, _) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
