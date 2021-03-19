@@ -895,7 +895,7 @@ restrictionAmountSameAP.error.nonNumeric = Enter the restriction amount using nu
 restrictionAmountSameAP.error.required = Enter the restriction amount for this company
 restrictionAmountSameAP.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
 restrictionAmountSameAP.error.outOfRange = Restriction amount must be between {0} and {1}
-restrictionAmountSameAP.error.expenseAmount = Restriction amount must be the same as or less than the company's net tax-interest expense
+restrictionAmountSameAP.error.expenseAmount = Restriction amount must be the same as or less than the company''s net tax-interest expense
 
 # TellUsWhatHasChangedPage Messages
 # ----------------------------------------------------------
