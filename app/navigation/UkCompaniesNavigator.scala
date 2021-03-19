@@ -133,5 +133,4 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       }
       case CheckMode => controllers.routes.UnderConstructionController.onPageLoad()
     }
-
 }

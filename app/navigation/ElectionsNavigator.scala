@@ -32,7 +32,7 @@ class ElectionsNavigator @Inject()() extends Navigator {
   val normalRoutes: Map[Page, (UserAnswers => Call)] = Map(
     GroupRatioElectionPage -> (_.get(GroupRatioElectionPage) match {
       case Some(true) => routes.GroupRatioBlendedElectionController.onPageLoad(NormalMode)
-      case Some(false) => routes.GroupEBITDAChargeableGainsElectionController.onPageLoad(NormalMode)
+      case Some(false) => routes.ElectedGroupEBITDABeforeController.onPageLoad(NormalMode)
       case _ => routes.GroupRatioElectionController.onPageLoad(NormalMode)
     }),
     GroupRatioBlendedElectionPage -> (_.get(GroupRatioBlendedElectionPage) match {
