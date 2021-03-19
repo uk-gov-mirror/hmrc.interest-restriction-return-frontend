@@ -86,7 +86,7 @@ class ReactivationAmountControllerISpec extends IntegrationSpecBase with CreateR
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(1, NormalMode).url)
+                redirectLocation(controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
               )
             }
           }

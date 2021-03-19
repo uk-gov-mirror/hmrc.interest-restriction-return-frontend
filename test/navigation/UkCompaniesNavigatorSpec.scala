@@ -292,10 +292,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "from the ReactivationAmount" should {
 
-        "navigate to the CompanyAccountingPeriodSameAsGroup page" in {
+        "navigate to the CompanyContainsEstimates page" in {
 
           navigator.nextPage(ReactivationAmountPage, NormalMode, emptyUserAnswers, Some(1)) mustBe
-            routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(1, NormalMode)
+            routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
