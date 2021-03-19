@@ -21,11 +21,11 @@ import play.api.data.FormError
 
 class ParentCompanyNameFormProviderSpec extends StringFieldBehaviours {
 
-  val requiredKey = "parentCompanyName.error.required"
+  val requiredKey = "parentCompanyName.ultimate.error.required"
   val lengthKey = "parentCompanyName.error.length"
   val maxLength = 160
 
-  val form = new ParentCompanyNameFormProvider()()
+  val form = new ParentCompanyNameFormProvider()(requiredKey)
 
   ".value" must {
 
