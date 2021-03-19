@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package forms.ultimateParentCompany
+package pages.ukCompanies
 
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+import pages.behaviours.PageBehaviours
 
-class ParentCompanyNameFormProvider @Inject() extends Mappings {
+class RestrictionDeletionConfirmationPageSpec extends PageBehaviours {
 
-  def apply(msgLabel : String): Form[String] =
-    Form("value" -> text(msgLabel)
-        .verifying(maxLength(160, "parentCompanyName.error.length"))
-    )
+  "RestrictionDeletionConfirmationPage" must {
+
+    beRetrievable[Boolean](RestrictionDeletionConfirmationPage(1, 1))
+
+    beSettable[Boolean](RestrictionDeletionConfirmationPage(1, 1))
+
+    beRemovable[Boolean](RestrictionDeletionConfirmationPage(1, 1))
+  }
 }

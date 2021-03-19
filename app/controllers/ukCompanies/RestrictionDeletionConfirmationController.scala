@@ -18,67 +18,62 @@ package controllers.ukCompanies
 
 import config.FrontendAppConfig
 import controllers.actions._
-import forms.ukCompanies.CompanyAccountingPeriodEndDateFormProvider
+import forms.ukCompanies.RestrictionDeletionConfirmationFormProvider
 import javax.inject.Inject
 import models.Mode
-import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, UkCompaniesPage}
+import pages.ukCompanies.{RestrictionDeletionConfirmationPage, UkCompaniesPage}
 import config.featureSwitch.{FeatureSwitching}
 import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
-import views.html.ukCompanies.CompanyAccountingPeriodEndDateView
-import navigation.UkCompaniesNavigator
+import views.html.ukCompanies.RestrictionDeletionConfirmationView
 import scala.concurrent.Future
+import navigation.UkCompaniesNavigator
 import controllers.BaseController
+import pages.ukCompanies.RestrictionQueryHelper
 import handlers.ErrorHandler
 
-class CompanyAccountingPeriodEndDateController @Inject()(
+class RestrictionDeletionConfirmationController @Inject()(
                                          override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
                                          navigator: UkCompaniesNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
-                                         formProvider: CompanyAccountingPeriodEndDateFormProvider,
+                                         formProvider: RestrictionDeletionConfirmationFormProvider,
                                          val controllerComponents: MessagesControllerComponents,
-                                         view: CompanyAccountingPeriodEndDateView
+                                         view: RestrictionDeletionConfirmationView
                                  )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
   def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(Ok(view(
-        form = fillForm(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), formProvider(idx, restrictionIdx, request.userAnswers)), 
+        form = fillForm(RestrictionDeletionConfirmationPage(idx, restrictionIdx), formProvider()), 
         companyName = ukCompany.companyDetails.companyName,
-        headingPrefix = headingPrefix(restrictionIdx),
-        postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
+        postAction = routes.RestrictionDeletionConfirmationController.onSubmit(idx, restrictionIdx, mode)
       )))
-    } 
+    }
   }
 
   def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
-      formProvider(idx, restrictionIdx, request.userAnswers).bindFromRequest().fold(
+      formProvider().bindFromRequest().fold(
         formWithErrors =>
-          Future.successful(
-            BadRequest(view(
-              form = formWithErrors, 
-              companyName = ukCompany.companyDetails.companyName,
-              headingPrefix = headingPrefix(restrictionIdx),
-              postAction = routes.CompanyAccountingPeriodEndDateController.onSubmit(idx, restrictionIdx, mode)
-            ))
-          ),
-        value =>
+          Future.successful(BadRequest(view(
+            form = formWithErrors,
+            companyName = ukCompany.companyDetails.companyName,
+            postAction = routes.RestrictionDeletionConfirmationController.onSubmit(idx, restrictionIdx, mode)
+          ))),
+        {
+          case true =>
             for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextRestrictionPage(CompanyAccountingPeriodEndDatePage(idx, restrictionIdx), mode, updatedAnswers))
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(RestrictionQueryHelper.restrictionPath(idx, restrictionIdx)))
+              _              <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, updatedAnswers))
+          case false => 
+            Future.successful(Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, request.userAnswers)))
+        }
       )
     }
-  }
-
-  def headingPrefix(restrictionIdx: Int): String = restrictionIdx match {
-    case 1 => "first"
-    case 2 => "second"
-    case _ => "third"
   }
 }

@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package forms.ultimateParentCompany
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-import forms.mappings.Mappings
-import javax.inject.Inject
-import play.api.data.Form
+case class RestrictionDeletionConfirmationPage(companyIdx: Int, restrictionIdx: Int) extends QuestionPage[Boolean] {
 
-class ParentCompanyNameFormProvider @Inject() extends Mappings {
+  override def path: JsPath = RestrictionQueryHelper.path(companyIdx, restrictionIdx, toString)
 
-  def apply(msgLabel : String): Form[String] =
-    Form("value" -> text(msgLabel)
-        .verifying(maxLength(160, "parentCompanyName.error.length"))
-    )
+  override def toString: String = "restrictionDeletionConfirmation"
 }

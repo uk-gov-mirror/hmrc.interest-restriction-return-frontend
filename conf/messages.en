@@ -301,12 +301,16 @@ payTaxInUk.error.required = Select yes if the ultimate parent has a Unique Taxpa
 parentCompanyName.title = Enter the name of the ultimate parent
 parentCompanyName.heading = Enter the name of the ultimate parent
 parentCompanyName.checkYourAnswersLabel = Ultimate parent name
-parentCompanyName.ultimateParentCompanyHeading = Enter the name of the ultimate parent
-parentCompanyName.firstDeemedParentCompanyHeading = What is the name of the first entity in the deemed parent?
-parentCompanyName.secondDeemedParentCompanyHeading = What is the name of the second entity in the deemed parent?
-parentCompanyName.thirdDeemedParentCompanyHeading = What is the name of the third entity in the deemed parent?
-parentCompanyName.error.required = Enter the name of the ultimate parent
+parentCompanyName.ultimate.heading = Enter the name of the ultimate parent
+parentCompanyName.deemed.first.heading = What is the name of the first entity in the deemed parent?
+parentCompanyName.deemed.second.heading = What is the name of the second entity in the deemed parent?
+parentCompanyName.deemed.third.heading = What is the name of the third entity in the deemed parent?
+
 parentCompanyName.error.length = ParentCompanyName must be 160 characters or less
+parentCompanyName.ultimate.error.required = Enter the name of the ultimate parent
+parentCompanyName.deemed.first.error.required = Enter the name of the first entity in the deemed parent
+parentCompanyName.deemed.second.error.required = Enter the name of the second entity in the deemed parent
+parentCompanyName.deemed.third.error.required = Enter the name of the third entity in the deemed parent
 
 
 # ParentCRNPage Messages
@@ -984,17 +988,29 @@ addRestrictionAmount.error.required = Select yes if Do you want to add a restric
 
 # CompanyAccountingPeriodEndDatePage Messages
 # ----------------------------------------------------------
-companyAccountingPeriodEndDate.title = What is the end date for the first accounting period?
-companyAccountingPeriodEndDate.heading = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.first.title = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.first.heading = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.second.title = What is the end date for the second accounting period?
+companyAccountingPeriodEndDate.second.heading = What is the end date for the second accounting period?
+companyAccountingPeriodEndDate.third.title = What is the end date for the third accounting period?
+companyAccountingPeriodEndDate.third.heading = What is the end date for the third accounting period?
+
 companyAccountingPeriodEndDate.checkYourAnswersLabel = What is the end date for the first accounting period?
 companyAccountingPeriodEndDate.warning = You need to add all the relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions. Add one at a time.
 companyAccountingPeriodEndDate.hint = For example, 27 3 2018
 companyAccountingPeriodEndDate.label = Accounting period end date
+
 companyAccountingPeriodEndDate.error.required.all = Enter the end date
-companyAccountingPeriodEndDate.error.required.two= End date must include a {0} and a {1}
+companyAccountingPeriodEndDate.error.required.two = End date must include a {0} and a {1}
 companyAccountingPeriodEndDate.error.required = End date must include a {0}
 companyAccountingPeriodEndDate.error.invalid = End date must be a real date
-companyAccountingPeriodEndDate.error.afterStart = End date must be after {0}
+companyAccountingPeriodEndDate.error.first.periodOfAccount = You must complete the Worldwide Group Period Of Account Page
+companyAccountingPeriodEndDate.error.first.afterStart = End date must be after {0}
+companyAccountingPeriodEndDate.error.second.notBefore = End date must be after the end date of the company''s first accounting period
+companyAccountingPeriodEndDate.error.second.afterOneYear = End date cannot be more than 12 months after the end date of the company''s first accounting period
+companyAccountingPeriodEndDate.error.third.notBefore = End date must be after the end date of the company''s second accounting period
+companyAccountingPeriodEndDate.error.third.afterOneYear = End date cannot be more than 12 months after the end date of the company''s second accounting period
+
 
 # AddAnotherAccountingPeriodPage Messages
 # ----------------------------------------------------------
@@ -1014,3 +1030,9 @@ restrictionAmountForAccountingPeriod.error.nonNumeric = Enter the restriction am
 restrictionAmountForAccountingPeriod.error.required = Enter the restriction amount for the accounting period
 restrictionAmountForAccountingPeriod.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
 restrictionAmountForAccountingPeriod.error.outOfRange = Restriction amount must be a positive number
+
+# RestrictionDeletionConfirmationPage Messages
+# ----------------------------------------------------------
+restrictionDeletionConfirmation.title = Do you want to remove this accounting period?
+restrictionDeletionConfirmation.heading = Do you want to remove this accounting period?
+restrictionDeletionConfirmation.error.required = Select yes if you want to remove this accounting period

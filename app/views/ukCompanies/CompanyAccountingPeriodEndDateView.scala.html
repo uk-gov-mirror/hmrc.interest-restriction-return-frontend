@@ -34,9 +34,9 @@
     warningText: components.warningText
 )
 
-@(form: Form[_], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], companyName: String, headingPrefix: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(title(form, "companyAccountingPeriodEndDate.title", Some(companyName)))) {
+@govukLayout(pageTitle = Some(title(form, s"companyAccountingPeriodEndDate.${headingPrefix}.title", Some(companyName)))) {
 
     @formHelper(action = postAction, 'autoComplete -> "on", 'novalidate -> "novalidate") {
 
@@ -44,14 +44,16 @@
 
         @subheading(companyName)
 
-        @h1("companyAccountingPeriodEndDate.heading")
-
-        @warningText { @messages("companyAccountingPeriodEndDate.warning") }
-
-        @inputDate(form, "companyAccountingPeriodEndDate.label", id = "date", hintText = Some("companyAccountingPeriodEndDate.hint"), legendAsPageHeading = false)
+        @inputDate(form, s"companyAccountingPeriodEndDate.${headingPrefix}.heading", id = "date", hint = Some(hint), legendAsPageHeading = true)
 
         @button("site.saveAndContinue")
 
         @saveForLater()
     }
+}
+
+@hint = {
+    @warningText { @messages("companyAccountingPeriodEndDate.warning") }
+    <div class="govuk-fieldset__legend">@messages("companyAccountingPeriodEndDate.label")</div>
+    @messages("companyAccountingPeriodEndDate.hint")
 }

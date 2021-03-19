@@ -14,34 +14,26 @@
  * limitations under the License.
  */
 
-package forms.ultimateParentCompany
+package forms.ukCompanies
 
-import forms.behaviours.StringFieldBehaviours
+import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class ParentCompanyNameFormProviderSpec extends StringFieldBehaviours {
+class RestrictionDeletionConfirmationFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "parentCompanyName.ultimate.error.required"
-  val lengthKey = "parentCompanyName.error.length"
-  val maxLength = 160
+  val requiredKey = "restrictionDeletionConfirmation.error.required"
+  val invalidKey = "error.boolean"
 
-  val form = new ParentCompanyNameFormProvider()(requiredKey)
+  val form = new RestrictionDeletionConfirmationFormProvider()()
 
   ".value" must {
 
     val fieldName = "value"
 
-    behave like fieldThatBindsValidData(
+    behave like booleanField(
       form,
       fieldName,
-      stringsWithMaxLength(maxLength)
-    )
-
-    behave like fieldWithMaxLength(
-      form,
-      fieldName,
-      maxLength = maxLength,
-      lengthError = FormError(fieldName, lengthKey, Seq(maxLength))
+      invalidError = FormError(fieldName, invalidKey)
     )
 
     behave like mandatoryField(

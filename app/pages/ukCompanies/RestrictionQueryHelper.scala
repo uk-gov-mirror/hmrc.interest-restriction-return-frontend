@@ -22,5 +22,7 @@ object RestrictionQueryHelper {
 
   val restrictionCompanyPath = JsPath \ "company"
 
-  def path(companyIdx: Int, restrictionIdx: Int, page: String) = restrictionCompanyPath \ (companyIdx - 1) \ page \ (restrictionIdx - 1)
+  def restrictionPath(companyIdx: Int, restrictionIdx: Int) = restrictionCompanyPath \ (companyIdx - 1) \ "restriction" \ (restrictionIdx - 1)
+
+  def path(companyIdx: Int, restrictionIdx: Int, page: String) = restrictionPath(companyIdx, restrictionIdx) \ page
 }

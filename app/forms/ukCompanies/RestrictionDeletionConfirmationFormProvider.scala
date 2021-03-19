@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package forms.ultimateParentCompany
+package forms.ukCompanies
+
+import javax.inject.Inject
 
 import forms.mappings.Mappings
-import javax.inject.Inject
 import play.api.data.Form
 
-class ParentCompanyNameFormProvider @Inject() extends Mappings {
+class RestrictionDeletionConfirmationFormProvider @Inject() extends Mappings {
 
-  def apply(msgLabel : String): Form[String] =
-    Form("value" -> text(msgLabel)
-        .verifying(maxLength(160, "parentCompanyName.error.length"))
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("restrictionDeletionConfirmation.error.required")
     )
 }
