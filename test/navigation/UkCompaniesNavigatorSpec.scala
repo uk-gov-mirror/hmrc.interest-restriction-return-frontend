@@ -343,13 +343,13 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             controllers.ukCompanies.routes.RestrictionAmountSameAPController.onPageLoad(1, NormalMode)
         }
 
-        "go to the Under Construction page when false" in {
+        "go to the first CompanyAccountingPeriodEndDate page when false" in {
           val company = ukCompanyModelMax.copy(accountPeriodSameAsGroup = Some(false))
           val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
 
           //TODO update to correct route in 1350
           navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.CompanyAccountingPeriodEndDateController.onPageLoad(1, 1, NormalMode)
         }
       }
 
@@ -554,6 +554,16 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           val page = AddAnotherAccountingPeriodPage(1, 1)
           navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
+        }
+
+      }
+
+      "for CompanyAccountingPeriodEndDatePage" must {
+
+        "Navigate to the AddRestrictionAmountPage" in {
+          val page = CompanyAccountingPeriodEndDatePage(1, 1)
+          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+            routes.AddRestrictionAmountController.onPageLoad(1, 1, NormalMode)
         }
 
       }
