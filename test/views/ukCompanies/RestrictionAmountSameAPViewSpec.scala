@@ -27,9 +27,10 @@ import views.html.ukCompanies.RestrictionAmountSameAPView
 
 class RestrictionAmountSameAPViewSpec extends DecimalViewBehaviours  {
 
+  val netTaxInterestExpense : BigDecimal = 1.11
   val messageKeyPrefix = "restrictionAmountSameAP"
   val section = Some(RestrictionAmountSameAPMessages.subheading(companyNameModel.name))
-  val form = new RestrictionAmountSameAPFormProvider()()
+  val form = new RestrictionAmountSameAPFormProvider()(netTaxInterestExpense)
   val view = viewFor[RestrictionAmountSameAPView]()
 
   "RestrictionAmountSameAPView" must {

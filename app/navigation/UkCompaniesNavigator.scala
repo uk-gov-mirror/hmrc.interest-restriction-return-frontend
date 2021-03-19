@@ -47,12 +47,16 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     UkCompaniesPage -> ((idx, _) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.restriction) match {
-      case Some(true)   => controllers.routes.UnderConstructionController.onPageLoad() //TODO: Update as part of routing subtask
+      case Some(true)   => controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
       case Some(false)  => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
       case None         => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
     }),
-    CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
-    RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    CompanyAccountingPeriodSameAsGroupPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.accountPeriodSameAsGroup) match {
+      case Some(true) => controllers.ukCompanies.routes.RestrictionAmountSameAPController.onPageLoad(idx, NormalMode)
+      case Some(false) => controllers.routes.UnderConstructionController.onPageLoad()
+      case _ => routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
+    }),
+    RestrictionAmountSameAPPage -> ((idx, _) => controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
     CompanyQICElectionPage -> ((idx, userAnswers) => userAnswers.get(FullOrAbbreviatedReturnPage) match {
       case Some(Full) => controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)
       case Some(Abbreviated) => controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(idx)

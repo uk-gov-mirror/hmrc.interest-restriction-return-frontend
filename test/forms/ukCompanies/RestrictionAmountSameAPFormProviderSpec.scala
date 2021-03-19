@@ -21,32 +21,34 @@ import play.api.data.FormError
 
 class RestrictionAmountSameAPFormProviderSpec extends DecimalFieldBehaviours {
 
-  val form = new RestrictionAmountSameAPFormProvider()()
-
   ".value" must {
 
     val fieldName = "value"
-
     val minimum = 0
     val maximum = 999999999999999.99
-
     val validDataGenerator = decimalInRangeWithCommas(minimum, maximum)
 
+    val netTaxInterestExpense : BigDecimal = 999999999999999.99 + 9
+    val lowNetTaxInterestExpense : BigDecimal = 123
+
+    val formWithMaxNetTaxInterestExpense = new RestrictionAmountSameAPFormProvider()(netTaxInterestExpense)
+    val formlowNetTaxInterestExpense = new RestrictionAmountSameAPFormProvider()(lowNetTaxInterestExpense)
+
     behave like fieldThatBindsValidData(
-      form,
+      formWithMaxNetTaxInterestExpense,
       fieldName,
       validDataGenerator
     )
 
     behave like decimalField(
-      form,
+      formWithMaxNetTaxInterestExpense,
       fieldName,
       nonNumericError  = FormError(fieldName, "restrictionAmountSameAP.error.nonNumeric"),
       invalidNumericError = FormError(fieldName, "restrictionAmountSameAP.error.invalidNumeric")
     )
 
     behave like decimalFieldWithRange(
-      form,
+      formWithMaxNetTaxInterestExpense,
       fieldName,
       minimum       = minimum,
       maximum       = maximum,
@@ -54,9 +56,16 @@ class RestrictionAmountSameAPFormProviderSpec extends DecimalFieldBehaviours {
     )
 
     behave like mandatoryField(
-      form,
+      formWithMaxNetTaxInterestExpense,
       fieldName,
       requiredError = FormError(fieldName, "restrictionAmountSameAP.error.required")
+    )
+
+    behave like decimalFieldWithMaximum(
+      formlowNetTaxInterestExpense,
+      fieldName,
+      maximum       = lowNetTaxInterestExpense,
+      expectedError = FormError(fieldName, "restrictionAmountSameAP.error.expenseAmount")
     )
   }
 }

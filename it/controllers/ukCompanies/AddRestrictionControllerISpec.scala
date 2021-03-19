@@ -70,11 +70,9 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
     "POST /uk-companies/1/add-restriction" when {
 
       "user is authorised" when {
-
         "enters a valid answer" when {
 
-          //TODO: Update as part of routing storys
-          "redirect to Under Construction page when true" in {
+          "redirect to CompanyAccountingPeriodSameAsGroupController when true" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
@@ -84,7 +82,7 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(1, NormalMode).url)
               )
             }
           }

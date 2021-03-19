@@ -316,14 +316,12 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
 
       "from the AddRestrictionPage" should {
-
-        //TODO: Update as part of routing subtask
-        "go to the Under Construction page when set to true" in {
+        "go to the CompanyAccountingPeriodSameAsGroup when set to true" in {
           val company = ukCompanyModelMax.copy(restriction = Some(true))
           val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
 
           navigator.nextPage(AddRestrictionPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(1, NormalMode)
         }
 
         "go to the CompanyContainsEstimatesPage when set to false" in {
@@ -337,19 +335,28 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "from the CompanyAccountingPeriodSameAsGroupPage" should {
 
-        //TODO: Update as part of routing subtask
-        "go to the Under Construction page" in {
-          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, emptyUserAnswers) mustBe
+        "go to the RestrictionAmountSameAPController when true" in {
+          val company = ukCompanyModelMax.copy(accountPeriodSameAsGroup = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, userAnswers) mustBe
+            controllers.ukCompanies.routes.RestrictionAmountSameAPController.onPageLoad(1, NormalMode)
+        }
+
+        "go to the Under Construction page when false" in {
+          val company = ukCompanyModelMax.copy(accountPeriodSameAsGroup = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          //TODO update to correct route in 1350
+          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, userAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }
       }
 
       "from the RestrictionAmountSameAPPage" should {
-
-        //TODO: Update as part of routing subtask
-        "go to the Under Construction page" in {
+        "go to CompanyContainsEstimatesController" in {
           navigator.nextPage(RestrictionAmountSameAPPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 

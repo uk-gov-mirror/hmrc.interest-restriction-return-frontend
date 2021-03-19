@@ -49,9 +49,11 @@ class RestrictionAmountSameAPController @Inject()(
 
   def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
+      val netTaxInterestExpense : BigDecimal = ukCompany.netTaxInterest.getOrElse(0)
+
       Future.successful(
         Ok(view(
-          form = ukCompany.allocatedRestrictions.flatMap(_.disallowanceAp1).fold(formProvider())(formProvider().fill),
+          form = ukCompany.allocatedRestrictions.flatMap(_.disallowanceAp1).fold(formProvider(netTaxInterestExpense))(formProvider(netTaxInterestExpense).fill),
           companyName = ukCompany.companyDetails.companyName,
           postAction = routes.RestrictionAmountSameAPController.onSubmit(idx, mode)
         ))
@@ -62,7 +64,9 @@ class RestrictionAmountSameAPController @Inject()(
   def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(AccountingPeriodPage) { groupAccountPeriod =>
       answerFor(UkCompaniesPage, idx) { ukCompany =>
-        formProvider().bindFromRequest().fold(
+        val netTaxInterestExpense : BigDecimal = ukCompany.netTaxInterest.getOrElse(0)
+
+        formProvider(netTaxInterestExpense).bindFromRequest().fold(
           formWithErrors =>
             Future.successful(
               BadRequest(view(

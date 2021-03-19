@@ -34,9 +34,11 @@ import pages.aboutReturn.AccountingPeriodPage
 
 class RestrictionAmountSameAPControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
+  val netTaxInterestExpense : BigDecimal = 1.11
+
   val view = injector.instanceOf[RestrictionAmountSameAPView]
   val formProvider = injector.instanceOf[RestrictionAmountSameAPFormProvider]
-  val form = formProvider()
+  val form = formProvider(netTaxInterestExpense)
 
   val validAnswer = 0
 
