@@ -357,6 +357,17 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
             (mappedReturn \ "adjustedGroupInterest").asOpt[JsValue] mustEqual None
           }
         }
+
+        "Not display anything if we have no group level information" in {
+          val fullReturnNoGroupRatio = fullReturn.copy(groupLevelInformation = None)
+          val mappedReturn : JsValue = Json.toJson(fullReturnNoGroupRatio)(FullReturnModel.writes)
+
+          (mappedReturn \ "angie").asOpt[JsValue] mustEqual None
+          (mappedReturn \ "groupLevelAmount").asOpt[JsValue] mustEqual None
+          (mappedReturn \ "adjustedGroupInterest").asOpt[JsValue] mustEqual None
+          (mappedReturn \ "groupSubjectToInterestRestrictions").asOpt[JsValue] mustEqual None
+          (mappedReturn \ "groupSubjectToInterestReactivation").asOpt[JsValue] mustEqual None
+        }
       }
     }
   }
