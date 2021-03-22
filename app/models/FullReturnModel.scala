@@ -24,7 +24,7 @@ import play.api.libs.json.{JsObject, JsPath, Json, Writes}
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
                            elections: ElectionsSectionModel,
-                           groupLevelInformation: GroupLevelInformationSectionModel,
+                           groupLevelInformation: Option[GroupLevelInformationSectionModel] = None,
                            ukCompanies: Option[UkCompaniesSectionModel] = None)
 
 object FullReturnModel {
@@ -40,11 +40,11 @@ object FullReturnModel {
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
       (JsPath \ "parentCompany").write[JsObject] and
       (JsPath \ "groupLevelElections").write[JsObject] and
-      (JsPath \ "angie").write[BigDecimal] and
-      (JsPath \ "groupLevelAmount").write[JsObject] and
+      (JsPath \ "angie").writeNullable[BigDecimal] and
+      (JsPath \ "groupLevelAmount").writeNullable[JsObject] and
       (JsPath \ "adjustedGroupInterest").writeNullable[JsObject] and
-      (JsPath \ "groupSubjectToInterestRestrictions").write[Boolean] and
-      (JsPath \ "groupSubjectToInterestReactivation").write[Boolean]
+      (JsPath \ "groupSubjectToInterestRestrictions").writeNullable[Boolean] and
+      (JsPath \ "groupSubjectToInterestReactivation").writeNullable[Boolean]
     ) (
     fullReturn => (
       fullReturn.aboutReturn.appointedReportingCompany,
@@ -62,32 +62,32 @@ object FullReturnModel {
       ),
       toParentCompany(fullReturn),
       toGroupLevelElections(fullReturn),
-      fullReturn.groupLevelInformation.groupRatioJourney.angie,
-      toGroupLevelAmount(fullReturn),
-      toAdjustedGroupInterest(fullReturn),
-      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToRestrictions,
-      fullReturn.groupLevelInformation.restrictionReactivationJourney.subjectToReactivations.fold(false)(isSubjectToReactivations => isSubjectToReactivations)
+      fullReturn.groupLevelInformation.map(groupInfo => groupInfo.groupRatioJourney.angie),
+      fullReturn.groupLevelInformation.map(groupInfo => toGroupLevelAmount(groupInfo)),
+      fullReturn.groupLevelInformation.flatMap(groupInfo => toAdjustedGroupInterest(groupInfo)),
+      fullReturn.groupLevelInformation.map(groupInfo => groupInfo.restrictionReactivationJourney.subjectToRestrictions),
+      fullReturn.groupLevelInformation.map(groupInfo => groupInfo.restrictionReactivationJourney.subjectToReactivations.fold(false)(isSubjectToReactivations => isSubjectToReactivations))
     )
   )
 
-  private def toAdjustedGroupInterest(fullReturn: FullReturnModel) = {
-    if (fullReturn.elections.groupRatioIsElected) {
+  private def toAdjustedGroupInterest(groupInfo: GroupLevelInformationSectionModel) = {
+    if (groupInfo.groupRatioElection) {
       Some(Json.obj(
-        "qngie" -> fullReturn.groupLevelInformation.groupRatioJourney.qngie,
-        "groupEBITDA" -> fullReturn.groupLevelInformation.groupRatioJourney.groupEBITDA,
-        "groupRatio" -> fullReturn.groupLevelInformation.groupRatioJourney.groupRatioPercentage
+        "qngie" -> groupInfo.groupRatioJourney.qngie,
+        "groupEBITDA" -> groupInfo.groupRatioJourney.groupEBITDA,
+        "groupRatio" -> groupInfo.groupRatioJourney.groupRatioPercentage
       ))
     } else {
       None
     }
   }
 
-  private def toGroupLevelAmount(fullReturn: FullReturnModel) = {
+  private def toGroupLevelAmount(groupInfo: GroupLevelInformationSectionModel) = {
     Json.obj(
-      "interestAllowanceBroughtForward" -> fullReturn.groupLevelInformation.interestAllowanceBroughtForward,
-      "interestAllowanceForPeriod" -> fullReturn.groupLevelInformation.interestAllowanceForReturnPeriod,
-      "interestCapacityForPeriod" -> fullReturn.groupLevelInformation.interestCapacityForReturnPeriod,
-      "interestReactivationCap" -> fullReturn.groupLevelInformation.restrictionReactivationJourney.reactivationCap.fold(BigDecimal(0))(amount => amount)
+      "interestAllowanceBroughtForward" -> groupInfo.interestAllowanceBroughtForward,
+      "interestAllowanceForPeriod" -> groupInfo.interestAllowanceForReturnPeriod,
+      "interestCapacityForPeriod" -> groupInfo.interestCapacityForReturnPeriod,
+      "interestReactivationCap" -> groupInfo.restrictionReactivationJourney.reactivationCap.fold(BigDecimal(0))(amount => amount)
     )
   }
 

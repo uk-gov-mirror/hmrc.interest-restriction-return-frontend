@@ -32,7 +32,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
     val ultimateParent  = ultimateParentCompanySectionModel.sample.value
     val groupRatioElection = electionsSectionModel.sample.value
     val groupLevelInfo = groupLevelInformationSectionModel.sample.value
-    val fullReturn = FullReturnModel(aboutReturn,ultimateParent,groupRatioElection,groupLevelInfo)
+    val fullReturn = FullReturnModel(aboutReturn,ultimateParent,groupRatioElection,Some(groupLevelInfo))
 
     "Mapping to an accepted interest-restriction-returns payload" when {
       "Mapping the About Your Return section" should {
@@ -44,7 +44,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
         "contain the `agentDetails`" when {
           "there is no agent" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent,groupRatioElection,groupLevelInfo)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(false,None)),ultimateParent,groupRatioElection,Some(groupLevelInfo))
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -53,7 +53,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
 
           "there is an agent" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent,groupRatioElection,groupLevelInfo)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(agentDetails = AgentDetailsModel(true,Some("Bob"))),ultimateParent,groupRatioElection,Some(groupLevelInfo))
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -64,7 +64,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
         "contain the `submissionType`" when {
           "it is a revised return" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent,groupRatioElection,groupLevelInfo)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = true),ultimateParent,groupRatioElection,Some(groupLevelInfo))
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -72,7 +72,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           }
 
           "it is an original return" in {
-            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent,groupRatioElection,groupLevelInfo)
+            val fullReturn = models.FullReturnModel(aboutReturn.copy(isRevisingReturn = false),ultimateParent,groupRatioElection,Some(groupLevelInfo))
 
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
@@ -104,7 +104,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
       "Mapping the Parent Company" when {
         "The Reporting Company is the same as The Parent Company" should {
-          val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn, ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = true),groupRatioElection,groupLevelInfo)
+          val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn, ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = true),groupRatioElection,Some(groupLevelInfo))
 
           "Have a company name" in {
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
@@ -123,7 +123,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "We are not deemed parent" should {
             val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
               ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(false),
-                parentCompanies = Seq(deemedParentSectionModel.sample.value)),groupRatioElection,groupLevelInfo)
+                parentCompanies = Seq(deemedParentSectionModel.sample.value)),groupRatioElection,Some(groupLevelInfo))
 
 
             "Have a company name" in {
@@ -155,7 +155,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "We are deemed parent" should {
             val fullReturn = models.FullReturnModel(aboutReturn = aboutReturn,
               ultimateParentCompany = ultimateParent.copy(reportingCompanySameAsParent = false,Some(true),
-                parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)),groupRatioElection,groupLevelInfo)
+                parentCompanies = Seq(deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value,deemedParentSectionModel.sample.value)),groupRatioElection,Some(groupLevelInfo))
 
             "Have a company name in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
@@ -201,7 +201,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "have whether if it is elected" in {
             val groupRatioBlended = groupRatioBlendedModel.sample.value
             val mappedElection: JsValue = Json.toJson(FullReturnModel(aboutReturn, ultimateParent,
-              groupRatioElection.copy(groupRatioBlended = Some(groupRatioBlended)),groupLevelInfo))(FullReturnModel.writes)
+              groupRatioElection.copy(groupRatioBlended = Some(groupRatioBlended)),Some(groupLevelInfo)))(FullReturnModel.writes)
 
             (mappedElection \ "groupLevelElections" \ "groupRatio" \ "groupRatioBlended" \ "isElected").as[Boolean] mustEqual groupRatioBlended.isElected
           }
@@ -308,7 +308,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "default interestReactivationCap to 0" when {
             "there is no reactivationCap" in {
               val restrictionJourneyModel = restrictionReactivationJourneyModel.sample.value.copy(reactivationCap = None)
-              val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel))
+              val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  Some(groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel)))
 
 
               val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
@@ -321,7 +321,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
           "map the interestReactivionCap" when {
             "we have a reactivationCap" in {
               val restrictionJourneyModel = restrictionReactivationJourneyModel.sample.value.copy(reactivationCap = Some(BigDecimal(3242313)))
-              val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel))
+              val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  Some(groupLevelInformationSectionModel.sample.value.copy(restrictionReactivationJourney = restrictionJourneyModel)))
 
               val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
 
@@ -332,8 +332,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
         "When it is groupRatioElected and mapping the adjustedGroupInterest" should {
           val groupRatioJourney = GroupRatioJourneyModel(BigDecimal(5),Some(BigDecimal(325324)),Some(BigDecimal(23432324)),Some(BigDecimal(23423432)))
-          val fullReturnWithGroupLevelInformation = fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioIsElected = true),
-            groupLevelInformation =  groupLevelInformationSectionModel.sample.value.copy(groupRatioJourney = groupRatioJourney))
+          val fullReturnWithGroupLevelInformation = fullReturn.copy(groupLevelInformation =  Some(groupLevelInformationSectionModel.sample.value.copy(groupRatioJourney = groupRatioJourney,groupRatioElection = true)))
 
           val mappedReturn : JsValue = Json.toJson(fullReturnWithGroupLevelInformation)(FullReturnModel.writes)
 
@@ -352,7 +351,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
         "When it is not groupRatioElected" should {
           "not add adjustedGroupInterest" in {
-            val fullReturnNoGroupRatio = fullReturn.copy(elections = electionsSectionModel.sample.value.copy(groupRatioIsElected = false))
+            val fullReturnNoGroupRatio = fullReturn.copy(groupLevelInformation = Some(groupLevelInformationSectionModel.sample.value.copy(groupRatioElection = false)))
             val mappedReturn : JsValue = Json.toJson(fullReturnNoGroupRatio)(FullReturnModel.writes)
 
             (mappedReturn \ "adjustedGroupInterest").asOpt[JsValue] mustEqual None
