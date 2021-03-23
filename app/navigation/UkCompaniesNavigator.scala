@@ -18,7 +18,7 @@ package navigation
 
 import controllers.ukCompanies.routes
 import javax.inject.{Inject, Singleton}
-import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import pages.aboutReturn.{FullOrAbbreviatedReturnPage, AccountingPeriodPage}
 import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
@@ -126,9 +126,9 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   private val restrictionNormalRoutes: PartialFunction[Page, UserAnswers => Call] = {
     case CompanyAccountingPeriodEndDatePage(companyIdx, restrictionIdx) => ua => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
     case AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
-    case AddAnotherAccountingPeriodPage(companyIdx) => ua => addAnotherAccountingPeriodRoute(companyIdx, ua)
     case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
     case ReviewCompanyRestrictionsPage(companyIdx) => ua => reviewCompanyRestrictionsRoute(companyIdx, ua)
+    case AddAnotherAccountingPeriodPage(companyIdx) => ua => addAnotherAccountingPeriodRoute(companyIdx, ua)
   }
 
   def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call =
@@ -160,14 +160,13 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     val endDate3 = userAnswers.get(CompanyAccountingPeriodEndDatePage(companyIdx, 3))
     val endDates = Seq(endDate1, endDate2, endDate3).flatten
     val groupPoAEndDate = userAnswers.get(AccountingPeriodPage).map(_.endDate)
-    
-    val anEndDateExceedsGroupPoAEndDate() = endDates.exists(_.isAfter)
+  
     val accountingPeriodsAdded = endDates.size
 
     (accountingPeriodsAdded, groupPoAEndDate) match {
       case (_, Some(poaEndDate)) if endDates.exists(_.isAfter(poaEndDate)) => routes.CompanyContainsEstimatesController.onPageLoad(companyIdx, NormalMode)
       case (3, _) => routes.CompanyContainsEstimatesController.onPageLoad(companyIdx, NormalMode)
-      case (_, _) => routes.AddAnotherAccountingPeriodPage.onPageLoad(companyIdx, NormalMode)
+      case (_, _) => routes.AddAnotherAccountingPeriodController.onPageLoad(companyIdx, NormalMode)
     }
 
   }

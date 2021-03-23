@@ -50,8 +50,7 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 1, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
           ),
           summaryListRow(
             "Total restrictions",
@@ -77,8 +76,7 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 1, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
           ),          
           summaryListRow(
             "Second accounting period",
@@ -113,15 +111,13 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 1, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
           ),
           summaryListRow(
             "Second accounting period",
             currencyFormat(secondAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 2, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review
           ),
           summaryListRow(
             "Third accounting period",
@@ -155,15 +151,13 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 1, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
           ),
           summaryListRow(
             "Second accounting period",
             currencyFormat(0),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 2, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review
           ),
           summaryListRow(
             "Third accounting period",
