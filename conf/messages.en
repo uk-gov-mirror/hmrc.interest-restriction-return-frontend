@@ -1042,3 +1042,13 @@ restrictionDeletionConfirmation.error.required = Select yes if you want to remov
 restriction.checkYourAnswers.title = Check this restriction
 restriction.checkYourAnswers.heading = Check this restriction
 restriction.checkYourAnswers.subheading = {0}
+
+# ReviewCompanyRestrictionsPage Messages
+# ----------------------------------------------------------
+reviewCompanyRestrictionsPage.title = Check total company restrictions
+reviewCompanyRestrictionsPage.heading = Check total company restrictions
+reviewCompanyRestrictionsPage.first.checkYourAnswersLabel = First accounting period
+reviewCompanyRestrictionsPage.second.checkYourAnswersLabel = Second accounting period
+reviewCompanyRestrictionsPage.third.checkYourAnswersLabel = Third accounting period
+reviewCompanyRestrictionsPage.total.checkYourAnswersLabel = Total restrictions
+
