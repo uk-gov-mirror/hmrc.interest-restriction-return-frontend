@@ -16,18 +16,26 @@
 
 package connectors
 
-import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
 import base.SpecBase
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, post, stubFor, urlMatching}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import generators.ModelGenerators
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.api.{Application, Configuration}
 import play.api.http.Status._
+import play.api.inject.guice.GuiceApplicationBuilder
+import utils.WireMockServerHandler
 
 
-class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPropertyChecks with ModelGenerators {
+class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPropertyChecks with ModelGenerators with WireMockServerHandler {
 
   val stubUrl = "/internal/return/full"
+
+  override implicit lazy val app: Application =
+    new GuiceApplicationBuilder()
+      .configure(Configuration(
+        "microservice.services.interest-restriction-return.port" -> server.port()
+      )).build()
 
   private lazy val connector = app.injector.instanceOf[InterestRestrictionReturnConnector]
 

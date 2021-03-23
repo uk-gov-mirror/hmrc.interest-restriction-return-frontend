@@ -43,12 +43,7 @@ import utils.WireMockServerHandler
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport with WireMockServerHandler {
-
-  override lazy val app: Application = new GuiceApplicationBuilder()
-    .configure(
-      conf = "microservice.services.interest-restriction-return.port" -> server.port()
-    ).build()
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport  {
 
   def onwardRoute = Call("GET", "/foo")
 
