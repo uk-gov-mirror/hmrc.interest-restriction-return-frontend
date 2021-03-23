@@ -41,11 +41,11 @@ class CheckAnswersUkCompanyViewSpec extends ViewBehaviours with UkCompanyCheckYo
 
   def applyView(checkYourAnswersHelper: CheckYourAnswersUkCompanyHelper)(): HtmlFormat.Appendable = {
     view.apply(
-      checkYourAnswersHelper.rows(1),
-      UkCompanies,
-      onwardRoute,
-      Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
-      "ukCompanies.checkYourAnswers.button"
+      answers = checkYourAnswersHelper.rows(1),
+      section = UkCompanies,
+      postAction = onwardRoute,
+      headingMsgArgs = Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
+      buttonMsg = "ukCompanies.checkYourAnswers.button"
     )(fakeRequest, messages, frontendAppConfig
     )
   }

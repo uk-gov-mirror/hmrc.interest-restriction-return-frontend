@@ -33,7 +33,7 @@
 
 @defining(messages(s"deemedParentReviewAnswersList.${if(answers.length > 1) "plural" else "singular"}.title", answers.length)) { heading =>
 
-    @govukLayout(pageTitle = Some(title(form, heading, section = Some("section.ultimateParentCompany")))) {
+    @govukLayout(pageTitle = Some(title(form, heading, section = Some(messages("section.ultimateParentCompany"))))) {
 
         @errorSummary(form.errors)
 

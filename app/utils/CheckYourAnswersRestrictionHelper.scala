@@ -31,31 +31,44 @@ class CheckYourAnswersRestrictionHelper(val userAnswers: UserAnswers)
 
   def accountingPeriodEndDate(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
     val page = CompanyAccountingPeriodEndDatePage(companyIdx, restrictionIdx)
-    userAnswers.get(page).map {endDate =>
+    userAnswers.get(page).map { endDate =>
       summaryListRow(
         label = messages(s"$page.checkYourAnswersLabel"),
         value = endDate.toFormattedString,
-        visuallyHiddenText = None
+        visuallyHiddenText = None,
+        actions = ukCompanyRoutes.CompanyAccountingPeriodEndDateController.onPageLoad(companyIdx, restrictionIdx, CheckMode) -> messages("site.edit")
       )
     }
   }
 
+  def accountingPeriodRestrictionAmount(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
+    val page = RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx)
+    userAnswers.get(page).map { amount =>
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel"),
+        value = currencyFormat(amount),
+        visuallyHiddenText = None,
+        actions = ukCompanyRoutes.RestrictionAmountForAccountingPeriodController.onPageLoad(companyIdx, restrictionIdx, CheckMode) -> messages("site.edit")
+      )
+    }
+  }
+
+  def accountingPeriodRestriction(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
+    val page = AddRestrictionAmountPage(companyIdx, restrictionIdx)
+    userAnswers.get(page).map { addRestriction =>
+      summaryListRow(
+        label = messages(s"$page.checkYourAnswersLabel"),
+        value = addRestriction,
+        visuallyHiddenText = None,
+        actions = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode) -> messages("site.edit")
+      )
+    }
+  }
 
   def rows(companyIdx: Int, restrictionIdx: Int): Seq[SummaryListRow] = Seq(
-    accountingPeriodEndDate(companyIdx, restrictionIdx)
+    accountingPeriodEndDate(companyIdx, restrictionIdx),
+    accountingPeriodRestrictionAmount(companyIdx, restrictionIdx),
+    accountingPeriodRestriction(companyIdx, restrictionIdx)
   ).flatten
 
-
-  def ukCompanyAnswer[A](page: QuestionPage[A],
-                         value: A,
-                         changeLinkCall: Call,
-                         answerIsMsgKey: Boolean = false,
-                         headingMessageArgs: Seq[String] = Seq())
-                        (implicit messages: Messages, conversion: A => String): SummaryListRow =
-    summaryListRow(
-      label = messages(s"$page.checkYourAnswersLabel", headingMessageArgs: _*),
-      value = if (answerIsMsgKey) messages(s"$page.$value") else value,
-      visuallyHiddenText = None,
-      changeLinkCall -> messages("site.edit")
-    )
 }

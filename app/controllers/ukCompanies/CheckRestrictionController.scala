@@ -24,11 +24,11 @@ import handlers.ErrorHandler
 import models.NormalMode
 import models.Section.UkCompanies
 import navigation.UkCompaniesNavigator
-import pages.ukCompanies.{CheckAnswersUkCompanyPage, UkCompaniesPage}
+import pages.ukCompanies.{CheckRestrictionPage, UkCompaniesPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.CheckYourAnswersUkCompanyHelper
+import utils.CheckYourAnswersRestrictionHelper
 import views.ViewUtils._
 import views.html.CheckYourAnswersView
 
@@ -42,24 +42,25 @@ class CheckRestrictionController @Inject()(override val messagesApi: MessagesApi
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView
-                                               )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
+                                          )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler)
   extends FrontendBaseController with I18nSupport with FeatureSwitching with BaseController {
 
-  def onPageLoad(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
+  def onPageLoad(companyIdx: Int, restrictionIdx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
     implicit request =>
-      val checkYourAnswersHelper = new CheckYourAnswersUkCompanyHelper(request.userAnswers)
-      answerFor(UkCompaniesPage, idx) { ukCompany =>
+      val checkYourAnswersHelper = new CheckYourAnswersRestrictionHelper(request.userAnswers)
+      answerFor(UkCompaniesPage, companyIdx) { ukCompany =>
         Future.successful(Ok(view(
-          answers = checkYourAnswersHelper.rows(idx),
-          section = UkCompanies,
-          postAction = controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onSubmit(idx),
-          headingMsgArgs = Seq(addPossessive(ukCompany.companyDetails.companyName)),
-          buttonMsg = "ukCompanies.checkRestriction.button"
+          answers = checkYourAnswersHelper.rows(companyIdx, restrictionIdx),
+          section = "restriction",
+          postAction = controllers.ukCompanies.routes.CheckRestrictionController.onSubmit(companyIdx, restrictionIdx),
+          subheader = Some(ukCompany.companyDetails.companyName),
+          sectionMsgArgs = Seq(ukCompany.companyDetails.companyName),
+          buttonMsg = "site.continue"
         )))
       }
   }
 
-  def onSubmit(idx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request => Future.successful(Redirect(navigator.nextPage(CheckAnswersUkCompanyPage,NormalMode,request.userAnswers)))
+  def onSubmit(companyIdx: Int, restrictionIdx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    Future.successful(Redirect(navigator.nextPage(CheckRestrictionPage, NormalMode, request.userAnswers)))
   }
 }
