@@ -56,11 +56,11 @@ class CheckRestrictionViewSpec extends ViewBehaviours with BaseConstants with Ch
     )
   }
 
-  "CheckAnswersUkCompanyView" when {
+  "CheckRestrictionViewSpec" when {
 
-    "net tax amount is and income" must {
+    "add restriction is yes" must {
 
-      val checkYourAnswersHelper = new CheckYourAnswersRestrictionHelper(userAnswersUKCompanyNetTaxReactivationIncome(endDateNow))
+      val checkYourAnswersHelper = new CheckYourAnswersRestrictionHelper(userAnswersUKCompanyAddRestriction(endDateNow))
 
       behave like normalPage(
         view = applyView(checkYourAnswersHelper)(),
@@ -85,9 +85,9 @@ class CheckRestrictionViewSpec extends ViewBehaviours with BaseConstants with Ch
       )
     }
 
-    "net tax amount is an expense" must {
+    "add restriction is no" must {
 
-      val checkYourAnswersHelper = new CheckYourAnswersRestrictionHelper(userAnswersUKCompanyNetTaxReactivationExpense(endDateNow))
+      val checkYourAnswersHelper = new CheckYourAnswersRestrictionHelper(userAnswersUKCompanyDontAddRestriction(endDateNow))
 
       behave like normalPage(
         view = applyView(checkYourAnswersHelper)(),

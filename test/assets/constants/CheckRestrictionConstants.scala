@@ -25,15 +25,15 @@ import java.time.LocalDate
 
 trait CheckRestrictionConstants extends ViewBehaviours with BaseConstants {
 
-  def userAnswersUKCompanyNetTaxReactivationIncome(endDate: LocalDate): UserAnswers = (for {
-    comp <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxIncome, idx = Some(1))
+  def userAnswersUKCompanyAddRestriction(endDate: LocalDate): UserAnswers = (for {
+    comp <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelRestrictionMaxIncome, idx = Some(1))
     cap <- comp.set(CompanyAccountingPeriodEndDatePage(1, 1), endDate)
     ara <- cap.set(AddRestrictionAmountPage(1, 1), true)
     ua <- ara.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1234.56))
   } yield ua).get
 
-  def userAnswersUKCompanyNetTaxReactivationExpense(endDate: LocalDate): UserAnswers = (for {
-    comp <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationMaxExpense, idx = Some(1))
+  def userAnswersUKCompanyDontAddRestriction(endDate: LocalDate): UserAnswers = (for {
+    comp <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelRestrictionMaxIncome, idx = Some(1))
     cap <- comp.set(CompanyAccountingPeriodEndDatePage(1, 1), endDate)
     ua <- cap.set(AddRestrictionAmountPage(1, 1), false)
   } yield ua).get
