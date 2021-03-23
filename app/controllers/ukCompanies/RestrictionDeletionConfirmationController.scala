@@ -67,7 +67,7 @@ class RestrictionDeletionConfirmationController @Inject()(
         {
           case true =>
             for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(RestrictionQueryHelper.restrictionPath(idx, restrictionIdx)))
+              updatedAnswers <- Future.fromTry(request.userAnswers.remove(RestrictionQueryHelper.singleRestrictionPath(idx, restrictionIdx)))
               _              <- sessionRepository.set(updatedAnswers)
             } yield Redirect(navigator.nextRestrictionPage(RestrictionDeletionConfirmationPage(idx, restrictionIdx), mode, updatedAnswers))
           case false => 

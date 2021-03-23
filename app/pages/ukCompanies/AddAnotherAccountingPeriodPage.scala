@@ -18,9 +18,9 @@ package pages.ukCompanies
 import pages.QuestionPage
 import play.api.libs.json.JsPath
 
-case class AddAnotherAccountingPeriodPage(companyIdx: Int, restrictionIdx: Int) extends QuestionPage[Boolean] {
+case class AddAnotherAccountingPeriodPage(companyIdx: Int) extends QuestionPage[Boolean] {
 
-  override def path: JsPath = RestrictionQueryHelper.path(companyIdx, restrictionIdx, toString)
+  override def path: JsPath = RestrictionQueryHelper.restrictionPath(companyIdx) \ toString
 
   override def toString: String = "addAnotherAccountingPeriod"
 }
