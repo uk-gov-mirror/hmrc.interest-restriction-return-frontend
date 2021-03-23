@@ -33,7 +33,7 @@
 
 @defining(messages(s"investmentsReviewAnswersList.${if(answers.length > 1) "plural" else "singular"}.title", answers.length)) { heading =>
 
-    @govukLayout(pageTitle = Some(title(form, heading, section = Some(messages("section.elections"))))) {
+    @govukLayout(pageTitle = Some(title(form, heading, section = Some("section.elections")))) {
 
         @errorSummary(form.errors)
 

@@ -39,7 +39,7 @@
         totalReactivationAmt: Option[BigDecimal]
 )(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(pageTitle = Some(titleNoForm("reviewReactivations.title", section = Some(messages("section.checkTotals"))))) {
+@govukLayout(pageTitle = Some(titleNoForm("reviewReactivations.title", Some("section.checkTotals")))) {
 
     @subheading("section.checkTotals")
 
