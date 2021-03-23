@@ -198,4 +198,13 @@ trait ModelGenerators {
       estimates <- arbitrary[Boolean]
       groupRatioElection <- arbitrary[Boolean]
     } yield GroupLevelInformationSectionModel(restrictionReactivationJourney,interestAllowanceBroughtForward,interestAllowanceForReturnPeriod,interestCapacityForReturnPeriod,groupRatioJourney,estimates,groupRatioElection)
+
+  implicit lazy val fullReturnModel : Gen[FullReturnModel] =
+    for {
+      aboutReturn <- aboutReturnSectionModel
+      ultimateParentCompany <- ultimateParentCompanySectionModel
+      elections <- electionsSectionModel
+      groupLevelInformation <- Gen.option(groupLevelInformationSectionModel)
+    } yield FullReturnModel(aboutReturn,ultimateParentCompany,elections,groupLevelInformation)
+
 }

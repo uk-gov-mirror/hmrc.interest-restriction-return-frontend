@@ -18,7 +18,6 @@ package base
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
 import config.FrontendAppConfig
 import controllers.actions.DataRequiredActionImpl
 import handlers.ErrorHandler
@@ -29,18 +28,27 @@ import org.scalatest.TryValues
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
+import play.api.Application
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.Injector
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
 import play.api.mvc.{AnyContentAsEmpty, Call, MessagesControllerComponents}
 import play.api.test.CSRFTokenHelper._
 import play.api.test.FakeRequest
 import repositories.DefaultSessionRepository
 import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
+import utils.WireMockServerHandler
+
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport {
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with TryValues with ScalaFutures with IntegrationPatience with MaterializerSupport with WireMockServerHandler {
+
+  override lazy val app: Application = new GuiceApplicationBuilder()
+    .configure(
+      conf = "microservice.services.interest-restriction-return.port" -> server.port()
+    ).build()
 
   def onwardRoute = Call("GET", "/foo")
 
