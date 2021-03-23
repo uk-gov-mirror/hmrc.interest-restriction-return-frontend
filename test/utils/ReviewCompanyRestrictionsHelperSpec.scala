@@ -83,7 +83,7 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             currencyFormat(secondAmountValue),
             visuallyHiddenText = None,
             controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 2, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 2, NormalMode) -> BaseMessages.remove
           ),
           summaryListRow(
             "Total restrictions",
@@ -124,7 +124,7 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             currencyFormat(thirdAmountValue),
             visuallyHiddenText = None,
             controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 3, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 3, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 3, NormalMode) -> BaseMessages.remove
           ),
           summaryListRow(
             "Total restrictions",
@@ -164,7 +164,7 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             currencyFormat(thirdAmountValue),
             visuallyHiddenText = None,
             controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 3, NormalMode) -> BaseMessages.review,
-            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 3, NormalMode) -> BaseMessages.delete
+            controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 3, NormalMode) -> BaseMessages.remove
           ),
           summaryListRow(
             "Total restrictions",

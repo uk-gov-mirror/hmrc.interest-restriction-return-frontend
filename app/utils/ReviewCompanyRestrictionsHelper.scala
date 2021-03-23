@@ -59,7 +59,7 @@ class ReviewCompanyRestrictionsHelper(val idx: Int, val userAnswers: UserAnswers
 
   def restrictionRow(restrictionIdx: Int, amount: BigDecimal): SummaryListRow = {
     val reviewButton = controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(idx, restrictionIdx, NormalMode) -> messages("site.review")
-    val deleteButton = controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(idx, restrictionIdx, NormalMode) -> messages("site.delete")
+    val deleteButton = controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(idx, restrictionIdx, NormalMode) -> messages("site.remove")
 
     val actions = restrictionIdx match {
       case 1 => Seq(reviewButton)

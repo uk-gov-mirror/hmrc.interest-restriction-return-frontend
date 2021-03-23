@@ -29,5 +29,6 @@ object BaseMessages {
   val no = "No"
   val review = "Review"
   val delete = "Delete"
+  val remove = "Remove"
 
 }
