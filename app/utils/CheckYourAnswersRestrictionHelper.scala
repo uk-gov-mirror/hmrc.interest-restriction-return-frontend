@@ -42,27 +42,23 @@ class CheckYourAnswersRestrictionHelper(val userAnswers: UserAnswers)
   }
 
   def accountingPeriodRestrictionAmount(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
-    val page = RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx)
-    userAnswers.get(page).map { amount =>
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel"),
-        value = currencyFormat(amount),
-        visuallyHiddenText = None,
-        actions = ukCompanyRoutes.RestrictionAmountForAccountingPeriodController.onPageLoad(companyIdx, restrictionIdx, CheckMode) -> messages("site.edit")
-      )
+    userAnswers.get(AddRestrictionAmountPage(companyIdx, restrictionIdx)) match {
+      case Some(true) =>
+        val page = RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx)
+        monetaryAnswer(
+          page = page,
+          changeLinkCall = ukCompanyRoutes.RestrictionAmountForAccountingPeriodController.onPageLoad(companyIdx, restrictionIdx, CheckMode)
+        )
+      case _ => None
     }
   }
 
   def accountingPeriodRestriction(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
     val page = AddRestrictionAmountPage(companyIdx, restrictionIdx)
-    userAnswers.get(page).map { addRestriction =>
-      summaryListRow(
-        label = messages(s"$page.checkYourAnswersLabel"),
-        value = addRestriction,
-        visuallyHiddenText = None,
-        actions = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode) -> messages("site.edit")
-      )
-    }
+    answer(
+      page = page,
+      changeLinkCall = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode)
+    )
   }
 
   def rows(companyIdx: Int, restrictionIdx: Int): Seq[SummaryListRow] = Seq(
