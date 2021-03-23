@@ -612,6 +612,58 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         }
 
       }
+      
+      "for ReviewCompanyRestrictionsPage" when {
+
+        "A single restriction has been added, and the end date doesn't exceed the group PoA" must {
+          "Navigate to the AddAnotherAccountingPeriod page" in {
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+              routes.AddAnotherAccountingPeriodController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Two restrictions have been added, and the end dates don't exceed the group PoA" must {
+          "Navigate to the AddAnotherAccountingPeriod page" in {
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+              routes.AddAnotherAccountingPeriodController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Three restrictions have been added, and the end dates don't exceed the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "One restrictions has been added, and the end date exceeds the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Two restrictions have been added, and the end date exceeds the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Three restrictions have been added, and the end date exceeds the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+      }
 
     }
 
