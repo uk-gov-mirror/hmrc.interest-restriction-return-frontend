@@ -28,7 +28,7 @@ import java.time.LocalDate
 
 class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues with ModelGenerators {
   "The AboutReturnSectionModel section of a Full Return" when {
-    val aboutReturn : AboutReturnSectionModel = aboutReturnSectionModel.sample.value
+    val aboutReturn : AboutReturnSectionModel = fullAboutReturnSectionModel.sample.value
     val ultimateParent  = ultimateParentCompanySectionModel.sample.value
     val groupRatioElection = electionsSectionModel.sample.value
     val groupLevelInfo = groupLevelInformationSectionModel.sample.value

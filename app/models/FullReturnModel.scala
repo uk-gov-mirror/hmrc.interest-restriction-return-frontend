@@ -31,7 +31,7 @@ object FullReturnModel {
   val revisedReturn = "revised"
   val originalReturn = "original"
 
-  val writes: Writes[FullReturnModel] = (
+  implicit val writes: Writes[FullReturnModel] = (
     (JsPath \ "appointedReportingCompany").write[Boolean] and
       (JsPath \ "agentDetails").write[AgentDetailsModel] and
       (JsPath \ "submissionType").write[String] and
