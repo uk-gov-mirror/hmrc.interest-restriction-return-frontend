@@ -16,18 +16,23 @@
 
 package controllers.reviewAndComplete
 
-import config.FrontendAppConfig
+import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.FeatureSwitching
+import connectors.InterestRestrictionReturnConnector
 import controllers.BaseController
 import controllers.actions._
 
 import javax.inject.Inject
-import models.NormalMode
+import models.{FullReturnModel, NormalMode, UserAnswers}
 import models.returnModels.ReviewAndCompleteModel
+import models.sections.AboutReturnSectionModel
 import navigation.ReviewAndCompleteNavigator
+import pages.ConfirmationPage
 import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
+import repositories.SessionRepository
+import sectionstatus.{AboutReturnSectionStatus, CheckTotalsSectionStatus, ElectionsSectionStatus, GroupLevelInformationSectionStatus, UkCompaniesSectionStatus, UltimateParentCompanySectionStatus}
 import utils.ReviewAndCompleteHelper
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
@@ -38,8 +43,10 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
+                                            sessionRepository: SessionRepository,
                                             val controllerComponents: MessagesControllerComponents,
-                                            view: ReviewAndCompleteView
+                                            view: ReviewAndCompleteView,
+                                            interestRestrictionReturnConnector: InterestRestrictionReturnConnector
                                            )(implicit appConfig: FrontendAppConfig)
   extends BaseController with I18nSupport with FeatureSwitching {
 
@@ -55,7 +62,18 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
 
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    val aboutReturnStatus = AboutReturnSectionStatus.currentSection(request.userAnswers)
+    val electionsStatus = ElectionsSectionStatus.currentSection(request.userAnswers)
+    val groupLevelInformationStatus = GroupLevelInformationSectionStatus.currentSection(request.userAnswers)
+    val ultimateParentCompanyStatus = UltimateParentCompanySectionStatus.currentSection(request.userAnswers)
+
+    val irr = FullReturnModel(aboutReturnStatus.get,ultimateParentCompanyStatus.get,electionsStatus.get,groupLevelInformationStatus,None)
+
+    for {
+      submittedReturn <- interestRestrictionReturnConnector.submitFullReturn(irr)
+      updatedAnswers <- Future.fromTry(request.userAnswers.set(ConfirmationPage,submittedReturn.acknowledgementReference))
+      _ <- sessionRepository.set(updatedAnswers)
+    } yield Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))
   }
 }

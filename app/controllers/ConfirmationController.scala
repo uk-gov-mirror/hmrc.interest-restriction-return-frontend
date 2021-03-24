@@ -19,6 +19,8 @@ package controllers
 import config.{FrontendAppConfig, SessionKeys}
 import controllers.actions._
 import handlers.ErrorHandler
+import pages.ConfirmationPage
+
 import javax.inject.Inject
 import play.api.i18n.MessagesApi
 import play.api.mvc._
@@ -35,8 +37,10 @@ class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                       )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    getSessionData(SessionKeys.acknowledgementReference) { ref =>
-      Future.successful(Ok(view(ref)))
+    answerFor(ConfirmationPage){ reference =>
+      Future.successful(
+        Ok(view(reference))
+      )
     }
   }
 }
