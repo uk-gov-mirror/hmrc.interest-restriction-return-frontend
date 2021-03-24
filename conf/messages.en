@@ -899,10 +899,11 @@ restrictionAmountSameAP.error.nonNumeric = Enter the restriction amount using nu
 restrictionAmountSameAP.error.required = Enter the restriction amount for this company
 restrictionAmountSameAP.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
 restrictionAmountSameAP.error.outOfRange = Restriction amount must be between {0} and {1}
+restrictionAmountSameAP.error.expenseAmount = Restriction amount must be the same as or less than the company''s net tax-interest expense
 
 # TellUsWhatHasChangedPage Messages
 # ----------------------------------------------------------
-tellUsWhatHasChanged.title = Tell us what has changed
+tellUsWhatHasChanged.title = Tell us what has changedss
 tellUsWhatHasChanged.heading = Tell us what has changed
 tellUsWhatHasChanged.checkYourAnswersLabel = What has changed
 tellUsWhatHasChanged.label= Tell us what has changed

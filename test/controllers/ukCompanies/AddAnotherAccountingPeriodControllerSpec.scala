@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddAnotherAccountingPeriodFormProvider
 import models.NormalMode
-import pages.ukCompanies.{AddAnotherAccountingPeriodPage, UkCompaniesPage}
+import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddAnotherAccountingPeriodView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
@@ -36,7 +36,7 @@ class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwit
 
   val companyIdx = 1
   val restrictionIdx = 1
-  val postAction = routes.AddAnotherAccountingPeriodController.onSubmit(companyIdx, restrictionIdx, NormalMode)
+  val postAction = routes.AddAnotherAccountingPeriodController.onSubmit(companyIdx, NormalMode)
 
   object Controller extends AddAnotherAccountingPeriodController(
     messagesApi = messagesApi,
@@ -56,7 +56,7 @@ class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwit
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(companyIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual view(form, ukCompanyModelMax.companyDetails.companyName, postAction)(fakeRequest, messages, frontendAppConfig).toString
@@ -69,7 +69,7 @@ class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwit
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
       mockSetAnswers
 
-      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
+      val result = Controller.onSubmit(companyIdx, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -81,7 +81,7 @@ class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwit
 
       mockGetAnswers(Some(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get))
 
-      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
+      val result = Controller.onSubmit(companyIdx, NormalMode)(request)
 
       status(result) mustEqual BAD_REQUEST
     }
@@ -90,7 +90,7 @@ class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwit
 
       mockGetAnswers(None)
 
-      val result = Controller.onPageLoad(companyIdx, restrictionIdx, NormalMode)(fakeRequest)
+      val result = Controller.onPageLoad(companyIdx, NormalMode)(fakeRequest)
 
       status(result) mustEqual SEE_OTHER
 
@@ -103,7 +103,7 @@ class AddAnotherAccountingPeriodControllerSpec extends SpecBase with FeatureSwit
 
       mockGetAnswers(None)
 
-      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
+      val result = Controller.onSubmit(companyIdx, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
 

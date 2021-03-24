@@ -18,9 +18,11 @@ package controllers.ukCompanies
 
 import assets.UkCompanyITConstants.ukCompanyModelMax
 import assets.{BaseITConstants, PageTitles}
+import org.scalatest.Assertions.NormalResult
 import pages.ukCompanies.UkCompaniesPage
 import play.api.http.Status._
 import play.api.libs.json.Json
+import models.NormalMode
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
@@ -72,7 +74,7 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
 
         "enters a valid answer" when {
 
-          "redirect to Under Construction page" in {
+          "redirect to RestrictionAmountSameAPController" in {
 
             AuthStub.authorised()
             setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
@@ -82,7 +84,7 @@ class CompanyAccountingPeriodSameAsGroupControllerISpec extends IntegrationSpecB
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(routes.RestrictionAmountSameAPController.onPageLoad(1, NormalMode).url)
               )
             }
           }

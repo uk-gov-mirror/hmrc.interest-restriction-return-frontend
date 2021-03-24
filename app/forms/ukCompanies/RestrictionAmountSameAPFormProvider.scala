@@ -22,12 +22,13 @@ import play.api.data.Form
 
 class RestrictionAmountSameAPFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[BigDecimal] =
+  def apply(netTaxInterestExpenseAmount: BigDecimal): Form[BigDecimal] =
     Form(
       "value" -> numeric(
         "restrictionAmountSameAP.error.required",
         "restrictionAmountSameAP.error.invalidNumeric",
         "restrictionAmountSameAP.error.nonNumeric")
         .verifying(inRange[BigDecimal](0, 999999999999999.99, "restrictionAmountSameAP.error.outOfRange"))
+        .verifying("restrictionAmountSameAP.error.expenseAmount", _ <= netTaxInterestExpenseAmount)
     )
 }

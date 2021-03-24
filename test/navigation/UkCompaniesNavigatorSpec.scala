@@ -25,6 +25,7 @@ import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjec
 import models.FullOrAbbreviatedReturn._
 import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
+import java.time.LocalDate
 
 class UkCompaniesNavigatorSpec extends SpecBase {
 
@@ -316,14 +317,12 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
 
       "from the AddRestrictionPage" should {
-
-        //TODO: Update as part of routing subtask
-        "go to the Under Construction page when set to true" in {
+        "go to the CompanyAccountingPeriodSameAsGroup when set to true" in {
           val company = ukCompanyModelMax.copy(restriction = Some(true))
           val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
 
           navigator.nextPage(AddRestrictionPage, NormalMode, userAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(1, NormalMode)
         }
 
         "go to the CompanyContainsEstimatesPage when set to false" in {
@@ -337,19 +336,28 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "from the CompanyAccountingPeriodSameAsGroupPage" should {
 
-        //TODO: Update as part of routing subtask
-        "go to the Under Construction page" in {
-          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+        "go to the RestrictionAmountSameAPController when true" in {
+          val company = ukCompanyModelMax.copy(accountPeriodSameAsGroup = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, userAnswers) mustBe
+            controllers.ukCompanies.routes.RestrictionAmountSameAPController.onPageLoad(1, NormalMode)
+        }
+
+        "go to the first CompanyAccountingPeriodEndDate page when false" in {
+          val company = ukCompanyModelMax.copy(accountPeriodSameAsGroup = Some(false))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).success.value
+
+          //TODO update to correct route in 1350
+          navigator.nextPage(CompanyAccountingPeriodSameAsGroupPage, NormalMode, userAnswers) mustBe
+            routes.CompanyAccountingPeriodEndDateController.onPageLoad(1, 1, NormalMode)
         }
       }
 
       "from the RestrictionAmountSameAPPage" should {
-
-        //TODO: Update as part of routing subtask
-        "go to the Under Construction page" in {
+        "go to CompanyContainsEstimatesController" in {
           navigator.nextPage(RestrictionAmountSameAPPage, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
         }
       }
 
@@ -541,12 +549,66 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       }
 
-      "for AddAnotherAccountingPeriodPage" must {
+      "for AddAnotherAccountingPeriodPage" when {
 
-        "Navigate to the UnderConstructionController" in {
-          val page = AddAnotherAccountingPeriodPage(1, 1)
+        val ap1EndDate = LocalDate.of(2017, 3, 1)
+        val ap2EndDate = LocalDate.of(2017, 9, 1)
+
+        "is set to true and only one accounting period has been added" must {
+          "Navigate to the second end date page" in {
+
+            val page = AddAnotherAccountingPeriodPage(1)
+
+            val userAnswers = (for {
+              ua  <- emptyUserAnswers.set(page, true)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
+            } yield ua2).get
+            
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyAccountingPeriodEndDateController.onPageLoad(1, 2, NormalMode)
+          }
+        }
+
+        "is set to true and two accounting periods have been added" must {
+          "Navigate to the second end date page" in {
+
+            val page = AddAnotherAccountingPeriodPage(1)
+
+            val userAnswers = (for {
+              ua  <- emptyUserAnswers.set(page, true)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1,2), ap2EndDate)
+            } yield ua3).get
+            
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyAccountingPeriodEndDateController.onPageLoad(1, 3, NormalMode)
+          }
+        }
+
+        "is set to false" must {
+          "Navigate to the company contains estimates page" in {
+
+            val page = AddAnotherAccountingPeriodPage(1)
+
+            val userAnswers = (for {
+              ua  <- emptyUserAnswers.set(page, false)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1,2), ap2EndDate)
+            } yield ua2).get
+            
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+      }
+
+      "for CompanyAccountingPeriodEndDatePage" must {
+
+        "Navigate to the AddRestrictionAmountPage" in {
+          val page = CompanyAccountingPeriodEndDatePage(1, 1)
           navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+            routes.AddRestrictionAmountController.onPageLoad(1, 1, NormalMode)
         }
 
       }
@@ -568,7 +630,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       "for AddAnotherAccountingPeriodPage" must {
 
         "Navigate to the UnderConstructionController" in {
-          val page = AddAnotherAccountingPeriodPage(1, 1)
+          val page = AddAnotherAccountingPeriodPage(1)
           navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
             controllers.routes.UnderConstructionController.onPageLoad()
         }

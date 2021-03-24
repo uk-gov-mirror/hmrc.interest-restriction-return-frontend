@@ -47,12 +47,16 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     UkCompaniesPage -> ((idx, _) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.restriction) match {
-      case Some(true)   => controllers.routes.UnderConstructionController.onPageLoad() //TODO: Update as part of routing subtask
+      case Some(true)   => controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
       case Some(false)  => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
       case None         => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
     }),
-    CompanyAccountingPeriodSameAsGroupPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
-    RestrictionAmountSameAPPage -> ((_, _) => controllers.routes.UnderConstructionController.onPageLoad()), //TODO: Update as part of routing subtask
+    CompanyAccountingPeriodSameAsGroupPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.accountPeriodSameAsGroup) match {
+      case Some(true)   => routes.RestrictionAmountSameAPController.onPageLoad(idx, NormalMode)
+      case Some(false)  => routes.CompanyAccountingPeriodEndDateController.onPageLoad(idx, 1, NormalMode)
+      case _ => routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
+    }),
+    RestrictionAmountSameAPPage -> ((idx, _) => controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
     CompanyQICElectionPage -> ((idx, userAnswers) => userAnswers.get(FullOrAbbreviatedReturnPage) match {
       case Some(Full) => controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)
       case Some(Abbreviated) => controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(idx)
@@ -120,8 +124,9 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   }
 
   private val restrictionNormalRoutes: PartialFunction[Page, UserAnswers => Call] = {
+    case CompanyAccountingPeriodEndDatePage(companyIdx, restrictionIdx) => ua => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
     case AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
-    case AddAnotherAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
+    case AddAnotherAccountingPeriodPage(companyIdx) => ua => addAnotherAccountingPeriodRoute(companyIdx, ua)
     case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
   }
 
@@ -132,5 +137,20 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
         case None => controllers.routes.UnderConstructionController.onPageLoad()
       }
       case CheckMode => controllers.routes.UnderConstructionController.onPageLoad()
+      case _ => controllers.routes.UnderConstructionController.onPageLoad()
     }
+
+  def addAnotherAccountingPeriodRoute(companyIdx: Int, userAnswers: UserAnswers): Call = {
+    val addAnother = userAnswers.get(AddAnotherAccountingPeriodPage(companyIdx))
+    val secondEndDate = userAnswers.get(CompanyAccountingPeriodEndDatePage(companyIdx, 2))
+    val thirdEndDate = userAnswers.get(CompanyAccountingPeriodEndDatePage(companyIdx, 3))
+
+    addAnother match {
+      case Some(true) if !secondEndDate.isDefined => routes.CompanyAccountingPeriodEndDateController.onPageLoad(companyIdx, 2, NormalMode)
+      case Some(true) if !thirdEndDate.isDefined => routes.CompanyAccountingPeriodEndDateController.onPageLoad(companyIdx, 3, NormalMode)
+      case Some(_) => routes.CompanyContainsEstimatesController.onPageLoad(companyIdx, NormalMode)
+      case None => routes.AddAnotherAccountingPeriodController.onPageLoad(companyIdx, NormalMode)
+    }
+  }
+
 }

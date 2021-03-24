@@ -45,17 +45,17 @@ class AddAnotherAccountingPeriodController @Inject()(
                                                       view: AddAnotherAccountingPeriodView
                                                     )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController with FeatureSwitching {
 
-  def onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onPageLoad(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       Future.successful(Ok(view(
-        form = fillForm(AddAnotherAccountingPeriodPage(idx, restrictionIdx), formProvider()),
+        form = formProvider(),
         companyName = ukCompany.companyDetails.companyName,
-        postAction = routes.AddAnotherAccountingPeriodController.onSubmit(idx, restrictionIdx, mode)
+        postAction = routes.AddAnotherAccountingPeriodController.onSubmit(idx,mode)
       )))
     }
   }
 
-  def onSubmit(idx: Int, restrictionIdx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+  def onSubmit(idx: Int, mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     answerFor(UkCompaniesPage, idx) { ukCompany =>
       formProvider().bindFromRequest().fold(
         formWithErrors =>
@@ -63,12 +63,12 @@ class AddAnotherAccountingPeriodController @Inject()(
             BadRequest(view(
               form = formWithErrors,
               companyName = ukCompany.companyDetails.companyName,
-              postAction = routes.AddAnotherAccountingPeriodController.onSubmit(idx, restrictionIdx, mode)))),
+              postAction = routes.AddAnotherAccountingPeriodController.onSubmit(idx, mode)))),
         value =>
           for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(AddAnotherAccountingPeriodPage(idx, restrictionIdx), value))
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(AddAnotherAccountingPeriodPage(idx), value))
             _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextRestrictionPage(AddAnotherAccountingPeriodPage(idx, restrictionIdx), mode, updatedAnswers))
+          } yield Redirect(navigator.nextRestrictionPage(AddAnotherAccountingPeriodPage(idx), mode, updatedAnswers))
 
       )
     }

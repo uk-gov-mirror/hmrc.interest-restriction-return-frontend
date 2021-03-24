@@ -35,7 +35,6 @@ trait UserAnswersGenerator extends TryValues {
   val generators: Seq[Gen[(QuestionPage[_], JsValue)]] =
     arbitrary[(RestrictionAmountForAccountingPeriodPage, JsValue)] ::
     arbitrary[(RestrictionDeletionConfirmationPage, JsValue)] ::
-    arbitrary[(AddAnotherAccountingPeriodPage, JsValue)] ::
     arbitrary[(CompanyAccountingPeriodEndDatePage, JsValue)] ::
     arbitrary[(AddNetTaxInterestPage.type, JsValue)] ::
     arbitrary[(AddRestrictionAmountPage, JsValue)] ::
