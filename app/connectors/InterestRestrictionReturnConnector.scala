@@ -23,7 +23,6 @@ import play.api.http.Status
 import models.FullReturnModel
 import play.api.libs.json.{JsError, JsResultException, JsSuccess, Json}
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, HttpClient}
-
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Try}
@@ -31,7 +30,7 @@ import scala.util.{Failure, Try}
 class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppConfig, http: HttpClient)(implicit ec: ExecutionContext) extends Logging{
   def submitFullReturn(fullReturn: FullReturnModel)(implicit hc: HeaderCarrier): Future[SuccessResponse] = {
       val fullOrAbbr = if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"
-      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/${fullOrAbbr}"
+      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/$fullOrAbbr"
 
       http.POST(serviceUrl,Json.toJson(fullReturn)(FullReturnModel.writes)) map {
             response => require(response.status == Status.OK)
@@ -41,10 +40,10 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
               case JsError(errors) => throw JsResultException(errors)
             }
       }
-  } andThen logExceptions("[SUBMIT-IRR][FAILURE]") recoverWith translateExceptions
+  } andThen logExceptions("[SUBMIT-IRR][FAILURE]") recoverWith handleExceptions
 
-  private def translateExceptions[I](): PartialFunction[Throwable, Future[I]] = {
-    case e: BadRequestException => Future.failed(new InvalidPayloadException)
+  private def handleExceptions[I](): PartialFunction[Throwable, Future[I]] = {
+    case _: BadRequestException => Future.failed(new InvalidPayloadException)
     case _ => Future.failed(new SubmissionFailureException)
   }
 
@@ -56,10 +55,11 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
 
 
 case class SuccessResponse(acknowledgementReference: String)
+
 object SuccessResponse {
   implicit val formats = Json.format[SuccessResponse]
 }
 
-sealed trait RegisterIntestRestrictionRetuturnException extends Exception
-class InvalidPayloadException extends RegisterIntestRestrictionRetuturnException
-class SubmissionFailureException extends RegisterIntestRestrictionRetuturnException
+sealed trait RegisterInterestRestrictionReturnException extends Exception
+class InvalidPayloadException extends RegisterInterestRestrictionReturnException
+class SubmissionFailureException extends RegisterInterestRestrictionReturnException
