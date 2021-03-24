@@ -79,27 +79,38 @@ trait ModelGenerators {
       } yield  CompanyDetailsModel(CompanyNameModel(name), UTRModel(utr))
     }
 
-  //implicit val localDateArb = Arbitrary(localDateGen)
-
   def localDateGen: Gen[LocalDate] = {
     val rangeStart = LocalDate.MIN.toEpochDay
     val currentYear = LocalDate.now().getYear
     val rangeEnd = LocalDate.of(currentYear, 1, 1).toEpochDay
     Gen.choose(rangeStart, rangeEnd).map(i => LocalDate.ofEpochDay(i))
   }
-  implicit lazy val aboutReturnSectionModel: Gen[AboutReturnSectionModel] =
+  implicit lazy val fullAboutReturnSectionModel: Gen[AboutReturnSectionModel] =
       for {
         hasAppointedReportingCompany <- arbitrary[Boolean]
         agentOnBehalfCompany <- arbitrary[Boolean]
         agentName <- arbitrary[Option[String]]
-        fullOrAbbr <- Gen.oneOf(Full, Abbreviated)
         isRevising <- arbitrary[Boolean]
         revisedReturnDetails <- arbitrary[Option[String]]
         companyName <- arbitrary[String]
         ctUtr <- arbitrary[String]
         date <- localDateGen
       } yield AboutReturnSectionModel(hasAppointedReportingCompany, AgentDetailsModel(agentOnBehalfCompany, agentName),
-        fullOrAbbr, isRevising, revisedReturnDetails, CompanyNameModel(companyName), UTRModel(ctUtr), AccountingPeriodModel(date, date))
+        Full, isRevising, revisedReturnDetails, CompanyNameModel(companyName), UTRModel(ctUtr), AccountingPeriodModel(date, date))
+
+
+  implicit lazy val abbrAboutReturnSectionModel: Gen[AboutReturnSectionModel] =
+    for {
+      hasAppointedReportingCompany <- arbitrary[Boolean]
+      agentOnBehalfCompany <- arbitrary[Boolean]
+      agentName <- arbitrary[Option[String]]
+      isRevising <- arbitrary[Boolean]
+      revisedReturnDetails <- arbitrary[Option[String]]
+      companyName <- arbitrary[String]
+      ctUtr <- arbitrary[String]
+      date <- localDateGen
+    } yield AboutReturnSectionModel(hasAppointedReportingCompany, AgentDetailsModel(agentOnBehalfCompany, agentName),
+      Abbreviated, isRevising, revisedReturnDetails, CompanyNameModel(companyName), UTRModel(ctUtr), AccountingPeriodModel(date, date))
 
   implicit lazy val utrModel : Gen[UTRModel] = arbitrary[String].map(utr => UTRModel(utr))
 
@@ -124,7 +135,7 @@ trait ModelGenerators {
     for {
       isSameAsParent <- arbitrary[Boolean]
       hasDeemedParent <- arbitrary[Option[Boolean]]
-      parentCompanies <- Gen.listOf(deemedParentSectionModel)
+      parentCompanies <- Gen.listOfN(3,deemedParentSectionModel)
     } yield UltimateParentCompanySectionModel(isSameAsParent,hasDeemedParent,parentCompanies)
 
 
@@ -201,10 +212,18 @@ trait ModelGenerators {
 
   implicit lazy val fullReturnModel : Gen[FullReturnModel] =
     for {
-      aboutReturn <- aboutReturnSectionModel
+      aboutReturn <- fullAboutReturnSectionModel
       ultimateParentCompany <- ultimateParentCompanySectionModel
       elections <- electionsSectionModel
       groupLevelInformation <- Gen.option(groupLevelInformationSectionModel)
     } yield FullReturnModel(aboutReturn,ultimateParentCompany,elections,groupLevelInformation)
+
+
+  implicit lazy val abbreviatedReturnModel : Gen[FullReturnModel] =
+    for {
+      aboutReturn <- abbrAboutReturnSectionModel
+      ultimateParentCompany <- ultimateParentCompanySectionModel
+      elections <- electionsSectionModel
+    } yield FullReturnModel(aboutReturn,ultimateParentCompany,elections,None)
 
 }

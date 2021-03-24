@@ -23,17 +23,19 @@ import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import generators.ModelGenerators
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.{Application, Configuration}
-import play.api.http.Status._
 import play.api.inject.guice.GuiceApplicationBuilder
 import com.github.tomakehurst.wiremock.client.WireMock
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import org.scalatest.RecoverMethods.recoverToSucceededIf
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
+import play.api.libs.json.{JsResultException, Json}
 
 
 class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPropertyChecks
   with ModelGenerators with BeforeAndAfterAll with BeforeAndAfterEach {
 
-  val stubUrl = "/internal/return/full"
+  val stubFullReturnUrl = "/internal/return/full"
+  val stubAbbreviatedReturnUrl = "/internal/return/abbreviated"
+  val successfulResponse = Json.obj("acknowledgementReference" -> "XAIRR00000012345678")
   protected val server: WireMockServer = new WireMockServer(1111)
 
   lazy val test: Application =
@@ -59,16 +61,63 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
     server.stop()
   }
 
-  "Interest Restriction Return Connector" should {
+  "Interest Restriction Return Connector" when {
     WireMock.configureFor("localhost", 1111)
 
-    "Submit a payload" in {
-      stubPost(stubUrl,200,"hi")
+    "Submitting a successfull payload" should {
+      "Return the acknowledgement reference for Full Return" in {
+        stubPost(stubFullReturnUrl,200, Json.stringify(successfulResponse))
 
-      forAll(fullReturnModel) {
-        fullReturn =>
-          val result = connector.submitFullReturn(fullReturn)
-          result.futureValue.status mustBe OK
+        forAll(fullReturnModel) {
+          fullReturn =>
+            val result = connector.submitFullReturn(fullReturn)
+            result.futureValue mustBe SuccessResponse("XAIRR00000012345678")
+        }
+      }
+
+      "Return the acknowledgement reference for Abbreviated Return" in {
+        stubPost(stubAbbreviatedReturnUrl,200, Json.stringify(successfulResponse))
+
+        forAll(abbreviatedReturnModel) {
+          fullReturn =>
+            val result = connector.submitFullReturn(fullReturn)
+            result.futureValue mustBe SuccessResponse("XAIRR00000012345678")
+        }
+      }
+
+      "Throw IllegalArgumentException if the response status is not 200" in {
+        stubPost(stubFullReturnUrl,204,"Test")
+
+        forAll(fullReturnModel) {
+          fullReturn =>
+            recoverToSucceededIf[IllegalArgumentException] {
+              connector.submitFullReturn(fullReturn)
+            }
+        }
+      }
+
+      "Throw a JSONParseError if the payload received is not recognised" in {
+        stubPost(stubFullReturnUrl,200,"{Invalid Payload}")
+
+        forAll(fullReturnModel) {
+          fullReturn =>
+            recoverToSucceededIf[JsResultException] {
+              connector.submitFullReturn(fullReturn)
+            }
+        }
+      }
+    }
+
+    "Submitting a payload and something goes wrong" should {
+      "Throw SubmissionUnsuccessful exception for a 400 response" in {
+        stubPost(stubFullReturnUrl,400,"Errors")
+
+        forAll(fullReturnModel) {
+          fullReturn =>
+            recoverToSucceededIf[InvalidPayloadException] {
+              connector.submitFullReturn(fullReturn)
+            }
+        }
       }
     }
   }
