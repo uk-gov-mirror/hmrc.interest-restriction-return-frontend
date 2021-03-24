@@ -54,11 +54,16 @@ class CheckYourAnswersRestrictionHelper(val userAnswers: UserAnswers)
   }
 
   def accountingPeriodRestriction(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
-    val page = AddRestrictionAmountPage(companyIdx, restrictionIdx)
-    answer(
-      page = page,
-      changeLinkCall = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode)
-    )
+    userAnswers.get(RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx)) match {
+      case Some(x) if x != 0 =>
+        None
+      case _ =>
+        val page = AddRestrictionAmountPage(companyIdx, restrictionIdx)
+        answer(
+          page = page,
+          changeLinkCall = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode)
+        )
+    }
   }
 
   def rows(companyIdx: Int, restrictionIdx: Int): Seq[SummaryListRow] = Seq(
