@@ -40,15 +40,15 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
               case JsError(errors) => throw JsResultException(errors)
             }
       }
-  } andThen logExceptions("[SUBMIT-IRR][FAILURE]") recoverWith handleExceptions
+  } andThen logExceptions() recoverWith handleExceptions
 
   private def handleExceptions[I](): PartialFunction[Throwable, Future[I]] = {
     case _: BadRequestException => Future.failed(new InvalidPayloadException)
     case _ => Future.failed(new SubmissionFailureException)
   }
 
-  private def logExceptions[I](msg: String): PartialFunction[Try[I], Unit] = {
-    case Failure(t: Throwable) => logger.error(msg, t)
+  private def logExceptions[I](): PartialFunction[Try[I], Unit] = {
+    case Failure(t: Throwable) => logger.error("[SUBMIT-IRR][FAILURE]", t)
   }
 }
 
