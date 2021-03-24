@@ -28,6 +28,7 @@ import com.github.tomakehurst.wiremock.client.WireMock
 import org.scalatest.RecoverMethods.recoverToSucceededIf
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import play.api.libs.json.{JsResultException, Json}
+import play.api.http.Status
 
 
 class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPropertyChecks
@@ -36,12 +37,14 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
   val stubFullReturnUrl = "/internal/return/full"
   val stubAbbreviatedReturnUrl = "/internal/return/abbreviated"
   val successfulResponse = Json.obj("acknowledgementReference" -> "XAIRR00000012345678")
-  protected val server: WireMockServer = new WireMockServer(1111)
+  val wireMockPort = 1111
+
+  protected val server: WireMockServer = new WireMockServer(wireMockPort)
 
   lazy val test: Application =
     new GuiceApplicationBuilder()
       .configure(Configuration(
-        "microservice.services.interest-restriction-return.port" -> 1111
+        "microservice.services.interest-restriction-return.port" -> wireMockPort
       )).build()
 
   private lazy val connector = test.injector.instanceOf[InterestRestrictionReturnConnector]
@@ -62,11 +65,11 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
   }
 
   "Interest Restriction Return Connector" when {
-    WireMock.configureFor("localhost", 1111)
+    WireMock.configureFor("localhost", wireMockPort)
 
     "Submitting a successfull payload" should {
       "Return the acknowledgement reference for Full Return" in {
-        stubPost(stubFullReturnUrl,200, Json.stringify(successfulResponse))
+        stubPost(stubFullReturnUrl,Status.OK, Json.stringify(successfulResponse))
 
         forAll(fullReturnModel) {
           fullReturn =>
@@ -76,7 +79,7 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
       }
 
       "Return the acknowledgement reference for Abbreviated Return" in {
-        stubPost(stubAbbreviatedReturnUrl,200, Json.stringify(successfulResponse))
+        stubPost(stubAbbreviatedReturnUrl,Status.OK, Json.stringify(successfulResponse))
 
         forAll(abbreviatedReturnModel) {
           fullReturn =>
@@ -86,7 +89,7 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
       }
 
       "Throw IllegalArgumentException if the response status is not 200" in {
-        stubPost(stubFullReturnUrl,204,"Test")
+        stubPost(stubFullReturnUrl,Status.CREATED,"Test")
 
         forAll(fullReturnModel) {
           fullReturn =>
@@ -97,7 +100,7 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
       }
 
       "Throw a JSONParseError if the payload received is not recognised" in {
-        stubPost(stubFullReturnUrl,200,"{Invalid Payload}")
+        stubPost(stubFullReturnUrl,Status.OK,"{Invalid Payload}")
 
         forAll(fullReturnModel) {
           fullReturn =>
@@ -110,11 +113,22 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
 
     "Submitting a payload and something goes wrong" should {
       "Throw SubmissionUnsuccessful exception for a 400 response" in {
-        stubPost(stubFullReturnUrl,400,"Errors")
+        stubPost(stubFullReturnUrl,Status.BAD_REQUEST,"Errors")
 
         forAll(fullReturnModel) {
           fullReturn =>
             recoverToSucceededIf[InvalidPayloadException] {
+              connector.submitFullReturn(fullReturn)
+            }
+        }
+      }
+
+      "Throw SubmissionFailureException exception for anything other than a 400" in {
+        stubPost(stubFullReturnUrl,Status.INTERNAL_SERVER_ERROR,"Errors")
+
+        forAll(fullReturnModel) {
+          fullReturn =>
+            recoverToSucceededIf[SubmissionFailureException] {
               connector.submitFullReturn(fullReturn)
             }
         }

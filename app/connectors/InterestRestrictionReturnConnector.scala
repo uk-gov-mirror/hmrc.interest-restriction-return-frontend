@@ -30,7 +30,8 @@ import scala.util.{Failure, Try}
 
 class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppConfig, http: HttpClient)(implicit ec: ExecutionContext) extends Logging{
   def submitFullReturn(fullReturn: FullReturnModel)(implicit hc: HeaderCarrier): Future[SuccessResponse] = {
-      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/${if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"}"
+      val fullOrAbbr = if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"
+      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/${fullOrAbbr}"
 
       http.POST(serviceUrl,Json.toJson(fullReturn)(FullReturnModel.writes)) map {
             response => require(response.status == Status.OK)
@@ -44,6 +45,7 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
 
   private def translateExceptions[I](): PartialFunction[Throwable, Future[I]] = {
     case e: BadRequestException => Future.failed(new InvalidPayloadException)
+    case _ => Future.failed(new SubmissionFailureException)
   }
 
   private def logExceptions[I](msg: String): PartialFunction[Try[I], Unit] = {
@@ -60,3 +62,4 @@ object SuccessResponse {
 
 sealed trait RegisterIntestRestrictionRetuturnException extends Exception
 class InvalidPayloadException extends RegisterIntestRestrictionRetuturnException
+class SubmissionFailureException extends RegisterIntestRestrictionRetuturnException
