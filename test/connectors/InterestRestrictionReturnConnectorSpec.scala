@@ -25,6 +25,7 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.{Application, Configuration}
 import play.api.inject.guice.GuiceApplicationBuilder
 import com.github.tomakehurst.wiremock.client.WireMock
+import models.SuccessResponse
 import org.scalatest.RecoverMethods.recoverToSucceededIf
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import play.api.libs.json.{JsResultException, Json}

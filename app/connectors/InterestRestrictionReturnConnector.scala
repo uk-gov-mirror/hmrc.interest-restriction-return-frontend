@@ -20,9 +20,10 @@ import play.api.Logging
 import config.FrontendAppConfig
 import models.FullOrAbbreviatedReturn.Full
 import play.api.http.Status
-import models.FullReturnModel
+import models.{FullReturnModel, SuccessResponse}
 import play.api.libs.json.{JsError, JsResultException, JsSuccess, Json}
 import uk.gov.hmrc.http.{BadRequestException, HeaderCarrier, HttpClient}
+
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Try}
@@ -32,10 +33,10 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
       val fullOrAbbr = if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"
       val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/$fullOrAbbr"
 
-      http.POST(serviceUrl,Json.toJson(fullReturn)(FullReturnModel.writes)) map {
+      http.POST(serviceUrl,Json.toJson(fullReturn)) map {
             response => require(response.status == Status.OK)
 
-            Json.parse(response.body).validate[SuccessResponse](SuccessResponse.formats) match {
+            Json.parse(response.body).validate[SuccessResponse] match {
               case JsSuccess(value, _) => value
               case JsError(errors) => throw JsResultException(errors)
             }
@@ -50,14 +51,6 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
   private def logExceptions[I](): PartialFunction[Try[I], Unit] = {
     case Failure(t: Throwable) => logger.error("[SUBMIT-IRR][FAILURE]", t)
   }
-}
-
-
-
-case class SuccessResponse(acknowledgementReference: String)
-
-object SuccessResponse {
-  implicit val formats = Json.format[SuccessResponse]
 }
 
 sealed trait RegisterInterestRestrictionReturnException extends Exception
