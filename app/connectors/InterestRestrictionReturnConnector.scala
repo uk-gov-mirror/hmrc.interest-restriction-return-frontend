@@ -26,8 +26,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppConfig, http: HttpClient)(implicit ec: ExecutionContext) {
   def submitFullReturn(fullReturn: FullReturnModel)(implicit hc: HeaderCarrier): Future[HttpResponse] = {
-      println("I'm in")
-      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/full/return"
+      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/full"
 
       http.POST(serviceUrl,Json.toJson(fullReturn)(FullReturnModel.writes))
   }

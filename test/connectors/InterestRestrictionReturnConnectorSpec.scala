@@ -17,6 +17,7 @@
 package connectors
 
 import base.SpecBase
+import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, post, stubFor, urlMatching}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import generators.ModelGenerators
@@ -24,22 +25,43 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.{Application, Configuration}
 import play.api.http.Status._
 import play.api.inject.guice.GuiceApplicationBuilder
-import utils.WireMockServerHandler
+import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 
 
-class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPropertyChecks with ModelGenerators with WireMockServerHandler {
+class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPropertyChecks
+  with ModelGenerators with BeforeAndAfterAll with BeforeAndAfterEach {
 
   val stubUrl = "/internal/return/full"
+  protected val server: WireMockServer = new WireMockServer(1111)
 
-  override implicit lazy val app: Application =
+  lazy val test: Application =
     new GuiceApplicationBuilder()
       .configure(Configuration(
-        "microservice.services.interest-restriction-return.port" -> server.port()
+        "microservice.services.interest-restriction-return.port" -> 1111
       )).build()
 
-  private lazy val connector = app.injector.instanceOf[InterestRestrictionReturnConnector]
+  private lazy val connector = test.injector.instanceOf[InterestRestrictionReturnConnector]
+
+  override def beforeAll(): Unit = {
+    server.start()
+    super.beforeAll()
+  }
+
+  override def beforeEach(): Unit = {
+    server.resetAll()
+    super.beforeEach()
+  }
+
+  override def afterAll(): Unit = {
+    super.afterAll()
+    server.stop()
+  }
 
   "Interest Restriction Return Connector" should {
+    WireMock.configureFor("localhost", 1111)
+
     "Submit a payload" in {
       stubPost(stubUrl,200,"hi")
 
