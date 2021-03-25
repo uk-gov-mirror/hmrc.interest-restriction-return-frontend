@@ -358,6 +358,13 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       "from the RestrictionAmountSameAPPage" should {
         "go to CompanyContainsEstimatesController" in {
           navigator.nextPage(RestrictionAmountSameAPPage, NormalMode, emptyUserAnswers) mustBe
+            controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+        }
+      }
+
+      "from the RestrictionAmountForAccountingPeriodPage" should {
+        "go to CheckRestrictionController" in {
+          navigator.nextRestrictionPage(RestrictionAmountForAccountingPeriodPage(1,1), NormalMode, emptyUserAnswers) mustBe
             controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1)
         }
       }
