@@ -18,7 +18,7 @@ package controllers.reviewAndComplete
 
 import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.FeatureSwitching
-import connectors.InterestRestrictionReturnConnector
+import connectors.{InterestRestrictionReturnConnector, InterestRestrictionReturnConnectorImpl}
 import controllers.BaseController
 import controllers.actions._
 

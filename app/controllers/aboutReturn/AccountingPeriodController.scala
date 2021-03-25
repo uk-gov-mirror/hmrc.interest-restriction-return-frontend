@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.BaseController
 import controllers.actions._
 import forms.aboutReturn.AccountingPeriodFormProvider
-import models.{Mode, UserAnswers}
+import models.Mode
 import navigation.AboutReturnNavigator
 import pages.aboutReturn.AccountingPeriodPage
 import play.api.i18n.MessagesApi
@@ -53,8 +53,8 @@ class AccountingPeriodController @Inject()(override val messagesApi: MessagesApi
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value =>
         for {
-          updatedAnswers: UserAnswers <- Future.fromTry(request.userAnswers.set(AccountingPeriodPage, value))
-          _: Boolean <- sessionRepository.set(updatedAnswers)
+          updatedAnswers <- Future.fromTry(request.userAnswers.set(AccountingPeriodPage, value))
+          _              <- sessionRepository.set(updatedAnswers)
         } yield Redirect(navigator.nextPage(AccountingPeriodPage, mode, updatedAnswers))
     )
   }

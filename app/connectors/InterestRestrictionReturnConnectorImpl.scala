@@ -16,6 +16,7 @@
 
 package connectors
 
+import com.google.inject.ImplementedBy
 import play.api.Logging
 import config.FrontendAppConfig
 import models.FullOrAbbreviatedReturn.Full
@@ -28,20 +29,25 @@ import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.{Failure, Try}
 
-class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppConfig, http: HttpClient)(implicit ec: ExecutionContext) extends Logging{
+@ImplementedBy(classOf[InterestRestrictionReturnConnectorImpl])
+trait InterestRestrictionReturnConnector {
+  def submitFullReturn(fullReturn: FullReturnModel)(implicit hc: HeaderCarrier): Future[SuccessResponse]
+}
+
+class InterestRestrictionReturnConnectorImpl @Inject()(val appConfig: FrontendAppConfig, http: HttpClient)(implicit ec: ExecutionContext) extends Logging with InterestRestrictionReturnConnector {
   def submitFullReturn(fullReturn: FullReturnModel)(implicit hc: HeaderCarrier): Future[SuccessResponse] = {
-      val fullOrAbbr = if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"
-      val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/$fullOrAbbr"
+    val fullOrAbbr = if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"
+    val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/$fullOrAbbr"
 
 
-    http.POST(serviceUrl,Json.toJson(fullReturn),Seq(ContentTypeHeader("application/json"),"Accept" -> "application/vnd.hmrc.1.0+json")).map {
-            response => require(response.status == Status.OK)
+    http.POST(serviceUrl,Json.toJson(fullReturn),Seq(ContentTypeHeader("application/json"),AcceptHeader("application/vnd.hmrc.1.0+json"))).map {
+      response => require(response.status == Status.OK)
 
-            Json.parse(response.body).validate[SuccessResponse] match {
-              case JsSuccess(value, _) => value
-              case JsError(errors) => throw JsResultException(errors)
-            }
-      }
+        Json.parse(response.body).validate[SuccessResponse] match {
+          case JsSuccess(value, _) => value
+          case JsError(errors) => throw JsResultException(errors)
+        }
+    }
   } andThen logExceptions() recoverWith handleExceptions
 
   private def handleExceptions[I](): PartialFunction[Throwable, Future[I]] = {
@@ -56,6 +62,10 @@ class InterestRestrictionReturnConnector @Inject()(val appConfig: FrontendAppCon
 
 object ContentTypeHeader {
   def apply(value: String): (String, String) = (HeaderNames.CONTENT_TYPE, value)
+}
+
+object AcceptHeader {
+  def apply(value: String): (String, String) = (HeaderNames.ACCEPT, value)
 }
 
 sealed trait RegisterInterestRestrictionReturnException extends Exception

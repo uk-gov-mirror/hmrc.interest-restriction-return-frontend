@@ -18,7 +18,7 @@ package pages
 import play.api.libs.json.JsPath
 
 case object ConfirmationPage extends QuestionPage[String] {
-  override def toString: String = "reference"
+  override def toString: String = "acknowledgementReference"
 
   override def path: JsPath = JsPath \ toString
 }

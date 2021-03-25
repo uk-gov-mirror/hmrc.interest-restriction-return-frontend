@@ -37,10 +37,6 @@ class ConfirmationController @Inject()(override val messagesApi: MessagesApi,
                                       )(implicit appConfig: FrontendAppConfig, errorHandler: ErrorHandler) extends BaseController {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    answerFor(ConfirmationPage){ reference =>
-      Future.successful(
-        Ok(view(reference))
-      )
-    }
+    answerFor(ConfirmationPage){ reference => Future.successful(Ok(view(reference)))}
   }
 }

@@ -18,7 +18,7 @@ package connectors
 
 import base.SpecBase
 import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, post, stubFor, urlMatching}
+import com.github.tomakehurst.wiremock.client.WireMock.{aResponse, equalTo, post, stubFor, urlMatching}
 import com.github.tomakehurst.wiremock.stubbing.StubMapping
 import generators.ModelGenerators
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
@@ -48,7 +48,7 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
         "microservice.services.interest-restriction-return.port" -> wireMockPort
       )).build()
 
-  private lazy val connector = test.injector.instanceOf[InterestRestrictionReturnConnector]
+  private lazy val connector = test.injector.instanceOf[InterestRestrictionReturnConnectorImpl]
 
   override def beforeAll(): Unit = {
     server.start()
@@ -139,6 +139,8 @@ class InterestRestrictionReturnConnectorSpec extends SpecBase  with ScalaCheckPr
   
   def stubPost(url: String, status: Integer, responseBody: String = ""): StubMapping =
     stubFor(post(urlMatching(url))
+      .withHeader("Content-Type", equalTo("application/json"))
+      .withHeader("Accept",equalTo("application/vnd.hmrc.1.0+json"))
       .willReturn(
         aResponse().
           withStatus(status).

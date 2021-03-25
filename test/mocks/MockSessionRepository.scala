@@ -16,9 +16,11 @@
 
 package mocks
 
-import models.UserAnswers
+import connectors.InterestRestrictionReturnConnector
+import models.{FullReturnModel, SuccessResponse, UserAnswers}
 import org.scalamock.scalatest.MockFactory
 import repositories.SessionRepository
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
@@ -42,5 +44,13 @@ trait MockSessionRepository extends MockFactory {
     (mockSessionRepository.delete(_: UserAnswers))
       .expects(*)
       .returns(Future.successful(true))
+  }
+}
+
+trait MockInterestRestrictionReturnConnector extends MockFactory {
+  val mockConnector = mock[InterestRestrictionReturnConnector]
+
+  def mockSubmitReturn()(implicit hc:HeaderCarrier): Unit = {
+    (mockConnector.submitFullReturn(_:FullReturnModel)).expects(_:FullReturnModel).returns(Future.successful(SuccessResponse("test")))
   }
 }
