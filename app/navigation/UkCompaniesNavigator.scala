@@ -56,7 +56,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case Some(false)  => routes.CompanyAccountingPeriodEndDateController.onPageLoad(idx, 1, NormalMode)
       case _ => routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
     }),
-    RestrictionAmountSameAPPage -> ((idx, _) => controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
+    RestrictionAmountSameAPPage -> ((idx, _) => controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1,1)),
     CompanyQICElectionPage -> ((idx, userAnswers) => userAnswers.get(FullOrAbbreviatedReturnPage) match {
       case Some(Full) => controllers.ukCompanies.routes.EnterCompanyTaxEBITDAController.onPageLoad(idx, NormalMode)
       case Some(Abbreviated) => controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(idx)

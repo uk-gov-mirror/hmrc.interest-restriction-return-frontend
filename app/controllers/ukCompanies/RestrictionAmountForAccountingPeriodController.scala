@@ -18,7 +18,6 @@ package controllers.ukCompanies
 
 import controllers.actions._
 import forms.ukCompanies.RestrictionAmountForAccountingPeriodFormProvider
-
 import javax.inject.Inject
 import models.Mode
 import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, RestrictionAmountForAccountingPeriodPage, UkCompaniesPage}
@@ -27,11 +26,9 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.RestrictionAmountForAccountingPeriodView
 import config.FrontendAppConfig
-import play.api.data.Form
 import controllers.BaseController
 import config.featureSwitch.FeatureSwitching
 import handlers.ErrorHandler
-
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
 

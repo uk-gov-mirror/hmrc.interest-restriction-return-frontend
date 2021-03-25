@@ -89,7 +89,7 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode).url)
+                redirectLocation(controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1).url)
               )
             }
           }
@@ -113,7 +113,6 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
         }
       }
     }
-
   }
 
   "in Change mode" when {

@@ -17,18 +17,14 @@
 package forms.ukCompanies
 
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
 import forms.mappings.Mappings
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.data.Mapping
 import play.api.data.FieldMapping
 import models.UserAnswers
-
 import pages.aboutReturn.AccountingPeriodPage
 import pages.ukCompanies.CompanyAccountingPeriodEndDatePage
-
 import play.api.i18n.Messages
 import utils.ImplicitLocalDateFormatter._
 
