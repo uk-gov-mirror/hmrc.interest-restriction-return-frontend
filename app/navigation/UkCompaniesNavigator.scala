@@ -131,8 +131,10 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case None => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
     }
     case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
+    case CheckRestrictionPage(companyidx, restrictionIdx) => ua => routes.ReviewCompanyRestrictionsController.onPageLoad(companyidx)
     case ReviewCompanyRestrictionsPage(companyIdx) => ua => reviewCompanyRestrictionsRoute(companyIdx, ua)
     case AddAnotherAccountingPeriodPage(companyIdx) => ua => addAnotherAccountingPeriodRoute(companyIdx, ua)
+    case RestrictionDeletionConfirmationPage(companyIdx, restrictionIdx) => ua => routes.ReviewCompanyRestrictionsController.onPageLoad(companyIdx)
   }
 
   def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call =

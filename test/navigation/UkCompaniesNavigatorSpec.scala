@@ -616,6 +616,26 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       }
 
+      "for RestrictionDeletionConfirmationPage" must {
+
+        "Navigate to the ReviewCompanyRestrictionsPage" in {
+          val page = RestrictionDeletionConfirmationPage(1, 1)
+          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+            routes.ReviewCompanyRestrictionsController.onPageLoad(1)
+        }
+
+      }
+
+      "for CheckRestrictionPage" must {
+
+        "Navigate to the ReviewCompanyRestrictionsPage" in {
+          val page = CheckRestrictionPage(1, 1)
+          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
+            routes.ReviewCompanyRestrictionsController.onPageLoad(1)
+        }
+
+      }
+
       "for CompanyAccountingPeriodEndDatePage" must {
 
         "Navigate to the AddRestrictionAmountPage" in {
