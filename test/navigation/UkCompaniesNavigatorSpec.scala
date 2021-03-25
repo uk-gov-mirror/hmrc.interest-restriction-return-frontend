@@ -540,12 +540,24 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "for AddRestrictionAmountPage" must {
+      "for AddRestrictionAmountPage" when {
 
-        "Navigate to the UnderConstructionController" in {
-          val page = AddRestrictionAmountPage(1, 1)
-          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+        "set to true" must {
+          "Navigate to the RestrictionAmountForAccountingPeriodPage" in {
+            val page = AddRestrictionAmountPage(1, 1)
+            val userAnswers = emptyUserAnswers.set(page, true).get
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode)
+          }
+        }
+
+        "set to false" must {
+          "Navigate to the CheckRestrictionPage" in {
+            val page = AddRestrictionAmountPage(1, 1)
+            val userAnswers = emptyUserAnswers.set(page, false).get
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CheckRestrictionController.onPageLoad(1, 1)
+          }
         }
 
       }
