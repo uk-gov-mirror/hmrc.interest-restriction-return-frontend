@@ -18,10 +18,8 @@ package utils
 
 import controllers.ukCompanies.{routes => ukCompanyRoutes}
 import models.{CheckMode, UserAnswers}
-import pages.QuestionPage
 import pages.ukCompanies._
 import play.api.i18n.Messages
-import play.api.mvc.Call
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryListRow
 import utils.ImplicitLocalDateFormatter.DateFormatter
 
@@ -41,6 +39,14 @@ class CheckYourAnswersRestrictionHelper(val userAnswers: UserAnswers)
     }
   }
 
+  def accountingPeriodRestriction(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
+    val page = AddRestrictionAmountPage(companyIdx, restrictionIdx)
+    answer(
+      page = page,
+      changeLinkCall = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode)
+    )
+  }
+
   def accountingPeriodRestrictionAmount(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
     userAnswers.get(AddRestrictionAmountPage(companyIdx, restrictionIdx)) match {
       case Some(true) =>
@@ -53,23 +59,10 @@ class CheckYourAnswersRestrictionHelper(val userAnswers: UserAnswers)
     }
   }
 
-  def accountingPeriodRestriction(companyIdx: Int, restrictionIdx: Int): Option[SummaryListRow] = {
-    userAnswers.get(RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx)) match {
-      case Some(x) if x != 0 =>
-        None
-      case _ =>
-        val page = AddRestrictionAmountPage(companyIdx, restrictionIdx)
-        answer(
-          page = page,
-          changeLinkCall = ukCompanyRoutes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, CheckMode)
-        )
-    }
-  }
-
   def rows(companyIdx: Int, restrictionIdx: Int): Seq[SummaryListRow] = Seq(
     accountingPeriodEndDate(companyIdx, restrictionIdx),
-    accountingPeriodRestrictionAmount(companyIdx, restrictionIdx),
-    accountingPeriodRestriction(companyIdx, restrictionIdx)
+    accountingPeriodRestriction(companyIdx, restrictionIdx),
+    accountingPeriodRestrictionAmount(companyIdx, restrictionIdx)
   ).flatten
 
 }

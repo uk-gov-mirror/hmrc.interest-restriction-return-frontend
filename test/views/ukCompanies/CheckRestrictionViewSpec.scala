@@ -80,7 +80,8 @@ class CheckRestrictionViewSpec extends ViewBehaviours with BaseConstants with Ch
 
       checkYourAnswersRowChecks(
         CheckRestrictionMessages.endDate -> endDateNow.toFormattedString,
-        CheckRestrictionMessages.restrictionAmount -> "£1,234.56",
+        CheckRestrictionMessages.addRestrictionAmount -> "Yes",
+        CheckRestrictionMessages.restrictionAmount -> "£1,234.56"
       )
     }
 
