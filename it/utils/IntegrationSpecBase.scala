@@ -36,6 +36,7 @@ trait IntegrationSpecBase extends WordSpec
     "microservice.services.auth.host" -> mockHost,
     "microservice.services.auth.port" -> mockPort,
     "microservice.services.interest-restriction-return.host" -> mockHost,
+    "microservice.services.interest-restriction-return.port" -> mockPort,
     "microservice.services.interest-restriction-return.port" -> mockPort
   )
 

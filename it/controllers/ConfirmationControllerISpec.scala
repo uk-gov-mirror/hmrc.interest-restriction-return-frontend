@@ -18,6 +18,7 @@ package controllers
 
 import assets.{BaseITConstants, PageTitles}
 import config.SessionKeys
+import pages.ConfirmationPage
 import play.api.http.Status._
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
@@ -30,13 +31,16 @@ class ConfirmationControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "user is authorised" when {
 
-      "there is an reference number stored in session" should {
+      "there is an reference number stored in user answers" should {
 
         "return OK (200)" in {
 
           AuthStub.authorised()
 
-          val res = getRequest("/confirmation")(SessionKeys.acknowledgementReference -> ackRef)
+          setAnswers(ConfirmationPage, ackRef)
+
+
+          val res = getRequest("/confirmation")()
 
           whenReady(res) { result =>
             result should have(
