@@ -17,32 +17,16 @@
 package mocks
 
 import connectors.InterestRestrictionReturnConnector
-import models.{FullReturnModel, SuccessResponse, UserAnswers}
+import models.{FullReturnModel, SuccessResponse}
 import org.scalamock.scalatest.MockFactory
-import repositories.SessionRepository
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 
-trait MockSessionRepository extends MockFactory {
+trait MockInterestRestrictionReturnConnector extends MockFactory {
+  val mockConnector = mock[InterestRestrictionReturnConnector]
 
-  val mockSessionRepository = mock[SessionRepository]
-
-  def mockGetAnswers(result: Option[UserAnswers]): Unit = {
-    (mockSessionRepository.get(_: String))
-      .expects(*)
-      .returns(Future.successful(result))
-  }
-
-  def mockSetAnswers(): Unit = {
-    (mockSessionRepository.set(_: UserAnswers))
-      .expects(*)
-      .returns(Future.successful(true))
-  }
-
-  def mockDeleteAnswers(): Unit = {
-    (mockSessionRepository.delete(_: UserAnswers))
-      .expects(*)
-      .returns(Future.successful(true))
+  def mockSubmitReturn(fullReturnModel: FullReturnModel): Unit = {
+    (mockConnector.submitFullReturn(_:FullReturnModel)(_:HeaderCarrier)).expects(fullReturnModel,*).returns(Future.successful(SuccessResponse("test")))
   }
 }

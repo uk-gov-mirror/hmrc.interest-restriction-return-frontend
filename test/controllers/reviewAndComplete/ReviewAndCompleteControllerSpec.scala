@@ -22,7 +22,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import mocks.MockInterestRestrictionReturnConnector
 import models.FullOrAbbreviatedReturn.Full
-import models.UserAnswers
+import models.{FullReturnModel, UserAnswers}
 import models.returnModels.{AccountingPeriodModel, CompanyNameModel, DeemedParentModel, ReviewAndCompleteModel, UTRModel}
 import navigation.FakeNavigators.FakeReviewAndCompleteNavigator
 import pages.aboutReturn.{AccountingPeriodPage, AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage, TellUsWhatHasChangedPage}
@@ -31,6 +31,7 @@ import pages.groupLevelInformation.{DisallowedAmountPage, EnterANGIEPage, GroupI
 import pages.reviewAndComplete.ReviewAndCompletePage
 import pages.ultimateParentCompany.{DeemedParentPage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.test.Helpers._
+import sectionstatus.{AboutReturnSectionStatus, ElectionsSectionStatus, GroupLevelInformationSectionStatus, UltimateParentCompanySectionStatus}
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
 import java.time.LocalDate
@@ -102,8 +103,17 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
         .set(ElectedInterestAllowanceConsolidatedPshipBeforePage,false).get
         .set(InterestAllowanceConsolidatedPshipElectionPage,false).get
 
+
+      val aboutReturnStatus = AboutReturnSectionStatus.currentSection(userAnswers)
+      val electionsStatus = ElectionsSectionStatus.currentSection(userAnswers)
+      val groupLevelInformationStatus = GroupLevelInformationSectionStatus.currentSection(userAnswers)
+      val ultimateParentCompanyStatus = UltimateParentCompanySectionStatus.currentSection(userAnswers)
+
+      val irr = FullReturnModel(aboutReturnStatus.get,ultimateParentCompanyStatus.get,electionsStatus.get,groupLevelInformationStatus,None)
+
       mockGetAnswers(Some(userAnswers))
-      mockSubmitReturn()
+      mockSetAnswers()
+      mockSubmitReturn(irr)
 
       val result = Controller.onSubmit()(fakeDataRequest)
 
