@@ -165,3 +165,9 @@ POST       /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation/
 ### ----------------------------------------
 GET        /:idx/restrictions/:restrictionIdx/check                                               controllers.ukCompanies.CheckRestrictionController.onPageLoad(idx: Int, restrictionIdx: Int)
 POST       /:idx/restrictions/:restrictionIdx/check                                               controllers.ukCompanies.CheckRestrictionController.onSubmit(idx: Int, restrictionIdx: Int)
+
+### ReviewCompanyRestrictions Controller
+### ----------------------------------------
+GET        /:idx/review-company-restrictions                                controllers.ukCompanies.ReviewCompanyRestrictionsController.onPageLoad(idx: Int)
+POST       /:idx/review-company-restrictions                                controllers.ukCompanies.ReviewCompanyRestrictionsController.onSubmit(idx: Int)
+

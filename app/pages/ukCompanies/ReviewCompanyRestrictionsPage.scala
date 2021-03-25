@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.ukCompanies
+import pages.QuestionPage
+import play.api.libs.json.JsPath
 
-object BaseMessages {
+case class ReviewCompanyRestrictionsPage(companyIdx: Int) extends QuestionPage[String] {
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val confirm = "Confirm"
-  val confirmAndContinue = "Confirm and continue"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
-  val changeLink = "Change"
-  val yes = "Yes"
-  val no = "No"
-  val review = "Review"
-  val delete = "Delete"
-  val remove = "Remove"
+  override def path: JsPath = RestrictionQueryHelper.restrictionCompanyPath \ toString \ companyIdx
 
+  override def toString: String = "reviewCompanyRestrictions"
 }
