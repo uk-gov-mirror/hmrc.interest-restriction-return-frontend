@@ -983,7 +983,7 @@ addNetTaxInterest.error.required = Select yes if the company has a net tax-inter
 # ----------------------------------------------------------
 addRestrictionAmount.title = Do you want to add a restriction amount for the accounting period?
 addRestrictionAmount.heading = Do you want to add a restriction amount for this accounting period?
-addRestrictionAmount.checkYourAnswersLabel = Do you want to add a restriction amount for this accounting period?
+addRestrictionAmount.checkYourAnswersLabel = Restriction amount for accounting period
 addRestrictionAmount.error.required = Select yes if Do you want to add a restriction amount for this accounting period?
 
 # CompanyAccountingPeriodEndDatePage Messages
@@ -995,7 +995,7 @@ companyAccountingPeriodEndDate.second.heading = What is the end date for the sec
 companyAccountingPeriodEndDate.third.title = What is the end date for the third accounting period?
 companyAccountingPeriodEndDate.third.heading = What is the end date for the third accounting period?
 
-companyAccountingPeriodEndDate.checkYourAnswersLabel = What is the end date for the first accounting period?
+companyAccountingPeriodEndDate.checkYourAnswersLabel = Accounting period end date
 companyAccountingPeriodEndDate.warning = You need to add all the relevant accounting periods that fall completely or partly within the period of account for this return, even if they have no allocated restrictions. Add one at a time.
 companyAccountingPeriodEndDate.hint = For example, 27 3 2018
 companyAccountingPeriodEndDate.label = Accounting period end date
@@ -1025,7 +1025,7 @@ addAnotherAccountingPeriod.p1 = You need to add all relevant accounting periods 
 restrictionAmountForAccountingPeriod.title = What is the restriction amount for the accounting period ending {0}?
 restrictionAmountForAccountingPeriod.heading = What is the restriction amount for the accounting period ending {0}?
 restrictionAmountForAccountingPeriod.label = What is the restriction amount for the accounting period ending {0}?
-restrictionAmountForAccountingPeriod.checkYourAnswersLabel = RestrictionAmountForAccountingPeriod
+restrictionAmountForAccountingPeriod.checkYourAnswersLabel = Allocated restriction amount
 restrictionAmountForAccountingPeriod.error.nonNumeric = Enter the restriction amount for the accounting period using numbers
 restrictionAmountForAccountingPeriod.error.required = Enter the restriction amount for the accounting period
 restrictionAmountForAccountingPeriod.error.invalidNumeric = Restriction amount must be to 2 decimal places or a whole number
@@ -1036,3 +1036,9 @@ restrictionAmountForAccountingPeriod.error.outOfRange = Restriction amount must 
 restrictionDeletionConfirmation.title = Do you want to remove this accounting period?
 restrictionDeletionConfirmation.heading = Do you want to remove this accounting period?
 restrictionDeletionConfirmation.error.required = Select yes if you want to remove this accounting period
+
+# CheckRestriction Messages
+# ----------------------------------------------------------
+restriction.checkYourAnswers.title = Check this restriction
+restriction.checkYourAnswers.heading = Check this restriction
+restriction.checkYourAnswers.subheading = {0}

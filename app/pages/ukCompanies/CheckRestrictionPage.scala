@@ -18,19 +18,10 @@ package pages.ukCompanies
 
 import pages.QuestionPage
 import play.api.libs.json.JsPath
-import scala.util.Try
-import models.UserAnswers
 
-case class AddRestrictionAmountPage(companyIdx: Int, restrictionIdx: Int) extends QuestionPage[Boolean] {
+case object CheckRestrictionPage extends QuestionPage[String] {
 
-  override def path: JsPath = RestrictionQueryHelper.path(companyIdx, restrictionIdx, toString)
+  override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "addRestrictionAmount"
-
-  override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
-    value match {
-      case Some(false) => userAnswers.set(RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx), BigDecimal(0))
-      case _ => super.cleanup(value, userAnswers)
-    }
-
+  override def toString: String = "checkRestriction"
 }
