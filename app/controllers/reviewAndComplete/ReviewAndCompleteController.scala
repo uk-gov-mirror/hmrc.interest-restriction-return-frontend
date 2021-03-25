@@ -63,15 +63,10 @@ class ReviewAndCompleteController @Inject()(override val messagesApi: MessagesAp
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val aboutReturnStatus = AboutReturnSectionStatus.currentSection(request.userAnswers)
-    val electionsStatus = ElectionsSectionStatus.currentSection(request.userAnswers)
-    val groupLevelInformationStatus = GroupLevelInformationSectionStatus.currentSection(request.userAnswers)
-    val ultimateParentCompanyStatus = UltimateParentCompanySectionStatus.currentSection(request.userAnswers)
-
-    val irr = FullReturnModel(aboutReturnStatus.get,ultimateParentCompanyStatus.get,electionsStatus.get,groupLevelInformationStatus,None)
-
+    //TODO: This is only a crude implementation to get everything hooked up and start getting feedback from our API
+    //once we have a declaration page, this will all fit into the declaration page. Any failure here will hit Technical Difficulties
     for {
-      submittedReturn <- interestRestrictionReturnConnector.submitFullReturn(irr)
+      submittedReturn <- interestRestrictionReturnConnector.submitFullReturn(FullReturnModel.load(request.userAnswers).get)
       updatedAnswers <- Future.fromTry(request.userAnswers.set(ConfirmationPage,submittedReturn.acknowledgementReference))
       _ <- sessionRepository.set(updatedAnswers)
     } yield Redirect(navigator.nextPage(ReviewAndCompletePage, NormalMode, request.userAnswers))

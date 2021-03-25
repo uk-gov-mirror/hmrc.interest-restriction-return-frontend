@@ -17,9 +17,8 @@
 package controllers.reviewAndComplete
 
 import assets.{BaseITConstants, PageTitles}
-import connectors.InterestRestrictionReturnConnector
 import models.FullOrAbbreviatedReturn.Full
-import models.{FullReturnModel, SuccessResponse, UserAnswers}
+import models.UserAnswers
 import models.returnModels.{AccountingPeriodModel, CompanyNameModel, DeemedParentModel, ReviewAndCompleteModel, UTRModel}
 import pages.aboutReturn.{AccountingPeriodPage, AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage, TellUsWhatHasChangedPage}
 import pages.elections.{ElectedInterestAllowanceAlternativeCalcBeforePage, ElectedInterestAllowanceConsolidatedPshipBeforePage, GroupRatioElectionPage, InterestAllowanceConsolidatedPshipElectionPage, InterestAllowanceNonConsolidatedInvestmentsElectionPage}
@@ -97,10 +96,6 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
               reportingCompanySameAsParent = Some(false)
             )
 
-          AuthStub.authorised()
-          stubPost(stubFullReturnUrl,Status.OK, Json.stringify(successfulResponse))
-
-
           val userAnswers = UserAnswers("id")
             .set(ReportingCompanyAppointedPage, true).get
             .set(AgentActingOnBehalfOfCompanyPage, true).get
@@ -127,6 +122,9 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
             .set(InterestAllowanceNonConsolidatedInvestmentsElectionPage,false).get
             .set(ElectedInterestAllowanceConsolidatedPshipBeforePage,false).get
             .set(InterestAllowanceConsolidatedPshipElectionPage,false).get
+
+          AuthStub.authorised()
+          stubPost(stubFullReturnUrl,Status.OK, Json.stringify(successfulResponse))
 
           setAnswers(userAnswers)
 

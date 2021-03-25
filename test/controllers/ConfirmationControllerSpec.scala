@@ -17,12 +17,10 @@
 package controllers
 
 import base.SpecBase
-import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
 import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
 import models.UserAnswers
 import pages.ConfirmationPage
-import pages.aboutReturn.ReportingCompanyAppointedPage
 import play.api.test.Helpers._
 import views.html.ConfirmationView
 
