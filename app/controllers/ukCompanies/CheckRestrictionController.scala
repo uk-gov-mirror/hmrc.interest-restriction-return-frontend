@@ -22,14 +22,12 @@ import controllers.BaseController
 import controllers.actions._
 import handlers.ErrorHandler
 import models.NormalMode
-import models.Section.UkCompanies
 import navigation.UkCompaniesNavigator
 import pages.ukCompanies.{CheckRestrictionPage, UkCompaniesPage}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc._
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.CheckYourAnswersRestrictionHelper
-import views.ViewUtils._
 import views.html.CheckYourAnswersView
 
 import javax.inject.Inject

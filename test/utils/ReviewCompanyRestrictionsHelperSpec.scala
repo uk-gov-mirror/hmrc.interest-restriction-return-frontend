@@ -50,7 +50,7 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1) -> BaseMessages.review
           ),
           summaryListRow(
             "Total restrictions",
@@ -76,13 +76,13 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1) -> BaseMessages.review
           ),          
           summaryListRow(
             "Second accounting period",
             currencyFormat(secondAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review,
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 2) -> BaseMessages.review,
             controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 2, NormalMode) -> BaseMessages.remove
           ),
           summaryListRow(
@@ -111,19 +111,19 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1) -> BaseMessages.review
           ),
           summaryListRow(
             "Second accounting period",
             currencyFormat(secondAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 2) -> BaseMessages.review
           ),
           summaryListRow(
             "Third accounting period",
             currencyFormat(thirdAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 3, NormalMode) -> BaseMessages.review,
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 3) -> BaseMessages.review,
             controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 3, NormalMode) -> BaseMessages.remove
           ),
           summaryListRow(
@@ -151,19 +151,19 @@ class ReviewCompanyRestrictionsHelperSpec extends SpecBase with SummaryListRowHe
             "First accounting period",
             currencyFormat(firstAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode) -> BaseMessages.review
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1) -> BaseMessages.review
           ),
           summaryListRow(
             "Second accounting period",
             currencyFormat(0),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 2, NormalMode) -> BaseMessages.review
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 2) -> BaseMessages.review
           ),
           summaryListRow(
             "Third accounting period",
             currencyFormat(thirdAmountValue),
             visuallyHiddenText = None,
-            controllers.ukCompanies.routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 3, NormalMode) -> BaseMessages.review,
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 3) -> BaseMessages.review,
             controllers.ukCompanies.routes.RestrictionDeletionConfirmationController.onPageLoad(1, 3, NormalMode) -> BaseMessages.remove
           ),
           summaryListRow(
