@@ -33,7 +33,7 @@ trait BaseITConstants {
       reportingCompanySameAsParent = Some(false)
     )
 
-  val fullUserAnswers = UserAnswers("id")
+  val userAnswers = UserAnswers("id")
     .set(ReportingCompanyAppointedPage, true).get
     .set(AgentActingOnBehalfOfCompanyPage, true).get
     .set(AgentNamePage, "Test").get

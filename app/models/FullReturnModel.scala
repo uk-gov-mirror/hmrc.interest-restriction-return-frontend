@@ -118,8 +118,10 @@ object FullReturnModel {
 
   private def toParentCompany(fullReturn: FullReturnModel) = {
     if (fullReturn.ultimateParentCompany.reportingCompanySameAsParent) {
-      Json.obj("ultimateParent" -> Json.obj("companyName" -> fullReturn.aboutReturn.companyName,
-        "ctutr" -> fullReturn.aboutReturn.ctutr))
+      Json.obj("ultimateParent" -> Json.obj(
+        "companyName" -> fullReturn.aboutReturn.companyName,
+        "ctutr" -> fullReturn.aboutReturn.ctutr,
+        "isUk" -> true))
     } else {
       fullReturn.ultimateParentCompany.hasDeemedParent match {
         case Some(true) => Json.obj("deemedParent" -> fullReturn.ultimateParentCompany.parentCompanies.map(parent => {
@@ -133,6 +135,7 @@ object FullReturnModel {
     Json.obj("companyName" -> parent.companyName.name,
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
+      "isUk" -> parent.payTaxInUk.fold(false)(payTaxInUk => payTaxInUk),
       "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
   }
 
