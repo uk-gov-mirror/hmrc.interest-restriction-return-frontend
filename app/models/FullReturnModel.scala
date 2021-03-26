@@ -137,6 +137,7 @@ object FullReturnModel {
   }
 
   def load(userAnswers: UserAnswers) : Option[FullReturnModel] = {
+    //TODO: This is unfinished, pending section 5 and see if we bottom out any other inputs from section 6
     val groupLevelInformationStatus = GroupLevelInformationSectionStatus.currentSection(userAnswers)
 
     for {
