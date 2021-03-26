@@ -53,7 +53,7 @@ class CheckRestrictionController @Inject()(override val messagesApi: MessagesApi
           postAction = controllers.ukCompanies.routes.CheckRestrictionController.onSubmit(companyIdx, restrictionIdx),
           subheader = Some(ukCompany.companyDetails.companyName),
           sectionMsgArgs = Seq(ukCompany.companyDetails.companyName),
-          buttonMsg = "site.continue"
+          buttonMsg = "site.confirmAndContinue"
         )))
       }
   }

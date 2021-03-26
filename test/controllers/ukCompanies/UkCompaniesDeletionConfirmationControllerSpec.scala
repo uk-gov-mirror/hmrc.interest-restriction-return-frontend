@@ -23,9 +23,10 @@ import controllers.actions._
 import controllers.errors
 import forms.ukCompanies.UkCompaniesDeletionConfirmationFormProvider
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
-import pages.ukCompanies.UkCompaniesPage
+import pages.ukCompanies.{UkCompaniesPage, RestrictionAmountForAccountingPeriodPage, CompanyAccountingPeriodEndDatePage}
 import play.api.test.Helpers._
 import views.html.ukCompanies.UkCompaniesDeletionConfirmationView
+import java.time.LocalDate
 
 class UkCompaniesDeletionConfirmationControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -103,10 +104,19 @@ class UkCompaniesDeletionConfirmationControllerSpec extends SpecBase with Featur
 
           val userAnswersBefore = emptyUserAnswers
             .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+            .set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.now).get
+            .set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(123)).get
             .set(UkCompaniesPage, ukCompanyModelMax, Some(2)).get
+            .set(CompanyAccountingPeriodEndDatePage(2, 1), LocalDate.now).get
+            .set(RestrictionAmountForAccountingPeriodPage(2, 1), BigDecimal(234)).get
+
+          val userAnswersAfter = emptyUserAnswers
+            .set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get
+            .set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.now).get
+            .set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(123)).get
 
           mockGetAnswers(Some(userAnswersBefore))
-          mockSetAnswers
+          mockSetAnswers(userAnswersAfter)
 
           val result = Controller.onSubmit(idx = 2)(request)
 

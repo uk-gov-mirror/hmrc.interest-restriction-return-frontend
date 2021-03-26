@@ -107,5 +107,37 @@ class CompanyEstimatedFiguresSpec extends WordSpec with MustMatchers with ScalaC
       val expectedValues = Seq(TaxEbitda)
       result mustEqual expectedValues.map(estimatedFigureToCheckboxItem(form, _))
     }
+
+    "return restrictions where the Same As PoA Restrictions page was filled in" in {
+      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+          .copy(allocatedRestrictions = Some(AllocatedRestrictionsModel(disallowanceAp1 = Some(123))))
+      val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+      
+      val result = options(form, 1, userAnswers)
+      val expectedValues = Seq(AllocatedRestrictions)
+      result mustEqual expectedValues.map(estimatedFigureToCheckboxItem(form, _))
+    }
+
+    "return restrictions where a value exists in the AP Restrictions route" in {
+      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+      val userAnswers = 
+        (for {
+          ua <- UserAnswers("id").set(UkCompaniesPage, company, Some(1))
+          finalUa <-  ua.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(123))
+        } yield finalUa).get
+      
+      val result = options(form, 1, userAnswers)
+      val expectedValues = Seq(AllocatedRestrictions)
+      result mustEqual expectedValues.map(estimatedFigureToCheckboxItem(form, _))
+    }
+
+    "don't return restrictions where no restrictions are entered" in {
+      val company = UkCompanyModel(CompanyDetailsModel("123", "1123456789"))
+      val userAnswers = UserAnswers("id").set(UkCompaniesPage, company, Some(1)).get
+      
+      val result = options(form, 1, userAnswers)
+      val expectedValues = Seq()
+      result mustEqual expectedValues.map(estimatedFigureToCheckboxItem(form, _))
+    }
   }
 }

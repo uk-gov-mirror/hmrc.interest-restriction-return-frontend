@@ -30,6 +30,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.UkCompaniesDeletionConfirmationView
+import pages.ukCompanies.RestrictionQueryHelper
 
 import scala.concurrent.Future
 
@@ -67,9 +68,10 @@ class UkCompaniesDeletionConfirmationController @Inject()(override val messagesA
         {
           case true =>
             for {
-              updatedAnswers <- Future.fromTry(request.userAnswers.remove(UkCompaniesPage,Some(idx)))
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, updatedAnswers, Some(idx)))
+              updatedAnswers      <- Future.fromTry(request.userAnswers.remove(RestrictionQueryHelper.restrictionPath(idx)))
+              finalUpdatedAnswers <- Future.fromTry(updatedAnswers.remove(UkCompaniesPage,Some(idx)))
+              _                   <- sessionRepository.set(finalUpdatedAnswers)
+            } yield Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, finalUpdatedAnswers, Some(idx)))
           case false =>
             Future.successful(Redirect(navigator.nextPage(UkCompaniesDeletionConfirmationPage, NormalMode, request.userAnswers)))
         }
