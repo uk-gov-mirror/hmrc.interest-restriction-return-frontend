@@ -59,6 +59,6 @@ class CheckRestrictionController @Inject()(override val messagesApi: MessagesApi
   }
 
   def onSubmit(companyIdx: Int, restrictionIdx: Int): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    Future.successful(Redirect(navigator.nextPage(CheckRestrictionPage, NormalMode, request.userAnswers)))
+    Future.successful(Redirect(navigator.nextRestrictionPage(CheckRestrictionPage(companyIdx: Int, restrictionIdx: Int), NormalMode, request.userAnswers)))
   }
 }
