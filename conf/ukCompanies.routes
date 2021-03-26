@@ -161,3 +161,13 @@ POST       /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation 
 GET        /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation/change                  controllers.ukCompanies.RestrictionDeletionConfirmationController.onPageLoad(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
 POST       /:idx/restrictions/:restrictionIdx/restriction-deletion-confirmation/change                  controllers.ukCompanies.RestrictionDeletionConfirmationController.onSubmit(idx: Int, restrictionIdx: Int, mode: Mode = CheckMode)
 
+### CheckRestriction Controller
+### ----------------------------------------
+GET        /:idx/restrictions/:restrictionIdx/check                                               controllers.ukCompanies.CheckRestrictionController.onPageLoad(idx: Int, restrictionIdx: Int)
+POST       /:idx/restrictions/:restrictionIdx/check                                               controllers.ukCompanies.CheckRestrictionController.onSubmit(idx: Int, restrictionIdx: Int)
+
+### ReviewCompanyRestrictions Controller
+### ----------------------------------------
+GET        /:idx/review-company-restrictions                                controllers.ukCompanies.ReviewCompanyRestrictionsController.onPageLoad(idx: Int)
+POST       /:idx/review-company-restrictions                                controllers.ukCompanies.ReviewCompanyRestrictionsController.onSubmit(idx: Int)
+

@@ -23,7 +23,8 @@ import models._
 import models.CompanyEstimatedFigures._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
 import models.FullOrAbbreviatedReturn._
-import pages.aboutReturn.FullOrAbbreviatedReturnPage
+import models.returnModels.AccountingPeriodModel
+import pages.aboutReturn.{FullOrAbbreviatedReturnPage, AccountingPeriodPage}
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import java.time.LocalDate
 
@@ -539,12 +540,24 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
     "in Normal mode" must {
 
-      "for AddRestrictionAmountPage" must {
+      "for AddRestrictionAmountPage" when {
 
-        "Navigate to the UnderConstructionController" in {
-          val page = AddRestrictionAmountPage(1, 1)
-          navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
-            controllers.routes.UnderConstructionController.onPageLoad()
+        "set to true" must {
+          "Navigate to the RestrictionAmountForAccountingPeriodPage" in {
+            val page = AddRestrictionAmountPage(1, 1)
+            val userAnswers = emptyUserAnswers.set(page, true).get
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode)
+          }
+        }
+
+        "set to false" must {
+          "Navigate to the CheckRestrictionPage" in {
+            val page = AddRestrictionAmountPage(1, 1)
+            val userAnswers = emptyUserAnswers.set(page, false).get
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CheckRestrictionController.onPageLoad(1, 1)
+          }
         }
 
       }
@@ -609,6 +622,104 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           val page = CompanyAccountingPeriodEndDatePage(1, 1)
           navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
             routes.AddRestrictionAmountController.onPageLoad(1, 1, NormalMode)
+        }
+
+      }
+      
+      "for ReviewCompanyRestrictionsPage" when {
+
+        val poaStartDate = LocalDate.of(2020,1,1)
+        val poaEndDate = LocalDate.of(2021,1,1)
+        val poa = AccountingPeriodModel(poaStartDate, poaEndDate)
+
+        "A single restriction has been added, and the end date doesn't exceed the group PoA" must {
+          "Navigate to the AddAnotherAccountingPeriod page" in {
+
+            val userAnswers = (for {
+              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
+            } yield ua2).get
+
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.AddAnotherAccountingPeriodController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Two restrictions have been added, and the end dates don't exceed the group PoA" must {
+          "Navigate to the AddAnotherAccountingPeriod page" in {
+
+            val userAnswers = (for {
+              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
+              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,3,1))
+            } yield ua3).get
+
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.AddAnotherAccountingPeriodController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Three restrictions have been added, and the end dates don't exceed the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+
+            val userAnswers = (for {
+              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
+              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,3,1))
+              ua4     <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2020,4,1))
+            } yield ua4).get
+
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "One restrictions has been added, and the end date exceeds the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+
+            val userAnswers = (for {
+              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021,2,1))
+            } yield ua2).get
+
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Two restrictions have been added, and the end date exceeds the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+
+            val userAnswers = (for {
+              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
+              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2021,2,1))
+            } yield ua3).get
+
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
+        }
+
+        "Three restrictions have been added, and the end date exceeds the group PoA" must {
+          "Navigate to the CompanyContainsEstimates page" in {
+
+            val userAnswers = (for {
+              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
+              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,6,1))
+              ua4     <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2021,2,1))
+            } yield ua4).get
+
+            val page = ReviewCompanyRestrictionsPage(1)
+            navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
+              routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
+          }
         }
 
       }

@@ -16,19 +16,23 @@
 
 package views
 
-import play.api.data.Form
+import play.api.data.{Form, FormError}
 import play.api.i18n.Messages
-import play.api.data.FormError
 
 object ViewUtils {
 
   def title(form: Form[_], titleStr: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq())
            (implicit messages: Messages): String = {
-      titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, titleMessageArgs:_*)}", section)
+    titleNoForm(s"${errorPrefix(form)} ${messages(titleStr, titleMessageArgs: _*)}", section)
   }
 
-  def titleNoForm(title: String, section: Option[String] = None, titleMessageArgs: Seq[String] = Seq())(implicit messages: Messages): String =
-    s"${messages(title, titleMessageArgs:_*)} - ${section.fold("")(messages(_) + " - ")}${messages("service.name")} - ${messages("site.govuk")}"
+  def titleNoForm(
+                   title: String,
+                   section: Option[String] = None,
+                   titleMessageArgs: Seq[String] = Seq(),
+                   sectionMessageArgs: Seq[String] = Seq()
+                 )(implicit messages: Messages): String =
+    s"${messages(title, titleMessageArgs: _*)} - ${section.fold("")(s => messages(s, sectionMessageArgs: _*) + " - ")}${messages("service.name")} - ${messages("site.govuk")}"
 
   def errorPrefix(form: Form[_])(implicit messages: Messages): String = {
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
@@ -41,11 +45,11 @@ object ViewUtils {
     }
   }
 
-  def getErrorField(error: FormError, errorFieldName: Option[String], prefixToFieldMap: Map[String, String]): String = 
-    getErrorFieldFromPrefixes(error, prefixToFieldMap).getOrElse(             
-        errorFieldName.getOrElse(
-          error.key
-        )
+  def getErrorField(error: FormError, errorFieldName: Option[String], prefixToFieldMap: Map[String, String]): String =
+    getErrorFieldFromPrefixes(error, prefixToFieldMap).getOrElse(
+      errorFieldName.getOrElse(
+        error.key
+      )
     )
 
   def getErrorFieldFromPrefixes(error: FormError, prefixToFieldMap: Map[String, String]): Option[String] = {
@@ -53,7 +57,8 @@ object ViewUtils {
       val (messagePrefix, errorField) = prefixFieldTup
       messagePrefix.r.findFirstIn(error.message).isDefined
     }
+
     prefixToFieldMap.find(predicate).map(_._2)
   }
-  
+
 }

@@ -27,19 +27,19 @@
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 )
 
-@(answers: Seq[SummaryListRow], section: String, postAction: Call, headingMsgArgs: Seq[String] = Seq(), sectionMsgArgs: Seq[String] = Seq(), buttonMsg: String = "site.confirmAndContinue", subheader: Option[String] = None)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
+@(answers: Seq[SummaryListRow], companyName: String, postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: config.FrontendAppConfig)
 
-@govukLayout(pageTitle = Some(titleNoForm(s"$section.checkYourAnswers.title", section = Some(s"$section.checkYourAnswers.subheading"), titleMessageArgs = headingMsgArgs, sectionMessageArgs = sectionMsgArgs))) {
+@govukLayout(pageTitle = Some(titleNoForm("reviewCompanyRestrictionsPage.title", section = Some(companyName)))) {
 
-    @subheading(subheader.getOrElse(s"$section.checkYourAnswers.subheading"))
+    @subheading(companyName)
 
-    @h1(messages(s"$section.checkYourAnswers.heading", headingMsgArgs:_*))
+    @h1(messages("reviewCompanyRestrictionsPage.heading"))
 
     @govukSummaryList(SummaryList(answers))
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
 
-        @button(buttonMsg)
+        @button("site.confirmAndContinue")
 
     }
 

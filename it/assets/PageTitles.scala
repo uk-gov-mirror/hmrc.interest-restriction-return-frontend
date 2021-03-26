@@ -27,6 +27,8 @@ object PageTitles {
   val accountingPeriod = "Worldwide group’s period of account"
   val reviewAndComplete = "Interest Restriction Return"
   val checkAnswersUkCompany: String => String = name => s"Check $name details"
+  val checkRestriction = s"Check this restriction"
+  val reviewCompanyRestrictions = "Check total restrictions for this company"
   val derivedCompany = "Check the totals for this return"
   val companyDetails = "Company details"
   val aboutAddingUKCompanies = "In this section you will need to tell us about eligible UK companies in the group"
