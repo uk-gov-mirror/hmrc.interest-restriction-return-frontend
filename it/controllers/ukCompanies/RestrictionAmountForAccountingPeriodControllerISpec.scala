@@ -101,7 +101,7 @@ class RestrictionAmountForAccountingPeriodControllerISpec extends IntegrationSpe
             whenReady(res) { result =>
               result should have(
                 httpStatus(SEE_OTHER),
-                redirectLocation(controllers.routes.UnderConstructionController.onPageLoad().url)
+                redirectLocation(controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1,1).url)
               )
             }
           }

@@ -362,6 +362,13 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         }
       }
 
+      "from the RestrictionAmountForAccountingPeriodPage" should {
+        "go to CheckRestrictionController" in {
+          navigator.nextRestrictionPage(RestrictionAmountForAccountingPeriodPage(1,1), NormalMode, emptyUserAnswers) mustBe
+            controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1)
+        }
+      }
+
       "from the CompanyEstimatedFiguresPage" should {
         "go to the CYA page where it's set to false" in {
           val company = ukCompanyModelMin.copy(containsEstimates = Some(false))

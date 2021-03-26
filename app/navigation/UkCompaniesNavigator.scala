@@ -23,7 +23,7 @@ import models.FullOrAbbreviatedReturn.{Abbreviated, Full}
 import models._
 import pages._
 import pages.groupLevelInformation._
-import pages.ukCompanies._
+import pages.ukCompanies.{RestrictionAmountForAccountingPeriodPage, _}
 import play.api.mvc.Call
 import models.NetTaxInterestIncomeOrExpense._
 
@@ -47,13 +47,13 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     UkCompaniesPage -> ((idx, _) => nextSection(NormalMode)),
     UkCompaniesDeletionConfirmationPage -> ((_, _) => routes.UkCompaniesReviewAnswersListController.onPageLoad()),
     AddRestrictionPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.restriction) match {
-      case Some(true)   => controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
-      case Some(false)  => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
-      case None         => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
+      case Some(true) => controllers.ukCompanies.routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)
+      case None => routes.AddRestrictionController.onPageLoad(idx, NormalMode)
     }),
     CompanyAccountingPeriodSameAsGroupPage -> ((idx, userAnswers) => userAnswers.get(UkCompaniesPage, Some(idx)).flatMap(_.accountPeriodSameAsGroup) match {
-      case Some(true)   => routes.RestrictionAmountSameAPController.onPageLoad(idx, NormalMode)
-      case Some(false)  => routes.CompanyAccountingPeriodEndDateController.onPageLoad(idx, 1, NormalMode)
+      case Some(true) => routes.RestrictionAmountSameAPController.onPageLoad(idx, NormalMode)
+      case Some(false) => routes.CompanyAccountingPeriodEndDateController.onPageLoad(idx, 1, NormalMode)
       case _ => routes.CompanyAccountingPeriodSameAsGroupController.onPageLoad(idx, NormalMode)
     }),
     RestrictionAmountSameAPPage -> ((idx, _) => controllers.ukCompanies.routes.CompanyContainsEstimatesController.onPageLoad(idx, NormalMode)),
@@ -93,7 +93,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
         case _ => checkYourAnswers(idx)
       }
     })
-    ).withDefaultValue((idx, _) => checkYourAnswers(idx))
+  ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
     ReactivationAmountPage -> ((_, _) => controllers.checkTotals.routes.ReviewReactivationsController.onPageLoad()),
@@ -102,7 +102,9 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   ).withDefaultValue((_, _) => controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad())
 
   private def checkYourAnswers(idx: Int): Call = routes.CheckAnswersUkCompanyController.onPageLoad(idx)
+
   def nextSection(mode: Mode): Call = controllers.checkTotals.routes.DerivedCompanyController.onPageLoad()
+
   def addCompany(numberOfCompanies: Int): Call = routes.CompanyDetailsController.onPageLoad(numberOfCompanies + 1, NormalMode)
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers, idx: Option[Int] = None): Call = mode match {
@@ -125,12 +127,13 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   private val restrictionNormalRoutes: PartialFunction[Page, UserAnswers => Call] = {
     case CompanyAccountingPeriodEndDatePage(companyIdx, restrictionIdx) => ua => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
+
     case page @ AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => ua.get(page) match {
       case Some(true) => routes.RestrictionAmountForAccountingPeriodController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
       case Some(false) => routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
       case None => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
     }
-    case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.routes.UnderConstructionController.onPageLoad()
+    case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
     case CheckRestrictionPage(companyidx, restrictionIdx) => ua => routes.ReviewCompanyRestrictionsController.onPageLoad(companyidx)
     case ReviewCompanyRestrictionsPage(companyIdx) => ua => reviewCompanyRestrictionsRoute(companyIdx, ua)
     case AddAnotherAccountingPeriodPage(companyIdx) => ua => addAnotherAccountingPeriodRoute(companyIdx, ua)

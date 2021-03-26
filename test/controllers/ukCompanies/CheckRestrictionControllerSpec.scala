@@ -17,7 +17,7 @@
 package controllers.ukCompanies
 
 import assets.constants.fullReturn.UkCompanyConstants._
-import assets.messages.{CheckRestrictionMessages, SectionHeaderMessages}
+import assets.messages.CheckRestrictionMessages
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
@@ -25,7 +25,6 @@ import models.NormalMode
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
 import pages.ukCompanies.{CheckAnswersUkCompanyPage, CompanyAccountingPeriodEndDatePage, UkCompaniesPage}
 import play.api.test.Helpers._
-import views.ViewUtils.addPossessive
 import views.html.CheckYourAnswersView
 
 import java.time.{LocalDate, ZoneOffset}

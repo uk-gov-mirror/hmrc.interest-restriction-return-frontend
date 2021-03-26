@@ -113,7 +113,6 @@ class RestrictionAmountSameAPControllerISpec extends IntegrationSpecBase with Cr
         }
       }
     }
-
   }
 
   "in Change mode" when {
