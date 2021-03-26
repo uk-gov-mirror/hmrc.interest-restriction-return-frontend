@@ -17,14 +17,27 @@
 package controllers.reviewAndComplete
 
 import assets.{BaseITConstants, PageTitles}
-import models.returnModels.ReviewAndCompleteModel
+import models.FullOrAbbreviatedReturn.Full
+import models.UserAnswers
+import models.returnModels.{AccountingPeriodModel, CompanyNameModel, DeemedParentModel, ReviewAndCompleteModel, UTRModel}
+import pages.aboutReturn.{AccountingPeriodPage, AgentActingOnBehalfOfCompanyPage, AgentNamePage, FullOrAbbreviatedReturnPage, ReportingCompanyAppointedPage, ReportingCompanyCTUTRPage, ReportingCompanyNamePage, TellUsWhatHasChangedPage}
+import pages.elections.{ElectedInterestAllowanceAlternativeCalcBeforePage, ElectedInterestAllowanceConsolidatedPshipBeforePage, GroupRatioElectionPage, InterestAllowanceConsolidatedPshipElectionPage, InterestAllowanceNonConsolidatedInvestmentsElectionPage}
+import pages.groupLevelInformation.{DisallowedAmountPage, EnterANGIEPage, GroupInterestAllowancePage, GroupInterestCapacityPage, GroupSubjectToRestrictionsPage, InterestAllowanceBroughtForwardPage, ReturnContainEstimatesPage, RevisingReturnPage}
 import pages.reviewAndComplete.ReviewAndCompletePage
+import pages.ultimateParentCompany.{DeemedParentPage, HasDeemedParentPage, ReportingCompanySameAsParentPage}
+import play.api.http.Status
 import play.api.http.Status._
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsString, Json}
 import stubs.AuthStub
 import utils.{CreateRequestHelper, CustomMatchers, IntegrationSpecBase}
 
+import java.time.LocalDate
+
 class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
+
+  val stubFullReturnUrl = "/internal/return/full"
+  val successfulResponse = Json.obj("acknowledgementReference" -> "XAIRR00000012345678")
+
 
   "in Normal mode" when {
 
@@ -73,10 +86,10 @@ class ReviewAndCompleteControllerISpec extends IntegrationSpecBase with CreateRe
       "user is authorised" when {
 
         "redirect to the next page" in {
-
           AuthStub.authorised()
+          stubPost(stubFullReturnUrl,Status.OK, Json.stringify(successfulResponse))
 
-          setAnswers(emptyUserAnswers)
+          setAnswers(fullUserAnswers)
 
           val res = postRequest("/review-and-complete", JsString(""))()
 

@@ -14,11 +14,25 @@
  * limitations under the License.
  */
 
-package pages
-import play.api.libs.json.JsPath
+package models
 
-case object ConfirmationPage extends QuestionPage[String] {
-  override def toString: String = "acknowledgementReference"
+import assets.constants.BaseConstants
+import base.SpecBase
 
-  override def path: JsPath = JsPath \ toString
+class FullReturnModelSpec extends SpecBase with BaseConstants {
+  "A full return model" when {
+    "Populating it" should {
+      "Return nothing if any of the sections is not complete" in {
+        val model = FullReturnModel.load(emptyUserAnswers)
+
+        model mustBe None
+      }
+
+      "Return a populated model if all relevant sections are complete" in {
+        val model = FullReturnModel.load(completeUserAnswers)
+
+        model mustBe defined
+      }
+    }
+  }
 }

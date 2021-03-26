@@ -16,18 +16,22 @@
 
 package controllers.reviewAndComplete
 
+import assets.constants.BaseConstants
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
+import mocks.MockInterestRestrictionReturnConnector
+import models.FullReturnModel
 import models.returnModels.ReviewAndCompleteModel
 import navigation.FakeNavigators.FakeReviewAndCompleteNavigator
 import pages.reviewAndComplete.ReviewAndCompletePage
 import play.api.test.Helpers._
 import views.html.reviewAndComplete.ReviewAndCompleteView
 
-class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
+class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching with BaseConstants with MockDataRetrievalAction with MockInterestRestrictionReturnConnector {
 
   val view = injector.instanceOf[ReviewAndCompleteView]
+
 
   object Controller extends ReviewAndCompleteController(
     messagesApi = messagesApi,
@@ -35,14 +39,14 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     getData = mockDataRetrievalAction,
     requireData = dataRequiredAction,
     controllerComponents = messagesControllerComponents,
+    sessionRepository = mockSessionRepository,
     view = view,
-    navigator = FakeReviewAndCompleteNavigator
+    navigator = FakeReviewAndCompleteNavigator,
+    interestRestrictionReturnConnector = mockConnector
   )
 
   "ReviewAndComplete Controller" must {
-
     "return OK and the correct view for a GET" in {
-
       mockGetAnswers(Some(emptyUserAnswers
         .set(ReviewAndCompletePage, ReviewAndCompleteModel()).get
       ))
@@ -53,8 +57,9 @@ class ReviewAndCompleteControllerSpec extends SpecBase with FeatureSwitching wit
     }
 
     "redirect to the next page when submitted" in {
-
-      mockGetAnswers(Some(emptyUserAnswers))
+      mockGetAnswers(Some(completeUserAnswers))
+      mockSetAnswers()
+      mockSubmitReturn(FullReturnModel.load(completeUserAnswers).get)
 
       val result = Controller.onSubmit()(fakeDataRequest)
 

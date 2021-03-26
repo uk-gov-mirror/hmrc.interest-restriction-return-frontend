@@ -20,6 +20,7 @@ import models.returnModels.{AgentDetailsModel, DeemedParentModel}
 import models.sections._
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{JsObject, JsPath, Json, Writes}
+import sectionstatus.{AboutReturnSectionStatus, ElectionsSectionStatus, GroupLevelInformationSectionStatus, UltimateParentCompanySectionStatus}
 
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
                            ultimateParentCompany: UltimateParentCompanySectionModel,
@@ -133,5 +134,16 @@ object FullReturnModel {
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
       "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
+  }
+
+  def load(userAnswers: UserAnswers) : Option[FullReturnModel] = {
+    //TODO: This is unfinished, pending section 5 and see if we bottom out any other inputs from section 6
+
+    for {
+      about <- AboutReturnSectionStatus.currentSection(userAnswers)
+      elections <- ElectionsSectionStatus.currentSection(userAnswers)
+      ultimateParent <- UltimateParentCompanySectionStatus.currentSection(userAnswers)
+      groupLevelInfo = GroupLevelInformationSectionStatus.currentSection(userAnswers)
+    } yield FullReturnModel(about,ultimateParent,elections,groupLevelInfo)
   }
 }

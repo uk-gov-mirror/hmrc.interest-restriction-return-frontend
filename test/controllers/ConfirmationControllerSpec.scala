@@ -17,9 +17,10 @@
 package controllers
 
 import base.SpecBase
-import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
 import controllers.actions.{FakeIdentifierAction, MockDataRetrievalAction}
+import models.UserAnswers
+import pages.ConfirmationPage
 import play.api.test.Helpers._
 import views.html.ConfirmationView
 
@@ -38,25 +39,23 @@ class ConfirmationControllerSpec extends SpecBase with FeatureSwitching with Moc
     view = view
   )
 
-  lazy val requestWithRef = fakeRequest.withSession(SessionKeys.acknowledgementReference -> reference)
-
   "Confirmation Controller" must {
-
-    "when the acknowledgement reference is held in session" should {
-
+    "when the acknowledgement reference is held in user answers" should {
       "return OK and the correct view for a GET" in {
 
-        mockGetAnswers(Some(emptyUserAnswers))
+        val userAnswers = UserAnswers("id")
+          .set(ConfirmationPage, reference).get
 
-        val result = Controller.onPageLoad(requestWithRef)
+        mockGetAnswers(Some(userAnswers))
+
+        val result = Controller.onPageLoad(fakeRequest)
 
         status(result) mustBe OK
-        contentAsString(result) mustEqual view(reference)(requestWithRef, frontendAppConfig, messages).toString
+        contentAsString(result) mustEqual view(reference)(fakeRequest, frontendAppConfig, messages).toString
       }
     }
 
-    "when the acknowledgement reference is NOT held in session" should {
-
+    "when the acknowledgement reference is NOT held in user answers" should {
       "return the ISE page" in {
 
         mockGetAnswers(Some(emptyUserAnswers))
