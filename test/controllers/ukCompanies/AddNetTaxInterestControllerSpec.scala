@@ -22,11 +22,14 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddNetTaxInterestFormProvider
-import models.NormalMode
+import models.{CompanyDetailsModel, NormalMode, UserAnswers}
+import models.returnModels.fullReturn.UkCompanyModel
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddNetTaxInterestView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+
+import scala.concurrent.Future
 
 class AddNetTaxInterestControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
 
@@ -71,6 +74,34 @@ class AddNetTaxInterestControllerSpec extends SpecBase with FeatureSwitching wit
       mockSetAnswers
 
       val result = Controller.onSubmit(idx, NormalMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "clear the netTaxInterest page when 'false' is submitted" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+      val company = UkCompanyModel(
+        companyDetails = CompanyDetailsModel("123", "1123456789"),
+        addNetTaxInterest = Some(true)
+      )
+      val userAnswers = emptyUserAnswers.set(UkCompaniesPage, company, Some(1)).get
+
+      val expectedCompany = UkCompanyModel(
+        companyDetails = CompanyDetailsModel("123", "1123456789"),
+        addNetTaxInterest = Some(false)
+      )
+
+      mockGetAnswers(Some(userAnswers))
+
+      (mockSessionRepository.set(_: UserAnswers))
+        .expects(emptyUserAnswers
+          .set(UkCompaniesPage, expectedCompany, Some(1)).success.value)
+        .returns(Future.successful(true))
+
+      val result = Controller.onSubmit(1, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
