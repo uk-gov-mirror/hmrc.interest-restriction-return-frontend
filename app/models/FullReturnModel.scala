@@ -138,12 +138,12 @@ object FullReturnModel {
 
   def load(userAnswers: UserAnswers) : Option[FullReturnModel] = {
     //TODO: This is unfinished, pending section 5 and see if we bottom out any other inputs from section 6
-    val groupLevelInformationStatus = GroupLevelInformationSectionStatus.currentSection(userAnswers)
 
     for {
       about <- AboutReturnSectionStatus.currentSection(userAnswers)
       elections <- ElectionsSectionStatus.currentSection(userAnswers)
       ultimateParent <- UltimateParentCompanySectionStatus.currentSection(userAnswers)
-    } yield FullReturnModel(about,ultimateParent,elections).copy(groupLevelInformation = groupLevelInformationStatus)
+      groupLevelInfo = GroupLevelInformationSectionStatus.currentSection(userAnswers)
+    } yield FullReturnModel(about,ultimateParent,elections,groupLevelInfo)
   }
 }
