@@ -99,7 +99,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
         case Some(true) => controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
         case _ => checkYourAnswers(idx)
       }
-    }),
+    })
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
   val reviewRouteMap: Map[Page, (Int, UserAnswers) => Call] = Map[Page, (Int, UserAnswers) => Call](
