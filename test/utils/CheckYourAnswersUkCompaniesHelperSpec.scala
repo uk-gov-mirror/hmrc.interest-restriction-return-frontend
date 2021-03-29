@@ -163,7 +163,7 @@ class CheckYourAnswersUkCompaniesHelperSpec extends SpecBase with BaseConstants 
       "have a correctly formatted summary list row" in {
         helper.estimatedFigures(1) mustBe Some(summaryListRow(
           CheckAnswersUkCompanyMessages.estimatedFigures,
-          "Tax EBITDA<br>Net tax-interest amount<br>Allocated restrictions<br>Allocated reactivations",
+          "Tax EBITDA<br>Net tax-interest amount<br>Allocated restriction amount<br>Reactivation amount",
           visuallyHiddenText = None,
           ukCompaniesRoutes.CompanyEstimatedFiguresController.onPageLoad(1, CheckMode) -> BaseMessages.changeLink
         ))

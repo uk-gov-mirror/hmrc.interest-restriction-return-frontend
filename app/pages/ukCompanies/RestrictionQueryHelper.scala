@@ -20,9 +20,9 @@ import play.api.libs.json.JsPath
 
 object RestrictionQueryHelper {
 
-  val restrictionCompanyPath = JsPath \ "company"
+  val restrictionCompanyPath = JsPath \ "companyRestrictions"
 
-  def restrictionPath(companyIdx: Int) = restrictionCompanyPath \ (companyIdx - 1)
+  def restrictionPath(companyIdx: Int) = restrictionCompanyPath \ s"company ${companyIdx.toString}"
 
   def singleRestrictionPath(companyIdx: Int, restrictionIdx: Int) = restrictionPath(companyIdx) \ "restriction" \ (restrictionIdx - 1)
 
