@@ -71,7 +71,7 @@ class AddNetTaxInterestController @Inject()(
         value => {
           val updatedModel = value match {
             case true => ukCompany.copy(addNetTaxInterest = Some(value))
-            case false => ukCompany.copy(addNetTaxInterest = Some(value), netTaxInterest = None)
+            case false => ukCompany.copy(addNetTaxInterest = Some(value), netTaxInterest = None, netTaxInterestIncomeOrExpense = None)
           }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
