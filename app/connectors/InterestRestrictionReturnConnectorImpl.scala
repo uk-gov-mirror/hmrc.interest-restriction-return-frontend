@@ -38,9 +38,11 @@ class InterestRestrictionReturnConnectorImpl @Inject()(val appConfig: FrontendAp
   def submitFullReturn(fullReturn: FullReturnModel)(implicit hc: HeaderCarrier): Future[SuccessResponse] = {
     val fullOrAbbr = if (fullReturn.aboutReturn.fullOrAbbreviatedReturn == Full) "full" else "abbreviated"
     val serviceUrl = s"${appConfig.interestRestrictionReturn}/internal/return/$fullOrAbbr"
+    val parsedReturn = Json.toJson(fullReturn)
 
+    logger.debug(s"[SUBMIT-IRR][PAYLOAD]$parsedReturn")
 
-    http.POST(serviceUrl,Json.toJson(fullReturn),Seq(ContentTypeHeader("application/json"),AcceptHeader("application/vnd.hmrc.1.0+json"))).map {
+    http.POST(serviceUrl,parsedReturn,Seq(ContentTypeHeader("application/json"),AcceptHeader("application/vnd.hmrc.1.0+json"))).map {
       response => require(response.status == Status.OK)
 
         Json.parse(response.body).validate[SuccessResponse] match {
