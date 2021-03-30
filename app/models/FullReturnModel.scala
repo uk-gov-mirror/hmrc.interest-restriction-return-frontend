@@ -135,7 +135,7 @@ object FullReturnModel {
     Json.obj("companyName" -> parent.companyName.name,
       "ctutr" -> parent.ctutr,
       "sautr" -> parent.sautr,
-      "isUk" -> parent.payTaxInUk.fold(false)(payTaxInUk => payTaxInUk),
+      "isUk" -> parent.payTaxInUk.get,
       "countryOfIncorporation" -> parent.countryOfIncorporation.map(c => c.code))
   }
 
