@@ -141,7 +141,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
             "Have a isUk flag" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
-              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "isUk").as[Boolean] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.payTaxInUk.fold(false)(c=>c)
+              (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "isUk").as[Boolean] mustEqual fullReturn.ultimateParentCompany.parentCompanies.head.payTaxInUk.get
             }
 
             "Have a ctutr if one available" in {
@@ -178,8 +178,8 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
 
             "Have a isUk flag in all deemed parents" in {
               val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
-              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "isUk").as[Boolean] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).payTaxInUk.fold(false)(c=>c)
-              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "isUk").as[Boolean] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).payTaxInUk.fold(false)(c=>c)
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \0\ "isUk").as[Boolean] mustEqual fullReturn.ultimateParentCompany.parentCompanies(0).payTaxInUk.get
+              (mappedAboutReturn \ "parentCompany" \ "deemedParent" \1\ "isUk").as[Boolean] mustEqual fullReturn.ultimateParentCompany.parentCompanies(1).payTaxInUk.get
             }
 
             "Have a ctutr if one available in all deemed parents" in {
