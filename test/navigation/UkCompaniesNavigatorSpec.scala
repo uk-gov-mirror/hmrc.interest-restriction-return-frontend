@@ -24,7 +24,7 @@ import models.CompanyEstimatedFigures._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
 import models.FullOrAbbreviatedReturn._
 import models.returnModels.AccountingPeriodModel
-import pages.aboutReturn.{FullOrAbbreviatedReturnPage, AccountingPeriodPage}
+import pages.aboutReturn.{AccountingPeriodPage, FullOrAbbreviatedReturnPage}
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import java.time.LocalDate
 
@@ -467,12 +467,11 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
 
       "from AddNetTaxInterestPage" should {
-        "if true route to NetTaxInterestIncomeOrExpenseController" in {
-
+        "if true route to Check Your Answers when expense or income is not set" in {
           val model = ukCompanyModelReactivationTrue.copy(addNetTaxInterest = Some(true))
           val userAnswers = emptyUserAnswers.set(UkCompaniesPage, model, Some(1)).success.value
           navigator.nextPage(AddNetTaxInterestPage, CheckMode, userAnswers, Some(1)) mustBe
-            routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(1, NormalMode)
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
         }
 
         "if false route to UkCheckYourAnswers" in {

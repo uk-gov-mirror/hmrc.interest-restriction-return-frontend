@@ -94,9 +94,11 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       }
     }),
     AddNetTaxInterestPage -> ((idx,userAnswers) => {
-      val taxInterest = userAnswers.get(UkCompaniesPage, Some(idx))
-      taxInterest.flatMap(_.addNetTaxInterest) match {
-        case Some(true) => controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      val addNetTaxInterest = ukCompany.flatMap(_.addNetTaxInterest)
+      val incomeOrExpense = ukCompany.flatMap(_.netTaxInterestIncomeOrExpense)
+      (addNetTaxInterest, incomeOrExpense) match {
+        case (Some(true), None) => controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
         case _ => checkYourAnswers(idx)
       }
     })
