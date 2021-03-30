@@ -112,7 +112,7 @@ class FullReturnModelWritesSpec extends WordSpec with MustMatchers with ScalaChe
             (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "companyName").as[String] mustEqual fullReturn.aboutReturn.companyName.name
           }
 
-          "Have if is UK or not" in {
+          "Always have isUk as true" in {
             val mappedAboutReturn: JsValue = Json.toJson(fullReturn)(FullReturnModel.writes)
 
             (mappedAboutReturn \ "parentCompany" \ "ultimateParent" \ "isUk").as[Boolean] mustEqual true
