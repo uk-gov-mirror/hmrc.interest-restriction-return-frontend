@@ -16,19 +16,12 @@
 
 package models.sections
 
-import models.{FullOrAbbreviatedReturn, CompanyDetailsModel}
+import models.FullOrAbbreviatedReturn
+import models.returnModels.fullReturn.UkCompanyModel
 
 case class UkCompaniesSectionModel(
-  ukCompanies: Seq[UkCompanyJourneyModel],
+  ukCompanies: Seq[UkCompanyModel],
   fullOrAbbreviatedReturn: FullOrAbbreviatedReturn,
-  subjectToRestrictions: Option[Boolean],
+  subjectToRestrictions: Boolean,
   subjectToReactivations: Option[Boolean]
-)
-
-case class UkCompanyJourneyModel(
-  companyDetails: CompanyDetailsModel,
-  companyTaxEBITDA: Option[BigDecimal],
-  netTaxInterestIncome: Option[BigDecimal],
-  netTaxInterestExpense: Option[BigDecimal],
-  reactivationAmount: Option[BigDecimal]
 )
