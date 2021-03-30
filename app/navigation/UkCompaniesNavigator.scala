@@ -141,14 +141,10 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
   }
 
   def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call =
-    mode match {
-      case NormalMode => restrictionNormalRoutes.lift(page) match {
+      restrictionNormalRoutes.lift(page) match {
         case Some(call) => call(userAnswers)
         case None => controllers.routes.UnderConstructionController.onPageLoad()
       }
-      case CheckMode => controllers.routes.UnderConstructionController.onPageLoad()
-      case _ => controllers.routes.UnderConstructionController.onPageLoad()
-    }
 
   def addAnotherAccountingPeriodRoute(companyIdx: Int, userAnswers: UserAnswers): Call = {
     val addAnother = userAnswers.get(AddAnotherAccountingPeriodPage(companyIdx))

@@ -16,7 +16,7 @@
 
 package controllers.ukCompanies
 
-import java.time.LocalDate
+import java.time.{Instant, ZoneOffset, LocalDate}
 import assets.{BaseITConstants, PageTitles}
 import play.api.http.Status._
 import stubs.AuthStub
@@ -25,6 +25,8 @@ import assets.UkCompanyITConstants.ukCompanyModelMax
 import pages.ukCompanies.UkCompaniesPage
 import models.returnModels.AccountingPeriodModel
 import pages.aboutReturn.AccountingPeriodPage
+import play.api.libs.json.Json
+import models.NormalMode
 
 class CompanyAccountingPeriodEndDateControllerISpec extends IntegrationSpecBase with CreateRequestHelper with CustomMatchers with BaseITConstants {
 
@@ -70,6 +72,38 @@ class CompanyAccountingPeriodEndDateControllerISpec extends IntegrationSpecBase 
             result should have(
               httpStatus(SEE_OTHER),
               redirectLocation(controllers.errors.routes.UnauthorisedController.onPageLoad().url)
+            )
+          }
+        }
+      }
+    }
+
+    "POST /ukCompanies/2/restrictions/1/company-accounting-period-end-date" when {
+
+      "a previous company does not have a restriction set" should {
+
+        "return OK (200)" in {
+
+          val now = Instant.now().atOffset(ZoneOffset.UTC).toLocalDate
+
+          val userAnswers = (for {
+            ua  <- emptyUserAnswers.set(AccountingPeriodPage, periodOfAccount)
+            ua2 <- ua.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
+            ua3 <- ua2.set(UkCompaniesPage, ukCompanyModelMax, Some(2))
+          } yield ua3).get
+
+          AuthStub.authorised()
+          setAnswers(userAnswers)
+
+          val res = postRequest("/uk-companies/2/restrictions/1/company-accounting-period-end-date", 
+            Json.obj("value.day" -> now.getDayOfMonth,
+                    "value.month" -> now.getMonthValue,
+                    "value.year" -> now.getYear))()
+
+          whenReady(res) { result =>
+            result should have(
+              httpStatus(SEE_OTHER),
+              redirectLocation(controllers.ukCompanies.routes.AddRestrictionAmountController.onPageLoad(2, 1, NormalMode).url)
             )
           }
         }

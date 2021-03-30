@@ -23,7 +23,7 @@ import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.RestrictionAmountForAccountingPeriodFormProvider
 import models.NormalMode
-import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, RestrictionAmountForAccountingPeriodPage, UkCompaniesPage}
+import pages.ukCompanies.{CompanyAccountingPeriodEndDatePage, UkCompaniesPage}
 import play.api.test.Helpers._
 import views.html.ukCompanies.RestrictionAmountForAccountingPeriodView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
@@ -127,5 +127,6 @@ class RestrictionAmountForAccountingPeriodControllerSpec extends SpecBase with F
 
       redirectLocation(result).value mustBe errors.routes.SessionExpiredController.onPageLoad().url
     }
+    
   }
 }

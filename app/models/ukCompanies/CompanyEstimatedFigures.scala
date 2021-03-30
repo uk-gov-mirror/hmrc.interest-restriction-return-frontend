@@ -20,6 +20,7 @@ import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import pages.ukCompanies._
+import models.returnModels.fullReturn.AllocatedRestrictionsModel
 
 sealed trait CompanyEstimatedFigures
 
@@ -34,16 +35,18 @@ object CompanyEstimatedFigures extends Enumerable.Implicits {
     TaxEbitda, NetTaxInterest, AllocatedRestrictions, AllocatedReactivations
   )
 
-  def options(form: Form[_], idx: Int, userAnswers: UserAnswers)(implicit messages: Messages): Seq[CheckboxItem] =
+  def options(form: Form[_], idx: Int, userAnswers: UserAnswers)(implicit messages: Messages): Seq[CheckboxItem] = {
     userAnswers.get(UkCompaniesPage, Some(idx)) match {
-      case Some(ukCompany) => Seq(
+      case Some(ukCompany) => 
+        Seq(
           ukCompany.taxEBITDA.map(_ => estimatedFigureToCheckboxItem(form, TaxEbitda)),
           ukCompany.netTaxInterest.map(_ => estimatedFigureToCheckboxItem(form, NetTaxInterest)),
-          ukCompany.allocatedRestrictions.map(_ => estimatedFigureToCheckboxItem(form, AllocatedRestrictions)),
+          restrictionRow(form, ukCompany.allocatedRestrictions, idx, userAnswers),
           ukCompany.allocatedReactivations.map(_ => estimatedFigureToCheckboxItem(form, AllocatedReactivations))
         ).flatten
       case _ => Nil
     }
+  }
 
   def estimatedFigureToCheckboxItem(form: Form[_], value: CompanyEstimatedFigures)(implicit messages: Messages) = 
     CheckboxItem(
@@ -64,4 +67,19 @@ object CompanyEstimatedFigures extends Enumerable.Implicits {
       xIndex.compareTo(yIndex)
     }
   }
+
+  def restrictionRow(form: Form[_], allocatedRestrictions: Option[AllocatedRestrictionsModel], idx: Int, userAnswers: UserAnswers)(implicit messages: Messages) = {
+    val apRestriction1 = userAnswers.get(RestrictionAmountForAccountingPeriodPage(idx, 1))
+    val apRestriction2 = userAnswers.get(RestrictionAmountForAccountingPeriodPage(idx, 2))
+    val apRestriction3 = userAnswers.get(RestrictionAmountForAccountingPeriodPage(idx, 3))
+    val apTotalRestriction = Seq(apRestriction1, apRestriction2, apRestriction3).flatten.sum
+
+    allocatedRestrictions match {
+      case Some(_) => Some(estimatedFigureToCheckboxItem(form, AllocatedRestrictions))
+      case None if apTotalRestriction > 0 => Some(estimatedFigureToCheckboxItem(form, AllocatedRestrictions))
+      case None => None
+    }
+  }
+
 }
+

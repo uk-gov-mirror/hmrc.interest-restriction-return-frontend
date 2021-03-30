@@ -51,7 +51,7 @@ class CheckRestrictionViewSpec extends ViewBehaviours with BaseConstants with Ch
       headingMsgArgs = Seq(addPossessive(ukCompanyModelReactivationMaxIncome.companyDetails.companyName)),
       sectionMsgArgs = Seq(ukCompanyModelReactivationMaxIncome.companyDetails.companyName),
       subheader = Some(ukCompanyModelReactivationMaxIncome.companyDetails.companyName),
-      buttonMsg = "site.continue"
+      buttonMsg = "site.confirmAndContinue"
     )(fakeRequest, messages, frontendAppConfig
     )
   }
@@ -72,7 +72,7 @@ class CheckRestrictionViewSpec extends ViewBehaviours with BaseConstants with Ch
 
       behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), ukCompanyModelReactivationMaxIncome.companyDetails.companyName)
 
-      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), BaseMessages.confirmAndContinue)
 
       behave like pageWithSaveForLater (applyView(checkYourAnswersHelper)())
 
@@ -99,7 +99,7 @@ class CheckRestrictionViewSpec extends ViewBehaviours with BaseConstants with Ch
 
       behave like pageWithSubHeading(applyView(checkYourAnswersHelper)(), ukCompanyModelReactivationMaxIncome.companyDetails.companyName)
 
-      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), BaseMessages.continue)
+      behave like pageWithSubmitButton(applyView(checkYourAnswersHelper)(), BaseMessages.confirmAndContinue)
 
       behave like pageWithSaveForLater (applyView(checkYourAnswersHelper)())
 

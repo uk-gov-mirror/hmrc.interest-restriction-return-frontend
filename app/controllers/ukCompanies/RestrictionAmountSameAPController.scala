@@ -32,6 +32,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.RestrictionAmountSameAPView
+import models.returnModels.fullReturn.AllocatedRestrictionsModel
 
 import scala.concurrent.Future
 
@@ -76,7 +77,10 @@ class RestrictionAmountSameAPController @Inject()(
               ))
             ),
           value => {
-            val updatedRestrictions = ukCompany.allocatedRestrictions.map(_.setRestriction(1, groupAccountPeriod.endDate, value))
+            val updatedRestrictions = ukCompany.allocatedRestrictions match {
+              case Some(restrictions) => Some(restrictions.setRestriction(1, groupAccountPeriod.endDate, value))
+              case None => Some(AllocatedRestrictionsModel().setRestriction(1, groupAccountPeriod.endDate, value))
+            }
             val updatedModel = ukCompany.copy(allocatedRestrictions = updatedRestrictions)
 
             for {

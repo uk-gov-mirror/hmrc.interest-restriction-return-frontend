@@ -69,7 +69,7 @@ class CompanyEstimatedFiguresController @Inject()(
             mode = mode, 
             companyName = ukCompany.companyDetails.companyName,
             formItems = formOptions,
-            postAction = routes.CompanyContainsEstimatesController.onSubmit(idx, mode)
+            postAction = routes.CompanyEstimatedFiguresController.onSubmit(idx, mode)
           )))
         },
         value => {

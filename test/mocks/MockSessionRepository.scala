@@ -40,6 +40,12 @@ trait MockSessionRepository extends MockFactory {
       .returns(Future.successful(true))
   }
 
+  def mockSetAnswers(userAnswers: UserAnswers): Unit = {
+    (mockSessionRepository.set(_: UserAnswers))
+      .expects(userAnswers)
+      .returns(Future.successful(true))
+  }
+
   def mockDeleteAnswers(): Unit = {
     (mockSessionRepository.delete(_: UserAnswers))
       .expects(*)
