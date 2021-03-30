@@ -127,9 +127,9 @@ trait ModelGenerators {
       saUtr <- Gen.option(utrModel)
       country <- Gen.option(cuontryCodeModel)
       liability <- arbitrary[Option[Boolean]]
-      payTaxInUk <- arbitrary[Option[Boolean]]
+      payTaxInUk <- arbitrary[Boolean]
       isSameAsParent <- arbitrary[Option[Boolean]]
-    } yield DeemedParentModel(CompanyNameModel(companyName),ctUtr,saUtr,country,liability,payTaxInUk,isSameAsParent)
+    } yield DeemedParentModel(CompanyNameModel(companyName),ctUtr,saUtr,country,liability,Some(payTaxInUk),isSameAsParent)
 
   implicit lazy val ultimateParentCompanySectionModel : Gen[UltimateParentCompanySectionModel] =
     for {
