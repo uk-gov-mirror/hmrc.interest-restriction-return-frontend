@@ -24,7 +24,7 @@ import models.CompanyEstimatedFigures._
 import pages.groupLevelInformation.{GroupSubjectToReactivationsPage, GroupSubjectToRestrictionsPage}
 import models.FullOrAbbreviatedReturn._
 import models.returnModels.AccountingPeriodModel
-import pages.aboutReturn.{FullOrAbbreviatedReturnPage, AccountingPeriodPage}
+import pages.aboutReturn.{AccountingPeriodPage, FullOrAbbreviatedReturnPage}
 import pages.ukCompanies.{EnterCompanyTaxEBITDAPage, UkCompaniesDeletionConfirmationPage, _}
 import java.time.LocalDate
 
@@ -96,7 +96,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
               } yield finalUa).get
 
               navigator.nextPage(AddNetTaxInterestPage, NormalMode, userAnswers, Some(1)) mustBe
-               routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
+                routes.AddAnReactivationQueryController.onPageLoad(1, NormalMode)
             }
 
           }
@@ -254,7 +254,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             routes.CompanyQICElectionController.onPageLoad(1, NormalMode)
         }
 
-        "CompanyQICElectionController when multiple subject to restrictions are false"  in {
+        "CompanyQICElectionController when multiple subject to restrictions are false" in {
 
           val userAnswers = emptyUserAnswers.set(GroupSubjectToRestrictionsPage, false).success.value
             .set(GroupSubjectToReactivationsPage, false).success.value
@@ -364,7 +364,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
 
       "from the RestrictionAmountForAccountingPeriodPage" should {
         "go to CheckRestrictionController" in {
-          navigator.nextRestrictionPage(RestrictionAmountForAccountingPeriodPage(1,1), NormalMode, emptyUserAnswers) mustBe
+          navigator.nextRestrictionPage(RestrictionAmountForAccountingPeriodPage(1, 1), NormalMode, emptyUserAnswers) mustBe
             controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(1, 1)
         }
       }
@@ -466,6 +466,21 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         }
       }
 
+      "from AddNetTaxInterestPage" should {
+        "if true route to Check Your Answers when expense or income is not set" in {
+          val model = ukCompanyModelReactivationTrue.copy(addNetTaxInterest = Some(true))
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, model, Some(1)).success.value
+          navigator.nextPage(AddNetTaxInterestPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+
+        "if false route to UkCheckYourAnswers" in {
+          val userAnswers = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelReactivationFalse, Some(1)).success.value
+          navigator.nextPage(AddNetTaxInterestPage, CheckMode, userAnswers, Some(1)) mustBe
+            routes.CheckAnswersUkCompanyController.onPageLoad(1)
+        }
+      }
+
       "from the AddAnReactivationQueryPage" should {
 
         "if yes and the ReactivationAmountPage is not set, to the ReactivationAmountPage" in {
@@ -533,16 +548,15 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         navigator.nextPage(CompanyDetailsPage, ReviewMode, emptyUserAnswers) mustBe
           controllers.reviewAndComplete.routes.ReviewAndCompleteController.onPageLoad()
       }
-    }
 
-    ".addCompany(numOfCompanies: Int)" must {
+      ".addCompany(numOfCompanies: Int)" must {
 
-      "return a call to add the next UK Company by going to the Company Details page for the next IDX" in {
-        navigator.addCompany(1) mustBe routes.CompanyDetailsController.onPageLoad(2, NormalMode)
+        "return a call to add the next UK Company by going to the Company Details page for the next IDX" in {
+          navigator.addCompany(1) mustBe routes.CompanyDetailsController.onPageLoad(2, NormalMode)
+        }
       }
     }
   }
-
   "nextRestrictionPage" must {
 
     "in Normal mode" must {
@@ -580,10 +594,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             val page = AddAnotherAccountingPeriodPage(1)
 
             val userAnswers = (for {
-              ua  <- emptyUserAnswers.set(page, true)
-              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
+              ua <- emptyUserAnswers.set(page, true)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), ap1EndDate)
             } yield ua2).get
-            
+
             navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
               routes.CompanyAccountingPeriodEndDateController.onPageLoad(1, 2, NormalMode)
           }
@@ -595,11 +609,11 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             val page = AddAnotherAccountingPeriodPage(1)
 
             val userAnswers = (for {
-              ua  <- emptyUserAnswers.set(page, true)
-              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
-              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1,2), ap2EndDate)
+              ua <- emptyUserAnswers.set(page, true)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), ap1EndDate)
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), ap2EndDate)
             } yield ua3).get
-            
+
             navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
               routes.CompanyAccountingPeriodEndDateController.onPageLoad(1, 3, NormalMode)
           }
@@ -611,11 +625,11 @@ class UkCompaniesNavigatorSpec extends SpecBase {
             val page = AddAnotherAccountingPeriodPage(1)
 
             val userAnswers = (for {
-              ua  <- emptyUserAnswers.set(page, false)
-              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1,1), ap1EndDate)
-              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1,2), ap2EndDate)
+              ua <- emptyUserAnswers.set(page, false)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), ap1EndDate)
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), ap2EndDate)
             } yield ua2).get
-            
+
             navigator.nextRestrictionPage(page, NormalMode, userAnswers) mustBe
               routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
           }
@@ -652,19 +666,19 @@ class UkCompaniesNavigatorSpec extends SpecBase {
         }
 
       }
-      
+
       "for ReviewCompanyRestrictionsPage" when {
 
-        val poaStartDate = LocalDate.of(2020,1,1)
-        val poaEndDate = LocalDate.of(2021,1,1)
+        val poaStartDate = LocalDate.of(2020, 1, 1)
+        val poaEndDate = LocalDate.of(2021, 1, 1)
         val poa = AccountingPeriodModel(poaStartDate, poaEndDate)
 
         "A single restriction has been added, and the end date doesn't exceed the group PoA" must {
           "Navigate to the AddAnotherAccountingPeriod page" in {
 
             val userAnswers = (for {
-              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
-              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
+              ua <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020, 2, 1))
             } yield ua2).get
 
             val page = ReviewCompanyRestrictionsPage(1)
@@ -677,9 +691,9 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           "Navigate to the AddAnotherAccountingPeriod page" in {
 
             val userAnswers = (for {
-              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
-              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
-              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,3,1))
+              ua <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020, 2, 1))
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020, 3, 1))
             } yield ua3).get
 
             val page = ReviewCompanyRestrictionsPage(1)
@@ -692,10 +706,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           "Navigate to the CompanyContainsEstimates page" in {
 
             val userAnswers = (for {
-              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
-              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
-              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,3,1))
-              ua4     <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2020,4,1))
+              ua <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020, 2, 1))
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020, 3, 1))
+              ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2020, 4, 1))
             } yield ua4).get
 
             val page = ReviewCompanyRestrictionsPage(1)
@@ -708,8 +722,8 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           "Navigate to the CompanyContainsEstimates page" in {
 
             val userAnswers = (for {
-              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
-              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021,2,1))
+              ua <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021, 2, 1))
             } yield ua2).get
 
             val page = ReviewCompanyRestrictionsPage(1)
@@ -722,9 +736,9 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           "Navigate to the CompanyContainsEstimates page" in {
 
             val userAnswers = (for {
-              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
-              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
-              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2021,2,1))
+              ua <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020, 2, 1))
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2021, 2, 1))
             } yield ua3).get
 
             val page = ReviewCompanyRestrictionsPage(1)
@@ -737,10 +751,10 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           "Navigate to the CompanyContainsEstimates page" in {
 
             val userAnswers = (for {
-              ua      <- emptyUserAnswers.set(AccountingPeriodPage, poa)
-              ua2     <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020,2,1))
-              ua3     <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020,6,1))
-              ua4     <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2021,2,1))
+              ua <- emptyUserAnswers.set(AccountingPeriodPage, poa)
+              ua2 <- ua.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2020, 2, 1))
+              ua3 <- ua2.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2020, 6, 1))
+              ua4 <- ua3.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2021, 2, 1))
             } yield ua4).get
 
             val page = ReviewCompanyRestrictionsPage(1)
@@ -768,5 +782,4 @@ class UkCompaniesNavigatorSpec extends SpecBase {
     }
 
   }
-  
 }

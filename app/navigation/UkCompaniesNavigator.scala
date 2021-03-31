@@ -92,6 +92,15 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
         case Some(true) if ukCompany.flatMap(_.allocatedReactivations).isEmpty => routes.ReactivationAmountController.onPageLoad(idx, CheckMode)
         case _ => checkYourAnswers(idx)
       }
+    }),
+    AddNetTaxInterestPage -> ((idx,userAnswers) => {
+      val ukCompany = userAnswers.get(UkCompaniesPage, Some(idx))
+      val addNetTaxInterest = ukCompany.flatMap(_.addNetTaxInterest)
+      val incomeOrExpense = ukCompany.flatMap(_.netTaxInterestIncomeOrExpense)
+      (addNetTaxInterest, incomeOrExpense) match {
+        case (Some(true), None) => controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode)
+        case _ => checkYourAnswers(idx)
+      }
     })
   ).withDefaultValue((idx, _) => checkYourAnswers(idx))
 
@@ -173,7 +182,5 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
       case (3, _) => routes.CompanyContainsEstimatesController.onPageLoad(companyIdx, NormalMode)
       case (_, _) => routes.AddAnotherAccountingPeriodController.onPageLoad(companyIdx, NormalMode)
     }
-
   }
-
 }
