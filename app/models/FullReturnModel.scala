@@ -19,7 +19,7 @@ package models
 import models.returnModels.{AgentDetailsModel, DeemedParentModel}
 import models.sections._
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{JsObject, JsPath, Json, Writes}
+import play.api.libs.json.{JsObject, JsPath, Json, Writes, __}
 import sectionstatus.{AboutReturnSectionStatus, ElectionsSectionStatus, GroupLevelInformationSectionStatus, UltimateParentCompanySectionStatus}
 
 case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
@@ -31,13 +31,18 @@ case class FullReturnModel(aboutReturn: AboutReturnSectionModel,
 object FullReturnModel {
   val revisedReturn = "revised"
   val originalReturn = "original"
+  val reportingCompanyWrites : Writes[(AboutReturnSectionModel,UltimateParentCompanySectionModel)] = (
+    (__ \"companyName").write[String] and
+      (__ \"ctutr").write[String] and
+      (__ \"sameAsUltimateParent").write[Boolean]
+  ) (elements => (elements._1.companyName.name,elements._1.ctutr.utr,elements._2.reportingCompanySameAsParent))
 
   implicit val writes: Writes[FullReturnModel] = (
     (JsPath \ "appointedReportingCompany").write[Boolean] and
       (JsPath \ "agentDetails").write[AgentDetailsModel] and
       (JsPath \ "submissionType").write[String] and
       (JsPath \ "revisedReturnDetails").writeNullable[String] and
-      (JsPath \ "reportingCompany").write[JsObject] and
+      (JsPath \ "reportingCompany").write(reportingCompanyWrites)  and
       (JsPath \ "groupCompanyDetails" \ "accountingPeriod").write[JsObject] and
       (JsPath \ "parentCompany").write[JsObject] and
       (JsPath \ "groupLevelElections").write[JsObject] and
@@ -52,11 +57,7 @@ object FullReturnModel {
       fullReturn.aboutReturn.agentDetails,
       if (fullReturn.aboutReturn.isRevisingReturn) revisedReturn else originalReturn,
       fullReturn.aboutReturn.revisedReturnDetails,
-      Json.obj(
-        "companyName" -> fullReturn.aboutReturn.companyName,
-        "ctutr" -> fullReturn.aboutReturn.ctutr,
-        "sameAsUltimateParent" -> fullReturn.ultimateParentCompany.reportingCompanySameAsParent
-      ),
+      (fullReturn.aboutReturn,fullReturn.ultimateParentCompany),
       Json.obj(
         "startDate" -> fullReturn.aboutReturn.periodOfAccount.startDate,
         "endDate" -> fullReturn.aboutReturn.periodOfAccount.endDate
