@@ -22,6 +22,6 @@ import models.returnModels.fullReturn.UkCompanyModel
 case class UkCompaniesSectionModel(
   ukCompanies: Seq[UkCompanyModel],
   fullOrAbbreviatedReturn: FullOrAbbreviatedReturn,
-  subjectToRestrictions: Boolean,
+  subjectToRestrictions: Option[Boolean],
   subjectToReactivations: Option[Boolean]
 )
