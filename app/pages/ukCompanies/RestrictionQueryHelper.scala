@@ -24,7 +24,7 @@ object RestrictionQueryHelper {
 
   def restrictionPath(companyIdx: Int) = restrictionCompanyPath \ s"company ${companyIdx.toString}"
 
-  def singleRestrictionPath(companyIdx: Int, restrictionIdx: Int) = restrictionPath(companyIdx) \ "restriction" \ (restrictionIdx - 1)
+  def singleRestrictionPath(companyIdx: Int, restrictionIdx: Int) = restrictionPath(companyIdx) \ "restriction" \ s"restriction ${restrictionIdx.toString}"
 
   def path(companyIdx: Int, restrictionIdx: Int, page: String) = singleRestrictionPath(companyIdx, restrictionIdx) \ page
 }
