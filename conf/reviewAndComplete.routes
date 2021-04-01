@@ -3,3 +3,8 @@
 ### ----------------------------------------
 GET         /                         controllers.reviewAndComplete.ReviewAndCompleteController.onPageLoad()
 POST        /                         controllers.reviewAndComplete.ReviewAndCompleteController.onSubmit()
+
+### Declaration Controller
+### ----------------------------------------
+GET        /declaration                         controllers.reviewAndComplete.DeclarationController.onPageLoad()
+POST       /declaration                         controllers.reviewAndComplete.DeclarationController.onSubmit()

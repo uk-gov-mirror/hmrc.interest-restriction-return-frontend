@@ -22,7 +22,7 @@ import pages.groupLevelInformation._
 import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.elections._
 import pages.ultimateParentCompany._
-import pages.reviewAndComplete.ReviewAndCompletePage
+import pages.reviewAndComplete._
 import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsString, Json}
@@ -34,6 +34,7 @@ class PageSpec extends SpecBase {
     "Have a mapping between all possible pages (as String) to pages" in {
 
       val expected = Map(
+        DeclarationPage.toString -> DeclarationPage,
         AddNetTaxInterestPage.toString -> AddNetTaxInterestPage,
         CompanyContainsEstimatesPage.toString -> CompanyContainsEstimatesPage,
         CompanyEstimatedFiguresPage.toString -> CompanyEstimatedFiguresPage,

@@ -102,3 +102,8 @@ restrictionAmountForAccountingPeriod.error.nonNumeric = Enter your restrictionAm
 restrictionAmountForAccountingPeriod.error.required = Enter your restrictionAmountForAccountingPeriod
 restrictionAmountForAccountingPeriod.error.invalidNumeric = The restrictionAmountForAccountingPeriod must be valid decimal or whole number
 restrictionAmountForAccountingPeriod.error.outOfRange = RestrictionAmountForAccountingPeriod must be between {0} and {1}
+
+# DeclarationPage Messages
+# ----------------------------------------------------------
+declaration.title = declaration
+declaration.heading = declaration
