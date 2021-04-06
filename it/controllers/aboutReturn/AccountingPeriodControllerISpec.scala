@@ -78,8 +78,6 @@ class AccountingPeriodControllerISpec extends IntegrationSpecBase with CreateReq
 
           "redirect to Check answer Page" in {
 
-            setAnswers(AccountingPeriodPage, AccountingPeriodModel(now, now.plusDays(1L)))
-
             AuthStub.authorised()
 
             val res = postRequest("/about-the-return/accounting-period",
