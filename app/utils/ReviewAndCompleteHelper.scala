@@ -22,6 +22,7 @@ import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
 import play.api.i18n.Messages
 import viewmodels.TaskListRow
+import models.SectionStatus.{Completed, InProgress, NotStarted}
 
 import models.FullOrAbbreviatedReturn._
 
@@ -37,27 +38,42 @@ class ReviewAndCompleteHelper(implicit val messages: Messages) {
 
     val aboutReturnRow = TaskListRow(
       messages(s"section.${Section.AboutReturn}"),
-      controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
+      reviewAndCompleteModel.aboutReturnStatus match {
+        case Completed  => controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad()
+        case _          => controllers.aboutReturn.routes.ReportingCompanyAppointedController.onPageLoad(NormalMode)
+      },
       messages(s"reviewAndComplete.${reviewAndCompleteModel.aboutReturnStatus}")
     )
     val ultimateParentRow = TaskListRow(
       messages(s"section.${Section.UltimateParentCompany}"),
-      ultimateParentLink,
+      reviewAndCompleteModel.ultimateParentCompanyStatus match {
+        case Completed  => ultimateParentLink
+        case _          => controllers.ultimateParentCompany.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode)
+      },
       messages(s"reviewAndComplete.${reviewAndCompleteModel.ultimateParentCompanyStatus}")
     )
     val electionsRow = TaskListRow(
       messages(s"section.${Section.Elections}"),
-      controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
+      reviewAndCompleteModel.electionsStatus match {
+        case Completed  => controllers.elections.routes.CheckAnswersElectionsController.onPageLoad()
+        case _          => controllers.elections.routes.GroupRatioElectionController.onPageLoad(NormalMode)
+      },
       messages(s"reviewAndComplete.${reviewAndCompleteModel.electionsStatus}")
     )
     val groupLevelRow = TaskListRow(
       messages(s"section.${Section.GroupLevelInformation}"),
-      controllers.routes.UnderConstructionController.onPageLoad(),
+      reviewAndCompleteModel.groupLevelInformationStatus match {
+        case Completed  => controllers.groupLevelInformation.routes.CheckAnswersGroupLevelController.onPageLoad()
+        case _          => controllers.groupLevelInformation.routes.GroupSubjectToRestrictionsController.onPageLoad(NormalMode)
+      },
       messages(s"reviewAndComplete.${reviewAndCompleteModel.groupLevelInformationStatus}")
     )
     val ukCompaniesRow = TaskListRow(
       messages(s"section.${Section.UkCompanies}"),
-      controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
+      reviewAndCompleteModel.ukCompaniesStatus match {
+        case Completed  => controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad()
+        case _          => controllers.ukCompanies.routes.AboutAddingUKCompaniesController.onPageLoad()
+      },
       messages(s"reviewAndComplete.${reviewAndCompleteModel.ukCompaniesStatus}")
     )
     val checkTotalsRow = TaskListRow(

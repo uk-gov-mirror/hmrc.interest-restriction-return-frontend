@@ -16,19 +16,17 @@
 
 package utils
 
-import assets.messages.{ReviewAndCompleteMessages, SectionHeaderMessages}
 import base.SpecBase
-import models.NormalMode
 import models.SectionStatus.{Completed, InProgress, NotStarted}
 import models.returnModels.ReviewAndCompleteModel
 import pages.aboutReturn.FullOrAbbreviatedReturnPage
 import pages.ultimateParentCompany.{HasDeemedParentPage, ReportingCompanySameAsParentPage}
-import viewmodels.{SummaryListRowHelper, TaskListRow}
 import models.FullOrAbbreviatedReturn._
+import assets.constants.ReviewAndCompleteConstants._
 
-class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper with CurrencyFormatter {
+class ReviewAndCompleteHelperSpec extends SpecBase with CurrencyFormatter {
 
-  lazy val reviewAndCompleteModel =   ReviewAndCompleteModel(
+  lazy val reviewAndCompleteModel = ReviewAndCompleteModel(
     aboutReturnStatus = NotStarted,
     electionsStatus = InProgress,
     groupLevelInformationStatus = NotStarted,
@@ -50,36 +48,12 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
         val helper = new ReviewAndCompleteHelper()
 
         helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
-          TaskListRow(
-            SectionHeaderMessages.aboutReturn,
-            controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-            ReviewAndCompleteMessages.notStarted
-          ),
-          TaskListRow(
-            SectionHeaderMessages.ultimateParentCompany,
-            controllers.ultimateParentCompany.routes.ReportingCompanySameAsParentController.onPageLoad(NormalMode),
-            ReviewAndCompleteMessages.completed
-          ),
-          TaskListRow(
-            SectionHeaderMessages.elections,
-            controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-            ReviewAndCompleteMessages.inProgress
-          ),
-          TaskListRow(
-            SectionHeaderMessages.groupLevelInformation,
-            controllers.routes.UnderConstructionController.onPageLoad(),
-            ReviewAndCompleteMessages.notStarted
-          ),
-          TaskListRow(
-            SectionHeaderMessages.ukCompanies,
-            controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-            ReviewAndCompleteMessages.inProgress
-          ),
-          TaskListRow(
-            SectionHeaderMessages.checkTotals,
-            controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
-            ReviewAndCompleteMessages.completed
-          )
+          aboutReturnNotStartedRow,
+          sameParentCompanyCompletedRow,
+          electionsInProgressRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesInProgressRow,
+          checkTotalsCompletedRow
         )
       }
     }
@@ -98,36 +72,12 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
           val helper = new ReviewAndCompleteHelper()
 
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
-            TaskListRow(
-              SectionHeaderMessages.aboutReturn,
-              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-              ReviewAndCompleteMessages.notStarted
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ultimateParentCompany,
-              controllers.ultimateParentCompany.routes.DeemedParentReviewAnswersListController.onPageLoad(),
-              ReviewAndCompleteMessages.completed
-            ),
-            TaskListRow(
-              SectionHeaderMessages.elections,
-              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
-              SectionHeaderMessages.groupLevelInformation,
-              controllers.routes.UnderConstructionController.onPageLoad(),
-              ReviewAndCompleteMessages.notStarted
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ukCompanies,
-              controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
-              SectionHeaderMessages.checkTotals,
-              controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
-              ReviewAndCompleteMessages.completed
-            )
+            aboutReturnNotStartedRow,
+            deemedParentCompanyCompletedRow,
+            electionsInProgressRow,
+            groupLevelInformationNotStartedRow,
+            ukCompaniesInProgressRow,
+            checkTotalsCompletedRow
           )
         }
       }
@@ -144,36 +94,12 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
           val helper = new ReviewAndCompleteHelper()
 
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
-            TaskListRow(
-              SectionHeaderMessages.aboutReturn,
-              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-              ReviewAndCompleteMessages.notStarted
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ultimateParentCompany,
-              controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1),
-              ReviewAndCompleteMessages.completed
-            ),
-            TaskListRow(
-              SectionHeaderMessages.elections,
-              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
-              SectionHeaderMessages.groupLevelInformation,
-              controllers.routes.UnderConstructionController.onPageLoad(),
-              ReviewAndCompleteMessages.notStarted
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ukCompanies,
-              controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
-              SectionHeaderMessages.checkTotals,
-              controllers.checkTotals.routes.DerivedCompanyController.onPageLoad(),
-              ReviewAndCompleteMessages.completed
-            )
+            aboutReturnNotStartedRow,
+            ultimateParentCompanyCompletedRow,
+            electionsInProgressRow,
+            groupLevelInformationNotStartedRow,
+            ukCompaniesInProgressRow,
+            checkTotalsCompletedRow
           )
         }
 
@@ -189,26 +115,10 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
           val helper = new ReviewAndCompleteHelper()
 
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
-            TaskListRow(
-              SectionHeaderMessages.aboutReturn,
-              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-              ReviewAndCompleteMessages.notStarted
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ultimateParentCompany,
-              controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1),
-              ReviewAndCompleteMessages.completed
-            ),
-            TaskListRow(
-              SectionHeaderMessages.elections,
-              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ukCompanies,
-              controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            )
+            aboutReturnNotStartedRow,
+            ultimateParentCompanyCompletedRow,
+            electionsInProgressRow,
+            ukCompaniesInProgressRow
           )
         }
 
@@ -223,28 +133,193 @@ class ReviewAndCompleteHelperSpec extends SpecBase with SummaryListRowHelper wit
           val helper = new ReviewAndCompleteHelper()
 
           helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
-            TaskListRow(
-              SectionHeaderMessages.aboutReturn,
-              controllers.aboutReturn.routes.CheckAnswersAboutReturnController.onPageLoad(),
-              ReviewAndCompleteMessages.notStarted
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ultimateParentCompany,
-              controllers.ultimateParentCompany.routes.CheckAnswersGroupStructureController.onPageLoad(1),
-              ReviewAndCompleteMessages.completed
-            ),
-            TaskListRow(
-              SectionHeaderMessages.elections,
-              controllers.elections.routes.CheckAnswersElectionsController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            ),
-            TaskListRow(
-              SectionHeaderMessages.ukCompanies,
-              controllers.ukCompanies.routes.UkCompaniesReviewAnswersListController.onPageLoad(),
-              ReviewAndCompleteMessages.inProgress
-            )
+            aboutReturnNotStartedRow,
+            ultimateParentCompanyCompletedRow,
+            electionsInProgressRow,
+            ukCompaniesInProgressRow
           )
         }
+      }
+    }
+
+    "aboutReturnStatus" when {
+      "in progress should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(aboutReturnStatus = InProgress)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnInProgressRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsNotStartedRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+
+      "completed should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(aboutReturnStatus = Completed)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnCompletedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsNotStartedRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+    }
+
+    "ultimateParentStatus" when {
+      "in progress should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(ultimateParentCompanyStatus = InProgress)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyInProgressRow,
+          electionsNotStartedRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+    }
+
+    "electionsStatus" when {
+      "in progress should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(electionsStatus = InProgress)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsInProgressRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+
+      "completed should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(electionsStatus = Completed)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsCompletedRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+    }
+
+    "groupLevelInformationStatus" when {
+      "in progress should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(groupLevelInformationStatus = InProgress)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsNotStartedRow,
+          groupLevelInformationInProgressRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+
+      "completed should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(groupLevelInformationStatus = Completed)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsNotStartedRow,
+          groupLevelInformationCompletedRow,
+          ukCompaniesNotStartedRow,
+          checkTotalsNotStartedRow
+        )
+      }
+    }
+
+    "ukCompaniesStatus" when {
+      "in progress should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(ukCompaniesStatus = InProgress)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsNotStartedRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesInProgressRow,
+          checkTotalsNotStartedRow
+        )
+      }
+
+      "completed should return the correct action" in {
+        val userAnswers = 
+          emptyUserAnswers
+            .set(FullOrAbbreviatedReturnPage, Full).get
+            .set(ReportingCompanySameAsParentPage, true).get
+
+        val helper = new ReviewAndCompleteHelper()
+        val reviewAndCompleteModel = ReviewAndCompleteModel(ukCompaniesStatus = Completed)
+
+        helper.rows(reviewAndCompleteModel, userAnswers) mustBe Seq(
+          aboutReturnNotStartedRow,
+          ultimateParentCompanyNotStartedRow,
+          electionsNotStartedRow,
+          groupLevelInformationNotStartedRow,
+          ukCompaniesCompletedRow,
+          checkTotalsNotStartedRow
+        )
       }
     }
   }
