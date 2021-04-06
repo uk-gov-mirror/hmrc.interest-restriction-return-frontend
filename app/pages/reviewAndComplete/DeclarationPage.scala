@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.reviewAndComplete
+import pages.Page
+import play.api.libs.json.JsPath
 
-object BaseMessages {
+case object DeclarationPage extends Page{
 
-  val saveAndContinue = "Save and continue"
-  val continue = "Continue"
-  val confirm = "Confirm"
-  val confirmAndContinue = "Confirm and continue"
-  val acceptAndSubmit = "Accept and submit"
-  val saveForLater = "Save and come back later"
-  val submitReturn = "Submit a Corporate Interest Restriction return"
-  val changeLink = "Change"
-  val yes = "Yes"
-  val no = "No"
-  val review = "Review"
-  val delete = "Delete"
-  val remove = "Remove"
-
+  override def toString: String = "declaration"
 }

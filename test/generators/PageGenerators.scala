@@ -21,11 +21,14 @@ import pages._
 import pages.groupLevelInformation._
 import pages.elections._
 import pages.ultimateParentCompany._
-import pages.reviewAndComplete.ReviewAndCompletePage
+import pages.reviewAndComplete._
 import pages.aboutReturn._
 import pages.ukCompanies._
 
 trait PageGenerators {
+
+  implicit lazy val arbitraryDeclarationPage: Arbitrary[DeclarationPage.type] =
+    Arbitrary(DeclarationPage)
 
   implicit lazy val arbitraryRestrictionAmountForAccountingPeriodPage: Arbitrary[RestrictionAmountForAccountingPeriodPage.type] =
     Arbitrary(RestrictionAmountForAccountingPeriodPage)

@@ -4,6 +4,7 @@ import java.time.LocalDate
 import utils.ImplicitLocalDateFormatter._
 
 object PageTitles {
+  val declaration = "Declaration"
   val restrictionAmountForAccountingPeriod: LocalDate => String = endDate => s"What is the restriction amount for the accounting period ending ${endDate.toFormattedString}?"
   val restrictionDeletionConfirmation = "Do you want to remove this accounting period?"
   val addAnotherAccountingPeriod = "Do you want to add another accounting period for this company?"

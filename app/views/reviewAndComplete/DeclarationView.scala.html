@@ -16,33 +16,24 @@
 
 @import views.ViewUtils._
 @import config.FrontendAppConfig
-@import viewmodels.TaskListRow
-@import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(
     govukLayout: templates.GovukLayoutWrapper,
+    formHelper: FormWithCSRF,
     h1: components.h1,
-    h2: components.h2,
-    taskList: components.taskList,
-    button: components.button,
-    saveForLater: components.saveForLater,
-    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+    p: components.p,
+    button: components.button
 )
 
-@(taskListRows: Seq[TaskListRow], postAction: Call)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
+@(postAction: Call)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages)
 
-@govukLayout(pageTitle = Some(titleNoForm("reviewAndComplete.title", Some("section.reviewAndComplete")))) {
+@govukLayout(pageTitle = Some(titleNoForm("declaration.title", Some("section.reviewAndComplete")))) {
 
-    @h1("reviewAndComplete.heading")
+    @h1("declaration.heading")
 
-    @taskList(taskListRows)
+    @p{@messages("declaration.declaration")}
 
     @formHelper(action = postAction, 'autoComplete -> "off") {
-
-        @h2("reviewAndComplete.text")
-        @button("site.submitAndContinue")
+        @button("site.acceptAndSubmit")
     }
-
-
-    @saveForLater()
 }

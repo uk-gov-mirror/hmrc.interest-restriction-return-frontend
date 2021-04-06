@@ -21,7 +21,7 @@ import pages.groupLevelInformation._
 import pages.checkTotals.{ReviewNetTaxInterestPage, ReviewTaxEBITDAPage}
 import pages.elections.{IsUkPartnershipPage, _}
 import pages.ultimateParentCompany._
-import pages.reviewAndComplete.ReviewAndCompletePage
+import pages.reviewAndComplete._
 import pages.aboutReturn._
 import pages.ukCompanies._
 import play.api.libs.json.{JsPath, JsString, Reads, Writes}
@@ -138,7 +138,8 @@ object Page {
   )
 
   lazy val reviewAndCompleteSectionPages: Seq[Page] = List(
-    ReviewAndCompletePage
+    ReviewAndCompletePage,
+    DeclarationPage
   )
 
   lazy val sections = Map(
