@@ -19,7 +19,6 @@ package controllers.ukCompanies
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.ukCompanies.AddRestrictionFormProvider
-
 import javax.inject.Inject
 import models.Mode
 import pages.ukCompanies.{AddRestrictionPage, UkCompaniesPage}
@@ -29,10 +28,10 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.AddRestrictionView
-
 import scala.concurrent.Future
 import navigation.UkCompaniesNavigator
 import handlers.ErrorHandler
+import models.CompanyEstimatedFigures.AllocatedRestrictions
 
 class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
                                          sessionRepository: SessionRepository,
@@ -69,8 +68,12 @@ class AddRestrictionController @Inject()(override val messagesApi: MessagesApi,
             ))
           ),
         value => {
-          val updatedModel = ukCompany.copy(restriction = Some(value))
-
+          val updatedModel = value match {
+            case true => ukCompany.copy(restriction = Some(value))
+            case false =>
+              val estimatedFigures = ukCompany.estimatedFigures.map(_.filterNot(_ == AllocatedRestrictions))
+              ukCompany.copy(restriction = Some(value), estimatedFigures = estimatedFigures)
+          }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
             _              <- sessionRepository.set(updatedAnswers)

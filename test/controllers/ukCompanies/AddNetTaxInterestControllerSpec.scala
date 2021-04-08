@@ -16,18 +16,22 @@
 
 package controllers.ukCompanies
 
-import assets.constants.fullReturn.UkCompanyConstants.{companyNameModel, ukCompanyModelMax}
+import assets.constants.fullReturn.UkCompanyConstants.{companyNameModel, ukCompanyModelMax, ukCompanyModelMin}
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddNetTaxInterestFormProvider
-import models.{CompanyDetailsModel, NormalMode, UserAnswers}
+import models.CompanyEstimatedFigures.NetTaxInterest
+import models.{CheckMode, CompanyDetailsModel, CompanyEstimatedFigures, EstimatedFigures, NormalMode, UserAnswers}
 import models.returnModels.fullReturn.UkCompanyModel
-import pages.ukCompanies.UkCompaniesPage
+import pages.ukCompanies._
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddNetTaxInterestView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+import pages.groupLevelInformation.EstimatedFiguresPage
+import models.NetTaxInterestIncomeOrExpense._
+
 import scala.concurrent.Future
 
 class AddNetTaxInterestControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
@@ -137,8 +141,26 @@ class AddNetTaxInterestControllerSpec extends SpecBase with FeatureSwitching wit
       val result = Controller.onSubmit(idx, NormalMode)(request)
 
       status(result) mustEqual SEE_OTHER
-
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+    }
+
+    "remove net text interest from CYA - Estimated figures when its set to NO" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val ukCompanyModelBefore = ukCompanyModelMin.copy(addNetTaxInterest = Some(true))
+      val userAnswersBefore = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelBefore, Some(1)).get
+
+      val ukCompanyModelAfter = ukCompanyModelMin.copy(addNetTaxInterest = Some(true))
+      val userAnswersAfter = emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelAfter, Some(1)).get
+
+      mockGetAnswers(Some(userAnswersBefore))
+      mockSetAnswers(userAnswersAfter)
+
+      val result = Controller.onSubmit(idx, CheckMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }

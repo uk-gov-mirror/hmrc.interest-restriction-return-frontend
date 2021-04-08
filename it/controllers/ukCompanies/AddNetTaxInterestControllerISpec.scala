@@ -167,5 +167,42 @@ class AddNetTaxInterestControllerISpec extends IntegrationSpecBase with CreateRe
         }
       }
     }
+
+    "POST /:idx/add-net-tax-interest" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CYA when false" in {
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
+
+            val res = postRequest(s"/uk-companies/$idx/add-net-tax-interest/change", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(idx).url)
+              )
+            }
+          }
+
+          "redirect to NetTaxInterestIncomeOrExpenseController when true" in {
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(idx)).get)
+
+            val res = postRequest(s"/uk-companies/$idx/add-net-tax-interest/change", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.NetTaxInterestIncomeOrExpenseController.onPageLoad(idx, NormalMode).url)
+              )
+            }
+          }
+        }
+      }
+    }
   }
 }

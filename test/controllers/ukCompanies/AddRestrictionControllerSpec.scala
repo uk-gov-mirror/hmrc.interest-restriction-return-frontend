@@ -21,7 +21,7 @@ import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddRestrictionFormProvider
-import models.NormalMode
+import models.{CheckMode, NormalMode}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddRestrictionView
@@ -108,6 +108,25 @@ class AddRestrictionControllerSpec extends SpecBase with FeatureSwitching with M
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+    }
+
+    "remove restriction from CYA - Estimated figures when its set to NO" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val companyBefore = ukCompanyModelMax.copy(restriction = Some(true))
+      val userAnswersBefore = emptyUserAnswers.set(UkCompaniesPage, companyBefore, Some(1)).get
+
+      val companyAfter = ukCompanyModelMax.copy(restriction = Some(true))
+      val userAnswersAfter = emptyUserAnswers.set(UkCompaniesPage, companyAfter, Some(1)).get
+
+      mockGetAnswers(Some(userAnswersBefore))
+      mockSetAnswers(userAnswersAfter)
+
+      val result = Controller.onSubmit(1, CheckMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }

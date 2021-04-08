@@ -16,17 +16,18 @@
 
 package controllers.ukCompanies
 
-import assets.constants.fullReturn.UkCompanyConstants.ukCompanyModelMax
+import assets.constants.fullReturn.UkCompanyConstants.{ukCompanyModelMax, ukCompanyModelMin}
 import controllers.errors
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import controllers.actions._
 import forms.ukCompanies.AddAnReactivationQueryFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{CheckMode, NormalMode, UserAnswers}
 import pages.ukCompanies.UkCompaniesPage
 import play.api.test.Helpers._
 import views.html.ukCompanies.AddAnReactivationQueryView
 import navigation.FakeNavigators.FakeUkCompaniesNavigator
+
 import scala.concurrent.Future
 
 class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitching with MockDataRetrievalAction {
@@ -142,6 +143,25 @@ class AddAnReactivationQueryControllerSpec extends SpecBase with FeatureSwitchin
       status(result) mustEqual SEE_OTHER
 
       redirectLocation(result).value mustEqual errors.routes.SessionExpiredController.onPageLoad().url
+    }
+
+    "remove reactivation from CYA - Estimated figures when its set to NO" in {
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val companyBefore = ukCompanyModelMax.copy(reactivation = Some(true))
+      val userAnswersBefore = emptyUserAnswers.set(UkCompaniesPage, companyBefore, Some(1)).get
+
+      val companyAfter = ukCompanyModelMax.copy(reactivation = Some(true))
+      val userAnswersAfter = emptyUserAnswers.set(UkCompaniesPage, companyAfter, Some(1)).get
+
+      mockGetAnswers(Some(userAnswersBefore))
+      mockSetAnswers(userAnswersAfter)
+
+      val result = Controller.onSubmit(1, CheckMode)(request)
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
   }
 }

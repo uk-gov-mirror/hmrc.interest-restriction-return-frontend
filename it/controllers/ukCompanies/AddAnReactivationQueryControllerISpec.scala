@@ -171,5 +171,42 @@ class AddAnReactivationQueryControllerISpec extends IntegrationSpecBase with Cre
         }
       }
     }
+
+    "POST /uk-companies/1/add-an-reactivation-query" when {
+
+      "user is authorised" when {
+
+        "enters a valid answer" when {
+
+          "redirect to CheckAnswers page" in {
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/add-an-reactivation-query/change", Json.obj("value" -> "false"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+
+          "clear estimated figures" in {
+            AuthStub.authorised()
+            setAnswers(emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1)).get)
+
+            val res = postRequest("/uk-companies/1/add-an-reactivation-query/change", Json.obj("value" -> "true"))()
+
+            whenReady(res) { result =>
+              result should have(
+                httpStatus(SEE_OTHER),
+                redirectLocation(controllers.ukCompanies.routes.CheckAnswersUkCompanyController.onPageLoad(1).url)
+              )
+            }
+          }
+        }
+      }
+    }
   }
 }

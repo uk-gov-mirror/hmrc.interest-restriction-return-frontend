@@ -203,6 +203,5 @@ class AddRestrictionControllerISpec extends IntegrationSpecBase with CreateReque
         }
       }
     }
-
   }
 }

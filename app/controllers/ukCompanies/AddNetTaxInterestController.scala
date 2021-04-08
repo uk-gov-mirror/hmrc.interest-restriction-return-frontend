@@ -29,8 +29,9 @@ import play.api.i18n.MessagesApi
 import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.AddNetTaxInterestView
-
 import javax.inject.Inject
+import models.CompanyEstimatedFigures.NetTaxInterest
+
 import scala.concurrent.Future
 
 class AddNetTaxInterestController @Inject()(
@@ -71,7 +72,10 @@ class AddNetTaxInterestController @Inject()(
         value => {
           val updatedModel = value match {
             case true => ukCompany.copy(addNetTaxInterest = Some(value))
-            case false => ukCompany.copy(addNetTaxInterest = Some(value), netTaxInterest = None, netTaxInterestIncomeOrExpense = None)
+            case false =>
+              val estimatedFigures = ukCompany.estimatedFigures.map(_.filterNot(_ == NetTaxInterest))
+              ukCompany.copy(addNetTaxInterest = Some(value), netTaxInterest = None,
+                netTaxInterestIncomeOrExpense = None, estimatedFigures = estimatedFigures)
           }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))

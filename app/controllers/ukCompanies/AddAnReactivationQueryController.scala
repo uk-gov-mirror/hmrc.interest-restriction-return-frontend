@@ -30,6 +30,7 @@ import play.api.mvc._
 import repositories.SessionRepository
 import views.html.ukCompanies.AddAnReactivationQueryView
 import controllers.BaseController
+import models.CompanyEstimatedFigures.AllocatedReactivations
 
 import scala.concurrent.Future
 
@@ -73,7 +74,9 @@ class AddAnReactivationQueryController @Inject()(
         value => {
           val updatedModel = value match {
             case true   => ukCompany.copy(reactivation = Some(value))
-            case false  => ukCompany.copy(reactivation = Some(value), allocatedReactivations = None)
+            case false  =>
+              val estimatedFigures = ukCompany.estimatedFigures.map(_.filterNot(_ == AllocatedReactivations))
+              ukCompany.copy(reactivation = Some(value), allocatedReactivations = None, estimatedFigures = estimatedFigures)
           }
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UkCompaniesPage, updatedModel, Some(idx)))
