@@ -16,11 +16,9 @@
 
 package mocks
 
-import connectors.InterestRestrictionReturnConnector
-import models.{FullReturnModel, SuccessResponse, UserAnswers}
+import models.UserAnswers
 import org.scalamock.scalatest.MockFactory
 import repositories.SessionRepository
-import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.Future
 

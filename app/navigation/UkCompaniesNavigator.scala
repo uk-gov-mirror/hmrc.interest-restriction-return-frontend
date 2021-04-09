@@ -136,12 +136,7 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
 
   private val restrictionNormalRoutes: PartialFunction[Page, UserAnswers => Call] = {
     case CompanyAccountingPeriodEndDatePage(companyIdx, restrictionIdx) => ua => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
-
-    case page @ AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => ua.get(page) match {
-      case Some(true) => routes.RestrictionAmountForAccountingPeriodController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
-      case Some(false) => routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
-      case None => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
-    }
+    case AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => addRestrictionAmountRoute(companyIdx, restrictionIdx, ua)
     case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
     case CheckRestrictionPage(companyidx, restrictionIdx) => ua => routes.ReviewCompanyRestrictionsController.onPageLoad(companyidx)
     case ReviewCompanyRestrictionsPage(companyIdx) => ua => reviewCompanyRestrictionsRoute(companyIdx, ua)
@@ -149,11 +144,36 @@ class UkCompaniesNavigator @Inject()() extends Navigator {
     case RestrictionDeletionConfirmationPage(companyIdx, restrictionIdx) => ua => routes.ReviewCompanyRestrictionsController.onPageLoad(companyIdx)
   }
 
-  def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call =
-      restrictionNormalRoutes.lift(page) match {
+  private val restrictionCheckRoutes: PartialFunction[Page, UserAnswers => Call] = {
+    case CompanyAccountingPeriodEndDatePage(companyIdx, restrictionIdx) => ua => controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
+    case AddRestrictionAmountPage(companyIdx, restrictionIdx) => ua => ua.get(RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx)) match {
+      case None => addRestrictionAmountRoute(companyIdx, restrictionIdx, ua)
+      case _ => routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
+    }
+    case RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx) => ua => controllers.ukCompanies.routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
+  }
+
+  private def addRestrictionAmountRoute(companyIdx : Int, restrictionIdx : Int, ua : UserAnswers) : Call = {
+    ua.get(AddRestrictionAmountPage(companyIdx, restrictionIdx)) match {
+      case Some(true) => routes.RestrictionAmountForAccountingPeriodController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
+      case Some(false) => routes.CheckRestrictionController.onPageLoad(companyIdx, restrictionIdx)
+      case None => routes.AddRestrictionAmountController.onPageLoad(companyIdx, restrictionIdx, NormalMode)
+    }
+  }
+
+  def nextRestrictionPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = {
+    mode match {
+      case NormalMode => restrictionNormalRoutes.lift(page) match {
         case Some(call) => call(userAnswers)
         case None => controllers.routes.UnderConstructionController.onPageLoad()
       }
+      case CheckMode => restrictionCheckRoutes.lift(page) match {
+        case Some(call) => call(userAnswers)
+        case None => controllers.routes.UnderConstructionController.onPageLoad()
+      }
+      case _ => controllers.routes.UnderConstructionController.onPageLoad()
+    }
+  }
 
   def addAnotherAccountingPeriodRoute(companyIdx: Int, userAnswers: UserAnswers): Call = {
     val addAnother = userAnswers.get(AddAnotherAccountingPeriodPage(companyIdx))

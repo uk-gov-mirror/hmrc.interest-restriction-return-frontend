@@ -29,8 +29,7 @@ case class AddRestrictionAmountPage(companyIdx: Int, restrictionIdx: Int) extend
 
   override def cleanup(value: Option[Boolean], userAnswers: UserAnswers): Try[UserAnswers] =
     value match {
-      case Some(false) => userAnswers.set(RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx), BigDecimal(0))
+      case Some(false) => userAnswers.remove(RestrictionAmountForAccountingPeriodPage(companyIdx, restrictionIdx))
       case _ => super.cleanup(value, userAnswers)
     }
-
 }

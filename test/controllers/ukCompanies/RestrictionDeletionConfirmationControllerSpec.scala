@@ -144,48 +144,6 @@ class RestrictionDeletionConfirmationControllerSpec extends SpecBase with Featur
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "clearing a restriction with higher indexes retains the others and reduces their indexes" in {
-
-      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val companyIdx = 1
-      val restrictionIdx = 1
-
-      val userAnswers = (for {
-        ua1 <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
-        ua2 <- ua1.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2021,1,1))
-        ua3 <- ua2.set(AddRestrictionAmountPage(1, 1), true)
-        ua4 <- ua3.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(1))
-
-        ua5 <- ua4.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2022,2,2))
-        ua6 <- ua5.set(AddRestrictionAmountPage(1, 2), false)
-        ua7 <- ua6.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(2))
-
-        ua8 <- ua7.set(CompanyAccountingPeriodEndDatePage(1, 3), LocalDate.of(2023,3,3))
-        ua9 <- ua8.set(AddRestrictionAmountPage(1, 3), true)
-        ua10 <- ua9.set(RestrictionAmountForAccountingPeriodPage(1, 3), BigDecimal(3))
-      } yield ua10).get
-
-      val expectedUserAnswers = (for {
-        ua1 <- emptyUserAnswers.set(UkCompaniesPage, ukCompanyModelMax, Some(1))
-        ua2 <- ua1.set(CompanyAccountingPeriodEndDatePage(1, 1), LocalDate.of(2022,2,2))
-        ua3 <- ua2.set(AddRestrictionAmountPage(1, 1), false)
-        ua4 <- ua3.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(2))
-        ua5 <- ua4.set(CompanyAccountingPeriodEndDatePage(1, 2), LocalDate.of(2023,3,3))
-        ua6 <- ua5.set(AddRestrictionAmountPage(1, 2), true)
-        ua7 <- ua6.set(RestrictionAmountForAccountingPeriodPage(1, 2), BigDecimal(3))
-      } yield ua7).get
-
-      mockGetAnswers(Some(userAnswers))
-     (mockSessionRepository.set(_: UserAnswers))
-        .expects(expectedUserAnswers)
-        .returns(Future.successful(true))
-
-      val result = Controller.onSubmit(companyIdx, restrictionIdx, NormalMode)(request)
-
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
-
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val request = fakeRequest.withFormUrlEncodedBody(("value", ""))
