@@ -557,6 +557,7 @@ class UkCompaniesNavigatorSpec extends SpecBase {
       }
     }
   }
+
   "nextRestrictionPage" must {
 
     "in Normal mode" must {
@@ -580,7 +581,6 @@ class UkCompaniesNavigatorSpec extends SpecBase {
               routes.CheckRestrictionController.onPageLoad(1, 1)
           }
         }
-
       }
 
       "for AddAnotherAccountingPeriodPage" when {
@@ -634,7 +634,6 @@ class UkCompaniesNavigatorSpec extends SpecBase {
               routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
           }
         }
-
       }
 
       "for RestrictionDeletionConfirmationPage" must {
@@ -644,27 +643,22 @@ class UkCompaniesNavigatorSpec extends SpecBase {
           navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
             routes.ReviewCompanyRestrictionsController.onPageLoad(1)
         }
-
       }
 
       "for CheckRestrictionPage" must {
-
         "Navigate to the ReviewCompanyRestrictionsPage" in {
           val page = CheckRestrictionPage(1, 1)
           navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
             routes.ReviewCompanyRestrictionsController.onPageLoad(1)
         }
-
       }
 
       "for CompanyAccountingPeriodEndDatePage" must {
-
         "Navigate to the AddRestrictionAmountPage" in {
           val page = CompanyAccountingPeriodEndDatePage(1, 1)
           navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) mustBe
             routes.AddRestrictionAmountController.onPageLoad(1, 1, NormalMode)
         }
-
       }
 
       "for ReviewCompanyRestrictionsPage" when {
@@ -762,24 +756,57 @@ class UkCompaniesNavigatorSpec extends SpecBase {
               routes.CompanyContainsEstimatesController.onPageLoad(1, NormalMode)
           }
         }
-
       }
-
     }
 
     "in Check mode" must {
 
       "for AddRestrictionAmountPage" must {
-
-        "Navigate to the same place as NormalMode" in {
+        "Navigate to the CheckRestrictionController" in {
           val page = AddRestrictionAmountPage(1, 1)
-          navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
-            navigator.nextRestrictionPage(page, NormalMode, emptyUserAnswers) 
+
+          val userAnswers = (for {
+            ua <- emptyUserAnswers.set(AddRestrictionAmountPage(1, 1), true)
+            ua2 <- ua.set(RestrictionAmountForAccountingPeriodPage(1, 1), BigDecimal(123))
+          } yield ua2).get
+
+          navigator.nextRestrictionPage(page, CheckMode, userAnswers) mustBe
+            routes.CheckRestrictionController.onPageLoad(1, 1)
         }
 
+        "Navigate to the CheckRestrictionController when AddRestrictionAmount is false" in {
+          val page = AddRestrictionAmountPage(1, 1)
+          val userAnswers = emptyUserAnswers.set(AddRestrictionAmountPage(1, 1), false).get
+
+          navigator.nextRestrictionPage(page, CheckMode, userAnswers) mustBe
+            routes.CheckRestrictionController.onPageLoad(1, 1)
+        }
+
+        "Navigate to the RestrictionAmountForAccountingPeriodController" in {
+          val page = AddRestrictionAmountPage(1, 1)
+          val userAnswers = emptyUserAnswers.set(AddRestrictionAmountPage(1, 1), true).get
+
+          navigator.nextRestrictionPage(page, CheckMode, userAnswers) mustBe
+            routes.RestrictionAmountForAccountingPeriodController.onPageLoad(1, 1, NormalMode)
+        }
+      }
+
+      "for CompanyAccountingPeriodEndDatePage" must {
+        "Navigate to the CheckRestrictionController" in {
+          val page = CompanyAccountingPeriodEndDatePage(1, 1)
+          navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
+            routes.CheckRestrictionController.onPageLoad(1, 1)
+        }
+      }
+
+      "for RestrictionAmountForAccountingPeriodPage" must {
+        "Navigate to the CheckRestrictionController" in {
+          val page = RestrictionAmountForAccountingPeriodPage(1, 1)
+          navigator.nextRestrictionPage(page, CheckMode, emptyUserAnswers) mustBe
+            routes.CheckRestrictionController.onPageLoad(1, 1)
+        }
       }
 
     }
-
   }
 }
